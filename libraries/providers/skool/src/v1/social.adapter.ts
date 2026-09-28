@@ -1,0 +1,380 @@
+import { makeId, makeOauthState } from '@postmill-ai/provider-kernel';
+import { SocialAbstract } from '@postmill-ai/provider-kernel';
+import {
+  AuthTokenDetails,
+  ChannelSetupDescriptor,
+  MediaContent,
+  PostDetails,
+  PostResponse,
+  SocialProvider,
+} from '@postmill-ai/provider-kernel';
+import dayjs from 'dayjs';
+import { Integration } from '@prisma/client';
+import { Tool } from '@postmill-ai/provider-kernel';
+import { SkoolDto } from '@postmill-ai/provider-kernel';
+import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { safeFetch } from '@postmill-ai/provider-kernel';
+
+import { metadata as providerMetadata } from './metadata';
+export class SkoolProvider extends SocialAbstract implements SocialProvider {
+  identifier = 'skool';
+  name = 'Skool';
+  isBetweenSteps = false;
+  isChromeExtension = true;
+  scopes = [] as string[];
+  editor = 'normal' as const;
+  dto = SkoolDto;
+
+  // Session-cookie channel: no developer app, no callback — the composer
+  // connect flow captures the logged-in skool.com session via the Postmill
+  // browser extension; the config form shows guidance only.
+  override setupDescriptor: ChannelSetupDescriptor = {
+    authType: 'direct',
+    credentialFields: [],
+    setupSteps: [
+      'Install the Postmill browser extension in Chrome (or a Chromium browser).',
+      'Log in to skool.com in that browser with the account that can post to your group.',
+      'Back here, open Create new → New Channel and pick Skool — the extension captures the session and connects the channel.',
+    ],
+  };
+
+  extensionCookies = [
+    { name: 'client_id', domain: '.skool.com' },
+    { name: 'auth_token', domain: '.skool.com' },
+  ];
+
+  private getCookies(integration: Integration): {
+    client_id: string;
+    auth_token: string;
+  } {
+    // Credentials are stored as a v2:-encrypted JSON blob (at-rest AES-GCM).
+    // The legacy signed-JWT storage format was removed in v1.0.0.
+    return JSON.parse(
+      AuthService.fixedDecryption(integration.customInstanceDetails!)
+    ) as {
+      client_id: string;
+      auth_token: string;
+    };
+  }
+
+  override handleErrors(
+    body: string
+  ):
+    | { type: 'refresh-token' | 'bad-body' | 'retry'; value: string }
+    | undefined {
+    if (body.includes('must be admin or level')) {
+      return { type: 'bad-body', value: 'You can\'t post to this channel' };
+    }
+    if (body.includes('cannot post to this label')) {
+      return { type: 'bad-body', value: 'Cannot post to this label' };
+    }
+    return undefined;
+  }
+
+  maxLength() {
+    return 5000;
+  }
+
+  async refreshToken(refreshToken: string): Promise<AuthTokenDetails> {
+    return {
+      refreshToken: '',
+      expiresIn: 0,
+      accessToken: '',
+      id: '',
+      name: '',
+      picture: '',
+      username: '',
+    };
+  }
+
+  async generateAuthUrl() {
+    const state = makeOauthState();
+    return {
+      url: state,
+      codeVerifier: makeId(10),
+      state,
+    };
+  }
+
+  async authenticate(params: {
+    code: string;
+    codeVerifier: string;
+    refresh?: string;
+  }) {
+    try {
+      const parsed = JSON.parse(
+        Buffer.from(params.code, 'base64').toString()
+      );
+      if (!parsed || typeof parsed !== 'object') {
+        throw new Error('Invalid callback');
+      }
+      const cookies = parsed as Record<string, unknown>;
+
+      const missing = this.extensionCookies
+        .map((c) => c.name)
+        .filter((name) => typeof cookies[name] !== 'string' || !(cookies[name] as string).trim());
+
+      if (missing.length > 0) {
+        return `Missing required cookies: ${missing.join(', ')}`;
+      }
+
+      const data = await (
+        await this.fetch('https://api2.skool.com/self', {
+          method: 'GET',
+          headers: {
+            Cookie: `auth_token=${cookies.auth_token as string}; client_id=${cookies.client_id as string}`,
+          },
+        })
+      ).json();
+
+      return {
+        refreshToken: '',
+        expiresIn: dayjs().add(100, 'year').unix() - dayjs().unix(),
+        accessToken: AuthService.fixedEncryption(JSON.stringify(cookies)),
+        id: data.id,
+        name: data.first_name + ' ' + data.last_name,
+        picture: data.metadata.picture_profile || '',
+        username: data.name,
+      };
+    } catch (e) {
+      return 'Invalid cookie data';
+    }
+  }
+
+  @Tool({ description: 'Groups', dataSchema: [] })
+  async groups(accessToken: string, params: any, id: string, integration: Integration) {
+    try {
+      const { client_id, auth_token } = this.getCookies(integration);
+      const { groups } = await (
+        await this.fetch(
+          `https://api2.skool.com/users/${id}/groups?offset=0&limit=30`,
+          {
+            headers: {
+              Cookie: `auth_token=${auth_token}; client_id=${client_id}`,
+            },
+          }
+        )
+      ).json();
+
+      return groups.map((p: any) => ({
+        id: String(p.id),
+        name: p.metadata.display_name,
+      }));
+    } catch (err) {
+      return [];
+    }
+  }
+
+  @Tool({ description: 'Label', dataSchema: [] })
+  async label(accessToken: string, params: any, id: string, integration: Integration) {
+    try {
+      const { client_id, auth_token } = this.getCookies(integration);
+      const { metadata } = await (
+        await this.fetch(`https://api2.skool.com/groups/${params.id}`, {
+          headers: {
+            Cookie: `auth_token=${auth_token}; client_id=${client_id}`,
+          },
+        })
+      ).json();
+
+      if (!metadata.labels || metadata.labels.length === 0) {
+        return [{ id: 'none', name: 'Default Label' }];
+      }
+
+      const labels = metadata.labels.split(',');
+
+      if (labels.length === 0) {
+        return [{ id: 'none', name: 'Default Label' }];
+      }
+
+      const labelInformation = await Promise.all(
+        labels.map(async (labelId: string) => {
+          return (
+            await this.fetch(`https://api2.skool.com/labels/${labelId}`, {
+              headers: {
+                Cookie: `auth_token=${auth_token}; client_id=${client_id}`,
+              },
+            })
+          ).json();
+        })
+      );
+
+      return labelInformation.map((p: any) => ({
+        id: String(p.id),
+        name: p.metadata.display_name,
+      }));
+    } catch (err) {
+      return [];
+    }
+  }
+
+  private async uploadMediaToSkool(
+    media: MediaContent[],
+    userId: string,
+    cookies: { client_id: string; auth_token: string }
+  ): Promise<string> {
+    if (!media || media.length === 0) return '';
+
+    const fileIds: string[] = [];
+
+    for (const item of media) {
+      const fileResponse = await safeFetch(item.path);
+      const fileBuffer = await fileResponse.arrayBuffer();
+      const contentType =
+        fileResponse.headers.get('content-type') || 'application/octet-stream';
+      const fileName = item.path.split('/').pop() || 'file';
+
+      const createFileResponse = await (
+        await this.fetch('https://api2.skool.com/files', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Cookie: `auth_token=${cookies.auth_token}; client_id=${cookies.client_id}`,
+          },
+          body: JSON.stringify({
+            file_name: fileName,
+            content_type: contentType,
+            content_length: fileBuffer.byteLength,
+            content_disposition: '',
+            ref: '',
+            owner_id: userId,
+            large_thumbnail: false,
+          }),
+        }, 'create file record')
+      ).json();
+
+      await this.fetch(createFileResponse.write_url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': createFileResponse.content_type,
+          'x-amz-acl': createFileResponse.acl,
+        },
+        body: fileBuffer,
+      }, 'upload file to storage');
+
+      fileIds.push(createFileResponse.file.id);
+    }
+
+    return fileIds.join(',');
+  }
+
+  async post(
+    id: string,
+    accessToken: string,
+    postDetails: PostDetails[],
+    integration: Integration
+  ): Promise<PostResponse[]> {
+    const { client_id, auth_token } = this.getCookies(integration);
+    const [post] = postDetails;
+
+    const attachments = await this.uploadMediaToSkool(
+      post.media || [],
+      id,
+      { client_id, auth_token }
+    );
+
+    const { id: postId, name } = await (
+      await this.fetch('https://api2.skool.com/posts?follow=true', {
+        method: 'POST',
+        headers: {
+          Cookie: `auth_token=${auth_token}; client_id=${client_id}`,
+        },
+        body: JSON.stringify({
+          post_type: 'generic',
+          group_id: post.settings.group,
+          metadata: {
+            title: post.settings.title,
+            content: post.message,
+            attachments,
+            ...(post.settings.label && post.settings.label !== 'none'
+              ? { labels: post.settings.label }
+              : {}),
+            action: 0,
+            video_ids: '',
+          },
+        }),
+      })
+    ).json();
+
+    return [
+      {
+        id: String(postId),
+        postId,
+        releaseURL: `https://www.skool.com/${post.settings.group}/${name}`,
+        status: 'success',
+      },
+    ];
+  }
+
+  async comment(
+    id: string,
+    postId: string,
+    lastCommentId: string | undefined,
+    accessToken: string,
+    postDetails: PostDetails[],
+    integration: Integration
+  ): Promise<PostResponse[]> {
+    const { client_id, auth_token } = this.getCookies(integration);
+    const [post] = postDetails;
+
+    const attachments = await this.uploadMediaToSkool(
+      post.media || [],
+      id,
+      { client_id, auth_token }
+    );
+
+    const { id: postIdFinal, name } = await (
+      await this.fetch('https://api2.skool.com/posts?follow=true', {
+        method: 'POST',
+        headers: {
+          Cookie: `auth_token=${auth_token}; client_id=${client_id}`,
+        },
+        body: JSON.stringify({
+          post_type: 'comment',
+          group_id: post.settings.group,
+          root_id: postId,
+          parent_id: lastCommentId || postId,
+          metadata: {
+            title: '',
+            content: post.message,
+            attachments,
+            action: 0,
+            video_ids: '',
+          },
+        }),
+      })
+    ).json();
+
+    return [
+      {
+        id: String(id),
+        postId: postIdFinal,
+        releaseURL: `https://www.skool.com/${post.settings.group}/${name}`,
+        status: 'success',
+      },
+    ];
+  }
+}
+
+// ---- provider-kernel module (relocated step 7.5.1) ----
+import {
+  ProviderModule as __ProviderModule,
+  SocialProviderKernelAdapter as __Bridge,
+  PROVIDER_CAPABILITIES as __CAPS,
+} from '@postmill-ai/provider-kernel';
+
+const __adapter = new SkoolProvider();
+
+export const skoolSocialModule: __ProviderModule<any, any> = {
+  metadata: providerMetadata,
+  manifest: {
+    domain: 'social',
+    providerId: __adapter.identifier,
+    version: 'v1',
+    displayName: __adapter.name,
+    status: 'active',
+    credentialFields: [],
+    capabilities: (__CAPS as any)[__adapter.identifier] || {},
+  },
+  create: (ctx) => new __Bridge(__adapter, ctx),
+};

@@ -1,0 +1,200 @@
+packages:
+  - apps/*
+  - libraries/*
+  - libraries/providers/*
+
+overrides:
+  # nestjs-command allows yargs up to v18, whose ESM-only entry breaks its compiled
+  # CJS (`require('yargs').default.scriptName` — the default export is the factory,
+  # not the singleton) under Node 24. Pin its yargs back to the CJS 17.x line.
+  'nestjs-command>yargs': '17.7.2'
+  # @reaatech/structured-repair-core >=1.1.0 supports zod 3 and 4 natively (peer
+  # ^3.23.0 || ^4.4.0). Pin it onto the workspace's zod 4 line so the whole graph
+  # resolves one major.
+  '@reaatech/structured-repair-core>zod': '^4.4.3'
+  # next >=16.0.0 <16.3.3: critical unauthenticated RCE on Windows hosts
+  # (GHSA-p293-qw3h-jr36) and in image optimization via AVIF (GHSA-2xp9-vwfh-vxw4).
+  next: 16.3.3
+  react: 19.2.7
+  react-dom: 19.2.7
+  '@types/react': 19.1.8
+  '@types/react-dom': 19.1.6
+  # vite 8 lives only in apps/extension (its build toolchain). vitest must keep
+  # running on vite 6: vite 8's module runner breaks CJS default-export interop
+  # (dayjs.extend et al) across the backend specs, and under the hoisted linker
+  # the peer context otherwise follows whatever version wins the root hoist.
+  'vitest>vite': '^6.4.3'
+  # Security overrides — each entry is documented inline below. Both parents are at their
+  # latest and pin the vulnerable version *exactly*, so there is no upgrade-the-parent
+  # path; these patched ranges are the only way to close the high advisories.
+  # protobufjs 8.x <8.4.1: high GHSAs; the lockfile already resolves the patched 8.4.x
+  # line (this matches the previously applied package.json override — do not force 7.x back).
+  'protobufjs@>=8.0.0 <8.4.1': '^8.4.1'
+  # shell-quote <=1.8.4: high quadratic-complexity DoS in parse() (GHSA-395f-4hp3-45gv),
+  # pulled by nestjs-libraries > mastra > serve > serve-handler. Bump to patched 1.9+.
+  'shell-quote@<=1.8.4': '>=1.9.0'
+  # js-yaml >=3.0.0 <3.15.1: high quadratic CPU in !!omap resolution (GHSA-5p4m-2wfm-xmqj),
+  # pulled by the Solana mobile wallet adapter chain in apps/frontend. Bump the 3.x line
+  # to the patched 3.15.1 (the chain pins major 3; do not cross to 4.x here).
+  'js-yaml@>=3.0.0 <3.15.1': '>=3.15.1 <4'
+  # form-data <2.5.6: critical unsafe-random boundary (GHSA-fjxv-7rqg-78g4) + high CRLF
+  # injection (GHSA-hmw2-7cc7-3qxx), pulled by node-telegram-bot-api@0.66.0 ->
+  # @cypress/request-promise -> request@2.88.2 (pins form-data ~2.3.2). Widen from <2.5.4 to
+  # <2.5.6 since GHSA-hmw2 expanded the affected range. Same major, API-compatible.
+  'form-data@<2.5.6': '>=2.5.6 <3'
+  # form-data >=3.0.0 <3.0.5: high CRLF injection (GHSA-hmw2-7cc7-3qxx), pulled by
+  # transloadit@3.1.0. Bump vulnerable 3.x to patched 3.0.x (same major).
+  'form-data@>=3.0.0 <3.0.5': '>=3.0.5 <4'
+  # form-data >=4.0.0 <4.0.6: high CRLF injection (GHSA-hmw2-7cc7-3qxx), pulled as a
+  # direct dependency. Bump vulnerable 4.x to patched 4.0.x (same major).
+  'form-data@>=4.0.0 <4.0.6': '>=4.0.6 <5'
+  # fast-xml-parser <4.5.4: critical entity-encoding bypass + high DoS (GHSA-m7jm-9gc2-mpf2),
+  # pulled by @aws-sdk/client-sesv2@3.800.0 -> @aws-sdk/core@3.799.0 (pins 4.4.1). Bump the
+  # vulnerable 4.x to patched 4.5.x (same major, API-compatible); newer aws-sdk paths use 5.x.
+  'fast-xml-parser@>=4.0.0-beta.3 <4.5.5': '^4.5.5'
+  # esbuild <0.28.1: high missing binary integrity verification in Deno module enables remote
+  # code execution via NPM_CONFIG_REGISTRY (GHSA-gv7w-rqvm-qjhr), pulled by terser-webpack-plugin,
+  # vite, and @prisma/config. Bump vulnerable <0.28.1 to patched 0.28.x (same major).
+  'esbuild@<0.28.1': '>=0.28.1 <0.29'
+  # hono <4.12.25: high CORS middleware reflects any origin when `origin` defaults to wildcard
+  # (GHSA-88fw-hqm2-52qc), pulled by @copilotkit/runtime and @modelcontextprotocol/sdk.
+  # Bump to patched 4.12.x (same major).
+  'hono@<4.12.25': '>=4.12.25 <5'
+  # multer <2.3.0: high DoS via deeply nested field names (GHSA-72gw-mp4g-v24j, patched
+  # 2.2.0), via crafted (GHSA-wc9g-mqfw-jrwm) and oversized (GHSA-535w-7cp7-47q4) file
+  # fields (patched 2.3.0), pulled by @nestjs/platform-express (pins 2.1.1). Bump to
+  # patched 2.3.x (same major).
+  'multer@<2.3.0': '>=2.3.0 <3'
+  # postcss <=8.5.11: high arbitrary file read via attacker-controlled sourceMappingURL
+  # in CSS comments (GHSA-6g55-p6wh-862q). Only vulnerable path is next's exact 8.4.31
+  # pin; parent-scoped so direct postcss specifiers (^8.5.22) are untouched — an
+  # unscoped selector override breaks CI's frozen-lockfile specifier comparison.
+  'next>postcss': '>=8.5.12 <9'
+  # nodemailer <9.1.0: high raw-option bypass of disableFileAccess/disableUrlAccess enabling
+  # SSRF (GHSA-p6gq-j5cr-w38f, patched 9.0.1) and high quadratic O(n²) header parsing
+  # (GHSA-2x7j-588g-ccc2, patched 9.1.0). Bump to patched 9.1.x (same major).
+  'nodemailer@<9.1.0': '>=9.1.0 <10'
+  # svgo >=3.0.0 <3.3.5: high — removeScripts allows executable links through namespace
+  # and control characters (GHSA-w27v-7q3p-w38r), pulled by @svgr/webpack ->
+  # @svgr/plugin-svgo. Bump vulnerable 3.x to patched 3.3.x (same major).
+  'svgo@>=3.0.0 <3.3.5': '>=3.3.5 <4'
+  # js-yaml >=4.0.0 <4.3.2: high — maxTotalMergeKeys does not limit CPU use for empty
+  # merge sources (GHSA-2883-xcg3-v3hh), pulled by eslint (dev tooling). Bump vulnerable
+  # 4.x to patched 4.3.x (same major; the 3.x line has its own override above).
+  'js-yaml@>=4.0.0 <4.3.2': '>=4.3.2 <5'
+  # piscina <=4.9.2: high prototype-pollution gadget → RCE (GHSA-x9g3-xrwr-cwfg), pulled by
+  # @swc/cli. Bump to patched 4.9.x (same major).
+  'piscina@<=4.9.2': '>=4.9.3 <5'
+  # undici <6.27.0: high WebSocket fragment-count DoS (GHSA-vxpw-j846-p89q), pulled by
+  # @qdrant/js-client-rest (pins ~6.26). Bump vulnerable <6.27.0 to patched 6.27.x (same major).
+  'undici@<6.27.0': '>=6.27.0 <7'
+  # undici >=7.0.0 <7.28.0: high WebSocket DoS (GHSA-vxpw-j846-p89q) and SOCKS5
+  # cross-origin request routing (GHSA-hm92-r4w5-c3mj), pulled by jsdom@29.1 via vitest.
+  # Bump vulnerable 7.x to patched 7.28.x (same major).
+  'undici@>=7.0.0 <7.29.0': '>=7.29.0 <8'
+  # undici >=8.0.0 <8.5.0: high WebSocket DoS (GHSA-vxpw-j846-p89q, GHSA-38rv-x7px-6hhq) and
+  # TLS cert validation bypass (GHSA-vmh5-mc38-953g), direct dependency. Bump to patched 8.5.x.
+  'undici@>=8.0.0 <8.9.0': '>=8.9.0 <9'
+  # ws <8.21.0: high memory-exhaustion DoS from tiny fragments (GHSA-96hv-2xvq-fx4p), pulled by
+  # @toruslabs/solana-embed -> socket.io-client -> engine.io-client. Bump to patched 8.21.x.
+  'ws@<8.21.0': '>=8.21.0 <9'
+  # happy-dom <20.8.9: critical VM-context-escape RCE (GHSA-96g7-g7g9-jxw8) + follow-up
+  # advisory. Bump to patched 20.8.x (same DOM API).
+  'happy-dom@<20.8.9': '^20.8.9'
+  # glob >=10.2.0 <10.5.0: high command injection via -c/--cmd (GHSA-5j98-mcp5-4vw2),
+  # pulled by @nestjs/cli. Bump to patched 10.5.x.
+  'glob@>=10.2.0 <10.5.0': '>=10.5.0'
+  # picomatch >=4.0.0 <4.0.4: high ReDoS via extglob quantifiers (GHSA-c2c7-rcm5-vvqj),
+  # pulled by @angular-devkit/core. Bump to patched 4.0.x.
+  'picomatch@>=4.0.0 <4.0.4': '>=4.0.4'
+  # tmp <0.2.6: high path traversal via unsanitized prefix/postfix (GHSA-ph9p-34f9-6g65),
+  # pulled by external-editor via inquirer. Bump to patched 0.2.x.
+  'tmp@<0.2.6': '>=0.2.6'
+  # langsmith <0.6.0: high public prompt pull deserializes untrusted manifests
+  # (GHSA-3644-q5cj-c5c7), pulled by older @langchain/core paths. Bump to patched 0.6+.
+  langsmith: '>=0.6.0'
+  # socket.io-parser >=4.0.0 <4.2.7: high DoS — a malformed packet with a huge
+  # attachment count allocates unbounded memory before validation (GHSA-2m8v-j782-fhvr),
+  # pinned by socket.io. Bump to patched 4.2.x (same major, wire-compatible).
+  'socket.io-parser@>=4.0.0 <4.2.7': '>=4.2.7 <5'
+  # ip-address <=10.3.0: high — Address4 decodes leading-zero octets as decimal, so an
+  # allow/deny list keyed on the parsed address can be bypassed (GHSA-mwp4-54f8-5fhr).
+  # Reaches us through socks (VPN egress) and express-rate-limit, i.e. exactly the
+  # allow/deny-decision code the advisory is about. Bump to patched 10.3.x.
+  'ip-address@<=10.3.0': '>=10.3.1 <11'
+  # nanoid >=4.0.0 <5.1.16: high — the non-secure generator loops indefinitely on a
+  # negative size (GHSA-28wg-ghj8-5hjv), pulled by @uppy/core. Bump to patched 5.1.x.
+  'nanoid@>=4.0.0 <5.1.16': '>=5.1.16 <6'
+  # Migrated from package.json "pnpm.overrides" (ignored by pnpm 10.34+); this file is
+  # the single source of truth for overrides.
+  '@opentelemetry/propagator-jaeger@<2.9.0': '^2.9.0'
+  'axios@>=1.15.2 <1.18.0': '^1.18.0'
+  'brace-expansion@1': '~1.1.18'
+  'brace-expansion@2': '~2.1.4'
+  'brace-expansion@>=3.0.0 <5.0.9': '^5.0.9'
+  'fast-uri@>=3.0.0 <3.1.6': '^3.1.6'
+  'immutable@5': '^5.1.8'
+  'js-yaml@>=4.0.0 <4.3.1': '^4.3.1'
+  'sharp@<0.35.0': '^0.35.0'
+  'svgo@3': '^3.3.4'
+  # find-my-way <=9.6.0: high HTTP/2 DDoS (GHSA-c96f-x56v-gq3h), pulled by fastify via
+  # @reaatech/agent-auth-proxy-server. Bump to patched 9.7+ (same major).
+  'find-my-way@<=9.6.0': '>=9.7.0 <10'
+  # @ag-ui/mastra 1.1.2 calls tokenUsageFromAiSdkUsage, added in @ag-ui/core 0.0.58 —
+  # but the graph resolved 0.0.54/0.0.57 (via @copilotkit/*), so ESM loaders (vitest
+  # apps/backend suite) fail at import time ("does not provide an export"). CJS prod
+  # is unaffected (property access + try/catch), but pin the graph to 0.0.59.
+  '@ag-ui/core': '0.0.59'
+  # browserslist <=4.28.6: high — unbounded memory growth (no cache eviction) via
+  # distinct query results, leading to eventual OOM. Pulled by @babel/helper-
+  # compilation-targets and friends. Bump to patched 4.28.7 (same major).
+  'browserslist@<=4.28.6': '>=4.28.7 <5'
+
+onlyBuiltDependencies:
+  - bcrypt
+  - '@sentry-internal/node-cpu-profiler'
+  - canvas
+
+allowBuilds:
+  '@google/genai': true
+  '@nestjs/core': false
+  '@parcel/watcher': true
+  '@prisma/client': true
+  '@prisma/engines': true
+  '@scarf/scarf': false
+  '@sentry-internal/node-cpu-profiler': true
+  '@sentry/cli': true
+  '@swc/core': true
+  bcrypt: true
+  bufferutil: true
+  canvas: true
+  core-js: false
+  core-js-pure: false
+  esbuild: true
+  prisma: true
+  protobufjs: false
+  sharp: true
+  unrs-resolver: true
+  utf-8-validate: true
+
+# Audit suppressions — advisories with no viable fix in the current tree.
+auditConfig:
+  ignoreGhsas:
+    # (The brace-expansion suppression GHSA-mh99-v99m-4gvg is GONE, not lost: the
+    # blocker was 5.0.8 being ESM-only with a named `expand` export, which broke the
+    # CJS `require('brace-expansion')` in minimatch@3/glob@7. 5.0.9 restores the
+    # callable default export, so the three lines are now bumped in place —
+    # 1.1.18 / 2.1.4 / 5.0.9 in `overrides` above — and the advisory is genuinely
+    # fixed rather than ignored. Verified by a full eslint run over the repo.)
+    #
+    # image-size <=2.0.2 ICNS and JXL/HEIF parser DoS (GHSA-w3rx-r6r6-pgpr,
+    # GHSA-5p2g-fcmc-qvqq): withdrawn-style advisories with NO patched version
+    # published ("patched: <0.0.0"), so no override can close them. The single path is
+    # apps/frontend > @solana/wallet-adapter-react > @solana-mobile/* > react-native >
+    # metro > image-size: react-native's METRO BUNDLER, dragged in as a transitive of
+    # the Solana mobile wallet adapter. Metro never runs here (this is a Next.js app;
+    # nothing bundles with metro, and image-size is only called on files metro is
+    # bundling), so no image this deployment handles ever reaches that parser. Revisit
+    # if the Solana wallet adapters are dropped or image-size ships a fix.
+    - GHSA-w3rx-r6r6-pgpr
+    - GHSA-5p2g-fcmc-qvqq

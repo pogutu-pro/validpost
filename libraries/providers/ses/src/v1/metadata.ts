@@ -1,0 +1,14 @@
+import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+
+export const metadata: ProviderMetadata = {
+  "website": "https://aws.amazon.com/ses/",
+  "description": {
+    "en": "Amazon SES — scalable, low-cost email sending from AWS."
+  },
+  "id": "ses",
+  "displayName": "ses",
+  "kind": "action",
+  "domains": [],
+  "hasModelList": false,
+  "mediaCategories": []
+};

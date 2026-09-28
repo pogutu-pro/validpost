@@ -1,0 +1,14 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
+import { useMenuItem } from '@postmill-ai/frontend/components/layout/top.menu';
+export const Title = () => {
+  const path = usePathname();
+  const { all: menuItems } = useMenuItem();
+  const currentTitle = useMemo(() => {
+    return menuItems.find((item) => path.indexOf(item.path) > -1)?.name;
+  }, [path, menuItems]);
+
+  return <h1 className="text-(--heading-h1)">{currentTitle}</h1>;
+};

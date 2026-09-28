@@ -1,0 +1,1298 @@
+'use client';
+
+import React, {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { AddEditModalProps } from '@postmill-ai/frontend/components/composer/composer.types';
+import clsx from 'clsx';
+import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { PicksSocialsComponent } from '@postmill-ai/frontend/components/composer/picks.socials.component';
+import { EditorWrapper } from '@postmill-ai/frontend/components/composer/editor';
+import { SelectCurrent } from '@postmill-ai/frontend/components/composer/select.current';
+import { ShowAllProviders } from '@postmill-ai/frontend/components/composer/providers/show.all.providers';
+import { useExistingData } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
+import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import { DatePicker } from '@postmill-ai/frontend/components/launches/helpers/date.picker';
+import { useShallow } from 'zustand/react/shallow';
+import { RepeatComponent } from '@postmill-ai/frontend/components/launches/repeat.component';
+import { TagsComponent } from '@postmill-ai/frontend/components/launches/tags.component';
+import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
+import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { stripHtmlTags } from '@postmill-ai/helpers/utils/strip.tags';
+import { hasLinks } from '@postmill-ai/helpers/utils/strip.links';
+import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { capitalize } from 'lodash';
+import { CopilotChat } from '@copilotkit/react-ui';
+import { createPortal } from 'react-dom';
+import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
+import { DummyCodeComponent } from '@postmill-ai/frontend/components/composer/dummy.code.component';
+import { CreationMethodBadge } from '@postmill-ai/frontend/components/launches/creation.method.badge';
+import {
+  ColorPicker,
+  DEFAULT_POST_COLOR,
+} from '@postmill-ai/frontend/components/ui/color-picker';
+import {
+  SettingsIcon,
+  ChevronDownIcon,
+  TrashIcon,
+  DropdownArrowSmallIcon,
+} from '@postmill-ai/frontend/components/ui/icons';
+import { useHasScroll } from '@postmill-ai/frontend/components/ui/is.scroll.hook';
+import { useShortlinkPreference } from '@postmill-ai/frontend/components/settings/shortlink-preference.component';
+import { BrandPicker } from '@postmill-ai/frontend/components/launches/brand-picker';
+import { ShortlinkPicker } from '@postmill-ai/frontend/components/composer/shortlink-picker';
+import { usePreflight, PreflightResponse } from '@postmill-ai/frontend/components/composer/content-qa/usePreflight';
+import { PreflightPanel } from '@postmill-ai/frontend/components/composer/content-qa/preflight.panel';
+import dayjs from 'dayjs';
+import { Button } from '@postmill-ai/react/form/button';
+import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import { useRouter } from 'next/navigation';
+import { ComposerLibraryModal } from '@postmill-ai/frontend/components/composer/composer-library.modal';
+
+const ColorPick: FC<{
+  initial: string | null;
+  onApply: (color: string | null) => void;
+}> = ({ initial, onApply }) => {
+  const t = useT();
+  const [value, setValue] = useState<string | null>(initial);
+  return (
+    <div className="flex flex-col gap-[18px] min-w-[280px]">
+      <ColorPicker value={value} onChange={setValue} />
+      <Button onClick={() => onApply(value)}>{t('apply', 'Apply')}</Button>
+    </div>
+  );
+};
+
+export const ManageModal: FC<AddEditModalProps> = (props) => {
+  const t = useT();
+  const aiActive = useAiActive();
+  const fetch = useFetch();
+  const ref = useRef(null);
+  const existingData = useExistingData();
+  const [loading, setLoading] = useState(false);
+  const toaster = useToaster();
+  const modal = useModals();
+  const router = useRouter();
+  const [showSettings, setShowSettings] = useState(false);
+  const [assistantOpen, setAssistantOpen] = useState(false);
+  const [showPreflight, setShowPreflight] = useState(false);
+  const [pendingScheduleType, setPendingScheduleType] = useState<'draft' | 'now' | 'schedule' | 'update' | null>(null);
+  const [preflightData, setPreflightData] = useState<PreflightResponse | null>(null);
+  const [mobileTab, setMobileTab] = useState<'compose' | 'preview'>('compose');
+  const { data: shortlinkPreferenceData } = useShortlinkPreference();
+  const [shortLinkEnabled, setShortLinkEnabled] = useState(false);
+  const shortlinkUserToggled = useRef(false);
+  const { runPreflight, loading: preflightLoading, reset: resetPreflight } = usePreflight();
+
+  // Per-post heading colour (stored in each post's `settings`). null = default
+  // primary blue. A ref keeps the submit callbacks reading the latest value.
+  const readInitialColor = (): string | null => {
+    const raw = (existingData as any)?.posts?.[0]?.settings;
+    let parsed: any = raw;
+    if (typeof raw === 'string') {
+      try {
+        parsed = JSON.parse(raw);
+      } catch {
+        parsed = {};
+      }
+    }
+    return parsed?.color ?? null;
+  };
+  const [groupColor, setGroupColor] = useState<string | null>(readInitialColor);
+  // Once the user picks a colour themselves, tag selection stops overriding it.
+  // Editing a post that already carries a colour counts as a deliberate choice.
+  const colorUserToggled = useRef(readInitialColor() !== null);
+  const groupColorRef = useRef<string | null>(groupColor);
+  groupColorRef.current = groupColor;
+  const colorize = (settings: any) => {
+    const next = { ...(settings || {}) };
+    if (groupColorRef.current) next.color = groupColorRef.current;
+    else delete next.color;
+    return next;
+  };
+
+  const { addEditSets, mutate, customClose, dummy } = props;
+
+  // The store date freezes at composer mount; a user who never opens the date
+  // picker and submits minutes later hits a 400 "Cannot schedule a post in the
+  // past" (seen live 2026-08-28). Track deliberate picks so submit can snap an
+  // untouched, expired default to the current minute instead of dead-ending.
+  const dateUserPicked = useRef(false);
+
+  const {
+    selectedIntegrations,
+    hide,
+    date,
+    setDate,
+    repeater,
+    setRepeater,
+    tags,
+    setTags,
+    integrations,
+    setSelectedIntegrations,
+    locked,
+    current,
+    activateExitButton,
+    setHide,
+    brandId,
+    campaignId,
+    global,
+    internal,
+  } = useLaunchStore(
+    useShallow((state) => ({
+      hide: state.hide,
+      setHide: state.setHide,
+      date: state.date,
+      setDate: state.setDate,
+      current: state.current,
+      repeater: state.repeater,
+      setRepeater: state.setRepeater,
+      tags: state.tags,
+      setTags: state.setTags,
+      selectedIntegrations: state.selectedIntegrations,
+      integrations: state.integrations,
+      setSelectedIntegrations: state.setSelectedIntegrations,
+      locked: state.locked,
+      activateExitButton: state.activateExitButton,
+      brandId: state.brandId,
+      campaignId: state.campaignId,
+      global: state.global,
+      internal: state.internal,
+    }))
+  );
+
+  const pickDate = useCallback(
+    (d: dayjs.Dayjs) => {
+      dateUserPicked.current = true;
+      setDate(d);
+    },
+    [setDate]
+  );
+
+  useEffect(() => {
+    if (hide) {
+      setHide(false);
+    }
+  }, [hide, setHide]);
+
+  // The short-link picker only makes sense once there's something to shorten.
+  // `hasLinks` shares its pattern with the short-link service, so the pill shows
+  // exactly when the shortener would actually act on the post.
+  const contentHasLink = useMemo(
+    () =>
+      [
+        ...global,
+        ...internal.flatMap((i) => i.integrationValue),
+      ].some((v) => hasLinks(v?.content)),
+    [global, internal]
+  );
+
+  // Default the short-link picker from the org's saved preference (YES = on)
+  // until the user explicitly chooses in the composer.
+  useEffect(() => {
+    if (dummy || addEditSets || shortlinkUserToggled.current) return;
+    setShortLinkEnabled(shortlinkPreferenceData?.shortlink === 'YES');
+  }, [shortlinkPreferenceData, dummy, addEditSets]);
+
+  const currentIntegrationText = useMemo(() => {
+    if (current === 'global') {
+      return (
+        <div className="flex items-center gap-[10px]">
+          <div className="relative">
+            <SettingsIcon size={15} className="text-white" />
+          </div>
+          <div>{t('settings', 'Settings')}</div>
+        </div>
+      );
+    }
+
+    const currentIntegration = integrations.find((p) => p.id === current)!;
+
+    return (
+      <div className="flex items-center gap-[10px]">
+        <div className="relative">
+          <SafeImage
+            src={`/icons/platforms/${currentIntegration.identifier}.png`}
+            className="w-[20px] h-[20px] rounded-[4px]"
+            alt={currentIntegration.identifier}
+          />
+          <SettingsIcon
+            size={15}
+            className="text-white absolute inset-e-[-5px] bottom-[-5px]"
+          />
+        </div>
+        <div>
+          {currentIntegration.name} {t('channel_settings', 'Settings')}
+        </div>
+      </div>
+    );
+  }, [current, integrations, t]);
+
+  // "Started composing" = any editor has real text or attached media. Drives both nav guards
+  // below so we only warn when there's actual unsaved work — not on an empty composer.
+  const hasStartedComposing = useMemo(() => {
+    const stripped = (html: string) =>
+      stripHtmlTags(html || '')
+        .replace(/&nbsp;/g, ' ')
+        .trim();
+    const hasWork = (v?: { content?: string; media?: any[] }) =>
+      stripped(v?.content ?? '').length > 0 || (v?.media?.length ?? 0) > 0;
+    // In edit mode the content lives in `internal[].integrationValue`, not
+    // `global` (which is one empty value), so inspect both — otherwise the
+    // nav guards never arm while editing an existing post.
+    return (
+      (global || []).some(hasWork) ||
+      (internal || []).some((i) => (i?.integrationValue || []).some(hasWork))
+    );
+  }, [global, internal]);
+
+  // Warn before navigating away (refresh / tab close / back button / new URL) once the user
+  // has actually started composing.
+  useEffect(() => {
+    if (!activateExitButton || dummy || !hasStartedComposing) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [activateExitButton, dummy, hasStartedComposing]);
+
+  // Guard soft in-app navigation (clicking a link/nav item) the same way: App Router has no
+  // route-change block, so intercept internal-link clicks in the capture phase, confirm via the
+  // shared dialog, and only navigate on approval. Only active once the user has started composing.
+  useEffect(() => {
+    if (!activateExitButton || dummy || !hasStartedComposing) return;
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented) return;
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
+        return;
+      const anchor = (e.target as HTMLElement | null)?.closest?.(
+        'a[href]'
+      ) as HTMLAnchorElement | null;
+      if (!anchor) return;
+      const href = anchor.getAttribute('href') || '';
+      // Skip external, new-tab, hash, mailto/tel, download and same-path links.
+      if (
+        !href ||
+        href.startsWith('http') ||
+        href.startsWith('#') ||
+        href.startsWith('mailto:') ||
+        href.startsWith('tel:') ||
+        anchor.target === '_blank' ||
+        anchor.hasAttribute('download') ||
+        href === window.location.pathname
+      )
+        return;
+      e.preventDefault();
+      e.stopPropagation();
+      deleteDialog(
+        t(
+          'leave_composer_unsaved',
+          'You have unsaved changes. Leave and lose them?'
+        ),
+        t('yes_leave', 'Yes, leave')
+      ).then((confirmed) => {
+        if (confirmed) router.push(href);
+      });
+    };
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, [activateExitButton, dummy, hasStartedComposing, router, t]);
+
+  const deletePost = useCallback(async () => {
+    setLoading(true);
+    if (
+      !(await deleteDialog(
+        t(
+          'are_you_sure_you_want_to_delete_post',
+          'Are you sure you want to delete this post?'
+        ),
+        t('yes_delete_it', 'Yes, delete it!')
+      ))
+    ) {
+      setLoading(false);
+      return;
+    }
+    const res = await fetch(`/posts/${existingData.group}`, {
+      method: 'DELETE',
+    });
+    if (!res.ok) {
+      toaster.show(
+        (await res.json().catch(() => null))?.message ||
+          t('failed_to_delete_post', 'Failed to delete post'),
+        'warning'
+      );
+      setLoading(false);
+      return;
+    }
+    mutate();
+    if (customClose) {
+      customClose();
+      return;
+    }
+    modal.closeAll();
+    return;
+  }, [existingData, mutate, modal, customClose, fetch, t, toaster]);
+
+  const saveAsTemplate = useCallback(async () => {
+    if (!ref.current?.getAllValues) return;
+    const allValues = await ref.current.getAllValues();
+    const posts = allValues.map((post: any) => ({
+      integration: { id: post.id },
+      settings: colorize(post.settings),
+      value: post.values.map((value: any) => ({
+        content: value.content,
+        delay: value.delay || 0,
+        image: (value?.media || []).map(
+          ({ id, path, alt, thumbnail, thumbnailTimestamp }: any) => ({
+            id,
+            path,
+            alt,
+            thumbnail,
+            thumbnailTimestamp,
+          })
+        ),
+      })),
+    }));
+
+    modal.openModal({
+      title: t('save_as_template', 'Save as Template'),
+      children: (
+        <div className="flex flex-col gap-4 p-[16px]">
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const input = e.currentTarget.elements.namedItem(
+                'templateName'
+              ) as HTMLInputElement;
+              const name = input?.value.trim();
+              if (!name) return;
+              try {
+                const res = await fetch('/sets', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    name,
+                    content: JSON.stringify({ posts }),
+                  }),
+                });
+                if (!res.ok) throw new Error('template_save_failed');
+                modal.closeAll();
+                toaster.show(
+                  t('template_saved', 'Template saved successfully'),
+                  'success'
+                );
+              } catch {
+                toaster.show(
+                  t('template_save_failed', 'Failed to save template'),
+                  'warning'
+                );
+              }
+            }}
+          >
+            <label className="text-[12px] text-newTableText mb-[6px] block">
+              {t('template_name', 'Template name')}
+            </label>
+            <input
+              name="templateName"
+              type="text"
+              placeholder={t(
+                'template_name_placeholder',
+                'e.g. Product launch boilerplate'
+              )}
+              className="w-full bg-newBgColor border border-newTableBorder rounded-[8px] px-[12px] py-[8px] text-[14px] text-textColor outline-hidden focus:border-btnPrimary mb-[16px]"
+            />
+
+            <div className="flex gap-2 justify-end">
+              <Button
+                type="button"
+                secondary
+                onClick={() => modal.closeAll()}
+              >
+                {t('cancel', 'Cancel')}
+              </Button>
+              <Button type="submit">{t('save', 'Save')}</Button>
+            </div>
+          </form>
+        </div>
+      ),
+    });
+  }, [fetch, modal, toaster, t]);
+
+  const schedule = useCallback(
+    (type: 'draft' | 'now' | 'schedule' | 'update', skipPreflight = false) => async () => {
+      // 3.8: claim the loading lock at the very top so a second click during the
+      // (network) preflight/getAllValues round-trip can't start a duplicate flow.
+      setLoading(true);
+      if (
+        (type === 'now' || type === 'schedule') &&
+        (existingData?.posts?.[0]?.state === 'PUBLISHED' ||
+          (existingData?.posts?.[0]?.state === 'QUEUE' &&
+            dayjs().isAfter(date.utc())))
+      ) {
+        const whatToDo = await new Promise((resolve) => {
+          modal.openModal({
+            title: t('what_do_you_want_to_do', 'What do you want to do?'),
+            children: (
+              <div className="flex flex-col">
+                <div className="text-[20px] mb-[20px]">
+                  {t(
+                    'post_already_published_what_to_do',
+                    'This post was already published, what do you want to do?'
+                  )}
+                </div>
+                <div className="flex w-full gap-[10px]">
+                  <div className="flex-1 flex">
+                    <Button
+                      type="button"
+                      className="flex-1"
+                      onClick={() => resolve('update')}
+                    >
+                      Just update the post details
+                    </Button>
+                  </div>
+                  <div className="flex-1 flex">
+                    <Button
+                      type="button"
+                      className="flex-1"
+                      onClick={() => resolve('republish')}
+                    >
+                      Republish the post
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ),
+          });
+        });
+
+        if (whatToDo === 'update') {
+          type = 'update';
+        }
+      }
+
+      // Snap an untouched, expired default date past the current minute before
+      // preflight/submit. Deliberate picks keep the server's 400 so a chosen
+      // past time stays visible instead of being silently rewritten. The server
+      // compares millisecond-precise (posts.service: isBefore(dayjs())), so
+      // "now" is already marginally past when the request lands — round UP.
+      let effectiveDate = date;
+      if (
+        type === 'schedule' &&
+        !dateUserPicked.current &&
+        date.isBefore(dayjs())
+      ) {
+        effectiveDate = dayjs().add(1, 'minute').startOf('minute');
+        setDate(effectiveDate);
+      }
+
+      // 2J: Run preflight check for schedule/now (skip for draft, and when the
+      // user already reviewed the panel and clicked Proceed → skipPreflight).
+      if ((type === 'schedule' || type === 'now') && !skipPreflight) {
+        const allValues = await ref.current.getAllValues();
+        const group = existingData.group || makeId(10);
+        const posts = allValues.map((post: any) => ({
+          integration: { id: post.id },
+          group,
+          // `__type` discriminates the per-provider settings on the server;
+          // getAllValues returns `identifier` per post.
+          settings: { ...colorize(post.settings), __type: post.identifier },
+          value: post.values.map((value: any) => ({
+            ...(value.id ? { id: value.id } : {}),
+            content: value.content,
+            delay: value.delay || 0,
+            image: (value?.media || []).map(
+              ({ id, path, alt, thumbnail, thumbnailTimestamp }: any) => ({
+                id, path, alt, thumbnail, thumbnailTimestamp,
+              })
+            ) || [],
+          })),
+        }));
+
+        const preflightResult = await runPreflight({ type, posts, date: effectiveDate.utc().format('YYYY-MM-DDTHH:mm:ss') });
+
+        if (
+          preflightResult &&
+          (preflightResult.blocking.length > 0 ||
+            preflightResult.results.some((r) => r.warnings?.length))
+        ) {
+          setShowPreflight(true);
+          setPendingScheduleType(type);
+          setPreflightData(preflightResult);
+          setLoading(false);
+          return;
+        }
+      }
+
+      // Pull the local values to build the payload, but rely on the server
+      // (`/posts/valid`) for the actual validation — checkValidity now lives
+      // server-side so it can't be bypassed.
+      const allValues = await ref.current.getAllValues();
+
+      const integrationById = (id: string) =>
+        selectedIntegrations.find((p) => p.integration.id === id);
+
+      const group = existingData.group || makeId(10);
+
+      const posts = allValues.map((post: any) => ({
+        integration: {
+          id: post.id,
+        },
+        group,
+        // Per-post `type` mirrors the submit mode. Required for drafts: create.post.dto skips
+        // per-provider settings validation only when the POST's own `type === 'draft'`
+        // (@ValidateIf on Post.settings) — without it, a draft with X/provider settings is
+        // rejected by forbidNonWhitelisted and silently fails to save (data loss).
+        ...(type === 'draft' ? { type: 'draft' } : {}),
+        // `__type` discriminates the per-provider settings on the server;
+        // getAllValues returns `identifier` per post.
+        settings: { ...colorize(post.settings), __type: post.identifier },
+        value: post.values.map((value: any) => ({
+          ...(value.id ? { id: value.id } : {}),
+          content: value.content,
+          delay: value.delay || 0,
+          image:
+            (value?.media || []).map(
+              ({ id, path, alt, thumbnail, thumbnailTimestamp }: any) => ({
+                id,
+                path,
+                alt,
+                thumbnail,
+                thumbnailTimestamp,
+              })
+            ) || [],
+        })),
+      }));
+
+      if (!dummy) {
+        const validRes = await fetch('/posts/valid', {
+          method: 'POST',
+          body: JSON.stringify({ type, posts }),
+        });
+        if (!validRes.ok) {
+          toaster.show(
+            (await validRes.json().catch(() => null))?.message ||
+              t('failed_to_validate_post', 'Failed to validate your post'),
+            'warning'
+          );
+          setLoading(false);
+          return;
+        }
+        const checkAllValid = await validRes.json();
+
+        const focus = (id: string, where: 'fix' | 'preview') => {
+          integrationById(id)?.ref?.current?.[where]?.();
+        };
+
+        const notEnoughChars = checkAllValid.filter((p: any) => p.emptyContent);
+
+        for (const item of notEnoughChars) {
+          toaster.show(
+            `${capitalize(item.identifier.split('-')[0])} (${item.name}):` +
+              ' ' +
+              t(
+                'post_needs_content_or_image',
+                'Your post should have at least one character or one image.'
+              ),
+            'warning'
+          );
+          setLoading(false);
+          focus(item.id, 'preview');
+          return;
+        }
+
+        if (type !== 'draft') {
+          for (const item of checkAllValid) {
+            if (item.valid === false) {
+              toaster.show(
+                `${capitalize(item.identifier.split('-')[0])} (${item.name}): ${
+                  item.settingsError ||
+                  t('please_fix_your_settings', 'Please fix your settings')
+                }`,
+                'warning'
+              );
+              focus(item.id, 'fix');
+              setLoading(false);
+              setShowSettings(true);
+              return;
+            }
+
+            if (item.errors !== true) {
+              toaster.show(
+                `${capitalize(item.identifier.split('-')[0])} (${item.name}): ${
+                  item.errors
+                }`,
+                'warning'
+              );
+              focus(item.id, 'preview');
+              setLoading(false);
+              setShowSettings(false);
+              return;
+            }
+
+            if (item.tooLong) {
+              toaster.show(
+                t(
+                  'post_name_identifier_too_long',
+                  '{{name}} ({{identifier}}) post is too long, please fix it',
+                  { name: item.name, identifier: item.identifier }
+                ),
+                'warning'
+              );
+              focus(item.id, 'preview');
+              setLoading(false);
+              return;
+            }
+          }
+        }
+      }
+
+      // The composer's short-link provider picker decides application; publish
+      // still only rewrites foreign URLs, so this flag is intent, not presence.
+      const shortLink = !dummy && shortLinkEnabled;
+
+      const data = {
+        type,
+        ...(repeater ? { inter: repeater } : {}),
+        tags,
+        shortLink,
+        brandId,
+        ...(campaignId ? { campaignId } : {}),
+        date: effectiveDate.utc().format('YYYY-MM-DDTHH:mm:ss'),
+        posts,
+      };
+
+      if (dummy) {
+        modal.openModal({
+          title: '',
+          children: <DummyCodeComponent code={data} />,
+          classNames: {
+            modal: 'w-[100%] bg-transparent text-textColor',
+          },
+          size: '100%',
+          withCloseButton: false,
+          closeOnEscape: true,
+          closeOnClickOutside: true,
+        });
+
+        setLoading(false);
+      }
+
+      if (!dummy) {
+        if (addEditSets) {
+          addEditSets(data);
+        } else {
+          const url =
+            campaignId && type === 'draft'
+              ? `/campaigns/${campaignId}/drafts`
+              : '/posts';
+          const res = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+          });
+          if (!res.ok) {
+            // 0.11: the shared fetch does not throw on 4xx/5xx — surface the
+            // server message, keep the modal open, and clear loading so the
+            // user can retry without losing their composed content.
+            toaster.show(
+              (await res.json().catch(() => null))?.message ||
+                t('failed_to_save_post', 'Failed to save your post'),
+              'warning'
+            );
+            setLoading(false);
+            return;
+          }
+        }
+
+        if (!addEditSets) {
+          mutate();
+          toaster.show(
+            !existingData.integration
+              ? t('added_successfully', 'Added successfully')
+              : t('updated_successfully', 'Updated successfully')
+          );
+        }
+        if (customClose) {
+          // 3.8: keep the loading lock until customClose fires so the deferred
+          // close can't re-enable the button and reopen a second submit window.
+          setTimeout(() => {
+            customClose();
+          }, 2000);
+          return;
+        }
+
+        if (!addEditSets) {
+          modal.closeAll();
+        }
+      }
+    },
+    [
+      ref,
+      repeater,
+      tags,
+      date,
+      setDate,
+      addEditSets,
+      dummy,
+      shortLinkEnabled,
+      brandId,
+      campaignId,
+      customClose,
+      existingData,
+      fetch,
+      modal,
+      mutate,
+      runPreflight,
+      selectedIntegrations,
+      t,
+      toaster,
+    ]
+  );
+
+  return (
+    <div className={clsx('w-full h-full flex-1 flex relative', props.padding ?? 'p-[8px] lg:p-[40px]')}>
+      <div className="flex flex-1 bg-newBgColorInner rounded-[20px] flex-col overflow-hidden">
+        <div className="lg:hidden flex items-center justify-center p-[8px] border-b border-newBorder bg-newBgColor">
+          <div className="flex bg-newBgColorInner border border-newBorder rounded-[8px] overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setMobileTab('compose')}
+              className={clsx(
+                'px-[16px] py-[6px] text-[13px] font-[500] transition-colors',
+                mobileTab === 'compose'
+                  ? 'bg-btnPrimary text-white'
+                  : 'text-textColor hover:bg-boxHover'
+              )}
+            >
+              {t('compose_post', 'Compose Post')}
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobileTab('preview')}
+              className={clsx(
+                'px-[16px] py-[6px] text-[13px] font-[500] transition-colors',
+                mobileTab === 'preview'
+                  ? 'bg-btnPrimary text-white'
+                  : 'text-textColor hover:bg-boxHover'
+              )}
+            >
+              {t('preview', 'Preview')}
+            </button>
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col lg:flex-row min-h-0">
+          <div
+            className={clsx(
+              'flex flex-col flex-1 border-b lg:border-b-0 lg:border-e border-newBorder min-h-0',
+              mobileTab === 'preview' ? 'hidden lg:flex' : 'flex'
+            )}
+          >
+            <div className="bg-newBgColor h-[65px] lg:rounded-s-[20px] rounded-b-none! hidden lg:flex items-center gap-[12px] px-[20px] text-[20px] font-[600]">
+              {t('create_post_title', 'Create Post')}
+              <CreationMethodBadge
+                creationMethod={existingData?.posts?.[0]?.creationMethod}
+                size="sm"
+              />
+            </div>
+            <div className="flex-1 flex flex-col gap-[16px] min-h-0">
+              <div
+                className={clsx('flex-1 relative', showSettings && 'hidden')}
+              >
+                <div
+                  id="social-content"
+                  className="gap-[12px] md:gap-[32px] flex flex-col pe-[8px] pt-[12px] md:pt-[20px] ps-[20px] absolute top-0 left-0 w-full h-full overflow-x-hidden overflow-y-scroll scrollbar scrollbar-thumb-newColColor scrollbar-track-newBgColorInner"
+                >
+                  {/* Two groups, reordered below 2xl: the destination pickers
+                      (channels + brand) sit on their own full-width row below
+                      the actions, which is the only way three pills and two
+                      buttons fit without wrapping mid-group. At lg–xl widths the
+                      shared row squeezes this group (min-w-0) until the
+                      shrink-proof "Select Channels" pill paints over the brand
+                      pill, so the swap holds until 2xl, where the row is wide
+                      enough for both groups side by side. */}
+                  <div className="flex w-full items-center gap-[8px] flex-wrap">
+                    <div className="order-2 2xl:order-1 w-full 2xl:w-auto 2xl:flex-1 flex items-center gap-[8px] min-w-0">
+                      <div className="flex min-w-0">
+                        <PicksSocialsComponent toolTip={true} />
+                      </div>
+                      {!dummy && <BrandPicker openDirection="down" />}
+                    </div>
+                    <div className="order-1 2xl:order-2 flex items-center gap-[8px] flex-wrap">
+                    {!dummy && !addEditSets && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          modal.openModal({
+                            title: t('library', 'Library'),
+                            children: (
+                              <ComposerLibraryModal
+                                onLoadDraft={
+                                  props.onLoadDraft ||
+                                  ((group) =>
+                                    router.push(`/posts/post/${group}`))
+                                }
+                                onClose={() => modal.closeAll()}
+                              />
+                            ),
+                          })
+                        }
+                        className="border border-newTableBorder bg-btnSimple text-textColor rounded-[8px] px-[12px] lg:px-[16px] h-[36px] lg:h-[44px] text-[13px] lg:text-[15px] font-[500] hover:bg-boxHover"
+                      >
+                        {t('start_from', 'Start from…')}
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        // B4: no active AI provider → guide instead of a silent
+                        // no-op (CopilotKit must not mount without one).
+                        if (!aiActive) {
+                          toaster.show(
+                            t(
+                              'connect_ai_provider_for_assistant',
+                              'Connect an AI provider in Settings to use the assistant'
+                            ),
+                            'warning'
+                          );
+                          return;
+                        }
+                        setAssistantOpen(true);
+                      }}
+                      aria-label={t('your_assistant', 'Your Assistant')}
+                      data-tooltip-id="tooltip"
+                      data-tooltip-content={t('your_assistant', 'Your Assistant')}
+                      className="border border-newTableBorder bg-btnSimple text-textColor rounded-[8px] px-[12px] lg:px-[16px] h-[36px] lg:h-[44px] flex items-center gap-[6px] text-[13px] lg:text-[15px] font-[500] hover:bg-boxHover"
+                    >
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-btnPrimaryAccent"
+                      >
+                        <path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3Z" />
+                        <path d="M19 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8Z" />
+                      </svg>
+                      <span className="hidden sm:inline">
+                        {t('assistant', 'Assistant')}
+                      </span>
+                    </button>
+                    </div>
+                  </div>
+                  <div className="flex flex-1 gap-[6px] flex-col">
+                    <div>{!existingData.integration && <SelectCurrent />}</div>
+                    <div className="flex-1 flex min-h-[220px] lg:min-h-0">
+                      {!hide && <EditorWrapper totalPosts={1} value="" />}
+                    </div>
+                    <div
+                      id="social-empty"
+                      className={clsx(
+                        'pb-[16px]'
+                        // current !== 'global' && 'hidden'
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id="wrapper-settings"
+                className={clsx(
+                  'pb-[20px] px-[20px] select-none',
+                  showSettings && 'flex-1 flex pt-[20px]',
+                  current === 'global' && 'hidden'
+                )}
+              >
+                <div className="flex-1 flex flex-col rounded-[12px] gap-[12px] overflow-hidden bg-newSettings">
+                  <div
+                    onClick={() => setShowSettings(!showSettings)}
+                    className={clsx(
+                      'bg-[#2B5CD3] rounded-[12px] flex items-center gap-[8px] cursor-pointer p-[12px]',
+                      showSettings ? 'rounded-b-none!' : ''
+                    )}
+                  >
+                    <div className="flex-1 text-[14px] font-[600] text-white">
+                      {currentIntegrationText}
+                    </div>
+                    <div>
+                      <ChevronDownIcon
+                        rotated={showSettings}
+                        className="text-white"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className={clsx(
+                      !showSettings ? 'hidden' : 'flex-1',
+                      'text-[14px] text-textColor font-[500] relative'
+                    )}
+                  >
+                    <div className="absolute left-0 top-0 w-full h-full flex flex-col overflow-x-hidden overflow-y-auto scrollbar scrollbar-thumb-newBgColorInner scrollbar-track-newColColor">
+                      <div
+                        id="social-settings"
+                        className="flex flex-col gap-[20px] bg-newBgColor"
+                      />
+                    </div>
+                  </div>
+                  <style>
+                    {`#social-settings [data-id="${current}"] {display: block !important;}`}
+                  </style>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className={clsx(
+              // flex-1 is load-bearing on mobile: the parent switches to
+              // flex-col there, so height becomes the main axis and without a
+              // grow factor this column collapsed to 0px — the preview rendered
+              // as a 40px sliver of padding. Desktop keeps the fixed 580px.
+              'w-full lg:w-[580px] flex-1 lg:flex-none flex flex-col min-h-0',
+              mobileTab === 'compose' ? 'hidden lg:flex' : 'flex'
+            )}
+          >
+            <div className="bg-newBgColor h-[65px] lg:rounded-e-[20px] rounded-b-none! hidden lg:flex items-center px-[20px] text-[20px] font-[600]">
+              <div className="flex-1">{t('post_preview', 'Post Preview')}</div>
+            </div>
+            <div className="flex-1 relative min-h-0">
+              <Scrollable
+                scrollClasses="pe-[20px]!"
+                className="absolute top-0 p-[20px] pe-[8px] left-0 w-full h-full overflow-x-hidden overflow-y-scroll scrollbar scrollbar-thumb-newColColor scrollbar-track-newBgColorInner"
+              >
+                <ShowAllProviders ref={ref} />
+              </Scrollable>
+            </div>
+          </div>
+        </div>
+        <div
+          className={clsx(
+            // min-h, not h: the pills wrap on narrow desktops and a fixed
+            // 84px sliced the second row in half.
+            'select-none h-auto lg:min-h-[84px] py-[10px] lg:py-[20px] border-t border-newBorder flex-col lg:flex-row items-start lg:items-center gap-[8px] lg:gap-0',
+            // Preview is a preview: no fields, no actions.
+            mobileTab === 'preview' ? 'hidden lg:flex' : 'flex'
+          )}
+        >
+          <div className="flex-1 flex ps-[20px] gap-[8px] flex-wrap">
+            {!dummy && (
+              <TagsComponent
+                name="tags"
+                label={t('tags', 'Tags')}
+                initial={tags}
+                onChange={(e) => {
+                  setTags(e.target.value);
+                }}
+                onTagColor={(color) => {
+                  // The tag's colour becomes the post colour — until the user
+                  // picks one themselves, after which theirs wins for good.
+                  if (colorUserToggled.current || !color) {
+                    return;
+                  }
+                  setGroupColor(color);
+                }}
+              />
+            )}
+            {!dummy && (
+              <button
+                type="button"
+                aria-label={t('post_color', 'Post color')}
+                onClick={() =>
+                  modal.openModal({
+                    title: t('post_color', 'Post color'),
+                    withCloseButton: true,
+                    children: (
+                      <ColorPick
+                        initial={groupColor}
+                        onApply={(color) => {
+                          colorUserToggled.current = true;
+                          setGroupColor(color);
+                          modal.closeAll();
+                        }}
+                      />
+                    ),
+                  })
+                }
+                className="border rounded-[8px] border-newTextColor/10 h-[36px] lg:h-[44px] px-[12px] lg:px-[16px] flex items-center gap-[8px] text-[13px] lg:text-[15px] font-[600] text-textColor select-none"
+              >
+                <span
+                  className="w-[16px] h-[16px] rounded-full border border-newTableBorder"
+                  style={{ backgroundColor: groupColor || DEFAULT_POST_COLOR }}
+                />
+                {t('color', 'Color')}
+              </button>
+            )}
+            {!dummy && (
+              <RepeatComponent repeat={repeater} onChange={setRepeater} />
+            )}
+            {/* Nothing to shorten without a link — including the "connect a
+                provider" call-to-action, which otherwise advertises a feature
+                this post can't use. */}
+            {!dummy && !addEditSets && contentHasLink && (
+              <ShortlinkPicker
+                enabled={shortLinkEnabled}
+                onChange={(v) => {
+                  shortlinkUserToggled.current = true;
+                  setShortLinkEnabled(v);
+                }}
+              />
+            )}
+          </div>
+          <div className="pe-[20px] flex items-center justify-start lg:justify-end gap-[8px] flex-wrap w-full lg:w-auto">
+            {existingData?.integration && (
+              <button
+                onClick={deletePost}
+                className="cursor-pointer flex text-[#FF3F3F] gap-[8px] items-center text-[13px] lg:text-[15px] font-[600]"
+              >
+                <div>
+                  <TrashIcon />
+                </div>
+                <div>{t('delete_post', 'Delete Post')}</div>
+              </button>
+            )}
+            <DatePicker onChange={pickDate} date={date} />
+            {!addEditSets && (
+              <div className="group cursor-pointer relative">
+                <button
+                  type="button"
+                  disabled={
+                    selectedIntegrations.length === 0 || loading || locked
+                  }
+                  className="relative cursor-pointer disabled:cursor-not-allowed px-[12px] lg:px-[20px] h-[36px] lg:h-[44px] bg-btnSimple justify-center items-center flex gap-[6px] rounded-[8px] text-[13px] lg:text-[15px] font-[600]"
+                >
+                  {loading && (
+                    <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]">
+                      <div className="animate-spin h-[20px] w-[20px] border-4 border-textColor border-t-transparent rounded-full" />
+                    </div>
+                  )}
+                  <div
+                    className={clsx(
+                      'flex items-center gap-[6px]',
+                      loading && 'invisible'
+                    )}
+                  >
+                    {t('save_as', 'Save as')}
+                    <DropdownArrowSmallIcon className="group-hover:rotate-180 text-textColor" />
+                  </div>
+                </button>
+                <div className="hidden group-hover:flex flex-col absolute bottom-full left-0 mb-[8px] w-[200px] bg-newBgColorInner border border-newTableBorder rounded-[8px] p-[8px] gap-[6px] z-300">
+                  <button
+                    type="button"
+                    disabled={
+                      selectedIntegrations.length === 0 || loading || locked
+                    }
+                    onClick={schedule('draft')}
+                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600]"
+                  >
+                    {t('save_as_draft', 'Save as draft')}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={
+                      selectedIntegrations.length === 0 || loading || locked
+                    }
+                    onClick={saveAsTemplate}
+                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600]"
+                  >
+                    {t('save_as_template', 'Save as Template')}
+                  </button>
+                </div>
+              </div>
+            )}
+            {addEditSets && (
+              <button
+                className="text-white text-[15px] font-[600] min-w-[180px] btnSub disabled:cursor-not-allowed disabled:opacity-80 outline-hidden gap-[8px] flex justify-center items-center h-[44px] rounded-[8px] bg-[#2B5CD3] ps-[20px] pe-[16px]"
+                disabled={
+                  selectedIntegrations.length === 0 || loading || locked
+                }
+                onClick={schedule('draft')}
+              >
+                Save Set
+              </button>
+            )}
+            {!addEditSets && (
+              <div className="group cursor-pointer relative w-full lg:w-auto">
+                <button
+                  disabled={
+                    selectedIntegrations.length === 0 || loading || locked
+                  }
+                  onClick={schedule('schedule')}
+                  className="text-white relative w-full lg:min-w-[180px] btnSub disabled:cursor-not-allowed disabled:opacity-80 outline-hidden gap-[8px] flex justify-center items-center h-[38px] lg:h-[44px] rounded-[8px] bg-[#2B5CD3] ps-[14px] lg:ps-[20px] pe-[12px] lg:pe-[16px]"
+                >
+                  {loading && (
+                    <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]">
+                      <div className="animate-spin h-[20px] w-[20px] border-4 border-white border-t-transparent rounded-full" />
+                    </div>
+                  )}
+                  <div
+                    className={clsx(
+                      'text-[13px] lg:text-[15px] font-[600]',
+                      loading && 'invisible'
+                    )}
+                  >
+                    {selectedIntegrations.length === 0
+                      ? t('select_a_channel', 'Select a Channel')
+                      : dummy
+                      ? t('create_output', 'Create output')
+                      : !existingData?.integration
+                      ? t('add_to_calendar', 'Add to Calendar')
+                      : existingData?.posts?.[0]?.state === 'DRAFT'
+                      ? t('schedule', 'Schedule')
+                      : t('update', 'Update')}
+                  </div>
+                  {!dummy && (
+                    <div className="flex justify-center items-center h-[20px] w-[20px] pt-[4px] arrow-change">
+                      <DropdownArrowSmallIcon className="group-hover:rotate-180 text-white" />
+                    </div>
+                  )}
+                </button>
+
+                {!dummy && (
+                  <button
+                    onClick={schedule('now')}
+                    disabled={
+                      selectedIntegrations.length === 0 || loading || locked
+                    }
+                    className="rounded-[8px] z-300 disabled:cursor-not-allowed disabled:opacity-80 hidden group-hover:flex absolute bottom-full left-[-12px] p-[12px] w-[206px] bg-newBgColorInner"
+                  >
+                    <div className="text-white rounded-[8px] bg-[#2b5cd3] h-[44px] w-full flex justify-center items-center post-now">
+                      {t('post_now', 'Post now')}
+                    </div>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      {showPreflight && preflightData && (
+        <PreflightPanel
+          results={preflightData.results}
+          blocking={preflightData.blocking}
+          passed={preflightData.passed}
+          onClose={() => {
+            setShowPreflight(false);
+            setPreflightData(null);
+            setLoading(false);
+          }}
+          onProceed={() => {
+            setShowPreflight(false);
+            setPreflightData(null);
+            const pending = pendingScheduleType;
+            setPendingScheduleType(null);
+            // 3.13: skipPreflight=true so we don't re-run preflight and re-open
+            // the panel (which would loop) — proceed straight to submit.
+            if (pending) {
+              schedule(pending, true)();
+            }
+          }}
+        />
+      )}
+      {aiActive &&
+        assistantOpen &&
+        createPortal(
+          <div className="fixed inset-0 z-300 flex items-center justify-center p-[16px]">
+            <div
+              className="absolute inset-0 bg-black/50 backdrop-blur-xs"
+              onClick={() => setAssistantOpen(false)}
+            />
+            <div className="relative w-[600px] max-w-full h-[80vh] max-h-[720px] bg-newBgColorInner border border-newBorder rounded-[16px] shadow-xl flex flex-col overflow-hidden">
+              <div className="h-[52px] shrink-0 border-b border-newBorder flex items-center justify-between px-[16px]">
+                <div className="flex items-center gap-[8px] text-[16px] font-[600] text-textColor">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-btnPrimaryAccent"
+                  >
+                    <path d="M12 3l1.9 4.6L18.5 9.5 13.9 11.4 12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3Z" />
+                    <path d="M19 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8Z" />
+                  </svg>
+                  {t('your_assistant', 'Your Assistant')}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAssistantOpen(false)}
+                  aria-label={t('close', 'Close')}
+                  className="w-[32px] h-[32px] rounded-[8px] flex items-center justify-center hover:bg-boxHover text-textColor"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  >
+                    <path d="M6 6l12 12M18 6L6 18" />
+                  </svg>
+                </button>
+              </div>
+              <div
+                className="flex-1 min-h-0"
+                style={
+                  {
+                    '--copilot-kit-primary-color': 'var(--new-btn-text)',
+                    '--copilot-kit-background-color': 'var(--new-bg-color)',
+                  } as React.CSSProperties
+                }
+              >
+                <CopilotChat
+                  className="h-full"
+                  instructions={`
+You are an assistant that help the user to schedule their social media posts,
+Here are the things you can do:
+- Add a new comment / post to the list of posts
+- Delete a comment / post from the list of posts
+- Add content to the comment / post
+- Activate or deactivate the comment / post
+
+Post content can be added using the addPostContentFor{num} function.
+After using the addPostFor{num} it will create a new addPostContentFor{num+ 1} function.
+`}
+                  labels={{
+                    title: t('your_assistant', 'Your Assistant'),
+                    initial: t(
+                      'assistant_initial_message',
+                      'Hi! I can help you to refine your social media posts.'
+                    ),
+                  }}
+                />
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+    </div>
+  );
+};
+
+const Scrollable: FC<{
+  className: string;
+  scrollClasses: string;
+  children: ReactNode;
+}> = ({ className, scrollClasses, children }) => {
+  const ref = useRef(undefined);
+  const hasScroll = useHasScroll(ref);
+  return (
+    <div className={clsx(className, hasScroll && scrollClasses)} ref={ref}>
+      {children}
+    </div>
+  );
+};

@@ -1,0 +1,65 @@
+name: Publish Extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24.19.0'
+          cache: 'pnpm'
+
+      - name: Install native dependencies for node-canvas
+        run: |
+          # azure.archive.ubuntu.com (the runner default) has been stalling/crawling for
+          # days (2026-08-18/19). Try it once with bounded timeouts; on failure rewrite
+          # the apt sources to archive.ubuntu.com and try again. apt's 25s socket timeouts
+          # catch dead connections; the outer `timeout` bounds a crawling-but-alive mirror.
+          ok=0
+          for i in 1 2; do
+            if [ "$i" = "2" ]; then
+              echo "::warning::default mirror failed; switching apt sources to archive.ubuntu.com"
+              # GitHub runners route Ubuntu packages through a mirror list
+              # (mirror+file:/etc/apt/apt-mirrors.txt) that currently resolves to the
+              # stalling azure.archive.ubuntu.com. Rewrite the LIST FILE — that covers
+              # every mirror+file: source regardless of format — plus any direct URLs.
+              echo 'http://archive.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors.txt
+              sudo sed -i 's|azure\.archive\.ubuntu\.com|archive.ubuntu.com|g' \
+                /etc/apt/sources.list /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources 2>/dev/null || true
+            fi
+            if timeout 300 sudo apt-get -o Acquire::http::Timeout=25 -o Acquire::https::Timeout=25 -o Acquire::Retries=1 update \
+              && timeout 900 sudo apt-get -o Acquire::http::Timeout=25 -o Acquire::https::Timeout=25 -o Acquire::Retries=1 install -y \
+                libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++ libpixman-1-dev; then
+              ok=1; break
+            fi
+            echo "::warning::apt attempt $i failed or stalled"
+          done
+          if [ "$ok" != 1 ]; then
+            echo "::error::apt-get failed on both mirrors"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Zip extensions
+        run: FRONTEND_URL=https://app.postmill.ai pnpm run build:extension
+
+      - name: Publish to Chrome Web Store
+        uses: mnao305/chrome-extension-upload@v6.0.0
+        with:
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          file-path: apps/extension/extension.zip

@@ -1,0 +1,37 @@
+name: Build Extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Zip extensions
+        run: FRONTEND_URL=https://app.postmill.ai pnpm run build:extension
+
+      - name: Upload to Nextcloud
+        env:
+          NEXTCLOUD_URL: ${{ secrets.NEXTCLOUD_URL }}
+          NEXTCLOUD_USERNAME: ${{ secrets.NEXTCLOUD_USERNAME }}
+          NEXTCLOUD_PASSWORD: ${{ secrets.NEXTCLOUD_PASSWORD }}
+        run: |
+          curl -T apps/extension/extension.zip \
+            -u "$NEXTCLOUD_USERNAME:$NEXTCLOUD_PASSWORD" \
+            "$NEXTCLOUD_URL/extension.zip"

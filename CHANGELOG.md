@@ -1,0 +1,42 @@
+# Changelog
+
+All notable changes to Postmill are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+
+- **Payment providers.** Billing is now a ProviderKernel domain (`payments`): Stripe is one provider (`payments/stripe@v1`, package `libraries/providers/stripe`) behind a provider-neutral orchestrator (`PaymentsService`), and any provider can be added by implementing the `PaymentsCapability` contract — see `docs/developer-docs/payment-providers.md`. Shipped alongside Stripe: **PayPal** (hosted checkout through the Subscriptions API, `PAYPAL_*`), the **Apple App Store** (`APPLE_IAP_*`) and **Google Play** (`GOOGLE_PLAY_*`) for the upcoming mobile app — the server verifies store purchases (`POST /billing/native/verify`) and consumes App Store Server Notifications / Play Real-time Developer Notifications. The billing pages branch on the deployment's checkout mode (embedded Stripe form, hosted redirect, or app-store copy) and hide affordances a provider lacks (portal, proration, coupons, add-ons, resume). Providers are enabled purely by their `.env` keys; `PAYMENTS_PROVIDER` picks the web-checkout default when several are enabled. New routes: `POST /payments/webhooks/:provider`, `GET /billing/config`, `POST /billing/native/verify` (for app-store purchases), `GET /billing/check/:id?ref=`. Schema: `Organization.paymentProvider`, `Subscription.provider`, `provider` on the webhook ledger (migration `20260921160000_payments_provider_domain`; existing Stripe organizations are backfilled). A daily `payments-expire-canceled` job tears down subscriptions whose scheduled end passed for providers that cannot keep a cancelled subscription alive until period end (Stripe rows are excluded — its own webhook tears them down).
+
+- Organization-wide AI budget: a hard ceiling on total AI spend across all providers (monthly/daily caps + alert threshold), set from the new card at the top of **Settings → AI → LLM Providers** or `PUT /settings/ai/budget`. Enforced independently of per-provider caps — every AI call, including the AI Designer, content pipeline, agent digests and the daily brief, is refused with HTTP 429 (`org_budget_exceeded`) once reached. The usage dashboard now shows the organization's remaining budget. Stored on new nullable `Organization.aiBudget*` columns (migration `20260921130000_add_org_ai_budget_columns`); any cap previously written through the API into the legacy `perOrgCaps` settings slice is migrated on first boot. Previously that endpoint accepted a cap, sent an 80% alert, and never enforced it.
+
+### Changed
+
+- Provider catalog metadata: modules that serve no AI/media/payments default surface (social, storage, shortlink, VPN, email, auth, comms, content packs) now declare `domains: []` instead of the historical `['media']` placeholder, and a kernel spec enforces the rule per module (the Google auth and Vultr storage modules got their own metadata files instead of inheriting the sibling AI module's `['ai']`). `PROVIDERS_INVENTORY.md` gains the auth rows it was missing (apple, facebook, linkedin, x) and the suno media row. No behaviour change — the field is not served over HTTP.
+- Payment providers: an organization stays locked to the provider it first subscribed through, even after lapsing (documented; refused cross-provider activations log the operator escape hatch; `GET /billing/config` exposes `org.lockedTo`). Native-only deployments now show never-subscribed workspaces the "purchase in the mobile app" copy instead of web purchase buttons. The nightly expiry job warns about Stripe subscriptions past their scheduled end with no teardown webhook. Payments provider modules declare `domains: ['payments']` in the catalog.
+- The billing master switch is "at least one payment provider is configured" (`billingEnabled()`) instead of `STRIPE_PUBLISHABLE_KEY` presence. For a Stripe-only deployment nothing changes: the same three `STRIPE_*` variables enable it. Deliberate normalisation: the public-API "no subscription" check and publish-time subscription checks previously keyed on `STRIPE_SECRET_KEY`; they now follow the same switch, so a deployment that set only the secret key loses those checks and one that set only the publishable key gains them — set both, as documented.
+- A Stripe webhook with a bad signature now answers **401** (was 500) on both `POST /stripe` and `POST /payments/webhooks/stripe`; Stripe retries any non-2xx, so delivery behaviour is unchanged — adjust alerting keyed on 5xx.
+- Purchase conversion tracking no longer substitutes the plan list price when the provider does not report the charged amount; those payments are simply not tracked.
+- Stripe's proration preview no longer requires the price nickname to match (the four other lookups never did); prices are still matched by product name, interval and amount.
+
+### Deprecated
+
+- `POST /stripe` — the Stripe webhook now lives at `POST /payments/webhooks/stripe`. The old route forwards to the same handler and will be removed in a later release; re-point the Stripe dashboard webhook.
+
+### Fixed
+
+- Payment providers: a lapsed app-store subscriber whose expiry webhook was missed (a zombie row with lapsed dunning grace or a scheduled end in the past) can resubscribe again, and the re-bind resets the stale grace marker and deferred downgrade so the new purchase is honoured. Apple: transient verification failures now answer 500 (Apple retries) instead of 401, notifications for another app or the other store environment are acknowledged without action, free introductory offers are reported as trials, and a notification without a UUID gets a deterministic id. Google: a native purchase is verified with one Play read, a push whose token Play now rejects is acknowledged instead of retried for a week, and a push without a message id gets a deterministic id.
+- `POST /billing/apply-discount` applied the coupon without waiting for the eligibility check (the check was never awaited); it now honours it.
+- Budget-exceeded responses from `/copilot/chat` and the post generator now carry `{ error: 'BudgetExceeded', message }` so the UI shows a friendly message instead of the raw reason string; the message no longer claims the cap is monthly and resets on the 1st.
+
+- Provider errors are attributed to the provider. Every AI/media upstream failure (bad key, quota or billing limit, rate limit, invalid request, outage) is now a typed `ProviderUpstreamError` → HTTP **502** with `{ provider, providerName, kind, upstreamStatus, message, settingsUrl }`, and the UI names the provider ("Google AI Studio reports the account's quota or billing limit was reached…") instead of showing `{"statusCode":500,"message":"Internal server error"}`. Previously a raw AI-SDK error also made Nest replay the provider's HTTP status as Postmill's own — a provider 401 logged the user out, a provider 429 showed Postmill's rate-limit toast. All 36 media adapters, the LLM facade (`generateText`/`generateObject`/`*WithModel`/`languageModel`), the AI routes' catch-alls, the studio render queue and the dashboard/analytics/generator toasts are covered. Sentry only sees provider outages (warning level), not users' key/plan problems.
+- AI: system prompts were sent as a parts array instead of a string (LanguageModelV2 shape), which Gemini rejects with `Unknown name "text" at 'system_instruction.parts[0]'` — dashboard brief, structured output and every `system`-prompted call on Google models failed. `generateTextWithModel` / `generateObjectWithModel` also silently dropped their `system` argument, and alt-text vision used the SDK v1 `{type:'image'}` part.
+
+## [1.0.0] - 2026-09-16
+
+### Added
+
+- Initial public release.

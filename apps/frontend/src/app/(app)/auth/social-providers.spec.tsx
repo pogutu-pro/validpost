@@ -1,0 +1,282 @@
+import React from 'react';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import { SWRConfig } from 'swr';
+import { Login } from '@postmill-ai/frontend/components/auth/login';
+import { RegisterAfter } from '@postmill-ai/frontend/components/auth/register';
+import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+
+// F10: the login/register pages must advertise exactly the providers the
+// backend (/auth/providers) returns — no hardcoded fallback. A fresh install
+// ({providers:[LOCAL]}) renders no social button on either page.
+
+vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+  useT: () => (_key: string, fallback: string) => fallback,
+}));
+
+vi.mock('next/link', () => ({
+  default: ({ href, children, ...rest }: any) => (
+    <a href={href} {...rest}>
+      {children}
+    </a>
+  ),
+}));
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+  useSearchParams: () => new URLSearchParams(),
+}));
+
+vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+  useFetch: vi.fn(),
+}));
+
+vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+  useVariables: () => ({
+    isGeneral: true,
+    genericOauth: false,
+    neynarClientId: '',
+    billingEnabled: false,
+    oauthLogoUrl: '',
+    oauthDisplayName: '',
+  }),
+}));
+
+vi.mock('@postmill-ai/helpers/utils/use.fire.events', () => ({
+  useFireEvents: () => vi.fn(),
+}));
+
+vi.mock('@postmill-ai/react/helpers/use.track', () => ({
+  useTrack: () => vi.fn(),
+}));
+
+vi.mock('react-use-cookie', () => ({
+  default: () => ['', vi.fn()],
+}));
+
+// Plain DTO stand-ins: the real ones pull @prisma/client into jsdom, and the
+// resolver only runs on submit (not exercised here).
+vi.mock('@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto', () => ({
+  LoginUserDto: class LoginUserDto {},
+}));
+vi.mock('@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
+  CreateOrgUserDto: class CreateOrgUserDto {},
+}));
+
+// Provider buttons are mocked with sentinels: the spec asserts which buttons
+// the pages choose to render, without pulling Solana/Neynar SDKs into jsdom.
+vi.mock('@postmill-ai/frontend/components/auth/providers/google.provider', () => ({
+  GoogleProvider: () => <div data-testid="google-provider" />,
+}));
+vi.mock('@postmill-ai/frontend/components/auth/providers/github.provider', () => ({
+  GithubProvider: () => <div data-testid="github-provider" />,
+}));
+vi.mock('@postmill-ai/frontend/components/auth/providers/oauth.provider', () => ({
+  OauthProvider: () => <div data-testid="oauth-provider" />,
+}));
+vi.mock(
+  '@postmill-ai/frontend/components/auth/providers/farcaster.provider',
+  () => ({
+    FarcasterProvider: () => <div data-testid="farcaster-provider" />,
+  })
+);
+vi.mock('@postmill-ai/frontend/components/auth/providers/wallet.provider', () => ({
+  default: () => <div data-testid="wallet-provider" />,
+}));
+vi.mock('@postmill-ai/frontend/components/auth/providers/apple.provider', () => ({
+  AppleProvider: () => <div data-testid="apple-provider" />,
+}));
+vi.mock(
+  '@postmill-ai/frontend/components/auth/providers/placeholder/wallet.ui.provider',
+  () => ({
+    WalletUiProvider: () => <div data-testid="wallet-ui-provider" />,
+  })
+);
+
+const mockedUseFetch = useFetch as Mock;
+
+const SOCIAL_TESTIDS = [
+  'google-provider',
+  'github-provider',
+  'oauth-provider',
+  'farcaster-provider',
+  'wallet-provider',
+  'apple-provider',
+];
+
+const LOCAL_ONLY = [{ provider: 'LOCAL', displayName: 'Email' }];
+const LOCAL_AND_GOOGLE = [
+  { provider: 'LOCAL', displayName: 'Email' },
+  { provider: 'GOOGLE', displayName: 'Google' },
+];
+const LOCAL_AND_APPLE = [
+  { provider: 'LOCAL', displayName: 'Email' },
+  { provider: 'APPLE', displayName: 'Apple' },
+];
+
+function mockProviders(providers: { provider: string; displayName: string }[]) {
+  const fetchMock = vi.fn(async (url: string) => {
+    if (url === '/auth/providers') {
+      return { ok: true, json: async () => ({ providers }) };
+    }
+    return { ok: true, json: async () => ({}), text: async () => '' };
+  });
+  mockedUseFetch.mockReturnValue(fetchMock);
+  return fetchMock;
+}
+
+// Leaves the /auth/providers fetch pending forever, simulating the SWR
+// in-flight state.
+function mockProvidersPending() {
+  const fetchMock = vi.fn((url: string) => {
+    if (url === '/auth/providers') {
+      return new Promise(() => {});
+    }
+    return Promise.resolve({
+      ok: true,
+      json: async () => ({}),
+      text: async () => '',
+    });
+  });
+  mockedUseFetch.mockReturnValue(fetchMock);
+  return fetchMock;
+}
+
+function renderWithFreshSWR(ui: React.ReactElement) {
+  return render(
+    <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
+      {ui}
+    </SWRConfig>
+  );
+}
+
+// Wait until the /auth/providers SWR fetch has fired and its resolution +
+// re-render have been flushed, so "no button" assertions are not vacuous.
+async function settleProvidersFetch(fetchMock: Mock) {
+  await waitFor(() =>
+    expect(fetchMock).toHaveBeenCalledWith('/auth/providers')
+  );
+  await act(async () => {});
+}
+
+function expectNoSocialButton() {
+  for (const testId of SOCIAL_TESTIDS) {
+    expect(screen.queryByTestId(testId)).toBeNull();
+  }
+}
+
+// The "Continue With" label and "OR" divider must appear only when a real
+// provider button renders — never for LOCAL-only, loading, or error states.
+function expectNoDivider() {
+  expect(screen.queryByText('Continue With')).toBeNull();
+  expect(screen.queryByText('OR')).toBeNull();
+}
+
+function expectDivider() {
+  expect(screen.getByText('Continue With')).toBeTruthy();
+  expect(screen.getByText('OR')).toBeTruthy();
+}
+
+describe('Login social providers (F10)', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('renders only the email/password form when the backend returns [LOCAL]', async () => {
+    const fetchMock = mockProviders(LOCAL_ONLY);
+
+    renderWithFreshSWR(<Login />);
+    await settleProvidersFetch(fetchMock);
+
+    expectNoSocialButton();
+    expectNoDivider();
+    expect(screen.getByPlaceholderText('Email Address')).toBeTruthy();
+    expect(screen.getByPlaceholderText('Password')).toBeTruthy();
+  });
+
+  it('renders the Google button when the backend advertises GOOGLE', async () => {
+    mockProviders(LOCAL_AND_GOOGLE);
+
+    renderWithFreshSWR(<Login />);
+
+    expect(await screen.findByTestId('google-provider')).toBeTruthy();
+    expect(screen.queryByTestId('github-provider')).toBeNull();
+    expect(screen.queryByTestId('oauth-provider')).toBeNull();
+    expectDivider();
+  });
+
+  it('renders the Apple button when the backend advertises APPLE', async () => {
+    mockProviders(LOCAL_AND_APPLE);
+
+    renderWithFreshSWR(<Login />);
+
+    expect(await screen.findByTestId('apple-provider')).toBeTruthy();
+    expect(screen.queryByTestId('google-provider')).toBeNull();
+    expectDivider();
+  });
+
+  it('renders neither label nor divider while the providers fetch is in flight', async () => {
+    const fetchMock = mockProvidersPending();
+
+    renderWithFreshSWR(<Login />);
+    await waitFor(() =>
+      expect(fetchMock).toHaveBeenCalledWith('/auth/providers')
+    );
+
+    expectNoSocialButton();
+    expectNoDivider();
+    expect(screen.getByPlaceholderText('Email Address')).toBeTruthy();
+  });
+});
+
+describe('Register social providers (F10)', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('fetches /auth/providers and renders only the email/password form when it returns [LOCAL]', async () => {
+    const fetchMock = mockProviders(LOCAL_ONLY);
+
+    renderWithFreshSWR(<RegisterAfter token="" provider="LOCAL" />);
+    await settleProvidersFetch(fetchMock);
+
+    expectNoSocialButton();
+    expectNoDivider();
+    expect(screen.getByPlaceholderText('Email Address')).toBeTruthy();
+    expect(screen.getByPlaceholderText('Password')).toBeTruthy();
+  });
+
+  it('renders the Google button when the backend advertises GOOGLE', async () => {
+    mockProviders(LOCAL_AND_GOOGLE);
+
+    renderWithFreshSWR(<RegisterAfter token="" provider="LOCAL" />);
+
+    expect(await screen.findByTestId('google-provider')).toBeTruthy();
+    expect(screen.queryByTestId('github-provider')).toBeNull();
+    expect(screen.queryByTestId('oauth-provider')).toBeNull();
+    expectDivider();
+  });
+
+  it('renders the Apple button when the backend advertises APPLE', async () => {
+    mockProviders(LOCAL_AND_APPLE);
+
+    renderWithFreshSWR(<RegisterAfter token="" provider="LOCAL" />);
+
+    expect(await screen.findByTestId('apple-provider')).toBeTruthy();
+    expect(screen.queryByTestId('google-provider')).toBeNull();
+    expectDivider();
+  });
+
+  it('renders neither label nor divider while the providers fetch is in flight', async () => {
+    const fetchMock = mockProvidersPending();
+
+    renderWithFreshSWR(<RegisterAfter token="" provider="LOCAL" />);
+    await waitFor(() =>
+      expect(fetchMock).toHaveBeenCalledWith('/auth/providers')
+    );
+
+    expectNoSocialButton();
+    expectNoDivider();
+    expect(screen.getByPlaceholderText('Email Address')).toBeTruthy();
+  });
+});

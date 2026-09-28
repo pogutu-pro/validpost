@@ -1,0 +1,2065 @@
+'use client';
+
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Stage, Layer, Rect, Group, Image as KonvaImage } from 'react-konva';
+import type Konva from 'konva';
+import { useRouter } from 'next/navigation';
+import useSWR from 'swr';
+import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
+import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
+import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import type { SelectedIntegrations } from '@postmill-ai/frontend/components/composer/store';
+import { PicksSocialsComponent } from '@postmill-ai/frontend/components/composer/picks.socials.component';
+import { useBrandColors } from './panels/use-brand-colors';
+import { useBrandFonts } from './panels/use-brand-fonts';
+import { getBrandViolations } from './brand-compliance';
+import type { SymbolDefinition } from '@postmill-ai/nestjs-libraries/media/designer-doc/symbols';
+import { measureForElement } from './measure-text';
+import {
+  layersNeedingRaster,
+  outputToSvg,
+} from '@postmill-ai/nestjs-libraries/media/designer-doc/svg-export';
+import { CanvasElements, gradientFillProps, getImageNaturalSize } from './elements';
+import type { DesignerDoc, DesignerOutput } from './designer.store';
+import { getThumbnailDataUrl } from './designer';
+import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
+import type { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { variantProviders, groupFilesByProvider } from './export-channels';
+
+const useFocusTrap = (containerRef: React.RefObject<HTMLElement | null>) => {
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const focusable = el.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0] as HTMLElement | undefined;
+    const last = focusable[focusable.length - 1] as HTMLElement | undefined;
+
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+
+    el.addEventListener('keydown', handler);
+    const t = setTimeout(() => first?.focus(), 100);
+    return () => {
+      clearTimeout(t);
+      el.removeEventListener('keydown', handler);
+    };
+  }, [containerRef]);
+};
+
+interface ExportDialogProps {
+  store: any;
+  onClose: () => void;
+  /**
+   * Entry action from the Export dropdown. When set, ALL outputs (variants)
+   * are exported — the per-output/export-all choice is not offered.
+   *  - 'save':        options → folder → export → done.
+   *  - 'create-post': options → folder → channels → export → one draft per
+   *                   selected channel, then redirect into the composer.
+   * Unset keeps the legacy behavior (current output, opt-in export-all) used
+   * by the composer-embedded "Use in post" button.
+   */
+  initialAction?: 'save' | 'create-post';
+}
+
+type Step = 'options' | 'folder' | 'channels' | 'export' | 'done' | 'video-render' | 'video-rendering';
+type FormatValue = 'png' | 'jpeg' | 'transparent' | 'webp' | 'pdf' | 'svg' | 'gif' | 'webp-animated' | 'mp4' | 'webm';
+
+interface FormatDef {
+  value: FormatValue;
+  label: string;
+  showQuality: boolean;
+  showScale: boolean;
+}
+
+// Static image exports only. `gif`/`webp-animated` are intentionally NOT here:
+// a single-frame Konva snapshot can't produce animation, so they only ever
+// yielded a misleadingly-named static file. Animated output lives in VIDEO_FORMATS.
+const FORMATS: FormatDef[] = [
+  { value: 'png', label: 'PNG', showQuality: false, showScale: true },
+  { value: 'jpeg', label: 'JPEG', showQuality: true, showScale: true },
+  { value: 'transparent', label: 'Transparent PNG', showQuality: false, showScale: true },
+  { value: 'webp', label: 'WebP', showQuality: true, showScale: true },
+  { value: 'pdf', label: 'PDF', showQuality: false, showScale: false },
+  // Vector, so scale is meaningless — an SVG is resolution-independent by
+  // construction. Layers SVG cannot express are embedded as bitmaps.
+  { value: 'svg', label: 'SVG', showQuality: false, showScale: false },
+];
+
+const VIDEO_FORMATS: FormatDef[] = [
+  { value: 'mp4', label: 'MP4', showQuality: false, showScale: false },
+  { value: 'webm', label: 'WebM', showQuality: false, showScale: false },
+  { value: 'gif', label: 'GIF', showQuality: false, showScale: true },
+  { value: 'webp-animated', label: 'Animated WebP', showQuality: true, showScale: true },
+];
+
+const SCALES = [
+  { value: 1, label: '1x' },
+  { value: 2, label: '2x' },
+  { value: 3, label: '3x' },
+];
+
+const QUALITY_MIN = 0.1;
+const QUALITY_MAX = 1.0;
+const QUALITY_STEP = 0.05;
+
+const getDefaultFormat = (formatId: string): FormatValue => {
+  if (formatId.startsWith('ig-')) return 'jpeg';
+  if (formatId.startsWith('fb-')) return 'jpeg';
+  if (formatId.startsWith('x-')) return 'webp';
+  if (formatId.startsWith('linkedin-')) return 'webp';
+  if (formatId.startsWith('tiktok')) return 'jpeg';
+  if (formatId.startsWith('yt-')) return 'jpeg';
+  if (formatId.startsWith('pinterest-')) return 'png';
+  return 'png';
+};
+
+const mimeFor = (format: FormatValue): string => {
+  const mimeMap: Record<string, string> = {
+    'png': 'image/png',
+    'jpeg': 'image/jpeg',
+    'webp': 'image/webp',
+    'transparent': 'image/png',
+    'gif': 'image/gif',
+    'webp-animated': 'image/webp',
+    'svg': 'image/svg+xml',
+  };
+  return mimeMap[format] || 'image/png';
+};
+
+const extFor = (format: FormatValue): string => {
+  const extMap: Record<string, string> = {
+    'png': 'png',
+    'jpeg': 'jpg',
+    'webp': 'webp',
+    'transparent': 'png',
+    'gif': 'gif',
+    'webp-animated': 'webp',
+    'svg': 'svg',
+  };
+  return extMap[format] || format;
+};
+
+interface ExportedFile {
+  id: string;
+  path: string;
+  name: string;
+  outputId: string;
+  alt?: string;
+  thumbnailPath?: string;
+}
+
+// --- Image preloader ---
+
+const preloadImages = (output: DesignerOutput): Promise<void> => {
+  const srcs = new Set<string>();
+  if (output.bg?.type === 'image' && output.bg.src) srcs.add(output.bg.src);
+  output.children.forEach((el) => {
+    if (el.type === 'image' && el.src) srcs.add(el.src);
+  });
+  if (!srcs.size) return Promise.resolve();
+  return Promise.all(
+    Array.from(srcs).map(
+      (src) =>
+        new Promise<void>((resolve) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+          img.src = src;
+        })
+    )
+  ).then(() => undefined);
+};
+
+// --- Render a single output to blob ---
+
+const renderOutputToBlob = async (
+  output: DesignerOutput,
+  format: FormatValue,
+  quality: number,
+  pixelRatio: number,
+  // Threaded through so an exported PNG contains the symbol instances the
+  // canvas shows. Without it they would silently vanish on export.
+  symbols?: SymbolDefinition[]
+): Promise<Blob | null> => {
+  await preloadImages(output);
+
+  const host = document.createElement('div');
+  host.style.position = 'fixed';
+  host.style.left = '-100000px';
+  host.style.top = '0';
+  host.style.width = `${output.width}px`;
+  host.style.height = `${output.height}px`;
+  host.style.pointerEvents = 'none';
+  document.body.appendChild(host);
+
+  const root = createRoot(host);
+  const stageRef = React.createRef<Konva.Stage>();
+  const transparent = format === 'transparent';
+  const bg = output.bg;
+  const bgGrad =
+    bg?.type === 'gradient' ? gradientFillProps(bg.gradient, output.width, output.height) : {};
+  const solidBg =
+    bg?.type === 'gradient' ? undefined : bg?.color || output.background || '#ffffff';
+  const bgImageSrc = bg?.type === 'image' ? bg.src : undefined;
+  const bgImageEl = (() => {
+    if (!bgImageSrc) return null;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = bgImageSrc;
+    return img;
+  })();
+
+  try {
+    await new Promise<void>((resolve) => {
+      root.render(
+        <Stage ref={stageRef} width={output.width} height={output.height}>
+          <Layer>
+            {/* Passed as the backdrop rather than a sibling so an unclipped
+                adjustment layer transforms it too — the server reads the whole
+                page back, so a sibling background would export differently. */}
+            <CanvasElements
+              elements={output.children}
+              symbols={symbols}
+              onSelect={() => {}}
+              backdrop={
+                transparent ? undefined : (
+                  <Group key="__backdrop" listening={false}>
+                    <Rect
+                      x={0}
+                      y={0}
+                      width={output.width}
+                      height={output.height}
+                      fill={solidBg}
+                      {...bgGrad}
+                    />
+                    {bg?.type === 'image' && bgImageEl && (
+                      <KonvaImage
+                        image={bgImageEl}
+                        x={0}
+                        y={0}
+                        width={output.width}
+                        height={output.height}
+                        listening={false}
+                      />
+                    )}
+                  </Group>
+                )
+              }
+            />
+          </Layer>
+        </Stage>
+      );
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    });
+
+    // The Konva render reads element bitmaps from the shared imageCache, which is
+    // populated asynchronously (incl. the cross-origin proxy fallback). Two RAFs
+    // aren't enough for a slow/proxied image, so wait until every element src is
+    // actually cached (or a deadline), plus let the background <img> finish.
+    {
+      const srcs: string[] = [];
+      for (const el of output.children) {
+        if (el.type === 'image' && el.src) srcs.push(el.src);
+      }
+      if (bgImageEl && !bgImageEl.complete) {
+        await new Promise<void>((res) => {
+          const done = () => res();
+          bgImageEl.addEventListener('load', done, { once: true });
+          bgImageEl.addEventListener('error', done, { once: true });
+          setTimeout(done, 5000);
+        });
+      }
+      const deadline = Date.now() + 5000;
+      while (Date.now() < deadline && srcs.some((s) => !getImageNaturalSize(s))) {
+        await new Promise((r) => setTimeout(r, 50));
+      }
+      await new Promise<void>((r) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => r()))
+      );
+    }
+
+    const stage = stageRef.current;
+    if (!stage) return null;
+    stage.draw();
+
+    const blob = await stage.toBlob({
+      pixelRatio,
+      mimeType: mimeFor(format),
+      ...(format === 'jpeg' || format === 'webp' || format === 'webp-animated' ? { quality } : {}),
+    });
+    return (blob as Blob | null) ?? null;
+  } finally {
+    root.unmount();
+    host.remove();
+  }
+};
+
+/**
+ * SVG export: translate the document, and bake only what SVG cannot carry.
+ *
+ * `layersNeedingRaster` names those layers; each is rendered ALONE, at its own
+ * box with no rotation and no flip, because the `<g>` wrapper in the SVG
+ * re-applies all three. Baking them in would apply each one twice.
+ */
+const renderOutputAsSvg = async (
+  output: DesignerOutput,
+  symbols?: SymbolDefinition[]
+): Promise<string> => {
+  const ids = layersNeedingRaster(output);
+  const rasterized: Record<string, string> = {};
+
+  for (const id of ids) {
+    const el = output.children.find((c) => c.id === id);
+    if (!el) continue;
+    const solo: DesignerOutput = {
+      ...output,
+      width: Math.max(1, Math.round(el.width)),
+      height: Math.max(1, Math.round(el.height)),
+      background: '#ffffff',
+      bg: undefined,
+      children: [
+        {
+          ...el,
+          x: 0,
+          y: 0,
+          rotation: 0,
+          // Flip, like rotation, is re-applied by the `<g>` wrapper — baking it
+          // in here flipped the layer twice, back to unflipped.
+          flipX: false,
+          flipY: false,
+          opacity: 1,
+          blendMode: undefined,
+        },
+      ],
+    };
+    const blob = await renderOutputToBlob(solo, 'transparent', 1, 1, symbols);
+    if (!blob) continue;
+    rasterized[id] = await new Promise<string>((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || ''));
+      reader.onerror = () => resolve('');
+      reader.readAsDataURL(blob);
+    });
+    if (!rasterized[id]) delete rasterized[id];
+  }
+
+  return outputToSvg(output, {
+    rasterized,
+    // SVG can't wrap or shrink text on its own; the exporter lays the lines out
+    // with the same fitter the canvas uses, given a browser measurement.
+    measure: (el) => measureForElement(el as never) ?? ((line, size) => line.length * size * 0.6),
+  });
+};
+
+const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+
+const renderOutputWithFallback = async (
+  output: DesignerOutput,
+  format: FormatValue,
+  quality: number,
+  scale: number,
+  symbols?: SymbolDefinition[]
+): Promise<{ blob: Blob; usedFormat: FormatValue; usedQuality: number; usedScale: number }> => {
+  const tryRender = async (f: FormatValue, q: number, s: number) => {
+    const blob = await renderOutputToBlob(output, f, q, s, symbols);
+    if (!blob) throw new Error('Render failed');
+    return blob;
+  };
+
+  let blob = await tryRender(format, quality, scale);
+  if (blob.size <= MAX_UPLOAD_BYTES) {
+    return { blob, usedFormat: format, usedQuality: quality, usedScale: scale };
+  }
+
+  // Fallback 1: JPEG at same scale with reduced quality.
+  if (format !== 'jpeg') {
+    const fallbackQ = Math.min(quality, 0.9);
+    blob = await tryRender('jpeg', fallbackQ, scale);
+    if (blob.size <= MAX_UPLOAD_BYTES) {
+      return { blob, usedFormat: 'jpeg', usedQuality: fallbackQ, usedScale: scale };
+    }
+  }
+
+  // Fallback 2: lower-quality JPEG at the same scale.
+  const lowQ = 0.6;
+  blob = await tryRender('jpeg', lowQ, scale);
+  if (blob.size <= MAX_UPLOAD_BYTES) {
+    return { blob, usedFormat: 'jpeg', usedQuality: lowQ, usedScale: scale };
+  }
+
+  // Fallback 3: drop to 1x JPEG.
+  if (scale > 1) {
+    blob = await tryRender('jpeg', 0.7, 1);
+    if (blob.size <= MAX_UPLOAD_BYTES) {
+      return { blob, usedFormat: 'jpeg', usedQuality: 0.7, usedScale: 1 };
+    }
+  }
+
+  throw new Error('Could not reduce output under 10 MB');
+};
+
+// --- Thumbnail renderer ---
+
+const renderOutputThumbnail = async (
+  output: DesignerOutput,
+  symbols?: SymbolDefinition[]
+): Promise<string | undefined> => {
+  await preloadImages(output);
+
+  const host = document.createElement('div');
+  host.style.position = 'fixed';
+  host.style.left = '-100000px';
+  host.style.top = '0';
+  host.style.pointerEvents = 'none';
+  document.body.appendChild(host);
+
+  const root = createRoot(host);
+  const stageRef = React.createRef<Konva.Stage>();
+  const bg = output.bg;
+  const bgGrad =
+    bg?.type === 'gradient' ? gradientFillProps(bg.gradient, output.width, output.height) : {};
+  const solidBg =
+    bg?.type === 'gradient' ? undefined : bg?.color || output.background || '#ffffff';
+  const bgImageSrc = bg?.type === 'image' ? bg.src : undefined;
+  const bgImageEl = (() => {
+    if (!bgImageSrc) return null;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = bgImageSrc;
+    return img;
+  })();
+
+  try {
+    await new Promise<void>((resolve) => {
+      root.render(
+        <Stage ref={stageRef} width={output.width} height={output.height}>
+          <Layer>
+            <Rect
+              x={0}
+              y={0}
+              width={output.width}
+              height={output.height}
+              fill={solidBg}
+              {...bgGrad}
+            />
+            {bg?.type === 'image' && bgImageEl && (
+              <KonvaImage
+                image={bgImageEl}
+                x={0}
+                y={0}
+                width={output.width}
+                height={output.height}
+                listening={false}
+              />
+            )}
+            <CanvasElements elements={output.children} symbols={symbols} onSelect={() => {}} />
+          </Layer>
+        </Stage>
+      );
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    });
+
+    const stage = stageRef.current;
+    if (!stage) return undefined;
+    stage.draw();
+
+    const canvas = stage.toCanvas();
+    return getThumbnailDataUrl(canvas, 300);
+  } finally {
+    root.unmount();
+    host.remove();
+  }
+};
+
+// --- Main component ---
+
+// Connected org channels for the create-post channel step. One hook per
+// resource; disabled (null key) unless the dialog was opened with the
+// 'create-post' action.
+const useOrgChannels = (enabled: boolean) => {
+  const fetch = useFetch();
+  return useSWR(enabled ? 'designer-export-org-channels' : null, async () => {
+    const res = await fetch('/integrations/list');
+    if (!res.ok) return [] as Integrations[];
+    const json = await res.json().catch(() => null);
+    return (Array.isArray(json?.integrations) ? json.integrations : []) as Integrations[];
+  }, { revalidateOnFocus: false });
+};
+
+export const ExportDialog: FC<ExportDialogProps> = ({ store, onClose, initialAction }) => {
+  const fetch = useFetch();
+  const toaster = useToaster();
+  const t = useT();
+  const router = useRouter();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(dialogRef);
+
+  const forceAllOutputs = !!initialAction;
+  const isCreatePost = initialAction === 'create-post';
+
+  const [step, setStep] = useState<Step>('options');
+  const [outputFormats, setOutputFormats] = useState<Record<string, FormatValue>>({});
+  const [quality, setQuality] = useState(0.92);
+  const [scale, setScale] = useState(1);
+  const [exportAll, setExportAll] = useState(false);
+  const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
+  const [newFolderName, setNewFolderName] = useState('');
+  const [exporting, setExporting] = useState(false);
+  const [savedFiles, setSavedFiles] = useState<ExportedFile[]>([]);
+  const [previews, setPreviews] = useState<{ idx: number; dataUrl: string }[]>([]);
+  const [loadingPreviews, setLoadingPreviews] = useState(false);
+  const previewDoneRef = useRef(false);
+
+  const [videoFormat, setVideoFormat] = useState<'mp4' | 'webm' | 'gif' | 'webp-animated'>('mp4');
+  const [videoQuality, setVideoQuality] = useState<'low' | 'medium' | 'high'>('medium');
+  const [videoBitrateKbps, setVideoBitrateKbps] = useState<number>(5000);
+  const [posterUrl, setPosterUrl] = useState<string>('');
+  const [posterUploading, setPosterUploading] = useState(false);
+  const [renderedPosterUrl, setRenderedPosterUrl] = useState<string>('');
+  const [posterSource, setPosterSource] = useState<'rendered' | 'custom'>('rendered');
+
+  interface RenderJob {
+    id: string;
+    outputId: string;
+    outputName: string;
+    format: 'mp4' | 'webm' | 'gif' | 'webp-animated';
+    status: string;
+    progress: number;
+    artifactUrl: string | null;
+    thumbnailUrl: string | null;
+    error: string;
+  }
+  const [renderJobs, setRenderJobs] = useState<RenderJob[]>([]);
+  const renderJobsRef = useRef(renderJobs);
+  useEffect(() => {
+    renderJobsRef.current = renderJobs;
+  }, [renderJobs]);
+  const [isEnqueuing, setIsEnqueuing] = useState(false);
+  const renderStatus = useMemo(
+    () => (renderJobs.length ? (renderJobs.every((j) => j.status === 'completed') ? 'completed' : renderJobs.some((j) => j.status === 'failed') ? 'failed' : 'rendering') : ''),
+    [renderJobs]
+  );
+  const renderProgress = useMemo(
+    () => (renderJobs.length ? Math.round(renderJobs.reduce((sum, j) => sum + j.progress, 0) / renderJobs.length) : 0),
+    [renderJobs]
+  );
+  const renderError = useMemo(
+    () => renderJobs.find((j) => j.error)?.error || '',
+    [renderJobs]
+  );
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const doc: DesignerDoc = store((s: any) => s.doc);
+  const multiOutput = doc.outputs.length > 1;
+  const isVideoMode = doc.mode === 'video';
+
+  const user = useUser();
+  const brandColors = useBrandColors();
+  const brandFonts = useBrandFonts();
+  const brandEnforcement = store((s: any) => s.brandEnforcement);
+  const brandAdminOverride = store((s: any) => s.brandAdminOverride);
+  const brandViolations = useMemo(
+    () =>
+      getBrandViolations(doc, {
+        enforcement: brandEnforcement,
+        adminOverride: brandAdminOverride,
+        brandColors,
+        brandFonts,
+      }),
+    [doc, brandEnforcement, brandAdminOverride, brandColors, brandFonts]
+  );
+  const canAdminOverride = user?.role === 'owner' || user?.role === 'admin';
+  const isBrandCompliant = brandViolations.length === 0 || brandAdminOverride;
+
+  const selectedOutputs = useMemo(() => {
+    const state = store.getState();
+    // The dropdown actions ('save' / 'create-post') always export every
+    // variant; only the legacy entry point offers the current-output choice.
+    if (forceAllOutputs || exportAll || !multiOutput) {
+      return doc.outputs;
+    }
+    return [doc.outputs[state.currentOutput]];
+  }, [doc.outputs, exportAll, multiOutput, store, forceAllOutputs]);
+
+  const outputCount = selectedOutputs.length;
+
+  const activeOutputId = useMemo(() => {
+    if (selectedOutputs.length === 1) return selectedOutputs[0].id;
+    return '';
+  }, [selectedOutputs]);
+
+  const activeFormat = useMemo(
+    () => (activeOutputId ? outputFormats[activeOutputId] || 'png' : 'png'),
+    [activeOutputId, outputFormats]
+  );
+
+  const formatDefs = isVideoMode ? VIDEO_FORMATS : FORMATS;
+  const activeFormatDef = formatDefs.find((f) => f.value === activeFormat);
+
+  // Format labels are mostly universal file-format acronyms (PNG, JPEG, MP4…) left
+  // untranslated; only the descriptive compound labels carry translatable English words.
+  const formatLabel = (f: FormatDef): string => {
+    if (f.value === 'transparent') return t('designer_format_transparent_png', 'Transparent PNG');
+    if (f.value === 'webp-animated') return t('designer_format_webp_animated', 'Animated WebP');
+    return f.label;
+  };
+
+  useEffect(() => {
+    const map: Record<string, FormatValue> = {};
+    for (const output of doc.outputs) {
+      map[output.id] = isVideoMode ? 'mp4' : getDefaultFormat(output.formatId);
+    }
+    setOutputFormats((prev) => {
+      const next = { ...prev };
+      let changed = false;
+      for (const [id, fmt] of Object.entries(map)) {
+        if (!(id in next)) {
+          next[id] = fmt;
+          changed = true;
+        }
+      }
+      return changed ? next : prev;
+    });
+  }, [doc.outputs, isVideoMode]);
+
+  const setFormatForOutput = useCallback((outputId: string, fmt: FormatValue) => {
+    setOutputFormats((prev) => ({ ...prev, [outputId]: fmt }));
+  }, []);
+
+  const setFormatForAll = useCallback((fmt: FormatValue) => {
+    setOutputFormats((prev) => {
+      const next = { ...prev };
+      for (const id of Object.keys(next)) {
+        next[id] = fmt;
+      }
+      return next;
+    });
+  }, []);
+
+  // --- Folder tree ---
+
+  const { data: folders, mutate: mutateFolders } = useSWR(
+    'save-folders',
+    async () => {
+      const res = await fetch('/files/folders');
+      if (!res.ok) return [];
+      return res.json();
+    }
+  );
+
+  const { data: providersMap } = useSWR<Record<string, { type: string; name: string }>>(
+    'save-folders-storage-providers',
+    async () => {
+      const res = await fetch('/settings/storage');
+      if (!res.ok) return {};
+      const providers = await res.json();
+      const map: Record<string, { type: string; name: string }> = {};
+      for (const p of providers) map[p.id] = { type: p.type, name: p.name };
+      return map;
+    },
+    { revalidateOnFocus: false, dedupingInterval: 60000 }
+  );
+
+  const handleCreateFolder = useCallback(async () => {
+    if (!newFolderName.trim()) return;
+    await fetch('/files/folders', {
+      method: 'POST',
+      body: JSON.stringify({ name: newFolderName.trim(), parentId: selectedFolderId }),
+    });
+    setNewFolderName('');
+    mutateFolders();
+  }, [newFolderName, selectedFolderId, fetch, mutateFolders]);
+
+  const renderFolderTree = useCallback(
+    (items: any[], depth: number = 0): React.ReactNode => {
+      return (items || []).map((folder: any) => {
+        const providerInfo =
+          folder.storageProviderId && providersMap?.[folder.storageProviderId];
+        return (
+          <div key={folder.id}>
+            <button
+              type="button"
+              className={`flex items-center gap-[8px] px-[8px] py-[6px] rounded-[6px] cursor-pointer text-[13px] transition-all border-0 bg-transparent text-left w-full ${
+                selectedFolderId === folder.id
+                  ? 'bg-designerAccent/20 text-textColor'
+                  : 'text-textColor hover:bg-studioBorder/50'
+              }`}
+              style={{ paddingLeft: `${12 + depth * 16}px` }}
+              onClick={() => setSelectedFolderId(folder.id)}
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M2 4.5C2 3.39543 2.89543 2.5 4 2.5H5.93934C6.46977 2.5 6.97848 2.71071 7.35355 3.08579L8 3.73223C8.18935 3.92156 8.44705 4.02708 8.71573 4.02708H12C13.1046 4.02708 14 4.92251 14 6.02708V11.5C14 12.6046 13.1046 13.5 12 13.5H4C2.89543 13.5 2 12.6046 2 11.5V4.5Z"
+                  fill={selectedFolderId === folder.id ? '#2B5CD3' : 'none'}
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                />
+              </svg>
+              <span className="flex-1 truncate">{folder.name}</span>
+              {providerInfo && (
+                <span className="inline-flex items-center gap-[4px] bg-designerAccent/15 rounded-[4px] px-[5px] py-[2px] text-[11px] text-newTextColor/70">
+                  <ProviderIcon
+                    identifier={providerInfo.type}
+                    name={providerInfo.name}
+                    size={14}
+                  />
+                  {providerInfo.type}
+                </span>
+              )}
+              <span className="text-[11px] text-newTextColor/60">
+                {folder._count?.files || 0}
+              </span>
+            </button>
+            {folder.children?.length ? renderFolderTree(folder.children, depth + 1) : null}
+          </div>
+        );
+      });
+    },
+    [selectedFolderId, providersMap]
+  );
+
+  // --- Channels step (create-post action) ---
+  const { data: orgChannels, isLoading: channelsLoading } = useOrgChannels(isCreatePost);
+
+  const designProviders = useMemo(() => variantProviders(doc.outputs), [doc.outputs]);
+
+  const matchingChannels = useMemo(
+    () =>
+      (orgChannels || []).filter(
+        (i) => designProviders.includes(i.identifier) && !i.disabled && !i.inBetweenSteps
+      ),
+    [orgChannels, designProviders]
+  );
+
+  // The composer channel picker reads/writes the global launch store, which
+  // the designer page never seeds — and which may be LIVE if the designer is
+  // embedded in the composer. Snapshot it, seed only the matching channels,
+  // and restore on unmount so the pick selection can't leak into (or wipe) a
+  // composer session.
+  const launchStoreSnapshotRef = useRef<{
+    integrations: Integrations[];
+    selectedIntegrations: SelectedIntegrations[];
+  } | null>(null);
+
+  useEffect(() => {
+    if (!isCreatePost || step !== 'channels' || channelsLoading || launchStoreSnapshotRef.current) {
+      return;
+    }
+    const st = useLaunchStore.getState();
+    launchStoreSnapshotRef.current = {
+      integrations: st.integrations,
+      selectedIntegrations: st.selectedIntegrations,
+    };
+    st.setAllIntegrations(matchingChannels);
+    st.setSelectedIntegrations([]);
+  }, [isCreatePost, step, channelsLoading, matchingChannels]);
+
+  useEffect(
+    () => () => {
+      const snapshot = launchStoreSnapshotRef.current;
+      if (!snapshot) return;
+      const st = useLaunchStore.getState();
+      st.setAllIntegrations(snapshot.integrations);
+      st.setSelectedIntegrations(
+        snapshot.selectedIntegrations.map((s) => ({
+          selectedIntegrations: s.integration,
+          settings: s.settings,
+        }))
+      );
+    },
+    []
+  );
+
+  const pickedChannels = useLaunchStore((s) => s.selectedIntegrations);
+  const pickedChannelCount = useMemo(
+    () =>
+      pickedChannels.filter((s) =>
+        matchingChannels.some((m) => m.id === s.integration.id)
+      ).length,
+    [pickedChannels, matchingChannels]
+  );
+
+  const [creatingDrafts, setCreatingDrafts] = useState(false);
+
+  // --- Step transitions ---
+
+  const goToFolder = useCallback(() => setStep('folder'), []);
+  const goToOptions = useCallback(() => setStep('options'), []);
+  const goToExport = useCallback(() => {
+    if (isVideoMode) {
+      setStep('video-render');
+    } else {
+      setStep('export');
+    }
+  }, [isVideoMode]);
+
+  // Folder → channels for create-post (the channel pick precedes the export);
+  // the save action and the legacy flow go straight to the export step.
+  const goNextFromFolder = useCallback(() => {
+    if (isCreatePost) {
+      setStep('channels');
+      return;
+    }
+    goToExport();
+  }, [isCreatePost, goToExport]);
+
+  const goNextFromChannels = useCallback(() => {
+    if (pickedChannelCount === 0) return;
+    goToExport();
+  }, [pickedChannelCount, goToExport]);
+
+  const startVideoRender = useCallback(async () => {
+    setRenderJobs([]);
+    setIsEnqueuing(true);
+    try {
+      const outputsToRender = exportAll || forceAllOutputs
+        ? doc.outputs.filter((o) => 'tracks' in o)
+        : [doc.outputs[store.getState().currentOutput || 0]];
+      const jobs: RenderJob[] = [];
+      for (let i = 0; i < outputsToRender.length; i++) {
+        const composition = outputsToRender[i];
+        const chosenFormat = outputFormats[composition.id];
+        const outputFormat: RenderJob['format'] =
+          chosenFormat === 'mp4' ||
+          chosenFormat === 'webm' ||
+          chosenFormat === 'gif' ||
+          chosenFormat === 'webp-animated'
+            ? chosenFormat
+            : videoFormat;
+        const res = await fetch('/media/designs/render-video', {
+          method: 'POST',
+          body: JSON.stringify({
+            composition,
+            outputIndex: i,
+            format: outputFormat,
+            quality: videoQuality === 'high' ? 1 : videoQuality === 'medium' ? 0.7 : 0.4,
+            bitrateKbps: videoBitrateKbps,
+            posterUrl: posterUrl || undefined,
+            folderId: selectedFolderId || undefined,
+          }),
+        });
+        if (!res.ok) {
+          toaster.show(
+            t('designer_failed_to_enqueue_render_for_name', 'Failed to enqueue render for {{name}}', {
+              name: composition.name || composition.formatId,
+            }),
+            'warning'
+          );
+          continue;
+        }
+        const { id } = await res.json();
+        jobs.push({
+          id,
+          outputId: composition.id,
+          outputName: composition.name || composition.formatId || `output_${i + 1}`,
+          format: outputFormat,
+          status: 'rendering',
+          progress: 0,
+          artifactUrl: null,
+          thumbnailUrl: null,
+          error: '',
+        });
+      }
+
+      if (jobs.length === 0) {
+        setRenderJobs([{ id: '', outputId: '', outputName: '', format: videoFormat, status: 'failed', progress: 0, artifactUrl: null, thumbnailUrl: null, error: t('designer_no_video_renders_could_be_enqueued', 'No video renders could be enqueued') }]);
+        return;
+      }
+
+      setRenderJobs(jobs);
+      setStep('video-rendering');
+    } catch (err) {
+      setRenderJobs([{ id: '', outputId: '', outputName: '', format: videoFormat, status: 'failed', progress: 0, artifactUrl: null, thumbnailUrl: null, error: (err as Error).message || t('designer_failed_to_start_render', 'Failed to start render') }]);
+    } finally {
+      setIsEnqueuing(false);
+    }
+  }, [doc, store, exportAll, forceAllOutputs, outputFormats, videoFormat, videoQuality, videoBitrateKbps, posterUrl, selectedFolderId, fetch, toaster]);
+
+  useEffect(() => {
+    if (step !== 'video-rendering' || renderJobsRef.current.length === 0) {
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+      return;
+    }
+
+    const poll = async () => {
+      try {
+        const currentJobs = renderJobsRef.current;
+        const pendingJobs = currentJobs.filter((j) => j.id && j.status !== 'completed' && j.status !== 'failed');
+        if (pendingJobs.length === 0) return;
+        const nextJobs = await Promise.all(
+          currentJobs.map(async (job) => {
+            if (job.status === 'completed' || job.status === 'failed' || !job.id) return job;
+            const res = await fetch(`/media/designs/render-video/${job.id}`);
+            if (!res.ok) return job;
+            const data = await res.json();
+            return {
+              ...job,
+              progress: data.progress || 0,
+              status: data.status,
+              artifactUrl: data.status === 'completed' ? data.artifactUrl || null : job.artifactUrl,
+              thumbnailUrl: data.status === 'completed' ? data.thumbnailUrl || null : job.thumbnailUrl,
+              error: data.status === 'failed' ? data.errorMessage || t('designer_render_failed', 'Render failed') : job.error,
+            };
+          })
+        );
+        const completedThumb = nextJobs.find((j) => j.status === 'completed' && j.thumbnailUrl)?.thumbnailUrl;
+        if (completedThumb) {
+          setRenderedPosterUrl(completedThumb);
+          if (posterSource === 'rendered') {
+            setPosterUrl(completedThumb);
+          }
+        }
+        setRenderJobs(nextJobs);
+      } catch {}
+    };
+
+    poll();
+    pollRef.current = setInterval(poll, 2000);
+    return () => {
+      if (pollRef.current) {
+        clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+    };
+  }, [step, fetch, posterSource]);
+
+  // Pre-fill alt from the output's alt when exporting
+  const getOutputAlt = useCallback(
+    (outputId: string): string | undefined => {
+      const output = doc.outputs.find((o) => o.id === outputId);
+      if (!output || !('children' in output)) return undefined;
+      return (output as DesignerOutput).children
+        .filter((el) => el.type === 'image')
+        .map((el) => el.alt)
+        .filter(Boolean)
+        .join(' | ') || undefined;
+    },
+    [doc.outputs]
+  );
+
+  // --- Create-post: one draft per selected channel, then composer redirect ---
+
+  const createDraftPosts = useCallback(
+    async (files: ExportedFile[]) => {
+      const selected = useLaunchStore
+        .getState()
+        .selectedIntegrations.map((s) => s.integration)
+        .filter((i) => designProviders.includes(i.identifier));
+      const filesByProvider = groupFilesByProvider(files, doc.outputs);
+
+      setCreatingDrafts(true);
+      const created: { postId: string; name: string }[] = [];
+      let failed = 0;
+
+      for (const integration of selected) {
+        // Every variant of this channel's provider attaches to its draft.
+        const providerFiles = filesByProvider[integration.identifier] || [];
+        if (!providerFiles.length) continue;
+        try {
+          const res = await fetch('/posts', {
+            method: 'POST',
+            body: JSON.stringify({
+              type: 'draft',
+              date: new Date().toISOString(),
+              shortLink: false,
+              tags: [],
+              posts: [
+                {
+                  integration: { id: integration.id },
+                  // Per-post `type: 'draft'` — create.post.dto skips per-provider
+                  // settings validation only for drafts (see manage.modal).
+                  type: 'draft',
+                  value: [
+                    {
+                      content: '',
+                      image: providerFiles.map((f) => ({
+                        id: f.id,
+                        path: f.path,
+                        alt: f.alt || getOutputAlt(f.outputId) || undefined,
+                        ...(f.thumbnailPath ? { thumbnail: f.thumbnailPath } : {}),
+                      })),
+                    },
+                  ],
+                },
+              ],
+            }),
+          });
+          if (!res.ok) {
+            failed++;
+            continue;
+          }
+          const json = await res.json().catch(() => null);
+          const first = Array.isArray(json) ? json[0] : null;
+          if (first?.postId) {
+            created.push({ postId: first.postId, name: integration.name });
+          } else {
+            failed++;
+          }
+        } catch {
+          failed++;
+        }
+      }
+
+      if (failed > 0) {
+        toaster.show(
+          t('designer_failed_to_create_n_drafts', 'Failed to create {{count}} draft', {
+            count: failed,
+          }),
+          'warning'
+        );
+      }
+
+      if (!created.length) {
+        toaster.show(t('designer_failed_to_create_drafts', 'Failed to create drafts'), 'warning');
+        setCreatingDrafts(false);
+        return;
+      }
+
+      if (created.length > 1) {
+        toaster.show(
+          t(
+            'designer_other_drafts_in_composer',
+            '{{count}} drafts created — the rest are in Composer → Drafts',
+            { count: created.length }
+          ),
+          'success'
+        );
+      }
+
+      // Redirect into the first draft's composer. Each channel got its own
+      // server-side group; read it back from the created post.
+      try {
+        const postRes = await fetch(`/posts/${created[0].postId}`);
+        const post = postRes.ok ? await postRes.json() : null;
+        onClose();
+        if (post?.group) {
+          router.push(`/posts/post/${post.group}`);
+        } else {
+          router.push('/posts');
+        }
+      } catch {
+        onClose();
+        router.push('/posts');
+      }
+    },
+    [designProviders, doc.outputs, fetch, toaster, t, router, onClose, getOutputAlt]
+  );
+
+  const handleVideoDone = useCallback(() => {
+    const files: ExportedFile[] = renderJobs
+      .filter((j) => j.status === 'completed' && j.artifactUrl)
+      .map((j) => ({
+        id: j.id,
+        path: j.artifactUrl || '',
+        thumbnailPath: posterUrl || undefined,
+        name: `${j.outputName}.${extFor(j.format)}`,
+        outputId: j.outputId,
+      }));
+    setSavedFiles(files.length ? files : []);
+    if (isCreatePost) {
+      // Video renders are already uploaded to the chosen folder by the server
+      // pipeline — go straight to draft creation.
+      createDraftPosts(files);
+      return;
+    }
+    setStep('done');
+  }, [renderJobs, posterUrl, isCreatePost, createDraftPosts]);
+
+  // --- Upload ---
+
+  const pingDownload = useCallback(async () => {
+    const attribution = store.getState().doc.attribution;
+    if (attribution?.source === 'unsplash' && attribution.downloadLocation) {
+      try {
+        await fetch('/media/stock/download', {
+          method: 'POST',
+          body: JSON.stringify({ downloadLocation: attribution.downloadLocation }),
+        });
+      } catch {}
+    }
+  }, [store, fetch]);
+
+  const uploadBlob = useCallback(
+    async (
+      blob: Blob,
+      fileName: string
+    ): Promise<{ id: string; path: string } | null> => {
+      const formData = new FormData();
+      formData.append('file', blob, fileName);
+      // Attribution fields are deliberately not sent: the upload DTOs don't
+      // declare them, so the global validation pipe (forbidNonWhitelisted)
+      // rejected the whole request — and saveFile has no metadata parameter, so
+      // they were never stored anyway. The Unsplash download obligation is
+      // discharged separately by pingDownload().
+      if (selectedFolderId) formData.append('folderId', selectedFolderId);
+
+      // upload-simple is capped at 10 MB; fall back to the server-side endpoint for larger files.
+      const endpoint = blob.size > MAX_UPLOAD_BYTES ? '/files/upload-server' : '/files/upload-simple';
+      const res = await fetch(endpoint, { method: 'POST', body: formData });
+      if (!res.ok) return null;
+      return res.json();
+    },
+    [fetch, selectedFolderId]
+  );
+
+  // --- Thumbnail generation (for step 3) ---
+
+  const generatePreviews = useCallback(async () => {
+    if (previewDoneRef.current) return;
+    previewDoneRef.current = true;
+    setLoadingPreviews(true);
+    const result: { idx: number; dataUrl: string }[] = [];
+    for (let i = 0; i < selectedOutputs.length; i++) {
+      const out = selectedOutputs[i];
+      if (!('children' in out)) continue;
+      const dataUrl = await renderOutputThumbnail(out as DesignerOutput, doc.symbols);
+      if (dataUrl) result.push({ idx: i, dataUrl });
+    }
+    setPreviews(result);
+    setLoadingPreviews(false);
+  }, [selectedOutputs]);
+
+  useEffect(() => {
+    if (step === 'export') {
+      previewDoneRef.current = false;
+      setPreviews([]);
+      generatePreviews();
+    }
+  }, [step, generatePreviews]);
+
+  // --- Server-side PDF render ---
+
+  const renderPdfOnServer = useCallback(async (outputs?: DesignerOutput[]): Promise<Blob | null> => {
+    const pdfOutputs = (outputs ?? (selectedOutputs as DesignerOutput[]));
+    const pdfDoc: DesignerDoc = { ...doc, outputs: pdfOutputs };
+    const res = await fetch('/media/designs/render', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ doc: pdfDoc, format: 'pdf' }),
+    });
+    if (!res.ok) return null;
+    return res.blob();
+  }, [doc, selectedOutputs, fetch]);
+
+  // --- Export handler ---
+
+  const handleExport = useCallback(async () => {
+    setExporting(true);
+    try {
+      const state = store.getState();
+      const baseName = (state.designName || 'design').replace(/[^a-zA-Z0-9]/g, '_');
+
+      await pingDownload();
+
+      const results: ExportedFile[] = [];
+
+      const allPdf = selectedOutputs.every((o) => (outputFormats[o.id] || 'png') === 'pdf');
+
+      if (allPdf) {
+        const pdfBlob = await renderPdfOnServer();
+        if (!pdfBlob) {
+          toaster.show(t('designer_pdf_render_failed', 'PDF render failed'), 'warning');
+          return;
+        }
+        const pdfName =
+          selectedOutputs.length === 1
+            ? `${baseName} - ${(selectedOutputs[0].name || selectedOutputs[0].formatId || 'output').replace(/[^a-zA-Z0-9]/g, '_')}.pdf`
+            : `${baseName} - Combined.pdf`;
+        const saved = await uploadBlob(pdfBlob, pdfName);
+        if (saved) {
+          results.push({
+            id: saved.id,
+            path: saved.path,
+            name: pdfName,
+            outputId: selectedOutputs[0].id,
+          });
+        }
+      } else {
+        for (let i = 0; i < selectedOutputs.length; i++) {
+          const output = selectedOutputs[i];
+          const fmt = outputFormats[output.id] || 'png';
+          try {
+            const outputName = (output.name || output.formatId || `output_${i + 1}`).replace(
+              /[^a-zA-Z0-9]/g,
+              '_'
+            );
+            // A per-output PDF (in a mixed selection) must go through the server
+            // renderer — Konva's toBlob can't emit PDF and would otherwise write a
+            // PNG named ".pdf".
+            if (fmt === 'svg') {
+              const svg = await renderOutputAsSvg(output as DesignerOutput, doc.symbols);
+              const fileName = `${baseName} - ${outputName}.svg`;
+              const saved = await uploadBlob(
+                new Blob([svg], { type: 'image/svg+xml' }),
+                fileName
+              );
+              if (saved) {
+                results.push({ id: saved.id, path: saved.path, name: fileName, outputId: output.id });
+              }
+              continue;
+            }
+            if (fmt === 'pdf') {
+              const pdfBlob = await renderPdfOnServer([output as DesignerOutput]);
+              if (!pdfBlob) throw new Error('PDF render failed');
+              const fileName = `${baseName} - ${outputName}.pdf`;
+              const saved = await uploadBlob(pdfBlob, fileName);
+              if (saved) {
+                results.push({ id: saved.id, path: saved.path, name: fileName, outputId: output.id });
+              }
+              continue;
+            }
+            const { blob, usedFormat } = await renderOutputWithFallback(
+              output as DesignerOutput,
+              fmt,
+              quality,
+              scale,
+              doc.symbols
+            );
+            const ext = extFor(usedFormat);
+            const fileName = `${baseName} - ${outputName}.${ext}`;
+            const saved = await uploadBlob(blob, fileName);
+            if (saved) {
+              const alt = getOutputAlt(output.id);
+              results.push({
+                id: saved.id,
+                path: saved.path,
+                name: fileName,
+                outputId: output.id,
+                alt,
+              });
+            }
+          } catch (err) {
+            toaster.show((err as Error).message || t('designer_export_failed', 'Export failed'), 'warning');
+            setExporting(false);
+            return;
+          }
+        }
+      }
+
+      if (!results.length) {
+        toaster.show(t('designer_export_failed', 'Export failed'), 'warning');
+        return;
+      }
+
+      setSavedFiles(results);
+      toaster.show(
+        t('designer_exported_n_files', 'Exported {{count}} file', {
+          count: results.length,
+        }),
+        'success'
+      );
+      if (isCreatePost) {
+        // Variants are in /files now — attach them to one draft per picked
+        // channel and redirect into the first draft's composer.
+        await createDraftPosts(results);
+        return;
+      }
+      setStep('done');
+    } catch {
+      toaster.show(t('designer_export_failed', 'Export failed'), 'warning');
+    } finally {
+      setExporting(false);
+    }
+  }, [
+    store,
+    outputFormats,
+    quality,
+    scale,
+    selectedOutputs,
+    pingDownload,
+    renderPdfOnServer,
+    uploadBlob,
+    toaster,
+    getOutputAlt,
+    isCreatePost,
+    createDraftPosts,
+  ]);
+
+  // --- Render ---
+
+  return (
+    <div ref={dialogRef} className="flex flex-col gap-4 w-[420px] max-w-full">
+      <div className="text-[16px] font-semibold text-textColor">{t('designer_export_design_title', 'Export Design')}</div>
+
+      {/* ---- Step 1: Options ---- */}
+      {step === 'options' && (
+        <>
+          <div className="flex flex-col gap-2">
+            <div className="text-[13px] font-medium text-textColor mb-1">{t('designer_format_label', 'Format')}</div>
+
+            {selectedOutputs.map((output) => {
+              const fmt = outputFormats[output.id] || 'png';
+              const preset = CHANNEL_PRESETS.find((p) => p.id === output.formatId);
+              return (
+                <div
+                  key={output.id}
+                  className="flex items-center justify-between gap-2 px-2 py-1 rounded-[6px] bg-newBgColorInner border border-studioBorder/50"
+                >
+                  <span className="text-[12px] text-textColor truncate flex-1">
+                    {preset?.name || output.name || output.formatId}
+                  </span>
+                  <select
+                    value={fmt}
+                    onChange={(e) => setFormatForOutput(output.id, e.target.value as FormatValue)}
+                    className="h-[30px] px-2 rounded-[5px] bg-newBgColor border border-studioBorder text-[12px] text-textColor outline-hidden cursor-pointer"
+                  >
+                    {formatDefs.map((f) => (
+                      <option key={f.value} value={f.value}>
+                        {formatLabel(f)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              );
+            })}
+
+            {selectedOutputs.length > 1 && (
+              <div className="flex gap-1 mt-1">
+                {formatDefs.map((f) => (
+                  <button
+                    key={f.value}
+                    onClick={() => setFormatForAll(f.value)}
+                    className="px-2 py-0.5 rounded-[4px] text-[10px] border border-studioBorder text-newTextColor/65 hover:text-textColor hover:border-newTextColor/40 transition-all"
+                  >
+                    {t('designer_all_format', 'All {{format}}', { format: formatLabel(f) })}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {activeFormatDef?.showQuality && (
+            <div className="flex flex-col gap-1">
+              <div className="flex justify-between text-[13px] font-medium text-textColor mb-1">
+                <span>{t('designer_quality_label', 'Quality')}</span>
+                <span className="text-newTextColor/60">{Math.round(quality * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min={QUALITY_MIN}
+                max={QUALITY_MAX}
+                step={QUALITY_STEP}
+                value={quality}
+                onChange={(e) => setQuality(parseFloat(e.target.value))}
+                className="w-full accent-designerAccent"
+              />
+            </div>
+          )}
+
+          {activeFormatDef?.showScale && (
+            <div className="flex flex-col gap-1">
+              <div className="text-[13px] font-medium text-textColor mb-1">{t('designer_scale_label', 'Scale')}</div>
+              <div className="flex gap-2">
+                {SCALES.map((s) => (
+                  <button
+                    key={s.value}
+                    onClick={() => setScale(s.value)}
+                    className={`flex-1 h-[36px] rounded-[6px] text-[13px] font-medium transition-all ${
+                      scale === s.value
+                        ? 'bg-designerAccent text-white'
+                        : 'border border-studioBorder text-textColor hover:bg-boxHover'
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {multiOutput && !forceAllOutputs && (
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={exportAll}
+                onChange={(e) => setExportAll(e.target.checked)}
+                className="accent-designerAccent w-[16px] h-[16px]"
+              />
+              <span className="text-[13px] text-textColor">
+                {exportAll
+                  ? t('designer_export_all_n_outputs', 'Export all {{count}} outputs', { count: doc.outputs.length })
+                  : t('designer_export_current_output', 'Export current output')}
+              </span>
+            </label>
+          )}
+
+          {forceAllOutputs && (
+            <div className="text-[13px] text-newTextColor/60">
+              {t('designer_export_all_n_outputs', 'Export all {{count}} outputs', { count: doc.outputs.length })}
+            </div>
+          )}
+
+          {!multiOutput && !forceAllOutputs && (
+            <div className="text-[13px] text-newTextColor/60">
+              {t('designer_exporting_current_output', 'Exporting current output')}
+            </div>
+          )}
+
+          {brandEnforcement && brandViolations.length > 0 && (
+            <div className="rounded-[6px] border border-red-400/30 bg-red-400/10 p-2">
+              <div className="text-[12px] text-dangerText font-medium mb-1">
+                {t('designer_off_brand_elements_detected', 'Off-brand elements detected')}
+              </div>
+              <ul className="text-[11px] text-newTextColor/60 list-disc pl-4 space-y-0.5 max-h-[100px] overflow-y-auto">
+                {brandViolations.slice(0, 4).map((v, i) => (
+                  <li key={i}>{t(v.key, v.text, v.vars)}</li>
+                ))}
+                {brandViolations.length > 4 && (
+                  <li>{t('designer_and_n_more', '…and {{count}} more', { count: brandViolations.length - 4 })}</li>
+                )}
+              </ul>
+              {canAdminOverride && (
+                <label className="flex items-center gap-2 mt-2 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={brandAdminOverride}
+                    onChange={(e) =>
+                      store.getState().setBrandAdminOverride(e.target.checked)
+                    }
+                    className="accent-purple-500 w-[14px] h-[14px]"
+                  />
+                  <span className="text-[11px] text-newTextColor/70">
+                    {t('designer_admin_override_allow_export', 'Admin override — allow export')}
+                  </span>
+                </label>
+              )}
+            </div>
+          )}
+
+          <div className="flex justify-between gap-2 mt-2">
+            <button
+              onClick={onClose}
+              className="px-4 h-[38px] rounded-[6px] border border-studioBorder text-[13px] text-textColor hover:bg-boxHover transition-all"
+            >
+              {t('cancel', 'Cancel')}
+            </button>
+            <button
+              onClick={goToFolder}
+              disabled={!isBrandCompliant}
+              className="px-4 h-[38px] rounded-[6px] bg-designerAccent text-white text-[13px] font-medium hover:bg-designerAccent/80 disabled:opacity-50 transition-all"
+            >
+              {t('designer_next_choose_folder', 'Next: Choose Folder')}
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* ---- Step 2: Folder ---- */}
+      {step === 'folder' && (
+        <>
+          <div className="text-[13px] font-medium text-textColor">{t('designer_choose_destination_folder', 'Choose destination folder')}</div>
+
+          <div className="max-h-[260px] overflow-y-auto border border-studioBorder rounded-[8px] p-[8px] bg-newBgColorInner">
+            <button
+              type="button"
+              className={`flex items-center gap-[8px] px-[8px] py-[6px] rounded-[6px] cursor-pointer text-[13px] transition-all border-0 bg-transparent text-left w-full ${
+                selectedFolderId === null
+                  ? 'bg-designerAccent/20 text-textColor'
+                  : 'text-textColor hover:bg-studioBorder/50'
+              }`}
+              onClick={() => setSelectedFolderId(null)}
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <rect
+                  x="1"
+                  y="2"
+                  width="14"
+                  height="12"
+                  rx="2"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                />
+                <path d="M1 6H15" stroke="currentColor" strokeWidth="1.3" />
+              </svg>
+              <span className="flex-1 truncate">{t('designer_all_files_root', 'All Files (root)')}</span>
+            </button>
+            {folders && renderFolderTree(folders)}
+          </div>
+
+          <div className="flex gap-[8px] items-center">
+            <input
+              type="text"
+              value={newFolderName}
+              onChange={(e) => setNewFolderName(e.target.value)}
+              placeholder={t('designer_new_folder_name_placeholder', 'New folder name...')}
+              className="flex-1 h-[36px] px-[12px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-designerAccent"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleCreateFolder();
+              }}
+            />
+            <button
+              onClick={handleCreateFolder}
+              className="px-[12px] h-[36px] rounded-[8px] bg-btnSimple text-textColor text-[13px] hover:bg-boxHover transition-all"
+            >
+              {t('designer_create', 'Create')}
+            </button>
+          </div>
+
+          <div className="flex justify-between gap-2 mt-2">
+            <button
+              onClick={goToOptions}
+              className="px-4 h-[38px] rounded-[6px] border border-studioBorder text-[13px] text-textColor hover:bg-boxHover transition-all"
+            >
+              {t('back', 'Back')}
+            </button>
+            <button
+              onClick={goNextFromFolder}
+              className="px-4 h-[38px] rounded-[6px] bg-designerAccent text-white text-[13px] font-medium hover:bg-designerAccent/80 transition-all"
+            >
+              {isCreatePost
+                ? t('designer_next_choose_channels', 'Next: Choose Channels')
+                : t('designer_next_export_n_files', 'Next: Export {{count}} file', { count: outputCount })}
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* ---- Step 2b: Channels (create-post only) ---- */}
+      {step === 'channels' && (
+        <>
+          <div className="text-[13px] font-medium text-textColor">
+            {t('designer_choose_channels_title', 'Choose channels')}
+          </div>
+          <div className="text-[12px] text-newTextColor/60">
+            {t(
+              'designer_choose_channels_description',
+              'Only channels matching this design’s variant types are shown. Each selected channel gets a draft with its matching variant(s) attached.'
+            )}
+          </div>
+
+          {designProviders.length === 0 && (
+            <div className="text-[12px] text-newTextColor/60 text-center py-4 border border-studioBorder rounded-[8px] bg-newBgColorInner">
+              {t(
+                'designer_no_channel_variants',
+                'None of this design’s variants map to a channel type, so there is nothing to post. Use Save to Files instead.'
+              )}
+            </div>
+          )}
+
+          {designProviders.length > 0 && channelsLoading && (
+            <div className="text-[12px] text-newTextColor/60 text-center py-4">
+              {t('designer_loading_channels_ellipsis', 'Loading channels...')}
+            </div>
+          )}
+
+          {designProviders.length > 0 && !channelsLoading && matchingChannels.length === 0 && (
+            <div className="text-[12px] text-newTextColor/60 text-center py-4 border border-studioBorder rounded-[8px] bg-newBgColorInner">
+              {t(
+                'designer_no_matching_channels',
+                'No connected channels match this design’s variant types. Connect one under Channels first.'
+              )}
+            </div>
+          )}
+
+          {designProviders.length > 0 && !channelsLoading && matchingChannels.length > 0 && (
+            <div className="border border-studioBorder rounded-[8px] bg-newBgColorInner p-[8px]">
+              <PicksSocialsComponent allowedIdentifiers={designProviders} />
+            </div>
+          )}
+
+          <div className="flex justify-between gap-2 mt-2">
+            <button
+              onClick={goToFolder}
+              className="px-4 h-[38px] rounded-[6px] border border-studioBorder text-[13px] text-textColor hover:bg-boxHover transition-all"
+            >
+              {t('back', 'Back')}
+            </button>
+            <button
+              onClick={goNextFromChannels}
+              disabled={pickedChannelCount === 0}
+              className="px-4 h-[38px] rounded-[6px] bg-designerAccent text-white text-[13px] font-medium hover:bg-designerAccent/80 disabled:opacity-50 transition-all"
+            >
+              {t('designer_next_save_and_create_post', 'Next: Save & Create Post')}
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* ---- Step 3: Export preview & execute ---- */}
+      {step === 'export' && (
+        <>
+          <div className="text-[13px] font-medium text-textColor">
+            {t('designer_export_n_files', 'Export {{count}} file', { count: outputCount })}
+            {outputCount === 1
+              ? ` (${(outputFormats[selectedOutputs[0].id] || 'png').toUpperCase()}${outputFormats[selectedOutputs[0].id] !== 'pdf' ? `, ${scale}x` : ''})`
+              : ''}
+          </div>
+
+          {outputCount > 1 && (
+            <div className="flex flex-wrap gap-1 text-[11px] text-newTextColor/60">
+              {selectedOutputs.map((o) => {
+                const fmt = outputFormats[o.id] || 'png';
+                const preset = CHANNEL_PRESETS.find((p) => p.id === o.formatId);
+                return (
+                  <span key={o.id} className="bg-newBgColorInner px-2 py-0.5 rounded-[4px]">
+                    {preset?.name || o.name}: {fmt.toUpperCase()}
+                  </span>
+                );
+              })}
+            </div>
+          )}
+
+          <div className="flex flex-wrap gap-3 justify-center">
+            {loadingPreviews &&
+              selectedOutputs.map((_, i) => (
+                <div
+                  key={i}
+                  className="w-[100px] h-[100px] rounded-[6px] bg-newBgColorInner border border-studioBorder animate-pulse flex items-center justify-center"
+                >
+                  <svg
+                    className="animate-spin w-[20px] h-[20px] text-newTextColor/30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeDasharray="31.4 31.4"
+                    />
+                  </svg>
+                </div>
+              ))}
+            {!loadingPreviews &&
+              previews.map((p) => (
+                <div
+                  key={p.idx}
+                  className="w-[100px] h-[100px] rounded-[6px] border border-studioBorder overflow-hidden bg-newBgColorInner"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- data URL preview */}
+                  <img
+                    src={p.dataUrl}
+                    alt={t('designer_output_n_alt', 'Output {{n}}', { n: p.idx + 1 })}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ))}
+          </div>
+
+          <div className="flex justify-between gap-2 mt-2">
+            <button
+              onClick={isCreatePost ? () => setStep('channels') : goToFolder}
+              className="px-4 h-[38px] rounded-[6px] border border-studioBorder text-[13px] text-textColor hover:bg-boxHover transition-all"
+            >
+              {t('back', 'Back')}
+            </button>
+            <button
+              onClick={handleExport}
+              disabled={exporting || creatingDrafts}
+              className="px-4 h-[38px] rounded-[6px] bg-green-600 text-white text-[13px] font-medium hover:bg-green-700 disabled:opacity-50 transition-all"
+            >
+              {exporting
+                ? t('designer_exporting_ellipsis', 'Exporting...')
+                : creatingDrafts
+                  ? t('designer_creating_drafts_ellipsis', 'Creating drafts...')
+                  : isCreatePost
+                    ? t('designer_save_and_create_post', 'Save & Create Post')
+                    : t('designer_export_n_files', 'Export {{count}} file', { count: outputCount })}
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* ---- Step 4: Done ---- */}
+      {step === 'done' && (
+        <>
+          <div className="flex flex-col items-center gap-3 py-4">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="11" fill="#22c55e" stroke="none" />
+              <path
+                d="M7 12.5l3 3 7-7"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <div className="text-[15px] font-semibold text-textColor">
+              {t('designer_saved_to_files', 'Saved to /files')}
+            </div>
+            <div className="text-[13px] text-newTextColor/60 text-center">
+              {selectedFolderId
+                ? t('designer_n_files_exported_to_folder', '{{count}} file exported to the selected folder', { count: savedFiles.length })
+                : t('designer_n_files_exported', '{{count}} file exported', { count: savedFiles.length })}
+            </div>
+
+            {previews.length > 0 && (
+              <div className="flex flex-wrap gap-2 justify-center mt-2">
+                {previews.map((p) => (
+                  <div
+                    key={p.idx}
+                    className="w-[80px] h-[80px] rounded-[4px] border border-studioBorder overflow-hidden bg-newBgColorInner"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element -- data URL preview */}
+                    <img
+                      src={p.dataUrl}
+                      alt={t('designer_output_n_alt', 'Output {{n}}', { n: p.idx + 1 })}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="flex justify-end gap-2 mt-2">
+            <button
+              onClick={onClose}
+              className="px-4 h-[38px] rounded-[6px] border border-studioBorder text-[13px] text-textColor hover:bg-boxHover transition-all"
+            >
+              {t('close', 'Close')}
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* ---- Step 6: Video Render Options ---- */}
+      {step === 'video-render' && (
+        <>
+          <div className="text-[15px] font-semibold text-textColor">{t('designer_render_video_title', 'Render Video')}</div>
+          <div className="text-[12px] text-newTextColor/60">
+            {t('designer_render_composition_description', 'Render composition as video via the server render pipeline.')}
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-1">
+              <div className="text-[13px] font-medium text-textColor">{t('designer_format_label', 'Format')}</div>
+              <div className="flex gap-2">
+                {(['mp4', 'webm', 'gif', 'webp-animated'] as const).map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setVideoFormat(f)}
+                    className={`flex-1 h-[36px] rounded-[6px] text-[13px] font-medium transition-all ${
+                      videoFormat === f
+                        ? 'bg-designerAccent text-white'
+                        : 'border border-studioBorder text-textColor hover:bg-boxHover'
+                    }`}
+                  >
+                    {f === 'webp-animated' ? 'WebP' : f.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <div className="text-[13px] font-medium text-textColor">{t('designer_quality_label', 'Quality')}</div>
+              <div className="flex gap-2">
+                {(['low', 'medium', 'high'] as const).map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => setVideoQuality(q)}
+                    className={`flex-1 h-[36px] rounded-[6px] text-[13px] font-medium capitalize transition-all ${
+                      videoQuality === q
+                        ? 'bg-designerAccent text-white'
+                        : 'border border-studioBorder text-textColor hover:bg-boxHover'
+                    }`}
+                  >
+                    {q === 'low'
+                      ? t('designer_quality_low', 'low')
+                      : q === 'medium'
+                        ? t('designer_quality_medium', 'medium')
+                        : t('designer_quality_high', 'high')}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <div className="text-[13px] font-medium text-textColor">{t('designer_bitrate_label', 'Bitrate')}</div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min={1000}
+                  max={20000}
+                  step={500}
+                  value={videoBitrateKbps}
+                  onChange={(e) => setVideoBitrateKbps(parseInt(e.target.value, 10))}
+                  className="flex-1 accent-designerAccent"
+                />
+                <span className="text-[12px] text-textColor tabular-nums w-20 text-right">
+                  {videoBitrateKbps} kbps
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <div className="text-[13px] font-medium text-textColor">{t('designer_poster_thumbnail_label', 'Poster / Thumbnail')}</div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  disabled={posterUploading}
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    setPosterUploading(true);
+                    try {
+                      const formData = new FormData();
+                      formData.append('file', file);
+                      if (selectedFolderId) formData.append('folderId', selectedFolderId);
+                      const res = await fetch('/files/upload-simple', { method: 'POST', body: formData });
+                      if (res.ok) {
+                        const data = await res.json();
+                        setPosterSource('custom');
+                        setPosterUrl(data.path);
+                      } else {
+                        toaster.show(t('designer_poster_upload_failed', 'Poster upload failed'), 'warning');
+                      }
+                    } catch {
+                      toaster.show(t('designer_poster_upload_failed', 'Poster upload failed'), 'warning');
+                    } finally {
+                      setPosterUploading(false);
+                    }
+                  }}
+                  className="text-[12px] text-textColor file:mr-2 file:px-2 file:py-1 file:rounded-sm file:border-0 file:bg-designerAccent file:text-white"
+                />
+                {posterUrl && (
+                  <button
+                    onClick={() => setPosterUrl('')}
+                    className="text-[11px] text-dangerText hover:text-red-300"
+                  >
+                    {t('clear', 'Clear')}
+                  </button>
+                )}
+              </div>
+              {posterUrl && (
+                <div className="text-[10px] text-newTextColor/65 truncate">{posterUrl}</div>
+              )}
+            </div>
+
+            <div className="text-[11px] text-newTextColor/65 mt-1">
+              {t('designer_video_renders_async_description', 'Video renders are processed asynchronously. You can check progress on this screen after starting.')}
+            </div>
+          </div>
+
+          <div className="flex justify-between gap-2 mt-2">
+            <button
+              onClick={isCreatePost ? () => setStep('channels') : goToFolder}
+              className="px-4 h-[38px] rounded-[6px] border border-studioBorder text-[13px] text-textColor hover:bg-boxHover transition-all"
+            >
+              {t('back', 'Back')}
+            </button>
+            <button
+              onClick={startVideoRender}
+              disabled={isEnqueuing}
+              className="px-4 h-[38px] rounded-[6px] bg-green-600 text-white text-[13px] font-medium hover:bg-green-700 disabled:opacity-50 transition-all"
+            >
+              {isEnqueuing ? t('designer_enqueuing_ellipsis', 'Enqueuing...') : t('designer_start_render', 'Start Render')}
+            </button>
+          </div>
+
+          {renderError && (
+            <div className="text-[12px] text-dangerText mt-2">{renderError}</div>
+          )}
+        </>
+      )}
+
+      {/* ---- Step 7: Video Rendering (polling) ---- */}
+      {step === 'video-rendering' && (
+        <>
+          <div className="flex flex-col items-center gap-3 py-4">
+            <div className="text-[15px] font-semibold text-textColor">{t('designer_rendering_video_title', 'Rendering Video')}</div>
+
+            {renderStatus === 'rendering' && (
+              <>
+                <div className="w-full">
+                  <div className="flex justify-between text-[12px] text-newTextColor/60 mb-1">
+                    <span>{t('designer_processing_ellipsis', 'Processing...')}</span>
+                    <span>{renderProgress}%</span>
+                  </div>
+                  <div className="w-full h-[8px] rounded-[4px] bg-newBgColorInner border border-studioBorder overflow-hidden">
+                    <div
+                      className="h-full bg-designerAccent transition-all duration-500 rounded-[4px]"
+                      style={{ width: `${Math.max(renderProgress, 5)}%` }}
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-[13px] text-newTextColor/60">
+                  <svg className="animate-spin w-[16px] h-[16px]" viewBox="0 0 24 24" fill="none">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeDasharray="31.4 31.4"
+                    />
+                  </svg>
+                  {t('designer_processing_video_render_ellipsis', 'Processing video render...')}
+                </div>
+              </>
+            )}
+
+            {renderStatus === 'completed' && (
+              <>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="11" fill="#22c55e" stroke="none" />
+                  <path d="M7 12.5l3 3 7-7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <div className="text-[14px] text-textColor font-medium">{t('designer_render_complete', 'Render Complete')}</div>
+                <div className="w-full flex flex-col gap-1">
+                  {renderJobs.filter((j) => j.status === 'completed' && j.artifactUrl).map((j) => (
+                    <a
+                      key={j.id}
+                      href={j.artifactUrl || undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[12px] text-btnPrimaryAccent hover:underline truncate"
+                    >
+                      {j.outputName}
+                    </a>
+                  ))}
+                </div>
+
+                {renderedPosterUrl && (
+                  <div className="w-full flex flex-col gap-2 mt-1">
+                    <div className="text-[13px] font-medium text-textColor">{t('designer_poster_thumbnail_label', 'Poster / Thumbnail')}</div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        className={`w-[80px] h-[80px] rounded-[6px] border overflow-hidden cursor-pointer p-0 bg-transparent ${posterSource === 'rendered' ? 'border-designerAccent ring-2 ring-designerAccent/30' : 'border-studioBorder'}`}
+                        onClick={() => {
+                          setPosterSource('rendered');
+                          setPosterUrl(renderedPosterUrl);
+                        }}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element -- data URL preview */}
+                        <img
+                          src={renderedPosterUrl}
+                          alt={t('designer_rendered_poster_alt', 'Rendered poster')}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                      <div className="flex flex-col gap-1">
+                        <button
+                          onClick={() => {
+                            setPosterSource('rendered');
+                            setPosterUrl(renderedPosterUrl);
+                          }}
+                          className={`text-[12px] px-3 py-1.5 rounded-[5px] transition-all ${
+                            posterSource === 'rendered'
+                              ? 'bg-designerAccent text-white'
+                              : 'border border-studioBorder text-textColor hover:bg-boxHover'
+                          }`}
+                        >
+                          {t('designer_use_rendered_poster', 'Use rendered poster')}
+                        </button>
+                        <label
+                          className={`text-[12px] px-3 py-1.5 rounded-[5px] cursor-pointer transition-all ${
+                            posterSource === 'custom'
+                              ? 'bg-designerAccent text-white'
+                              : 'border border-studioBorder text-textColor hover:bg-boxHover'
+                          }`}
+                        >
+                          <input
+                            type="file"
+                            accept="image/*"
+                            disabled={posterUploading}
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (!file) return;
+                              setPosterUploading(true);
+                              try {
+                                const formData = new FormData();
+                                formData.append('file', file);
+                                if (selectedFolderId) formData.append('folderId', selectedFolderId);
+                                const res = await fetch('/files/upload-simple', { method: 'POST', body: formData });
+                                if (res.ok) {
+                                  const data = await res.json();
+                                  setPosterSource('custom');
+                                  setPosterUrl(data.path);
+                                } else {
+                                  toaster.show(t('designer_poster_upload_failed', 'Poster upload failed'), 'warning');
+                                }
+                              } catch {
+                                toaster.show(t('designer_poster_upload_failed', 'Poster upload failed'), 'warning');
+                              } finally {
+                                setPosterUploading(false);
+                              }
+                            }}
+                            className="hidden"
+                          />
+                          {posterUploading ? t('designer_uploading_ellipsis', 'Uploading...') : t('designer_upload_custom', 'Upload custom')}
+                        </label>
+                      </div>
+                    </div>
+                    {posterUrl && (
+                      <div className="text-[10px] text-newTextColor/65 truncate">{posterUrl}</div>
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+
+            {renderStatus === 'failed' && (
+              <>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="11" fill="#ef4444" stroke="none" />
+                  <path d="M8 8l8 8M16 8l-8 8" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+                <div className="text-[14px] text-dangerText font-medium">{t('designer_render_failed_title', 'Render Failed')}</div>
+                {renderError && (
+                  <div className="text-[12px] text-newTextColor/60 text-center">{renderError}</div>
+                )}
+              </>
+            )}
+          </div>
+
+          <div className="flex justify-between gap-2 mt-2">
+            <button
+              onClick={() => {
+                setStep('video-render');
+                setRenderJobs([]);
+              }}
+              className="px-4 h-[38px] rounded-[6px] border border-studioBorder text-[13px] text-textColor hover:bg-boxHover transition-all"
+            >
+              {t('back', 'Back')}
+            </button>
+            {renderStatus === 'completed' && (
+              <button
+                onClick={handleVideoDone}
+                disabled={creatingDrafts}
+                className="px-4 h-[38px] rounded-[6px] bg-green-600 text-white text-[13px] font-medium hover:bg-green-700 disabled:opacity-50 transition-all"
+              >
+                {creatingDrafts
+                  ? t('designer_creating_drafts_ellipsis', 'Creating drafts...')
+                  : isCreatePost
+                    ? t('designer_save_and_create_post', 'Save & Create Post')
+                    : t('done', 'Done')}
+              </button>
+            )}
+            {renderStatus === 'failed' && (
+              <button
+                onClick={startVideoRender}
+                className="px-4 h-[38px] rounded-[6px] bg-green-600 text-white text-[13px] font-medium hover:bg-green-700 transition-all"
+              >
+                {t('retry', 'Retry')}
+              </button>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};

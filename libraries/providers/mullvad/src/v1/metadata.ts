@@ -1,0 +1,14 @@
+import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+
+export const metadata: ProviderMetadata = {
+  "website": "https://mullvad.net",
+  "description": {
+    "en": "Mullvad — a privacy-first VPN with anonymous accounts and SOCKS5 proxies."
+  },
+  "id": "mullvad",
+  "displayName": "mullvad",
+  "kind": "action",
+  "domains": [],
+  "hasModelList": false,
+  "mediaCategories": []
+};

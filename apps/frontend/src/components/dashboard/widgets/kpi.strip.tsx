@@ -1,0 +1,108 @@
+'use client';
+
+import { FC, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { StatTile } from '@postmill-ai/frontend/components/analytics/kit/stat-tile';
+import { useOverview } from '@postmill-ai/frontend/components/analytics/hooks/useOverview';
+import { useDashboardSummary } from '../hooks/useDashboardSummary';
+import { KPI } from '@postmill-ai/frontend/components/analytics/utils';
+import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+
+const staticKPI = (label: string, total: number): KPI => ({
+  metric: label,
+  label,
+  format: 'number',
+  total,
+  previousTotal: 0,
+  percentageChange: 0,
+  sparkline: [],
+});
+
+interface KpiStripProps {
+  from: string;
+  to: string;
+  integrationIds: string[];
+}
+
+export const KpiStrip: FC<KpiStripProps> = ({ from, to, integrationIds }) => {
+  const t = useT();
+  const router = useRouter();
+  const { data: summary, isLoading: summaryLoading } = useDashboardSummary();
+  const { data: overview, isLoading: overviewLoading } = useOverview({
+    from,
+    to,
+    integrations: integrationIds,
+    compare: false,
+  });
+
+  const kpis = useMemo(() => {
+    const engagement = overview?.kpis?.[0];
+    return [
+      {
+        kpi: engagement ?? staticKPI(t('kpi_engagement_7d', 'Engagement (7d)'), 0),
+        accent: 'var(--chart-1, #2b5cd3)',
+        // Each tile opens the page that explains its number.
+        href: '/analytics',
+      },
+      {
+        kpi: staticKPI(
+          t('kpi_published_7d', 'Published (7d)'),
+          summaryLoading ? 0 : (summary?.publishedNext7 ?? 0)
+        ),
+        accent: 'var(--chart-2, #32d583)',
+        href: '/analytics?tab=posts',
+      },
+      {
+        kpi: staticKPI(
+          t('kpi_scheduled', 'Scheduled'),
+          summaryLoading ? 0 : (summary?.scheduledPosts ?? 0)
+        ),
+        accent: 'var(--chart-5, #ffac30)',
+        href: '/posts',
+      },
+      {
+        kpi: staticKPI(
+          t('kpi_unread_replies', 'Unread replies'),
+          summaryLoading ? 0 : (summary?.commentUnreadCount ?? 0)
+        ),
+        accent: 'var(--chart-3, #1d9bf0)',
+        href: '/replies?unreadOnly=true',
+      },
+      {
+        kpi: staticKPI(
+          t('channels', 'Channels'),
+          summary?.channelsConnected ?? integrationIds.length
+        ),
+        accent: 'var(--chart-6, #8b90ff)',
+        href: '/settings/channels',
+      },
+    ];
+  }, [
+    overview?.kpis,
+    summary?.publishedNext7,
+    summary?.scheduledPosts,
+    summary?.commentUnreadCount,
+    summary?.channelsConnected,
+    summaryLoading,
+    integrationIds.length,
+    t,
+  ]);
+
+  const loading = summaryLoading || overviewLoading;
+
+  return (
+    <div className="grid grid-cols-2 xl:grid-cols-3 gap-[12px]">
+      {kpis.map(({ kpi, accent, href }) => (
+        <div key={kpi.metric} data-testid={`kpi-tile-${kpi.metric}`}>
+          <StatTile kpi={kpi} accent={accent} onClick={() => router.push(href)} />
+        </div>
+      ))}
+      {loading && (
+        <>
+          <div className="h-[120px] bg-newTableHeader rounded-[12px] animate-pulse" />
+          <div className="h-[120px] bg-newTableHeader rounded-[12px] animate-pulse" />
+        </>
+      )}
+    </div>
+  );
+};

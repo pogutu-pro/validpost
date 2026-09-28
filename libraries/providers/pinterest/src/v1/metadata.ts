@@ -1,0 +1,14 @@
+import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+
+export const metadata: ProviderMetadata = {
+  "website": "https://www.pinterest.com",
+  "description": {
+    "en": "Pinterest — a visual discovery platform; publish Pins to your boards."
+  },
+  "id": "pinterest",
+  "displayName": "pinterest",
+  "kind": "action",
+  "domains": [],
+  "hasModelList": false,
+  "mediaCategories": []
+};

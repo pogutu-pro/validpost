@@ -1,0 +1,19 @@
+import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
+import { mediaRenderEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
+import { MediaJobsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/media-jobs.activity';
+import { getRenderConcurrency } from '@postmill-ai/nestjs-libraries/media/design-render/render-config';
+
+// Local video renders (Designer timeline + clip-merge) run here, one Inngest function with a
+// static `concurrency.limit` (the post-publish idiom) — so at most VIDEO_RENDER_CONCURRENCY
+// (default 3) renders run at once. Each render shells out to a resource-capped Podman
+// container (or the in-process encoder when Podman is disabled).
+export const createMediaRender = (mediaJobsActivity: MediaJobsActivity) =>
+  inngest.createFunction(
+    {
+      id: 'media-render',
+      concurrency: { limit: getRenderConcurrency() },
+      triggers: [mediaRenderEvent],
+    },
+    async ({ step, event }) =>
+      step.run('render', () => mediaJobsActivity.processRenderJob(event.data.jobId)),
+  );

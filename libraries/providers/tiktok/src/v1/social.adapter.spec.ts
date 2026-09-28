@@ -1,0 +1,339 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+// Speed up the publish-status poll loop so bounded-loop tests finish instantly.
+vi.mock('@postmill-ai/helpers/utils/timer', () => ({
+  timer: vi.fn(async () => undefined),
+}));
+
+// Video bytes arrive via readOrFetch (safeFetch for URLs, readFileSync for
+// local-storage disk paths) — stub it at the module boundary.
+const readOrFetchMock = vi.fn(async () => Buffer.from([1, 2, 3, 4]));
+vi.mock('@postmill-ai/helpers/utils/read.or.fetch', () => ({
+  readOrFetch: (...args: unknown[]) => readOrFetchMock(...args),
+}));
+
+// Keep the real kernel exports but turn `safeFetch` into a spy for any
+// future download assertions.
+vi.mock('@postmill-ai/provider-kernel', async (orig) => {
+  const actual: any = await orig();
+  return { ...actual, safeFetch: vi.fn() };
+});
+
+import { setSocialFetchPorts } from '@postmill-ai/provider-kernel';
+import { TiktokProvider } from './social.adapter';
+
+// The kernel's `BadBody` is a Proxy that delegates construction to the
+// port-injected `BadBodyError`. Capture its args as instance fields so tests
+// can assert the terminal timeout reason.
+class TestBadBody extends Error {
+  constructor(
+    public provider: string,
+    public body: string,
+    public raw: unknown,
+    public reason: string
+  ) {
+    super(reason);
+  }
+}
+
+const mockPorts = (): void =>
+  setSocialFetchPorts({
+    getVpnDispatcher: (): any => undefined,
+    ssrfSafeDispatcher: undefined,
+    isSafePublicHttpsUrl: async (): Promise<boolean> => true,
+    undiciFetch: (async (): Promise<any> => new Response()) as any,
+    RefreshTokenError: class extends Error {},
+    BadBodyError: TestBadBody,
+    timer: (async (): Promise<void> => undefined) as any,
+    sharp: ((): any => ({
+      metadata: async (): Promise<{ width: number; height: number }> => ({
+        width: 100,
+        height: 100,
+      }),
+    })) as any,
+    readOrFetch: (async (): Promise<Buffer> => Buffer.from('x')) as any,
+    safeFetch: (async (): Promise<any> => new Response()) as any,
+  } as any);
+
+describe('TiktokProvider', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.stubEnv('FRONTEND_URL', 'https://app.example.com');
+    mockPorts();
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  describe('POLL-01: publish-status polling is bounded', () => {
+    it('stops after 30 PROCESSING responses and throws a terminal BadBody', async () => {
+      const provider = new TiktokProvider();
+      const fetchSpy = vi
+        .spyOn(provider as any, 'fetch')
+        .mockResolvedValue({
+          json: async () =>
+            ({
+              data: {
+                status: 'PROCESSING',
+                publicaly_available_post_id: null,
+              },
+            } as any),
+        } as any);
+
+      const err = await (provider as any)
+        .uploadedVideoSuccess('user-id', 'publish-1', 'token')
+        .then(
+          (): null => null,
+          (e: unknown): unknown => e
+        );
+
+      expect(err).toBeInstanceOf(TestBadBody);
+      expect((err as TestBadBody).provider).toBe('tiktok-publish-timeout');
+      expect((err as TestBadBody).reason).toMatch(
+        /did not become terminal after 30 attempts/
+      );
+      expect(fetchSpy).toHaveBeenCalledTimes(30);
+      expect(fetchSpy).toHaveBeenCalledWith(
+        'https://open.tiktokapis.com/v2/post/publish/status/fetch/',
+        expect.objectContaining({
+          method: 'POST',
+          body: JSON.stringify({ publish_id: 'publish-1' }),
+        }),
+        '',
+        0,
+        true
+      );
+    });
+
+    it('returns the post URL as soon as status becomes PUBLISH_COMPLETE', async () => {
+      const provider = new TiktokProvider();
+      vi.spyOn(provider as any, 'fetch')
+        .mockResolvedValueOnce({
+          json: async () => ({ data: { status: 'PROCESSING' } }),
+        } as any)
+        .mockResolvedValueOnce({
+          json: async () => ({
+            data: {
+              status: 'PUBLISH_COMPLETE',
+              publicaly_available_post_id: ['12345'],
+            },
+          }),
+        } as any);
+
+      const result = await (provider as any).uploadedVideoSuccess(
+        'user-id',
+        'publish-2',
+        'token'
+      );
+
+      expect(result).toEqual({
+        url: 'https://www.tiktok.com/@user-id/video/12345',
+        id: '12345',
+      });
+    });
+  });
+
+  describe('FETCH-01: OAuth/token and user-info calls use this.fetch()', () => {
+    it('refreshToken routes token + user-info fetches through this.fetch', async () => {
+      const provider = new TiktokProvider();
+      const fetchSpy = vi
+        .spyOn(provider as any, 'fetch')
+        .mockResolvedValueOnce({
+          json: async () => ({
+            access_token: 'at-1',
+            refresh_token: 'rt-1',
+          }),
+        } as any)
+        .mockResolvedValueOnce({
+          json: async () => ({
+            data: {
+              user: {
+                open_id: 'abcd-1234',
+                avatar_url: 'https://cdn.example.com/avatar.png',
+                display_name: 'Test User',
+                username: 'testuser',
+              },
+            },
+          }),
+        } as any);
+
+      const result = await provider.refreshToken('rt', {
+        client_id: 'client1',
+        client_secret: 'secret1',
+        instanceUrl: '',
+      });
+
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+      expect(fetchSpy).toHaveBeenNthCalledWith(
+        1,
+        'https://open.tiktokapis.com/v2/oauth/token/',
+        expect.objectContaining({
+          method: 'POST',
+          body: expect.stringContaining('refresh_token=rt'),
+        })
+      );
+      expect(fetchSpy).toHaveBeenNthCalledWith(
+        2,
+        'https://open.tiktokapis.com/v2/user/info/?fields=open_id,avatar_url,display_name,union_id,username',
+        expect.objectContaining({
+          method: 'GET',
+          headers: { Authorization: 'Bearer at-1' },
+        })
+      );
+      expect(result.accessToken).toBe('at-1');
+      expect(result.refreshToken).toBe('rt-1');
+      expect(result.id).toBe('abcd1234');
+    });
+
+    it('authenticate routes token + user-info fetches through this.fetch', async () => {
+      const provider = new TiktokProvider();
+      const fetchSpy = vi
+        .spyOn(provider as any, 'fetch')
+        .mockResolvedValueOnce({
+          json: async () => ({
+            access_token: 'at-2',
+            refresh_token: 'rt-2',
+            scope: 'video.list,user.info.basic,video.publish,video.upload,user.info.profile,user.info.stats',
+          }),
+        } as any)
+        .mockResolvedValueOnce({
+          json: async () => ({
+            data: {
+              user: {
+                open_id: 'efgh-5678',
+                avatar_url: 'https://cdn.example.com/avatar2.png',
+                display_name: 'Test User 2',
+                username: 'testuser2',
+              },
+            },
+          }),
+        } as any);
+
+      const result = await provider.authenticate(
+        { code: 'code-1', codeVerifier: 'cv-1' },
+        { client_id: 'client1', client_secret: 'secret1', instanceUrl: '' }
+      );
+
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+      expect(fetchSpy).toHaveBeenNthCalledWith(
+        1,
+        'https://open.tiktokapis.com/v2/oauth/token/',
+        expect.objectContaining({
+          method: 'POST',
+          body: expect.stringContaining('code=code-1'),
+        })
+      );
+      expect(fetchSpy).toHaveBeenNthCalledWith(
+        2,
+        'https://open.tiktokapis.com/v2/user/info/?fields=open_id,avatar_url,display_name,union_id,username',
+        expect.objectContaining({
+          method: 'GET',
+          headers: { Authorization: 'Bearer at-2' },
+        })
+      );
+      expect(result.accessToken).toBe('at-2');
+      expect(result.refreshToken).toBe('rt-2');
+      expect(result.id).toBe('efgh5678');
+    });
+
+    it('maxVideoLength routes the creator-info call through this.fetch', async () => {
+      const provider = new TiktokProvider();
+      const fetchSpy = vi
+        .spyOn(provider as any, 'fetch')
+        .mockResolvedValueOnce({
+          json: async () => ({
+            data: { max_video_post_duration_sec: 600 },
+          }),
+        } as any);
+
+      const result = await provider.maxVideoLength('token-1');
+
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(fetchSpy).toHaveBeenCalledWith(
+        'https://open.tiktokapis.com/v2/post/publish/creator_info/query/',
+        expect.objectContaining({
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Authorization: 'Bearer token-1',
+          },
+        })
+      );
+      expect(result.maxDurationSeconds).toBe(600);
+    });
+  });
+
+  describe('post(): video uploads use FILE_UPLOAD bytes', () => {
+    it('downloads the video, inits with FILE_UPLOAD sizes, and PUTs bytes to the upload URL', async () => {
+      const provider = new TiktokProvider();
+      const fetchSpy = vi.spyOn(provider as any, 'fetch');
+      fetchSpy
+        // init → publish id + upload url
+        .mockResolvedValueOnce({
+          json: async () => ({
+            data: {
+              publish_id: 'pub-1',
+              upload_url: 'https://upload.tiktokapis.com/abc',
+            },
+          }),
+        } as any)
+        // byte upload
+        .mockResolvedValueOnce({ json: async () => ({}) } as any)
+        // status poll
+        .mockResolvedValueOnce({
+          json: async () => ({
+            data: {
+              status: 'PUBLISH_COMPLETE',
+              publicaly_available_post_id: ['vid-9'],
+            },
+          }),
+        } as any);
+
+      const result = await provider.post(
+        'myuser',
+        'token',
+        [
+          {
+            id: 'p1',
+            message: 'hello tiktok',
+            media: [
+              { id: 'm1', path: 'https://app.example.com/uploads/x/vid.mp4' },
+            ],
+            settings: {
+              content_posting_method: 'DIRECT_POST',
+              privacy_level: 'SELF_ONLY',
+              comment: true,
+              duet: false,
+              stitch: false,
+              autoAddMusic: 'no',
+              brand_content_toggle: false,
+              brand_organic_toggle: false,
+            },
+          } as any,
+        ],
+        { profile: 'myuser' } as any
+      );
+
+      // init carries FILE_UPLOAD with whole-file single-chunk sizes — not
+      // PULL_FROM_URL (needs TikTok URL-ownership verification of the domain).
+      expect(readOrFetchMock).toHaveBeenCalledWith(
+        'https://app.example.com/uploads/x/vid.mp4'
+      );
+      const initBody = JSON.parse(fetchSpy.mock.calls[0][1].body);
+      expect(initBody.source_info).toEqual({
+        source: 'FILE_UPLOAD',
+        video_size: 4,
+        chunk_size: 4,
+        total_chunk_count: 1,
+      });
+      const [uploadUrl, uploadOpts] = fetchSpy.mock.calls[1];
+      expect(uploadUrl).toBe('https://upload.tiktokapis.com/abc');
+      expect(uploadOpts.method).toBe('PUT');
+      expect(uploadOpts.headers['Content-Range']).toBe('bytes 0-3/4');
+      expect(result[0].releaseURL).toBe(
+        'https://www.tiktok.com/@myuser/video/vid-9'
+      );
+    });
+  });
+});

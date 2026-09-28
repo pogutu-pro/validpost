@@ -1,0 +1,145 @@
+import { SentryComponent } from '@postmill-ai/frontend/components/layout/sentry.component';
+
+export const dynamic = 'force-dynamic';
+// Mantine 7+ ships plain CSS (no more emotion auto-inject); import it before
+// global.scss so the bespoke Tailwind overrides in the pickers win on ties.
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+// Tailwind 4 entry (plain CSS — Sass cannot parse @import "tailwindcss"/@theme/
+// @config/@custom-variant). Must precede global.scss, whose @apply rules resolve
+// against it.
+import '../tailwind.css';
+import '../global.scss';
+import 'react-tooltip/dist/react-tooltip.css';
+import '@copilotkit/react-ui/styles.css';
+import LayoutContext from '@postmill-ai/frontend/components/layout/layout.context';
+import { ReactNode } from 'react';
+import { Plus_Jakarta_Sans } from 'next/font/google';
+import PlausibleProvider from 'next-plausible';
+import clsx from 'clsx';
+import { VariableContextComponent } from '@postmill-ai/react/helpers/variable.context';
+import { paymentsVariables } from '@postmill-ai/frontend/app/payments.vars';
+import { Fragment } from 'react';
+import { PHProvider } from '@postmill-ai/react/helpers/posthog';
+import UtmSaver from '@postmill-ai/helpers/utils/utm.saver';
+import { DubAnalytics } from '@postmill-ai/frontend/components/layout/dubAnalytics';
+import { FacebookComponent } from '@postmill-ai/frontend/components/layout/facebook.component';
+import { GoogleTagManagerComponent } from '@postmill-ai/frontend/components/layout/gtm.component';
+import { cookies } from 'next/headers';
+import {
+  cookieName,
+  fallbackLng,
+} from '@postmill-ai/react/translation/i18n.config';
+import { HtmlComponent } from '@postmill-ai/frontend/components/layout/html.component';
+import SetTimezone from '@postmill-ai/frontend/components/layout/set.timezone';
+import Script from 'next/script';
+import { ChangeDirClient } from '@postmill-ai/frontend/components/new-layout/change.dir.client';
+import { ChunkErrorRecovery } from '@postmill-ai/frontend/components/layout/chunk-error-recovery';
+
+const jakartaSans = Plus_Jakarta_Sans({
+  weight: ['600', '500'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+});
+
+// Default document title for every route (a11y: `document-title` was empty on ~89 routes —
+// the app has no root metadata). `default` fills routes that don't set their own title;
+// routes that DO set one (e.g. "Postmill Posts") keep it verbatim — no template, so titles
+// that already carry the brand don't become "… · Postmill".
+export const metadata = {
+  title: {
+    default: 'Postmill',
+  },
+};
+
+export default async function AppLayout({ children }: { children: ReactNode }) {
+  const cookieStore = await cookies();
+  const language = cookieStore.get(cookieName)?.value || fallbackLng;
+  const mode = cookieStore.get('mode')?.value || 'dark';
+  // Plausible tracking has its own switch now (NEXT_PUBLIC_PLAUSIBLE_DOMAIN) —
+  // it was gated on the billing switch, so analytics went dark on any
+  // deployment with billing off. Legacy fallback keeps the old behavior.
+  const paymentsVars = paymentsVariables();
+  const plausibleDomain =
+    process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ||
+    (paymentsVars.billingEnabled ? 'postmill.ai' : '');
+  const Plausible = plausibleDomain ? PlausibleProvider : Fragment;
+  return (
+    <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        {!!process.env.DATAFAST_WEBSITE_ID && (
+          <Script
+            data-website-id={process.env.DATAFAST_WEBSITE_ID}
+            data-domain="postmill.ai"
+            src="https://datafa.st/js/script.js"
+            strategy="afterInteractive"
+          />
+        )}
+      </head>
+      <ChangeDirClient />
+      <body
+        className={clsx(jakartaSans.className, mode === 'dark' ? 'dark' : 'light', 'text-primary bg-primary!')}
+      >
+        <VariableContextComponent
+          storageProvider={'local'}
+          environment={process.env.NODE_ENV!}
+          backendUrl={process.env.NEXT_PUBLIC_BACKEND_URL!}
+          payments={paymentsVars.payments}
+          billingEnabled={paymentsVars.billingEnabled}
+          discordUrl={process.env.NEXT_PUBLIC_DISCORD_SUPPORT!}
+          frontEndUrl={process.env.FRONTEND_URL!}
+          isGeneral={!!process.env.IS_GENERAL}
+          genericOauth={process.env.POSTMILL_GENERIC_OAUTH === 'true'}
+          oauthLogoUrl={process.env.NEXT_PUBLIC_POSTMILL_OAUTH_LOGO_URL!}
+          oauthDisplayName={process.env.NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME!}
+          uploadDirectory={process.env.NEXT_PUBLIC_UPLOAD_STATIC_DIRECTORY!}
+          mainUrl={process.env.MAIN_URL || ''}
+          mcpUrl={process.env.MCP_URL}
+          dub={paymentsVars.billingEnabled}
+          facebookPixel={process.env.NEXT_PUBLIC_FACEBOOK_PIXEL!}
+          telegramBotName={process.env.TELEGRAM_BOT_NAME!}
+          neynarClientId={process.env.NEYNAR_CLIENT_ID!}
+          isSecured={!process.env.NOT_SECURED}
+          disableImageCompression={!!process.env.DISABLE_IMAGE_COMPRESSION}
+          disableXAnalytics={!!process.env.DISABLE_X_ANALYTICS}
+          sentryDsn={process.env.NEXT_PUBLIC_SENTRY_DSN!}
+          extensionId={process.env.EXTENSION_ID || ''}
+          googleAdsId={process.env.NEXT_PUBLIC_GTM_ID}
+          googleAdsTrialTracking={process.env.NEXT_PUBLIC_TRACKING_TRIAL}
+          language={language}
+          transloadit={
+            process.env.TRANSLOADIT_AUTH && process.env.TRANSLOADIT_TEMPLATE
+              ? [
+                  process.env.TRANSLOADIT_AUTH!,
+                  process.env.TRANSLOADIT_TEMPLATE!,
+                ]
+              : []
+          }
+        >
+          <SentryComponent>
+            <SetTimezone />
+            <ChunkErrorRecovery />
+            <HtmlComponent />
+            <DubAnalytics />
+            <FacebookComponent />
+            <GoogleTagManagerComponent gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+            <Plausible
+              domain={plausibleDomain}
+            >
+              <PHProvider
+                phkey={process.env.NEXT_PUBLIC_POSTHOG_KEY}
+                host={process.env.NEXT_PUBLIC_POSTHOG_HOST}
+              >
+                <LayoutContext>
+                  <UtmSaver />
+                  {children}
+                </LayoutContext>
+              </PHProvider>
+            </Plausible>
+          </SentryComponent>
+        </VariableContextComponent>
+      </body>
+    </html>
+  );
+}

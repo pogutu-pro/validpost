@@ -1,0 +1,275 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
+vi.mock('@postmill-ai/nestjs-libraries/database/prisma/prisma.service', () => ({
+  PrismaRepository: vi.fn(function () {
+    return { model: {} };
+  }),
+}));
+
+import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { IntegrationRepository } from './integration.repository';
+
+describe('IntegrationRepository', () => {
+  let repository: IntegrationRepository;
+  let mockIntegration: Record<string, ReturnType<typeof vi.fn>>;
+  let mockPosts: Record<string, ReturnType<typeof vi.fn>>;
+  let mockPlugs: Record<string, ReturnType<typeof vi.fn>>;
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+
+    mockIntegration = {
+      findUnique: vi.fn().mockResolvedValue(null),
+      findMany: vi.fn().mockResolvedValue([]),
+      update: vi.fn().mockResolvedValue({ id: 'int-1' }),
+      updateMany: vi.fn().mockResolvedValue({ count: 0 }),
+    };
+
+    mockPosts = {
+      updateMany: vi.fn().mockResolvedValue({ count: 0 }),
+    };
+
+    mockPlugs = {
+      findFirst: vi.fn().mockResolvedValue(null),
+    };
+
+    const integrationRepo = new (PrismaRepository as any)();
+    integrationRepo.model = { integration: mockIntegration };
+
+    const postsRepo = new (PrismaRepository as any)();
+    postsRepo.model = { post: mockPosts };
+
+    const plugsRepo = new (PrismaRepository as any)();
+    plugsRepo.model = { plugs: mockPlugs };
+
+    const mentionsRepo = new (PrismaRepository as any)();
+    mentionsRepo.model = { mentions: {} };
+
+    repository = new IntegrationRepository(
+      integrationRepo,
+      postsRepo,
+      plugsRepo,
+      mentionsRepo
+    );
+  });
+
+  describe('updateIntegration', () => {
+    it('soft-deletes posts scoped to the organization when the integration is found', async () => {
+      mockIntegration.findUnique.mockResolvedValue({ id: 'existing-id' });
+
+      await repository.updateIntegration('int-1', {
+        organizationId: 'org-1',
+        internalId: 'internal-1',
+      });
+
+      expect(mockPosts.updateMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            integrationId: 'int-1',
+            organizationId: 'org-1',
+          }),
+          data: { deletedAt: expect.any(Date) },
+        })
+      );
+    });
+
+    it('does not soft-delete posts for a cross-org integration lookup', async () => {
+      mockIntegration.findUnique.mockResolvedValue(null);
+
+      await repository.updateIntegration('int-1', {
+        organizationId: 'org-2',
+        internalId: 'internal-1',
+      });
+
+      expect(mockPosts.updateMany).not.toHaveBeenCalled();
+    });
+
+    it('scopes both the duplicate soft-delete and the revival update by organizationId', async () => {
+      mockIntegration.findUnique.mockResolvedValue({ id: 'existing-id' });
+
+      await repository.updateIntegration('int-1', {
+        organizationId: 'org-1',
+        internalId: 'internal-1',
+        name: 'Revived',
+      });
+
+      expect(mockIntegration.update).toHaveBeenCalledTimes(2);
+      expect(mockIntegration.update).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          where: expect.objectContaining({
+            id: 'existing-id',
+            organizationId: 'org-1',
+          }),
+          data: expect.objectContaining({ deletedAt: expect.any(Date) }),
+        })
+      );
+      expect(mockIntegration.update).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          where: expect.objectContaining({
+            id: 'int-1',
+            organizationId: 'org-1',
+          }),
+          data: expect.objectContaining({ name: 'Revived', disabled: false }),
+        })
+      );
+    });
+
+    it('scopes the revival update by organizationId when no duplicate exists', async () => {
+      await repository.updateIntegration('int-1', {
+        organizationId: 'org-1',
+        internalId: 'internal-1',
+        name: 'Updated',
+      });
+
+      expect(mockIntegration.update).toHaveBeenCalledTimes(1);
+      expect(mockIntegration.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            id: 'int-1',
+            organizationId: 'org-1',
+          }),
+          data: expect.objectContaining({ name: 'Updated', disabled: false }),
+        })
+      );
+    });
+
+    // Regression: a page save wrote the raw provider token here and every
+    // reader (fixedDecryption) 500'd on the plaintext row.
+    it('encrypts token and refreshToken before writing (v2: at rest)', async () => {
+      await repository.updateIntegration('int-1', {
+        organizationId: 'org-1',
+        internalId: 'internal-1',
+        token: 'plain-access-token',
+        refreshToken: 'plain-refresh-token',
+      } as any);
+
+      const data = mockIntegration.update.mock.calls[0][0].data;
+      expect(data.token).toMatch(/^v2:/);
+      expect(data.token).not.toContain('plain-access-token');
+      expect(data.refreshToken).toMatch(/^v2:/);
+      expect(data.refreshToken).not.toContain('plain-refresh-token');
+    });
+
+    it('leaves token fields untouched when not provided', async () => {
+      await repository.updateIntegration('int-1', {
+        organizationId: 'org-1',
+        internalId: 'internal-1',
+        name: 'Updated',
+      });
+
+      const data = mockIntegration.update.mock.calls[0][0].data;
+      expect(data.token).toBeUndefined();
+      expect(data.refreshToken).toBeUndefined();
+    });
+  });
+
+  describe('setBetweenRefreshSteps', () => {
+    it('updates only the integration matching id and organizationId', async () => {
+      await repository.setBetweenRefreshSteps('org-1', 'int-1');
+
+      expect(mockIntegration.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 'int-1', organizationId: 'org-1' },
+          data: { inBetweenSteps: true },
+        })
+      );
+    });
+  });
+
+  describe('updateNameAndUrl', () => {
+    it('updates only the integration matching id and organizationId', async () => {
+      await repository.updateNameAndUrl('org-1', 'int-1', 'New Name', 'https://pic.png');
+
+      expect(mockIntegration.update).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 'int-1', organizationId: 'org-1' },
+          data: { name: 'New Name', picture: 'https://pic.png' },
+        })
+      );
+    });
+  });
+
+  describe('getPlugForOrg', () => {
+    it('returns the plug scoped to the organization', async () => {
+      await repository.getPlugForOrg('org-1', 'plug-1');
+
+      expect(mockPlugs.findFirst).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 'plug-1', organizationId: 'org-1' },
+        })
+      );
+    });
+  });
+
+  describe('getPlugForSystem', () => {
+    it('returns the plug without org scoping for the Inngest worker', async () => {
+      await repository.getPlugForSystem('plug-1');
+
+      expect(mockPlugs.findFirst).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 'plug-1' },
+        })
+      );
+    });
+  });
+
+  describe('createOrUpdateIntegration — rootInternalId', () => {
+    const connect = (rootInternalId?: string) =>
+      repository.createOrUpdateIntegration(
+        undefined, false, 'org-1', 'Name', undefined, 'social', 'internal-1', 'instagram-standalone',
+        'tok', '', 3600, 'user', false, undefined, undefined, undefined, undefined, 'v1', rootInternalId,
+      );
+
+    beforeEach(() => {
+      mockIntegration.upsert = vi.fn().mockResolvedValue({ id: 'int-1' });
+    });
+
+    it('defaults rootInternalId to internalId (providers with a single identity)', async () => {
+      await connect();
+      const { create, update } = mockIntegration.upsert.mock.calls[0][0];
+      expect(create.rootInternalId).toBe('internal-1');
+      expect(update).not.toHaveProperty('rootInternalId');
+    });
+
+    it('persists the provider-reported platform id and backfills it on reconnect', async () => {
+      await connect('app-scoped-9');
+      const { create, update } = mockIntegration.upsert.mock.calls[0][0];
+      expect(create.internalId).toBe('internal-1');
+      expect(create.rootInternalId).toBe('app-scoped-9');
+      expect(update.rootInternalId).toBe('app-scoped-9');
+    });
+  });
+
+  describe('findByMetaUser', () => {
+    it('matches live rows of the given providers by root or internal id, across orgs', async () => {
+      await repository.findByMetaUser(['facebook', 'instagram'], 'fb-9');
+      expect(mockIntegration.findMany).toHaveBeenCalledWith({
+        where: {
+          providerIdentifier: { in: ['facebook', 'instagram'] },
+          deletedAt: null,
+          OR: [{ rootInternalId: 'fb-9' }, { internalId: 'fb-9' }],
+        },
+      });
+    });
+  });
+
+  describe('disableIntegrations', () => {
+    it('includes organizationId in the bulk disable update', async () => {
+      mockIntegration.findMany.mockResolvedValue([{ id: 'int-1' }, { id: 'int-2' }]);
+
+      await repository.disableIntegrations('org-1', 10);
+
+      expect(mockIntegration.updateMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            id: { in: ['int-1', 'int-2'] },
+            organizationId: 'org-1',
+          }),
+          data: { disabled: true },
+        })
+      );
+    });
+  });
+});

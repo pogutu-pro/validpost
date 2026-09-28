@@ -1,0 +1,642 @@
+'use client';
+
+import { create } from 'zustand';
+import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { useShallow } from 'zustand/react/shallow';
+import React, {
+  createContext,
+  FC,
+  memo,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Button } from '@postmill-ai/react/form/button';
+import { Input } from '@postmill-ai/react/form/input';
+import { useHotkeys } from 'react-hotkeys-hook';
+import clsx from 'clsx';
+import { EventEmitter } from 'events';
+import i18next from '@postmill-ai/react/translation/i18next';
+import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+
+interface OpenModalInterface {
+  title?: any;
+  closeOnClickOutside?: boolean;
+  removeLayout?: boolean;
+  /** Strip the container padding/gap (and clip to its rounded corners) so the
+   * child can render its own flush header — e.g. the post detail modal's
+   * coloured band. The child then owns its body padding. */
+  flush?: boolean;
+  fullScreen?: boolean;
+  top?: string | number;
+  /** Vertically center the modal (content-sized; no fixed height required). */
+  center?: boolean;
+  closeOnEscape?: boolean;
+  withCloseButton?: boolean;
+  askClose?: boolean;
+  onClose?: () => void;
+  children: ReactNode | ((close: () => void) => ReactNode);
+  classNames?: {
+    modal?: string;
+  };
+  size?: string | number;
+  maxSize?: string | number;
+  height?: string | number;
+  id?: string;
+}
+
+interface ModalManagerStoreInterface {
+  closeById(id: string): void;
+  openModal(params: OpenModalInterface): void;
+  closeAll(): void;
+}
+
+interface State extends ModalManagerStoreInterface {
+  modalManager: Array<{ id: string } & OpenModalInterface>;
+}
+
+const useModalStore = create<State>((set) => ({
+  modalManager: [],
+  openModal: (params) => {
+    const newId = params.id || makeId(20);
+    set((state) => ({
+      modalManager: [
+        ...state.modalManager,
+        ...(!state.modalManager.some((p) => p.id === newId)
+          ? [{ id: newId, ...params }]
+          : []),
+      ],
+    }));
+  },
+  closeById: (id) =>
+    set((state) => ({
+      modalManager: state.modalManager.filter((modal) => modal.id !== id),
+    })),
+  closeAll: () => set({ modalManager: [] }),
+}));
+
+// True while any modal is open — used e.g. to hide the mobile bottom nav so a
+// full-screen modal's footer isn't covered by it.
+export const useHasOpenModals = () =>
+  useModalStore((state) => state.modalManager.length > 0);
+
+const CurrentModalContext = createContext({ id: '' });
+
+interface ModalManagerInterface extends ModalManagerStoreInterface {
+  closeCurrent(): void;
+}
+
+export const useModals = () => {
+  const { closeAll, openModal, closeById } = useModalStore(
+    useShallow((state) => ({
+      openModal: state.openModal,
+      closeById: state.closeById,
+      closeAll: state.closeAll,
+    }))
+  );
+
+  const modalContext = useContext(CurrentModalContext);
+
+  return {
+    openModal,
+    closeAll,
+    closeById,
+    closeCurrent: () => {
+      if (modalContext.id) {
+        closeById(modalContext.id);
+      }
+    },
+  } satisfies ModalManagerInterface;
+};
+
+const FOCUSABLE_SELECTORS =
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+function useModalFocusTrap(enabled: boolean) {
+  const ref = useRef<HTMLDivElement>(null);
+  const focusableRef = useRef<HTMLElement[]>([]);
+  const firstRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const container = ref.current;
+    if (!container) return;
+
+    const updateFocusable = () => {
+      const focusable = Array.from(
+        container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS)
+      ).filter(
+        (el) =>
+          !(el as HTMLButtonElement | HTMLInputElement).disabled &&
+          el.offsetParent !== null
+      );
+      focusableRef.current = focusable;
+      firstRef.current = focusable[0] ?? container;
+    };
+
+    updateFocusable();
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
+    // Focus the first focusable element (fall back to the dialog container).
+    firstRef.current?.focus();
+
+    const handler = (e: KeyboardEvent) => {
+      const focusable = focusableRef.current;
+      if (e.key !== 'Tab' || focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    container.addEventListener('keydown', handler);
+
+    const observer = new MutationObserver(updateFocusable);
+    observer.observe(container, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+    });
+
+    return () => {
+      container.removeEventListener('keydown', handler);
+      observer.disconnect();
+      previouslyFocused?.focus();
+    };
+  }, [enabled]);
+
+  return ref;
+}
+
+export const Component: FC<{
+  closeModal: (id: string) => void;
+  zIndex: number;
+  isLast: boolean;
+  modal: { id: string } & OpenModalInterface;
+}> = memo(function Component({ isLast, modal, closeModal, zIndex }) {
+  const titleId = useId();
+  const focusRef = useModalFocusTrap(true);
+  const decision = useDecisionModal();
+  const closeModalFunction = useCallback(async () => {
+    if (modal.askClose) {
+      const open = await decision.open();
+      if (!open) {
+        return;
+      }
+    }
+    modal?.onClose?.();
+    closeModal(modal.id);
+  }, [modal, decision, closeModal]);
+
+  const RenderComponent = useMemo(() => {
+    return typeof modal.children === 'function'
+      ? modal.children(closeModalFunction)
+      : modal.children;
+  }, [modal, closeModalFunction]);
+
+  useHotkeys(
+    'Escape',
+    () => {
+      if (isLast) {
+        closeModalFunction();
+      }
+    },
+    [isLast, closeModalFunction]
+  );
+
+  if (modal.removeLayout) {
+    return (
+      <div
+        ref={focusRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={modal.title ? titleId : undefined}
+        tabIndex={-1}
+        style={{ zIndex }}
+        className={clsx(
+          !modal.fullScreen
+            ? 'pb-[50px] min-w-full min-h-full'
+            : 'w-full h-full',
+          'fixed flex left-0 top-0 bg-popup backdrop-blur-xs transition-all animate-fadeIn overflow-y-auto text-newTextColor outline-hidden',
+          !isLast && 'overflow-hidden!'
+        )}
+      >
+        <div className={clsx(modal.fullScreen && 'flex', 'relative flex-1')}>
+          <div
+            className={clsx(
+              modal.fullScreen
+                ? 'flex flex-1'
+                : 'absolute top-0 left-0 min-w-full min-h-full'
+            )}
+          >
+            <div
+              className={clsx(
+                modal.fullScreen ? 'w-full h-full flex-1' : 'mx-auto py-[48px]'
+              )}
+              {...(modal.size && { style: { width: modal.size } })}
+            >
+              {typeof modal.children === 'function'
+                ? modal.children(closeModalFunction)
+                : modal.children}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <CurrentModalContext.Provider value={{ id: modal.id }}>
+      <div
+        ref={focusRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={modal.title ? titleId : undefined}
+        tabIndex={-1}
+        onClick={closeModalFunction}
+        style={{ zIndex }}
+        className={clsx(
+          'fixed flex left-0 top-0 min-w-full min-h-full bg-popup backdrop-blur-xs transition-all animate-fadeIn overflow-y-auto text-newTextColor outline-hidden',
+          !modal.fullScreen && 'pb-[50px]'
+        )}
+      >
+        <div className="relative flex-1">
+          <div
+            style={
+              modal.top
+                ? { paddingTop: modal.top, paddingBottom: modal.top }
+                : {}
+            }
+            className={clsx(
+              'absolute min-w-full',
+              !modal.fullScreen
+                ? modal.top
+                  ? ''
+                  : 'min-h-full pt-[40px] pb-[40px] md:pt-[100px] md:pb-[100px]'
+                : 'h-screen',
+              (modal.size && modal.height) || modal.center
+                ? 'flex justify-center items-center'
+                : 'top-0 left-0'
+            )}
+          >
+            <div
+              className={clsx(
+                !modal.removeLayout &&
+                  !modal.flush &&
+                  'gap-[24px] p-[20px] md:gap-[40px] md:p-[32px]',
+                'bg-newBgColorInner border border-newTableBorder mx-auto flex flex-col w-fit rounded-[12px] relative',
+                modal.flush && 'overflow-hidden',
+                modal.size
+                  ? 'max-w-[calc(100vw-24px)]'
+                  : 'max-w-[calc(100vw-24px)] md:min-w-[600px] md:max-w-none',
+                modal.fullScreen && 'h-full'
+              )}
+              {...((!!modal.size || !!modal.height || !!modal.maxSize) && {
+                style: {
+                  ...(modal.size ? { width: modal.size } : {}),
+                  ...(modal.height ? { height: modal.height } : {}),
+                  ...(modal.maxSize ? { maxWidth: modal.maxSize } : {}),
+                },
+              })}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center">
+                <div id={titleId} className="text-[24px] font-[600] flex-1">
+                  {modal.title}
+                </div>
+                {typeof modal.withCloseButton === 'undefined' ||
+                modal.withCloseButton ? (
+                  <div className="cursor-pointer">
+                    <button
+                      className="outline-hidden absolute inset-e-[20px] top-[20px] mantine-UnstyledButton-root mantine-ActionIcon-root hover:bg-tableBorder cursor-pointer mantine-Modal-close mantine-1dcetaa"
+                      type="button"
+                      onClick={closeModalFunction}
+                    >
+                      <svg
+                        viewBox="0 0 15 15"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                      >
+                        <path
+                          d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+                          fill="currentColor"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+              <div
+                className={clsx(
+                  'whitespace-pre-line',
+                  !!modal.height && !!modal.size && 'flex flex-1 flex-col'
+                )}
+              >
+                {RenderComponent}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </CurrentModalContext.Provider>
+  );
+});
+
+export const ModalManagerInner: FC = () => {
+  const { closeModal, modalManager } = useModalStore(
+    useShallow((state) => ({
+      closeModal: state.closeById,
+      modalManager: state.modalManager,
+    }))
+  );
+
+  useEffect(() => {
+    if (modalManager.length > 0) {
+      document.querySelector('body')?.classList.add('overflow-hidden');
+      Array.from(document.querySelectorAll('.blurMe') || []).map((p) =>
+        p.classList.add('blur-xs', 'pointer-events-none')
+      );
+    } else {
+      document.querySelector('body')?.classList.remove('overflow-hidden');
+      Array.from(document.querySelectorAll('.blurMe') || []).map((p) =>
+        p.classList.remove('blur-xs', 'pointer-events-none')
+      );
+    }
+  }, [modalManager]);
+
+  if (modalManager.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <style>{`body, html { overflow: hidden !important; }`}</style>
+      {modalManager.map((modal, index) => (
+        <Component
+          isLast={modalManager.length - 1 === index}
+          key={modal.id}
+          modal={modal}
+          zIndex={200 + index}
+          closeModal={closeModal}
+        />
+      ))}
+    </>
+  );
+};
+export const ModalManager: FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <div>
+      <ModalManagerEmitter />
+      <ModalManagerInner />
+      <div className="transition-all w-full">{children}</div>
+    </div>
+  );
+};
+
+const emitter = new EventEmitter();
+export const showModalEmitter = (params: ModalManagerInterface) => {
+  emitter.emit('show', params);
+};
+
+export const ModalManagerEmitter: FC = () => {
+  const { showModal } = useModalStore(
+    useShallow((state) => ({
+      showModal: state.openModal,
+    }))
+  );
+
+  const handleShow = useCallback(
+    (params: OpenModalInterface) => {
+      showModal(params);
+    },
+    [showModal]
+  );
+
+  useEffect(() => {
+    emitter.on('show', handleShow);
+
+    return () => {
+      emitter.off('show', handleShow);
+    };
+  }, [handleShow]);
+  return null;
+};
+
+export const DecisionModal: FC<{
+  description: string;
+  approveLabel: string;
+  cancelLabel: string;
+  onlyApprove: boolean;
+  resolution: (value: boolean) => void;
+}> = ({ description, cancelLabel, approveLabel, resolution, onlyApprove }) => {
+  const { closeCurrent } = useModals();
+  return (
+    <div className="flex flex-col">
+      <div>{description}</div>
+      <div className="flex gap-[12px] mt-[16px]">
+        <Button
+          onClick={() => {
+            resolution(true);
+            closeCurrent();
+          }}
+        >
+          {approveLabel}
+        </Button>
+        {!onlyApprove && (
+          <Button
+            onClick={() => {
+              resolution(false);
+              closeCurrent();
+            }}
+          >
+            {cancelLabel}
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export const decisionModalEmitter = new EventEmitter();
+
+export const areYouSure = ({
+  title = i18next.t('are_you_sure', 'Are you sure?'),
+  description = i18next.t(
+    'are_you_sure_you_want_to_close_this_modal',
+    'Are you sure you want to close this modal?'
+  ) as any,
+  approveLabel = i18next.t('yes', 'Yes'),
+  cancelLabel = i18next.t('no', 'No'),
+} = {}): Promise<boolean> => {
+  return new Promise<boolean>((newRes) => {
+    decisionModalEmitter.emit('open', {
+      title,
+      description,
+      approveLabel,
+      cancelLabel,
+      newRes,
+    });
+  });
+};
+
+export const DecisionEverywhere: FC = () => {
+  const decision = useDecisionModal();
+  useEffect(() => {
+    const handler = decision.open;
+    decisionModalEmitter.on('open', handler);
+    return () => {
+      decisionModalEmitter.off('open', handler);
+    };
+  }, [decision]);
+  return null;
+};
+
+export const useDecisionModal = () => {
+  const modals = useModals();
+  const t = useT();
+  const open = useCallback(
+    ({
+      title = t('are_you_sure', 'Are you sure?'),
+      description = t(
+        'are_you_sure_you_want_to_close_this_modal',
+        'Are you sure you want to close this modal?'
+      ) as any,
+      onlyApprove = false,
+      approveLabel = t('yes', 'Yes'),
+      cancelLabel = t('no', 'No'),
+      newRes = undefined as any,
+    } = {}) => {
+      return new Promise<boolean>((res) => {
+        modals.openModal({
+          title,
+          askClose: false,
+          onClose: () => res(false),
+          children: (
+            <DecisionModal
+              onlyApprove={onlyApprove}
+              resolution={(value) => (newRes ? newRes(value) : res(value))}
+              description={description}
+              approveLabel={approveLabel}
+              cancelLabel={cancelLabel}
+            />
+          ),
+        });
+      });
+    },
+    [modals, t]
+  );
+
+  return { open };
+};
+
+export const PromptModal: FC<{
+  label: string;
+  placeholder?: string;
+  initialValue: string;
+  approveLabel: string;
+  cancelLabel: string;
+  resolution: (value: string | null) => void;
+}> = ({
+  label,
+  placeholder,
+  initialValue,
+  approveLabel,
+  cancelLabel,
+  resolution,
+}) => {
+  const { closeCurrent } = useModals();
+  const [value, setValue] = useState(initialValue);
+  const submit = () => {
+    resolution(value.trim());
+    closeCurrent();
+  };
+  return (
+    <div className="flex flex-col w-[420px] max-w-full">
+      <Input
+        name="prompt-modal-value"
+        label={label}
+        disableForm={true}
+        removeError={true}
+        autoFocus={true}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            submit();
+          }
+        }}
+      />
+      <div className="flex gap-[12px] mt-[16px]">
+        <Button onClick={submit}>{approveLabel}</Button>
+        <Button
+          secondary={true}
+          onClick={() => {
+            // Cancel resolves null, not '' — callers distinguish "aborted" from
+            // "submitted empty" (e.g. clearing a link vs. leaving it alone).
+            resolution(null);
+            closeCurrent();
+          }}
+        >
+          {cancelLabel}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+/**
+ * The app's replacement for the native `prompt()`. Resolves the trimmed value
+ * (possibly `''`) on submit, and `null` when cancelled or dismissed.
+ */
+export const usePromptModal = () => {
+  const modals = useModals();
+  const t = useT();
+  const open = useCallback(
+    ({
+      title = t('enter_a_value', 'Enter a value'),
+      label = '',
+      placeholder = undefined as string | undefined,
+      initialValue = '',
+      approveLabel = t('ok', 'OK'),
+      cancelLabel = t('cancel', 'Cancel'),
+    } = {}) => {
+      return new Promise<string | null>((res) => {
+        modals.openModal({
+          title,
+          askClose: false,
+          onClose: () => res(null),
+          children: (
+            <PromptModal
+              label={label}
+              placeholder={placeholder}
+              initialValue={initialValue}
+              approveLabel={approveLabel}
+              cancelLabel={cancelLabel}
+              resolution={res}
+            />
+          ),
+        });
+      });
+    },
+    [modals, t]
+  );
+
+  return { open };
+};
