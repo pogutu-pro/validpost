@@ -271,7 +271,7 @@ export abstract class SocialAbstract {
     // dispatcher. Callers may override `dispatcher` for trusted first-party
     // hosts. The heavier `safeFetch` (HTTPS + isSafePublicHttpsUrl pre-check +
     // per-hop re-validation) is reserved for the dedicated user-URL paths
-    // (mastodon `uploadFile`, bluesky `downloadVideo`, provider connect flows).
+    // (provider connect flows, and any user-supplied media URL path).
     //
     // When a per-channel VPN dispatcher is active (set by PostActivity for a
     // VPN-enabled channel), it replaces the SSRF Agent for this leg. Proxying

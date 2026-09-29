@@ -43,25 +43,21 @@ type ChannelSpec = { identifier: string; name: string; profile: string };
 // Fictional brand: "Solstice Supply Co." — outdoor gear & coffee. Handles and
 // captions are written for realistic marketing screenshots (no lorem ipsum).
 const CHANNELS: ChannelSpec[] = [
-  { identifier: 'x', name: 'Solstice Supply Co.', profile: '@solsticesupply' },
   { identifier: 'linkedin', name: 'Solstice Supply Co.', profile: 'solstice-supply' },
   { identifier: 'instagram', name: 'Solstice Supply', profile: '@solsticesupply' },
   { identifier: 'facebook', name: 'Solstice Supply Co.', profile: 'SolsticeSupplyCo' },
   { identifier: 'threads', name: 'Solstice Supply', profile: '@solsticesupply' },
   { identifier: 'youtube', name: 'Solstice Supply Co.', profile: '@SolsticeSupply' },
   { identifier: 'tiktok', name: 'Solstice Supply', profile: '@solsticesupply' },
-  { identifier: 'pinterest', name: 'Solstice Supply Co.', profile: 'solsticesupply' },
-  { identifier: 'mastodon', name: 'Solstice Supply', profile: '@solstice@mastodon.social' },
   { identifier: 'discord', name: 'Solstice Community', profile: 'Solstice Base Camp' },
-  { identifier: 'bluesky', name: 'Solstice Supply', profile: 'solstice.bsky.social' },
   { identifier: 'telegram', name: 'Solstice Supply', profile: 'solsticesupply' },
 ];
 
 // Channels the inbox can realistically show comments for (subset of the seeded
 // set that has comments capability in PROVIDER_CAPABILITIES).
 const COMMENT_CHANNELS = new Set([
-  'x', 'linkedin', 'instagram', 'facebook', 'threads', 'youtube', 'tiktok',
-  'mastodon', 'discord', 'telegram', 'bluesky',
+  'linkedin', 'instagram', 'facebook', 'threads', 'youtube', 'tiktok',
+  'discord', 'telegram',
 ]);
 
 const CAPTIONS: string[] = [
@@ -832,8 +828,8 @@ export class DemoSeeder {
 
     // ── content-type variety (real threads via parentPostId chains; real polls
     // in settings JSON — only on poll-capable channels; carousels/videos via media) ──
-    const THREAD_CHANNELS = new Set(['x', 'threads', 'bluesky', 'mastodon', 'linkedin']);
-    const POLL_CHANNELS = new Set(['x', 'linkedin']);
+    const THREAD_CHANNELS = new Set(['threads', 'linkedin']);
+    const POLL_CHANNELS = new Set(['linkedin']);
     // Discord requires a selected channel in post settings (DiscordDto.channel);
     // without it preflight blocks with "channel should not be null or undefined"
     // (B3). A plausible fake snowflake — seeded channels can't publish anyway.
@@ -872,15 +868,6 @@ export class DemoSeeder {
       identifier: string,
       p: { options: string[]; duration: number },
     ): string => {
-      if (identifier === 'x') {
-        return JSON.stringify({
-          __type: 'x',
-          who_can_reply_post: 'everyone',
-          made_with_ai: false,
-          paid_partnership: false,
-          poll: { options: p.options, duration: p.duration },
-        });
-      }
       return JSON.stringify({
         __type: 'linkedin',
         post_as_images_carousel: false,
@@ -1176,7 +1163,6 @@ export class DemoSeeder {
       UPDATE "Post" p
       SET "releaseId" = 'rel-' || p.id,
           "releaseURL" = CASE i."providerIdentifier"
-            WHEN 'x' THEN 'https://x.com/solsticesupply/status/' || p.id
             WHEN 'instagram' THEN 'https://www.instagram.com/p/' || p.id
             WHEN 'instagram-standalone' THEN 'https://www.instagram.com/p/' || p.id
             WHEN 'youtube' THEN 'https://www.youtube.com/watch?v=' || p.id

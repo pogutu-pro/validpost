@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "无法打开认证窗口。请检查您的弹出窗口拦截器设置。",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "登出 Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "加载摘要失败",
   "campaigns_fetch_failed": "加载活动失败",
   "attention_fetch_failed": "加载注意事项失败",

@@ -49,8 +49,6 @@ import { BottomTabBar } from '@postmill-ai/frontend/components/new-layout/bottom
 import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
 import { useAddProvider } from '@postmill-ai/frontend/components/launches/add.provider.component';
 
-// Lazy — only loaded when "New Campaign" is actually chosen (keeps the campaign-modal
-// dependency graph out of the global layout bundle).
 const CreateEditCampaignModal = dynamic(
   () =>
     import(
@@ -59,7 +57,6 @@ const CreateEditCampaignModal = dynamic(
   { ssr: false }
 );
 
-// Lazy — the CSV bulk-import surface is only pulled in when "Bulk Import" is chosen.
 const BulkImport = dynamic(
   () =>
     import('@postmill-ai/frontend/components/composer/bulk/bulk.import').then(
@@ -80,15 +77,10 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
 
   const { billingEnabled, isGeneral } = useVariables();
 
-  // Feedback icon component attaches Sentry feedback to a top-bar icon when DSN is present
   const searchParams = useSearchParams();
   const load = useCallback(
     async (path: string) => {
       const res = await fetch(path);
-      // Without this check a non-2xx body (notably the throttler's
-      // `{"statusCode":429,...}`) is parsed as the user object; `setupCompleted`
-      // is then `undefined` and the layout ejects a perfectly healthy user to
-      // /setup. Throwing keeps `user` undefined and lets SWR retry instead.
       if (!res.ok) {
         throw new Error(`Failed to load ${path}: ${res.status}`);
       }
@@ -110,18 +102,7 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
 
   const router = useRouter();
   const pathname = usePathname();
-  // The header wordmark shows ONLY on the dashboard route (other pages show their
-  // own <Title/> in the header instead).
   const isDashboard = pathname === '/dashboard';
-  // Only gate once `user` has loaded. `!user?.setupCompleted` is truthy while the
-  // SWR request is still in flight (user === undefined), which would redirect to
-  // /setup on every reload before we even know the real value.
-  //
-  // Setup configures org-level providers (AI/channels/…) — an owner/admin concern. A member
-  // CANNOT complete the required LLM step (the AI-config endpoints 403), so forcing them onto
-  // /setup is a dead-end. Only redirect users who can actually finish it; everyone else
-  // proceeds into the app, which runs in the existing no-AI state until an admin configures a
-  // provider. Wait for permissions to resolve before deciding, so a member is never trapped.
   const permissions = usePermissions();
   const canCompleteSetup =
     permissions.isSuperAdmin || permissions.isOwner || permissions.isAdmin;
@@ -135,17 +116,15 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
   }, [mustSetup, router]);
 
   if (!user) {
-    // SWR has run out of retries (a throttled or otherwise failing /user/self).
-    // Offer a way back instead of leaving the user on a permanently blank page.
     if (userError) {
       return (
         <div
           className={clsx(
-            'min-h-screen flex flex-col gap-[12px] items-center justify-center text-newTextColor',
+            'min-h-screen flex flex-col gap-[16px] items-center justify-center text-newTextColor',
             jakartaSans.className
           )}
         >
-          <div className="text-[14px]">
+          <div className="text-[14px] text-textItemBlur">
             {t(
               'could_not_load_your_account',
               'We could not load your account. Please try again.'
@@ -154,7 +133,7 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
           <button
             type="button"
             onClick={() => mutate()}
-            className="h-[36px] px-[16px] rounded-[8px] border border-newTableBorder hover:bg-boxHover text-[13px]"
+            className="h-[36px] px-[16px] rounded-[8px] border border-newTableBorder hover:bg-boxHover text-[13px] font-[500] transition-colors"
           >
             {t('retry', 'Retry')}
           </button>
@@ -163,11 +142,6 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
     }
     return null;
   }
-  // Hold rendering while setup is incomplete and we don't yet know the role — avoids briefly
-  // flashing the app to someone who is about to be redirected to /setup. Gate on `isLoaded`,
-  // not `isResolved`: a failed /settings/roles/me (e.g. throttled) leaves `isResolved` false
-  // forever, which used to blank the page permanently. Once the lookup has settled either way
-  // we render the app — an unresolvable role simply can't complete setup.
   if (setupIncomplete && !permissions.isLoaded) return null;
   if (mustSetup) return null;
 
@@ -191,7 +165,7 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
             <ContinueProvider />
             <div
               className={clsx(
-                'flex flex-col min-h-screen min-w-full text-newTextColor p-[12px] mobile:pb-[72px]',
+                'flex flex-col min-h-screen min-w-full text-newTextColor',
                 jakartaSans.className
               )}
             >
@@ -200,16 +174,16 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
               ) : (
                 <>
                   <AnnouncementBanner />
-                  <div className="flex-1 flex gap-[8px]">
+                  <div className="flex-1 flex">
                     <Support />
-                    <div className="mobile:hidden flex flex-col bg-newBgColorInner w-[80px] rounded-[12px]">
+                    <div className="mobile:hidden flex flex-col bg-newBgColorInner w-[72px] rounded-l-[12px] border-r border-newTableBorder">
                       <div
                         id="left-menu"
                         className={clsx(
-                          'fixed h-full w-[64px] inset-s-[17px] flex flex-1 top-0'
+                          'fixed h-full w-[72px] inset-s-[17px] flex flex-1 top-0'
                         )}
                       >
-                        <div className="flex flex-col h-full gap-[32px] flex-1 py-[12px]">
+                        <div className="flex flex-col h-full flex-1 py-[16px]">
                           <Link href="/" aria-label={t('home', 'Home')}>
                             <Logo />
                           </Link>
@@ -217,11 +191,9 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0 bg-newBgLineColor rounded-[12px] overflow-hidden flex flex-col gap-px blurMe">
-                      <div className="flex bg-newBgColorInner h-[56px] lg:h-[80px] px-[20px] items-center">
-                        <div className="text-[24px] font-[600] flex flex-1 items-center gap-[10px] min-w-0">
-                          {/* Mobile: the left rail is hidden, so always show the
-                              icon; add the wordmark only on the dashboard. */}
+                    <div className="flex-1 min-w-0 bg-newBgLineColor rounded-r-[12px] overflow-hidden flex flex-col gap-px blurMe">
+                      <div className="flex bg-newBgColorInner h-[56px] px-[20px] items-center">
+                        <div className="text-[20px] font-[600] flex flex-1 items-center gap-[10px] min-w-0">
                           <Link
                             href="/"
                             aria-label={t('home', 'Home')}
@@ -232,9 +204,6 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
                               <Wordmark height={26} className="text-textColor" />
                             )}
                           </Link>
-                          {/* Desktop: the icon lives in the left rail; show the
-                              wordmark only on the dashboard (other pages show the
-                              <Title/> instead). */}
                           {isDashboard && (
                             <Link
                               href="/"
@@ -244,13 +213,9 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
                               <Wordmark height={34} className="text-textColor" />
                             </Link>
                           )}
-                          {/* The dashboard header already shows the wordmark; the
-                              page Title (which resolves to "Home" for /dashboard)
-                              would be redundant, so it's shown only off-dashboard. */}
                           {!isDashboard && <Title />}
                         </div>
-                        <div className="flex gap-[20px] text-textItemBlur items-center">
-                          {/* Secondary utilities collapse into the avatar menu on mobile. */}
+                        <div className="flex gap-[16px] text-textItemBlur items-center">
                           <div className="contents mobile:hidden">
                             <div className="flex items-center justify-center w-[36px] h-[36px]">
                               <StreakComponent />
@@ -291,10 +256,6 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// GitHub-style "create" control. The desktop header shows a bordered "+" button (with a caret)
-// that opens a dropdown of these actions; on mobile — where the header "+" is hidden — the same
-// rows live in the avatar menu. New Post / New Design are plain navigations; New Campaign opens
-// the shared campaign modal; New Channel (admin-only) opens the add-channel flow.
 const createMenuRow =
   'w-full flex items-center gap-[10px] px-[14px] py-[8px] text-[13px] text-textColor hover:bg-boxHover text-start';
 
@@ -331,8 +292,6 @@ const useCreateActions = () => {
   return { openCampaign, openChannel: addChannel, openBulkImport };
 };
 
-// The create actions as a list of menu rows, shared by the desktop "+" dropdown and the mobile
-// avatar menu. `onSelect` closes the host menu; `showChannel` gates the admin-only channel row.
 const CreateMenuItems: React.FC<{ onSelect?: () => void; showChannel: boolean }> = ({
   onSelect,
   showChannel,
@@ -551,5 +510,3 @@ const CreateMenu = () => {
     </div>
   );
 };
-
-

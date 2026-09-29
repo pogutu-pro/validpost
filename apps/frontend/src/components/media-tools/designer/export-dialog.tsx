@@ -120,11 +120,9 @@ const QUALITY_STEP = 0.05;
 const getDefaultFormat = (formatId: string): FormatValue => {
   if (formatId.startsWith('ig-')) return 'jpeg';
   if (formatId.startsWith('fb-')) return 'jpeg';
-  if (formatId.startsWith('x-')) return 'webp';
   if (formatId.startsWith('linkedin-')) return 'webp';
   if (formatId.startsWith('tiktok')) return 'jpeg';
   if (formatId.startsWith('yt-')) return 'jpeg';
-  if (formatId.startsWith('pinterest-')) return 'png';
   return 'png';
 };
 

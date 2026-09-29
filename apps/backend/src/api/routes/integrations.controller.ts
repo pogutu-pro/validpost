@@ -39,12 +39,8 @@ import { PlugActivationDto } from '@postmill-ai/nestjs-libraries/dtos/integratio
 import { TelegramUpdatesQueryDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/telegram-updates-query.dto';
 import { SetNicknameDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/set-nickname.dto';
 import { ParseCuidPipe } from '@postmill-ai/nestjs-libraries/pipes/parse-cuid.pipe';
-import { MoltbookRegisterDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/moltbook-register.dto';
-import { MoltbookStatusQueryDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/moltbook-status-query.dto';
-
 
 import { TelegramProvider } from '@postmill-ai/provider-telegram';
-import { MoltbookProvider } from '@postmill-ai/provider-moltbook';
 import { setCredentials } from '@postmill-ai/nestjs-libraries/integrations/credentials';
 import {
   AuthorizationActions,
@@ -425,34 +421,6 @@ export class IntegrationsController {
         `telegram getUpdates failed; returning empty: ${(err as Error)?.message || err}`
       );
       return {};
-    }
-  }
-
-  @Post('/moltbook/register')
-  @Throttle({ default: { limit: 30, ttl: 60000 } })
-  async moltbookRegister(@Body() body: MoltbookRegisterDto) {
-    try {
-      const provider = new MoltbookProvider();
-      const result = await provider.registerAgent(body.name, body.description);
-      return {
-        apiKey: result.api_key,
-        claimUrl: result.claim_url,
-        verificationCode: result.verification_code,
-      };
-    } catch (err: any) {
-      return { error: err.message || 'Registration failed' };
-    }
-  }
-
-  @Get('/moltbook/status')
-  @Throttle({ default: { limit: 60, ttl: 60000 } })
-  async moltbookStatus(@Query() query: MoltbookStatusQueryDto) {
-    try {
-      const provider = new MoltbookProvider();
-      const result = await provider.checkAgentStatus(query.apiKey);
-      return { claimed: result?.status === 'claimed' };
-    } catch (err) {
-      return { claimed: false };
     }
   }
 }

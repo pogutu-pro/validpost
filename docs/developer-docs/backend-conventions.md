@@ -129,7 +129,7 @@ CSRF middleware is applied to all cookie-authenticated mutating routes (POST, PU
 
 Areas covered: webhook dispatch, provider HTTP fetches, watchlist probes. **Never** use bare `fetch(url)` where `url` is user-influenced. DTO validation alone doesn't survive DNS rebinding or 30x redirects.
 
-The `SSRF_ALLOWED_PRIVATE_CIDRS` env var allows self-hosted instances to whitelist internal network ranges.
+The `SSRF_ALLOWED_PRIVATE_CIDRS` env var allows instances to whitelist internal network ranges.
 
 ### EncryptionService for secrets
 

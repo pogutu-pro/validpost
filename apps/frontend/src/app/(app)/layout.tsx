@@ -48,7 +48,7 @@ const jakartaSans = Plus_Jakarta_Sans({
 // that already carry the brand don't become "… · Postmill".
 export const metadata = {
   title: {
-    default: 'Postmill',
+    default: 'ValidPost',
   },
 };
 
@@ -62,7 +62,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   const paymentsVars = paymentsVariables();
   const plausibleDomain =
     process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ||
-    (paymentsVars.billingEnabled ? 'postmill.ai' : '');
+    (paymentsVars.billingEnabled ? 'validpost.io' : '');
   const Plausible = plausibleDomain ? PlausibleProvider : Fragment;
   return (
     <html lang="en">
@@ -71,7 +71,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
         {!!process.env.DATAFAST_WEBSITE_ID && (
           <Script
             data-website-id={process.env.DATAFAST_WEBSITE_ID}
-            data-domain="postmill.ai"
+            data-domain="validpost.io"
             src="https://datafa.st/js/script.js"
             strategy="afterInteractive"
           />

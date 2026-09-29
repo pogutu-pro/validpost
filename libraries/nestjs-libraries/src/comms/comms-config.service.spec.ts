@@ -29,9 +29,6 @@ import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audi
 const ORG = 'org-1';
 
 const PLATFORM_ENV_VARS = [
-  'SLACK_ID',
-  'SLACK_SECRET',
-  'SLACK_SIGNING_SECRET',
   'DISCORD_CLIENT_ID',
   'DISCORD_BOT_TOKEN',
   'DISCORD_PUBLIC_KEY',
@@ -291,63 +288,63 @@ describe('CommsConfigService', () => {
       expect(item.platformConfigured).toBe(false);
     });
 
-    it('exposes the platform webhook URL for slack only when its platform app is configured; never for matrix', async () => {
-      process.env.SLACK_ID = 'slack-client';
-      process.env.SLACK_SECRET = 'slack-secret';
-      process.env.SLACK_SIGNING_SECRET = 'slack-signing';
+    it('exposes the platform webhook URL for discord only when its platform app is configured; never for a provider without a platform mapping', async () => {
+      process.env.DISCORD_CLIENT_ID = 'discord-client';
+      process.env.DISCORD_BOT_TOKEN = 'discord-bot';
+      process.env.DISCORD_PUBLIC_KEY = 'discord-public';
       resolution.listManifests.mockReturnValue([
         {
-          providerId: 'slack',
-          displayName: 'Slack',
+          providerId: 'discord',
+          displayName: 'Discord',
           version: 'v1',
           capabilities: adapter.capabilities,
           credentialFields: [],
           webhookInstructions: 'paste it',
         },
         {
-          providerId: 'matrix',
-          displayName: 'Matrix',
+          providerId: 'unknown-platform',
+          displayName: 'Unknown Platform',
           version: 'v1',
           capabilities: adapter.capabilities,
           credentialFields: [],
         },
       ]);
       const items = await service.getProviders(ORG);
-      const slack = items.find((i) => i.identifier === 'slack')!;
-      const matrix = items.find((i) => i.identifier === 'matrix')!;
-      expect(slack.platformConnect).toBe('oauth');
-      expect(slack.platformWebhookUrl).toBe(
-        'https://backend.example/webhooks/comms/platform/slack',
+      const discord = items.find((i) => i.identifier === 'discord')!;
+      const unmapped = items.find((i) => i.identifier === 'unknown-platform')!;
+      expect(discord.platformConnect).toBe('env');
+      expect(discord.platformWebhookUrl).toBe(
+        'https://backend.example/webhooks/comms/platform/discord',
       );
-      expect(slack.webhookInstructions).toBe('paste it');
-      expect(matrix.platformConnect).toBeUndefined();
-      expect(matrix.platformConfigured).toBe(false);
-      expect(matrix.platformWebhookUrl).toBeUndefined();
+      expect(discord.webhookInstructions).toBe('paste it');
+      expect(unmapped.platformConnect).toBeUndefined();
+      expect(unmapped.platformConfigured).toBe(false);
+      expect(unmapped.platformWebhookUrl).toBeUndefined();
 
-      // Flat mode (no platform app): the platform route would 404, so the URL
-      // must not be offered — the org's own token URL is the only valid one.
-      delete process.env.SLACK_SIGNING_SECRET;
-      const flat = (await service.getProviders(ORG)).find((i) => i.identifier === 'slack')!;
+      // Flat mode (incomplete env app): the platform route would 404, so the
+      // URL must not be offered — the org's own token URL is the only valid one.
+      delete process.env.DISCORD_PUBLIC_KEY;
+      const flat = (await service.getProviders(ORG)).find((i) => i.identifier === 'discord')!;
       expect(flat.platformConfigured).toBe(false);
       expect(flat.platformWebhookUrl).toBeUndefined();
     });
 
     it('reports platformConnected from the marker, falling back to env-credential equality for legacy rows', async () => {
-      process.env.SLACK_ID = 'slack-client';
-      process.env.SLACK_SECRET = 'slack-secret';
-      process.env.SLACK_SIGNING_SECRET = 'slack-signing';
+      process.env.DISCORD_CLIENT_ID = 'discord-client';
+      process.env.DISCORD_BOT_TOKEN = 'discord-bot';
+      process.env.DISCORD_PUBLIC_KEY = 'discord-public';
       resolution.listManifests.mockReturnValue([
         {
-          providerId: 'slack',
-          displayName: 'Slack',
+          providerId: 'discord',
+          displayName: 'Discord',
           version: 'v1',
           capabilities: adapter.capabilities,
           credentialFields: [],
         },
       ]);
       const row = (credentials: Record<string, string>, extraConfig: Record<string, unknown>) => ({
-        id: 'cfg-slack',
-        identifier: 'slack',
+        id: 'cfg-discord',
+        identifier: 'discord',
         version: 'v1',
         enabled: true,
         webhookToken: 'tok',
@@ -355,17 +352,17 @@ describe('CommsConfigService', () => {
         extraConfig,
       });
       const cases: Array<[Record<string, string>, Record<string, unknown>, boolean]> = [
-        [{ botToken: 'xoxb', signingSecret: 'slack-signing' }, { platformApp: true }, true],
-        [{ botToken: 'xoxb', signingSecret: 'slack-signing' }, { platformApp: false }, false],
-        // legacy rows (no marker): same secret as the platform app ⇒ platform
-        [{ botToken: 'xoxb', signingSecret: 'slack-signing' }, { teamId: 'T1' }, true],
-        [{ botToken: 'xoxb', signingSecret: 'their-own' }, { teamId: 'T1' }, false],
+        [{ botToken: 'discord-bot' }, { platformApp: true }, true],
+        [{ botToken: 'discord-bot' }, { platformApp: false }, false],
+        // legacy rows (no marker): same secret as the platform app => platform
+        [{ botToken: 'discord-bot' }, { teamId: 'G1' }, true],
+        [{ botToken: 'their-own' }, { teamId: 'G1' }, false],
         [{}, {}, false],
       ];
       for (const [creds, extra, expected] of cases) {
         repository.getByOrg.mockResolvedValueOnce([row(creds, extra)]);
-        const slack = (await service.getProviders(ORG)).find((i) => i.identifier === 'slack')!;
-        expect(slack.platformConnected).toBe(expected);
+        const discord = (await service.getProviders(ORG)).find((i) => i.identifier === 'discord')!;
+        expect(discord.platformConnected).toBe(expected);
       }
     });
 
@@ -433,10 +430,10 @@ describe('CommsConfigService', () => {
     });
 
     it('400s for providers without an env platform app (or unknown ones)', async () => {
-      await expect(service.platformConnect(ORG, 'slack')).rejects.toThrow(
+      await expect(service.platformConnect(ORG, 'unknown-platform')).rejects.toThrow(
         'does not support platform connect',
       );
-      await expect(service.platformConnect(ORG, 'matrix')).rejects.toThrow(
+      await expect(service.platformConnect(ORG, 'no-such-provider')).rejects.toThrow(
         'does not support platform connect',
       );
     });
@@ -506,79 +503,3 @@ describe('CommsConfigService', () => {
     });
   });
 
-  describe('slack oauth', () => {
-    beforeEach(() => {
-      process.env.SLACK_ID = 'slack-client';
-      process.env.SLACK_SECRET = 'slack-secret';
-      process.env.SLACK_SIGNING_SECRET = 'slack-signing';
-    });
-
-    it('builds the authorize url and binds org+user to the state', async () => {
-      const { url } = await service.getSlackOAuthUrl(ORG, 'user-1');
-      expect(url).toContain('https://slack.com/oauth/v2/authorize?client_id=slack-client');
-      expect(url).toContain('scope=chat%3Awrite%2Cim%3Awrite%2Cim%3Ahistory%2Capp_mentions%3Aread');
-      expect(url).toContain(
-        `redirect_uri=${encodeURIComponent('https://backend.example/settings/comms/oauth/slack/callback')}`,
-      );
-      const state = new URL(url).searchParams.get('state')!;
-      expect(redisStore.get(`comms-oauth:${state}`)).toBe(
-        JSON.stringify({ orgId: ORG, userId: 'user-1' }),
-      );
-    });
-
-    it('400s when the platform slack app is not configured', async () => {
-      delete process.env.SLACK_ID;
-      await expect(service.getSlackOAuthUrl(ORG, 'user-1')).rejects.toThrow(
-        'not configured on this deployment',
-      );
-    });
-
-    it('exchanges the code, stores bot token + signing secret + teamId, enables', async () => {
-      const { url } = await service.getSlackOAuthUrl(ORG, 'user-1');
-      const state = new URL(url).searchParams.get('state')!;
-      safeFetchMock.mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          ok: true,
-          access_token: 'xoxb-new',
-          team: { id: 'T1' },
-        }),
-      });
-      await service.handleSlackOAuthCallback('code-1', state);
-      expect(safeFetchMock).toHaveBeenCalledWith(
-        'https://slack.com/api/oauth.v2.access',
-        expect.objectContaining({ method: 'POST' }),
-      );
-      const call = repository.upsert.mock.calls[0][2];
-      expect(call.enabled).toBe(true);
-      // The mock adapter declares webhookRegistration, so upsert also mints
-      // an internal webhookSecret — assert the OAuth-written keys only.
-      expect(JSON.parse(call.credentials.replace(/^enc:/, ''))).toMatchObject({
-        botToken: 'xoxb-new',
-        signingSecret: 'slack-signing',
-      });
-      expect(call.extraConfig.teamId).toBe('T1');
-      expect(audit.record).toHaveBeenCalled();
-      // State is single-use.
-      expect(redisStore.has(`comms-oauth:${state}`)).toBe(false);
-      await expect(service.handleSlackOAuthCallback('code-1', state)).rejects.toThrow(
-        'Invalid or expired state',
-      );
-    });
-
-    it('rejects an unknown state and surfaces slack exchange errors', async () => {
-      await expect(
-        service.handleSlackOAuthCallback('code-1', 'nope'),
-      ).rejects.toThrow('Invalid or expired state');
-      const { url } = await service.getSlackOAuthUrl(ORG, 'user-1');
-      const state = new URL(url).searchParams.get('state')!;
-      safeFetchMock.mockResolvedValue({
-        ok: true,
-        json: async () => ({ ok: false, error: 'invalid_code' }),
-      });
-      await expect(
-        service.handleSlackOAuthCallback('bad-code', state),
-      ).rejects.toThrow('Slack authorization failed: invalid_code');
-    });
-  });
-});

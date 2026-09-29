@@ -36,29 +36,13 @@
   font-family: 'Playwrite England Joined', cursive;
 }
 
-@font-face {
-  font-family: 'Wendy One';
-  src: url('/fonts/WendyOne-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-.font-wendy {
-  font-family: 'Wendy One', sans-serif;
-}
-
-h1 {
-  font-family: 'Wendy One', sans-serif;
+h1, h2, h3 {
+  font-family: 'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-family: 'Wendy One', sans-serif;
   color: var(--heading-accent);
-}
-
-h3 {
-  font-family: 'Wendy One', sans-serif;
 }
 
 @keyframes spin {

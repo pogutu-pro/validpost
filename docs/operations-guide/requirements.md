@@ -3,12 +3,12 @@
 ## Hardware sizing
 
 Postmill is a Node.js monorepo application backed by PostgreSQL and Redis. Background jobs run on
-Inngest, so self-hosted deployments do not need a local workflow engine.
+Inngest, so deployments do not need a local workflow engine.
 
 | Tier      | Users  | CPU       | RAM    | Disk    | Notes |
 |-----------|--------|-----------|--------|---------|-------|
 | Minimum   | 1–5    | 2 vCPU    | 4 GB   | 20 GB   | Suitable for single-tenant or small teams |
-| Small     | 5–50   | 4 vCPU    | 8 GB   | 50 GB   | Comfortable for most self-hosters |
+| Small     | 5–50   | 4 vCPU    | 8 GB   | 50 GB   | Comfortable for most deployments |
 | Medium    | 50–200 | 8 vCPU    | 16 GB  | 100 GB  | Add RAM for analytics cache / large orgs |
 | Large     | 200+   | 16 vCPU+  | 32 GB+ | 200 GB+ | Scale Postgres and Redis independently |
 
@@ -29,7 +29,7 @@ The heavy pieces:
 | Node.js   | `>=24.0.0 <25.0.0`   | See `engines` in `package.json` |
 | pnpm      | `10.34.4`             | Specified in `packageManager`; other versions may silently break |
 | Docker    | Recent stable         | Only needed for Docker Compose deployment |
-| git       | Any                   | For cloning the repository |
+| git       | Any                   | For source management |
 
 ### Runtime dependencies
 
@@ -66,7 +66,7 @@ variables. See [Storage Setup](./storage.md) and [Configuration](./configuration
   backend address.
 - **Outbound HTTPS** is required — all provider API calls and webhook dispatches go through
   `safeFetch`, which enforces HTTPS and blocks private/internal IPs (unless explicitly allowlisted
-  via `SSRF_ALLOWED_PRIVATE_CIDRS` for self-hosted provider instances).
+  via `SSRF_ALLOWED_PRIVATE_CIDRS` for provider instances).
 - Ensure your public IP is in the allow-list for any API tokens you create via the Public API
   settings.
 

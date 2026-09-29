@@ -30,7 +30,6 @@ interface ProviderEnvMapping {
 }
 
 export const CHANNEL_ENV_MAPPINGS: ProviderEnvMapping[] = [
-  { identifier: 'x', clientIdEnv: 'X_API_KEY', clientSecretEnv: 'X_API_SECRET' },
   { identifier: 'linkedin', clientIdEnv: 'LINKEDIN_CLIENT_ID', clientSecretEnv: 'LINKEDIN_CLIENT_SECRET' },
   // The page channel needs a DEDICATED LinkedIn app (Community Management API
   // must be an app's only product), so it reads its own env pair — never the
@@ -40,23 +39,11 @@ export const CHANNEL_ENV_MAPPINGS: ProviderEnvMapping[] = [
   { identifier: 'instagram', clientIdEnv: 'FACEBOOK_APP_ID', clientSecretEnv: 'FACEBOOK_APP_SECRET', configIdEnv: 'FACEBOOK_CONFIG_ID' },
   { identifier: 'instagram-standalone', clientIdEnv: 'INSTAGRAM_APP_ID', clientSecretEnv: 'INSTAGRAM_APP_SECRET' },
   { identifier: 'discord', clientIdEnv: 'DISCORD_CLIENT_ID', clientSecretEnv: 'DISCORD_CLIENT_SECRET', tokenEnv: 'DISCORD_BOT_TOKEN' },
-  { identifier: 'slack', clientIdEnv: 'SLACK_ID', clientSecretEnv: 'SLACK_SECRET' },
   { identifier: 'tiktok', clientIdEnv: 'TIKTOK_CLIENT_ID', clientSecretEnv: 'TIKTOK_CLIENT_SECRET' },
   { identifier: 'youtube', clientIdEnv: 'YOUTUBE_CLIENT_ID', clientSecretEnv: 'YOUTUBE_CLIENT_SECRET' },
-  { identifier: 'pinterest', clientIdEnv: 'PINTEREST_CLIENT_ID', clientSecretEnv: 'PINTEREST_CLIENT_SECRET' },
-  { identifier: 'reddit', clientIdEnv: 'REDDIT_CLIENT_ID', clientSecretEnv: 'REDDIT_CLIENT_SECRET' },
-  { identifier: 'twitch', clientIdEnv: 'TWITCH_CLIENT_ID', clientSecretEnv: 'TWITCH_CLIENT_SECRET' },
   { identifier: 'threads', clientIdEnv: 'THREADS_APP_ID', clientSecretEnv: 'THREADS_APP_SECRET' },
-  { identifier: 'dribbble', clientIdEnv: 'DRIBBBLE_CLIENT_ID', clientSecretEnv: 'DRIBBBLE_CLIENT_SECRET' },
-  { identifier: 'mastodon', clientIdEnv: 'MASTODON_CLIENT_ID', clientSecretEnv: 'MASTODON_CLIENT_SECRET' },
-  { identifier: 'mewe', clientIdEnv: 'MEWE_APP_ID', clientSecretEnv: 'MEWE_API_KEY' },
-  { identifier: 'kick', clientIdEnv: 'KICK_CLIENT_ID', clientSecretEnv: 'KICK_SECRET' },
   { identifier: 'gmb', clientIdEnv: 'GOOGLE_GMB_CLIENT_ID', clientSecretEnv: 'GOOGLE_GMB_CLIENT_SECRET' },
-  { identifier: 'wrapcast', clientIdEnv: 'NEYNAR_CLIENT_ID', clientSecretEnv: 'NEYNAR_SECRET_KEY' },
-  { identifier: 'vk', clientIdEnv: 'VK_ID' },
-  { identifier: 'whop', clientIdEnv: 'WHOP_CLIENT_ID' },
   { identifier: 'telegram', clientIdEnv: 'TELEGRAM_TOKEN', isTokenOnly: true },
-  { identifier: 'line', clientIdEnv: 'LINE_CHANNEL_ACCESS_TOKEN', isTokenOnly: true },
 ];
 
 const MAP_BY_IDENTIFIER: Record<string, ProviderEnvMapping> = Object.fromEntries(
@@ -85,7 +72,7 @@ export function getEnvClientInfo(identifier: string): EnvClientInfo | undefined 
   }
 
   const secret = mapping.clientSecretEnv ? process.env[mapping.clientSecretEnv] : undefined;
-  // A few providers (vk, whop) are id-only; otherwise require both halves.
+  // Id-only providers omit the secret; everyone else requires both halves.
   if (mapping.clientSecretEnv && !secret) return undefined;
 
   const configId = mapping.configIdEnv ? process.env[mapping.configIdEnv] : undefined;

@@ -103,7 +103,7 @@ provider fetches, watchlist probes, and any code path that constructs a URL from
      - Link-local: `169.254.0.0/16`, `fe80::/10`
      - Private: `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `fc00::/7`
      - Other reserved ranges
-   - `SSRF_ALLOWED_PRIVATE_CIDRS` can opt-in specific CIDRs for self-hosted provider instances
+    - `SSRF_ALLOWED_PRIVATE_CIDRS` can opt-in specific CIDRs for provider instances
 2. **`ssrfSafeDispatcher`** — an undici `Agent` that blocks connections to private IPs at the
    network layer (second line of defense against DNS rebinding).
 3. **Per-hop redirect re-validation** — `safeFetch` follows redirects manually (up to 5 hops),
@@ -137,13 +137,13 @@ rebinding or 30x redirects.
 
 ### Self-hosted media over `http://` (Pinterest video, LOCAL storage)
 
-Because `safeFetch` enforces **HTTPS + public IP**, a self-hosted instance that serves its own media
+Because `safeFetch` enforces **HTTPS + public IP**, an instance that serves its own media
 over plain `http://` or from a private/internal address will now get a `Blocked URL` error where the
 fetch previously worked. The concrete case is **Pinterest video posting**: the provider fetches the
 media URL server-side through `safeFetch`, so a LOCAL-storage instance exposing media at
 `http://<private-host>/uploads/...` fails the pre-flight validation.
 
-To keep self-hosted media working with providers that re-fetch it:
+To keep media working with providers that re-fetch it:
 
 - **Serve media over HTTPS** with a publicly resolvable hostname (the recommended fix), **or**
 - Add the private range to `SSRF_ALLOWED_PRIVATE_CIDRS` (opt-in) so the internal media host is
@@ -174,7 +174,7 @@ Because `v2:` is the only accepted format, any secrets stored under an older enc
 scheme must be rewritten once. A ledger-gated `BackfillService` step,
 `backfill:legacy secret re-encryption`, runs **automatically at boot** before strict
 reads matter, re-encrypting any old-format values to AES-256-GCM `v2:` in place. The
-migration ledger guarantees it runs exactly once — self-hosters do not need to run
+migration ledger guarantees it runs exactly once — operators do not need to run
 anything manually, but the first boot of an upgraded instance must complete before the
 old format is gone for good.
 

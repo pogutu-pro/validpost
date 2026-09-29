@@ -8,10 +8,6 @@ Kubernetes, or a raw `docker compose up`.
 ## Quick start
 
 ```bash
-# Clone the repository
-git clone https://github.com/postmill-ai/postmill-app.git
-cd postmill-app
-
 # Copy and edit environment
 cp .env.example .env
 # Edit .env with your values (see Configuration)
@@ -24,18 +20,13 @@ The application will be available at `http://localhost:4007`.
 
 ## Container images
 
-Postmill publishes the same all-in-one image to two registries. Both are official; pull from
+ValidPost publishes the same all-in-one image to two registries. Both are official; pull from
 whichever suits your environment.
 
 | Registry | Image | Notes |
 |---|---|---|
 | GitHub Container Registry | `ghcr.io/postmill-ai/postmill-app` | Used by the shipped `docker-compose.yaml`. No anonymous pull rate limit |
 | Docker Hub | `postmillai/postmill-app` | The same image. Anonymous pulls are subject to Docker Hub's rate limits |
-
-```bash
-docker pull ghcr.io/postmill-ai/postmill-app:v1.0.0   # GitHub Container Registry
-docker pull postmillai/postmill-app:v1.0.0            # Docker Hub
-```
 
 Every release is published to both as `:vX.Y.Z` and `:latest`, built for `linux/amd64` only.
 

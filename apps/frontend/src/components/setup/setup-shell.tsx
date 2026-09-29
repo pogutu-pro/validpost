@@ -36,8 +36,6 @@ export function SetupShell({ children }: { children: ReactNode }) {
     refreshWhenHidden: false,
   });
 
-  // Render nothing until /user/self resolves. An unauthenticated visitor will
-  // be bounced to /auth/login by the fetch interceptor in LayoutContext.
   if (!user) return null;
 
   return (

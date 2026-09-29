@@ -1,5 +1,3 @@
-<!-- Remember to first discuss larger changes in a [GitHub Discussion](https://github.com/postmill-ai/postmill-app/discussions) and sign the CLA (email your acceptance to legal@postmill.ai — see [CONTRIBUTING](https://github.com/postmill-ai/postmill-app/blob/main/CONTRIBUTING.md)) before submitting a PR. -->
-
 # What kind of change does this PR introduce?
 
 eg: Bug fix, feature, docs update, ...
@@ -16,7 +14,5 @@ eg: Did you discuss this change with anybody before working on it (not required,
 
 Put a "X" in the boxes below to indicate you have followed the checklist;
 
-- [ ] I have read the [CONTRIBUTING](https://github.com/postmill-ai/postmill-app/blob/main/CONTRIBUTING.md) guide.
-- [ ] I have signed the Contributor License Agreement (CLA) by emailing my acceptance to legal@postmill.ai ([ICLA](https://github.com/postmill-ai/postmill-app/blob/main/ICLA.md) for individuals, [CCLA](https://github.com/postmill-ai/postmill-app/blob/main/CCLA.md) for entities).
 - [ ] I checked that there were no similar issues or PRs already open for this.
 - [ ] This PR fixes just ONE issue

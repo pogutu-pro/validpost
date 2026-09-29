@@ -36,8 +36,7 @@ export function SetupStepper({
 
   return (
     <div className="w-full border-b border-newBorder bg-primary shrink-0">
-      {/* Mobile compact view */}
-      <div className="mobile:flex hidden items-center justify-between px-[16px] py-[12px]">
+      <div className="mobile:flex hidden items-center justify-between px-[16px] py-[14px]">
         <div className="text-[14px] font-[500] text-textColor">
           {t('step_of', 'Step {{current}} of {{total}}', {
             current: currentStep + 1,
@@ -47,16 +46,15 @@ export function SetupStepper({
             {steps[currentStep].label}
           </span>
         </div>
-        <div className="w-[80px] h-[4px] bg-newBorder rounded-full overflow-hidden">
+        <div className="w-[100px] h-[4px] bg-newBorder rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#2B5CD3] rounded-full transition-all"
+            className="h-full bg-[#4F46E5] rounded-full transition-all duration-300 ease-out"
             style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
           />
         </div>
       </div>
 
-      {/* Desktop / horizontal scroll view */}
-      <div className="mobile:hidden flex items-center px-[24px] py-[16px] gap-[8px] overflow-x-auto">
+      <div className="mobile:hidden flex items-center px-[24px] py-[16px] gap-[6px] overflow-x-auto">
         {steps.map((step, index) => {
           const state = stateFor(index);
           const clickable = state === 'complete' || state === 'skipped' || index <= currentStep;
@@ -67,18 +65,18 @@ export function SetupStepper({
                 onClick={() => clickable && onStepClick(index)}
                 disabled={!clickable}
                 className={clsx(
-                  'flex items-center gap-[10px] px-[14px] py-[8px] rounded-[8px] transition-colors shrink-0',
-                  state === 'active' && 'bg-[#2B5CD3]/15 text-textColor',
+                  'flex items-center gap-[10px] px-[14px] py-[8px] rounded-[8px] transition-all shrink-0',
+                  state === 'active' && 'bg-[#4F46E5]/10 text-textColor',
                   state === 'complete' && 'text-textColor hover:bg-boxHover',
                   state === 'skipped' && 'text-newTableText hover:bg-boxHover',
-                  state === 'upcoming' && 'text-newTableText opacity-60 cursor-not-allowed'
+                  state === 'upcoming' && 'text-newTableText opacity-50 cursor-not-allowed'
                 )}
               >
                 <span
                   className={clsx(
-                    'w-[26px] h-[26px] rounded-full flex items-center justify-center text-[12px] font-[600] border',
-                    state === 'active' && 'bg-[#2B5CD3] border-[#2B5CD3] text-white',
-                    state === 'complete' && 'bg-transparent border-[#2B5CD3] text-btnPrimaryAccent',
+                    'w-[26px] h-[26px] rounded-full flex items-center justify-center text-[12px] font-[600] border transition-all',
+                    state === 'active' && 'bg-[#4F46E5] border-[#4F46E5] text-white shadow-sm',
+                    state === 'complete' && 'bg-transparent border-[#4F46E5] text-[#4F46E5]',
                     state === 'skipped' && 'bg-transparent border-newTableBorder text-newTableText',
                     state === 'upcoming' && 'bg-transparent border-newTableBorder text-newTableText'
                   )}
@@ -103,8 +101,8 @@ export function SetupStepper({
               {index < steps.length - 1 && (
                 <div
                   className={clsx(
-                    'w-[24px] h-px shrink-0',
-                    state === 'complete' ? 'bg-[#2B5CD3]' : 'bg-newBorder'
+                    'w-[20px] h-px shrink-0 transition-colors',
+                    state === 'complete' ? 'bg-[#4F46E5]' : 'bg-newBorder'
                   )}
                 />
               )}

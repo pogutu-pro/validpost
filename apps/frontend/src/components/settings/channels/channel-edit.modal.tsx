@@ -19,25 +19,14 @@ import { web3List } from '@postmill-ai/frontend/components/launches/web3/web3.li
 
 const PROVIDER_APP_LINKS: Record<string, { label: string; url: string | null }> = {
   linkedin: { label: 'LinkedIn Developer Portal', url: 'https://www.linkedin.com/developers/apps' },
-  x: { label: 'X Developer Portal', url: 'https://developer.x.com/en/portal/dashboard' },
   facebook: { label: 'Facebook Developers', url: 'https://developers.facebook.com/apps' },
   instagram: { label: 'Instagram Basic Display', url: 'https://developers.facebook.com/docs/instagram-basic-display-api' },
   'instagram-standalone': { label: 'Instagram Basic Display', url: 'https://developers.facebook.com/docs/instagram-basic-display-api' },
   threads: { label: 'Threads Developer', url: 'https://developers.facebook.com/docs/threads' },
   youtube: { label: 'Google Cloud Console', url: 'https://console.cloud.google.com/apis/credentials' },
   tiktok: { label: 'TikTok for Developers', url: 'https://developers.tiktok.com/apps' },
-  pinterest: { label: 'Pinterest Developers', url: 'https://developers.pinterest.com/apps' },
   discord: { label: 'Discord Developer Portal', url: 'https://discord.com/developers/applications' },
-  slack: { label: 'Slack API', url: 'https://api.slack.com/apps' },
-  reddit: { label: 'Reddit Apps', url: 'https://www.reddit.com/prefs/apps' },
-  tumblr: { label: 'Tumblr OAuth Apps', url: 'https://www.tumblr.com/oauth/apps' },
   telegram: { label: 'Telegram BotFather', url: 'https://t.me/botfather' },
-  wordpress: { label: 'WordPress Developers', url: 'https://developer.wordpress.com/apps' },
-  devto: { label: 'dev.to Settings', url: 'https://dev.to/settings/extensions' },
-  hashnode: { label: 'Hashnode Settings', url: 'https://hashnode.com/settings/developer' },
-  medium: { label: 'Medium Integration', url: 'https://medium.com/me/settings/apps' },
-  mastodon: { label: 'Mastodon Instance', url: null },
-  bluesky: { label: 'Bluesky Settings', url: 'https://bsky.app/settings/app-passwords' },
 };
 
 // Mirrors the kernel's ChannelSetupDescriptor (libraries/providers/kernel) as
@@ -62,7 +51,7 @@ export interface ChannelSetupDescriptor {
   setupSteps?: string[];
 }
 
-// Account-credential fields declared by 'direct' providers (Bluesky & co.) —
+// Account-credential fields declared by 'direct' providers —
 // served by the provider catalog's customFields and rendered by this form so
 // direct channels can connect from Settings (the composer flow that used to
 // collect them is gone).
@@ -233,7 +222,7 @@ export const ChannelConfigForm: FC<ChannelConfigFormProps> = ({
       : ''
   );
 
-  // 'direct' providers' account-credential fields (Bluesky handle + app
+  // 'direct' providers' account-credential fields (handle + app
   // password, …), rendered as the connect form in Mode B.
   const directFields: ChannelCustomField[] | null =
     isDirect && Array.isArray(customFields) && customFields.length
@@ -448,7 +437,7 @@ export const ChannelConfigForm: FC<ChannelConfigFormProps> = ({
     }
   }, [saveConfig, fetch, identifier, Web3Connect, toaster, t, completeTokenConnect]);
 
-  // Direct-channel connect (Bluesky & co.): validate the account-credential
+  // Direct-channel connect: validate the account-credential
   // fields, save the set ENABLED (direct sets hold no app credentials, and
   // connect initiation is gated on an enabled set), mint the state, then
   // complete inline — code is base64(JSON) of the field values, the same
@@ -757,7 +746,7 @@ export const ChannelConfigForm: FC<ChannelConfigFormProps> = ({
   // are stored (a token set without a token cannot connect).
   const showConnect = hasPlatformApp || (isToken && isConfigured);
 
-  // Direct-channel account fields + Connect (Bluesky & co.) — the primary
+  // Direct-channel account fields + Connect — the primary
   // content of Mode B for these providers.
   const directFieldsBlock = directFields?.map((field) => (
     <div key={field.key} className="flex flex-col gap-[6px]">
@@ -827,7 +816,7 @@ export const ChannelConfigForm: FC<ChannelConfigFormProps> = ({
       </button>
       {platformConfigured && (
         <div className="text-[12px] text-newTableText text-center">
-          {t('uses_postmill_app_no_setup', 'Uses the Postmill app — no setup needed')}
+          {t('uses_validpost_app_no_setup', 'Uses the ValidPost app — no setup needed')}
         </div>
       )}
     </div>

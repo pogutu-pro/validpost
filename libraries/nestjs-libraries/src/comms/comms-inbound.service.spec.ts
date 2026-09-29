@@ -338,26 +338,4 @@ describe('CommsInboundService', () => {
     });
   });
 
-  describe('pollConfig (matrix)', () => {
-    it('polls from the stored cursor, persists the new one, filters non-messages', async () => {
-      adapter.pollInbound.mockResolvedValue({
-        messages: [
-          { kind: 'message', externalUserId: '@a:hs', text: 'hi', messageId: '$1' },
-          { kind: 'ignore' },
-        ],
-        nextCursor: 's-2',
-      });
-      const result = await service.pollConfig('org-1', 'cfg-1', 'matrix');
-      expect(adapter.pollInbound).toHaveBeenCalledWith('s-1');
-      expect(configs.updateSyncCursor).toHaveBeenCalledWith('cfg-1', 's-2');
-      expect(result.messages).toHaveLength(1);
-    });
-
-    it('refuses a config from another org', async () => {
-      configs.getById.mockResolvedValue({ id: 'cfg-1', organizationId: 'other-org' });
-      const result = await service.pollConfig('org-1', 'cfg-1', 'matrix');
-      expect(result.messages).toEqual([]);
-      expect(adapter.pollInbound).not.toHaveBeenCalled();
-    });
-  });
 });

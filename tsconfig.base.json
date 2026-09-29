@@ -67,12 +67,6 @@
       "@postmill-ai/provider-adobe-stock/*": [
         "libraries/providers/adobe-stock/src/*"
       ],
-      "@postmill-ai/provider-akkoma": [
-        "libraries/providers/akkoma/src"
-      ],
-      "@postmill-ai/provider-akkoma/*": [
-        "libraries/providers/akkoma/src/*"
-      ],
       "@postmill-ai/provider-anthropic": [
         "libraries/providers/anthropic/src"
       ],
@@ -133,12 +127,6 @@
       "@postmill-ai/provider-blink/*": [
         "libraries/providers/blink/src/*"
       ],
-      "@postmill-ai/provider-bluesky": [
-        "libraries/providers/bluesky/src"
-      ],
-      "@postmill-ai/provider-bluesky/*": [
-        "libraries/providers/bluesky/src/*"
-      ],
       "@postmill-ai/provider-cleanuri": [
         "libraries/providers/cleanuri/src"
       ],
@@ -193,12 +181,6 @@
       "@postmill-ai/provider-deepseek/*": [
         "libraries/providers/deepseek/src/*"
       ],
-      "@postmill-ai/provider-devto": [
-        "libraries/providers/devto/src"
-      ],
-      "@postmill-ai/provider-devto/*": [
-        "libraries/providers/devto/src/*"
-      ],
       "@postmill-ai/provider-did": [
         "libraries/providers/did/src"
       ],
@@ -216,18 +198,6 @@
       ],
       "@postmill-ai/provider-discord/*": [
         "libraries/providers/discord/src/*"
-      ],
-      "@postmill-ai/provider-discourse": [
-        "libraries/providers/discourse/src"
-      ],
-      "@postmill-ai/provider-discourse/*": [
-        "libraries/providers/discourse/src/*"
-      ],
-      "@postmill-ai/provider-dribbble": [
-        "libraries/providers/dribbble/src"
-      ],
-      "@postmill-ai/provider-dribbble/*": [
-        "libraries/providers/dribbble/src/*"
       ],
       "@postmill-ai/provider-dub": [
         "libraries/providers/dub/src"
@@ -277,12 +247,6 @@
       "@postmill-ai/provider-fireworks/*": [
         "libraries/providers/fireworks/src/*"
       ],
-      "@postmill-ai/provider-friendica": [
-        "libraries/providers/friendica/src"
-      ],
-      "@postmill-ai/provider-friendica/*": [
-        "libraries/providers/friendica/src/*"
-      ],
       "@postmill-ai/provider-gateway": [
         "libraries/providers/gateway/src"
       ],
@@ -300,12 +264,6 @@
       ],
       "@postmill-ai/provider-genviral/*": [
         "libraries/providers/genviral/src/*"
-      ],
-      "@postmill-ai/provider-github": [
-        "libraries/providers/github/src"
-      ],
-      "@postmill-ai/provider-github/*": [
-        "libraries/providers/github/src/*"
       ],
       "@postmill-ai/provider-gmb": [
         "libraries/providers/gmb/src"
@@ -331,23 +289,11 @@
       "@postmill-ai/provider-google-ai/*": [
         "libraries/providers/google-ai/src/*"
       ],
-      "@postmill-ai/provider-gotosocial": [
-        "libraries/providers/gotosocial/src"
-      ],
-      "@postmill-ai/provider-gotosocial/*": [
-        "libraries/providers/gotosocial/src/*"
-      ],
       "@postmill-ai/provider-groq": [
         "libraries/providers/groq/src"
       ],
       "@postmill-ai/provider-groq/*": [
         "libraries/providers/groq/src/*"
-      ],
-      "@postmill-ai/provider-hashnode": [
-        "libraries/providers/hashnode/src"
-      ],
-      "@postmill-ai/provider-hashnode/*": [
-        "libraries/providers/hashnode/src/*"
       ],
       "@postmill-ai/provider-hedra": [
         "libraries/providers/hedra/src"
@@ -421,23 +367,11 @@
       "@postmill-ai/provider-isgd/*": [
         "libraries/providers/isgd/src/*"
       ],
-      "@postmill-ai/provider-kick": [
-        "libraries/providers/kick/src"
-      ],
-      "@postmill-ai/provider-kick/*": [
-        "libraries/providers/kick/src/*"
-      ],
       "@postmill-ai/provider-kimi": [
         "libraries/providers/kimi/src"
       ],
       "@postmill-ai/provider-kimi/*": [
         "libraries/providers/kimi/src/*"
-      ],
-      "@postmill-ai/provider-lemmy": [
-        "libraries/providers/lemmy/src"
-      ],
-      "@postmill-ai/provider-lemmy/*": [
-        "libraries/providers/lemmy/src/*"
       ],
       "@postmill-ai/provider-leonardo": [
         "libraries/providers/leonardo/src"
@@ -450,12 +384,6 @@
       ],
       "@postmill-ai/provider-lightning/*": [
         "libraries/providers/lightning/src/*"
-      ],
-      "@postmill-ai/provider-line": [
-        "libraries/providers/line/src"
-      ],
-      "@postmill-ai/provider-line/*": [
-        "libraries/providers/line/src/*"
       ],
       "@postmill-ai/provider-linkedin": [
         "libraries/providers/linkedin/src"
@@ -480,12 +408,6 @@
       ],
       "@postmill-ai/provider-linode/*": [
         "libraries/providers/linode/src/*"
-      ],
-      "@postmill-ai/provider-listmonk": [
-        "libraries/providers/listmonk/src"
-      ],
-      "@postmill-ai/provider-listmonk/*": [
-        "libraries/providers/listmonk/src/*"
       ],
       "@postmill-ai/provider-lnkify": [
         "libraries/providers/lnkify/src"
@@ -523,29 +445,11 @@
       "@postmill-ai/provider-mailgun/*": [
         "libraries/providers/mailgun/src/*"
       ],
-      "@postmill-ai/provider-mastodon": [
-        "libraries/providers/mastodon/src"
-      ],
-      "@postmill-ai/provider-mastodon/*": [
-        "libraries/providers/mastodon/src/*"
-      ],
-      "@postmill-ai/provider-matrix": [
-        "libraries/providers/matrix/src"
-      ],
-      "@postmill-ai/provider-matrix/*": [
-        "libraries/providers/matrix/src/*"
-      ],
       "@postmill-ai/provider-medialocker": [
         "libraries/providers/medialocker/src"
       ],
       "@postmill-ai/provider-medialocker/*": [
         "libraries/providers/medialocker/src/*"
-      ],
-      "@postmill-ai/provider-medium": [
-        "libraries/providers/medium/src"
-      ],
-      "@postmill-ai/provider-medium/*": [
-        "libraries/providers/medium/src/*"
       ],
       "@postmill-ai/provider-meta-llama": [
         "libraries/providers/meta-llama/src"
@@ -553,35 +457,17 @@
       "@postmill-ai/provider-meta-llama/*": [
         "libraries/providers/meta-llama/src/*"
       ],
-      "@postmill-ai/provider-mewe": [
-        "libraries/providers/mewe/src"
-      ],
-      "@postmill-ai/provider-mewe/*": [
-        "libraries/providers/mewe/src/*"
-      ],
       "@postmill-ai/provider-minimax": [
         "libraries/providers/minimax/src"
       ],
       "@postmill-ai/provider-minimax/*": [
         "libraries/providers/minimax/src/*"
       ],
-      "@postmill-ai/provider-misskey": [
-        "libraries/providers/misskey/src"
-      ],
-      "@postmill-ai/provider-misskey/*": [
-        "libraries/providers/misskey/src/*"
-      ],
       "@postmill-ai/provider-mistral": [
         "libraries/providers/mistral/src"
       ],
       "@postmill-ai/provider-mistral/*": [
         "libraries/providers/mistral/src/*"
-      ],
-      "@postmill-ai/provider-moltbook": [
-        "libraries/providers/moltbook/src"
-      ],
-      "@postmill-ai/provider-moltbook/*": [
-        "libraries/providers/moltbook/src/*"
       ],
       "@postmill-ai/provider-mozillavpn": [
         "libraries/providers/mozillavpn/src"
@@ -600,12 +486,6 @@
       ],
       "@postmill-ai/provider-nordvpn/*": [
         "libraries/providers/nordvpn/src/*"
-      ],
-      "@postmill-ai/provider-nostr": [
-        "libraries/providers/nostr/src"
-      ],
-      "@postmill-ai/provider-nostr/*": [
-        "libraries/providers/nostr/src/*"
       ],
       "@postmill-ai/provider-nvidia": [
         "libraries/providers/nvidia/src"
@@ -631,12 +511,6 @@
       "@postmill-ai/provider-openrouter/*": [
         "libraries/providers/openrouter/src/*"
       ],
-      "@postmill-ai/provider-odysee": [
-        "libraries/providers/odysee/src"
-      ],
-      "@postmill-ai/provider-odysee/*": [
-        "libraries/providers/odysee/src/*"
-      ],
       "@postmill-ai/provider-owly": [
         "libraries/providers/owly/src"
       ],
@@ -649,12 +523,6 @@
       "@postmill-ai/provider-paypal/*": [
         "libraries/providers/paypal/src/*"
       ],
-      "@postmill-ai/provider-peertube": [
-        "libraries/providers/peertube/src"
-      ],
-      "@postmill-ai/provider-peertube/*": [
-        "libraries/providers/peertube/src/*"
-      ],
       "@postmill-ai/provider-perplexity": [
         "libraries/providers/perplexity/src"
       ],
@@ -666,18 +534,6 @@
       ],
       "@postmill-ai/provider-pia/*": [
         "libraries/providers/pia/src/*"
-      ],
-      "@postmill-ai/provider-pinterest": [
-        "libraries/providers/pinterest/src"
-      ],
-      "@postmill-ai/provider-pinterest/*": [
-        "libraries/providers/pinterest/src/*"
-      ],
-      "@postmill-ai/provider-pixelfed": [
-        "libraries/providers/pixelfed/src"
-      ],
-      "@postmill-ai/provider-pixelfed/*": [
-        "libraries/providers/pixelfed/src/*"
       ],
       "@postmill-ai/provider-pixelme": [
         "libraries/providers/pixelme/src"
@@ -720,12 +576,6 @@
       ],
       "@postmill-ai/provider-recraft/*": [
         "libraries/providers/recraft/src/*"
-      ],
-      "@postmill-ai/provider-reddit": [
-        "libraries/providers/reddit/src"
-      ],
-      "@postmill-ai/provider-reddit/*": [
-        "libraries/providers/reddit/src/*"
       ],
       "@postmill-ai/provider-reelfarm": [
         "libraries/providers/reelfarm/src"
@@ -787,12 +637,6 @@
       "@postmill-ai/provider-ses/*": [
         "libraries/providers/ses/src/*"
       ],
-      "@postmill-ai/provider-sharkey": [
-        "libraries/providers/sharkey/src"
-      ],
-      "@postmill-ai/provider-sharkey/*": [
-        "libraries/providers/sharkey/src/*"
-      ],
       "@postmill-ai/provider-shortio": [
         "libraries/providers/shortio/src"
       ],
@@ -804,18 +648,6 @@
       ],
       "@postmill-ai/provider-siliconflow/*": [
         "libraries/providers/siliconflow/src/*"
-      ],
-      "@postmill-ai/provider-skool": [
-        "libraries/providers/skool/src"
-      ],
-      "@postmill-ai/provider-skool/*": [
-        "libraries/providers/skool/src/*"
-      ],
-      "@postmill-ai/provider-slack": [
-        "libraries/providers/slack/src"
-      ],
-      "@postmill-ai/provider-slack/*": [
-        "libraries/providers/slack/src/*"
       ],
       "@postmill-ai/provider-smtp": [
         "libraries/providers/smtp/src"
@@ -919,23 +751,11 @@
       "@postmill-ai/provider-togetherai/*": [
         "libraries/providers/togetherai/src/*"
       ],
-      "@postmill-ai/provider-tumblr": [
-        "libraries/providers/tumblr/src"
-      ],
-      "@postmill-ai/provider-tumblr/*": [
-        "libraries/providers/tumblr/src/*"
-      ],
       "@postmill-ai/provider-tunnelbear": [
         "libraries/providers/tunnelbear/src"
       ],
       "@postmill-ai/provider-tunnelbear/*": [
         "libraries/providers/tunnelbear/src/*"
-      ],
-      "@postmill-ai/provider-twitch": [
-        "libraries/providers/twitch/src"
-      ],
-      "@postmill-ai/provider-twitch/*": [
-        "libraries/providers/twitch/src/*"
       ],
       "@postmill-ai/provider-vecteezy": [
         "libraries/providers/vecteezy/src"
@@ -954,12 +774,6 @@
       ],
       "@postmill-ai/provider-vgd/*": [
         "libraries/providers/vgd/src/*"
-      ],
-      "@postmill-ai/provider-vk": [
-        "libraries/providers/vk/src"
-      ],
-      "@postmill-ai/provider-vk/*": [
-        "libraries/providers/vk/src/*"
       ],
       "@postmill-ai/provider-vultr": [
         "libraries/providers/vultr/src"
@@ -991,35 +805,11 @@
       "@postmill-ai/provider-wasabi/*": [
         "libraries/providers/wasabi/src/*"
       ],
-      "@postmill-ai/provider-whop": [
-        "libraries/providers/whop/src"
-      ],
-      "@postmill-ai/provider-whop/*": [
-        "libraries/providers/whop/src/*"
-      ],
       "@postmill-ai/provider-windscribe": [
         "libraries/providers/windscribe/src"
       ],
       "@postmill-ai/provider-windscribe/*": [
         "libraries/providers/windscribe/src/*"
-      ],
-      "@postmill-ai/provider-wordpress": [
-        "libraries/providers/wordpress/src"
-      ],
-      "@postmill-ai/provider-wordpress/*": [
-        "libraries/providers/wordpress/src/*"
-      ],
-      "@postmill-ai/provider-wrapcast": [
-        "libraries/providers/wrapcast/src"
-      ],
-      "@postmill-ai/provider-wrapcast/*": [
-        "libraries/providers/wrapcast/src/*"
-      ],
-      "@postmill-ai/provider-x": [
-        "libraries/providers/x/src"
-      ],
-      "@postmill-ai/provider-x/*": [
-        "libraries/providers/x/src/*"
       ],
       "@postmill-ai/provider-xai": [
         "libraries/providers/xai/src"

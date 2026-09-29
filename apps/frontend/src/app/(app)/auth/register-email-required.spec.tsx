@@ -6,8 +6,8 @@ import { RegisterAfter } from '@postmill-ai/frontend/components/auth/register';
 import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
 
 // The register page must re-prompt for an email when the OAuth provider
-// returned none (emailRequired from /auth/oauth/:provider/exists — e.g. Apple
-// with a hidden relay address) instead of minting a synthetic address.
+// returned none (emailRequired from /auth/oauth/:provider/exists — e.g. an
+// OIDC provider that withheld the address) instead of minting a synthetic one.
 
 vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
@@ -65,26 +65,11 @@ vi.mock('@hookform/resolvers/class-validator', () => ({
 }));
 
 // No social buttons under test here — render sentinels for every mapped one.
-vi.mock('@postmill-ai/frontend/components/auth/providers/google.provider', () => ({
-  GoogleProvider: () => <div data-testid="google-provider" />,
-}));
-vi.mock('@postmill-ai/frontend/components/auth/providers/github.provider', () => ({
-  GithubProvider: () => <div data-testid="github-provider" />,
-}));
 vi.mock('@postmill-ai/frontend/components/auth/providers/oauth.provider', () => ({
   OauthProvider: () => <div data-testid="oauth-provider" />,
 }));
-vi.mock(
-  '@postmill-ai/frontend/components/auth/providers/farcaster.provider',
-  () => ({
-    FarcasterProvider: () => <div data-testid="farcaster-provider" />,
-  })
-);
 vi.mock('@postmill-ai/frontend/components/auth/providers/wallet.provider', () => ({
   default: () => <div data-testid="wallet-provider" />,
-}));
-vi.mock('@postmill-ai/frontend/components/auth/providers/apple.provider', () => ({
-  AppleProvider: () => <div data-testid="apple-provider" />,
 }));
 
 const mockedUseFetch = useFetch as Mock;
@@ -125,7 +110,7 @@ describe('RegisterAfter email re-prompt (provider returned no email)', () => {
   it('hides the email input for a provider registration without emailRequired', async () => {
     const fetchMock = mockFetch();
 
-    renderWithFreshSWR(<RegisterAfter token="provider-token-1" provider="APPLE" />);
+    renderWithFreshSWR(<RegisterAfter token="provider-token-1" provider="GENERIC" />);
     await act(async () => {});
 
     expect(screen.queryByPlaceholderText('Email Address')).toBeNull();
@@ -138,7 +123,7 @@ describe('RegisterAfter email re-prompt (provider returned no email)', () => {
     mockFetch();
 
     renderWithFreshSWR(
-      <RegisterAfter token="provider-token-1" provider="APPLE" emailRequired />
+      <RegisterAfter token="provider-token-1" provider="GENERIC" emailRequired />
     );
     await act(async () => {});
 
@@ -151,7 +136,7 @@ describe('RegisterAfter email re-prompt (provider returned no email)', () => {
     const fetchMock = mockFetch();
 
     const { container } = renderWithFreshSWR(
-      <RegisterAfter token="provider-token-1" provider="APPLE" emailRequired />
+      <RegisterAfter token="provider-token-1" provider="GENERIC" emailRequired />
     );
     await act(async () => {});
 
@@ -178,7 +163,7 @@ describe('RegisterAfter email re-prompt (provider returned no email)', () => {
         email: 'prompted@example.com',
         company: 'Acme Inc',
         providerToken: 'provider-token-1',
-        provider: 'APPLE',
+        provider: 'GENERIC',
       })
     );
   });

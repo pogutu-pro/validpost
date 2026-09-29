@@ -38,7 +38,7 @@ export interface PlatformWebhookResult {
  * Shared platform-app inbound handler (`POST /webhooks/comms/platform/:identifier`).
  * Unlike the per-org token route, the URL carries no routing secret: the
  * signature is verified with the deployment-env platform credentials and the
- * org is resolved per event (Slack team_id, Discord guild_id, Telegram/LINE
+ * org is resolved per event (Discord guild_id, Telegram
  * chat identity via the link tables). Mirrors the token route's discipline:
  * unknown provider/unconfigured platform → uniform 404, bad signature → 401,
  * challenge acks answered before any org resolution.
@@ -110,7 +110,7 @@ export class CommsPlatformWebhookService {
       `${identifier} platform webhook: ${messages.map((m) => m.kind).join(',') || 'empty'}`,
     );
 
-    // Slack url_verification / Discord PING happen before any org connects —
+    // Discord PING happens before any org connects —
     // ack them without org resolution.
     const challenge = messages.find(
       (m) => m.kind === 'challenge' && m.ackResponse !== undefined,
@@ -170,15 +170,10 @@ export class CommsPlatformWebhookService {
     payload: any,
     message: { externalUserId: string; text: string },
   ) {
-    if (identifier === 'slack') {
-      const teamId = payload?.team_id;
-      if (!teamId) return null;
-      return this._configs.findByExtraConfigTeamId('slack', String(teamId));
-    }
     if (identifier === 'discord' && payload?.guild_id) {
       return this._configs.findByGuildId('discord', String(payload.guild_id));
     }
-    // Telegram/LINE (and guild-less Discord DM interactions): resolve through
+    // Telegram (and guild-less Discord DM interactions): resolve through
     // the link tables — a linked chat identity first, then an unclaimed
     // connect code (the claim itself runs in the comms-inbound function).
     const linked = await this._links.findOrgByExternalUser(

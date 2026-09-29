@@ -1,5 +1,5 @@
-name: "🐛 Bug Report"
-description: "Submit a bug report to help us improve,\nif you have a problem installing the app please ask in https://github.com/postmill-ai/postmill-app/discussions instead for help."
+name: "Bug Report"
+description: "Submit a bug report to help us improve.\nIf you have a problem installing the app, please check the documentation at https://docs.validpost.io for help."
 title: "Give your bug report a good title "
 labels: ["type: bug"]
 body:

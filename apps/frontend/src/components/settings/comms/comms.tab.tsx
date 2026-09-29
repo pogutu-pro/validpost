@@ -137,7 +137,7 @@ export const CommsTab: FC = () => {
   // Comms OAuth return: the backend callback redirects here with
   // ?connected=<identifier> (or ?error=<message>). This page is the close
   // page. Verified browser facts that shape it: provider consent pages may
-  // sever window.opener via Cross-Origin-Opener-Policy (Slack does) AND wipe
+  // sever window.opener via Cross-Origin-Opener-Policy AND wipe
   // window.name, so the connect popup is undetectable — but window.close()
   // still works in a script-opened popup even then. So: always signal
   // completion through localStorage (survives COOP), try postMessage as a

@@ -35,10 +35,10 @@ export default async function AuthLayout({
   const t = await getT();
 
   return (
-    <div className="bg-[#0E0E0E] flex flex-1 p-[12px] gap-[12px] min-h-screen w-screen text-white">
+    <div className="bg-[#0f0f1a] flex flex-1 p-[12px] gap-[12px] min-h-screen w-screen text-white">
       <ReturnUrlComponent />
       <SignupPlanComponent />
-      <div className="flex flex-col py-[40px] px-[20px] flex-1 lg:w-[600px] lg:flex-none rounded-[12px] text-white p-[12px] bg-[#1A1919]">
+      <div className="flex flex-col py-[40px] px-[20px] flex-1 lg:w-[600px] lg:flex-none rounded-[12px] text-white p-[12px] bg-[#1a1a2e]">
         <div className="w-full max-w-[440px] mx-auto justify-center gap-[20px] h-full flex flex-col text-white">
           <div className="flex items-center gap-[10px]">
             <Logo size={28} className="" />
@@ -55,7 +55,7 @@ export default async function AuthLayout({
               <Wordmark height={32} className="text-textColor" />
             </div>
             <h1 className="text-[28px] font-[700] text-textColor text-center leading-tight">
-              {t('auth_tagline', 'Create. Post. Track. Engage.')}
+              {t('auth_tagline', 'Plan. Create. Schedule. Publish. Analyze.')}
             </h1>
           </div>
           <div className="flex flex-col gap-[14px] w-full">

@@ -22,8 +22,10 @@ export const commsConfigFixture = {
       docsUrl: 'https://docs.example/comms/telegram',
     },
     {
-      identifier: 'slack',
-      name: 'Slack',
+      // Exercises the generic OAuth platform-connect flow. Kept in the fixture
+      // so the popup/COOP handshake tests stay covered.
+      identifier: 'oauth-demo',
+      name: 'OAuth Demo',
       enabled: false,
       isConfigured: false,
       credentialFields: [
@@ -35,11 +37,11 @@ export const commsConfigFixture = {
       version: 'v1',
       platformConnect: 'oauth',
       platformConfigured: true,
-      setupSteps: ['Create a Slack app', 'Paste the webhook URL into Event Subscriptions'],
-      portalUrl: 'https://api.slack.com/apps',
-      portalLabel: 'Slack API',
-      docsUrl: 'https://docs.example/comms/slack',
-      webhookInstructions: 'Paste this URL into your Slack app’s Event Subscriptions.',
+      setupSteps: ['Create an app', 'Paste the webhook URL into Event Subscriptions'],
+      portalUrl: 'https://oauth.example/apps',
+      portalLabel: 'OAuth Portal',
+      docsUrl: 'https://docs.example/comms/oauth-demo',
+      webhookInstructions: 'Paste this URL into your app’s Event Subscriptions.',
     },
     {
       identifier: 'discord',
@@ -57,22 +59,22 @@ export const commsConfigFixture = {
       platformConfigured: true,
     },
     {
-      // Matrix has no platform app — platformConnect absent, so the modal is
-      // always in flat mode.
-      identifier: 'matrix',
-      name: 'Matrix',
+      // No platform app — platformConnect absent, so the modal is always in
+      // flat mode.
+      identifier: 'flat-demo',
+      name: 'Flat Demo',
       enabled: false,
       isConfigured: false,
       credentialFields: [
-        { key: 'homeserver', label: 'Homeserver URL', type: 'text', required: true },
-        { key: 'accessToken', label: 'Access Token', type: 'password', required: true },
+        { key: 'instanceUrl', label: 'Instance URL', type: 'text', required: true },
+        { key: 'apiToken', label: 'API Token', type: 'password', required: true },
       ],
-      credentialsSet: { homeserver: false, accessToken: false },
+      credentialsSet: { instanceUrl: false, apiToken: false },
       capabilities: { pollInbound: true, threads: true },
       platformConfigured: false,
-      setupSteps: ['Create a bot account on your homeserver', 'Paste its access token'],
-      setupNotes: 'Self-hosted homeservers must be reachable from this instance.',
-      docsUrl: 'https://docs.example/comms/matrix',
+      setupSteps: ['Register a bot account on your instance', 'Paste its API token'],
+      setupNotes: 'Self-hosted instances must be reachable from this deployment.',
+      docsUrl: 'https://docs.example/comms/flat-demo',
     },
   ],
   links: [

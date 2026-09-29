@@ -44,7 +44,6 @@ export const CHANNEL_PRESETS: ChannelPreset[] = [
       { label: 'CTA Bar', x: 0, y: 1780, width: 1080, height: 140, description: 'CTA button bar at bottom' },
     ],
   },
-  { id: 'x-post', name: 'X (Twitter) Post', width: 1200, height: 675, category: 'social', provider: 'x' },
   { id: 'linkedin-post', name: 'LinkedIn Post', width: 1200, height: 627, category: 'social', provider: 'linkedin' },
   { id: 'linkedin-banner', name: 'LinkedIn Banner', width: 1584, height: 396, category: 'ad', provider: 'linkedin' },
   {
@@ -55,7 +54,6 @@ export const CHANNEL_PRESETS: ChannelPreset[] = [
     ],
   },
   { id: 'yt-thumbnail', name: 'YouTube Thumbnail', width: 1280, height: 720, category: 'social', provider: 'youtube' },
-  { id: 'pinterest-pin', name: 'Pinterest Pin', width: 1000, height: 1500, category: 'social', provider: 'pinterest' },
   { id: 'custom', name: 'Custom Size', width: 1080, height: 1080, category: 'custom', provider: null },
   // Video presets
   { id: 'reel', name: 'Instagram Reel (Video)', width: 1080, height: 1920, category: 'video', provider: 'instagram', fps: 30, maxDurationMs: 60000 },

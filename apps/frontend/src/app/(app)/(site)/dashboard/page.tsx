@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
-  description: 'Postmill Dashboard',
+  description: 'ValidPost Dashboard',
 };
 
 export default function DashboardPage() {

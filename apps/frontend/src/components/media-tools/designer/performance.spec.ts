@@ -45,7 +45,7 @@ describe('designer performance', () => {
     const dragDuration = performance.now() - dragStart;
 
     // Add a second output so tab switching has work to do.
-    store.getState().addOutput({ formatId: 'x-post', name: 'X Post', width: 1600, height: 900 });
+    store.getState().addOutput({ formatId: 'linkedin-post', name: 'LinkedIn Post', width: 1200, height: 627 });
 
     const switchStart = performance.now();
     store.getState().setCurrentOutput(1);

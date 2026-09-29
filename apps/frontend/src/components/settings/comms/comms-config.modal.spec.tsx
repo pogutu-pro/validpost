@@ -34,8 +34,8 @@ const defaultFetchImpl = (url: unknown, init?: unknown) => {
   if (typeof url === 'string' && url === '/settings/comms/config' && !init) {
     return Promise.resolve({ ok: true, json: async () => configData });
   }
-  if (typeof url === 'string' && url === '/settings/comms/oauth/slack/url' && !init) {
-    return Promise.resolve({ ok: true, json: async () => ({ url: 'https://slack.example/oauth' }) });
+  if (typeof url === 'string' && url === '/settings/comms/oauth/oauth-demo/url' && !init) {
+    return Promise.resolve({ ok: true, json: async () => ({ url: 'https://oauth.example/consent' }) });
   }
   return Promise.resolve({
     ok: true,
@@ -104,7 +104,7 @@ describe('CommsConfigForm', () => {
   });
 
   it('warns instead of saving when a required credential is missing', async () => {
-    await renderForm('slack');
+    await renderForm('oauth-demo');
 
     fireEvent.click(await screen.findByText('Save'));
 
@@ -115,7 +115,7 @@ describe('CommsConfigForm', () => {
       );
     });
     expect(mockFetchFn).not.toHaveBeenCalledWith(
-      '/settings/comms/config/slack',
+      '/settings/comms/config/oauth-demo',
       expect.anything(),
     );
   });
@@ -127,8 +127,8 @@ describe('CommsConfigForm', () => {
   });
 
   it('hides the switch, Test and Remove for unconfigured providers', async () => {
-    await renderForm('slack');
-    // Slack is a platform provider — credentials live under Advanced.
+    await renderForm('oauth-demo');
+    // A platform-connect provider — credentials live under Advanced.
     fireEvent.click(await screen.findByRole('button', { name: 'Advanced' }));
     expect(await screen.findByText('Signing Secret')).toBeDefined();
     expect(screen.queryByRole('switch')).toBeNull();
@@ -259,9 +259,9 @@ describe('CommsConfigForm', () => {
 
 describe('CommsConfigForm platform vs flat mode', () => {
   it('platform mode: Connect is primary, everything else collapsed under Advanced', async () => {
-    await renderForm('slack');
+    await renderForm('oauth-demo');
 
-    expect(await screen.findByText('Connect with Slack')).toBeDefined();
+    expect(await screen.findByText('Connect with OAuth Demo')).toBeDefined();
     expect(screen.getByText('Uses the Postmill app — no setup needed')).toBeDefined();
     const advanced = screen.getByRole('button', { name: 'Advanced' });
     expect(advanced.getAttribute('aria-expanded')).toBe('false');
@@ -281,66 +281,66 @@ describe('CommsConfigForm platform vs flat mode', () => {
     expect(screen.getByRole('switch').getAttribute('aria-checked')).toBe('true');
   });
 
-  it('flat mode (matrix): steps, credentials and webhook are the primary content', async () => {
-    await renderForm('matrix');
+  it('flat mode (flat-demo): steps, credentials and webhook are the primary content', async () => {
+    await renderForm('flat-demo');
 
-    expect(await screen.findByText('Homeserver URL')).toBeDefined();
-    expect(screen.getByText('Access Token')).toBeDefined();
+    expect(await screen.findByText('Instance URL')).toBeDefined();
+    expect(screen.getByText('API Token')).toBeDefined();
     // No platform app — no Connect button, no Advanced collapse.
     expect(screen.queryByRole('button', { name: 'Advanced' })).toBeNull();
     expect(screen.queryByText(/Connect with/)).toBeNull();
   });
 
   it('renders numbered setup steps as an ordered list, with setupNotes as a caption', async () => {
-    await renderForm('matrix');
+    await renderForm('flat-demo');
 
     const steps = await screen.findAllByRole('listitem');
     expect(steps.map((li) => li.textContent)).toEqual([
-      'Create a bot account on your homeserver',
-      'Paste its access token',
+      'Register a bot account on your instance',
+      'Paste its API token',
     ]);
     expect(steps[0].closest('ol')).not.toBeNull();
     // A provider may keep a free-form note after the steps.
     expect(
-      screen.getByText('Self-hosted homeservers must be reachable from this instance.'),
+      screen.getByText('Self-hosted instances must be reachable from this deployment.'),
     ).toBeDefined();
   });
 
   it('renders the portal and docs links, opening in a new tab', async () => {
-    await renderForm('slack');
+    await renderForm('oauth-demo');
 
-    const portal = (await screen.findByText('Slack API')).closest('a') as HTMLAnchorElement;
-    expect(portal.getAttribute('href')).toBe('https://api.slack.com/apps');
+    const portal = (await screen.findByText('OAuth Portal')).closest('a') as HTMLAnchorElement;
+    expect(portal.getAttribute('href')).toBe('https://oauth.example/apps');
     expect(portal.getAttribute('target')).toBe('_blank');
     expect(portal.getAttribute('rel')).toContain('noopener');
 
     const docs = screen.getByText('Docs').closest('a') as HTMLAnchorElement;
-    expect(docs.getAttribute('href')).toBe('https://docs.example/comms/slack');
+    expect(docs.getAttribute('href')).toBe('https://docs.example/comms/oauth-demo');
     expect(docs.getAttribute('target')).toBe('_blank');
   });
 });
 
 describe('CommsConfigForm webhook pre-mint', () => {
   it('mints a placeholder webhook exactly once for a webhook provider in setup mode', async () => {
-    await renderForm('slack');
+    await renderForm('oauth-demo');
 
     await waitFor(() =>
       expect(mockFetchFn).toHaveBeenCalledWith(
-        '/settings/comms/config/slack/webhook',
+        '/settings/comms/config/oauth-demo/webhook',
         expect.objectContaining({ method: 'POST' }),
       ),
     );
     // The mint refetches the config so the copy field can show the URL.
     await waitFor(() => expect(configLoadCount()).toBeGreaterThan(1));
     const mintCalls = mockFetchFn.mock.calls.filter(
-      ([u]) => u === '/settings/comms/config/slack/webhook',
+      ([u]) => u === '/settings/comms/config/oauth-demo/webhook',
     );
     expect(mintCalls).toHaveLength(1);
   });
 
-  it('does not mint for poll-inbound providers (matrix) or configured ones (telegram)', async () => {
-    await renderForm('matrix');
-    await screen.findByText('Homeserver URL');
+  it('does not mint for poll-inbound providers (flat-demo) or configured ones (telegram)', async () => {
+    await renderForm('flat-demo');
+    await screen.findByText('Instance URL');
     await renderForm('telegram');
     await screen.findByPlaceholderText(/saved — leave blank/);
 
@@ -364,16 +364,16 @@ describe('CommsConfigForm platform connect', () => {
   });
 
   it('oauth connect fetches the consent URL and opens the popup', async () => {
-    await renderForm('slack');
+    await renderForm('oauth-demo');
 
-    fireEvent.click(await screen.findByText('Connect with Slack'));
+    fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
 
     await waitFor(() =>
-      expect(mockFetchFn).toHaveBeenCalledWith('/settings/comms/oauth/slack/url'),
+      expect(mockFetchFn).toHaveBeenCalledWith('/settings/comms/oauth/oauth-demo/url'),
     );
     await waitFor(() =>
       expect(openSpy).toHaveBeenCalledWith(
-        'https://slack.example/oauth',
+        'https://oauth.example/consent',
         'postmill-comms-oauth',
         'width=640,height=720,popup',
       ),
@@ -382,8 +382,8 @@ describe('CommsConfigForm platform connect', () => {
 
   it('stays open and refetches when the popup posts postmill:comms-connected', async () => {
     const onClose = vi.fn();
-    await renderForm('slack', onClose);
-    fireEvent.click(await screen.findByText('Connect with Slack'));
+    await renderForm('oauth-demo', onClose);
+    fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
     await waitFor(() => expect(openSpy).toHaveBeenCalled());
     // Let the webhook pre-mint refetch settle before the baseline.
     await waitFor(() => expect(configLoadCount()).toBeGreaterThan(1));
@@ -392,7 +392,7 @@ describe('CommsConfigForm platform connect', () => {
     fireEvent(
       window,
       new MessageEvent('message', {
-        data: { type: 'postmill:comms-connected', provider: 'slack' },
+        data: { type: 'postmill:comms-connected', provider: 'oauth-demo' },
         origin: window.location.origin,
       }),
     );
@@ -405,8 +405,8 @@ describe('CommsConfigForm platform connect', () => {
 
   it('ignores connected messages from a foreign origin', async () => {
     const onClose = vi.fn();
-    await renderForm('slack', onClose);
-    fireEvent.click(await screen.findByText('Connect with Slack'));
+    await renderForm('oauth-demo', onClose);
+    fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
     await waitFor(() => expect(openSpy).toHaveBeenCalled());
     // Let the webhook pre-mint refetch settle before the baseline.
     await waitFor(() => expect(configLoadCount()).toBeGreaterThan(1));
@@ -415,7 +415,7 @@ describe('CommsConfigForm platform connect', () => {
     fireEvent(
       window,
       new MessageEvent('message', {
-        data: { type: 'postmill:comms-connected', provider: 'slack' },
+        data: { type: 'postmill:comms-connected', provider: 'oauth-demo' },
         origin: 'https://evil.example',
       }),
     );
@@ -427,8 +427,8 @@ describe('CommsConfigForm platform connect', () => {
 
   it('completes via the localStorage signal when COOP severed the opener', async () => {
     const onClose = vi.fn();
-    await renderForm('slack', onClose);
-    fireEvent.click(await screen.findByText('Connect with Slack'));
+    await renderForm('oauth-demo', onClose);
+    fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
     await waitFor(() => expect(openSpy).toHaveBeenCalled());
     // Let the webhook pre-mint refetch settle before the baseline.
     await waitFor(() => expect(configLoadCount()).toBeGreaterThan(1));
@@ -436,7 +436,7 @@ describe('CommsConfigForm platform connect', () => {
 
     // The close page writes the signal (postMessage may never arrive when the
     // provider's consent pages carry Cross-Origin-Opener-Policy).
-    const value = JSON.stringify({ provider: 'slack', ts: Date.now() });
+    const value = JSON.stringify({ provider: 'oauth-demo', ts: Date.now() });
     window.localStorage.setItem(COMMS_CONNECTED_STORAGE_KEY, value);
     fireEvent(
       window,
@@ -453,12 +453,12 @@ describe('CommsConfigForm platform connect', () => {
   });
 
   it('keeps listening after the popup handle reports closed (COOP swap) and completes on the late signal', async () => {
-    // Slack's consent pages carry COOP: the opener's handle for the popup
+    // Some consent pages carry COOP: the opener's handle for the popup
     // flips to closed=true within seconds, long before the user finishes.
     const handle = { closed: false } as { closed: boolean };
     openSpy.mockReturnValue(handle as unknown as Window);
-    await renderForm('slack');
-    fireEvent.click(await screen.findByText('Connect with Slack'));
+    await renderForm('oauth-demo');
+    fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
     await waitFor(() => expect(openSpy).toHaveBeenCalled());
     await waitFor(() => expect(configLoadCount()).toBeGreaterThan(1));
     const baseline = configLoadCount();
@@ -471,7 +471,7 @@ describe('CommsConfigForm platform connect', () => {
     await new Promise((r) => setTimeout(r, 1100));
     expect(configLoadCount()).toBe(afterClose); // not refetching every tick
 
-    const value = JSON.stringify({ provider: 'slack', ts: Date.now() });
+    const value = JSON.stringify({ provider: 'oauth-demo', ts: Date.now() });
     window.localStorage.setItem(COMMS_CONNECTED_STORAGE_KEY, value);
     fireEvent(
       window,
@@ -492,9 +492,9 @@ describe('CommsConfigForm platform connect', () => {
       value: { ...original, set href(v: string) { assigned.push(v); } },
     });
     try {
-      await renderForm('slack');
-      fireEvent.click(await screen.findByText('Connect with Slack'));
-      await waitFor(() => expect(assigned).toEqual(['https://slack.example/oauth']));
+      await renderForm('oauth-demo');
+      fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
+      await waitFor(() => expect(assigned).toEqual(['https://oauth.example/consent']));
       expect(window.sessionStorage.getItem(COMMS_FULLPAGE_STORAGE_KEY)).toBe('1');
     } finally {
       Object.defineProperty(window, 'location', { configurable: true, value: original });
@@ -503,13 +503,13 @@ describe('CommsConfigForm platform connect', () => {
   });
 
   it('ignores a stale localStorage signal from an earlier connect', async () => {
-    await renderForm('slack');
-    fireEvent.click(await screen.findByText('Connect with Slack'));
+    await renderForm('oauth-demo');
+    fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
     await waitFor(() => expect(openSpy).toHaveBeenCalled());
     await waitFor(() => expect(configLoadCount()).toBeGreaterThan(1));
     const baseline = configLoadCount();
 
-    const value = JSON.stringify({ provider: 'slack', ts: Date.now() - 60_000 });
+    const value = JSON.stringify({ provider: 'oauth-demo', ts: Date.now() - 60_000 });
     window.localStorage.setItem(COMMS_CONNECTED_STORAGE_KEY, value);
     fireEvent(
       window,
@@ -523,8 +523,8 @@ describe('CommsConfigForm platform connect', () => {
   });
 
   it('toasts the backend error when the signal carries one', async () => {
-    await renderForm('slack');
-    fireEvent.click(await screen.findByText('Connect with Slack'));
+    await renderForm('oauth-demo');
+    fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
     await waitFor(() => expect(openSpy).toHaveBeenCalled());
     await waitFor(() => expect(configLoadCount()).toBeGreaterThan(1));
 
@@ -584,39 +584,39 @@ describe('CommsConfigForm platform connect', () => {
 });
 
 describe('CommsConfigForm webhook URL choice', () => {
-  const PLATFORM = 'https://backend.example/webhooks/comms/platform/slack';
-  const OWN = 'https://backend.example/webhooks/comms/slack/tok';
+  const PLATFORM = 'https://backend.example/webhooks/comms/platform/oauth-demo';
+  const OWN = 'https://backend.example/webhooks/comms/oauth-demo/tok';
   const shownUrl = () =>
     (screen.getByDisplayValue(/webhooks\/comms/) as HTMLInputElement).value;
 
   it('platform mode, connected via the platform app → platform URL', async () => {
-    withProvider('slack', {
+    withProvider('oauth-demo', {
       isConfigured: true, platformConnected: true, platformWebhookUrl: PLATFORM, webhookUrl: OWN,
     });
-    await renderForm('slack');
+    await renderForm('oauth-demo');
     expect(shownUrl()).toBe(PLATFORM);
   });
 
   it('platform mode, not connected yet → platform URL (what Connect will use)', async () => {
-    withProvider('slack', { platformWebhookUrl: PLATFORM, webhookUrl: OWN });
-    await renderForm('slack');
+    withProvider('oauth-demo', { platformWebhookUrl: PLATFORM, webhookUrl: OWN });
+    await renderForm('oauth-demo');
     fireEvent.click(screen.getByText('Advanced')); // collapsed until configured
     expect(shownUrl()).toBe(PLATFORM);
   });
 
   it('platform mode, org typed its own credentials → the org token URL, never the platform one', async () => {
-    withProvider('slack', {
+    withProvider('oauth-demo', {
       isConfigured: true, platformConnected: false, platformWebhookUrl: PLATFORM, webhookUrl: OWN,
     });
-    await renderForm('slack');
+    await renderForm('oauth-demo');
     expect(shownUrl()).toBe(OWN);
   });
 
   it('flat mode (no platform app) → the org token URL', async () => {
-    withProvider('slack', {
+    withProvider('oauth-demo', {
       isConfigured: true, platformConfigured: false, platformConnected: false, webhookUrl: OWN,
     });
-    await renderForm('slack');
+    await renderForm('oauth-demo');
     expect(shownUrl()).toBe(OWN);
   });
 });

@@ -97,51 +97,6 @@ export const ContinueIntegration: FC<{
     [logged, push, provider, isPopup]
   );
   const modifiedParams = useMemo(() => {
-    if (provider === 'mewe') {
-      return {
-        state: searchParams.state || '',
-        code: searchParams.loginRequestToken || '',
-        refresh: searchParams.refresh || '',
-      };
-    }
-    if (provider === 'x') {
-      return {
-        state: searchParams.oauth_token || '',
-        code: searchParams.oauth_verifier || '',
-        refresh: searchParams.refresh || '',
-      };
-    }
-
-    if (provider === 'vk') {
-      return {
-        ...searchParams,
-        state: searchParams.state || '',
-        code: searchParams.code + '&&&&' + searchParams.device_id,
-      };
-    }
-
-    // Misskey-family MiAuth: the callback carries only `?session=<uuid>` (no
-    // state/code). The session UUID IS the OAuth state (generated as a UUID in
-    // the family base's generateAuthUrl), so map it onto both.
-    if (provider === 'misskey' || provider === 'sharkey') {
-      return {
-        state: searchParams.session || '',
-        code: searchParams.session || '',
-        refresh: searchParams.refresh || '',
-      };
-    }
-
-    if (provider === 'mewe') {
-      const hash =
-        typeof window !== 'undefined' ? window.location.hash.substring(1) : '';
-      const hashParams = new URLSearchParams(hash);
-      return {
-        state: hashParams.get('state') || searchParams.state || '',
-        code: hashParams.get('loginRequestToken') || '',
-        refresh: searchParams.refresh || '',
-      };
-    }
-
     return searchParams;
   }, [provider, searchParams]);
 

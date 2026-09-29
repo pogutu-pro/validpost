@@ -292,7 +292,7 @@ in published posts.
 | BL.INK | API Key | API Key | [bl.ink/settings/api](https://bl.ink/settings/api) |
 | T2M | API Key | API Token | [t2m.io/settings/api](https://t2m.io/settings/api) |
 | Linkly | API Key | API Key, Workspace ID | [linklyhq.com/settings/api](https://linklyhq.com/settings/api) |
-| Lnkify | API Key | API Key (`lf_live_...`), Base URL (optional — self-hosted instances) | [docs.lnkify.io](https://docs.lnkify.io) — hosted default `https://lnkify.io` |
+| Lnkify | API Key | API Key (`lf_live_...`), Base URL (optional — private instances) | [docs.lnkify.io](https://docs.lnkify.io) — hosted default `https://lnkify.io` |
 | Replug | API Key | API Key | [replug.link/settings/api](https://replug.link/settings/api) |
 | Switchy | API Key | API Key | [switchy.io/settings/api](https://switchy.io/settings/api) |
 | PixelMe | API Key | API Key | [pixelme.me/settings/api](https://pixelme.me/settings/api) |

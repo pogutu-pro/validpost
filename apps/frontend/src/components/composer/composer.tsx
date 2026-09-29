@@ -15,9 +15,6 @@ import { useRouter } from 'next/navigation';
 
 export type { ComposerProps, AddEditModalProps } from '@postmill-ai/frontend/components/composer/composer.types';
 
-// Auto-add signatures for a brand-new post. Kept as its own SWR hook (one hook per
-// resource) so the component body stays declarative. Never throws — a failure still
-// resolves (to `[]`) so the new-post composer seeds empty instead of hanging.
 const useAutoSignatures = (isNewPost: boolean) => {
   const fetch = useFetch();
   return useSWR(
@@ -35,12 +32,6 @@ const useAutoSignatures = (isNewPost: boolean) => {
   );
 };
 
-// The single post-composer entry point. It unifies the two former thin wrappers
-// (route `PostComposer` + modal `AddEditModal`) into one component: a 3-layer
-// store initializer that renders `ManageModal`. Every surface that composes a
-// post mounts <Composer/> — /posts/post, agent chat, Settings → Content → Sets,
-// campaign planning, the calendar edit modal, standalone modal, and the media-tool
-// "send to composer" handoffs.
 export const Composer: FC<ComposerProps> = (props) => {
   const { setAllIntegrations, setDate, setIsCreateSet, setDummy } =
     useLaunchStore(
@@ -60,8 +51,6 @@ export const Composer: FC<ComposerProps> = (props) => {
     setIsCreateSet(!!props.addEditSets);
 
     return () => {
-      // Campaign/brand context is set by callers (campaign dashboard, etc.) and
-      // should not leak into the next composer session.
       useLaunchStore.getState().setCampaignId(null);
       useLaunchStore.getState().setBrandId(null);
     };
@@ -76,9 +65,6 @@ export const Composer: FC<ComposerProps> = (props) => {
     setIsCreateSet,
   ]);
 
-  // Looser guard than the old modal wrapper: on the standalone route the store's
-  // `integrations` start empty (channels arrive via the `allIntegrations` prop),
-  // so gating only on the store would render the route/agent-chat as null forever.
   if (!integrations.length && !props.allIntegrations?.length) {
     return null;
   }
@@ -97,11 +83,6 @@ const ComposerInner: FC<ComposerProps> = (props) => {
       }))
     );
 
-  // The store's `integrations` are seeded by the parent `Composer` effect, but a
-  // child effect runs before its parent (React 19), so on first commit the store
-  // is still empty. Gate on store readiness — run once `integrations` is populated
-  // (guarded by `seededRef`) and null-guard every `find()` so a miss never reaches
-  // `addOrRemoveSelectedIntegration(undefined, …)` (which would `undefined.id`).
   const seededRef = useRef(false);
   useEffect(() => {
     if (seededRef.current || !integrations.length) {
@@ -183,12 +164,6 @@ const ComposerInnerInner: FC<ComposerProps> = (props) => {
     }))
   );
 
-  // Auto-add signatures: a brand-new post is seeded with each auto-add
-  // signature's content (and its logo/sticker), gated by channel scope. The
-  // TipTap editor only reads its initial value, so signatures must be baked
-  // into the *initial* global value — hence we defer the new-post seed until
-  // the auto-add list has loaded. Skipped for edits, set-building, onlyValues
-  // handoffs and dummy modals.
   const isNewPost =
     !existingData.integration &&
     !props.onlyValues?.length &&
@@ -200,13 +175,9 @@ const ComposerInnerInner: FC<ComposerProps> = (props) => {
 
   useEffect(() => {
     if (!isNewPost) return;
-    // Wait for the fetch to settle (success → [...] or error → []).
     if (autoSignatures === undefined) return;
-    // Seed only when the global value is empty — re-seeds correctly after the
-    // init effect's reset() (e.g. React StrictMode's mount/cleanup/remount).
     if (useLaunchStore.getState().global.length) return;
 
-    // Scope against the channels known at open time (empty scope = all).
     const selectedIds = props.selectedChannels || [];
     const matching = (autoSignatures as any[]).filter(
       (s) =>
@@ -272,8 +243,6 @@ const ComposerInnerInner: FC<ComposerProps> = (props) => {
       setCurrent(props.focusedChannel);
     }
 
-    // A plain new post's global value is seeded by the auto-add effect above
-    // (it must wait for the signature list); seed the other modes here.
     if (!isNewPost) {
       addGlobalValue(
         0,
@@ -299,8 +268,6 @@ const ComposerInnerInner: FC<ComposerProps> = (props) => {
                       .split('\n')
                       .map((line: string) => `<p>${line}</p>`)
                       .join(''),
-              // Set content historically stored `image`; older variants may
-              // use `media`. Accept either for a robust round-trip.
               // @ts-ignore
               media: p.image || p.media || [],
             }))
@@ -333,8 +300,6 @@ const ComposerInnerInner: FC<ComposerProps> = (props) => {
   ]);
 
   if (!global.length && !internal.length) {
-    // Seeding is still in flight (waiting on the auto-signature fetch and the init
-    // effect) — show a loader rather than a blank frame.
     return <LoadingComponent />;
   }
 

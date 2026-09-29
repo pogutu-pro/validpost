@@ -36,8 +36,8 @@ describe('CommentCard', () => {
       id: 'p1',
       content: 'Original post',
       integration: {
-        name: 'Mastodon',
-        providerIdentifier: 'mastodon',
+        name: 'Instagram',
+        providerIdentifier: 'instagram',
       },
     },
   };

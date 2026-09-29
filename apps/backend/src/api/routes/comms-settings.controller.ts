@@ -90,15 +90,6 @@ export class CommsSettingsController {
     return this._configService.ensureWebhookUrl(org.id, identifier);
   }
 
-  @Get('/oauth/slack/url')
-  @RequirePermission('settings', 'update')
-  async getSlackOAuthUrl(
-    @GetOrgFromRequest() org: Organization,
-    @GetUserFromRequest() user: User,
-  ) {
-    return this._configService.getSlackOAuthUrl(org.id, user.id);
-  }
-
   @Post('/platform-connect/:identifier')
   @RequirePermission('settings', 'update')
   async platformConnect(

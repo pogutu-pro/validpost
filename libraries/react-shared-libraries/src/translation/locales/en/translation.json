@@ -4017,7 +4017,7 @@
   "popup_blocker_warning": "Failed to open the authentication window. Please check your pop-up blocker settings.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Logout from Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "designer_submenu_new": "New",
   "designer_submenu_align": "Align",
   "designer_submenu_arrange": "Arrange",

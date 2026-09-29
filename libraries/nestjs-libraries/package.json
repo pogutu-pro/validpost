@@ -131,7 +131,6 @@
     "nestjs-real-ip": "^3.0.1",
     "node-telegram-bot-api": "^0.66.0",
     "nodemailer": "^9.1.0",
-    "nostr-tools": "^2.23.5",
     "openai": "^7.5.0",
     "opentype.js": "^2.0.0",
     "p-limit": "^3.1.0",

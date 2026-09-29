@@ -28,12 +28,6 @@ const PlatformAvatar: FC<{
 
 export const PicksSocialsComponent: FC<{
   toolTip?: boolean;
-  /**
-   * When set, only integrations whose `identifier` (provider id, e.g.
-   * 'instagram', 'x') is listed are shown/selectable. Used by the Designer's
-   * "Create Post" export to limit the picker to channels matching the
-   * design's variant types.
-   */
   allowedIdentifiers?: string[];
 }> = ({ toolTip, allowedIdentifiers }) => {
   const t = useT();
@@ -108,7 +102,6 @@ export const PicksSocialsComponent: FC<{
     [addOrRemoveSelectedIntegration, existingData.integration, locked]
   );
 
-  // Click-outside + Escape close, mirroring CreateMenu/UserAvatarMenu.
   useEffect(() => {
     if (!open) return;
     const handleMouseDown = (e: MouseEvent) => {
@@ -154,11 +147,8 @@ export const PicksSocialsComponent: FC<{
           aria-haspopup="listbox"
           aria-expanded={open}
           className={clsx(
-            // shrink-0: this pill now shares its row with the brand picker,
-            // whose label can be long enough to squeeze "Select Channels" onto
-            // two lines.
             'border rounded-[8px] shrink-0 flex items-center gap-[8px] h-[36px] lg:h-[44px] px-[12px] lg:px-[16px] text-[13px] lg:text-[15px] font-[600] text-textColor select-none transition-colors whitespace-nowrap',
-            open ? 'border-[#2B5CD3]' : 'border-newTextColor/10'
+            open ? 'border-btnPrimary' : 'border-newTextColor/10 hover:border-newTextColor/20'
           )}
         >
           {selectedList.length > 0 ? (
@@ -219,7 +209,7 @@ export const PicksSocialsComponent: FC<{
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={t('search_channels', 'Search channels...')}
-                  className="w-full h-[40px] pl-[38px] pr-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+                  className="w-full h-[40px] pl-[38px] pr-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-btnPrimary transition-colors"
                 />
               </div>
             </div>
@@ -247,15 +237,15 @@ export const PicksSocialsComponent: FC<{
                           className={clsx(
                             'flex items-center gap-[10px] w-full px-[8px] py-[8px] rounded-[8px] text-left transition-colors',
                             selected
-                              ? 'bg-[#2B5CD3]/15 text-textColor'
+                              ? 'bg-btnPrimary/15 text-textColor'
                               : 'hover:bg-boxHover text-textColor'
                           )}
                         >
                           <div
                             className={clsx(
-                              'w-[18px] h-[18px] rounded-[4px] border flex items-center justify-center shrink-0',
+                              'w-[18px] h-[18px] rounded-[4px] border flex items-center justify-center shrink-0 transition-colors',
                               selected
-                                ? 'bg-[#2B5CD3] border-[#2B5CD3]'
+                                ? 'bg-btnPrimary border-btnPrimary'
                                 : 'border-newColColor'
                             )}
                           >
@@ -302,7 +292,6 @@ export const PicksSocialsComponent: FC<{
     );
   }
 
-  // Icon-row mode (≤4 selectable integrations)
   return (
     <div className={clsx('flex', locked && 'opacity-50 pointer-events-none')}>
       <div className="flex flex-1">
@@ -324,8 +313,8 @@ export const PicksSocialsComponent: FC<{
                     className={clsx(
                       'cursor-pointer border-2 relative rounded-full flex justify-center items-center bg-newTableHeader filter transition-all duration-500',
                       selected
-                        ? 'border-[#622FF6]'
-                        : 'grayscale border-transparent'
+                        ? 'border-btnPrimary'
+                        : 'grayscale border-transparent hover:grayscale-0'
                     )}
                   >
                     <PlatformAvatar

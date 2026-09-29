@@ -48,17 +48,16 @@ const HeroPair: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
-      {/* Designer — the manual path. The faint rule grid reads as an artboard. */}
       <Link
         href="/media/designer"
-        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-[#2B5CD3]/50 transition-colors"
+        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-[#4F46E5]/50 hover:shadow-lg hover:shadow-[#4F46E5]/5 transition-all"
       >
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-[0.5] group-hover:opacity-100 transition-opacity"
           style={{
             backgroundImage:
-              'linear-gradient(to right, color-mix(in srgb, var(--new-btn-primary) 14%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--new-btn-primary) 14%, transparent) 1px, transparent 1px)',
+              'linear-gradient(to right, color-mix(in srgb, #4F46E5 14%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, #4F46E5 14%, transparent) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
             maskImage: 'linear-gradient(to bottom right, black, transparent 72%)',
             WebkitMaskImage: 'linear-gradient(to bottom right, black, transparent 72%)',
@@ -84,10 +83,9 @@ const HeroPair: React.FC = () => {
         </span>
       </Link>
 
-      {/* AI Designer — the generated path. The prompt field carries a real example. */}
       <Link
         href="/media/ai-designer"
-        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-[#2B5CD3]/50 transition-colors"
+        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-[#4F46E5]/50 hover:shadow-lg hover:shadow-[#4F46E5]/5 transition-all"
       >
         <div className="flex flex-col gap-[8px] flex-1">
           <span className="text-[11px] font-[600] uppercase tracking-[0.14em] text-newTableText">
@@ -99,7 +97,7 @@ const HeroPair: React.FC = () => {
           <div className="rounded-[10px] border border-newTableBorder bg-newTableHeader px-[12px] py-[9px] text-[13px] text-newTextColor/70 truncate">
             {t(
               'media_index_prompt_example',
-              '“Launch post for our autumn coffee blend, warm and editorial”'
+              '\u201cLaunch post for our autumn coffee blend, warm and editorial\u201d'
             )}
           </div>
         </div>
@@ -114,14 +112,12 @@ const HeroPair: React.FC = () => {
 
 const StudioCard: React.FC<{ tab: MediaTab }> = ({ tab }) => {
   const t = useT();
-  // Pass the resolved identifier, not the raw slug — `google-ai` has no icon
-  // entry but `google` does.
   const identifier = providerIdentifier(tab.href);
 
   return (
     <Link
       href={tab.href}
-      className="group flex items-start gap-[12px] rounded-[12px] border border-newTableBorder bg-newBgColorInner p-[14px] hover:border-[#2B5CD3]/50 transition-colors"
+      className="group flex items-start gap-[12px] rounded-[12px] border border-newTableBorder bg-newBgColorInner p-[14px] hover:border-[#4F46E5]/50 hover:shadow-md hover:shadow-[#4F46E5]/5 transition-all"
     >
       <span className="shrink-0">
         <ProviderIcon identifier={identifier} name={tab.label} size={34} />
@@ -133,7 +129,7 @@ const StudioCard: React.FC<{ tab: MediaTab }> = ({ tab }) => {
             {tab.badges.map((badge) => (
               <span
                 key={badge}
-                className="px-[7px] py-[2px] rounded-full bg-[#2B5CD3]/12 text-[11px] font-[500] text-btnPrimaryAccent"
+                className="px-[7px] py-[2px] rounded-full bg-[#4F46E5]/10 text-[11px] font-[500] text-btnPrimaryAccent"
               >
                 {t(studioBadgeKey(badge), badge)}
               </span>
@@ -156,8 +152,6 @@ export const MediaIndex: React.FC = () => {
     []
   );
 
-  // Same predicate as the rail (media-tools.nav + the shared hook), so the index
-  // and the rail always show the same studios.
   const studios = useMemo(
     () =>
       SORTED_MEDIA_TABS.filter(
@@ -178,9 +172,6 @@ export const MediaIndex: React.FC = () => {
     ? studios.filter((studio) => studio.badges?.includes(filter))
     : studios;
 
-  // Three states, not two: `undefined` is still loading, an empty Set means
-  // either nothing is configured OR the request 403'd for a member without
-  // `media-config:manage` — which is also why the CTA below is gated.
   const loading = enabledProviders === undefined;
   const canConfigure = permissions.hasPermission('media-config', 'manage');
   const showFilters = studios.length >= MIN_STUDIOS_FOR_FILTER && badges.length > 1;
@@ -201,7 +192,6 @@ export const MediaIndex: React.FC = () => {
 
       <HeroPair />
 
-      {/* Renders in flight or recently finished — hidden entirely when there are none. */}
       <MediaQueuePanel />
 
       <section className="flex flex-col gap-[12px]">
@@ -247,7 +237,7 @@ export const MediaIndex: React.FC = () => {
               canConfigure ? (
                 <Link
                   href={MEDIA_SETUP_HREF}
-                  className="inline-flex items-center gap-[8px] px-[16px] py-[9px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[600] hover:bg-[#2B5CD3]/85 transition-colors"
+                  className="inline-flex items-center gap-[8px] px-[16px] py-[9px] rounded-[8px] bg-[#4F46E5] text-white text-[13px] font-[600] hover:bg-[#4338CA] transition-colors"
                 >
                   {t('media_index_empty_cta', 'Connect a provider')}
                   <ArrowIcon />
@@ -273,7 +263,7 @@ export const MediaIndex: React.FC = () => {
             <Link
               key={tab.href}
               href={tab.href}
-              className="inline-flex items-center gap-[8px] rounded-[10px] border border-newTableBorder bg-newBgColorInner ps-[12px] pe-[14px] py-[9px] text-[13px] text-textColor hover:border-[#2B5CD3]/50 transition-colors"
+              className="inline-flex items-center gap-[8px] rounded-[10px] border border-newTableBorder bg-newBgColorInner ps-[12px] pe-[14px] py-[9px] text-[13px] text-textColor hover:border-[#4F46E5]/50 hover:shadow-sm transition-all"
             >
               <span className="w-[18px] h-[18px] flex items-center justify-center shrink-0 text-newTableText">
                 {tab.icon}
@@ -297,10 +287,10 @@ const FilterChip: React.FC<{
     onClick={onClick}
     aria-pressed={active}
     className={clsx(
-      'px-[11px] py-[5px] rounded-full text-[12px] font-[500] border transition-colors',
+      'px-[11px] py-[5px] rounded-full text-[12px] font-[500] border transition-all',
       active
-        ? 'bg-[#2B5CD3] border-[#2B5CD3] text-white'
-        : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor'
+        ? 'bg-[#4F46E5] border-[#4F46E5] text-white shadow-sm'
+        : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor hover:border-[#4F46E5]/30'
     )}
   >
     {children}

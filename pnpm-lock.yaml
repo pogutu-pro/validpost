@@ -261,9 +261,6 @@ importers:
       '@postmill-ai/provider-adobe-stock':
         specifier: workspace:*
         version: file:libraries/providers/adobe-stock(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-akkoma':
-        specifier: workspace:*
-        version: file:libraries/providers/akkoma(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-anthropic':
         specifier: workspace:*
         version: file:libraries/providers/anthropic(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -294,9 +291,6 @@ importers:
       '@postmill-ai/provider-blink':
         specifier: workspace:*
         version: file:libraries/providers/blink(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-bluesky':
-        specifier: workspace:*
-        version: file:libraries/providers/bluesky(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-cleanuri':
         specifier: workspace:*
         version: file:libraries/providers/cleanuri(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -324,9 +318,6 @@ importers:
       '@postmill-ai/provider-deepseek':
         specifier: workspace:*
         version: link:../../libraries/providers/deepseek
-      '@postmill-ai/provider-devto':
-        specifier: workspace:*
-        version: file:libraries/providers/devto(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-did':
         specifier: workspace:*
         version: file:libraries/providers/did(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -336,12 +327,6 @@ importers:
       '@postmill-ai/provider-discord':
         specifier: workspace:*
         version: file:libraries/providers/discord(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-discourse':
-        specifier: workspace:*
-        version: file:libraries/providers/discourse(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-dribbble':
-        specifier: workspace:*
-        version: file:libraries/providers/dribbble(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-dub':
         specifier: workspace:*
         version: file:libraries/providers/dub(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -366,9 +351,6 @@ importers:
       '@postmill-ai/provider-fireworks':
         specifier: workspace:*
         version: link:../../libraries/providers/fireworks
-      '@postmill-ai/provider-friendica':
-        specifier: workspace:*
-        version: file:libraries/providers/friendica(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-gateway':
         specifier: workspace:*
         version: link:../../libraries/providers/gateway
@@ -393,15 +375,9 @@ importers:
       '@postmill-ai/provider-google-ai':
         specifier: workspace:*
         version: file:libraries/providers/google-ai(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-gotosocial':
-        specifier: workspace:*
-        version: file:libraries/providers/gotosocial(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-groq':
         specifier: workspace:*
         version: link:../../libraries/providers/groq
-      '@postmill-ai/provider-hashnode':
-        specifier: workspace:*
-        version: file:libraries/providers/hashnode(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-hedra':
         specifier: workspace:*
         version: file:libraries/providers/hedra(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -441,24 +417,15 @@ importers:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-kick':
-        specifier: workspace:*
-        version: file:libraries/providers/kick(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-kimi':
         specifier: workspace:*
         version: file:libraries/providers/kimi(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-lemmy':
-        specifier: workspace:*
-        version: file:libraries/providers/lemmy(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-leonardo':
         specifier: workspace:*
         version: file:libraries/providers/leonardo(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-lightning':
         specifier: workspace:*
         version: file:libraries/providers/lightning(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-line':
-        specifier: workspace:*
-        version: file:libraries/providers/line(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-linkedin':
         specifier: workspace:*
         version: file:libraries/providers/linkedin(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -471,9 +438,6 @@ importers:
       '@postmill-ai/provider-linode':
         specifier: workspace:*
         version: file:libraries/providers/linode(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-listmonk':
-        specifier: workspace:*
-        version: file:libraries/providers/listmonk(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-lnkify':
         specifier: workspace:*
         version: file:libraries/providers/lnkify(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -492,36 +456,18 @@ importers:
       '@postmill-ai/provider-mailgun':
         specifier: workspace:*
         version: file:libraries/providers/mailgun(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-mastodon':
-        specifier: workspace:*
-        version: file:libraries/providers/mastodon(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-matrix':
-        specifier: workspace:*
-        version: file:libraries/providers/matrix(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-medialocker':
         specifier: workspace:*
         version: file:libraries/providers/medialocker(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-medium':
-        specifier: workspace:*
-        version: file:libraries/providers/medium(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-meta-llama':
         specifier: workspace:*
         version: file:libraries/providers/meta-llama(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-mewe':
-        specifier: workspace:*
-        version: file:libraries/providers/mewe(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-minimax':
         specifier: workspace:*
         version: file:libraries/providers/minimax(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-misskey':
-        specifier: workspace:*
-        version: file:libraries/providers/misskey(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-mistral':
         specifier: workspace:*
         version: link:../../libraries/providers/mistral
-      '@postmill-ai/provider-moltbook':
-        specifier: workspace:*
-        version: file:libraries/providers/moltbook(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-mozillavpn':
         specifier: workspace:*
         version: file:libraries/providers/mozillavpn(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -531,15 +477,9 @@ importers:
       '@postmill-ai/provider-nordvpn':
         specifier: workspace:*
         version: file:libraries/providers/nordvpn(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-nostr':
-        specifier: workspace:*
-        version: file:libraries/providers/nostr(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-nvidia':
         specifier: workspace:*
         version: file:libraries/providers/nvidia(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-odysee':
-        specifier: workspace:*
-        version: file:libraries/providers/odysee(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-openai':
         specifier: workspace:*
         version: file:libraries/providers/openai(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -555,21 +495,12 @@ importers:
       '@postmill-ai/provider-paypal':
         specifier: workspace:*
         version: file:libraries/providers/paypal(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-peertube':
-        specifier: workspace:*
-        version: file:libraries/providers/peertube(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-perplexity':
         specifier: workspace:*
         version: link:../../libraries/providers/perplexity
       '@postmill-ai/provider-pia':
         specifier: workspace:*
         version: file:libraries/providers/pia(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-pinterest':
-        specifier: workspace:*
-        version: file:libraries/providers/pinterest(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-pixelfed':
-        specifier: workspace:*
-        version: file:libraries/providers/pixelfed(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-pixelme':
         specifier: workspace:*
         version: file:libraries/providers/pixelme(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -591,9 +522,6 @@ importers:
       '@postmill-ai/provider-recraft':
         specifier: workspace:*
         version: file:libraries/providers/recraft(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-reddit':
-        specifier: workspace:*
-        version: file:libraries/providers/reddit(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-reelfarm':
         specifier: workspace:*
         version: file:libraries/providers/reelfarm(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -624,21 +552,12 @@ importers:
       '@postmill-ai/provider-ses':
         specifier: workspace:*
         version: file:libraries/providers/ses(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-sharkey':
-        specifier: workspace:*
-        version: file:libraries/providers/sharkey(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-shortio':
         specifier: workspace:*
         version: file:libraries/providers/shortio(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-siliconflow':
         specifier: workspace:*
         version: file:libraries/providers/siliconflow(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-skool':
-        specifier: workspace:*
-        version: file:libraries/providers/skool(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-slack':
-        specifier: workspace:*
-        version: file:libraries/providers/slack(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-smtp':
         specifier: workspace:*
         version: file:libraries/providers/smtp(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -690,15 +609,9 @@ importers:
       '@postmill-ai/provider-togetherai':
         specifier: workspace:*
         version: link:../../libraries/providers/togetherai
-      '@postmill-ai/provider-tumblr':
-        specifier: workspace:*
-        version: file:libraries/providers/tumblr(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-tunnelbear':
         specifier: workspace:*
         version: file:libraries/providers/tunnelbear(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-twitch':
-        specifier: workspace:*
-        version: file:libraries/providers/twitch(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-vecteezy':
         specifier: workspace:*
         version: file:libraries/providers/vecteezy(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -708,9 +621,6 @@ importers:
       '@postmill-ai/provider-vgd':
         specifier: workspace:*
         version: file:libraries/providers/vgd(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-vk':
-        specifier: workspace:*
-        version: file:libraries/providers/vk(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-vultr':
         specifier: workspace:*
         version: file:libraries/providers/vultr(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -726,21 +636,9 @@ importers:
       '@postmill-ai/provider-wasabi':
         specifier: workspace:*
         version: file:libraries/providers/wasabi(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-whop':
-        specifier: workspace:*
-        version: file:libraries/providers/whop(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-windscribe':
         specifier: workspace:*
         version: file:libraries/providers/windscribe(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-wordpress':
-        specifier: workspace:*
-        version: file:libraries/providers/wordpress(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-wrapcast':
-        specifier: workspace:*
-        version: file:libraries/providers/wrapcast(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-      '@postmill-ai/provider-x':
-        specifier: workspace:*
-        version: file:libraries/providers/x(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
       '@postmill-ai/provider-xai':
         specifier: workspace:*
         version: link:../../libraries/providers/xai
@@ -1058,6 +956,9 @@ importers:
       konva:
         specifier: ^9.3.6
         version: 9.3.22
+      lucide-react:
+        specifier: ^0.545.0
+        version: 0.545.0(react@19.2.7)
       next:
         specifier: 16.3.3
         version: 16.3.3(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.58.2)(@types/node@26.1.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(sass@1.100.0)
@@ -1698,12 +1599,6 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/akkoma:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/anthropic:
     dependencies:
       '@ai-sdk/anthropic':
@@ -1791,12 +1686,6 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/bluesky:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/cleanuri:
     dependencies:
       '@postmill-ai/provider-kernel':
@@ -1875,12 +1764,6 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
 
-  libraries/providers/devto:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/did:
     dependencies:
       '@postmill-ai/provider-kernel':
@@ -1894,18 +1777,6 @@ importers:
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
   libraries/providers/discord:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/discourse:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/dribbble:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -1967,12 +1838,6 @@ importers:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-
-  libraries/providers/friendica:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
   libraries/providers/gateway:
     dependencies:
@@ -2055,12 +1920,6 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/gotosocial:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/groq:
     dependencies:
       '@ai-sdk/groq':
@@ -2075,12 +1934,6 @@ importers:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-
-  libraries/providers/hashnode:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
   libraries/providers/hedra:
     dependencies:
@@ -2175,19 +2028,7 @@ importers:
         specifier: ^7.8.2
         version: 7.8.2
 
-  libraries/providers/kick:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/kimi:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/lemmy:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2200,12 +2041,6 @@ importers:
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
   libraries/providers/lightning:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/line:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2230,12 +2065,6 @@ importers:
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
   libraries/providers/linode:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/listmonk:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2283,25 +2112,7 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
 
-  libraries/providers/mastodon:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/matrix:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/medialocker:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/medium:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2313,19 +2124,7 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/mewe:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/minimax:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/misskey:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2346,12 +2145,6 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
 
-  libraries/providers/moltbook:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/mozillavpn:
     dependencies:
       '@postmill-ai/provider-kernel':
@@ -2370,19 +2163,7 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/nostr:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/nvidia:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/odysee:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2436,12 +2217,6 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/peertube:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/perplexity:
     dependencies:
       '@ai-sdk/perplexity':
@@ -2458,18 +2233,6 @@ importers:
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
 
   libraries/providers/pia:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/pinterest:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/pixelfed:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2515,12 +2278,6 @@ importers:
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
   libraries/providers/recraft:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/reddit:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2601,12 +2358,6 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/sharkey:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/shortio:
     dependencies:
       '@postmill-ai/provider-kernel':
@@ -2614,18 +2365,6 @@ importers:
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
   libraries/providers/siliconflow:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/skool:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/slack:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2748,19 +2487,7 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
 
-  libraries/providers/tumblr:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/tunnelbear:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/twitch:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2788,12 +2515,6 @@ importers:
         version: 9.15.1
 
   libraries/providers/vgd:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/vk:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -2835,31 +2556,7 @@ importers:
         specifier: workspace:*
         version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
 
-  libraries/providers/whop:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
   libraries/providers/windscribe:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/wordpress:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/wrapcast:
-    dependencies:
-      '@postmill-ai/provider-kernel':
-        specifier: workspace:*
-        version: file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(zod@4.4.3)
-
-  libraries/providers/x:
     dependencies:
       '@postmill-ai/provider-kernel':
         specifier: workspace:*
@@ -8078,10 +7775,6 @@ packages:
     resolution: {directory: libraries/providers/adobe-stock, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-akkoma@file:libraries/providers/akkoma':
-    resolution: {directory: libraries/providers/akkoma, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-anthropic@file:libraries/providers/anthropic':
     resolution: {directory: libraries/providers/anthropic, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
@@ -8114,10 +7807,6 @@ packages:
     resolution: {directory: libraries/providers/blink, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-bluesky@file:libraries/providers/bluesky':
-    resolution: {directory: libraries/providers/bluesky, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-cleanuri@file:libraries/providers/cleanuri':
     resolution: {directory: libraries/providers/cleanuri, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
@@ -8146,10 +7835,6 @@ packages:
     resolution: {directory: libraries/providers/deepinfra, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-devto@file:libraries/providers/devto':
-    resolution: {directory: libraries/providers/devto, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-did@file:libraries/providers/did':
     resolution: {directory: libraries/providers/did, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
@@ -8160,14 +7845,6 @@ packages:
 
   '@postmill-ai/provider-discord@file:libraries/providers/discord':
     resolution: {directory: libraries/providers/discord, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-discourse@file:libraries/providers/discourse':
-    resolution: {directory: libraries/providers/discourse, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-dribbble@file:libraries/providers/dribbble':
-    resolution: {directory: libraries/providers/dribbble, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-dub@file:libraries/providers/dub':
@@ -8198,10 +7875,6 @@ packages:
     resolution: {directory: libraries/providers/fal, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-friendica@file:libraries/providers/friendica':
-    resolution: {directory: libraries/providers/friendica, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-generic@file:libraries/providers/generic':
     resolution: {directory: libraries/providers/generic, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
@@ -8228,14 +7901,6 @@ packages:
 
   '@postmill-ai/provider-google@file:libraries/providers/google':
     resolution: {directory: libraries/providers/google, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-gotosocial@file:libraries/providers/gotosocial':
-    resolution: {directory: libraries/providers/gotosocial, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-hashnode@file:libraries/providers/hashnode':
-    resolution: {directory: libraries/providers/hashnode, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-hedra@file:libraries/providers/hedra':
@@ -8290,16 +7955,8 @@ packages:
     resolution: {directory: libraries/providers/kernel, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-kick@file:libraries/providers/kick':
-    resolution: {directory: libraries/providers/kick, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-kimi@file:libraries/providers/kimi':
     resolution: {directory: libraries/providers/kimi, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-lemmy@file:libraries/providers/lemmy':
-    resolution: {directory: libraries/providers/lemmy, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-leonardo@file:libraries/providers/leonardo':
@@ -8308,10 +7965,6 @@ packages:
 
   '@postmill-ai/provider-lightning@file:libraries/providers/lightning':
     resolution: {directory: libraries/providers/lightning, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-line@file:libraries/providers/line':
-    resolution: {directory: libraries/providers/line, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-linkedin-page@file:libraries/providers/linkedin-page':
@@ -8328,10 +7981,6 @@ packages:
 
   '@postmill-ai/provider-linode@file:libraries/providers/linode':
     resolution: {directory: libraries/providers/linode, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-listmonk@file:libraries/providers/listmonk':
-    resolution: {directory: libraries/providers/listmonk, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-lnkify@file:libraries/providers/lnkify':
@@ -8358,40 +8007,16 @@ packages:
     resolution: {directory: libraries/providers/mailgun, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-mastodon@file:libraries/providers/mastodon':
-    resolution: {directory: libraries/providers/mastodon, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-matrix@file:libraries/providers/matrix':
-    resolution: {directory: libraries/providers/matrix, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-medialocker@file:libraries/providers/medialocker':
     resolution: {directory: libraries/providers/medialocker, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-medium@file:libraries/providers/medium':
-    resolution: {directory: libraries/providers/medium, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-meta-llama@file:libraries/providers/meta-llama':
     resolution: {directory: libraries/providers/meta-llama, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-mewe@file:libraries/providers/mewe':
-    resolution: {directory: libraries/providers/mewe, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-minimax@file:libraries/providers/minimax':
     resolution: {directory: libraries/providers/minimax, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-misskey@file:libraries/providers/misskey':
-    resolution: {directory: libraries/providers/misskey, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-moltbook@file:libraries/providers/moltbook':
-    resolution: {directory: libraries/providers/moltbook, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-mozillavpn@file:libraries/providers/mozillavpn':
@@ -8406,16 +8031,8 @@ packages:
     resolution: {directory: libraries/providers/nordvpn, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-nostr@file:libraries/providers/nostr':
-    resolution: {directory: libraries/providers/nostr, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-nvidia@file:libraries/providers/nvidia':
     resolution: {directory: libraries/providers/nvidia, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-odysee@file:libraries/providers/odysee':
-    resolution: {directory: libraries/providers/odysee, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-openai-compatible@file:libraries/providers/openai-compatible':
@@ -8434,20 +8051,8 @@ packages:
     resolution: {directory: libraries/providers/paypal, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-peertube@file:libraries/providers/peertube':
-    resolution: {directory: libraries/providers/peertube, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-pia@file:libraries/providers/pia':
     resolution: {directory: libraries/providers/pia, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-pinterest@file:libraries/providers/pinterest':
-    resolution: {directory: libraries/providers/pinterest, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-pixelfed@file:libraries/providers/pixelfed':
-    resolution: {directory: libraries/providers/pixelfed, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-pixelme@file:libraries/providers/pixelme':
@@ -8476,10 +8081,6 @@ packages:
 
   '@postmill-ai/provider-recraft@file:libraries/providers/recraft':
     resolution: {directory: libraries/providers/recraft, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-reddit@file:libraries/providers/reddit':
-    resolution: {directory: libraries/providers/reddit, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-reelfarm@file:libraries/providers/reelfarm':
@@ -8522,24 +8123,12 @@ packages:
     resolution: {directory: libraries/providers/ses, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-sharkey@file:libraries/providers/sharkey':
-    resolution: {directory: libraries/providers/sharkey, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-shortio@file:libraries/providers/shortio':
     resolution: {directory: libraries/providers/shortio, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-siliconflow@file:libraries/providers/siliconflow':
     resolution: {directory: libraries/providers/siliconflow, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-skool@file:libraries/providers/skool':
-    resolution: {directory: libraries/providers/skool, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-slack@file:libraries/providers/slack':
-    resolution: {directory: libraries/providers/slack, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-smtp@file:libraries/providers/smtp':
@@ -8606,16 +8195,8 @@ packages:
     resolution: {directory: libraries/providers/tly, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-tumblr@file:libraries/providers/tumblr':
-    resolution: {directory: libraries/providers/tumblr, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-tunnelbear@file:libraries/providers/tunnelbear':
     resolution: {directory: libraries/providers/tunnelbear, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-twitch@file:libraries/providers/twitch':
-    resolution: {directory: libraries/providers/twitch, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-vecteezy@file:libraries/providers/vecteezy':
@@ -8624,10 +8205,6 @@ packages:
 
   '@postmill-ai/provider-vgd@file:libraries/providers/vgd':
     resolution: {directory: libraries/providers/vgd, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-vk@file:libraries/providers/vk':
-    resolution: {directory: libraries/providers/vk, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-vultr@file:libraries/providers/vultr':
@@ -8650,24 +8227,8 @@ packages:
     resolution: {directory: libraries/providers/wasabi, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
-  '@postmill-ai/provider-whop@file:libraries/providers/whop':
-    resolution: {directory: libraries/providers/whop, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
   '@postmill-ai/provider-windscribe@file:libraries/providers/windscribe':
     resolution: {directory: libraries/providers/windscribe, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-wordpress@file:libraries/providers/wordpress':
-    resolution: {directory: libraries/providers/wordpress, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-wrapcast@file:libraries/providers/wrapcast':
-    resolution: {directory: libraries/providers/wrapcast, type: directory}
-    engines: {node: '>=24.0.0 <25.0.0'}
-
-  '@postmill-ai/provider-x@file:libraries/providers/x':
-    resolution: {directory: libraries/providers/x, type: directory}
     engines: {node: '>=24.0.0 <25.0.0'}
 
   '@postmill-ai/provider-youtube@file:libraries/providers/youtube':
@@ -13391,6 +12952,7 @@ packages:
 
   charm@0.1.2:
     resolution: {integrity: sha512-syedaZ9cPe7r3hoQA9twWYKu5AIyCswN5+szkmPBe9ccdLrj4bYaCnLVPTLd2kgVRc7+zoX4tyPgRnFKCj5YjQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   chart.js@4.5.1:
     resolution: {integrity: sha512-GIjfiT9dbmHRiYi6Nl2yFCq7kkwdkp1W/lp2J99rX0yo9tgJGn3lKQATztIjb5tVtevcBtIdICNWqlq5+E8/Pw==}
@@ -13889,6 +13451,7 @@ packages:
 
   crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
+    deprecated: Active development of CryptoJS has been discontinued. This library is no longer maintained.
 
   css-select@5.2.2:
     resolution: {integrity: sha512-TizTzUddG/xYLA3NXodFM0fSbNizXjOKhqiQQwvhlspadZokn1KDy0NZFS0wuEubIYAV5/c1/lAr0TaaFXEXzw==}
@@ -16555,9 +16118,10 @@ packages:
   jsc-safe-url@0.2.4:
     resolution: {integrity: sha512-0wM3YBWtYePOjfyXQH5MWQ8H7sdk5EXSwZvmSLKk2RboVQ2Bu239jycHDz5J/8Blf3K0Qnoy2b6xD+z10MFB+Q==}
 
-  jschardet@3.1.4:
-    resolution: {integrity: sha512-/kmVISmrwVwtyYU40iQUOp3SUPk2dhNCMsZBQX0R1/jZ8maaXJ/oZIzUOiyOqcgtLnETFKYChbJ5iDC/eWmFHg==}
-    engines: {node: '>=0.1.90'}
+  jschardet@4.0.0:
+    resolution: {integrity: sha512-EsNiLV+xzeMBtkGL/HeWoUivNkGIr8JmaC5A5j7DBlKnhp4CcBTWKEOtNg6vlmf+mkn9yQ9Wals47u7+LoTr7w==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   jsdom@22.1.0:
     resolution: {integrity: sha512-/9AVW7xNbsBv6GfWho4TTNjEo9fe6Zhf9O7s0Fhhr3u+awPwAJMKwAMXnkk5vBxflqLW9hTHX/0cs+P3gW+cQw==}
@@ -17144,6 +16708,11 @@ packages:
 
   lucide-react@0.542.0:
     resolution: {integrity: sha512-w3hD8/SQB7+lzU2r4VdFyzzOzKnUjTZIF/MQJGSSvni7Llewni4vuViRppfRAa2guOsY5k4jZyxw/i9DQHv+dw==}
+    peerDependencies:
+      react: 19.2.7
+
+  lucide-react@0.545.0:
+    resolution: {integrity: sha512-7r1/yUuflQDSt4f1bpn5ZAocyIxcTyVyBBChSVtBKn5M+392cPmI5YJMWOJKk/HUWGm5wg83chlAZtCcGbEZtw==}
     peerDependencies:
       react: 19.2.7
 
@@ -18751,6 +18320,7 @@ packages:
   prom-client@15.1.3:
     resolution: {integrity: sha512-6ZiOBfCywsD4k1BN9IX0uZhF+tJkV8q8llP64G5Hajs4JOeVLPCwpPVcpXy3BwYiUGgyJzsJJQeOIv7+hDSq8g==}
     engines: {node: ^16 || ^18 || >=20}
+    deprecated: prom-client has been replaced by @prometheus-io/client
 
   promise-queue@2.2.5:
     resolution: {integrity: sha512-p/iXrPSVfnqPft24ZdNNLECw/UrtLTpT3jpAAMzl/o5/rDsGCPo3/CQS2611flL6LkoEJ3oQZw7C8Q80ZISXRQ==}
@@ -26622,7 +26192,7 @@ snapshots:
   '@microsoft/eslint-formatter-sarif@3.1.0':
     dependencies:
       eslint: 8.57.1
-      jschardet: 3.1.4
+      jschardet: 4.0.0
       lodash: 4.18.1
       utf8: 3.0.0
     transitivePeerDependencies:
@@ -29563,18 +29133,6 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-akkoma@file:libraries/providers/akkoma(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-anthropic@file:libraries/providers/anthropic(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@ai-sdk/anthropic': 2.0.89(zod@4.4.3)
@@ -29677,18 +29235,6 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-bluesky@file:libraries/providers/bluesky(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-cleanuri@file:libraries/providers/cleanuri(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -29775,18 +29321,6 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-devto@file:libraries/providers/devto(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-did@file:libraries/providers/did(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -29812,30 +29346,6 @@ snapshots:
       - zod
 
   '@postmill-ai/provider-discord@file:libraries/providers/discord(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-discourse@file:libraries/providers/discourse(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-dribbble@file:libraries/providers/dribbble(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -29920,18 +29430,6 @@ snapshots:
       - zod
 
   '@postmill-ai/provider-fal@file:libraries/providers/fal(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-friendica@file:libraries/providers/friendica(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -30414,30 +29912,6 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-gotosocial@file:libraries/providers/gotosocial(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-hashnode@file:libraries/providers/hashnode(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-hedra@file:libraries/providers/hedra(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -30633,31 +30107,7 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-kick@file:libraries/providers/kick(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-kimi@file:libraries/providers/kimi(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-lemmy@file:libraries/providers/lemmy(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -30682,18 +30132,6 @@ snapshots:
       - zod
 
   '@postmill-ai/provider-lightning@file:libraries/providers/lightning(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-line@file:libraries/providers/line(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -30742,18 +30180,6 @@ snapshots:
       - zod
 
   '@postmill-ai/provider-linode@file:libraries/providers/linode(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-listmonk@file:libraries/providers/listmonk(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -30840,43 +30266,7 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-mastodon@file:libraries/providers/mastodon(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-matrix@file:libraries/providers/matrix(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-medialocker@file:libraries/providers/medialocker(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-medium@file:libraries/providers/medium(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -30900,43 +30290,7 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-mewe@file:libraries/providers/mewe(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-minimax@file:libraries/providers/minimax(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-misskey@file:libraries/providers/misskey(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-moltbook@file:libraries/providers/moltbook(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -30984,31 +30338,7 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-nostr@file:libraries/providers/nostr(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-nvidia@file:libraries/providers/nvidia(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-odysee@file:libraries/providers/odysee(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -31071,43 +30401,7 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-peertube@file:libraries/providers/peertube(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-pia@file:libraries/providers/pia(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-pinterest@file:libraries/providers/pinterest(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-pixelfed@file:libraries/providers/pixelfed(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -31194,18 +30488,6 @@ snapshots:
       - zod
 
   '@postmill-ai/provider-recraft@file:libraries/providers/recraft(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-reddit@file:libraries/providers/reddit(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -31346,18 +30628,6 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-sharkey@file:libraries/providers/sharkey(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-shortio@file:libraries/providers/shortio(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
@@ -31371,30 +30641,6 @@ snapshots:
       - zod
 
   '@postmill-ai/provider-siliconflow@file:libraries/providers/siliconflow(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-skool@file:libraries/providers/skool(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-slack@file:libraries/providers/slack(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -31601,31 +30847,7 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-tumblr@file:libraries/providers/tumblr(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-tunnelbear@file:libraries/providers/tunnelbear(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-twitch@file:libraries/providers/twitch(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -31650,18 +30872,6 @@ snapshots:
       - zod
 
   '@postmill-ai/provider-vgd@file:libraries/providers/vgd(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-vk@file:libraries/providers/vk(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -31735,55 +30945,7 @@ snapshots:
       - ws
       - zod
 
-  '@postmill-ai/provider-whop@file:libraries/providers/whop(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
   '@postmill-ai/provider-windscribe@file:libraries/providers/windscribe(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-wordpress@file:libraries/providers/wordpress(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-wrapcast@file:libraries/providers/wrapcast(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
-    dependencies:
-      '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - openai
-      - supports-color
-      - ws
-      - zod
-
-  '@postmill-ai/provider-x@file:libraries/providers/x(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)':
     dependencies:
       '@postmill-ai/provider-kernel': file:libraries/providers/kernel(@opentelemetry/api@1.9.1)(@opentelemetry/exporter-trace-otlp-proto@0.219.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.8.0(@opentelemetry/api@1.9.1))(openai@7.5.0(@aws-sdk/credential-provider-node@3.972.71)(@smithy/hash-node@4.3.6)(@smithy/signature-v4@5.6.9)(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3))(ws@8.21.1(bufferutil@4.1.0)(utf-8-validate@6.0.6))(zod@4.4.3)
     transitivePeerDependencies:
@@ -37008,16 +36170,6 @@ snapshots:
       - debug
       - supports-color
 
-  axios@1.18.1(debug@4.4.3):
-    dependencies:
-      follow-redirects: 1.16.0(debug@4.4.3)
-      form-data: 4.0.6
-      https-proxy-agent: 5.0.1
-      proxy-from-env: 2.1.0
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-
   axobject-query@3.2.4: {}
 
   axobject-query@4.1.0: {}
@@ -39769,10 +38921,6 @@ snapshots:
     optionalDependencies:
       debug: 4.3.7
 
-  follow-redirects@1.16.0(debug@4.4.3):
-    optionalDependencies:
-      debug: 4.4.3(supports-color@5.5.0)
-
   fontkit@1.9.0:
     dependencies:
       '@swc/helpers': 0.3.17
@@ -40748,7 +39896,7 @@ snapshots:
       '@types/debug': 4.1.13
       '@types/node': 18.19.130
       '@types/tough-cookie': 4.0.5
-      axios: 1.18.1(debug@4.4.3)
+      axios: 1.18.1
       camelcase: 6.3.0
       debug: 4.4.3(supports-color@5.5.0)
       dotenv: 16.6.1
@@ -40758,7 +39906,7 @@ snapshots:
       isstream: 0.1.2
       jsonwebtoken: 9.0.3
       mime-types: 2.1.35
-      retry-axios: 2.6.0(axios@1.18.1)
+      retry-axios: 2.6.0(axios@1.18.1(debug@4.4.3))
       tough-cookie: 4.1.4
     transitivePeerDependencies:
       - supports-color
@@ -41362,7 +40510,7 @@ snapshots:
 
   jsc-safe-url@0.2.4: {}
 
-  jschardet@3.1.4: {}
+  jschardet@4.0.0: {}
 
   jsdom@22.1.0(bufferutil@4.1.0)(canvas@3.2.3)(utf-8-validate@6.0.6):
     dependencies:
@@ -42000,6 +41148,10 @@ snapshots:
       react: 19.2.7
 
   lucide-react@0.542.0(react@19.2.7):
+    dependencies:
+      react: 19.2.7
+
+  lucide-react@0.545.0(react@19.2.7):
     dependencies:
       react: 19.2.7
 
@@ -45158,7 +44310,7 @@ snapshots:
 
   ret@0.5.0: {}
 
-  retry-axios@2.6.0(axios@1.18.1):
+  retry-axios@2.6.0(axios@1.18.1(debug@4.4.3)):
     dependencies:
       axios: 1.18.1
 

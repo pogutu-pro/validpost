@@ -24,7 +24,7 @@ local compute; without bounds a backlog can starve the host.
 - **In-process fallback.** With Podman disabled (the default), renders run in the backend process
   as before — used for dev/CI and graceful degradation. The 3-concurrent cap still applies.
 
-## Setup (production / self-host)
+## Setup (production / self-hosted media)
 
 1. Build the worker image on the Podman host:
    ```bash

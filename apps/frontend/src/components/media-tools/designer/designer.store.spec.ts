@@ -322,14 +322,14 @@ describe('migrateDoc', () => {
     const newDoc = {
       version: DESIGNER_DOC_VERSION,
       mode: 'image',
-      outputs: [{ id: 'out-1', formatId: 'x-post', name: 'X Post', width: 1600, height: 900, background: '#ffffff', children: [] }],
+      outputs: [{ id: 'out-1', formatId: 'linkedin-post', name: 'LinkedIn Post', width: 1200, height: 627, background: '#ffffff', children: [] }],
     };
 
     const doc = migrateDoc(newDoc);
 
     expect(doc.outputs).toHaveLength(1);
-    expect(doc.outputs[0].formatId).toBe('x-post');
-    expect(doc.outputs[0].name).toBe('X Post');
+    expect(doc.outputs[0].formatId).toBe('linkedin-post');
+    expect(doc.outputs[0].name).toBe('LinkedIn Post');
   });
 });
 
@@ -346,7 +346,7 @@ describe('Designer smoke: multi-format linked editing', () => {
     });
 
     act(() => {
-      result.current.addOutput({ formatId: 'x-post', name: 'X Post', width: 1600, height: 900 });
+      result.current.addOutput({ formatId: 'linkedin-post', name: 'LinkedIn Post', width: 1200, height: 627 });
     });
 
     // The same-origin text element should exist in both outputs.

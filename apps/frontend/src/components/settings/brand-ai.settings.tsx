@@ -17,18 +17,14 @@ interface BrandProfile {
 }
 
 const PLATFORM_OPTIONS = [
-  { value: 'x', label: 'X/Twitter' },
   { value: 'linkedin', label: 'LinkedIn' },
   { value: 'facebook', label: 'Facebook' },
   { value: 'instagram', label: 'Instagram' },
   { value: 'tiktok', label: 'TikTok' },
   { value: 'threads', label: 'Threads' },
-  { value: 'bluesky', label: 'Bluesky' },
-  { value: 'mastodon', label: 'Mastodon' },
   { value: 'youtube', label: 'YouTube' },
   { value: 'discord', label: 'Discord' },
   { value: 'telegram', label: 'Telegram' },
-  { value: 'slack', label: 'Slack' },
 ];
 
 interface PromptTemplate {

@@ -1,6 +1,6 @@
 # Contributing
 
-This document covers ground rules, invariants, and the contribution workflow for Postmill.
+This document covers ground rules, invariants, and the contribution workflow for ValidPost.
 
 ---
 
@@ -139,10 +139,5 @@ invariant must be reflected in the relevant page. Bump the "Verified against v1.
 every page you change.
 
 ---
-
-## CLA
-
-Contributors must sign the Contributor License Agreement before a PR can be merged. The CLA bot
-will prompt you on your first PR.
 
 > Verified against v1.0.0

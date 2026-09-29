@@ -115,12 +115,6 @@ export type InngestEvents = {
       messageId?: string;
     };
   };
-  'comms/matrix.sync-one': {
-    data: {
-      configId: string;
-      organizationId: string;
-    };
-  };
 
 };
 
@@ -153,9 +147,6 @@ export const commentsSyncOrgEvent = eventType('comments/sync-org', {
 });
 export const commsInboundMessageEvent = eventType('comms/inbound.message', {
   schema: staticSchema<InngestEvents['comms/inbound.message']['data']>(),
-});
-export const commsMatrixSyncOneEvent = eventType('comms/matrix.sync-one', {
-  schema: staticSchema<InngestEvents['comms/matrix.sync-one']['data']>(),
 });
 export const analyticsSyncOrgEvent = eventType('analytics/sync-org', {
   schema: staticSchema<InngestEvents['analytics/sync-org']['data']>(),

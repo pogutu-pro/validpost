@@ -13,7 +13,7 @@ Every environment variable Postmill recognises, sourced from `.env.example`. All
 | `NEXT_PUBLIC_BACKEND_URL` | — | Public URL of the backend API (e.g. `https://postmill.example.com/api`) |
 | `BACKEND_INTERNAL_URL` | — | Internal URL for backend-to-backend calls (e.g. `http://localhost:3000`) |
 | `MAIN_URL` | — | Alternative public URL, used in Docker Compose alongside `FRONTEND_URL` |
-| `IS_GENERAL` | — | Must be `true` for standard self-hosted deployments |
+| `IS_GENERAL` | — | Must be `true` for standard deployments |
 
 ## Storage
 
@@ -72,7 +72,7 @@ New registrants can be subscribed to a marketing newsletter list. Beehiiv is use
 | `BEEHIIVE_PUBLICATION_ID` | — | Beehiiv publication ID the subscriber is added to |
 | `LISTMONK_API_KEY` | — | Listmonk API key (HTTP Basic password, paired with `LISTMONK_USER`) |
 | `LISTMONK_USER` | — | Listmonk API username (HTTP Basic user) |
-| `LISTMONK_DOMAIN` | — | Base URL of the Listmonk instance. A self-hosted Listmonk on a private network must be allowlisted via `SSRF_ALLOWED_PRIVATE_CIDRS` |
+| `LISTMONK_DOMAIN` | — | Base URL of the Listmonk instance. A Listmonk instance on a private network must be allowlisted via `SSRF_ALLOWED_PRIVATE_CIDRS` |
 | `LISTMONK_LIST_ID` | — | Numeric list ID to subscribe new registrants to |
 | `LISTMONK_WELCOME_TEMPLATE_ID` | — | Numeric transactional template ID for the welcome email |
 
@@ -138,7 +138,7 @@ Per-provider AI budgets are configured per-organization in **Settings → AI**. 
 |----------|---------|---------|
 | `ENCRYPTION_KEY` | (derived from `JWT_SECRET`) | 32-byte base64 or hex key for AES-256-GCM encryption at rest. Falls back to SHA-256 of `JWT_SECRET` if unset. See [Security](./security.md). **Warning:** introducing `ENCRYPTION_KEY` on a deployment that previously derived the key from `JWT_SECRET` makes all existing `v2:`-prefixed secrets undecryptable (single-key model) — set it from the first deploy, or plan a re-encryption of stored secrets |
 | `INTEGRATION_RETURN_URL_ALLOWLIST` | — | Comma-separated allowed partner origins for integration/enterprise return URLs |
-| `SSRF_ALLOWED_PRIVATE_CIDRS` | — | Comma-separated private CIDRs to allow for self-hosted provider instances (opt-in SSRF exception) |
+| `SSRF_ALLOWED_PRIVATE_CIDRS` | — | Comma-separated private CIDRs to allow for provider instances (opt-in SSRF exception) |
 | `RESTRICT_UPLOAD_DOMAINS` | — | When set, media attached to a post must contain this domain in its path; saving a post with externally-hosted media is rejected (HTTP 400). Use the domain of your own upload endpoint |
 | `NOT_SECURED` | — | Dev-only toggle. Skips Helmet, HSTS, CSRF enforcement, and CopilotKit policy gating. Never set in production |
 

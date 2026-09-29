@@ -2,40 +2,33 @@
 
 ## Introduction
 
-The Postmill app is committed to ensuring the security and integrity of our users' data. This security policy outlines our procedures for handling security vulnerabilities and our disclosure policy.
+ValidPost is committed to ensuring the security and integrity of our users' data. This security policy outlines our procedures for handling security vulnerabilities and our disclosure policy.
 
 ## Scope
 
-We, at Postmill (postmill-ai), cover the following scopes for vulnerability disclosures:
+We cover the following scopes for vulnerability disclosures:
 
-- The core repository for `postmill-app` (github.com/postmill-ai/postmill-app)
-- All `postmill-ai` repositories that are official components, tooling, or integrations of Postmill
-- Official Postmill container images published under `postmill-ai` on GHCR
-- Official Postmill CLI tools and NPM packages (NPM orgs: @postmill-ai and @reaatech)
-- Postmill-Cloud related infrastructure & services. (API, Frontend, Configurations etc.)
-- Plugins for Postmill maintained within the `postmill-ai` organization
+- The ValidPost application and its official components
+- Official ValidPost container images
+- Official ValidPost CLI tools and NPM packages
+- ValidPost Cloud infrastructure & services (API, Frontend, Configurations, etc.)
 
 Vulnerabilities in third-party dependencies or user-hosted infrastructure are outside of this scope.
 
 ## Supported Versions
 
-This project currently only supports the latest release. We recommend that users always use the latest version of the Postmill app to ensure they have the latest security patches.
-*CVE IDs will only be assigned to vulnerabilities affecting currently supported versions.*
+This project currently only supports the latest release. We recommend that users always use the latest version of ValidPost to ensure they have the latest security patches.
 
 ## Reporting Security Vulnerabilities
 
-If you discover a security vulnerability in the Postmill app, please report it through the [GitHub Security Advisory system](https://github.com/postmill-ai/postmill-app/security/advisories/new).
+If you discover a security vulnerability in ValidPost, please report it by emailing [security@validpost.io](mailto:security@validpost.io).
 
 When reporting a security vulnerability, please provide as much detail as possible, including:
 
 - A clear description of the vulnerability
 - Proof of concept (PoC), where possible
 - Steps to reproduce the vulnerability
-- Any relevant code or configuration files
-
-If the report has immediate urgency, please contact one (or more) of the maintainers via email:
-
-- @egelhaus ([E-Mail](mailto:egelhaus@ennogelhaus.de))
+- Any relevant configuration details
 
 ### AI Reports
 
@@ -45,7 +38,7 @@ Reports that include AI-assisted analysis are welcome provided they have been va
 
 ## Disclosure Guidelines
 
-We follow a private disclosure policy. If you discover a security vulnerability, please report it to us privately via GitHub Security Advisories, and if immediate urgency, via email as listed above. We will respond promptly to reports of vulnerabilities and work to resolve them as quickly as possible.
+We follow a private disclosure policy. If you discover a security vulnerability, please report it to us privately via the email address listed above. We will respond promptly to reports of vulnerabilities and work to resolve them as quickly as possible.
 
 We will not publicly disclose security vulnerabilities until a patch or fix is available to prevent malicious actors from exploiting the vulnerability before a fix is released.
 
@@ -66,4 +59,3 @@ We aim to follow these timelines:
 - **Completed Triage / Verification:** Within 7 days of initial acknowledgment.
 - **Critical Issue Remediation:** Within 90 days of completed triage.
 - **Non-Critical Issue Remediation:** Within 180 days of completed triage.
-- **CVE Publication:** Within 24 hours of remediation release.

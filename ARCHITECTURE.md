@@ -5,7 +5,7 @@ and invariants. This is not a how-to — task-oriented procedures live in `agent
 are cross-referenced by path. Every claim below was verified against the code at the time
 of writing; where this file and the code disagree, the code wins.
 
-Postmill is an open-source, AI-native platform to schedule social-media and chat posts to
+Postmill is an AI-native platform to schedule social-media and chat posts to
 45+ channels: scheduled publishing, a calendar view, persisted analytics, team management
 (RBAC), and a media library with AI generation studios.
 

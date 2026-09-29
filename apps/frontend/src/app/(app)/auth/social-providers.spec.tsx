@@ -9,6 +9,9 @@ import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
 // F10: the login/register pages must advertise exactly the providers the
 // backend (/auth/providers) returns — no hardcoded fallback. A fresh install
 // ({providers:[LOCAL]}) renders no social button on either page.
+//
+// Only LOCAL, GENERIC (OIDC) and WALLET are supported now; the per-platform
+// SSO buttons (Google/GitHub/Apple/Farcaster) were removed.
 
 vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
@@ -64,27 +67,12 @@ vi.mock('@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
 }));
 
 // Provider buttons are mocked with sentinels: the spec asserts which buttons
-// the pages choose to render, without pulling Solana/Neynar SDKs into jsdom.
-vi.mock('@postmill-ai/frontend/components/auth/providers/google.provider', () => ({
-  GoogleProvider: () => <div data-testid="google-provider" />,
-}));
-vi.mock('@postmill-ai/frontend/components/auth/providers/github.provider', () => ({
-  GithubProvider: () => <div data-testid="github-provider" />,
-}));
+// the pages choose to render, without pulling Solana/OIDC SDKs into jsdom.
 vi.mock('@postmill-ai/frontend/components/auth/providers/oauth.provider', () => ({
   OauthProvider: () => <div data-testid="oauth-provider" />,
 }));
-vi.mock(
-  '@postmill-ai/frontend/components/auth/providers/farcaster.provider',
-  () => ({
-    FarcasterProvider: () => <div data-testid="farcaster-provider" />,
-  })
-);
 vi.mock('@postmill-ai/frontend/components/auth/providers/wallet.provider', () => ({
   default: () => <div data-testid="wallet-provider" />,
-}));
-vi.mock('@postmill-ai/frontend/components/auth/providers/apple.provider', () => ({
-  AppleProvider: () => <div data-testid="apple-provider" />,
 }));
 vi.mock(
   '@postmill-ai/frontend/components/auth/providers/placeholder/wallet.ui.provider',
@@ -95,23 +83,16 @@ vi.mock(
 
 const mockedUseFetch = useFetch as Mock;
 
-const SOCIAL_TESTIDS = [
-  'google-provider',
-  'github-provider',
-  'oauth-provider',
-  'farcaster-provider',
-  'wallet-provider',
-  'apple-provider',
-];
+const SOCIAL_TESTIDS = ['oauth-provider', 'wallet-provider'];
 
 const LOCAL_ONLY = [{ provider: 'LOCAL', displayName: 'Email' }];
-const LOCAL_AND_GOOGLE = [
+const LOCAL_AND_GENERIC = [
   { provider: 'LOCAL', displayName: 'Email' },
-  { provider: 'GOOGLE', displayName: 'Google' },
+  { provider: 'GENERIC', displayName: 'OIDC' },
 ];
-const LOCAL_AND_APPLE = [
+const LOCAL_AND_WALLET = [
   { provider: 'LOCAL', displayName: 'Email' },
-  { provider: 'APPLE', displayName: 'Apple' },
+  { provider: 'WALLET', displayName: 'Wallet' },
 ];
 
 function mockProviders(providers: { provider: string; displayName: string }[]) {
@@ -194,24 +175,23 @@ describe('Login social providers (F10)', () => {
     expect(screen.getByPlaceholderText('Password')).toBeTruthy();
   });
 
-  it('renders the Google button when the backend advertises GOOGLE', async () => {
-    mockProviders(LOCAL_AND_GOOGLE);
+  it('renders the OIDC button when the backend advertises GENERIC', async () => {
+    mockProviders(LOCAL_AND_GENERIC);
 
     renderWithFreshSWR(<Login />);
 
-    expect(await screen.findByTestId('google-provider')).toBeTruthy();
-    expect(screen.queryByTestId('github-provider')).toBeNull();
-    expect(screen.queryByTestId('oauth-provider')).toBeNull();
+    expect(await screen.findByTestId('oauth-provider')).toBeTruthy();
+    expect(screen.queryByTestId('wallet-provider')).toBeNull();
     expectDivider();
   });
 
-  it('renders the Apple button when the backend advertises APPLE', async () => {
-    mockProviders(LOCAL_AND_APPLE);
+  it('renders the Wallet button when the backend advertises WALLET', async () => {
+    mockProviders(LOCAL_AND_WALLET);
 
     renderWithFreshSWR(<Login />);
 
-    expect(await screen.findByTestId('apple-provider')).toBeTruthy();
-    expect(screen.queryByTestId('google-provider')).toBeNull();
+    expect(await screen.findByTestId('wallet-provider')).toBeTruthy();
+    expect(screen.queryByTestId('oauth-provider')).toBeNull();
     expectDivider();
   });
 
@@ -246,24 +226,23 @@ describe('Register social providers (F10)', () => {
     expect(screen.getByPlaceholderText('Password')).toBeTruthy();
   });
 
-  it('renders the Google button when the backend advertises GOOGLE', async () => {
-    mockProviders(LOCAL_AND_GOOGLE);
+  it('renders the OIDC button when the backend advertises GENERIC', async () => {
+    mockProviders(LOCAL_AND_GENERIC);
 
     renderWithFreshSWR(<RegisterAfter token="" provider="LOCAL" />);
 
-    expect(await screen.findByTestId('google-provider')).toBeTruthy();
-    expect(screen.queryByTestId('github-provider')).toBeNull();
-    expect(screen.queryByTestId('oauth-provider')).toBeNull();
+    expect(await screen.findByTestId('oauth-provider')).toBeTruthy();
+    expect(screen.queryByTestId('wallet-provider')).toBeNull();
     expectDivider();
   });
 
-  it('renders the Apple button when the backend advertises APPLE', async () => {
-    mockProviders(LOCAL_AND_APPLE);
+  it('renders the Wallet button when the backend advertises WALLET', async () => {
+    mockProviders(LOCAL_AND_WALLET);
 
     renderWithFreshSWR(<RegisterAfter token="" provider="LOCAL" />);
 
-    expect(await screen.findByTestId('apple-provider')).toBeTruthy();
-    expect(screen.queryByTestId('google-provider')).toBeNull();
+    expect(await screen.findByTestId('wallet-provider')).toBeTruthy();
+    expect(screen.queryByTestId('oauth-provider')).toBeNull();
     expectDivider();
   });
 

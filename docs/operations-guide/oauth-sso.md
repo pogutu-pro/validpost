@@ -1,7 +1,7 @@
 # OAuth / SSO
 
-Postmill supports generic OpenID Connect (OIDC) providers for user authentication. This lets
-self-hosters integrate with Authentik, Keycloak, Authelia, Dex, Supabase, or any OIDC-compliant
+ValidPost supports generic OpenID Connect (OIDC) providers for user authentication. This lets
+you integrate with Authentik, Keycloak, Authelia, Dex, Supabase, or any OIDC-compliant
 identity provider. SAML is not supported — OIDC only.
 
 ## Admin-managed login providers
@@ -53,7 +53,7 @@ needed.
 environment; they apply only while no enabled DB config exists for the provider:
 
 ```yaml
-# Required for any self-hosted deployment
+# Required for any deployment
 IS_GENERAL: 'true'
 
 # Enable generic OIDC
@@ -91,7 +91,7 @@ Restart the application after setting these variables. The login page will show 
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `IS_GENERAL` | — | Must be `true` for self-hosted deployments |
+| `IS_GENERAL` | — | Must be `true` for deployments |
 | `POSTMILL_GENERIC_OAUTH` | `false` | Set to `true` to enable generic OIDC login |
 | `POSTMILL_OAUTH_AUTH_URL` | — | Authorization endpoint |
 | `POSTMILL_OAUTH_TOKEN_URL` | — | Token endpoint |

@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "Không thể mở cửa sổ xác thực. Vui lòng kiểm tra cài đặt trình chặn cửa sổ bật lên.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Đăng xuất khỏi Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "Không tải được bản tóm tắt",
   "campaigns_fetch_failed": "Không tải được chiến dịch",
   "attention_fetch_failed": "Không tải được mục cần chú ý",

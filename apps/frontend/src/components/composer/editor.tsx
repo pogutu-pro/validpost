@@ -79,12 +79,8 @@ import {
 } from '@postmill-ai/frontend/components/ui/icons';
 import { DelayComponent } from '@postmill-ai/frontend/components/composer/delay.component';
 
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 1024; // 1 GB
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 1024;
 
-// Rich-text formatting (links / bullets / headings) in the markdown/html editor
-// is gated on the shared provider-capabilities matrix (`richText`) rather than an
-// ad-hoc per-provider comparison. `richText` is optional in the matrix and absent
-// means supported, so an unknown/unlisted provider defaults to supported.
 export const supportsRichTextFormatting = (identifier?: string) =>
   PROVIDER_CAPABILITIES[identifier || '']?.richText ?? true;
 
@@ -94,7 +90,6 @@ const InterceptBoldShortcut = Extension.create({
   addKeyboardShortcuts() {
     return {
       'Mod-b': () => {
-        // For example, toggle bold while removing underline
         this?.editor?.commands?.unsetUnderline();
         return this?.editor?.commands?.toggleBold();
       },
@@ -108,7 +103,6 @@ const InterceptUnderlineShortcut = Extension.create({
   addKeyboardShortcuts() {
     return {
       'Mod-u': () => {
-        // For example, toggle bold while removing underline
         this?.editor?.commands?.unsetBold();
         return this?.editor?.commands?.toggleUnderline();
       },
@@ -225,8 +219,6 @@ export const EditorWrapper: FC<{
     [internal, items, current, setInternalValue, setGlobalValue]
   );
 
-  // CopilotKit context is only mounted when an AI provider is configured; the
-  // readable/action registration lives in a bridge rendered only when active.
   const aiActive = useAiActive();
 
   const changeValue = useCallback(
@@ -292,7 +284,6 @@ export const EditorWrapper: FC<{
   const addValue = useCallback(
     (index: number) => () => {
       setTimeout(() => {
-        // scroll the the bottom
         const el = document.querySelector('#social-content');
         el?.scrollTo({ top: el.scrollHeight });
       }, 20);
@@ -351,11 +342,6 @@ export const EditorWrapper: FC<{
     <Fragment key={mountKey}>
       <div
         className={clsx(
-          // min-w-0 all the way down this chain: flex items default to
-          // min-width:auto, so the editor card refused to shrink below its
-          // intrinsic width and #social-content (overflow-x-hidden) silently
-          // clipped 41px on mobile — the reorder/delete column and the
-          // character counter were cut off the right edge.
           'relative flex-col gap-[20px] flex-1 min-w-0',
           (items.length === 1 || !canEdit || !comments) && 'flex',
           ((!canEdit && !isCreateSet) || !comments) &&
@@ -405,7 +391,7 @@ export const EditorWrapper: FC<{
               )}
             </div>
             <div>
-              <div className="text-textColor rounded-[8px] h-[44px] px-[20px] bg-btnPrimary flex justify-center items-center">
+              <div className="text-textColor rounded-[8px] h-[44px] px-[20px] bg-btnPrimary flex justify-center items-center hover:bg-btnPrimaryAccent transition-colors">
                 {t('edit_content', 'Edit content')}
               </div>
             </div>
@@ -424,8 +410,6 @@ export const EditorWrapper: FC<{
             ((!canEdit && index > 0) || (!comments && index > 0)) && 'hidden'
           )}
         >
-          {/* w-full on a flex child that already sits beside the 32px
-              reorder/delete column is what pushed this row past its container. */}
           <div className="flex gap-[5px] flex-1 min-w-0">
             <div className="flex-1 flex min-w-0">
               {index > 0 && (
@@ -562,8 +546,6 @@ export const Editor: FC<{
   } = props;
   const [id] = useState(makeId(10));
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
-  // The emoji picker is portaled to <body> (fixed) so the horizontally-scrolling
-  // toolbar's overflow can't clip it.
   const emojiBtnRef = useRef<HTMLButtonElement>(null);
   const emojiPopRef = useRef<HTMLDivElement>(null);
   const [emojiPos, setEmojiPos] = useState<{ left: number; bottom: number } | null>(
@@ -857,7 +839,7 @@ export const Editor: FC<{
                         data-tooltip-id="tooltip"
                         data-tooltip-content={t('insert_emoji', 'Insert Emoji')}
                         aria-label={t('insert_emoji', 'Insert Emoji')}
-                        className="select-none rounded-[6px] w-[30px] h-[30px] bg-newColColor flex justify-center items-center shrink-0"
+                        className="select-none rounded-[6px] w-[30px] h-[30px] bg-newColColor flex justify-center items-center shrink-0 hover:bg-boxHover transition-colors"
                         onClick={toggleEmoji}
                       >
                         <EmojiIcon />
@@ -981,24 +963,20 @@ export const OnlyEditor = forwardRef<
               protocols: ['http', 'https'],
               isAllowedUri: (url, ctx) => {
                 try {
-                  // prevent transforming plain emails like foo@bar.com into links
                   const trimmed = String(url).trim();
                   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                   if (emailPattern.test(trimmed)) {
                     return false;
                   }
 
-                  // construct URL
                   const parsedUrl = url.includes(':')
                     ? new URL(url)
                     : new URL(`${ctx.defaultProtocol}://${url}`);
 
-                  // use default validation
                   if (!ctx.defaultValidate(parsedUrl.href)) {
                     return false;
                   }
 
-                  // disallowed protocols
                   const disallowedProtocols = ['ftp', 'file', 'mailto'];
                   const protocol = parsedUrl.protocol.replace(':', '');
 
@@ -1006,7 +984,6 @@ export const OnlyEditor = forwardRef<
                     return false;
                   }
 
-                  // only allow protocols specified in ctx.protocols
                   const allowedProtocols = ctx.protocols.map((p) =>
                     typeof p === 'string' ? p : p.scheme
                   );
@@ -1015,7 +992,6 @@ export const OnlyEditor = forwardRef<
                     return false;
                   }
 
-                  // all checks have passed
                   return true;
                 } catch {
                   return false;
@@ -1023,19 +999,16 @@ export const OnlyEditor = forwardRef<
               },
               shouldAutoLink: (url) => {
                 try {
-                  // prevent auto-linking of plain emails like foo@bar.com
                   const trimmed = String(url).trim();
                   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                   if (emailPattern.test(trimmed)) {
                     return false;
                   }
 
-                  // construct URL
                   const parsedUrl = url.includes(':')
                     ? new URL(url)
                     : new URL(`https://${url}`);
 
-                  // only auto-link if the domain is not in the disallowed list
                   const disallowedDomains = [
                     'example-no-autolink.com',
                     'another-no-autolink.com',
@@ -1070,9 +1043,6 @@ export const OnlyEditor = forwardRef<
             }),
           ]
         : []),
-      // After Mention on purpose: TipTap resolves keyboard shortcuts in
-      // extension order, so the @-suggestion popup keeps Escape and the arrow
-      // keys while it is open.
       GhostCompletion,
       ...(editorType === 'html' || editorType === 'markdown'
         ? [
@@ -1082,8 +1052,8 @@ export const OnlyEditor = forwardRef<
           ]
         : []),
       History.configure({
-        depth: 100, // default is 100
-        newGroupDelay: 100, // default is 500ms
+        depth: 100,
+        newGroupDelay: 100,
       }),
     ],
     content: value || '',
@@ -1101,7 +1071,6 @@ export const OnlyEditor = forwardRef<
     },
   });
 
-  // Owns the debounce + request for the ghost text the extension renders.
   useGhostCompletion(editor);
 
   useImperativeHandle(ref, () => ({

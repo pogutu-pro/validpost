@@ -330,8 +330,8 @@ export function RegisterAfter({
                 )}
                 &nbsp;
                 <a
-                  href={`https://postmill.ai/terms`}
-                  className="underline hover:font-bold"
+                  href={`https://validpost.ai/terms`}
+                  className="underline hover:font-bold text-[#4F46E5] hover:text-[#4338CA]"
                   rel="nofollow"
                 >
                   {t('terms_of_service', 'Terms of Service')}
@@ -339,9 +339,9 @@ export function RegisterAfter({
                 &nbsp;
                 {t('and', 'and')}&nbsp;
                 <a
-                  href={`https://postmill.ai/privacy`}
+                  href={`https://validpost.ai/privacy`}
                   rel="nofollow"
-                  className="underline hover:font-bold"
+                  className="underline hover:font-bold text-[#4F46E5] hover:text-[#4338CA]"
                 >
                   {t('privacy_policy', 'Privacy Policy')}
                 </a>
@@ -351,7 +351,7 @@ export function RegisterAfter({
                 <div className="w-full flex">
                   <Button
                     type="submit"
-                    className="flex-1 rounded-[10px] h-[52px]!"
+                    className="flex-1 rounded-[10px] h-[52px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0"
                     loading={loading}
                   >
                     {t('create_account', 'Create Account')}
@@ -362,7 +362,7 @@ export function RegisterAfter({
                   &nbsp;
                   <Link
                     href="/auth/login"
-                    className="underline  cursor-pointer"
+                    className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium"
                   >
                     {t('sign_in', 'Sign In')}
                   </Link>

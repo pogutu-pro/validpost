@@ -1,6 +1,6 @@
 # Operations Guide
 
-This guide is for self-hosters and operators running a production Postmill instance. It covers
+This guide is for operators running a production ValidPost instance. It covers
 deployment, configuration, backup, and ongoing maintenance.
 
 ## What's involved in running Postmill
@@ -44,6 +44,6 @@ through Inngest, and media can live on local disk or cloud object storage.
 | [Schema Rollback](./schema-rollback.md) | Prisma migrate rollback playbook — forward-only down migrations, half-applied recovery, expand/contract |
 | [Security](./security.md) | Helmet, CSRF, SSRF, encryption, JWT, Sentry scrubbing, throttling |
 | [OAuth / SSO](./oauth-sso.md) | Generic OIDC provider setup (Authentik, Keycloak, etc.) |
-| [Subscriptions & payment providers](./subscriptions.md) | Payment provider config (Stripe and others), plans, metered caps, add-ons, and self-host defaults |
+| [Subscriptions & payment providers](./subscriptions.md) | Payment provider config (Stripe and others), plans, metered caps, add-ons, and deployment defaults |
 
 > Verified against v1.0.0

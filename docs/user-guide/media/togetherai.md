@@ -1,6 +1,6 @@
 # Together AI
 
-**Together AI** (`/media/togetherai`) is an AI-hub studio that reuses your existing Together AI LLM key to generate images, videos, and speech through one inference cloud. Its tagline is *“The AI-native cloud for open-source models.”*
+**Together AI** (`/media/togetherai`) is an AI-hub studio that reuses your existing Together AI LLM key to generate images, videos, and speech through one inference cloud.
 
 ## Where to configure
 

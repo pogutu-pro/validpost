@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "認証ウィンドウを開けませんでした。ポップアップブロッカーの設定を確認してください。",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Postmill からログアウト",
-  "wordmark_aria_label": "ポストミル",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "サマリーの読み込みに失敗しました",
   "campaigns_fetch_failed": "キャンペーンの読み込みに失敗しました",
   "attention_fetch_failed": "注意事項の読み込みに失敗しました",

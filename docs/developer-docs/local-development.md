@@ -203,7 +203,7 @@ There is no per-package `lint` script.
 | Redis connection error | No Redis running | Start `docker compose -f ./docker/docker-compose.dev.yaml up -d` |
 | Inngest functions not running | Inngest dev server not started | Start with `--profile jobs` and set `USE_INNGEST=true` / `INNGEST_DEV=1` |
 | Replicate async jobs never complete locally | Inngest poll sweep not running or unreachable webhook | Async Replicate jobs complete via the Inngest poll sweep (`media-jobs-poll` function). Start jobs with `--profile jobs`, set `USE_INNGEST=true` and `INNGEST_DEV=1`. Webhook completion requires a public `NEXT_PUBLIC_BACKEND_URL` (tunnel such as ngrok/cloudflared) reachable from Replicate's servers. |
-| Replicate image-to-image/video/upscale fails with URL errors | Input file is not publicly reachable | Categories that feed a Files asset into the model (image-to-image, image-to-video, video-to-video, caption, inpaint, voice-clone, music-to-music, upscale) require a **public `https` input URL**. Local/private storage (`http://localhost…`, private IPs) will fail Replicate-side in local dev / private-storage self-hosts. |
+| Replicate image-to-image/video/upscale fails with URL errors | Input file is not publicly reachable | Categories that feed a Files asset into the model (image-to-image, image-to-video, video-to-video, caption, inpaint, voice-clone, music-to-music, upscale) require a **public `https` input URL**. Local/private storage (`http://localhost…`, private IPs) will fail Replicate-side in local dev / private-storage deployments. |
 | `prisma migrate deploy` fails with P3005 | Database was created by `db push` and has no migration history | Run `pnpm run prisma-migrate-deploy-safe` once to auto-baseline `0_init` |
 
 ---

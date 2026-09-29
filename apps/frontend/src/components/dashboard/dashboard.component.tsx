@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { useIntegrationList } from '@postmill-ai/frontend/components/launches/helpers/use.integration.list';
 import { useOverview } from '@postmill-ai/frontend/components/analytics/hooks/useOverview';
@@ -29,6 +29,70 @@ import { usePermissions } from '@postmill-ai/frontend/components/layout/use-perm
 import { ANALYTICS_USAGE_HREF, MEDIA_QUEUE_HREF } from './destinations';
 
 export { greetingForUser };
+
+interface WorkflowStep {
+  key: string;
+  label: string;
+  complete: boolean;
+}
+
+const WorkflowStepper: FC<{ steps: WorkflowStep[] }> = ({ steps }) => {
+  const currentIndex = steps.findIndex((s) => !s.complete);
+  const current = currentIndex === -1 ? steps.length : currentIndex;
+
+  return (
+    <div className="flex items-center gap-[4px] overflow-x-auto pb-[4px]">
+      {steps.map((step, idx) => {
+        const isCurrent = idx === current;
+        const isComplete = step.complete;
+
+        return (
+          <React.Fragment key={step.key}>
+            {idx > 0 && (
+              <div
+                className={`h-[2px] w-[20px] shrink-0 rounded-full transition-colors ${
+                  idx <= current ? 'bg-btnPrimary' : 'bg-newTableBorder'
+                }`}
+              />
+            )}
+            <div className="flex items-center gap-[6px] shrink-0">
+              <div
+                className={[
+                  'w-[20px] h-[20px] rounded-full flex items-center justify-center text-[10px] font-semibold transition-colors',
+                  isComplete
+                    ? 'bg-btnPrimary text-white'
+                    : isCurrent
+                      ? 'bg-btnPrimary/10 text-btnPrimary ring-2 ring-btnPrimary/20'
+                      : 'bg-newTableHeader text-newTableText',
+                ].join(' ')}
+              >
+                {isComplete ? (
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                ) : (
+                  idx + 1
+                )}
+              </div>
+              <span
+                className={[
+                  'text-[12px] font-medium transition-colors',
+                  isComplete
+                    ? 'text-textColor'
+                    : isCurrent
+                      ? 'text-btnPrimary'
+                      : 'text-newTableText',
+                ].join(' ')}
+              >
+                {step.label}
+              </span>
+            </div>
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+};
 
 export const DashboardComponent = () => {
   const [briefOpen, setBriefOpen] = useState(false);
@@ -121,6 +185,42 @@ export const DashboardComponent = () => {
 
   const hasOverview = !!overviewData && series.length > 0;
 
+  const workflowSteps: WorkflowStep[] = useMemo(
+    () => [
+      {
+        key: 'plan',
+        label: t('workflow_plan', 'Plan'),
+        complete: (summary?.channelsConnected ?? 0) > 0,
+      },
+      {
+        key: 'create',
+        label: t('workflow_create', 'Create'),
+        complete: (summary?.totalPosts ?? 0) > 0 || (summary?.drafts ?? 0) > 0,
+      },
+      {
+        key: 'review',
+        label: t('workflow_review', 'Review'),
+        complete: (summary?.scheduledPosts ?? 0) > 0,
+      },
+      {
+        key: 'schedule',
+        label: t('workflow_schedule', 'Schedule'),
+        complete: (summary?.scheduledPosts ?? 0) > 0,
+      },
+      {
+        key: 'publish',
+        label: t('workflow_publish', 'Publish'),
+        complete: (summary?.publishedNext7 ?? 0) > 0,
+      },
+      {
+        key: 'analyze',
+        label: t('workflow_analyze', 'Analyze'),
+        complete: (summary?.publishedNext7 ?? 0) > 0,
+      },
+    ],
+    [summary, t]
+  );
+
   return (
     <div className="p-[16px] mobile:p-[24px] overflow-x-hidden">
       <DashboardHeader
@@ -128,6 +228,10 @@ export const DashboardComponent = () => {
         showBriefButton={aiActive === true}
         onBriefClick={() => setBriefOpen((o) => !o)}
       />
+
+      <div className="mb-[16px]">
+        <WorkflowStepper steps={workflowSteps} />
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-[12px]">
         <div className="lg:col-span-12 order-first lg:order-1">

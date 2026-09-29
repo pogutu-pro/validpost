@@ -2,15 +2,26 @@ import { describe, it, expect } from 'vitest';
 import { PROVIDER_CAPABILITIES } from '../social-capabilities';
 
 describe('PROVIDER_CAPABILITIES', () => {
-  it('exposes the mastodon entry', () => {
-    expect(PROVIDER_CAPABILITIES['mastodon']).toBeDefined();
+  it('exposes exactly the retained social providers', () => {
+    expect(Object.keys(PROVIDER_CAPABILITIES).sort()).toEqual([
+      'discord',
+      'facebook',
+      'gmb',
+      'instagram',
+      'instagram-standalone',
+      'linkedin',
+      'linkedin-page',
+      'telegram',
+      'threads',
+      'tiktok',
+      'youtube',
+    ]);
   });
 
-  it('does not advertise the orphaned mastodon-custom identifier (6.8)', () => {
-    // No kernel module registers `mastodon-custom`, so it must not appear in the
-    // capability matrix — advertising it would resolve to `undefined` at runtime.
-    expect(
-      (PROVIDER_CAPABILITIES as Record<string, unknown>)['mastodon-custom']
-    ).toBeUndefined();
+  it('does not advertise identifiers without a kernel module', () => {
+    // Every advertised identifier must resolve to a registered adapter, or the
+    // capability matrix would return undefined at runtime.
+    expect(PROVIDER_CAPABILITIES['mastodon']).toBeUndefined();
+    expect(PROVIDER_CAPABILITIES['x']).toBeUndefined();
   });
 });

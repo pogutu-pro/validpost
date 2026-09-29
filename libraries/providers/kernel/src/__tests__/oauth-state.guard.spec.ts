@@ -55,7 +55,7 @@ describe('F11 grep-guard — every social adapter OAuth state/nonce is >= 128-bi
   it('derives every state/nonce from makeOauthState() or makeId(>=32)', () => {
     const files = collectSocialAdapterSources();
     // Guard against the collector silently matching nothing.
-    expect(files.length).toBeGreaterThan(30);
+    expect(files.length).toBeGreaterThanOrEqual(11);
 
     const violations: string[] = [];
     for (const file of files) {
@@ -82,7 +82,7 @@ describe('F11 grep-guard — every social adapter OAuth state/nonce is >= 128-bi
     const withHelper = files.filter((file) =>
       readFileSync(file, 'utf8').includes('makeOauthState()')
     );
-    // 29 adapters + 3 kernel family bases at the time of writing.
-    expect(withHelper.length).toBeGreaterThanOrEqual(30);
+    // 11 retained social adapters + the 2 kernel family bases.
+    expect(withHelper.length).toBeGreaterThanOrEqual(11);
   });
 });

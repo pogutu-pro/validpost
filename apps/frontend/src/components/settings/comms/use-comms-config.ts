@@ -31,19 +31,19 @@ export interface CommsProvider {
   setupNotes?: string;
   /** Numbered setup steps, rendered as the channels-style <ol> in the modal. */
   setupSteps?: string[];
-  /** Provider app portal link (e.g. Slack API apps, BotFather). */
+  /** Provider app portal link (e.g. BotFather). */
   portalUrl?: string;
   portalLabel?: string;
   /** Setup documentation link (top-right of the modal, next to the portal). */
   docsUrl?: string;
   /** Caption under the webhook URL field. */
   webhookInstructions?: string;
-  /** Platform-app connect kind: slack='oauth', discord/telegram/line='env',
-   *  matrix=absent (no platform app — always flat mode). */
+  /** Platform-app connect kind: 'env' for deployment-provided apps;
+   *  absent for providers with no platform app (always flat mode). */
   platformConnect?: 'oauth' | 'env';
   /** The deployment env supplies a platform app for this provider. */
   platformConfigured?: boolean;
-  /** This org's config was made by the platform app (Slack OAuth / env
+  /** This org's config was made by the platform app (env
    *  platform-connect), not bring-your-own credentials. */
   platformConnected?: boolean;
   /** Platform app's shared webhook endpoint — only sent when the platform app
@@ -78,7 +78,7 @@ export type { CommsMember };
 export const COMMS_CONFIG_KEY = 'comms-config';
 
 // Comms OAuth connect handshake. Provider consent pages may carry
-// Cross-Origin-Opener-Policy (Slack: same-origin-allow-popups), which severs
+// Cross-Origin-Opener-Policy, which severs
 // window.opener permanently — and wipes window.name — so the popup→opener
 // completion signal goes through localStorage (shared same-origin, survives
 // COOP), with postMessage as a fast path when the opener survives.

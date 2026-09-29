@@ -112,7 +112,7 @@ export const DashboardSetup: FC = () => {
   if (dismissed || allComplete) return null;
 
   return (
-    <SectionCard id="setup" title={t('welcome_to_postmill', 'Welcome to Postmill')}>
+    <SectionCard id="setup" title={t('welcome_to_validpost', 'Welcome to ValidPost')}>
       <div className="flex items-center justify-between mb-[16px]">
         <p className="text-[12px] text-newTableText">
           {t('lets_get_you_set_up', "Let's get you set up")}

@@ -128,7 +128,7 @@ describe('DashboardComponent shell', () => {
 
     expect(screen.getByText(/Rick/)).toBeTruthy();
     expect(screen.getByLabelText('Customize dashboard')).toBeTruthy();
-    expect(screen.getByText('Welcome to Postmill')).toBeTruthy();
+    expect(screen.getByText('Welcome to ValidPost')).toBeTruthy();
     expect(screen.getByText('Needs attention')).toBeTruthy();
     expect(screen.getByText('At a glance')).toBeTruthy();
     expect(screen.getByText('7-day engagement')).toBeTruthy();

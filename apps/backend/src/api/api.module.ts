@@ -105,7 +105,6 @@ import { CommsSettingsController } from './routes/comms-settings.controller';
 import { CommsWebhooksController } from './routes/comms-webhooks.controller';
 import { MetaCallbacksController } from './routes/meta-callbacks.controller';
 import { PublicCatalogController } from './routes/public-catalog.controller';
-import { CommsOauthController } from './routes/comms-oauth.controller';
 
 // Exported so tests can prove a controller is registered for
 // AuthMiddleware/CsrfMiddleware (an unregistered controller serves unauthenticated).
@@ -188,7 +187,6 @@ export const authenticatedController = [
     CommsWebhooksController,
     MetaCallbacksController,
     PublicCatalogController,
-    CommsOauthController,
     DesignRenderFrameController,
     ...authenticatedController,
   ],

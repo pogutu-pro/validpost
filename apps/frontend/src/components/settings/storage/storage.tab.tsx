@@ -288,7 +288,7 @@ export const StorageTab: React.FC<{ activeSubTab?: SubTab }> = ({
       ? [{
           id: localProvider.id,
           identifier: 'local',
-          name: t('postmill_storage', 'Postmill Storage'),
+          name: t('validpost_storage', 'ValidPost Storage'),
           enabled: true,
           version: localProvider.version ?? 'v1',
         }]

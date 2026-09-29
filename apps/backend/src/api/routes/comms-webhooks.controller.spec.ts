@@ -62,12 +62,12 @@ describe('CommsWebhooksController', () => {
     expect(sendMock).not.toHaveBeenCalled();
   });
 
-  it('echoes a Slack url_verification challenge without enqueueing', async () => {
+  it('echoes a challenge ack without enqueueing', async () => {
     adapter.parseInbound.mockReturnValue([
-      { kind: 'challenge', ackResponse: { challenge: 'abc' } },
+      { kind: 'challenge', ackResponse: { type: 1 } },
     ]);
-    const result = await controller.handle('slack', 'tok', makeReq({}));
-    expect(result).toEqual({ challenge: 'abc' });
+    const result = await controller.handle('discord', 'tok', makeReq({}));
+    expect(result).toEqual({ type: 1 });
     expect(sendMock).not.toHaveBeenCalled();
   });
 
@@ -130,7 +130,7 @@ describe('CommsWebhooksController', () => {
             data: {
               configId: 'cfg-9',
               organizationId: 'org-9',
-              identifier: 'slack',
+              identifier: 'discord',
               externalUserId: 'U1',
               text: 'hi',
               messageId: 'm-1',
@@ -139,10 +139,10 @@ describe('CommsWebhooksController', () => {
         ],
         ack: undefined,
       });
-      const req = makeReq({ team_id: 'T1' }, { 'x-slack-signature': 'v0=abc' });
-      const result = await controller.handlePlatform('slack', req);
+      const req = makeReq({ guild_id: 'g-1' }, { 'x-signature-ed25519': 'abc' });
+      const result = await controller.handlePlatform('discord', req);
       expect(platform.handle).toHaveBeenCalledWith(
-        'slack',
+        'discord',
         req.rawBody,
         req.headers,
       );
@@ -155,7 +155,7 @@ describe('CommsWebhooksController', () => {
         events: [],
         ack: { challenge: 'abc' },
       });
-      const result = await controller.handlePlatform('slack', makeReq({}));
+      const result = await controller.handlePlatform('discord', makeReq({}));
       expect(result).toEqual({ challenge: 'abc' });
       expect(sendMock).not.toHaveBeenCalled();
     });
@@ -163,11 +163,11 @@ describe('CommsWebhooksController', () => {
     it('propagates the service 404/401 discipline', async () => {
       platform.handle.mockRejectedValue(new NotFoundException());
       await expect(
-        controller.handlePlatform('matrix', makeReq({})),
+        controller.handlePlatform('no-such-provider', makeReq({})),
       ).rejects.toMatchObject({ status: 404 });
       platform.handle.mockRejectedValue(new HttpException('invalid signature', 401));
       await expect(
-        controller.handlePlatform('slack', makeReq({})),
+        controller.handlePlatform('discord', makeReq({})),
       ).rejects.toMatchObject({ status: 401 });
     });
   });

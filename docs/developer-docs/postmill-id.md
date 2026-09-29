@@ -2,7 +2,7 @@
 
 **Postmill ID** lets first-party Postmill apps — starting with the **template store** —
 offer "Sign in with Postmill" against **any** Postmill instance: Postmill Cloud or any
-self-hosted deployment. The app receives verified identity claims: user id, name,
+deployment. The app receives verified identity claims: user id, name,
 email, avatar, and the org the user was working in when they consented.
 
 It is deliberately separate from [OAuth Apps](./oauth-apps.md) (which issue
@@ -15,7 +15,7 @@ product, and the code exchange is protected by PKCE alone.
 1. Every instance auto-generates an RS256 keypair on first use. The private key is
    stored encrypted at rest (`EncryptionService`, AES-256-GCM) in the
    `InstanceIdentity` table; the public key is published at the JWKS endpoint. No
-   operator configuration is required — this is what makes self-hosted instances
+   operator configuration is required — this is what makes instances
    work out of the box.
 2. The store asks the user for their instance URL, fetches the instance's discovery
    document, and starts an authorization-code + PKCE (S256) flow in the browser.
@@ -32,7 +32,7 @@ product, and the code exchange is protected by PKCE alone.
 ::: warning Reachability requirement
 The store backend must be able to reach the instance over HTTPS (token exchange +
 JWKS fetch). Self-hosted instances on private networks cannot use a cloud-hosted
-store — this is inherent to any SSO-with-self-hosted design.
+store — this is inherent to any SSO-based design.
 :::
 
 ## Endpoints

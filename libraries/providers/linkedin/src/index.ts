@@ -1,4 +1,4 @@
 export * from './v1';
-import { linkedinSocialModule, linkedinAuthModule } from './v1';
-const linkedinProviderModules = [linkedinSocialModule, linkedinAuthModule];
+import { linkedinSocialModule } from './v1';
+const linkedinProviderModules = [linkedinSocialModule];
 export default linkedinProviderModules;

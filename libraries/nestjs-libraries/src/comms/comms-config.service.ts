@@ -4,7 +4,6 @@ import { CommsCapability, ProviderNotFoundError } from '@postmill-ai/provider-ke
 import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
 import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
 import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
 import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
 import { CommsConfigRepository } from './comms-config.repository';
 import {
@@ -41,8 +40,8 @@ export interface CommsProviderListItem {
   webhookInstructions?: string;
   platformConnect?: 'oauth' | 'env';
   platformConfigured: boolean;
-  // True when this org's config was made by the platform app (Slack OAuth /
-  // env platform-connect) rather than bring-your-own credentials — decides
+  // True when this org's config was made by the platform app (env
+  // platform-connect) rather than bring-your-own credentials — decides
   // which webhook URL (platform vs per-org token) the UI presents.
   platformConnected: boolean;
   // Only emitted when the platform app is actually configured on this
@@ -54,14 +53,6 @@ export interface CommsProviderListItem {
 // Internal credential keys the service manages itself — never rendered as form
 // fields and never wiped by a credentials update from the UI.
 const INTERNAL_CREDENTIAL_KEYS = ['webhookSecret'];
-
-// Bot scopes requested by the comms Slack OAuth flow (DM agent chat only —
-// the broader posting scopes belong to the social channel flow).
-const SLACK_OAUTH_SCOPES = 'chat:write,im:write,im:history,app_mentions:read';
-
-// Slack OAuth state → initiating org/user, Redis-bound and single-use (mirrors
-// the channels `organization:${state}` binding in IntegrationManager).
-const slackOAuthStateKey = (state: string) => `comms-oauth:${state}`;
 
 @Injectable()
 export class CommsConfigService {
@@ -451,92 +442,6 @@ export class CommsConfigService {
       ok: true,
       test: { ok: true, ...(test.extra ? { extra: test.extra } : {}) },
     };
-  }
-
-  /**
-   * Slack comms OAuth: build the authorize URL for the platform Slack app and
-   * bind the initiating org/user to the state (single-use, 1h TTL — the same
-   * Redis binding the channels OAuth flow uses).
-   */
-  async getSlackOAuthUrl(orgId: string, userId: string): Promise<{ url: string }> {
-    const clientId = process.env.SLACK_ID;
-    if (!clientId || !process.env.SLACK_SECRET) {
-      throw new BadRequestException(
-        'The platform Slack app is not configured on this deployment',
-      );
-    }
-    const state = randomBytes(16).toString('hex');
-    await ioRedis.set(
-      slackOAuthStateKey(state),
-      JSON.stringify({ orgId, userId }),
-      'EX',
-      3600,
-    );
-    const url =
-      `https://slack.com/oauth/v2/authorize?client_id=${encodeURIComponent(clientId)}` +
-      `&scope=${encodeURIComponent(SLACK_OAUTH_SCOPES)}` +
-      `&redirect_uri=${encodeURIComponent(this._slackOAuthRedirectUri())}` +
-      `&state=${state}`;
-    return { url };
-  }
-
-  /**
-   * Slack comms OAuth callback: validate + consume the state, exchange the
-   * code, and store the bot token + env signing secret on the org's Slack
-   * comms config (enabled, teamId captured for platform-route org resolution).
-   */
-  async handleSlackOAuthCallback(code: string, state: string): Promise<void> {
-    const raw = await ioRedis.get(slackOAuthStateKey(state));
-    if (!raw) {
-      throw new BadRequestException('Invalid or expired state');
-    }
-    await ioRedis.del(slackOAuthStateKey(state));
-    const { orgId, userId } = JSON.parse(raw) as { orgId: string; userId: string };
-
-    const clientId = process.env.SLACK_ID;
-    const clientSecret = process.env.SLACK_SECRET;
-    const signingSecret = process.env.SLACK_SIGNING_SECRET;
-    if (!clientId || !clientSecret || !signingSecret) {
-      throw new BadRequestException(
-        'The platform Slack app is not configured on this deployment',
-      );
-    }
-
-    const response = await safeFetch('https://slack.com/api/oauth.v2.access', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        client_id: clientId,
-        client_secret: clientSecret,
-        code,
-        redirect_uri: this._slackOAuthRedirectUri(),
-      }).toString(),
-    });
-    const json: any = await response.json();
-    if (!json?.ok || !json.access_token) {
-      throw new BadRequestException(
-        `Slack authorization failed: ${json?.error || response.status}`,
-      );
-    }
-
-    await this.upsert(
-      orgId,
-      'slack',
-      {
-        credentials: { botToken: json.access_token, signingSecret },
-        enabled: true,
-        extraConfig: {
-          platformApp: true,
-          ...(json.team?.id ? { teamId: String(json.team.id) } : {}),
-        },
-      },
-      userId,
-    );
-  }
-
-  private _slackOAuthRedirectUri(): string {
-    const base = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '');
-    return `${base}/settings/comms/oauth/slack/callback`;
   }
 
   async test(orgId: string, identifier: string) {

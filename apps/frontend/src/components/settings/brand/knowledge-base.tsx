@@ -405,7 +405,7 @@ export const KnowledgeBase = () => {
       <div className="bg-newBgColorInner border-newTableBorder border rounded-[12px] p-[24px] flex flex-col gap-[16px]">
         <div className="text-[14px]">{t('vector_store', 'Vector Database')}</div>
         <div className="text-[12px] text-newTableText">
-          {t('vector_store_description_v2', "Where your knowledge is stored. The default (Postmill) works for everyone — only change this if your team runs its own database.")}
+          {t('vector_store_description_v2', "Where your knowledge is stored. The default (ValidPost) works for everyone — only change this if your team runs its own database.")}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[16px]">
           <div className="flex flex-col gap-[4px]">
@@ -415,7 +415,7 @@ export const KnowledgeBase = () => {
               onChange={(e) => setVectorStore(e.target.value)}
               className="bg-newBgColorInner border border-newTableBorder rounded-[8px] p-[8px] text-textColor text-[13px]"
             >
-              <option value="pgvector">{t('vs_postmill_default', 'Postmill (Default)')}</option>
+              <option value="pgvector">{t('vs_validpost_default', 'ValidPost (Default)')}</option>
               <option value="pgvector-remote">{t('vs_pgvector_remote', 'PG Vector (Remote)')}</option>
               <option value="qdrant">{t('vs_qdrant_remote', 'Qdrant (Remote)')}</option>
               <option value="pinecone">{t('vs_pinecone_remote', 'Pinecone (Remote)')}</option>

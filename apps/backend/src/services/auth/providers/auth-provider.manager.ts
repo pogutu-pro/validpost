@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { AuthProviderAbstract } from '@postmill-ai/backend/services/auth/providers.interface';
 import {
   ProviderKernel,
@@ -9,6 +9,17 @@ import { RuntimeContextFactory } from '@postmill-ai/nestjs-libraries/providers/r
 import { AuthProviderRepository } from '@postmill-ai/nestjs-libraries/database/prisma/auth-providers/auth-provider.repository';
 import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
 import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+
+/**
+ * The login providers this deployment supports. Everything else (GitHub,
+ * Google, Facebook, X, LinkedIn, Apple, Farcaster, …) was removed, so it is
+ * neither advertised on the login page nor resolvable as an adapter.
+ *
+ * The Prisma `Provider` enum still carries the removed values — dropping enum
+ * values would need a migration story for existing `AuthProviderConfig` rows —
+ * so this allowlist is the enforcement point.
+ */
+export const SUPPORTED_AUTH_PROVIDERS = ['LOCAL', 'GENERIC', 'WALLET'] as const;
 
 @Injectable()
 export class AuthProviderManager {
@@ -49,11 +60,15 @@ export class AuthProviderManager {
    * never advertises a provider whose adapter cannot resolve. Enabled
    * DB-backed configs (AuthProviderConfig) are then overlaid: DB wins per
    * provider key (DB displayName preferred), while env-only providers stay
-   * listed.
+   * listed. Providers outside SUPPORTED_AUTH_PROVIDERS are filtered out.
    */
   async getProviders() {
     const dbProviders = await this._authProviderRepo.list();
-    const enabledFromDb = dbProviders.filter((p) => p.enabled);
+    const enabledFromDb = dbProviders.filter(
+      (p) =>
+        p.enabled &&
+        (SUPPORTED_AUTH_PROVIDERS as readonly string[]).includes(p.provider)
+    );
 
     const providers: {
       provider: string;
@@ -65,10 +80,10 @@ export class AuthProviderManager {
     ];
 
     // Mirror the adapters' env resolution
-    // (libraries/providers/<id>/src/v1/auth.adapter.ts): a provider is offered
-    // only when the complete env credential set its resolver requires is
-    // present. Never key on IS_GENERAL — that flag marks the hosted build, not
-    // whether a provider is configured at the platform level.
+    // (libraries/providers/generic/src/v1/auth.adapter.ts): a provider is
+    // offered only when the complete env credential set its resolver requires
+    // is present. Never key on IS_GENERAL — that flag marks the hosted build,
+    // not whether a provider is configured at the platform level.
     if (
       process.env.POSTMILL_GENERIC_OAUTH === 'true' &&
       process.env.POSTMILL_OAUTH_CLIENT_ID &&
@@ -85,30 +100,6 @@ export class AuthProviderManager {
       });
     }
 
-    if (process.env.YOUTUBE_CLIENT_ID && process.env.YOUTUBE_CLIENT_SECRET) {
-      providers.push({
-        provider: 'GOOGLE',
-        displayName: 'Google',
-        ...this._versionInfo('GOOGLE'),
-      });
-    }
-
-    if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
-      providers.push({
-        provider: 'GITHUB',
-        displayName: 'GitHub',
-        ...this._versionInfo('GITHUB'),
-      });
-    }
-
-    if (process.env.NEYNAR_CLIENT_ID) {
-      providers.push({
-        provider: 'FARCASTER',
-        displayName: 'Farcaster',
-        ...this._versionInfo('FARCASTER'),
-      });
-    }
-
     // NOTE: Wallet's env gate is a billing var, not a wallet-auth config —
     // known misalignment, out of scope for the phantom-provider fix.
     if (billingEnabled()) {
@@ -116,64 +107,6 @@ export class AuthProviderManager {
         provider: 'WALLET',
         displayName: 'Wallet',
         ...this._versionInfo('WALLET'),
-      });
-    }
-
-    // Dual-use channel OAuth apps: a platform's social-channel env credentials
-    // double as SSO login when its <CHANNEL>_SSO_ENABLED flag is set.
-    if (
-      process.env.FACEBOOK_SSO_ENABLED === 'true' &&
-      process.env.FACEBOOK_APP_ID &&
-      process.env.FACEBOOK_APP_SECRET
-    ) {
-      providers.push({
-        provider: 'FACEBOOK',
-        displayName: 'Facebook',
-        ...this._versionInfo('FACEBOOK'),
-      });
-    }
-
-    // X is the exception to dual-use: OAuth 2.0 login needs the app's separate
-    // "OAuth 2.0 Client ID and Client Secret" (X_CLIENT_ID / X_CLIENT_SECRET),
-    // not the OAuth 1.0a consumer key pair the channel adapter posts with.
-    if (
-      process.env.X_SSO_ENABLED === 'true' &&
-      process.env.X_CLIENT_ID &&
-      process.env.X_CLIENT_SECRET
-    ) {
-      providers.push({
-        provider: 'X',
-        displayName: 'X',
-        ...this._versionInfo('X'),
-      });
-    }
-
-    if (
-      process.env.LINKEDIN_SSO_ENABLED === 'true' &&
-      process.env.LINKEDIN_CLIENT_ID &&
-      process.env.LINKEDIN_CLIENT_SECRET
-    ) {
-      providers.push({
-        provider: 'LINKEDIN',
-        displayName: 'LinkedIn',
-        ...this._versionInfo('LINKEDIN'),
-      });
-    }
-
-    // Apple is a standalone login-only provider (no channel app dual-use).
-    // Apple has no static client secret — the adapter mints an ES256 JWT from
-    // the Team ID / Key ID / .p8 private key, so the gate needs all four.
-    if (
-      process.env.APPLE_SSO_ENABLED === 'true' &&
-      process.env.APPLE_CLIENT_ID &&
-      process.env.APPLE_TEAM_ID &&
-      process.env.APPLE_KEY_ID &&
-      process.env.APPLE_PRIVATE_KEY
-    ) {
-      providers.push({
-        provider: 'APPLE',
-        displayName: 'Apple',
-        ...this._versionInfo('APPLE'),
       });
     }
 
@@ -206,11 +139,20 @@ export class AuthProviderManager {
    * The AuthProviderRepository is forwarded via ctx.extras so package adapters
    * can preserve the DB-config-first -> env-fallback credential precedence;
    * ioRedis is forwarded for adapters that need it (e.g. the wallet nonce store).
+   *
+   * Providers outside SUPPORTED_AUTH_PROVIDERS are rejected so a stale
+   * `AuthProviderConfig` row or an old client cannot resurrect a removed login
+   * method.
    */
   getProvider(provider: string, version?: string): AuthProviderAbstract {
+    if (!(SUPPORTED_AUTH_PROVIDERS as readonly string[]).includes(provider)) {
+      throw new NotFoundException(
+        `Auth provider ${provider} is not supported`,
+      );
+    }
     const resolvedVersion = version ?? DEFAULT_VERSION;
     // Kernel provider ids are lowercase; callers pass the uppercase Prisma
-    // Provider enum (e.g. GITHUB), so normalise before kernel lookups.
+    // Provider enum (e.g. GENERIC), so normalise before kernel lookups.
     const providerId = provider.toLowerCase();
 
     const mod = this._kernel.resolveForRead(

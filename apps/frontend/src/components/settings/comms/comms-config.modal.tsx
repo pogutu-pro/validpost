@@ -19,11 +19,8 @@ import {
 } from './use-comms-config';
 
 const CODE_INSTRUCTIONS: Record<string, [string, string]> = {
-  slack: ['comms_code_instructions_slack', 'In Slack, open a DM with the bot of the connected app (left sidebar → Apps) — NOT Slackbot — and send: link {code}'],
   telegram: ['comms_code_instructions_telegram', 'Open a chat with the bot in Telegram and send: link {code}'],
   discord: ['comms_code_instructions_discord', 'In Discord, run: /postmill message: link {code}'],
-  matrix: ['comms_code_instructions_matrix', 'Invite the bot to a direct room in Matrix and send: link {code}'],
-  line: ['comms_code_instructions_line', 'Add the bot as a friend on LINE and send: link {code}'],
 };
 
 // Loader shell: resolves the provider/links/members from the shared SWR cache
@@ -58,10 +55,10 @@ export const CommsConfigForm: FC<{
 
 // Per-provider comms config, mirroring the channels' ChannelConfigForm:
 // - Platform mode (platformConfigured && platformConnect): a full-width
-//   Connect button (Slack OAuth popup, or one-click "Use the Postmill app"
+//   Connect button (OAuth popup, or one-click "Use the Postmill app"
 //   for env-driven providers) is the whole story; setup steps, webhook,
 //   credential fields and the enabled switch collapse under Advanced.
-// - Flat mode (no platformConnect — always the case for Matrix): numbered
+// - Flat mode (no platformConnect): numbered
 //   setup steps up top, then webhook block, credential fields, enabled.
 // Member links live here too — the comms analog of channels showing the
 // connected accounts per credential set.
@@ -175,7 +172,7 @@ const CommsConfigFormInner: FC<{
   // OAuth platform connect (any provider with platformConnect 'oauth'):
   // fetch the consent URL, then run the flow in a small popup window. The
   // provider's consent pages may sever window.opener via
-  // Cross-Origin-Opener-Policy (Slack does), so completion is signaled
+  // Cross-Origin-Opener-Policy, so completion is signaled
   // through a localStorage key written by the close page (survives COOP),
   // with postMessage as a fast path when the opener survives. A COOP swap
   // also makes our `popup` handle report closed=true almost immediately, so
@@ -302,7 +299,7 @@ const CommsConfigFormInner: FC<{
     }
   }, [fetch, identifier, toaster, t, mutate]);
 
-  // Env platform connect (Discord/Telegram/LINE): the platform app in the
+  // Env platform connect (Discord/Telegram): the platform app in the
   // deployment env IS the credential — one click wires the provider up.
   const handlePlatformConnect = useCallback(async () => {
     setConnectError(null);
@@ -577,7 +574,7 @@ const CommsConfigFormInner: FC<{
   );
 
   // Platform connect: the default (and only primary) action in platform mode.
-  // OAuth providers (Slack) run a consent popup; env providers wire up the
+  // OAuth providers run a consent popup; env providers wire up the
   // deployment's Postmill app with one click.
   const connectBlock = platformMode && (
     <div className="flex flex-col gap-[6px]">
@@ -591,10 +588,10 @@ const CommsConfigFormInner: FC<{
           ? t('connecting', 'Connecting...')
           : provider.platformConnect === 'oauth'
             ? t('connect_with_provider', 'Connect with {{provider}}', { provider: provider.name })
-            : t('comms_use_postmill_app', 'Use the Postmill app')}
+            : t('comms_use_validpost_app', 'Use the ValidPost app')}
       </button>
       <div className="text-[12px] text-newTableText text-center">
-        {t('uses_postmill_app_no_setup', 'Uses the Postmill app — no setup needed')}
+        {t('uses_validpost_app_no_setup', 'Uses the ValidPost app — no setup needed')}
       </div>
       {connectError && <div className="text-[12px] text-red-500">{connectError}</div>}
     </div>

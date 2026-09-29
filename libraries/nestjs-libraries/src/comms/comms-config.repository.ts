@@ -36,18 +36,6 @@ export class CommsConfigRepository {
     });
   }
 
-  // Platform-route org resolution: the shared Slack app fan-outs by team_id,
-  // captured on extraConfig at OAuth-connect time.
-  findByExtraConfigTeamId(identifier: string, teamId: string) {
-    return this._prisma.commsProviderConfig.findFirst({
-      where: {
-        identifier,
-        enabled: true,
-        extraConfig: { path: ['teamId'], equals: teamId },
-      },
-    });
-  }
-
   // Platform-route org resolution: Discord interactions carry guild_id,
   // matched against the guild ids captured at platform-connect time.
   findByGuildId(identifier: string, guildId: string) {

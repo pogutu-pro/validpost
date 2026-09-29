@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "No se pudo abrir la ventana de autenticación. Por favor, revisa la configuración de tu bloqueador de ventanas emergentes.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Cerrar sesión de Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "Error al cargar el resumen",
   "campaigns_fetch_failed": "Error al cargar las campañas",
   "attention_fetch_failed": "Error al cargar la atención",

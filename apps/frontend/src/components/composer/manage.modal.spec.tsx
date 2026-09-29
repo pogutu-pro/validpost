@@ -205,8 +205,8 @@ const PASSING_PREFLIGHT = {
   results: [
     {
       integrationId: 'int1',
-      identifier: 'x-provider',
-      name: 'X',
+      identifier: 'linkedin',
+      name: 'LinkedIn',
       valid: true,
       warnings: [],
       blocks: [],
@@ -218,8 +218,8 @@ const PASSING_PREFLIGHT = {
 const VALID_OK = [
   {
     id: 'int1',
-    identifier: 'x-provider',
-    name: 'X',
+    identifier: 'linkedin',
+    name: 'LinkedIn',
     valid: true,
     errors: true,
     emptyContent: false,
@@ -248,7 +248,7 @@ describe('ManageModal', () => {
     h.getAllValues = [
       {
         id: 'int1',
-        identifier: 'x-provider',
+        identifier: 'linkedin',
         settings: {},
         values: [{ id: 'v1', content: 'hi', delay: 0, media: [] }],
       },
@@ -273,7 +273,7 @@ describe('ManageModal', () => {
         { integration: { id: 'int1' }, settings: {}, ref: { current: {} } },
       ],
       integrations: [
-        { id: 'int1', identifier: 'x-provider', name: 'X' },
+        { id: 'int1', identifier: 'linkedin', name: 'LinkedIn' },
       ],
       setSelectedIntegrations: vi.fn(),
       locked: false,
@@ -301,13 +301,13 @@ describe('ManageModal', () => {
     h.getAllValues = [
       {
         id: 'int1',
-        identifier: 'x',
-        settings: { who_can_reply_post: 'everyone' },
+        identifier: 'linkedin',
+        settings: { post_as_images_carousel: true },
         values: [{ id: 'v1', content: 'hi', delay: 0, media: [] }],
       },
       {
         id: 'int2',
-        identifier: 'bluesky',
+        identifier: 'instagram',
         settings: {},
         values: [{ id: 'v2', content: 'hi', delay: 0, media: [] }],
       },
@@ -323,7 +323,7 @@ describe('ManageModal', () => {
     const preflightPayload = (h.runPreflightImpl as any).mock.calls[0][0];
     expect(
       preflightPayload.posts.map((p: any) => p.settings.__type)
-    ).toEqual(['x', 'bluesky']);
+    ).toEqual(['linkedin', 'instagram']);
 
     // Path 2: the final POST /posts body (built at the second submit site).
     const postCall = (h.fetchImpl as any).mock.calls.find(
@@ -331,13 +331,13 @@ describe('ManageModal', () => {
     );
     const postedBody = JSON.parse(postCall[1].body);
     expect(postedBody.posts.map((p: any) => p.settings.__type)).toEqual([
-      'x',
-      'bluesky',
+      'linkedin',
+      'instagram',
     ]);
     // The provider's own settings keys survive alongside __type.
     expect(postedBody.posts[0].settings).toEqual({
-      who_can_reply_post: 'everyone',
-      __type: 'x',
+      post_as_images_carousel: true,
+      __type: 'linkedin',
     });
 
     // /posts/valid sees the same discriminated settings.
@@ -346,8 +346,8 @@ describe('ManageModal', () => {
     );
     const validBody = JSON.parse(validCall[1].body);
     expect(validBody.posts.map((p: any) => p.settings.__type)).toEqual([
-      'x',
-      'bluesky',
+      'linkedin',
+      'instagram',
     ]);
   });
 
@@ -362,7 +362,7 @@ describe('ManageModal', () => {
       (c: any[]) => c[0] === '/posts'
     );
     const postedBody = JSON.parse(postCall[1].body);
-    expect(postedBody.posts[0].settings.__type).toBe('x-provider');
+    expect(postedBody.posts[0].settings.__type).toBe('linkedin');
   });
 
   // 0.11 — save discards the POST Response.
@@ -469,8 +469,8 @@ describe('ManageModal', () => {
       results: [
         {
           integrationId: 'int1',
-          identifier: 'x-provider',
-          name: 'X',
+          identifier: 'linkedin',
+          name: 'LinkedIn',
           valid: true,
           warnings: ['Consider a shorter caption'],
           blocks: [],

@@ -59,7 +59,7 @@ export const ContentPacksTab: React.FC = () => {
         <p className="text-[13px] text-newTableText max-w-[640px]">
           {t(
             'content_packs_description',
-            'A content pack is the stock media library that powers searches for photos, videos, vectors, stickers, icons and audio across the app. Postmill ships with a free default pack; connect a premium provider for higher-quality, licensed content. You can configure several, but only one pack is enabled at a time — anything it doesn’t cover falls back to the free default.',
+            'A content pack is the stock media library that powers searches for photos, videos, vectors, stickers, icons and audio across the app. ValidPost ships with a free default pack; connect a premium provider for higher-quality, licensed content. You can configure several, but only one pack is enabled at a time — anything it doesn’t cover falls back to the free default.',
           )}
         </p>
       </div>
@@ -72,11 +72,11 @@ export const ContentPacksTab: React.FC = () => {
         }`}
       >
         <div className="flex items-center gap-[12px]">
-          <ProviderIcon identifier="postmill" name="Postmill" size={32} />
+          <ProviderIcon identifier="validpost" name="ValidPost" size={32} />
           <div className="flex flex-col gap-[2px]">
             <div className="flex items-center gap-[8px]">
               <span className="text-[14px] font-medium text-textColor">
-                {t('postmill_default', 'Postmill (Default)')}
+                {t('validpost_default', 'ValidPost (Default)')}
               </span>
               {isFreeActive && (
                 <span className="text-[10px] rounded-[4px] px-[6px] py-[2px] bg-green-900/20 text-green-900 dark:text-green-400">

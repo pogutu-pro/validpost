@@ -21,13 +21,12 @@ import {
 } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
 
 /**
- * Inbound comms webhooks (Slack Events API, Telegram, Discord Interactions,
- * LINE Messaging API). Unauthenticated by design — routed by the per-config
- * webhookToken URL segment and verified with each provider's signature scheme.
- * Any token/identifier mismatch is a uniform 404 (no oracle). The handler only
- * verifies + enqueues and responds immediately (Slack/Discord 3-second ack);
- * all real work (connect-code claims, agent turns) runs in the comms-inbound
- * Inngest function.
+ * Inbound comms webhooks (Telegram, Discord Interactions). Unauthenticated by
+ * design — routed by the per-config webhookToken URL segment and verified with
+ * each provider's signature scheme. Any token/identifier mismatch is a uniform
+ * 404 (no oracle). The handler only verifies + enqueues and responds
+ * immediately (Discord 3-second ack); all real work (connect-code claims,
+ * agent turns) runs in the comms-inbound Inngest function.
  */
 @ApiTags('Comms Webhooks')
 @Controller('/webhooks/comms')
@@ -44,8 +43,8 @@ export class CommsWebhooksController {
   // literal 'platform' segment wins over the token route pattern.
   @Throttle({ default: { limit: 300, ttl: 60000 } })
   @Post('/platform/:identifier')
-  // Providers expect a plain 200 for challenge/ack responses (Slack documents
-  // `200 OK` for url_verification); Nest's POST default is 201.
+  // Providers expect a plain 200 for challenge/ack responses (Discord
+  // documents `200 OK` for PING); Nest's POST default is 201.
   @HttpCode(200)
   async handlePlatform(
     @Param('identifier') identifier: string,
@@ -60,7 +59,7 @@ export class CommsWebhooksController {
     return ack ?? { ok: true };
   }
 
-  // Per-IP throttle. Slack/Telegram egress IPs are shared across workspaces
+  // Per-IP throttle. Discord/Telegram egress IPs are shared across workspaces
   // and DM traffic is chatty — 60/min would drop events under normal load.
   @Throttle({ default: { limit: 300, ttl: 60000 } })
   @Post('/:identifier/:token')
@@ -138,9 +137,9 @@ export class CommsWebhooksController {
       await inngest.send(events);
     }
 
-    // A challenge (Slack url_verification, Discord PING) or a message that
-    // demands an interaction response (Discord slash command) carries its own
-    // ack body — return the first one verbatim.
+    // A challenge (Discord PING) or a message that demands an interaction
+    // response (Discord slash command) carries its own ack body — return the
+    // first one verbatim.
     const ack = messages.find((m) => m.ackResponse !== undefined)?.ackResponse;
     return ack ?? { ok: true };
   }

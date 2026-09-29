@@ -9,7 +9,7 @@ export interface CommsDeliveryPayload {
 }
 
 /**
- * Delivers notifications to linked comms apps (Slack/Telegram/... DMs).
+ * Delivers notifications to linked comms apps (Discord/Telegram DMs).
  * NotificationService's 4th delivery bucket. Depends only on the comms
  * repositories/services — never on NotificationService — so injecting it there
  * creates no DI cycle. Delivery failures are logged (redacted) and swallowed:

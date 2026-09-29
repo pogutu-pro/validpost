@@ -13,8 +13,8 @@ import {
 
 // The /auth?provider=…&code=… callback page: the OAuth code exchange runs
 // inside the sign-in popup (or the user's own tab after a popup-blocked
-// fallback). It must (a) forward the provider's `state` so X can find its
-// PKCE verifier, (b) decide the popup/full-page mode before the exchange so
+// fallback). It must (a) forward the provider's `state` so the provider can
+// find its PKCE verifier, (b) decide the popup/full-page mode before the exchange so
 // LayoutContext.afterRequest routes the auth headers correctly, and (c) show
 // a failure instead of spinning forever — reporting it to the opener when in
 // a popup.
@@ -66,9 +66,6 @@ vi.mock('@hookform/resolvers/class-validator', () => ({
 vi.mock('@postmill-ai/frontend/components/auth/providers/wallet.provider', () => ({
   default: () => <div data-testid="wallet-provider" />,
 }));
-vi.mock('@postmill-ai/frontend/components/auth/providers/farcaster.provider', () => ({
-  FarcasterProvider: () => <div data-testid="farcaster-provider" />,
-}));
 
 const mockedUseFetch = useFetch as Mock;
 
@@ -104,7 +101,7 @@ describe('Register — OAuth callback inside the sign-in popup', () => {
     resetSsoCallbackMode();
     Object.defineProperty(window, 'opener', { value: null, writable: true, configurable: true });
     close = vi.spyOn(window, 'close').mockImplementation(() => undefined) as unknown as Mock;
-    searchParams = new URLSearchParams('provider=X&code=code-1&state=login.abcdefghijklmnop');
+    searchParams = new URLSearchParams('provider=GENERIC&code=code-1&state=login.abcdefghijklmnop');
   });
 
   afterEach(() => {
@@ -118,7 +115,7 @@ describe('Register — OAuth callback inside the sign-in popup', () => {
     await act(async () => {});
 
     const [url, init] = fetchMock.mock.calls.find(([u]) => u.endsWith('/exists'))!;
-    expect(url).toBe('/auth/oauth/X/exists');
+    expect(url).toBe('/auth/oauth/GENERIC/exists');
     expect(JSON.parse(init.body)).toEqual({ code: 'code-1', state: 'login.abcdefghijklmnop' });
     expect(isSsoPopupCallback()).toBe(true);
     // new user → the Company form renders inside the popup
@@ -126,7 +123,7 @@ describe('Register — OAuth callback inside the sign-in popup', () => {
   });
 
   it('omits state when the provider did not send one', async () => {
-    searchParams = new URLSearchParams('provider=GITHUB&code=code-2');
+    searchParams = new URLSearchParams('provider=GENERIC&code=code-2');
     const fetchMock = mockFetch({ ok: true, json: async () => ({ token: 't' }) });
 
     renderRegister();
@@ -147,7 +144,7 @@ describe('Register — OAuth callback inside the sign-in popup', () => {
   });
 
   it('on a failed exchange in a popup: reports the error to the opener, closes, and shows it inline as the fallback', async () => {
-    mockFetch({ ok: false, status: 400, text: async () => 'X login PKCE verifier missing or expired — restart the login' });
+    mockFetch({ ok: false, status: 400, text: async () => 'Sign-in PKCE verifier missing or expired — restart the login' });
 
     renderRegister();
     await act(async () => {});
@@ -167,17 +164,17 @@ describe('Register — OAuth callback inside the sign-in popup', () => {
       ok: false,
       status: 500,
       text: async () =>
-        JSON.stringify({ statusCode: 500, message: 'X profile lookup failed: Forbidden' }),
+        JSON.stringify({ statusCode: 500, message: 'Profile lookup failed: Forbidden' }),
     });
 
     renderRegister();
     await act(async () => {});
 
     await waitFor(() => expect(screen.getByRole('alert')).toBeTruthy());
-    expect(screen.getByText('X profile lookup failed: Forbidden')).toBeTruthy();
+    expect(screen.getByText('Profile lookup failed: Forbidden')).toBeTruthy();
     expect(JSON.parse(window.localStorage.getItem(SSO_COMPLETE_STORAGE_KEY)!)).toMatchObject({
       action: 'error',
-      message: 'X profile lookup failed: Forbidden',
+      message: 'Profile lookup failed: Forbidden',
     });
   });
 

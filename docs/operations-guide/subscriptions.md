@@ -6,7 +6,7 @@ The backend enforces these limits at the API level; when a limit is hit the call
 `402 Payment Required` response with an upsell link to `/billing`.
 
 A provider is enabled by setting its keys in the environment — there is nothing to configure in
-the UI. Billing is **on** as soon as at least one provider is enabled. For self-hosted instances
+the UI. Billing is **on** as soon as at least one provider is enabled. For instances
 that set **no** provider keys, billing is bypassed and every organization is treated as the
 **Agency** plan.
 
@@ -50,7 +50,7 @@ Set these in your `.env` file or container environment:
 | `STRIPE_SIGNING_KEY` | Stripe webhook signing secret (see [Webhook setup](#webhook-setup)). |
 
 If `STRIPE_PUBLISHABLE_KEY` is absent (and no other provider is enabled), the entire billing gate
-is disabled and every org gets the [Agency defaults](#self-hosted-default).
+is disabled and every org gets the [Agency defaults](#agency-default).
 
 Stripe supports everything the billing UI offers: embedded checkout, the customer portal,
 proration previews, coupons, add-on packs, invoices and refunds, period-end cancellation with

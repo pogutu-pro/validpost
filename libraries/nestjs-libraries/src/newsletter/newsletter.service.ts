@@ -5,9 +5,6 @@ export class NewsletterService {
     if (process.env.BEEHIIVE_API_KEY) {
       return newsletterProviders.find((p) => p.name === 'beehiiv')!;
     }
-    if (process.env.LISTMONK_API_KEY) {
-      return newsletterProviders.find((p) => p.name === 'listmonk')!;
-    }
 
     return newsletterProviders.find((p) => p.name === 'empty')!;
   }

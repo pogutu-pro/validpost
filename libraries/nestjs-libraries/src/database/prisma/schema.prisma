@@ -853,12 +853,12 @@ model StorageProviderConfig {
 model OrgProviderConfiguration {
   id               String       @id @default(cuid())
   organizationId   String
-  identifier       String       // 'linkedin', 'x', 'discord', 'slack', etc.
+  identifier       String       // 'linkedin', 'facebook', 'discord', etc.
   name             String       // human readable, e.g. "LinkedIn"
   enabled          Boolean      @default(false)
   clientId         String?      // AES-GCM encrypted
   clientSecret     String?      // AES-GCM encrypted
-  additionalConfig String?      // AES-GCM encrypted JSON (Discord bot token, Slack signing secret, etc.)
+  additionalConfig String?      // AES-GCM encrypted JSON (Discord bot token, extra provider fields, etc.)
   redirectUri      String?      // if null, platform default is used
   scopes           String?
   setupNotes       String?      // per-provider instructions for the admin
@@ -1400,18 +1400,18 @@ model OrgVpnConfig {
 }
 
 // ── Comms domain: org-level chat-app credentials + per-user links ──
-// One config per org per comms provider (Slack, Telegram, Discord, Matrix,
-// LINE). Bot/app credentials are org-level; per-user rows (CommsUserLink) bind
-// an org member to their external chat identity for agent chat + notifications.
+// One config per org per comms provider (Telegram, Discord). Bot/app
+// credentials are org-level; per-user rows (CommsUserLink) bind an org member
+// to their external chat identity for agent chat + notifications.
 model CommsProviderConfig {
   id             String   @id @default(cuid())
   organizationId String
-  identifier     String   // comms providerId: 'slack' | 'telegram' | ...
+  identifier     String   // comms providerId: 'telegram' | 'discord'
   version        String   @default("v1")
   credentials    String?  // encrypted JSON (EncryptionService AES-GCM)
-  extraConfig    Json?    // non-secret metadata: slack team_id, webhookRegistered flag, ...
+  extraConfig    Json?    // non-secret metadata: discord guild ids, webhookRegistered flag, ...
   webhookToken   String   @unique // CSPRNG routing segment of the inbound webhook URL
-  syncCursor     String?  // matrix /sync since-token (poll-inbound providers only)
+  syncCursor     String?  // cursor for poll-inbound providers
   enabled        Boolean  @default(true)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -1433,7 +1433,7 @@ model CommsUserLink {
   connectCodeExpiresAt DateTime?
   externalUserId       String?   // chat identity claimed via the connect code
   externalDisplayName  String?
-  externalChannelId    String?   // DM channel/room id (Matrix room, Slack/Discord DM channel)
+  externalChannelId    String?   // DM channel id (Discord/Telegram DM channel)
   agentChatEnabled     Boolean   @default(true)
   categories           Json      // Record<NotificationCategory, boolean> — sole source of truth for comms delivery
   linkedAt             DateTime?

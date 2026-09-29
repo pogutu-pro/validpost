@@ -166,7 +166,7 @@ The frontend reads provider capabilities from `provider-capabilities.ts` (`libra
 
 **Group 2 — Account:** UGC, Affiliate, Billing, Profile, Settings
 
-Menu items are role-gated and billing-gated. The `isGeneral` flag (self-hosted mode) hides billing and UGC items.
+Menu items are role-gated and billing-gated. The `isGeneral` flag (deployment mode) hides billing and UGC items.
 
 ---
 

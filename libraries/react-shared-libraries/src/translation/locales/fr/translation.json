@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "Impossible d'ouvrir la fenêtre d'authentification. Veuillez vérifier les paramètres de votre bloqueur de pop-ups.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Se déconnecter de Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "Échec du chargement du résumé",
   "campaigns_fetch_failed": "Échec du chargement des campagnes",
   "attention_fetch_failed": "Échec du chargement des éléments à traiter",

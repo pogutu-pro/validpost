@@ -6,13 +6,13 @@ export interface CookieDefinition {
 }
 
 export interface CookieProvider {
-  /** Unique identifier used in messages, e.g., 'skool' */
+  /** Unique identifier used in messages, e.g., 'example' */
   identifier: string;
-  /** Human-readable name, e.g., 'Skool' */
+  /** Human-readable name, e.g., 'Example' */
   name: string;
-  /** URL to query cookies for, e.g., 'https://www.skool.com' — passed to chrome.cookies.getAll({ url }) */
+  /** URL to query cookies for, e.g., 'https://www.example.com' — passed to chrome.cookies.getAll({ url }) */
   url: string;
-  /** URL pattern for host_permissions in manifest, e.g., '*://*.skool.com/*' */
+  /** URL pattern for host_permissions in manifest, e.g., '*://*.example.com/*' */
   hostPermission: string;
   /** List of cookies to extract from this site */
   cookies: CookieDefinition[];

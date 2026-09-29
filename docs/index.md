@@ -40,8 +40,8 @@ features:
 
 ::: tip Guides
 - [User Guide](/user-guide/) — learn the product end to end
-- [Developer Docs](/developer-docs/) — architecture, APIs, contributing
-- [Operations Guide](/operations-guide/) — self-host, configure, and operate
+- [Developer Docs](/developer-docs/) — architecture, APIs, development
+- [Operations Guide](/operations-guide/) — deploy, configure, and operate
 :::
 
 > Verified against v1.0.0

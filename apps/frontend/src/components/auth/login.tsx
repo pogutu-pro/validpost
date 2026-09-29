@@ -8,14 +8,7 @@ import { Input } from '@postmill-ai/react/form/input';
 import { useMemo, useState } from 'react';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import { LoginUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto';
-import { GithubProvider } from '@postmill-ai/frontend/components/auth/providers/github.provider';
 import { OauthProvider } from '@postmill-ai/frontend/components/auth/providers/oauth.provider';
-import { GoogleProvider } from '@postmill-ai/frontend/components/auth/providers/google.provider';
-import { FacebookProvider } from '@postmill-ai/frontend/components/auth/providers/facebook.provider';
-import { XProvider } from '@postmill-ai/frontend/components/auth/providers/x.provider';
-import { LinkedinProvider } from '@postmill-ai/frontend/components/auth/providers/linkedin.provider';
-import { FarcasterProvider } from '@postmill-ai/frontend/components/auth/providers/farcaster.provider';
-import { AppleProvider } from '@postmill-ai/frontend/components/auth/providers/apple.provider';
 import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
 import useSWR from 'swr';
 import dynamic from 'next/dynamic';
@@ -47,15 +40,8 @@ export const useAuthProviders = () => {
 
 export const providerComponents: Record<string, React.ComponentType> = {
   LOCAL: () => null,
-  GITHUB: GithubProvider,
-  GOOGLE: GoogleProvider,
-  FACEBOOK: FacebookProvider,
-  X: XProvider,
-  LINKEDIN: LinkedinProvider,
-  FARCASTER: FarcasterProvider,
   GENERIC: OauthProvider,
   WALLET: WalletProvider,
-  APPLE: AppleProvider,
 };
 
 type Inputs = {
@@ -203,7 +189,7 @@ export function Login() {
                 <div className="w-full flex">
                   <Button
                     type="submit"
-                    className="flex-1 rounded-[10px] h-[52px]!"
+                    className="flex-1 rounded-[10px] h-[52px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0"
                     loading={loading}
                   >
                     {t('sign_in_1', 'Sign in')}
@@ -211,14 +197,17 @@ export function Login() {
                 </div>
                 <p className="mt-4 text-sm">
                   {t('don_t_have_an_account', "Don't Have An Account?")}&nbsp;
-                  <Link href="/auth" className="underline cursor-pointer">
+                  <Link
+                    href="/auth"
+                    className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium"
+                  >
                     {t('sign_up', 'Sign Up')}
                   </Link>
                 </p>
                 <p className="mt-4 text-sm">
                   <Link
                     href="/auth/forgot"
-                    className="underline hover:font-bold cursor-pointer"
+                    className="underline hover:font-bold cursor-pointer text-[#4F46E5] hover:text-[#4338CA]"
                   >
                     {t('forgot_password', 'Forgot password')}
                   </Link>

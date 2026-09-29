@@ -31,7 +31,7 @@ A minimal `package.json`:
   "dependencies": {
     "@postmill-ai/provider-kernel": "workspace:*"
   },
-  "license": "AGPL-3.0",
+  "license": "Proprietary",
   "engines": {
     "node": ">=24.0.0 <25.0.0"
   },

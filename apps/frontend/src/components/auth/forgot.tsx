@@ -57,7 +57,7 @@ export function Forgot() {
               </div>
               <div className="text-center mt-6">
                 <div className="w-full flex">
-                  <Button type="submit" className="flex-1 h-[52px]! rounded-[10px]!" loading={loading}>
+                  <Button type="submit" className="flex-1 h-[52px]! rounded-[10px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0" loading={loading}>
                     {t(
                       'send_password_reset_email',
                       'Send Password Reset Email'
@@ -65,7 +65,7 @@ export function Forgot() {
                   </Button>
                 </div>
                 <p className="mt-4 text-sm">
-                  <Link href="/auth/login" className="underline cursor-pointer">
+                  <Link href="/auth/login" className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium">
                     {t('go_back_to_login', 'Go back to login')}
                   </Link>
                 </p>
@@ -80,7 +80,7 @@ export function Forgot() {
                 )}
               </div>
               <p className="mt-4 text-sm">
-                <Link href="/auth/login" className="underline cursor-pointer">
+                <Link href="/auth/login" className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium">
                   {t('go_back_to_login', 'Go back to login')}
                 </Link>
               </p>

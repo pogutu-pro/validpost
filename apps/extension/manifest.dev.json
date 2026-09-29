@@ -13,9 +13,7 @@
     "alarms",
     "storage"
   ],
-  "host_permissions": [
-    "*://*.skool.com/*"
-  ],
+  "host_permissions": [],
   "background": {
     "service_worker": "background.js",
     "type": "module"

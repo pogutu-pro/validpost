@@ -69,22 +69,16 @@ export class ContentPipelineConductorService {
   // Conservative fallback limits for the few providers that may not expose a
   // maxLength() method through the kernel bridge.
   private static readonly DEFAULT_MAX_LENGTHS: Record<string, number> = {
-    x: 280,
     linkedin: 3000,
     'linkedin-page': 3000,
     instagram: 2200,
     'instagram-standalone': 2200,
     facebook: 63206,
     threads: 500,
-    bluesky: 300,
-    mastodon: 500,
     youtube: 5000,
     tiktok: 2200,
-    reddit: 40000,
     telegram: 4096,
     discord: 2000,
-    slack: 40000,
-    pinterest: 500,
   };
 
   constructor(
@@ -102,7 +96,7 @@ export class ContentPipelineConductorService {
     const platforms =
       brief.platforms && brief.platforms.length > 0
         ? brief.platforms
-        : ['x', 'linkedin'];
+        : ['linkedin', 'facebook'];
 
     // Single wall-clock budget shared by every stage of this run.
     const deadline = Date.now() + this._totalTimeoutMs();

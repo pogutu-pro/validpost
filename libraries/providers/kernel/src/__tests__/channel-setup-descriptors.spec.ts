@@ -46,8 +46,9 @@ const extractDescriptorBlock = (source: string): string | null => {
 const extractAuthType = (block: string): string | null =>
   block.match(/authType:\s*'(oauth1|oauth2|token|direct)'/)?.[1] || null;
 
-// Body of the adapter's own generateAuthUrl (family re-exports like mastodon
-// have none in the package file — the base is checked separately).
+// Body of the adapter's own generateAuthUrl (family re-exports like the
+// LinkedIn/Instagram bases have none in the package file — the base is checked
+// separately).
 const extractGenerateAuthUrlBody = (source: string): string | null => {
   const start = source.indexOf('generateAuthUrl(');
   if (start === -1) return null;
@@ -55,34 +56,19 @@ const extractGenerateAuthUrlBody = (source: string): string | null => {
   return end === -1 ? null : source.slice(start, end);
 };
 
-// authType determined from each adapter's real connect flow (see the 16
-// channel descriptors added after the 2026-08-27 channel onboarding sweep).
+// authType determined from each adapter's real connect flow.
 const EXPECTED_AUTH_TYPES: Record<string, string> = {
-  dribbble: 'oauth2', // dribbble.com/oauth/authorize + code exchange
+  discord: 'oauth2', // discord.com/api/oauth2/authorize + code exchange
+  facebook: 'oauth2', // facebook.com/v*/dialog/oauth + code exchange
   gmb: 'oauth2', // google OAuth2Client generateAuthUrl + code exchange
-  kick: 'oauth2', // id.kick.com/oauth/authorize (PKCE) + code exchange
+  instagram: 'oauth2', // facebook.com/v*/dialog/oauth + code exchange
+  'instagram-standalone': 'oauth2', // instagram.com/oauth/authorize (Instagram Login)
+  linkedin: 'oauth2', // linkedin.com/oauth/v2/authorization + code exchange
   'linkedin-page': 'oauth2', // linkedin.com/oauth/v2/authorization + companies() second step
-  mewe: 'oauth2', // {instance}/login?client_id&redirect_uri + token exchange
-  twitch: 'oauth2', // id.twitch.tv/oauth2/authorize + code exchange
-  vk: 'oauth2', // id.vk.com/authorize (PKCE, Application ID only)
-  whop: 'oauth2', // api.whop.com/oauth/authorize (PKCE, Client ID only)
-  wrapcast: 'token', // Neynar sign-in in the composer; org config stores Neynar Client ID + API Key, no callback
-  lemmy: 'direct', // customFields: service/identifier/password
-  listmonk: 'direct', // customFields: url/username/password
-  moltbook: 'direct', // composer agent-registration + claim flow (isWeb3)
-  nostr: 'direct', // customFields: private key
-  peertube: 'direct', // customFields: instance/username/password
-  pixelfed: 'direct', // customFields: instance/access token
-  skool: 'direct', // isChromeExtension session-cookie capture
-  akkoma: 'direct', // externalUrl dynamic app registration (Mastodon-API family)
-  friendica: 'direct', // externalUrl dynamic app registration (Mastodon-API family)
-  gotosocial: 'direct', // externalUrl dynamic app registration (Mastodon-API family)
-  odysee: 'direct', // customFields: lbrynet daemon JSON-RPC endpoint
-  misskey: 'direct', // MiAuth session flow (Misskey-API family base, externalUrl-style)
-  sharkey: 'direct', // MiAuth session flow (Misskey-API family base, externalUrl-style)
-  line: 'token', // LINE Messaging API channel access token (telegram pattern)
-  matrix: 'direct', // customFields: homeserverUrl/accessToken/roomId
-  discourse: 'direct', // customFields: baseUrl/apiKey/apiUsername (+ optional defaultCategory)
+  telegram: 'token', // bot token only (token-only provider) — users connect a chat to the bot
+  threads: 'oauth2', // threads.net/oauth/authorize + code exchange
+  tiktok: 'oauth2', // tiktok.com/v2/auth/authorize/ + code exchange
+  youtube: 'oauth2', // googleapis OAuth2Client generateAuthUrl + code exchange
 };
 
 describe('channel setup descriptors — completeness and authType consistency', () => {
@@ -90,7 +76,7 @@ describe('channel setup descriptors — completeness and authType consistency', 
   const read = (file: string) => readFileSync(file, 'utf8');
 
   it('every social adapter declares a setupDescriptor', () => {
-    expect(files.length).toBeGreaterThan(30);
+    expect(files.length).toBeGreaterThanOrEqual(11);
 
     const missing = files
       .filter((file) => !extractDescriptorBlock(read(file)))

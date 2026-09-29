@@ -68,7 +68,7 @@ channels across social media, chat platforms, blogging platforms, and email:
 |42 | LINE               | `line`               | Channel Access Token       |
 |43 | Matrix             | `matrix`             | Access Token + Homeserver  |
 |44 | Discourse          | `discourse`          | API Key                    |
-|45 | Odysee             | `odysee`             | lbrynet daemon (self-hosted)|
+|45 | Odysee             | `odysee`             | lbrynet daemon (self-hosted service)|
 
 See [Supported Channels](./supported-channels.md) for the full capability matrix (analytics,
 comments, polls, video, carousel, alt text, and more).

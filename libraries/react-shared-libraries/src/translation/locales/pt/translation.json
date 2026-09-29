@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "Falha ao abrir a janela de autenticação. Por favor, verifique as configurações do bloqueador de pop-ups.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Sair de Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "Falha ao carregar resumo",
   "campaigns_fetch_failed": "Falha ao carregar campanhas",
   "attention_fetch_failed": "Falha ao carregar itens de atenção",

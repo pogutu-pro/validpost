@@ -10,7 +10,7 @@ module.exports = {
       colors: {
         // Designer semantic tokens (M11/G1) — surface/selection/accent for the
         // media editor; centralizes the previously raw `#2B5CD3` accent.
-        designerAccent: '#2B5CD3',
+        designerAccent: '#4F46E5',
         designerSurface: '#1e1e2e',
         designerCanvas: '#1a1a2e',
         designerGuide: '#FF3B7F',

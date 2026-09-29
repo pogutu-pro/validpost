@@ -18,11 +18,9 @@ const CHANNEL_GROUPS: Record<
 > = {
   instagram: { label: 'Instagram', presets: [], mode: 'image' },
   facebook: { label: 'Facebook', presets: [], mode: 'image' },
-  x: { label: 'X (Twitter)', presets: [], mode: 'image' },
   linkedin: { label: 'LinkedIn', presets: [], mode: 'image' },
   tiktok: { label: 'TikTok', presets: [], mode: 'image' },
   youtube: { label: 'YouTube', presets: [], mode: 'image' },
-  pinterest: { label: 'Pinterest', presets: [], mode: 'image' },
   custom: { label: 'Custom', presets: [], mode: 'image' },
   video: { label: 'Video', presets: [], mode: 'video' },
 };
@@ -30,19 +28,16 @@ const CHANNEL_GROUPS: Record<
 for (const p of CHANNEL_PRESETS) {
   if (p.id.startsWith('ig-')) CHANNEL_GROUPS.instagram.presets.push(p);
   else if (p.id.startsWith('fb-')) CHANNEL_GROUPS.facebook.presets.push(p);
-  else if (p.id === 'x-post') CHANNEL_GROUPS.x.presets.push(p);
   else if (p.id.startsWith('linkedin-'))
     CHANNEL_GROUPS.linkedin.presets.push(p);
   else if (p.id === 'tiktok') CHANNEL_GROUPS.tiktok.presets.push(p);
   else if (p.id.startsWith('yt-'))
     CHANNEL_GROUPS.youtube.presets.push(p);
-  else if (p.id === 'pinterest-pin')
-    CHANNEL_GROUPS.pinterest.presets.push(p);
   else if (p.id === 'custom') CHANNEL_GROUPS.custom.presets.push(p);
   else if (p.category === 'video') CHANNEL_GROUPS.video.presets.push(p);
 }
 
-const RECOMMENDED_IDS = ['ig-post', 'ig-story', 'linkedin-post', 'x-post'];
+const RECOMMENDED_IDS = ['ig-post', 'ig-story', 'linkedin-post'];
 
 const THUMB_H = 52;
 const THUMB_MIN_W = 86;
@@ -444,7 +439,7 @@ export const OutputTabs: React.FC<OutputTabsProps> = ({ store }) => {
             }}
             className="w-full text-left px-2 py-1.5 rounded-sm text-[11px] text-btnPrimaryAccent hover:bg-designerAccent/10 mb-2 border border-designerAccent/30"
           >
-            {t('designer_recommended_set_description', 'Recommended set (IG Post + Story + Linked + X)')}
+            {t('designer_recommended_set_description', 'Recommended set (IG Post + Story + LinkedIn Post)')}
           </button>
 
           <div className="max-h-52 overflow-y-auto space-y-0.5">

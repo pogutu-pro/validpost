@@ -92,8 +92,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
   const shortlinkUserToggled = useRef(false);
   const { runPreflight, loading: preflightLoading, reset: resetPreflight } = usePreflight();
 
-  // Per-post heading colour (stored in each post's `settings`). null = default
-  // primary blue. A ref keeps the submit callbacks reading the latest value.
   const readInitialColor = (): string | null => {
     const raw = (existingData as any)?.posts?.[0]?.settings;
     let parsed: any = raw;
@@ -107,8 +105,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
     return parsed?.color ?? null;
   };
   const [groupColor, setGroupColor] = useState<string | null>(readInitialColor);
-  // Once the user picks a colour themselves, tag selection stops overriding it.
-  // Editing a post that already carries a colour counts as a deliberate choice.
   const colorUserToggled = useRef(readInitialColor() !== null);
   const groupColorRef = useRef<string | null>(groupColor);
   groupColorRef.current = groupColor;
@@ -121,10 +117,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
 
   const { addEditSets, mutate, customClose, dummy } = props;
 
-  // The store date freezes at composer mount; a user who never opens the date
-  // picker and submits minutes later hits a 400 "Cannot schedule a post in the
-  // past" (seen live 2026-08-28). Track deliberate picks so submit can snap an
-  // untouched, expired default to the current minute instead of dead-ending.
   const dateUserPicked = useRef(false);
 
   const {
@@ -183,9 +175,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
     }
   }, [hide, setHide]);
 
-  // The short-link picker only makes sense once there's something to shorten.
-  // `hasLinks` shares its pattern with the short-link service, so the pill shows
-  // exactly when the shortener would actually act on the post.
   const contentHasLink = useMemo(
     () =>
       [
@@ -195,8 +184,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
     [global, internal]
   );
 
-  // Default the short-link picker from the org's saved preference (YES = on)
-  // until the user explicitly chooses in the composer.
   useEffect(() => {
     if (dummy || addEditSets || shortlinkUserToggled.current) return;
     setShortLinkEnabled(shortlinkPreferenceData?.shortlink === 'YES');
@@ -236,8 +223,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
     );
   }, [current, integrations, t]);
 
-  // "Started composing" = any editor has real text or attached media. Drives both nav guards
-  // below so we only warn when there's actual unsaved work — not on an empty composer.
   const hasStartedComposing = useMemo(() => {
     const stripped = (html: string) =>
       stripHtmlTags(html || '')
@@ -245,17 +230,12 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         .trim();
     const hasWork = (v?: { content?: string; media?: any[] }) =>
       stripped(v?.content ?? '').length > 0 || (v?.media?.length ?? 0) > 0;
-    // In edit mode the content lives in `internal[].integrationValue`, not
-    // `global` (which is one empty value), so inspect both — otherwise the
-    // nav guards never arm while editing an existing post.
     return (
       (global || []).some(hasWork) ||
       (internal || []).some((i) => (i?.integrationValue || []).some(hasWork))
     );
   }, [global, internal]);
 
-  // Warn before navigating away (refresh / tab close / back button / new URL) once the user
-  // has actually started composing.
   useEffect(() => {
     if (!activateExitButton || dummy || !hasStartedComposing) return;
     const handler = (e: BeforeUnloadEvent) => {
@@ -266,9 +246,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
     return () => window.removeEventListener('beforeunload', handler);
   }, [activateExitButton, dummy, hasStartedComposing]);
 
-  // Guard soft in-app navigation (clicking a link/nav item) the same way: App Router has no
-  // route-change block, so intercept internal-link clicks in the capture phase, confirm via the
-  // shared dialog, and only navigate on approval. Only active once the user has started composing.
   useEffect(() => {
     if (!activateExitButton || dummy || !hasStartedComposing) return;
     const onClick = (e: MouseEvent) => {
@@ -280,7 +257,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
       ) as HTMLAnchorElement | null;
       if (!anchor) return;
       const href = anchor.getAttribute('href') || '';
-      // Skip external, new-tab, hash, mailto/tel, download and same-path links.
       if (
         !href ||
         href.startsWith('http') ||
@@ -429,8 +405,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
 
   const schedule = useCallback(
     (type: 'draft' | 'now' | 'schedule' | 'update', skipPreflight = false) => async () => {
-      // 3.8: claim the loading lock at the very top so a second click during the
-      // (network) preflight/getAllValues round-trip can't start a duplicate flow.
       setLoading(true);
       if (
         (type === 'now' || type === 'schedule') &&
@@ -479,11 +453,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         }
       }
 
-      // Snap an untouched, expired default date past the current minute before
-      // preflight/submit. Deliberate picks keep the server's 400 so a chosen
-      // past time stays visible instead of being silently rewritten. The server
-      // compares millisecond-precise (posts.service: isBefore(dayjs())), so
-      // "now" is already marginally past when the request lands — round UP.
       let effectiveDate = date;
       if (
         type === 'schedule' &&
@@ -494,16 +463,12 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         setDate(effectiveDate);
       }
 
-      // 2J: Run preflight check for schedule/now (skip for draft, and when the
-      // user already reviewed the panel and clicked Proceed → skipPreflight).
       if ((type === 'schedule' || type === 'now') && !skipPreflight) {
         const allValues = await ref.current.getAllValues();
         const group = existingData.group || makeId(10);
         const posts = allValues.map((post: any) => ({
           integration: { id: post.id },
           group,
-          // `__type` discriminates the per-provider settings on the server;
-          // getAllValues returns `identifier` per post.
           settings: { ...colorize(post.settings), __type: post.identifier },
           value: post.values.map((value: any) => ({
             ...(value.id ? { id: value.id } : {}),
@@ -532,9 +497,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         }
       }
 
-      // Pull the local values to build the payload, but rely on the server
-      // (`/posts/valid`) for the actual validation — checkValidity now lives
-      // server-side so it can't be bypassed.
       const allValues = await ref.current.getAllValues();
 
       const integrationById = (id: string) =>
@@ -547,13 +509,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
           id: post.id,
         },
         group,
-        // Per-post `type` mirrors the submit mode. Required for drafts: create.post.dto skips
-        // per-provider settings validation only when the POST's own `type === 'draft'`
-        // (@ValidateIf on Post.settings) — without it, a draft with X/provider settings is
-        // rejected by forbidNonWhitelisted and silently fails to save (data loss).
         ...(type === 'draft' ? { type: 'draft' } : {}),
-        // `__type` discriminates the per-provider settings on the server;
-        // getAllValues returns `identifier` per post.
         settings: { ...colorize(post.settings), __type: post.identifier },
         value: post.values.map((value: any) => ({
           ...(value.id ? { id: value.id } : {}),
@@ -655,8 +611,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         }
       }
 
-      // The composer's short-link provider picker decides application; publish
-      // still only rewrites foreign URLs, so this flag is intent, not presence.
       const shortLink = !dummy && shortLinkEnabled;
 
       const data = {
@@ -699,9 +653,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
             body: JSON.stringify(data),
           });
           if (!res.ok) {
-            // 0.11: the shared fetch does not throw on 4xx/5xx — surface the
-            // server message, keep the modal open, and clear loading so the
-            // user can retry without losing their composed content.
             toaster.show(
               (await res.json().catch(() => null))?.message ||
                 t('failed_to_save_post', 'Failed to save your post'),
@@ -721,8 +672,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
           );
         }
         if (customClose) {
-          // 3.8: keep the loading lock until customClose fires so the deferred
-          // close can't re-enable the button and reopen a second submit window.
           setTimeout(() => {
             customClose();
           }, 2000);
@@ -759,7 +708,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
 
   return (
     <div className={clsx('w-full h-full flex-1 flex relative', props.padding ?? 'p-[8px] lg:p-[40px]')}>
-      <div className="flex flex-1 bg-newBgColorInner rounded-[20px] flex-col overflow-hidden">
+      <div className="flex flex-1 bg-newBgColorInner rounded-[20px] flex-col overflow-hidden border border-newTableBorder shadow-xl">
         <div className="lg:hidden flex items-center justify-center p-[8px] border-b border-newBorder bg-newBgColor">
           <div className="flex bg-newBgColorInner border border-newBorder rounded-[8px] overflow-hidden">
             <button
@@ -795,7 +744,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
               mobileTab === 'preview' ? 'hidden lg:flex' : 'flex'
             )}
           >
-            <div className="bg-newBgColor h-[65px] lg:rounded-s-[20px] rounded-b-none! hidden lg:flex items-center gap-[12px] px-[20px] text-[20px] font-[600]">
+            <div className="bg-newBgColor h-[65px] lg:rounded-s-[20px] rounded-b-none! hidden lg:flex items-center gap-[12px] px-[20px] text-[20px] font-[600] border-b border-newBorder">
               {t('create_post_title', 'Create Post')}
               <CreationMethodBadge
                 creationMethod={existingData?.posts?.[0]?.creationMethod}
@@ -810,14 +759,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                   id="social-content"
                   className="gap-[12px] md:gap-[32px] flex flex-col pe-[8px] pt-[12px] md:pt-[20px] ps-[20px] absolute top-0 left-0 w-full h-full overflow-x-hidden overflow-y-scroll scrollbar scrollbar-thumb-newColColor scrollbar-track-newBgColorInner"
                 >
-                  {/* Two groups, reordered below 2xl: the destination pickers
-                      (channels + brand) sit on their own full-width row below
-                      the actions, which is the only way three pills and two
-                      buttons fit without wrapping mid-group. At lg–xl widths the
-                      shared row squeezes this group (min-w-0) until the
-                      shrink-proof "Select Channels" pill paints over the brand
-                      pill, so the swap holds until 2xl, where the row is wide
-                      enough for both groups side by side. */}
                   <div className="flex w-full items-center gap-[8px] flex-wrap">
                     <div className="order-2 2xl:order-1 w-full 2xl:w-auto 2xl:flex-1 flex items-center gap-[8px] min-w-0">
                       <div className="flex min-w-0">
@@ -844,7 +785,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                             ),
                           })
                         }
-                        className="border border-newTableBorder bg-btnSimple text-textColor rounded-[8px] px-[12px] lg:px-[16px] h-[36px] lg:h-[44px] text-[13px] lg:text-[15px] font-[500] hover:bg-boxHover"
+                        className="border border-newTableBorder bg-btnSimple text-textColor rounded-[8px] px-[12px] lg:px-[16px] h-[36px] lg:h-[44px] text-[13px] lg:text-[15px] font-[500] hover:bg-boxHover transition-colors"
                       >
                         {t('start_from', 'Start from…')}
                       </button>
@@ -852,8 +793,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                     <button
                       type="button"
                       onClick={() => {
-                        // B4: no active AI provider → guide instead of a silent
-                        // no-op (CopilotKit must not mount without one).
                         if (!aiActive) {
                           toaster.show(
                             t(
@@ -869,7 +808,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                       aria-label={t('your_assistant', 'Your Assistant')}
                       data-tooltip-id="tooltip"
                       data-tooltip-content={t('your_assistant', 'Your Assistant')}
-                      className="border border-newTableBorder bg-btnSimple text-textColor rounded-[8px] px-[12px] lg:px-[16px] h-[36px] lg:h-[44px] flex items-center gap-[6px] text-[13px] lg:text-[15px] font-[500] hover:bg-boxHover"
+                      className="border border-newTableBorder bg-btnSimple text-textColor rounded-[8px] px-[12px] lg:px-[16px] h-[36px] lg:h-[44px] flex items-center gap-[6px] text-[13px] lg:text-[15px] font-[500] hover:bg-boxHover transition-colors"
                     >
                       <svg
                         width="18"
@@ -900,7 +839,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                       id="social-empty"
                       className={clsx(
                         'pb-[16px]'
-                        // current !== 'global' && 'hidden'
                       )}
                     />
                   </div>
@@ -918,7 +856,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                   <div
                     onClick={() => setShowSettings(!showSettings)}
                     className={clsx(
-                      'bg-[#2B5CD3] rounded-[12px] flex items-center gap-[8px] cursor-pointer p-[12px]',
+                      'bg-btnPrimary rounded-[12px] flex items-center gap-[8px] cursor-pointer p-[12px] transition-colors',
                       showSettings ? 'rounded-b-none!' : ''
                     )}
                   >
@@ -954,15 +892,11 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
           </div>
           <div
             className={clsx(
-              // flex-1 is load-bearing on mobile: the parent switches to
-              // flex-col there, so height becomes the main axis and without a
-              // grow factor this column collapsed to 0px — the preview rendered
-              // as a 40px sliver of padding. Desktop keeps the fixed 580px.
               'w-full lg:w-[580px] flex-1 lg:flex-none flex flex-col min-h-0',
               mobileTab === 'compose' ? 'hidden lg:flex' : 'flex'
             )}
           >
-            <div className="bg-newBgColor h-[65px] lg:rounded-e-[20px] rounded-b-none! hidden lg:flex items-center px-[20px] text-[20px] font-[600]">
+            <div className="bg-newBgColor h-[65px] lg:rounded-e-[20px] rounded-b-none! hidden lg:flex items-center px-[20px] text-[20px] font-[600] border-b border-newBorder">
               <div className="flex-1">{t('post_preview', 'Post Preview')}</div>
             </div>
             <div className="flex-1 relative min-h-0">
@@ -977,10 +911,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         </div>
         <div
           className={clsx(
-            // min-h, not h: the pills wrap on narrow desktops and a fixed
-            // 84px sliced the second row in half.
             'select-none h-auto lg:min-h-[84px] py-[10px] lg:py-[20px] border-t border-newBorder flex-col lg:flex-row items-start lg:items-center gap-[8px] lg:gap-0',
-            // Preview is a preview: no fields, no actions.
             mobileTab === 'preview' ? 'hidden lg:flex' : 'flex'
           )}
         >
@@ -994,8 +925,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                   setTags(e.target.value);
                 }}
                 onTagColor={(color) => {
-                  // The tag's colour becomes the post colour — until the user
-                  // picks one themselves, after which theirs wins for good.
                   if (colorUserToggled.current || !color) {
                     return;
                   }
@@ -1023,7 +952,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                     ),
                   })
                 }
-                className="border rounded-[8px] border-newTextColor/10 h-[36px] lg:h-[44px] px-[12px] lg:px-[16px] flex items-center gap-[8px] text-[13px] lg:text-[15px] font-[600] text-textColor select-none"
+                className="border rounded-[8px] border-newTextColor/10 h-[36px] lg:h-[44px] px-[12px] lg:px-[16px] flex items-center gap-[8px] text-[13px] lg:text-[15px] font-[600] text-textColor select-none hover:bg-boxHover transition-colors"
               >
                 <span
                   className="w-[16px] h-[16px] rounded-full border border-newTableBorder"
@@ -1035,9 +964,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
             {!dummy && (
               <RepeatComponent repeat={repeater} onChange={setRepeater} />
             )}
-            {/* Nothing to shorten without a link — including the "connect a
-                provider" call-to-action, which otherwise advertises a feature
-                this post can't use. */}
             {!dummy && !addEditSets && contentHasLink && (
               <ShortlinkPicker
                 enabled={shortLinkEnabled}
@@ -1052,7 +978,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
             {existingData?.integration && (
               <button
                 onClick={deletePost}
-                className="cursor-pointer flex text-[#FF3F3F] gap-[8px] items-center text-[13px] lg:text-[15px] font-[600]"
+                className="cursor-pointer flex text-[#FF3F3F] gap-[8px] items-center text-[13px] lg:text-[15px] font-[600] hover:opacity-80 transition-opacity"
               >
                 <div>
                   <TrashIcon />
@@ -1068,7 +994,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                   disabled={
                     selectedIntegrations.length === 0 || loading || locked
                   }
-                  className="relative cursor-pointer disabled:cursor-not-allowed px-[12px] lg:px-[20px] h-[36px] lg:h-[44px] bg-btnSimple justify-center items-center flex gap-[6px] rounded-[8px] text-[13px] lg:text-[15px] font-[600]"
+                  className="relative cursor-pointer disabled:cursor-not-allowed px-[12px] lg:px-[20px] h-[36px] lg:h-[44px] bg-btnSimple justify-center items-center flex gap-[6px] rounded-[8px] text-[13px] lg:text-[15px] font-[600] hover:bg-boxHover transition-colors"
                 >
                   {loading && (
                     <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]">
@@ -1092,7 +1018,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                       selectedIntegrations.length === 0 || loading || locked
                     }
                     onClick={schedule('draft')}
-                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600]"
+                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600] transition-colors"
                   >
                     {t('save_as_draft', 'Save as draft')}
                   </button>
@@ -1102,7 +1028,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                       selectedIntegrations.length === 0 || loading || locked
                     }
                     onClick={saveAsTemplate}
-                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600]"
+                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600] transition-colors"
                   >
                     {t('save_as_template', 'Save as Template')}
                   </button>
@@ -1111,7 +1037,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
             )}
             {addEditSets && (
               <button
-                className="text-white text-[15px] font-[600] min-w-[180px] btnSub disabled:cursor-not-allowed disabled:opacity-80 outline-hidden gap-[8px] flex justify-center items-center h-[44px] rounded-[8px] bg-[#2B5CD3] ps-[20px] pe-[16px]"
+                className="text-white text-[15px] font-[600] min-w-[180px] btnSub disabled:cursor-not-allowed disabled:opacity-80 outline-hidden gap-[8px] flex justify-center items-center h-[44px] rounded-[8px] bg-btnPrimary ps-[20px] pe-[16px]"
                 disabled={
                   selectedIntegrations.length === 0 || loading || locked
                 }
@@ -1127,7 +1053,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                     selectedIntegrations.length === 0 || loading || locked
                   }
                   onClick={schedule('schedule')}
-                  className="text-white relative w-full lg:min-w-[180px] btnSub disabled:cursor-not-allowed disabled:opacity-80 outline-hidden gap-[8px] flex justify-center items-center h-[38px] lg:h-[44px] rounded-[8px] bg-[#2B5CD3] ps-[14px] lg:ps-[20px] pe-[12px] lg:pe-[16px]"
+                  className="text-white relative w-full lg:min-w-[180px] btnSub disabled:cursor-not-allowed disabled:opacity-80 outline-hidden gap-[8px] flex justify-center items-center h-[38px] lg:h-[44px] rounded-[8px] bg-btnPrimary ps-[14px] lg:ps-[20px] pe-[12px] lg:pe-[16px] hover:bg-btnPrimaryAccent transition-colors"
                 >
                   {loading && (
                     <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]">
@@ -1165,7 +1091,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                     }
                     className="rounded-[8px] z-300 disabled:cursor-not-allowed disabled:opacity-80 hidden group-hover:flex absolute bottom-full left-[-12px] p-[12px] w-[206px] bg-newBgColorInner"
                   >
-                    <div className="text-white rounded-[8px] bg-[#2b5cd3] h-[44px] w-full flex justify-center items-center post-now">
+                    <div className="text-white rounded-[8px] bg-btnPrimary h-[44px] w-full flex justify-center items-center post-now hover:bg-btnPrimaryAccent transition-colors">
                       {t('post_now', 'Post now')}
                     </div>
                   </button>
@@ -1190,8 +1116,6 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
             setPreflightData(null);
             const pending = pendingScheduleType;
             setPendingScheduleType(null);
-            // 3.13: skipPreflight=true so we don't re-run preflight and re-open
-            // the panel (which would loop) — proceed straight to submit.
             if (pending) {
               schedule(pending, true)();
             }
@@ -1229,7 +1153,7 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
                   type="button"
                   onClick={() => setAssistantOpen(false)}
                   aria-label={t('close', 'Close')}
-                  className="w-[32px] h-[32px] rounded-[8px] flex items-center justify-center hover:bg-boxHover text-textColor"
+                  className="w-[32px] h-[32px] rounded-[8px] flex items-center justify-center hover:bg-boxHover text-textColor transition-colors"
                 >
                   <svg
                     width="18"

@@ -90,7 +90,7 @@ All webhook deliveries go through `safeFetch` from `libraries/nestjs-libraries/s
 - No internal/private IPs in DNS resolution.
 - Manual per-hop redirect re-validation (no blind redirect following).
 
-Private CIDRs can be allowed via `SSRF_ALLOWED_PRIVATE_CIDRS` (opt-in for self-hosted instances with internal targets).
+Private CIDRs can be allowed via `SSRF_ALLOWED_PRIVATE_CIDRS` (opt-in for instances with internal targets).
 
 ### Payload format
 
@@ -213,6 +213,6 @@ The secret is deployment-wide, not per-webhook.
 | `WEBHOOK_SIGNING_SECRET` | falls back to `JWT_SECRET` | HMAC key for the `X-Postmill-Signature` header |
 | `WEBHOOK_TIMEOUT_MS` | `10000` | Per-request timeout for webhook dispatch |
 | `OUTBOUND_HTTP_TIMEOUT_MS` | `30000` | Default `safeFetch` timeout |
-| `SSRF_ALLOWED_PRIVATE_CIDRS` | — | Opt-in allowlist of private CIDRs for self-hosted internal targets |
+| `SSRF_ALLOWED_PRIVATE_CIDRS` | — | Opt-in allowlist of private CIDRs for internal targets |
 
 > Verified against v1.0.0

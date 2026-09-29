@@ -24,11 +24,9 @@ export type StudioBadge =
 export interface MediaTab {
   href: string;
   label: string;
-  // Present only for generic (non-provider-name) labels; the i18n key to translate `label` with.
   labelKey?: string;
   section: string;
   icon: React.ReactNode;
-  /** Output types this studio produces. Provider studios only. */
   badges?: StudioBadge[];
 }
 
@@ -607,9 +605,6 @@ export const MEDIA_TABS: MediaTab[] = [
   },
 ];
 
-// Keep the section order, but sort entries alphabetically within each section.
-// 'Platform' (Designer) renders header-less at the top; 'Providers' and
-// 'Content Pack' get section headers.
 export const MEDIA_SECTION_ORDER = ['Platform', 'Providers', 'Content Pack'];
 export const SORTED_MEDIA_TABS: MediaTab[] = [...MEDIA_TABS].sort((a, b) => {
   const sectionDiff =
@@ -618,8 +613,6 @@ export const SORTED_MEDIA_TABS: MediaTab[] = [...MEDIA_TABS].sort((a, b) => {
   return a.label.localeCompare(b.label);
 });
 
-// Display labels for section headers (the internal section key stays stable).
-// labelKey/labelDefault feed the i18n t() call at the render site.
 export const MEDIA_SECTION_LABELS: Record<string, { labelKey: string; labelDefault: string }> = {
   Platform: { labelKey: 'platform', labelDefault: 'Platform' },
   Providers: { labelKey: 'media_section_ai_media', labelDefault: 'AI Media' },
@@ -629,9 +622,6 @@ export const MEDIA_SECTION_LABELS: Record<string, { labelKey: string; labelDefau
   },
 };
 
-// Most studio routes equal the provider identifier (/media/<id>). These few
-// don't — they're frontend-only studios that ride another provider's
-// credential/config, so their menu visibility tracks that provider's state.
 export const ROUTE_TO_IDENTIFIER: Record<string, string> = {
   'google-ai': 'google',
   kling: 'fal',

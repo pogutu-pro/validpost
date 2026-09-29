@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "فشل في فتح نافذة المصادقة. يرجى التحقق من إعدادات حاجب النوافذ المنبثقة.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "تسجيل الخروج من Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "فشل تحميل الملخص",
   "campaigns_fetch_failed": "فشل تحميل الحملات",
   "attention_fetch_failed": "فشل تحميل الاهتمام",

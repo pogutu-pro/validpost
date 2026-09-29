@@ -103,7 +103,6 @@ const PUBLIC_CONTROLLERS = new Set<string>([
   'EmailWebhooksController',
   'MediaJobsWebhookController',
   'CommsWebhooksController',
-  'CommsOauthController',
   // Meta deauthorize / data-deletion callbacks: authenticated by signed_request HMAC only.
   'MetaCallbacksController',
   // Anonymous integrations catalogue read by the marketing site (no org data, no fingerprinting fields).
@@ -179,10 +178,6 @@ const ORG_RESOURCE_CONTROLLERS: Array<{ name: string; ctor: any }> = [
 // @RequirePermission/@CheckPolicies; add here only when the route is genuinely public,
 // super-admin-only, an external handshake, or transient/no-persistence.
 const INTENTIONALLY_UNGATED = new Set<string>([
-  // Stateless external onboarding handshake — registers a Moltbook agent with the
-  // external service and returns a claim URL/api key. Mutates no org resource.
-  'IntegrationsController.moltbookRegister',
-
   // Ephemeral AI generation/search routes (B2): billing- + throttle-gated, not RBAC.
   // They produce transient output and persist no governed org config.
   'AiUserController.createMediaJob',

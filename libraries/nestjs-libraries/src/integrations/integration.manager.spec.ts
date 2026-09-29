@@ -51,20 +51,6 @@ const { createMockProvider } = vi.hoisted(() => {
 // the IntegrationManager methods.
 // ---------------------------------------------------------------------------
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/x.provider', () => ({
-  XProvider: createMockProvider('x', 'X', {
-    extensionCookies: [{ name: 'auth_token', domain: 'x.com' }],
-    setupDescriptor: {
-      authType: 'oauth1',
-      credentialFields: [
-        { key: 'clientId', label: 'API Key (Consumer Key)' },
-        { key: 'clientSecret', label: 'API Secret (Consumer Secret)', secret: true },
-      ],
-      portalUrl: 'https://developer.x.com/en/portal/dashboard',
-      portalLabel: 'X Developer Portal',
-    },
-  }),
-}));
 
 vi.mock('@postmill-ai/nestjs-libraries/integrations/social/linkedin.provider', () => ({
   LinkedinProvider: createMockProvider('linkedin', 'LinkedIn'),
@@ -74,9 +60,6 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social/linkedin.page.provide
   LinkedinPageProvider: createMockProvider('linkedinpage', 'LinkedIn Page'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/reddit.provider', () => ({
-  RedditProvider: createMockProvider('reddit', 'Reddit'),
-}));
 
 vi.mock('@postmill-ai/nestjs-libraries/integrations/social/instagram.provider', () => ({
   InstagramProvider: createMockProvider('instagram', 'Instagram'),
@@ -103,16 +86,21 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social/gmb.provider', () => 
 }));
 
 vi.mock('@postmill-ai/nestjs-libraries/integrations/social/tiktok.provider', () => ({
-  TiktokProvider: createMockProvider('tiktok', 'TikTok'),
+  TiktokProvider: createMockProvider('tiktok', 'TikTok', {
+    extensionCookies: [{ name: 'auth_token', domain: 'tiktok.com' }],
+    setupDescriptor: {
+      authType: 'oauth2',
+      credentialFields: [
+        { key: 'clientId', label: 'Client Key' },
+        { key: 'clientSecret', label: 'Client Secret', secret: true },
+      ],
+      portalUrl: 'https://developers.tiktok.com/apps',
+      portalLabel: 'TikTok for Developers',
+    },
+  }),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/pinterest.provider', () => ({
-  PinterestProvider: createMockProvider('pinterest', 'Pinterest'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/dribbble.provider', () => ({
-  DribbbleProvider: createMockProvider('dribbble', 'Dribbble'),
-}));
 
 vi.mock('@postmill-ai/nestjs-libraries/integrations/social/discord.provider', () => ({
   DiscordProvider: createMockProvider('discord', 'Discord', {
@@ -120,33 +108,12 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social/discord.provider', ()
   }),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/slack.provider', () => ({
-  SlackProvider: createMockProvider('slack', 'Slack'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/kick.provider', () => ({
-  KickProvider: createMockProvider('kick', 'Kick'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/twitch.provider', () => ({
-  TwitchProvider: createMockProvider('twitch', 'Twitch'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/mastodon.provider', () => ({
-  MastodonProvider: createMockProvider('mastodon', 'Mastodon'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/bluesky.provider', () => ({
-  BlueskyProvider: createMockProvider('bluesky', 'Bluesky'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/lemmy.provider', () => ({
-  LemmyProvider: createMockProvider('lemmy', 'Lemmy'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/farcaster.provider', () => ({
-  FarcasterProvider: createMockProvider('farcaster', 'Farcaster'),
-}));
 
 vi.mock('@postmill-ai/nestjs-libraries/integrations/social/telegram.provider', () => ({
   TelegramProvider: createMockProvider('telegram', 'Telegram', {
@@ -163,61 +130,19 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social/telegram.provider', (
   }),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/nostr.provider', () => ({
-  NostrProvider: createMockProvider('nostr', 'Nostr'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/vk.provider', () => ({
-  VkProvider: createMockProvider('vk', 'VK'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/medium.provider', () => ({
-  MediumProvider: createMockProvider('medium', 'Medium'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/dev.to.provider', () => ({
-  DevToProvider: createMockProvider('devto', 'DevTo'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/hashnode.provider', () => ({
-  HashnodeProvider: createMockProvider('hashnode', 'Hashnode'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/wordpress.provider', () => ({
-  WordpressProvider: createMockProvider('wordpress', 'WordPress'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/listmonk.provider', () => ({
-  ListmonkProvider: createMockProvider('listmonk', 'Listmonk'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/moltbook.provider', () => ({
-  MoltbookProvider: createMockProvider('moltbook', 'Moltbook'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/whop.provider', () => ({
-  WhopProvider: createMockProvider('whop', 'Whop'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/skool.provider', () => ({
-  SkoolProvider: createMockProvider('skool', 'Skool'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/mewe.provider', () => ({
-  MeweProvider: createMockProvider('mewe', 'MeWe'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/tumblr.provider', () => ({
-  TumblrProvider: createMockProvider('tumblr', 'Tumblr'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/pixelfed.provider', () => ({
-  PixelfedProvider: createMockProvider('pixelfed', 'Pixelfed'),
-}));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/peertube.provider', () => ({
-  PeerTubeProvider: createMockProvider('peertube', 'PeerTube'),
-}));
 
 // Mock SocialAbstract to avoid pulling in sharp, temporalio, etc.
 vi.mock('@postmill-ai/nestjs-libraries/integrations/social.abstract', () => ({
@@ -275,10 +200,8 @@ function stubEnvApp(identifier: string) {
 
 // Populate the registry with the mock providers (mirrors the pre-7.5.1 static
 // list, which the now-stubbed registration module would otherwise have filled).
-import { XProvider } from '@postmill-ai/nestjs-libraries/integrations/social/x.provider';
 import { LinkedinProvider } from '@postmill-ai/nestjs-libraries/integrations/social/linkedin.provider';
 import { LinkedinPageProvider } from '@postmill-ai/nestjs-libraries/integrations/social/linkedin.page.provider';
-import { RedditProvider } from '@postmill-ai/nestjs-libraries/integrations/social/reddit.provider';
 import { InstagramProvider } from '@postmill-ai/nestjs-libraries/integrations/social/instagram.provider';
 import { InstagramStandaloneProvider } from '@postmill-ai/nestjs-libraries/integrations/social/instagram.standalone.provider';
 import { FacebookProvider } from '@postmill-ai/nestjs-libraries/integrations/social/facebook.provider';
@@ -286,48 +209,17 @@ import { ThreadsProvider } from '@postmill-ai/nestjs-libraries/integrations/soci
 import { YoutubeProvider } from '@postmill-ai/nestjs-libraries/integrations/social/youtube.provider';
 import { GmbProvider } from '@postmill-ai/nestjs-libraries/integrations/social/gmb.provider';
 import { TiktokProvider } from '@postmill-ai/nestjs-libraries/integrations/social/tiktok.provider';
-import { PinterestProvider } from '@postmill-ai/nestjs-libraries/integrations/social/pinterest.provider';
-import { DribbbleProvider } from '@postmill-ai/nestjs-libraries/integrations/social/dribbble.provider';
 import { DiscordProvider } from '@postmill-ai/nestjs-libraries/integrations/social/discord.provider';
-import { SlackProvider } from '@postmill-ai/nestjs-libraries/integrations/social/slack.provider';
-import { KickProvider } from '@postmill-ai/nestjs-libraries/integrations/social/kick.provider';
-import { TwitchProvider } from '@postmill-ai/nestjs-libraries/integrations/social/twitch.provider';
-import { MastodonProvider } from '@postmill-ai/nestjs-libraries/integrations/social/mastodon.provider';
-import { BlueskyProvider } from '@postmill-ai/nestjs-libraries/integrations/social/bluesky.provider';
-import { LemmyProvider } from '@postmill-ai/nestjs-libraries/integrations/social/lemmy.provider';
-import { FarcasterProvider } from '@postmill-ai/nestjs-libraries/integrations/social/farcaster.provider';
 import { TelegramProvider } from '@postmill-ai/nestjs-libraries/integrations/social/telegram.provider';
-import { NostrProvider } from '@postmill-ai/nestjs-libraries/integrations/social/nostr.provider';
-import { VkProvider } from '@postmill-ai/nestjs-libraries/integrations/social/vk.provider';
-import { MediumProvider } from '@postmill-ai/nestjs-libraries/integrations/social/medium.provider';
-import { DevToProvider } from '@postmill-ai/nestjs-libraries/integrations/social/dev.to.provider';
-import { HashnodeProvider } from '@postmill-ai/nestjs-libraries/integrations/social/hashnode.provider';
-import { WordpressProvider } from '@postmill-ai/nestjs-libraries/integrations/social/wordpress.provider';
-import { ListmonkProvider } from '@postmill-ai/nestjs-libraries/integrations/social/listmonk.provider';
-import { MoltbookProvider } from '@postmill-ai/nestjs-libraries/integrations/social/moltbook.provider';
-import { WhopProvider } from '@postmill-ai/nestjs-libraries/integrations/social/whop.provider';
-import { SkoolProvider } from '@postmill-ai/nestjs-libraries/integrations/social/skool.provider';
-import { MeweProvider } from '@postmill-ai/nestjs-libraries/integrations/social/mewe.provider';
-import { TumblrProvider } from '@postmill-ai/nestjs-libraries/integrations/social/tumblr.provider';
-import { PixelfedProvider } from '@postmill-ai/nestjs-libraries/integrations/social/pixelfed.provider';
-import { PeerTubeProvider } from '@postmill-ai/nestjs-libraries/integrations/social/peertube.provider';
 
 // The raw social provider singletons now live in the ProviderKernel registry.
 // Build a fake kernel over these mock provider instances; IntegrationManager
 // resolves them through ProviderResolutionService and reads `rawProvider` from
 // the capability bridge.
 const providerInstances: any[] = [
-  XProvider, LinkedinProvider, LinkedinPageProvider, RedditProvider,
-  InstagramProvider, InstagramStandaloneProvider, FacebookProvider,
+  LinkedinProvider, LinkedinPageProvider,   InstagramProvider, InstagramStandaloneProvider, FacebookProvider,
   ThreadsProvider, YoutubeProvider, GmbProvider, TiktokProvider,
-  PinterestProvider, DribbbleProvider, DiscordProvider, SlackProvider,
-  KickProvider, TwitchProvider, MastodonProvider, BlueskyProvider,
-  LemmyProvider, FarcasterProvider, TelegramProvider, NostrProvider,
-  VkProvider, MediumProvider, DevToProvider, HashnodeProvider,
-  WordpressProvider, ListmonkProvider, MoltbookProvider, WhopProvider,
-  SkoolProvider, MeweProvider, TumblrProvider, PixelfedProvider,
-  PeerTubeProvider,
-].map((P: any) => new P());
+  DiscordProvider,     TelegramProvider,         ].map((P: any) => new P());
 
 const providerById = new Map(
   providerInstances.map((p) => [p.identifier, p])
@@ -463,20 +355,20 @@ describe('IntegrationManager', () => {
       const result = await manager.getAllIntegrations();
 
       expect(result.article).toEqual([]);
-      // all 33 social providers should be returned
-      expect(result.social.length).toBeGreaterThanOrEqual(36);
-      expect(result.social.map((s: any) => s.identifier)).toContain('x');
+      // every registered social provider is returned
+      expect(result.social.length).toBe(11);
+      expect(result.social.map((s: any) => s.identifier)).toContain('tiktok');
       expect(result.social.map((s: any) => s.identifier)).toContain('telegram');
     });
 
     it('without orgId: lists env-enabled providers and marks them platformConfigured', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
       stubEnvApp('linkedin');
 
       const result = await manager.getAllIntegrations();
 
       expect(result.social).toHaveLength(2);
-      expect(result.social[0].identifier).toBe('x');
+      expect(result.social[0].identifier).toBe('tiktok');
       expect(result.social[1].identifier).toBe('linkedin');
       expect(result.social[0].platformConfigured).toBe(true);
       // org scope is never consulted without an orgId
@@ -499,7 +391,7 @@ describe('IntegrationManager', () => {
     });
 
     it('org context: org-enabled and env-enabled providers list together', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
       mockOrgPcm.getEnabledIdentifiers.mockResolvedValue(['instagramstandalone']);
       mockOrgPcm.getAllConfigs.mockResolvedValue([
         { identifier: 'instagramstandalone', enabled: true } as any,
@@ -509,11 +401,11 @@ describe('IntegrationManager', () => {
       const result = await manager.getAllIntegrations('org-1');
 
       expect(result.social.map((s: any) => s.identifier)).toEqual([
-        'x',
+        'tiktok',
         'instagramstandalone',
       ]);
       expect(
-        result.social.find((s: any) => s.identifier === 'x').platformConfigured
+        result.social.find((s: any) => s.identifier === 'tiktok').platformConfigured
       ).toBe(true);
       expect(
         result.social.find((s: any) => s.identifier === 'instagramstandalone')
@@ -522,12 +414,12 @@ describe('IntegrationManager', () => {
     });
 
     it('includes setupInstructions from the org config setupNotes', async () => {
-      mockOrgPcm.getEnabledIdentifiers.mockResolvedValue(['x']);
+      mockOrgPcm.getEnabledIdentifiers.mockResolvedValue(['tiktok']);
       mockOrgPcm.getAllConfigs.mockResolvedValue([
-        { identifier: 'x', enabled: true } as any,
+        { identifier: 'tiktok', enabled: true } as any,
       ]);
       mockOrgPcm.getConfig.mockResolvedValue({
-        identifier: 'x',
+        identifier: 'tiktok',
         setupNotes: 'Follow these steps...',
       } as any);
 
@@ -551,9 +443,9 @@ describe('IntegrationManager', () => {
     });
 
     it('omits setupInstructions when the org config is undefined', async () => {
-      mockOrgPcm.getEnabledIdentifiers.mockResolvedValue(['x']);
+      mockOrgPcm.getEnabledIdentifiers.mockResolvedValue(['tiktok']);
       mockOrgPcm.getAllConfigs.mockResolvedValue([
-        { identifier: 'x', enabled: true } as any,
+        { identifier: 'tiktok', enabled: true } as any,
       ]);
       mockOrgPcm.getConfig.mockResolvedValue(undefined);
 
@@ -563,16 +455,16 @@ describe('IntegrationManager', () => {
     });
 
     it('includes extensionCookies when provider has them', async () => {
-      mockOrgPcm.getEnabledIdentifiers.mockResolvedValue(['x']);
+      mockOrgPcm.getEnabledIdentifiers.mockResolvedValue(['tiktok']);
       mockOrgPcm.getAllConfigs.mockResolvedValue([
-        { identifier: 'x', enabled: true } as any,
+        { identifier: 'tiktok', enabled: true } as any,
       ]);
       mockOrgPcm.getConfig.mockResolvedValue(undefined);
 
       const result = await manager.getAllIntegrations('org-1');
 
       expect(result.social[0].extensionCookies).toEqual([
-        { name: 'auth_token', domain: 'x.com' },
+        { name: 'auth_token', domain: 'tiktok.com' },
       ]);
     });
 
@@ -626,8 +518,8 @@ describe('IntegrationManager', () => {
 
       const result = await manager.getAllIntegrations('org-1');
 
-      expect(result.social.length).toBeGreaterThanOrEqual(36);
-      expect(result.social.map((s: any) => s.identifier)).toContain('x');
+      expect(result.social.length).toBe(11);
+      expect(result.social.map((s: any) => s.identifier)).toContain('tiktok');
       expect(result.social.map((s: any) => s.identifier)).toContain(
         'instagramstandalone'
       );
@@ -647,9 +539,9 @@ describe('IntegrationManager', () => {
 
       expect(result.discord).toEqual(toolData);
       // provider without metadata gets empty array
-      expect(result.x).toEqual([]);
+      expect(result.gmb).toEqual([]);
       // every provider gets a key
-      expect(Object.keys(result).length).toBeGreaterThanOrEqual(36);
+      expect(Object.keys(result).length).toBe(11);
     });
 
     it('returns empty arrays for all providers when no tool metadata exists', () => {
@@ -665,7 +557,7 @@ describe('IntegrationManager', () => {
 
   describe('getAllRulesDescription', () => {
     it('returns rules description for providers that have it, empty string for others', () => {
-      setRulesMetadata('x', 'X can have maximum 4 pictures');
+      setRulesMetadata('tiktok', 'X can have maximum 4 pictures');
       setRulesMetadata('linkedin', 'LinkedIn supports images and documents');
 
       const result = manager.getAllRulesDescription();
@@ -673,7 +565,7 @@ describe('IntegrationManager', () => {
       expect(result.x).toBe('X can have maximum 4 pictures');
       expect(result.linkedin).toBe('LinkedIn supports images and documents');
       expect(result.discord).toBe('');
-      expect(Object.keys(result).length).toBeGreaterThanOrEqual(36);
+      expect(Object.keys(result).length).toBe(11);
     });
 
     it('returns empty string for every provider when no rules metadata exists', () => {
@@ -689,7 +581,7 @@ describe('IntegrationManager', () => {
 
   describe('getAllPlugs', () => {
     const enabledPlug = {
-      identifier: 'x-autoRepost',
+      identifier: 'auto-repost',
       title: 'Auto Repost',
       disabled: false,
       description: 'Repost when liked',
@@ -707,7 +599,7 @@ describe('IntegrationManager', () => {
     };
 
     const disabledPlug = {
-      identifier: 'x-disabled',
+      identifier: 'disabled',
       title: 'Disabled Plug',
       disabled: true,
       description: 'This is disabled',
@@ -717,7 +609,7 @@ describe('IntegrationManager', () => {
     };
 
     const plugWithRegexValidation = {
-      identifier: 'x-regexPlug',
+      identifier: 'regex-plug',
       title: 'Regex',
       disabled: false,
       description: 'Test',
@@ -735,7 +627,7 @@ describe('IntegrationManager', () => {
     };
 
     const plugWithoutValidation = {
-      identifier: 'x-noValidation',
+      identifier: 'no-validation',
       title: 'No Validation',
       disabled: false,
       description: 'No validation',
@@ -752,21 +644,21 @@ describe('IntegrationManager', () => {
     };
 
     it('returns only non-disabled plugs with validation converted to string', () => {
-      setPlugMetadata('x', [enabledPlug, disabledPlug, plugWithRegexValidation, plugWithoutValidation]);
+      setPlugMetadata('tiktok', [enabledPlug, disabledPlug, plugWithRegexValidation, plugWithoutValidation]);
 
       const result = manager.getAllPlugs();
 
-      const xEntry = result.find((p: any) => p.identifier === 'x');
-      expect(xEntry).toBeDefined();
-      expect(xEntry.plugs).toHaveLength(3);
+      const tiktokEntry = result.find((p: any) => p.identifier === 'tiktok');
+      expect(tiktokEntry).toBeDefined();
+      expect(tiktokEntry.plugs).toHaveLength(3);
 
-      const repost = xEntry.plugs.find((p: any) => p.identifier === 'x-autoRepost');
+      const repost = tiktokEntry.plugs.find((p: any) => p.identifier === 'auto-repost');
       expect(repost.fields[0].validation).toBe('/^\\d+$/');
 
-      const regexPlug = xEntry.plugs.find((p: any) => p.identifier === 'x-regexPlug');
+      const regexPlug = tiktokEntry.plugs.find((p: any) => p.identifier === 'regex-plug');
       expect(regexPlug.fields[0].validation).toBe('/^[0-9]+$/');
 
-      const noValPlug = xEntry.plugs.find((p: any) => p.identifier === 'x-noValidation');
+      const noValPlug = tiktokEntry.plugs.find((p: any) => p.identifier === 'no-validation');
       expect(noValPlug.fields[0].validation).toBeUndefined();
     });
 
@@ -779,15 +671,15 @@ describe('IntegrationManager', () => {
     });
 
     it('excludes providers with no plugs metadata', () => {
-      // slack has no plugs metadata set
+      // youtube has no plugs metadata set
       const result = manager.getAllPlugs();
 
-      expect(result.find((p: any) => p.identifier === 'slack')).toBeUndefined();
+      expect(result.find((p: any) => p.identifier === 'youtube')).toBeUndefined();
     });
 
     it('returns empty array when no provider has any non-disabled plug', () => {
       // Ensure at least one plug metadata is set but all disabled
-      setPlugMetadata('x', [disabledPlug]);
+      setPlugMetadata('tiktok', [disabledPlug]);
       // Clear any other metadata
 
       const result = manager.getAllPlugs();
@@ -799,7 +691,7 @@ describe('IntegrationManager', () => {
 
   describe('getInternalPlugs', () => {
     it('returns internal plugs for a known provider (env-enabled)', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
 
       const internalPlugs = [
         {
@@ -810,9 +702,9 @@ describe('IntegrationManager', () => {
           description: 'Add accounts',
         },
       ];
-      setInternalPlugMetadata('x', internalPlugs);
+      setInternalPlugMetadata('tiktok', internalPlugs);
 
-      const result = await manager.getInternalPlugs('x');
+      const result = await manager.getInternalPlugs('tiktok');
 
       expect(result.internalPlugs).toHaveLength(1);
       expect(result.internalPlugs[0].identifier).toBe('post-user-repost');
@@ -830,16 +722,16 @@ describe('IntegrationManager', () => {
           description: 'Add accounts',
         },
       ];
-      setInternalPlugMetadata('x', internalPlugs);
+      setInternalPlugMetadata('tiktok', internalPlugs);
 
-      const result = await manager.getInternalPlugs('x', 'org-1');
+      const result = await manager.getInternalPlugs('tiktok', 'org-1');
 
       expect(result.internalPlugs).toHaveLength(1);
-      expect(mockOrgPcm.isEnabled).toHaveBeenCalledWith('org-1', 'x');
+      expect(mockOrgPcm.isEnabled).toHaveBeenCalledWith('org-1', 'tiktok');
     });
 
     it('filters out disabled internal plugs', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
 
       const internalPlugs = [
         {
@@ -857,9 +749,9 @@ describe('IntegrationManager', () => {
           description: '',
         },
       ];
-      setInternalPlugMetadata('x', internalPlugs);
+      setInternalPlugMetadata('tiktok', internalPlugs);
 
-      const result = await manager.getInternalPlugs('x');
+      const result = await manager.getInternalPlugs('tiktok');
 
       expect(result.internalPlugs).toHaveLength(1);
       expect(result.internalPlugs[0].identifier).toBe('enabled-plug');
@@ -891,7 +783,7 @@ describe('IntegrationManager', () => {
       mockOrgPcm.isEnabled.mockResolvedValue(false);
 
       await expect(
-        manager.getInternalPlugs('x', 'org-1')
+        manager.getInternalPlugs('tiktok', 'org-1')
       ).rejects.toThrow(NotFoundException);
     });
   });
@@ -902,11 +794,11 @@ describe('IntegrationManager', () => {
     it('returns all provider identifiers', () => {
       const result = manager.getAllowedSocialsIntegrations();
 
-      expect(result).toContain('x');
+      expect(result).toContain('tiktok');
       expect(result).toContain('linkedin');
       expect(result).toContain('discord');
       expect(result).toContain('telegram');
-      expect(result.length).toBeGreaterThanOrEqual(36);
+      expect(result.length).toBe(11);
     });
   });
 
@@ -914,13 +806,13 @@ describe('IntegrationManager', () => {
 
   describe('getSocialIntegration', () => {
     it('returns the provider for a known identifier (env-enabled)', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
 
-      const provider = await manager.getSocialIntegration('x');
+      const provider = await manager.getSocialIntegration('tiktok');
 
       expect(provider).toBeDefined();
-      expect(provider.identifier).toBe('x');
-      expect(provider.name).toBe('X');
+      expect(provider.identifier).toBe('tiktok');
+      expect(provider.name).toBe('TikTok');
     });
 
     it('throws NotFoundException for an unknown identifier', async () => {
@@ -942,7 +834,7 @@ describe('IntegrationManager', () => {
       mockOrgPcm.isEnabled.mockResolvedValue(false);
 
       await expect(
-        manager.getSocialIntegration('x', 'org-1')
+        manager.getSocialIntegration('tiktok', 'org-1')
       ).rejects.toThrow(NotFoundException);
     });
   });
@@ -951,19 +843,19 @@ describe('IntegrationManager', () => {
 
   describe('getSocialIntegrationUnchecked', () => {
     it('returns the provider for a known identifier without checking enabled state', () => {
-      const provider = manager.getSocialIntegrationUnchecked('x');
+      const provider = manager.getSocialIntegrationUnchecked('tiktok');
 
       expect(provider).toBeDefined();
-      expect(provider?.identifier).toBe('x');
+      expect(provider?.identifier).toBe('tiktok');
       expect(mockOrgPcm.isEnabled).not.toHaveBeenCalled();
     });
 
     it('returns the provider even when it is disabled', () => {
       mockOrgPcm.isEnabled.mockResolvedValue(false);
 
-      const provider = manager.getSocialIntegrationUnchecked('x');
+      const provider = manager.getSocialIntegrationUnchecked('tiktok');
 
-      expect(provider?.identifier).toBe('x');
+      expect(provider?.identifier).toBe('tiktok');
     });
 
     it('returns undefined for an unknown identifier', () => {
@@ -982,10 +874,10 @@ describe('IntegrationManager', () => {
         fakeResolutionService(fakeKernel),
       );
 
-      const provider = await m.getSocialIntegration('x', 'org-1');
+      const provider = await m.getSocialIntegration('tiktok', 'org-1');
 
-      expect(provider.identifier).toBe('x');
-      expect(orgPcm.isEnabled).toHaveBeenCalledWith('org-1', 'x');
+      expect(provider.identifier).toBe('tiktok');
+      expect(orgPcm.isEnabled).toHaveBeenCalledWith('org-1', 'tiktok');
     });
 
     it('throws when the same org-only provider is resolved without an orgId (no env app)', async () => {
@@ -996,12 +888,12 @@ describe('IntegrationManager', () => {
         fakeResolutionService(fakeKernel),
       );
 
-      await expect(m.getSocialIntegration('x')).rejects.toThrow(NotFoundException);
+      await expect(m.getSocialIntegration('tiktok')).rejects.toThrow(NotFoundException);
       expect(orgPcm.isEnabled).not.toHaveBeenCalled();
     });
 
     it('resolves a provider enabled only via an env app (no org config)', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
       const orgPcm = { isEnabled: vi.fn().mockResolvedValue(false) };
       const m = new IntegrationManager(
         orgPcm as any,
@@ -1009,9 +901,9 @@ describe('IntegrationManager', () => {
         fakeResolutionService(fakeKernel),
       );
 
-      const provider = await m.getSocialIntegration('x', 'org-1');
+      const provider = await m.getSocialIntegration('tiktok', 'org-1');
 
-      expect(provider.identifier).toBe('x');
+      expect(provider.identifier).toBe('tiktok');
     });
   });
 
@@ -1091,13 +983,13 @@ describe('IntegrationManager', () => {
 
   describe('getClientInformation', () => {
     it('returns env app credentials without an orgId (env-only resolution)', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
 
-      const result = await manager.getClientInformation('x');
+      const result = await manager.getClientInformation('tiktok');
 
       expect(result).toEqual({
-        client_id: 'x-id',
-        client_secret: 'x-secret',
+        client_id: 'tiktok-id',
+        client_secret: 'tiktok-secret',
         instanceUrl: '',
         version: 'v1',
       });
@@ -1106,55 +998,55 @@ describe('IntegrationManager', () => {
     });
 
     it('returns undefined without an orgId when no env app exists', async () => {
-      const result = await manager.getClientInformation('x');
+      const result = await manager.getClientInformation('tiktok');
 
       expect(result).toBeUndefined();
     });
 
     it('does NOT resolve org credentials without an explicit configId (no primary-config fallback)', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
       mockOrgPcm.getClientInfo.mockResolvedValue({
         client_id: 'org-id',
         client_secret: 'org-secret',
         instanceUrl: '',
       });
 
-      const result = await manager.getClientInformation('x', 'org-1');
+      const result = await manager.getClientInformation('tiktok', 'org-1');
 
       // The by-identifier fallback is gone: the env app wins, the org's
       // primary config is never even queried.
       expect(mockOrgPcm.getClientInfo).not.toHaveBeenCalled();
       expect(mockOrgPcm.getClientInfoById).not.toHaveBeenCalled();
       expect(result).toEqual({
-        client_id: 'x-id',
-        client_secret: 'x-secret',
+        client_id: 'tiktok-id',
+        client_secret: 'tiktok-secret',
         instanceUrl: '',
         version: 'v1',
       });
     });
 
     it('returns undefined with an orgId, no configId and no env app', async () => {
-      const result = await manager.getClientInformation('x', 'org-1');
+      const result = await manager.getClientInformation('tiktok', 'org-1');
 
       expect(mockOrgPcm.getClientInfo).not.toHaveBeenCalled();
       expect(result).toBeUndefined();
     });
 
     it('still warms the org credential cache without a configId (plug warm path)', async () => {
-      await manager.getClientInformation('x', 'org-1');
+      await manager.getClientInformation('tiktok', 'org-1');
 
       expect(mockOrgPcm.ensureFresh).toHaveBeenCalledWith('org-1');
     });
 
     it('falls back to the env app when the named config resolves no credentials', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
       mockOrgPcm.getClientInfoById.mockResolvedValue(undefined);
 
-      const result = await manager.getClientInformation('x', 'org-1', 'cfg-1');
+      const result = await manager.getClientInformation('tiktok', 'org-1', 'cfg-1');
 
       expect(result).toEqual({
-        client_id: 'x-id',
-        client_secret: 'x-secret',
+        client_id: 'tiktok-id',
+        client_secret: 'tiktok-secret',
         instanceUrl: '',
         version: 'v1',
       });
@@ -1168,7 +1060,7 @@ describe('IntegrationManager', () => {
         instanceUrl: '',
       });
 
-      const result = await manager.getClientInformation('x', 'org-1', 'cfg-1');
+      const result = await manager.getClientInformation('tiktok', 'org-1', 'cfg-1');
 
       expect(mockOrgPcm.getClientInfoById).toHaveBeenCalledWith('org-1', 'cfg-1');
       expect(mockOrgPcm.getClientInfo).not.toHaveBeenCalled();
@@ -1212,9 +1104,9 @@ describe('IntegrationManager', () => {
 
   describe('isProviderEnabled', () => {
     it('returns true when the provider is env-enabled', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
 
-      const result = await manager.isProviderEnabled('x');
+      const result = await manager.isProviderEnabled('tiktok');
 
       expect(result).toBe(true);
     });
@@ -1222,9 +1114,9 @@ describe('IntegrationManager', () => {
     it('returns true when enabled for the org (enabled = org OR env)', async () => {
       mockOrgPcm.isEnabled.mockResolvedValue(true);
 
-      const result = await manager.isProviderEnabled('x', 'org-1');
+      const result = await manager.isProviderEnabled('tiktok', 'org-1');
 
-      expect(mockOrgPcm.isEnabled).toHaveBeenCalledWith('org-1', 'x');
+      expect(mockOrgPcm.isEnabled).toHaveBeenCalledWith('org-1', 'tiktok');
       expect(result).toBe(true);
     });
 
@@ -1240,45 +1132,22 @@ describe('IntegrationManager', () => {
   // ---- Edge cases: the kernel-sourced social provider catalog ----
 
   describe('social provider catalog', () => {
-    it('contains all expected providers', () => {
-      const identifiers = manager.getAllowedSocialsIntegrations();
+    it('contains exactly the supported providers', () => {
+      const identifiers = manager.getAllowedSocialsIntegrations().sort();
 
-      expect(identifiers).toContain('x');
-      expect(identifiers).toContain('linkedin');
-      expect(identifiers).toContain('linkedinpage');
-      expect(identifiers).toContain('reddit');
-      expect(identifiers).toContain('instagram');
-      expect(identifiers).toContain('instagramstandalone');
-      expect(identifiers).toContain('facebook');
-      expect(identifiers).toContain('threads');
-      expect(identifiers).toContain('youtube');
-      expect(identifiers).toContain('gmb');
-      expect(identifiers).toContain('tiktok');
-      expect(identifiers).toContain('pinterest');
-      expect(identifiers).toContain('dribbble');
-      expect(identifiers).toContain('discord');
-      expect(identifiers).toContain('slack');
-      expect(identifiers).toContain('kick');
-      expect(identifiers).toContain('twitch');
-      expect(identifiers).toContain('mastodon');
-      expect(identifiers).toContain('bluesky');
-      expect(identifiers).toContain('lemmy');
-      expect(identifiers).toContain('farcaster');
-      expect(identifiers).toContain('telegram');
-      expect(identifiers).toContain('nostr');
-      expect(identifiers).toContain('vk');
-      expect(identifiers).toContain('medium');
-      expect(identifiers).toContain('devto');
-      expect(identifiers).toContain('hashnode');
-      expect(identifiers).toContain('wordpress');
-      expect(identifiers).toContain('listmonk');
-      expect(identifiers).toContain('moltbook');
-      expect(identifiers).toContain('whop');
-      expect(identifiers).toContain('skool');
-      expect(identifiers).toContain('mewe');
-      expect(identifiers).toContain('tumblr');
-      expect(identifiers).toContain('pixelfed');
-      expect(identifiers).toContain('peertube');
+      expect(identifiers).toEqual([
+        'discord',
+        'facebook',
+        'gmb',
+        'instagram',
+        'instagramstandalone',
+        'linkedin',
+        'linkedinpage',
+        'telegram',
+        'threads',
+        'tiktok',
+        'youtube',
+      ]);
     });
   });
 
@@ -1290,7 +1159,7 @@ describe('IntegrationManager', () => {
             ? providerInstances.map((p) => ({
                 ...moduleFor(p.identifier)!.manifest,
                 capabilities:
-                  p.identifier === 'x'
+                  p.identifier === 'tiktok'
                     ? { analytics: true, comments: true }
                     : {},
               }))
@@ -1307,12 +1176,12 @@ describe('IntegrationManager', () => {
 
       const catalog = await m.getSocialProviderCatalog();
 
-      expect(catalog.length).toBeGreaterThanOrEqual(36);
-      const xEntry = catalog.find((c) => c.identifier === 'x');
-      expect(xEntry).toMatchObject({
-        identifier: 'x',
-        name: 'X',
-        description: 'X',
+      expect(catalog.length).toBe(11);
+      const tiktokEntry = catalog.find((c) => c.identifier === 'tiktok');
+      expect(tiktokEntry).toMatchObject({
+        identifier: 'tiktok',
+        name: 'TikTok',
+        description: 'TikTok',
         isExternal: false,
         isWeb3: false,
         isChromeExtension: false,
@@ -1338,7 +1207,7 @@ describe('IntegrationManager', () => {
       // The default fakeKernel provides capabilities: {} for every provider, so
       // the method should still produce entries without crashing.
       const catalog = await manager.getSocialProviderCatalog();
-      expect(catalog.length).toBeGreaterThanOrEqual(36);
+      expect(catalog.length).toBe(11);
       for (const entry of catalog) {
         expect(entry).toHaveProperty('capabilities');
       }
@@ -1347,15 +1216,15 @@ describe('IntegrationManager', () => {
     it('passes the provider setupDescriptor through as setup', async () => {
       const catalog = await manager.getSocialProviderCatalog();
 
-      const xEntry = catalog.find((c) => c.identifier === 'x');
-      expect(xEntry?.setup).toEqual({
-        authType: 'oauth1',
+      const tiktokEntry = catalog.find((c) => c.identifier === 'tiktok');
+      expect(tiktokEntry?.setup).toEqual({
+        authType: 'oauth2',
         credentialFields: [
-          { key: 'clientId', label: 'API Key (Consumer Key)' },
-          { key: 'clientSecret', label: 'API Secret (Consumer Secret)', secret: true },
+          { key: 'clientId', label: 'Client Key' },
+          { key: 'clientSecret', label: 'Client Secret', secret: true },
         ],
-        portalUrl: 'https://developer.x.com/en/portal/dashboard',
-        portalLabel: 'X Developer Portal',
+        portalUrl: 'https://developers.tiktok.com/apps',
+        portalLabel: 'TikTok for Developers',
       });
     });
 
@@ -1367,11 +1236,11 @@ describe('IntegrationManager', () => {
     });
 
     it('marks env-backed providers as platformConfigured', async () => {
-      stubEnvApp('x');
+      stubEnvApp('tiktok');
 
       const catalog = await manager.getSocialProviderCatalog();
 
-      expect(catalog.find((c) => c.identifier === 'x')?.platformConfigured).toBe(true);
+      expect(catalog.find((c) => c.identifier === 'tiktok')?.platformConfigured).toBe(true);
       expect(
         catalog.find((c) => c.identifier === 'linkedin')?.platformConfigured
       ).toBe(false);
@@ -1382,9 +1251,9 @@ describe('IntegrationManager', () => {
       try {
         const catalog = await manager.getSocialProviderCatalog();
 
-        const xEntry = catalog.find((c) => c.identifier === 'x');
-        expect(xEntry?.callbackUrl).toBe(
-          'https://app.example.com/integrations/social/x'
+        const tiktokEntry = catalog.find((c) => c.identifier === 'tiktok');
+        expect(tiktokEntry?.callbackUrl).toBe(
+          'https://app.example.com/integrations/social/tiktok'
         );
       } finally {
         vi.unstubAllEnvs();
@@ -1501,16 +1370,16 @@ describe('IntegrationManager', () => {
 
     it('passes static clientInformation through unchanged for non-external providers', async () => {
       const m = enabledOrgManager();
-      const xProvider = providerById.get('x')!;
+      const tiktokProvider = providerById.get('tiktok')!;
       const spy = vi.fn(async () => ({
         url: 'https://x.example/auth',
         codeVerifier: 'v',
         state: 'state-x',
       }));
-      xProvider.generateAuthUrl = spy;
+      tiktokProvider.generateAuthUrl = spy;
       try {
         await m.generateAuthUrl(
-          'x',
+          'tiktok',
           'org-1',
           { client_id: 'static-id', client_secret: 'static-secret' },
           {}
@@ -1520,7 +1389,7 @@ describe('IntegrationManager', () => {
           client_secret: 'static-secret',
         });
       } finally {
-        delete xProvider.generateAuthUrl;
+        delete tiktokProvider.generateAuthUrl;
       }
     });
   });

@@ -8,7 +8,7 @@ import {
 describe('providerForFormatId', () => {
   it('maps a social preset to its provider', () => {
     expect(providerForFormatId('ig-post')).toBe('instagram');
-    expect(providerForFormatId('x-post')).toBe('x');
+    expect(providerForFormatId('fb-story')).toBe('facebook');
     expect(providerForFormatId('linkedin-post')).toBe('linkedin');
   });
 
@@ -32,11 +32,11 @@ describe('providerForFormatId', () => {
 describe('variantProviders', () => {
   it('collects distinct providers in first-appearance order', () => {
     const outputs = [
-      { id: 'o1', formatId: 'x-post' },
+      { id: 'o1', formatId: 'linkedin-post' },
       { id: 'o2', formatId: 'ig-post' },
       { id: 'o3', formatId: 'ig-story' },
     ];
-    expect(variantProviders(outputs)).toEqual(['x', 'instagram']);
+    expect(variantProviders(outputs)).toEqual(['linkedin', 'instagram']);
   });
 
   it('skips variants with no provider', () => {
@@ -62,7 +62,7 @@ describe('groupFilesByProvider', () => {
   const outputs = [
     { id: 'o-ig-post', formatId: 'ig-post' },
     { id: 'o-ig-story', formatId: 'ig-story' },
-    { id: 'o-x', formatId: 'x-post' },
+    { id: 'o-fb-story', formatId: 'fb-story' },
     { id: 'o-custom', formatId: 'custom' },
   ];
 
@@ -70,7 +70,7 @@ describe('groupFilesByProvider', () => {
     const files = [
       { outputId: 'o-ig-post', path: '/a.jpg' },
       { outputId: 'o-ig-story', path: '/b.jpg' },
-      { outputId: 'o-x', path: '/c.jpg' },
+      { outputId: 'o-fb-story', path: '/c.jpg' },
       { outputId: 'o-custom', path: '/d.jpg' },
     ];
     const groups = groupFilesByProvider(files, outputs);
@@ -78,10 +78,10 @@ describe('groupFilesByProvider', () => {
       { outputId: 'o-ig-post', path: '/a.jpg' },
       { outputId: 'o-ig-story', path: '/b.jpg' },
     ]);
-    expect(groups.x).toEqual([{ outputId: 'o-x', path: '/c.jpg' }]);
+    expect(groups.facebook).toEqual([{ outputId: 'o-fb-story', path: '/c.jpg' }]);
     // Custom-format variant exports to /files but is never postable.
     expect(groups.custom).toBeUndefined();
-    expect(Object.keys(groups).sort()).toEqual(['instagram', 'x']);
+    expect(Object.keys(groups).sort()).toEqual(['facebook', 'instagram']);
   });
 
   it('drops files whose output is missing from the outputs list', () => {

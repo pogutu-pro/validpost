@@ -9,7 +9,7 @@ All v1 routes are org-scoped. Mutating routes support idempotency keys, and read
 
 ## OpenAPI specification
 
-The full machine-readable spec is committed at [`openapi.yml`](https://github.com/postmill-ai/postmill-app/blob/main/openapi.yml)
+The full machine-readable spec is available at `openapi.yml` in the repository root.
 in the repository root, and a running instance serves the same document as browsable Swagger UI at
 `/docs`.
 

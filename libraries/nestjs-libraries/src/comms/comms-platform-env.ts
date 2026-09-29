@@ -2,16 +2,15 @@
 //
 // Mirrors `integrations/channel-env-credentials.ts`: when the operator sets a
 // comms provider's platform-app keys in the environment, every org can connect
-// that provider with a single click (OAuth for Slack, env pull for Discord/
-// Telegram/LINE) instead of entering per-org credentials. Presence-based +
-// opt-in: if a provider's vars are unset, behaviour is unchanged (per-org
-// manual entry only). Nothing is seeded into the database at boot — env is
-// resolved live, per request, and persisted only when an org explicitly
-// connects (platform-connect / the Slack OAuth callback).
+// that provider with a single click (env pull for Discord/Telegram) instead of
+// entering per-org credentials. Presence-based + opt-in: if a provider's vars
+// are unset, behaviour is unchanged (per-org manual entry only). Nothing is
+// seeded into the database at boot — env is resolved live, per request, and
+// persisted only when an org explicitly connects via platform-connect.
 
 import { hmacSha256Hex } from '@postmill-ai/provider-kernel';
 
-export type CommsPlatformConnect = 'oauth' | 'env';
+export type CommsPlatformConnect = 'env';
 
 interface CommsPlatformEnvMapping {
   identifier: string;
@@ -20,22 +19,12 @@ interface CommsPlatformEnvMapping {
   // platformConfigured requires ALL of them present.
   credentialEnvs: Array<{ env: string; key: string }>;
   // True when the operator must paste the platform webhook URL into the
-  // vendor console (Slack/Discord/LINE); false when Postmill registers it
+  // vendor console (Discord); false when Postmill registers it
   // programmatically (Telegram setWebhook).
   manualWebhookUrl: boolean;
 }
 
 export const COMMS_PLATFORM_ENV_MAPPINGS: CommsPlatformEnvMapping[] = [
-  {
-    identifier: 'slack',
-    platformConnect: 'oauth',
-    manualWebhookUrl: true,
-    credentialEnvs: [
-      { env: 'SLACK_ID', key: 'clientId' },
-      { env: 'SLACK_SECRET', key: 'clientSecret' },
-      { env: 'SLACK_SIGNING_SECRET', key: 'signingSecret' },
-    ],
-  },
   {
     identifier: 'discord',
     platformConnect: 'env',
@@ -51,15 +40,6 @@ export const COMMS_PLATFORM_ENV_MAPPINGS: CommsPlatformEnvMapping[] = [
     platformConnect: 'env',
     manualWebhookUrl: false,
     credentialEnvs: [{ env: 'TELEGRAM_TOKEN', key: 'botToken' }],
-  },
-  {
-    identifier: 'line',
-    platformConnect: 'env',
-    manualWebhookUrl: true,
-    credentialEnvs: [
-      { env: 'LINE_CHANNEL_ACCESS_TOKEN', key: 'channelAccessToken' },
-      { env: 'LINE_CHANNEL_SECRET', key: 'channelSecret' },
-    ],
   },
 ];
 

@@ -59,31 +59,6 @@ export class CommsInboundService {
     private _gate: CommsConfirmationGate,
   ) {}
 
-  // Matrix cron support: enabled poll-inbound configs to fan out over.
-  listPollConfigs(identifier: string) {
-    return this._configs.getEnabledByIdentifier(identifier);
-  }
-
-  /**
-   * One /sync round for a matrix config: poll from the stored cursor, persist
-   * the new cursor, return the inbound messages for the caller to enqueue.
-   */
-  async pollConfig(orgId: string, configId: string, identifier: string) {
-    const adapter = await this._configService.resolveAdapter(orgId, identifier);
-    if (!adapter.pollInbound) return { messages: [] };
-    const config = await this._configs.getById(configId);
-    if (!config || config.organizationId !== orgId) return { messages: [] };
-    const result = await adapter.pollInbound(config.syncCursor ?? undefined);
-    if (result.nextCursor && result.nextCursor !== config.syncCursor) {
-      await this._configs.updateSyncCursor(configId, result.nextCursor);
-    }
-    return {
-      messages: result.messages.filter(
-        (m) => m.kind === 'message' && m.externalUserId && m.text,
-      ),
-    };
-  }
-
   /**
    * Process one inbound message: connect-code claim, or an agent turn for a
    * linked user. Runs inside the comms-inbound Inngest function. Every path

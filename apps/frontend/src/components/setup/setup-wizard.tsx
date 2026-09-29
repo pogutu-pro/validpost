@@ -16,8 +16,6 @@ import { StepStorage } from '@postmill-ai/frontend/components/setup/steps/step-s
 import { StepShortlinks } from '@postmill-ai/frontend/components/setup/steps/step-shortlinks';
 import { StepVpn } from '@postmill-ai/frontend/components/setup/steps/step-vpn';
 
-// Only StepLlm consumes `onProviderChange` / `onActiveChange`; the others are no-arg
-// components and remain assignable to this prop type (extra optional props are ignored).
 const STEP_COMPONENTS: React.FC<{
   onProviderChange?: () => void;
   onActiveChange?: (active: boolean) => void;
@@ -37,10 +35,6 @@ export function SetupWizard() {
   const router = useRouter();
   const { mutate: globalMutate } = useSWRConfig();
 
-  // Setup configures org-level providers (owner/admin only). A member who lands here directly
-  // can't complete the required LLM step (AI-config endpoints 403) — send them to the app
-  // instead of a dead-end wizard. The layout gate already avoids force-redirecting members
-  // here; this covers direct navigation / stale links.
   const permissions = usePermissions();
   const canCompleteSetup =
     permissions.isSuperAdmin || permissions.isOwner || permissions.isAdmin;
@@ -50,10 +44,6 @@ export function SetupWizard() {
     }
   }, [permissions.isResolved, canCompleteSetup, router]);
 
-  // Restore the active step after an OAuth full-page round-trip (connecting a channel or an
-  // OAuth short-link provider navigates the tab out to the provider and back; the gate then
-  // returns the still-incomplete user to /setup, remounting this wizard). sessionStorage
-  // survives same-tab navigation, so we resume on the step the user left instead of step 0.
   const [currentStep, setCurrentStep] = useState<number>(() => {
     if (typeof window === 'undefined') return 0;
     const saved = window.sessionStorage.getItem('setup:step');
@@ -64,8 +54,6 @@ export function SetupWizard() {
   const [skippedSteps, setSkippedSteps] = useState<Set<number>>(new Set());
   const [finishing, setFinishing] = useState(false);
   const [finishError, setFinishError] = useState<string | null>(null);
-  // Live, uncached active-provider signal reported by StepLlm's own SWR surface — the
-  // authoritative gate source (the /dashboard/summary read below is Redis-cached 60s).
   const [llmActive, setLlmActive] = useState(false);
 
   const steps = useMemo(
@@ -81,10 +69,6 @@ export function SetupWizard() {
     [t]
   );
 
-  // The LLM step's first provider auto-activates synchronously on save (§3.5).
-  // Rather than poll (which hammers the throttled /dashboard/summary), we
-  // revalidate this once whenever the step reports a provider change — see
-  // `handleProviderChange` passed into the active step below.
   const { data: summary, mutate: mutateSummary } = useSWR(
     '/dashboard/summary',
     useCallback(async (url: string) => (await fetch(url)).json(), [fetch]),
@@ -98,15 +82,12 @@ export function SetupWizard() {
     mutateSummary();
   }, [mutateSummary]);
 
-  // Persist the active step so it survives an OAuth round-trip / gate remount (see above).
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.sessionStorage.setItem('setup:step', String(currentStep));
     }
   }, [currentStep]);
 
-  // Prefer the live surface signal; fall back to the (cached) summary so a returning user
-  // resuming setup with an already-active provider still clears the gate on first mount.
   const aiProviderActive = llmActive || !!summary?.aiProviderActive;
   const isLastStep = currentStep === steps.length - 1;
   const canFinish = aiProviderActive;
@@ -142,9 +123,6 @@ export function SetupWizard() {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.message || t('setup_complete_failed', 'Could not complete setup'));
       }
-      // CRITICAL: update the /user/self cache BEFORE navigating, otherwise the
-      // LayoutComponent gate on /dashboard sees the stale setupCompleted:false
-      // and bounces the user back to /setup.
       await globalMutate(
         '/user/self',
         (prev: any) => (prev ? { ...prev, setupCompleted: true } : prev),
@@ -166,14 +144,20 @@ export function SetupWizard() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="shrink-0 px-[24px] pt-[20px] pb-[16px] border-b border-newBorder">
-        <h1 className="text-[22px] font-[700] text-btnPrimary">
-          {t('setup_title', "Welcome — let's set up your workspace")}
+      <div className="shrink-0 px-[24px] pt-[24px] pb-[20px] border-b border-newBorder">
+        <div className="flex items-center gap-[10px] mb-[10px]">
+          <div className="w-[6px] h-[6px] rounded-full bg-[#4F46E5]" />
+          <span className="text-[11px] font-[600] uppercase tracking-[0.08em] text-[#4F46E5]">
+            {t('setup_badge', 'Workspace Setup')}
+          </span>
+        </div>
+        <h1 className="text-[24px] font-[700] text-btnPrimary tracking-[-0.01em]">
+          {t('setup_title', "Welcome to ValidPost — let's set up your workspace")}
         </h1>
-        <p className="text-[13px] text-newTableText mt-[6px] max-w-[720px] leading-[1.5]">
+        <p className="text-[13px] text-newTableText mt-[8px] max-w-[720px] leading-[1.6]">
           {t(
             'setup_intro',
-            'A quick one-time setup to get Postmill ready. Only the'
+            'A quick one-time setup to get ValidPost ready. Only the'
           )}{' '}
           <span className="text-textColor font-[600]">
             {t('setup_step_llm', 'LLM')}
@@ -201,12 +185,17 @@ export function SetupWizard() {
       </div>
 
       {finishError && (
-        <div className="shrink-0 px-[24px] py-[8px] bg-red-500/10 border-t border-red-500/20 text-red-500 text-[13px]">
+        <div className="shrink-0 px-[24px] py-[10px] bg-red-500/10 border-t border-red-500/20 text-red-500 text-[13px] flex items-center gap-[8px]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
           {finishError}
         </div>
       )}
 
-      <div className="shrink-0 h-[64px] px-[24px] border-t border-newBorder flex items-center justify-between bg-primary">
+      <div className="shrink-0 h-[72px] px-[24px] border-t border-newBorder flex items-center justify-between bg-primary">
         <Button
           type="button"
           onClick={handleBack}
@@ -232,7 +221,7 @@ export function SetupWizard() {
               type="button"
               onClick={finishSetup}
               disabled={finishing}
-              className="bg-btnPrimary text-white"
+              className="bg-[#4F46E5] text-white hover:bg-[#4338C8] transition-colors"
             >
               {finishing
                 ? t('finishing', 'Finishing...')
@@ -245,7 +234,7 @@ export function SetupWizard() {
               type="button"
               onClick={handleNext}
               disabled={currentStep === 0 && !aiProviderActive}
-              className="bg-btnPrimary text-white"
+              className="bg-[#4F46E5] text-white hover:bg-[#4338C8] transition-colors"
             >
               {t('next', 'Next')}
             </Button>

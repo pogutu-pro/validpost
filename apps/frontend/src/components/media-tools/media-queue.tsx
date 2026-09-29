@@ -15,7 +15,6 @@ import {
 } from '@postmill-ai/frontend/components/dashboard/hooks/useMediaJobs';
 import { MEDIA_QUEUE_HREF } from '@postmill-ai/frontend/components/dashboard/destinations';
 
-/** Chips mirror AIMediaJob.status; `null` is "everything". */
 const STATUS_FILTERS: { value: string | null; labelKey: string; label: string }[] = [
   { value: null, labelKey: 'media_queue_filter_all', label: 'All' },
   { value: 'pending', labelKey: 'render_status_queued', label: 'Queued' },
@@ -26,9 +25,6 @@ const STATUS_FILTERS: { value: string | null; labelKey: string; label: string }[
 
 const VALID_STATUSES = new Set(['pending', 'processing', 'completed', 'failed']);
 
-// The queue speaks in the same vocabulary as the studio rail: a job is queued,
-// rendering, ready or failed. `RenderQueue` owns the row; this page owns the
-// counts, the filter and paging.
 const toStudioJobs = (jobs: MediaJob[]): StudioJob[] =>
   jobs.map((job) => ({
     id: job.id,
@@ -45,7 +41,7 @@ const CountPill: React.FC<{ label: string; value: number; tone: 'active' | 'fail
   value,
   tone,
 }) => (
-  <div className="flex items-baseline gap-[8px] rounded-[10px] border border-newTableBorder bg-newBgColorInner px-[14px] py-[10px]">
+  <div className="flex items-baseline gap-[8px] rounded-[10px] border border-newTableBorder bg-newBgColorInner px-[14px] py-[10px] shadow-sm">
     <span
       className={clsx(
         'text-[20px] font-[700] tabular-nums leading-none',
@@ -84,7 +80,6 @@ export const MediaQueue: React.FC = () => {
       const params = new URLSearchParams(searchParams.toString());
       if (next) params.set('status', next);
       else params.delete('status');
-      // A highlight belongs to one job, not to a filtered list.
       params.delete('job');
       const query = params.toString();
       router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
@@ -94,8 +89,6 @@ export const MediaQueue: React.FC = () => {
 
   const studioJobs = useMemo(() => toStudioJobs(jobs), [jobs]);
   const isEmpty = !isLoading && studioJobs.length === 0;
-  // A failed *next* page must not wipe the pages already on screen — show the
-  // error block only when there is nothing else to show.
   const showError = !!error && studioJobs.length === 0;
 
   return (
@@ -144,10 +137,10 @@ export const MediaQueue: React.FC = () => {
             aria-pressed={status === filter.value}
             onClick={() => setStatus(filter.value)}
             className={clsx(
-              'px-[11px] py-[5px] rounded-full text-[12px] font-[500] border transition-colors',
+              'px-[11px] py-[5px] rounded-full text-[12px] font-[500] border transition-all',
               status === filter.value
-                ? 'bg-[#2B5CD3] border-[#2B5CD3] text-white'
-                : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor'
+                ? 'bg-[#4F46E5] border-[#4F46E5] text-white shadow-sm'
+                : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor hover:border-[#4F46E5]/30'
             )}
           >
             {t(filter.labelKey, filter.label)}
@@ -185,7 +178,7 @@ export const MediaQueue: React.FC = () => {
             status ? undefined : (
               <Link
                 href="/media"
-                className="inline-flex items-center px-[16px] py-[9px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[600] hover:bg-[#2B5CD3]/85 transition-colors"
+                className="inline-flex items-center px-[16px] py-[9px] rounded-[8px] bg-[#4F46E5] text-white text-[13px] font-[600] hover:bg-[#4338CA] transition-colors"
               >
                 {t('media_queue_empty_cta', 'Open a studio')}
               </Link>
@@ -237,7 +230,6 @@ export const MediaQueuePanel: React.FC = () => {
   const counts = data?.counts;
   const active = (counts?.pending ?? 0) + (counts?.processing ?? 0);
 
-  // Nothing has ever been rendered — don't spend index space on an empty panel.
   if (!isLoading && recent.length === 0) return null;
 
   return (

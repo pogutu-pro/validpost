@@ -26,19 +26,6 @@ afterAll(() => {
 });
 
 describe('comms-platform-env', () => {
-  it('resolves the slack platform app only when all three vars are present', () => {
-    process.env.SLACK_ID = 'sid';
-    process.env.SLACK_SECRET = 'ssec';
-    expect(isCommsPlatformConfigured('slack')).toBe(false);
-    process.env.SLACK_SIGNING_SECRET = 'ssign';
-    expect(isCommsPlatformConfigured('slack')).toBe(true);
-    expect(getCommsPlatformCredentials('slack')).toEqual({
-      clientId: 'sid',
-      clientSecret: 'ssec',
-      signingSecret: 'ssign',
-    });
-  });
-
   it('maps discord env vars onto the credential keys', () => {
     process.env.DISCORD_CLIENT_ID = 'app-1';
     process.env.DISCORD_BOT_TOKEN = 'bot-1';
@@ -51,24 +38,17 @@ describe('comms-platform-env', () => {
     });
   });
 
-  it('maps telegram (token-only) and line credentials', () => {
+  it('maps telegram (token-only) credentials', () => {
+    expect(isCommsPlatformConfigured('telegram')).toBe(false);
     process.env.TELEGRAM_TOKEN = 'tg-1';
     expect(getCommsPlatformCredentials('telegram')).toEqual({ botToken: 'tg-1' });
-    process.env.LINE_CHANNEL_ACCESS_TOKEN = 'cat-1';
-    expect(isCommsPlatformConfigured('line')).toBe(false);
-    process.env.LINE_CHANNEL_SECRET = 'cs-1';
-    expect(getCommsPlatformCredentials('line')).toEqual({
-      channelAccessToken: 'cat-1',
-      channelSecret: 'cs-1',
-    });
+    expect(getCommsPlatformDefinition('telegram')?.platformConnect).toBe('env');
   });
 
-  it('has no platform mapping for matrix or unknown providers', () => {
-    expect(getCommsPlatformDefinition('matrix')).toBeUndefined();
-    expect(getCommsPlatformCredentials('matrix')).toBeUndefined();
+  it('has no platform mapping for unknown providers', () => {
+    expect(getCommsPlatformDefinition('no-such-provider')).toBeUndefined();
+    expect(getCommsPlatformCredentials('no-such-provider')).toBeUndefined();
     expect(isCommsPlatformConfigured('nope')).toBe(false);
-    expect(getCommsPlatformDefinition('slack')?.platformConnect).toBe('oauth');
-    expect(getCommsPlatformDefinition('line')?.platformConnect).toBe('env');
   });
 
   it('derives the telegram platform webhook secret deterministically from the token', () => {

@@ -27,7 +27,7 @@ Postmill uses four fixed plans. Prices and limits are defined in `libraries/nest
 
 **30-day free trial** — new organizations start with a 30-day trial on the plan they select. The trial can be ended early from `/billing`.
 
-**Self-host unlock** — deployments without a payment provider configured treat every org as the **Agency** plan (`SELF_HOST_PLAN = 'AGENCY'`), so self-hosters get the full feature set.
+**Deployment unlock** — deployments without a payment provider configured treat every org as the **Agency** plan (`SELF_HOST_PLAN = 'AGENCY'`), so all users get the full feature set.
 
 ### Metered usage
 
@@ -75,7 +75,7 @@ The billing interface (`/billing`) lets you:
 
 - **Upgrade** — takes effect immediately. You are charged the prorated difference for the remainder of the billing period.
 - **Downgrade** — takes effect at the end of the current billing period. You retain current-tier features until then and the UI shows the pending tier.
-- **Cancel** — your subscription remains active until the end of the current billing period, then reverts to the free self-host behavior. No data is lost on cancellation — your posts, channels, and settings are preserved.
+- **Cancel** — your subscription remains active until the end of the current billing period, then reverts to the free tier. No data is lost on cancellation — your posts, channels, and settings are preserved.
 
 ### Payment methods
 

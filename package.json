@@ -1,7 +1,7 @@
 {
-  "name": "postmill",
+  "name": "validpost",
   "version": "1.0.0",
-  "description": "Postmill — open-source, AI-native platform to schedule social media and chat posts to 45+ channels.",
+  "description": "ValidPost — open-source, AI-native platform to schedule social media and chat posts to 45+ channels.",
   "license": "AGPL-3.0",
   "keywords": [
     "social-media",
@@ -9,7 +9,7 @@
     "ai",
     "open-source"
   ],
-  "author": "postmill-ai",
+  "author": "StratNovo",
   "engines": {
     "node": ">=24.0.0 <25.0.0"
   },

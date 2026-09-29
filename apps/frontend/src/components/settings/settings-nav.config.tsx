@@ -102,7 +102,7 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
     labelDefault: 'Channels',
     descKey: 'channels_settings_description',
     descDefault:
-      'Connect your social media accounts so you can publish posts from Postmill. Choose a platform, follow the steps, and you are ready to post.',
+      'Connect your social media accounts so you can publish posts from ValidPost. Choose a platform, follow the steps, and you are ready to post.',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
     ),
@@ -114,7 +114,7 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
     labelDefault: 'Comms',
     descKey: 'comms_settings_description',
     descDefault:
-      'Chat with your Postmill agent and receive notifications in your team’s chat apps.',
+      'Chat with your ValidPost agent and receive notifications in your team’s chat apps.',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg>
     ),
@@ -188,7 +188,7 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
     labelDefault: 'File Storage',
     descKey: 'storage_page_description',
     descDefault:
-      'Choose where Postmill saves your uploaded files — use the built-in storage or connect your own cloud bucket — and see how much space you are using.',
+      'Choose where ValidPost saves your uploaded files — use the built-in storage or connect your own cloud bucket — and see how much space you are using.',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
     ),
@@ -214,7 +214,7 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
     labelDefault: 'Webhooks',
     descKey: 'webhooks_description',
     descDefault:
-      'Get automatic notifications sent to your other apps when something happens in Postmill.',
+      'Get automatic notifications sent to your other apps when something happens in ValidPost.',
     section: 'Automation',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2"/><path d="M6 17L3 2l3.05 2.66"/><path d="M16.54 6.76a3 3 0 0 1 3.05 3.64"/><path d="M6 17.01l-2.5 4.99"/></svg>
@@ -228,7 +228,7 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
     labelDefault: 'Auto Post',
     descKey: 'autopost_description',
     descDefault:
-      'Automatically create posts from an RSS feed. Add a feed, pick channels, and Postmill will publish new items for you.',
+      'Automatically create posts from an RSS feed. Add a feed, pick channels, and ValidPost will publish new items for you.',
     section: 'Automation',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -242,7 +242,7 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
     labelDefault: 'Developers',
     descKey: 'developers_description',
     descDefault:
-      'Build custom connections with Postmill. Create API keys, set up MCP clients, and manage OAuth apps.',
+      'Build custom connections with ValidPost. Create API keys, set up MCP clients, and manage OAuth apps.',
     section: 'Developer',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -256,7 +256,7 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
     labelKey: 'approved_apps',
     labelDefault: 'Approved Apps',
     descKey: 'apps_you_have_authorized',
-    descDefault: 'See which outside apps can access your Postmill account. Remove access anytime.',
+    descDefault: 'See which outside apps can access your ValidPost account. Remove access anytime.',
     section: 'Developer',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 12 14 22 4"/></svg>

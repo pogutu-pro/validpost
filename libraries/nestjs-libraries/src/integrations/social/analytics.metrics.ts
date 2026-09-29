@@ -179,15 +179,6 @@ export const PROVIDER_METRIC_MAP: Record<string, Record<string, string>> = {
     'Desktop Map Views': 'desktop_map_views',
     'Mobile Map Views': 'mobile_map_views',
   },
-  pinterest: {
-    'Pin click rate': 'pin_click_rate',
-    Impressions: 'impressions',
-    'Pin Clicks': 'pin_clicks',
-    Engagement: 'engagement',
-    Saves: 'saves',
-    // Post-level (postAnalytics)
-    'Outbound Clicks': 'outbound_clicks',
-  },
   threads: {
     Views: 'views',
     Likes: 'likes',
@@ -195,91 +186,6 @@ export const PROVIDER_METRIC_MAP: Record<string, Record<string, string>> = {
     Reposts: 'reposts',
     Quotes: 'quotes',
   },
-  dribbble: {
-    // Dribbble API v2 stats (shot views/likes/comments, user followers, buckets).
-    Views: 'views',
-    Likes: 'likes',
-    Comments: 'comments',
-    Followers: 'followers',
-    Saves: 'saves',
-  },
-  x: {
-    // Channel-level (analytics) — labels are derived via key.toUpperCase()
-    IMPRESSION: 'impressions',
-    BOOKMARK: 'bookmarks',
-    LIKE: 'likes',
-    QUOTE: 'quotes',
-    REPLY: 'replies',
-    RETWEET: 'retweets',
-    // Post-level (postAnalytics) — human-readable labels
-    Impressions: 'impressions',
-    Likes: 'likes',
-    Retweets: 'retweets',
-    Replies: 'replies',
-    Quotes: 'quotes',
-    Bookmarks: 'bookmarks',
-  },
-  // --- Phase 7.1 (wave 1) ---
-  bluesky: {
-    // Channel-level (analytics) — public appview getProfile
-    Followers: 'followers',
-    // Post-level (postAnalytics) — public appview getPosts
-    Likes: 'likes',
-    Reposts: 'reposts',
-    Replies: 'replies',
-  },
-  mastodon: {
-    // Channel-level (analytics) — account followers_count
-    Followers: 'followers',
-    // Post-level (postAnalytics) — status favourites/reblogs/replies counts
-    Favourites: 'favorites',
-    Reblogs: 'reposts',
-    Replies: 'replies',
-  },
-  // Mastodon-API family subclasses expose the same metric surface.
-  gotosocial: {
-    Followers: 'followers',
-    Favourites: 'favorites',
-    Reblogs: 'reposts',
-    Replies: 'replies',
-  },
-  akkoma: {
-    Followers: 'followers',
-    Favourites: 'favorites',
-    Reblogs: 'reposts',
-    Replies: 'replies',
-  },
-  friendica: {
-    Followers: 'followers',
-    Favourites: 'favorites',
-    Reblogs: 'reposts',
-    Replies: 'replies',
-  },
-  // Misskey-API family: reactions replace likes; renotes = reposts.
-  misskey: {
-    Followers: 'followers',
-    Reactions: 'reactions',
-    Renotes: 'reposts',
-    Replies: 'replies',
-  },
-  sharkey: {
-    Followers: 'followers',
-    Reactions: 'reactions',
-    Renotes: 'reposts',
-    Replies: 'replies',
-  },
-  line: {
-    // Channel-level (analytics) — /v2/bot/insight/followers ready value.
-    Followers: 'followers',
-  },
-  reddit: {
-    // Post-level only (postAnalytics) — Reddit exposes no per-account channel
-    // analytics; subreddit-agnostic per-post metrics via /api/info.
-    Score: 'score',
-    'Upvote Ratio': 'upvote_ratio',
-    Comments: 'comments',
-  },
-  // --- Phase 7.2 (wave 2) ---
   telegram: {
     // Channel-level (analytics) — getChatMemberCount. Per-post `views` require
     // MTProto (not the Bot API) — documented BLOCKED in su-provider-analytics.md.

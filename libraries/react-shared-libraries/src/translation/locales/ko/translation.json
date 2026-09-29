@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "인증 창을 열지 못했습니다. 팝업 차단기 설정을 확인해 주세요.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Postmill에서 로그아웃",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "요약을 불러오지 못했습니다",
   "campaigns_fetch_failed": "캠페인을 불러오지 못했습니다",
   "attention_fetch_failed": "주의 사항을 불러오지 못했습니다",

@@ -40,10 +40,6 @@ import { createStreakTracker } from './streak-tracker';
 import { createAnalyticsBackfill } from './analytics-backfill';
 import { createPostPublishFunctions } from './post-publish';
 import { createCommsInbound } from './comms-inbound';
-import {
-  createCommsMatrixSync,
-  createCommsMatrixSyncOne,
-} from './comms-matrix-sync';
 
 export interface InngestActivities {
   postActivity: PostActivity;
@@ -87,7 +83,5 @@ export const createFunctions = (activities: InngestActivities): InngestFunction.
   createStreakTracker(activities.emailActivity, activities.postActivity),
   createAnalyticsBackfill(activities.analyticsActivity),
   createCommsInbound(activities.commsInboundService),
-  createCommsMatrixSync(activities.commsInboundService),
-  createCommsMatrixSyncOne(activities.commsInboundService),
   ...createPostPublishFunctions(activities.postActivity),
 ];

@@ -5,8 +5,8 @@ import { CommsInboundService } from '@postmill-ai/nestjs-libraries/comms/comms-i
 // One inbound chat message → connect-code claim or an agent turn + reply.
 // The webhook controller already ack'd the provider; only this step waits on
 // the agent. Serialized per config so one workspace's burst stays ordered and
-// can't starve others. Duplicate deliveries (Slack retries, Matrix cursor
-// resets) are dropped by the event-id dedupe stamped at send time.
+// can't starve others. Duplicate deliveries (provider retries) are dropped
+// by the event-id dedupe stamped at send time.
 export const createCommsInbound = (commsInboundService: CommsInboundService) =>
   inngest.createFunction(
     {

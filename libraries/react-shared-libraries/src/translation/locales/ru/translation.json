@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "Не удалось открыть окно аутентификации. Пожалуйста, проверьте настройки блокировщика всплывающих окон.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Выйти из Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "Не удалось загрузить сводку",
   "campaigns_fetch_failed": "Не удалось загрузить кампании",
   "attention_fetch_failed": "Не удалось загрузить требующие внимания события",

@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "Das Authentifizierungsfenster konnte nicht geöffnet werden. Bitte überprüfe deine Pop-up-Blocker-Einstellungen.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Abmelden von Postmill",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "Zusammenfassung konnte nicht geladen werden",
   "campaigns_fetch_failed": "Kampagnen konnten nicht geladen werden",
   "attention_fetch_failed": "Aufmerksamkeit konnte nicht geladen werden",

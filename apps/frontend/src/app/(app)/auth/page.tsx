@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { getT } from '@postmill-ai/react/translation/get.translation.service.backend';
 import { LoginWithOidc } from '@postmill-ai/frontend/components/auth/login.with.oidc';
 export const metadata: Metadata = {
-  title: `Postmill Register`,
+  title: `ValidPost Register`,
   description: '',
 };
 export default async function Auth(params: {searchParams: Promise<{provider: string}>}) {

@@ -67,8 +67,8 @@ describe('CommsTab', () => {
 
     expect(await screen.findByText('Telegram')).toBeDefined();
     expect(screen.getByText('Discord')).toBeDefined();
-    // Slack is not configured — it belongs in the picker, not the list.
-    expect(screen.queryByText('Slack')).toBeNull();
+    // OAuth Demo is not configured — it belongs in the picker, not the list.
+    expect(screen.queryByText('OAuth Demo')).toBeNull();
     // Webhook-registration warning surfaces on the row.
     expect(screen.getByText('Webhook not registered')).toBeDefined();
     // Linked members show like channels' "Connected as".
@@ -110,23 +110,23 @@ describe('CommsTab', () => {
     const pickerView = render(picker, { wrapper });
     const withinPicker = within(pickerView.container);
 
-    const slackButton = await withinPicker.findByText('Slack');
+    const oauthButton = await withinPicker.findByText('OAuth Demo');
     // Already-configured providers are not offered again.
     expect(withinPicker.queryByText('Telegram')).toBeNull();
     expect(withinPicker.queryByText('Discord')).toBeNull();
-    // The comms capability matrix renders as badges (Slack: webhook + threads)
-    // — scoped to the Slack row (matrix also carries Threads).
-    const slackRow = within(slackButton.closest('button') as HTMLElement);
-    expect(slackRow.getByText('Webhook')).toBeDefined();
-    expect(slackRow.getByText('Threads')).toBeDefined();
+    // The comms capability matrix renders as badges (OAuth Demo: webhook + threads)
+    // — scoped to the OAuth Demo row (flat-demo also carries Threads).
+    const oauthRow = within(oauthButton.closest('button') as HTMLElement);
+    expect(oauthRow.getByText('Webhook')).toBeDefined();
+    expect(oauthRow.getByText('Threads')).toBeDefined();
     // Pinned-version pill, like the channels picker/list rows.
-    expect(slackRow.getByText('v1')).toBeDefined();
+    expect(oauthRow.getByText('v1')).toBeDefined();
 
-    fireEvent.click(slackButton);
+    fireEvent.click(oauthButton);
     await waitFor(() => expect(mockOpenModal).toHaveBeenCalledTimes(2));
     expect(mockOpenModal.mock.calls[1][0].title.props).toMatchObject({
-      identifier: 'slack',
-      name: 'Slack',
+      identifier: 'oauth-demo',
+      name: 'OAuth Demo',
       action: 'setup',
     });
   });
@@ -144,7 +144,7 @@ describe('CommsTab', () => {
     // jsdom windows never close, so window.close() no-ops and the 400ms
     // fallback runs — exactly what a real full-page landing does.
     const closeSpy = vi.spyOn(window, 'close').mockImplementation(() => undefined);
-    window.history.replaceState({}, '', '/settings/comms?connected=slack');
+    window.history.replaceState({}, '', '/settings/comms?connected=oauth-demo');
     try {
       const { CommsTab } = await import('./comms.tab');
       render(<CommsTab />, { wrapper });
@@ -154,7 +154,7 @@ describe('CommsTab', () => {
       const signal = JSON.parse(
         window.localStorage.getItem(COMMS_CONNECTED_STORAGE_KEY) || '{}',
       );
-      expect(signal.provider).toBe('slack');
+      expect(signal.provider).toBe('oauth-demo');
       expect(signal.ts).toBeGreaterThan(0);
 
       await waitFor(() =>
@@ -172,21 +172,21 @@ describe('CommsTab', () => {
     const postMessage = vi.fn();
     const closeSpy = vi.spyOn(window, 'close').mockImplementation(() => undefined);
     Object.defineProperty(window, 'opener', { value: { postMessage }, writable: true });
-    window.history.replaceState({}, '', '/settings/comms?connected=slack');
+    window.history.replaceState({}, '', '/settings/comms?connected=oauth-demo');
     try {
       const { CommsTab } = await import('./comms.tab');
       render(<CommsTab />, { wrapper });
 
       await waitFor(() => expect(postMessage).toHaveBeenCalled());
       expect(postMessage).toHaveBeenCalledWith(
-        { type: 'postmill:comms-connected', provider: 'slack' },
+        { type: 'postmill:comms-connected', provider: 'oauth-demo' },
         window.location.origin,
       );
       // The localStorage signal is written too — it is the COOP-proof path.
       const signal = JSON.parse(
         window.localStorage.getItem(COMMS_CONNECTED_STORAGE_KEY) || '{}',
       );
-      expect(signal.provider).toBe('slack');
+      expect(signal.provider).toBe('oauth-demo');
       expect(closeSpy).toHaveBeenCalled();
     } finally {
       Object.defineProperty(window, 'opener', { value: null, writable: true });
@@ -197,13 +197,13 @@ describe('CommsTab', () => {
   });
 
   it('never closes the tab that marked itself as the popup-blocked full-page fallback', async () => {
-    // A script-opened main tab (target=_blank from an email/Slack link) IS
+    // A script-opened main tab (target=_blank from an email/chat link) IS
     // closable, so the "close, fall back if still here" heuristic would
     // discard the user's whole app tab. The fallback path marks the tab
     // before navigating; the landing honours the mark and lands directly.
     const closeSpy = vi.spyOn(window, 'close').mockImplementation(() => undefined);
     window.sessionStorage.setItem(COMMS_FULLPAGE_STORAGE_KEY, '1');
-    window.history.replaceState({}, '', '/settings/comms?connected=slack');
+    window.history.replaceState({}, '', '/settings/comms?connected=oauth-demo');
     try {
       const { CommsTab } = await import('./comms.tab');
       render(<CommsTab />, { wrapper });
@@ -222,13 +222,13 @@ describe('CommsTab', () => {
     }
   });
 
-  it('signals and closes with a severed opener and wiped window.name (the Slack case, any provider)', async () => {
-    // Verified in Chrome: Slack's consent pages sever window.opener via COOP
+  it('signals and closes with a severed opener and wiped window.name (the COOP case, any provider)', async () => {
+    // Verified in Chrome: some consent pages sever window.opener via COOP
     // AND reset window.name — but window.close() still works. No popup
     // detection: signal unconditionally, attempt close unconditionally.
     const closeSpy = vi.spyOn(window, 'close').mockImplementation(() => undefined);
     Object.defineProperty(window, 'opener', { value: null, writable: true });
-    window.history.replaceState({}, '', '/settings/comms?connected=matrix');
+    window.history.replaceState({}, '', '/settings/comms?connected=flat-demo');
     try {
       const { CommsTab } = await import('./comms.tab');
       render(<CommsTab />, { wrapper });
@@ -237,7 +237,7 @@ describe('CommsTab', () => {
       const signal = JSON.parse(
         window.localStorage.getItem(COMMS_CONNECTED_STORAGE_KEY) || '{}',
       );
-      expect(signal.provider).toBe('matrix');
+      expect(signal.provider).toBe('flat-demo');
       expect(signal.ts).toBeGreaterThan(0);
     } finally {
       window.localStorage.removeItem(COMMS_CONNECTED_STORAGE_KEY);

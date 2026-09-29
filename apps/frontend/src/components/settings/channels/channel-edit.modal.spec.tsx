@@ -120,7 +120,7 @@ const TOKEN_SETUP = {
 };
 
 function renderTokenForm(
-  identifier: 'telegram' | 'line',
+  identifier: 'telegram' | 'token-demo',
   opts: { platformConfigured?: boolean; edit?: boolean } = {}
 ) {
   const onClose = vi.fn();
@@ -129,7 +129,7 @@ function renderTokenForm(
     <SWRConfig value={{ provider: () => new Map() }}>
       <ChannelConfigForm
         identifier={identifier}
-        providerName={identifier === 'telegram' ? 'Telegram' : 'LINE'}
+        providerName={identifier === 'telegram' ? 'Telegram' : 'Token Demo'}
         platformConfigured={opts.platformConfigured ?? true}
         setup={TOKEN_SETUP}
         config={
@@ -462,19 +462,19 @@ describe('ChannelConfigForm token connect', () => {
     expect(screen.queryByTestId('web3-connect')).toBeNull();
   });
 
-  it('line (no interactive component): Connect completes the token-validation connect inline', async () => {
-    const { onClose, onSaved } = renderTokenForm('line');
+  it('token-demo (no interactive component): Connect completes the token-validation connect inline', async () => {
+    const { onClose, onSaved } = renderTokenForm('token-demo');
     fireEvent.change(
       screen.getByPlaceholderText('e.g. Marketing LinkedIn'),
-      { target: { value: 'LINE set' } }
+      { target: { value: 'Token Demo set' } }
     );
-    fireEvent.click(screen.getByRole('button', { name: 'Connect with LINE' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Connect with Token Demo' }));
 
     await waitFor(() => expect(onClose).toHaveBeenCalled());
     // Inline social-connect POST — no full-page redirect through
     // continue.integration (a failure there dumped the user on /posts).
     const call = mockFetch.mock.calls.find(
-      ([u]) => u === '/integrations/social-connect/line'
+      ([u]) => u === '/integrations/social-connect/token-demo'
     );
     expect(call).toBeTruthy();
     expect(JSON.parse(call![1].body)).toEqual({
@@ -577,7 +577,7 @@ describe('ChannelConfigForm token connect', () => {
       if (url.startsWith('/integrations/social-connect/')) {
         connectCalls += 1;
         return connectCalls === 1
-          ? Promise.resolve({ ok: false, json: async () => ({ message: 'LINE channel access token was rejected' }) })
+          ? Promise.resolve({ ok: false, json: async () => ({ message: 'Token Demo credential was rejected' }) })
           : Promise.resolve({ ok: true, json: async () => ({ id: 'int-1' }) });
       }
       if (url.startsWith('/integrations/social/')) {
@@ -586,21 +586,21 @@ describe('ChannelConfigForm token connect', () => {
       return Promise.resolve({ ok: true, json: async () => ({}) });
     });
 
-    const { onClose } = renderTokenForm('line');
+    const { onClose } = renderTokenForm('token-demo');
     fireEvent.change(
       screen.getByPlaceholderText('e.g. Marketing LinkedIn'),
-      { target: { value: 'LINE set' } }
+      { target: { value: 'Token Demo set' } }
     );
-    fireEvent.click(screen.getByRole('button', { name: 'Connect with LINE' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Connect with Token Demo' }));
     // First connect fails — the modal stays open on the form.
     await waitFor(() =>
       expect(mockToast).toHaveBeenCalledWith(
-        'LINE channel access token was rejected',
+        'Token Demo credential was rejected',
         'warning'
       )
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Connect with LINE' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Connect with Token Demo' }));
     await waitFor(() => expect(onClose).toHaveBeenCalled());
 
     // Retry saved via PUT on the created set — no duplicate POST.
@@ -628,7 +628,7 @@ const DIRECT_CUSTOM_FIELDS = [
   {
     key: 'service',
     label: 'Service',
-    defaultValue: 'https://bsky.social',
+    defaultValue: 'https://example.social',
     validation: '/^https?:\\/\\/.+$/',
     type: 'text' as const,
   },
@@ -642,8 +642,8 @@ function renderDirectForm() {
   const utils = render(
     <SWRConfig value={{ provider: () => new Map() }}>
       <ChannelConfigForm
-        identifier="bluesky"
-        providerName="Bluesky"
+        identifier="direct-demo"
+        providerName="Direct Demo"
         platformConfigured={false}
         setup={DIRECT_SETUP}
         customFields={DIRECT_CUSTOM_FIELDS}
@@ -663,10 +663,10 @@ describe('ChannelConfigForm direct connect (customFields)', () => {
         return Promise.resolve({ ok: true, json: async () => ({ integrations: [] }) });
       }
       if (url === '/channels/config') {
-        return Promise.resolve({ ok: true, json: async () => ({ id: 'cfg-bsky' }) });
+        return Promise.resolve({ ok: true, json: async () => ({ id: 'cfg-direct' }) });
       }
       if (url.startsWith('/integrations/social/')) {
-        return Promise.resolve({ ok: true, json: async () => ({ url: 'nonce-bsky' }) });
+        return Promise.resolve({ ok: true, json: async () => ({ url: 'nonce-direct' }) });
       }
       return Promise.resolve({ ok: true, json: async () => ({}) });
     });
@@ -677,17 +677,17 @@ describe('ChannelConfigForm direct connect (customFields)', () => {
     expect(screen.getByText('Identifier')).toBeTruthy();
     expect(screen.getByText('Password')).toBeTruthy();
     expect(
-      screen.getByRole('button', { name: 'Connect with Bluesky' })
+      screen.getByRole('button', { name: 'Connect with Direct Demo' })
     ).toBeTruthy();
   });
 
   it('rejects invalid field values before saving', () => {
     renderDirectForm();
     fireEvent.change(screen.getByPlaceholderText('e.g. Marketing LinkedIn'), {
-      target: { value: 'Bluesky set' },
+      target: { value: 'Direct Demo set' },
     });
     // Identifier empty — fails its /^.+$/ validation.
-    fireEvent.click(screen.getByRole('button', { name: 'Connect with Bluesky' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Connect with Direct Demo' }));
     expect(mockToast).toHaveBeenCalledWith('Identifier is invalid', 'warning');
     expect(
       mockFetch.mock.calls.some(([u]) => u === '/channels/config')
@@ -697,15 +697,15 @@ describe('ChannelConfigForm direct connect (customFields)', () => {
   it('saves the set ENABLED, then completes the connect inline with base64(JSON) code', async () => {
     const { onClose, onSaved } = renderDirectForm();
     fireEvent.change(screen.getByPlaceholderText('e.g. Marketing LinkedIn'), {
-      target: { value: 'Bluesky set' },
+      target: { value: 'Direct Demo set' },
     });
-    fireEvent.change(screen.getByDisplayValue('https://bsky.social'), {
-      target: { value: 'https://bsky.social' },
+    fireEvent.change(screen.getByDisplayValue('https://example.social'), {
+      target: { value: 'https://example.social' },
     });
     const inputs = screen.getAllByDisplayValue('');
-    fireEvent.change(inputs[0], { target: { value: 'postmill.bsky.social' } });
+    fireEvent.change(inputs[0], { target: { value: 'alice@example.social' } });
     fireEvent.change(inputs[1], { target: { value: 'app-password-x' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Connect with Bluesky' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Connect with Direct Demo' }));
 
     await waitFor(() => expect(onClose).toHaveBeenCalled());
     // Direct sets enable up front: connect initiation is gated on an enabled
@@ -715,20 +715,20 @@ describe('ChannelConfigForm direct connect (customFields)', () => {
     // State minted against the saved set.
     expect(
       mockFetch.mock.calls.some(
-        ([u]) => u === '/integrations/social/bluesky?config=cfg-bsky'
+        ([u]) => u === '/integrations/social/direct-demo?config=cfg-direct'
       )
     ).toBe(true);
     // Inline social-connect POST — code is base64(JSON) of the field values,
     // the same payload the old composer connect flow posted.
     const connectCall = mockFetch.mock.calls.find(
-      ([u]) => u === '/integrations/social-connect/bluesky'
+      ([u]) => u === '/integrations/social-connect/direct-demo'
     );
     expect(connectCall).toBeTruthy();
     const body = JSON.parse(connectCall![1].body);
-    expect(body.state).toBe('nonce-bsky');
+    expect(body.state).toBe('nonce-direct');
     expect(JSON.parse(atob(body.code))).toEqual({
-      service: 'https://bsky.social',
-      identifier: 'postmill.bsky.social',
+      service: 'https://example.social',
+      identifier: 'alice@example.social',
       password: 'app-password-x',
     });
     expect(onSaved).toHaveBeenCalled();

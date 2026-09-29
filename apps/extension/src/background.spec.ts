@@ -104,26 +104,27 @@ describe('background message listener', () => {
     const response = await sendMessage({ type: 'GET_PROVIDERS' });
     expect(response).toHaveProperty('providers');
     const providers = (response as { providers: unknown[] }).providers;
-    expect(providers.length).toBeGreaterThan(0);
-    expect(providers[0]).toHaveProperty('identifier');
-    expect(providers[0]).toHaveProperty('name');
-    expect(providers[0]).toHaveProperty('url');
-    expect(providers[0]).toHaveProperty('cookieNames');
+    expect(Array.isArray(providers)).toBe(true);
+    for (const provider of providers as Record<string, unknown>[]) {
+      expect(provider).toHaveProperty('identifier');
+      expect(provider).toHaveProperty('name');
+      expect(provider).toHaveProperty('url');
+      expect(provider).toHaveProperty('cookieNames');
+    }
   });
 
-  it('returns a missing-cookies error for an unauthenticated provider', async () => {
-    const response = await sendMessage({ type: 'GET_COOKIES', provider: 'skool' });
+  it('returns an unknown-provider error for an unregistered provider', async () => {
+    const response = await sendMessage({ type: 'GET_COOKIES', provider: 'no-such-provider' });
     expect(response).toMatchObject({
       success: false,
-      provider: 'skool',
-      missingCookies: expect.arrayContaining(['client_id', 'auth_token']),
+      error: 'Unknown provider: no-such-provider',
     });
   });
 
   it('stores and removes refresh tokens', async () => {
     const storeResponse = await sendMessage({
       type: 'STORE_REFRESH_TOKEN',
-      provider: 'skool',
+      provider: 'example',
       integrationId: 'integration-1',
       jwt: 'jwt-token',
       backendUrl: 'https://api.example.com',

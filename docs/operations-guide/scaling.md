@@ -6,7 +6,7 @@ collaboration single-instance constraint, and OpenTelemetry tracing.
 
 ## Production image (all-in-one)
 
-Use the multi-stage [`Dockerfile`](https://github.com/postmill-ai/postmill-app/blob/main/Dockerfile)
+Use the multi-stage `Dockerfile`
 at the repo root for production — **not** `docker/Dockerfile.dev`. The differences matter:
 
 | | `docker/Dockerfile.dev` | `Dockerfile` (production) |
@@ -27,7 +27,7 @@ image from GHCR or Docker Hub instead — see
 [Container images](./docker.md#container-images).
 
 **All-in-one process model.** The image runs three processes under
-[`docker/entrypoint.sh`](https://github.com/postmill-ai/postmill-app/blob/main/docker/entrypoint.sh):
+`docker/entrypoint.sh`:
 nginx on container port **5000** (the only published port), the NestJS backend on 127.0.0.1:**3000**,
 and the Next.js frontend prod server on 127.0.0.1:**4200**. nginx routes `/api/*` to the backend
 (stripping the `/api` prefix — the backend serves routes at root), serves `/uploads/*` from the

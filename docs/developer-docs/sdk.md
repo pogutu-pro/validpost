@@ -53,7 +53,7 @@ new Postmill(apiKey: string, path?: string)
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `apiKey` | `string` | required | Org API key (sent as `Authorization` header). |
-| `path` | `string` | `https://api.postmill.ai` | Custom API base URL for self-hosted instances. |
+| `path` | `string` | `https://api.postmill.ai` | Custom API base URL for private deployments. |
 
 ### Methods
 
@@ -126,7 +126,7 @@ deletePost(id: string): Promise<Response>
 
 - **Package name**: `@postmill-ai/postmill-sdk`
 - **Version**: 2.0.0
-- **License**: AGPL-3.0
+- **License**: Proprietary
 - **Build**: Uses `tsup` for bundling.
 - **Workspace dependency**: `@postmill-ai/nestjs-libraries`
 

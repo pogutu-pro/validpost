@@ -52,23 +52,17 @@ const liveEval = process.env.LIVE_EVAL === '1';
 
 const mockIntegrationManager = {
   getAllowedSocialsIntegrations: () => [
-    'x',
     'linkedin',
+    'linkedin-page',
     'facebook',
     'instagram',
-    'bluesky',
+    'instagram-standalone',
     'threads',
     'tiktok',
     'youtube',
-    'pinterest',
-    'reddit',
     'discord',
     'telegram',
-    'slack',
-    'wordpress',
-    'devto',
-    'hashnode',
-    'medium',
+    'gmb',
   ],
   getSocialIntegrationUnchecked: () => ({}),
 };
@@ -162,8 +156,8 @@ const ROUTING_CASES: RoutingCase[] = [
     keywords: ['channels', 'connected'],
   },
   {
-    // The Slack regression: a 'how many channels' question must land on the
-    // channel lister, never on anything else.
+    // A 'how many channels' question must land on the channel lister, never on
+    // anything else.
     prompt: 'How many channels are configured?',
     expectedToolId: 'integrationList',
     expectedSpecialist: 'supervisor',
@@ -316,7 +310,7 @@ const ROUTING_CASES: RoutingCase[] = [
     keywords: ['schema', 'integration'],
   },
   {
-    prompt: 'Look up the board id for my Pinterest account',
+    prompt: 'Look up the page id for my LinkedIn account',
     expectedToolId: 'triggerTool',
     expectedSpecialist: 'ops',
     keywords: ['settings'],

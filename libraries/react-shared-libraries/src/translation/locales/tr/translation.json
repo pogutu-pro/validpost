@@ -4004,7 +4004,7 @@
   "popup_blocker_warning": "Kimlik doğrulama penceresi açılamadı. Lütfen açılır pencere engelleyici ayarlarınızı kontrol edin.",
   "payment_required_message": "{{message}}",
   "logout_from_postmill": "Postmill'den çıkış yap",
-  "wordmark_aria_label": "Postmill",
+  "wordmark_aria_label": "ValidPost",
   "summary_fetch_failed": "Özet yüklenemedi",
   "campaigns_fetch_failed": "Kampanyalar yüklenemedi",
   "attention_fetch_failed": "Dikkat gerektirenler yüklenemedi",

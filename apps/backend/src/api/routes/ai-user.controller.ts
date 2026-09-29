@@ -488,15 +488,12 @@ export class AiUserController {
       });
 
       const platformNames: Record<string, string> = {
-        x: 'X/Twitter',
-        twitter: 'X/Twitter',
         linkedin: 'LinkedIn',
         instagram: 'Instagram',
         facebook: 'Facebook',
         threads: 'Threads',
         tiktok: 'TikTok',
         youtube: 'YouTube',
-        pinterest: 'Pinterest',
       };
 
       const platformName = platformNames[body.platform.toLowerCase()] || body.platform;
@@ -720,8 +717,6 @@ Draft a friendly, professional reply from the social media manager's perspective
       });
 
       const platformDescriptions: Record<string, string> = {
-        twitter: 'short, punchy, under 280 characters, use hashtags wisely',
-        x: 'short, punchy, under 280 characters, use hashtags wisely',
         linkedin:
           'professional tone, 1-3 paragraphs, industry insights, thought leadership',
         blog: 'long-form, detailed, SEO-friendly, structured with headings',
@@ -730,8 +725,6 @@ Draft a friendly, professional reply from the social media manager's perspective
         facebook:
           'conversational, friendly, may include questions to drive engagement',
         threads: 'casual, conversational, text-first, under 500 characters',
-        mastodon:
-          'conversational, content-warning aware, descriptive alt-text mindset',
       };
 
       const platformList = body.platforms

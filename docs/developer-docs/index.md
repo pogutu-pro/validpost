@@ -88,7 +88,7 @@ docker/              Dockerfiles, dev compose files, nginx.conf, entrypoints
 e2e/                 Playwright suite + seed data
 
 Dockerfile           Pinned at the root: the image CI publishes
-docker-compose.yaml  Pinned at the root: the self-hoster quick-start
+docker-compose.yaml  Pinned at the root: the deployment quick-start
 openapi.yml          Generated from the controllers — never hand-edited
 ```
 
