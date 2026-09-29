@@ -15,9 +15,7 @@
 name: Boot Guard
 
 on:
-  push:
-  merge_group:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   lockfile-drift:

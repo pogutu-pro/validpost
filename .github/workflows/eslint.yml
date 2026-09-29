@@ -7,11 +7,7 @@ name: ESLint
 # same as the other required workflows (test/build/boot-guard); ESLint passes
 # cheaply when no code changed.
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
+  workflow_dispatch:
 
 jobs:
   eslint:

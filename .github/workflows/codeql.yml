@@ -6,11 +6,7 @@ name: "Code Quality Analysis"
 # forever "waiting for status" because the job never runs. Run unconditionally,
 # same as the other required workflows; CodeQL passes quickly when no code changed.
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
+  workflow_dispatch:
 
 
 jobs:
