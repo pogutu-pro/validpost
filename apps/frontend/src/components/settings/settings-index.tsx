@@ -49,9 +49,9 @@ const SettingsCard: React.FC<{
 }> = ({ item, status, t }) => (
   <Link
     href={item.href}
-    className="group flex items-start gap-[12px] rounded-[12px] border border-newTableBorder bg-newBgColorInner p-[16px] hover:border-[#4F46E5]/50 transition-colors"
+    className="group flex items-start gap-[12px] rounded-[12px] border border-newTableBorder bg-newBgColorInner p-[16px] hover:border-btnPrimary/50 transition-colors"
   >
-    <span className="mt-px w-[18px] h-[18px] shrink-0 flex items-center justify-center text-newTableText group-hover:text-[#4F46E5] transition-colors">
+    <span className="mt-px w-[18px] h-[18px] shrink-0 flex items-center justify-center text-newTableText group-hover:text-btnPrimaryAccent transition-colors">
       {item.icon}
     </span>
       <span className="min-w-0 flex flex-col gap-[5px]">
@@ -146,7 +146,7 @@ export const SettingsIndexComponent: React.FC = () => {
     <div className="flex flex-col gap-[24px] max-w-[1180px]">
       <div className="flex flex-col gap-[6px]">
         <div className="flex items-center gap-[10px]">
-          <div className="w-[28px] h-[28px] rounded-[8px] bg-[#4F46E5] flex items-center justify-center">
+          <div className="w-[28px] h-[28px] rounded-[8px] bg-btnPrimary flex items-center justify-center">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
           <h1 className="text-[26px] mobile:text-[22px] font-[700] tracking-[-0.02em] text-textColor">
@@ -165,7 +165,7 @@ export const SettingsIndexComponent: React.FC = () => {
 
       {groups.map((group) => (
         <section key={group.section} className="flex flex-col gap-[12px]">
-          <h2 className="text-[11px] font-[600] uppercase tracking-[0.14em] text-[#4F46E5]">
+          <h2 className="text-[11px] font-[600] uppercase tracking-[0.14em] text-btnPrimaryAccent">
             {t(
               `settings_section_${group.section.toLowerCase()}`,
               group.section

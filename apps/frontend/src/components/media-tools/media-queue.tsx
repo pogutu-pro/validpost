@@ -139,8 +139,8 @@ export const MediaQueue: React.FC = () => {
             className={clsx(
               'px-[11px] py-[5px] rounded-full text-[12px] font-[500] border transition-all',
               status === filter.value
-                ? 'bg-[#4F46E5] border-[#4F46E5] text-white shadow-sm'
-                : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor hover:border-[#4F46E5]/30'
+                ? 'bg-btnPrimary border-btnPrimary text-white shadow-sm'
+                : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor hover:border-btnPrimary/30'
             )}
           >
             {t(filter.labelKey, filter.label)}
@@ -178,7 +178,7 @@ export const MediaQueue: React.FC = () => {
             status ? undefined : (
               <Link
                 href="/media"
-                className="inline-flex items-center px-[16px] py-[9px] rounded-[8px] bg-[#4F46E5] text-white text-[13px] font-[600] hover:bg-[#4338CA] transition-colors"
+                className="inline-flex items-center px-[16px] py-[9px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[600] hover:bg-vpPrimaryHover transition-colors"
               >
                 {t('media_queue_empty_cta', 'Open a studio')}
               </Link>

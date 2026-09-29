@@ -27,7 +27,7 @@ const MS_PER_PIXEL_DEFAULT = 4;
 const SNAP_THRESHOLD_MS = 80;
 
 const TRACK_COLORS: Record<VideoTrack['type'], string> = {
-  video: '#4F46E5',
+  video: '#C72A63',
   image: '#059669',
   text: '#D97706',
   shape: '#2B5CD3',

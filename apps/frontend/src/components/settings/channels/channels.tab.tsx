@@ -99,7 +99,7 @@ const CAPABILITY_COLORS: Record<string, string> = {
   video: 'bg-red-500/20 text-dangerText',
   carousel: 'bg-pink-500/20 text-pink-800 dark:text-pink-400',
   altText: 'bg-cyan-500/20 text-cyan-800 dark:text-cyan-400',
-  linkPreview: 'bg-indigo-500/20 text-indigo-800 dark:text-indigo-400',
+  linkPreview: 'bg-fuchsia-500/20 text-fuchsia-800 dark:text-fuchsia-400',
   refreshToken: 'bg-teal-500/20 text-teal-800 dark:text-teal-400',
   watchlist: 'bg-orange-500/20 text-orange-800 dark:text-orange-400',
 };
