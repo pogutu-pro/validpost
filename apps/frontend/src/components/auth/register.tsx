@@ -247,8 +247,8 @@ export function RegisterAfter({
 
     if (providersError) {
       return (
-        <div className="text-red-500 text-sm">
-          {t('failed_to_fetch_auth_providers', 'Failed to fetch auth providers')}
+        <div role="alert" className="text-red-500 text-sm mb-[12px]">
+          {t('failed_to_fetch_auth_providers', "We couldn't load the other sign-in options. Refresh the page to try again.")}
         </div>
       );
     }
@@ -265,7 +265,7 @@ export function RegisterAfter({
             <h1 className="text-[36px] font-[600] tracking-[-0.03em] text-start">
               {t('sign_up', 'Sign Up')}
             </h1>
-            <p className="mt-[6px] text-[14px] text-textItemBlur">
+            <p className="mt-[6px] mb-[16px] text-[14px] text-textItemBlur">
               {t('sign_up_subtitle', "Let's get your content moving.")}
             </p>
           </div>

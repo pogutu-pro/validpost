@@ -114,8 +114,8 @@ export function Login() {
 
     if (providersError) {
       return (
-        <div className="text-red-500 text-sm">
-          {t('failed_to_fetch_auth_providers', 'Failed to fetch auth providers')}
+        <div role="alert" className="text-red-500 text-sm mb-[12px]">
+          {t('failed_to_fetch_auth_providers', "We couldn't load the other sign-in options. Refresh the page to try again.")}
         </div>
       );
     }
@@ -131,9 +131,9 @@ export function Login() {
         <div className="flex flex-col flex-1">
           <div>
             <h1 className="text-[36px] font-[600] tracking-[-0.03em] text-start">
-              {t('sign_in', 'Welcome back')}
+              {t('auth_sign_in_title', 'Welcome back')}
             </h1>
-            <p className="mt-[6px] text-[14px] text-textItemBlur">
+            <p className="mt-[6px] mb-[16px] text-[14px] text-textItemBlur">
               {t('sign_in_subtitle', 'Sign in and get your content moving.')}
             </p>
           </div>
