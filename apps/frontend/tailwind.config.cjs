@@ -10,7 +10,22 @@ module.exports = {
       colors: {
         // Designer semantic tokens (M11/G1) — surface/selection/accent for the
         // media editor; centralizes the previously raw `#2B5CD3` accent.
-        designerAccent: '#4F46E5',
+        designerAccent: '#C72A63',
+        // ValidPost semantic tokens (defined per theme in src/app/colors.scss).
+        vpPrimary: 'var(--vp-primary)',
+        vpPrimaryHover: 'var(--vp-primary-hover)',
+        vpPrimaryFg: 'var(--vp-primary-foreground)',
+        vpSecondary: 'var(--vp-secondary)',
+        vpAccent: 'var(--vp-accent)',
+        vpSuccess: 'var(--vp-success)',
+        vpWarning: 'var(--vp-warning)',
+        vpError: 'var(--vp-error)',
+        vpInfo: 'var(--vp-info)',
+        vpDraft: 'var(--vp-status-draft)',
+        vpScheduled: 'var(--vp-status-scheduled)',
+        vpPublished: 'var(--vp-status-published)',
+        vpFailed: 'var(--vp-status-failed)',
+        vpReview: 'var(--vp-status-review)',
         designerSurface: '#1e1e2e',
         designerCanvas: '#1a1a2e',
         designerGuide: '#FF3B7F',
@@ -82,7 +97,14 @@ module.exports = {
       gridTemplateColumns: {
         13: 'repeat(13, minmax(0, 1fr));',
       },
+      borderRadius: {
+        vpSubtle: 'var(--vp-radius-subtle)',
+        vp: 'var(--vp-radius)',
+        vpLg: 'var(--vp-radius-lg)',
+        vpExpressive: 'var(--vp-radius-expressive)',
+      },
       backgroundImage: {
+        vpGradient: 'var(--vp-gradient)',
         loginBox: 'url(/auth/login-box.png)',
         loginBg: 'url(/auth/bg-login.png)',
       },
@@ -107,6 +129,11 @@ module.exports = {
         yellowToast: '0px 0px 50px rgba(252, 186, 3, 0.3)',
         greenToast: '0px 0px 50px rgba(60, 124, 90, 0.3)',
         menu: 'var(--menu-shadow)',
+        clay: 'var(--vp-clay-shadow)',
+        clayPressed: 'var(--vp-clay-shadow-pressed)',
+        elev1: 'var(--vp-elev-1)',
+        elev2: 'var(--vp-elev-2)',
+        elev3: 'var(--vp-elev-3)',
         previewShadow: 'var(--preview-box-shadow)',
       },
       dropShadow: {

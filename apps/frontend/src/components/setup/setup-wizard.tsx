@@ -146,13 +146,13 @@ export function SetupWizard() {
     <div className="flex flex-col h-full">
       <div className="shrink-0 px-[24px] pt-[24px] pb-[20px] border-b border-newBorder">
         <div className="flex items-center gap-[10px] mb-[10px]">
-          <div className="w-[6px] h-[6px] rounded-full bg-[#4F46E5]" />
-          <span className="text-[11px] font-[600] uppercase tracking-[0.08em] text-[#4F46E5]">
+          <div className="w-[6px] h-[6px] rounded-full bg-btnPrimary" />
+          <span className="text-[11px] font-[600] uppercase tracking-[0.08em] text-btnPrimaryAccent">
             {t('setup_badge', 'Workspace Setup')}
           </span>
         </div>
         <h1 className="text-[24px] font-[700] text-btnPrimary tracking-[-0.01em]">
-          {t('setup_title', "Welcome to ValidPost — let's set up your workspace")}
+          {t('setup_title', "Let's get your content moving")}
         </h1>
         <p className="text-[13px] text-newTableText mt-[8px] max-w-[720px] leading-[1.6]">
           {t(
@@ -221,7 +221,7 @@ export function SetupWizard() {
               type="button"
               onClick={finishSetup}
               disabled={finishing}
-              className="bg-[#4F46E5] text-white hover:bg-[#4338C8] transition-colors"
+              className="vp-clay"
             >
               {finishing
                 ? t('finishing', 'Finishing...')
@@ -234,7 +234,7 @@ export function SetupWizard() {
               type="button"
               onClick={handleNext}
               disabled={currentStep === 0 && !aiProviderActive}
-              className="bg-[#4F46E5] text-white hover:bg-[#4338C8] transition-colors"
+              className="vp-clay"
             >
               {t('next', 'Next')}
             </Button>

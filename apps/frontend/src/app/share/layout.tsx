@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-export const metadata = { title: { default: 'Postmill', template: '%s' } };
+export const metadata = { title: { default: 'ValidPost', template: '%s' } };
 import '../tailwind.css';
 import '../global.scss';
 import { ReactNode } from 'react';

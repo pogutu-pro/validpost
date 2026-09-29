@@ -48,7 +48,7 @@ export function SetupStepper({
         </div>
         <div className="w-[100px] h-[4px] bg-newBorder rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#4F46E5] rounded-full transition-all duration-300 ease-out"
+            className="h-full bg-btnPrimary rounded-full transition-all duration-300 ease-out"
             style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
           />
         </div>
@@ -66,7 +66,7 @@ export function SetupStepper({
                 disabled={!clickable}
                 className={clsx(
                   'flex items-center gap-[10px] px-[14px] py-[8px] rounded-[8px] transition-all shrink-0',
-                  state === 'active' && 'bg-[#4F46E5]/10 text-textColor',
+                  state === 'active' && 'bg-btnPrimary/10 text-textColor',
                   state === 'complete' && 'text-textColor hover:bg-boxHover',
                   state === 'skipped' && 'text-newTableText hover:bg-boxHover',
                   state === 'upcoming' && 'text-newTableText opacity-50 cursor-not-allowed'
@@ -75,8 +75,8 @@ export function SetupStepper({
                 <span
                   className={clsx(
                     'w-[26px] h-[26px] rounded-full flex items-center justify-center text-[12px] font-[600] border transition-all',
-                    state === 'active' && 'bg-[#4F46E5] border-[#4F46E5] text-white shadow-sm',
-                    state === 'complete' && 'bg-transparent border-[#4F46E5] text-[#4F46E5]',
+                    state === 'active' && 'bg-btnPrimary border-btnPrimary text-white shadow-sm',
+                    state === 'complete' && 'bg-transparent border-btnPrimary text-btnPrimaryAccent',
                     state === 'skipped' && 'bg-transparent border-newTableBorder text-newTableText',
                     state === 'upcoming' && 'bg-transparent border-newTableBorder text-newTableText'
                   )}
@@ -102,7 +102,7 @@ export function SetupStepper({
                 <div
                   className={clsx(
                     'w-[20px] h-px shrink-0 transition-colors',
-                    state === 'complete' ? 'bg-[#4F46E5]' : 'bg-newBorder'
+                    state === 'complete' ? 'bg-btnPrimary' : 'bg-newBorder'
                   )}
                 />
               )}

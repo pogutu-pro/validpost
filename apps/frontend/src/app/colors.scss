@@ -1,49 +1,179 @@
+/* ValidPost colour system.
+ *
+ * Direction: Instagram-inspired (magenta → purple → orange → gold) as the
+ * expressive layer, on calm plum-tinted neutrals for the dense working areas.
+ * The legacy `--new-*` names are kept — Tailwind aliases and ~all components
+ * consume them — and re-pointed here, so the whole app re-themes from this
+ * file. New code should prefer the `--vp-*` semantic tokens below.
+ *
+ * Contrast (WCAG AA, measured against the surface they sit on):
+ *   white on --vp-primary (light 5.3:1, dark 4.9:1)
+ *   --new-textItemFocused / --new-btn-primary-accent text: >= 4.5:1
+ */
+
+:root {
+  /* Brand ramp (raw; use the semantic tokens in components). */
+  --vp-pink: #e1306c;
+  --vp-purple: #833ab4;
+  --vp-orange: #f77737;
+  --vp-gold: #fcaf45;
+  --vp-blue: #405de6;
+
+  /* Signature gradient — reserved for the logo, primary creative actions,
+     hero moments and avatar rings. Never a page background. */
+  --vp-gradient: linear-gradient(
+    135deg,
+    var(--vp-purple) 0%,
+    var(--vp-pink) 52%,
+    var(--vp-orange) 100%
+  );
+
+  /* Radius scale. */
+  --vp-radius-subtle: 6px;
+  --vp-radius: 10px;
+  --vp-radius-lg: 16px;
+  --vp-radius-expressive: 24px;
+
+  /* Spacing scale (4px base) — for new code / @apply; existing arbitrary
+     values migrate onto it as pages are touched. */
+  --vp-space-1: 4px;
+  --vp-space-2: 8px;
+  --vp-space-3: 12px;
+  --vp-space-4: 16px;
+  --vp-space-6: 24px;
+  --vp-space-8: 32px;
+  --vp-space-12: 48px;
+
+  /* Motion. Short and functional; `prefers-reduced-motion` collapses all of it
+     (see the media query at the end of global.scss). */
+  --vp-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --vp-ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --vp-duration-fast: 120ms;
+  --vp-duration: 200ms;
+  --vp-duration-slow: 320ms;
+
+  /* Z-index ladder. */
+  --vp-z-sticky: 20;
+  --vp-z-nav: 40;
+  --vp-z-dropdown: 60;
+  --vp-z-modal: 80;
+  --vp-z-toast: 100;
+
+  /* Status (informational) — base values; themes override for contrast. */
+  --vp-success: #059669;
+  --vp-warning: #b45309;
+  --vp-error: #dc2626;
+  --vp-info: #405de6;
+
+  /* Post lifecycle: draft / scheduled / published / failed / needs review. */
+  --vp-status-draft: #6b7280;
+  --vp-status-scheduled: #405de6;
+  --vp-status-published: #059669;
+  --vp-status-failed: #dc2626;
+  --vp-status-review: #b45309;
+
+  /* Platform identity colours (badges, calendar dots). */
+  --vp-platform-instagram: #e1306c;
+  --vp-platform-facebook: #1877f2;
+  --vp-platform-linkedin: #0a66c2;
+  --vp-platform-youtube: #ff0033;
+  --vp-platform-tiktok: #25f4ee;
+  --vp-platform-x: #14171a;
+  --vp-platform-threads: #101010;
+
+  --chart-1: #e1306c;
+  --chart-2: #405de6;
+  --chart-3: #f77737;
+  --chart-4: #14b8a6;
+  --chart-5: #833ab4;
+  --chart-6: #fcaf45;
+  --chart-7: #34d399;
+  --chart-8: #e4b895;
+  --chart-muted: #71767b;
+  --positive: #34d399;
+  --negative: #f97066;
+}
+
 :root {
   .dark {
+    /* Semantic layer */
+    --vp-primary: #d42a66;
+    --vp-primary-hover: #e1306c;
+    --vp-primary-foreground: #ffffff;
+    --vp-secondary: #833ab4;
+    --vp-secondary-foreground: #ffffff;
+    --vp-accent: #f77737;
+    --vp-accent-foreground: #1a0d05;
+    --vp-focus-ring: #ff7aa8;
+    --vp-scrim: rgba(8, 5, 12, 0.72);
+    --vp-success: #34d399;
+    --vp-warning: #fbbf24;
+    --vp-error: #f87171;
+    --vp-info: #8ea2ff;
+    --vp-status-draft: #9ca3af;
+    --vp-status-scheduled: #8ea2ff;
+    --vp-status-published: #34d399;
+    --vp-status-failed: #f87171;
+    --vp-status-review: #fbbf24;
+    --vp-platform-x: #e7e9ea;
+    --vp-platform-threads: #f3f5f7;
+
+    /* Clay: tactile depth for primary/creative surfaces. Soft outer shadow,
+       a top highlight and an inner bottom shade. */
+    --vp-clay-shadow: 0 10px 22px -8px rgba(212, 42, 102, 0.55),
+      0 2px 4px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.22);
+    --vp-clay-shadow-pressed: 0 3px 8px -4px rgba(212, 42, 102, 0.5),
+      inset 0 3px 8px rgba(0, 0, 0, 0.3);
+    --vp-elev-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --vp-elev-2: 0 6px 16px -6px rgba(0, 0, 0, 0.55);
+    --vp-elev-3: 0 18px 40px -12px rgba(0, 0, 0, 0.65);
+
+    /* Legacy tokens (re-pointed) */
     --new-back-drop: #000;
-    --new-settings: #1c1c2e;
-    --new-border: #2a2a3e;
-    --new-bgColor: #0f0f1a;
-    --new-bgColorInner: #1a1a2e;
-    --studio-bg: #0a0f1f;
-    --studio-border: #2a3450;
-    --new-sep: #3a3a4e;
-    --new-bgLineColor: #252538;
-    --new-textItemFocused: #1a1a2e;
-    --new-textItemBlur: #8888a0;
-    --new-boxFocused: #4f46e5;
+    --new-settings: #1a1520;
+    --new-border: #2c2535;
+    --new-bgColor: #0e0b12;
+    --new-bgColorInner: #171320;
+    --studio-bg: #0e0b12;
+    --studio-border: #332a3f;
+    --new-sep: #3a3245;
+    --new-bgLineColor: #251f2e;
+    --new-textItemFocused: #ffffff;
+    --new-textItemBlur: #9b93a8;
+    --new-boxFocused: #d42a66;
     --new-textColor: 255 255 255;
-    --new-blockSeparator: #2a2a3e;
-    --new-btn-simple: #2a2a3e;
+    --new-blockSeparator: #2c2535;
+    --new-btn-simple: #2c2535;
     --new-btn-text: #ffffff;
-    --new-btn-primary: #4f46e5;
-    --new-btn-primary-accent: #818cf8;
+    --new-btn-primary: #d42a66;
+    --new-btn-primary-accent: #ff7aa8;
     --new-danger-text: #f87171;
-    --new-ai-btn: #06b6d4;
-    --new-promo: #a855f7;
-    --new-badge: #ec4899;
+    --new-ai-btn: #b06bdc;
+    --new-promo: #f77737;
+    --new-badge: #e1306c;
     --new-priority-high: #f97066;
     --new-priority-medium: #ffac30;
     --new-priority-low: #06b6d4;
-    --new-gray: #8888a0;
-    --new-input-text: #64748b;
+    --new-gray: #9b93a8;
+    --new-input-text: #8f88a0;
     --new-modal-custom: #000000;
-    --new-box-hover: #252538;
-    --new-table-border: #2a2a3e;
-    --new-table-header: #1e1e32;
-    --new-table-text: #9c9cb0;
-    --new-table-text-focused: #06b6d4;
+    --new-box-hover: #221c2b;
+    --new-table-border: #2c2535;
+    --new-table-header: #1b1624;
+    --new-table-text: #a59db2;
+    --new-table-text-focused: #ff7aa8;
     --positive: #34d399;
     --negative: #f97066;
-    --heading-accent: #818cf8;
-    --heading-h1: #c4c4d8;
-    --new-small-strips: #191828;
-    --new-big-strips: #161525;
-    --new-col-color: #2c2c40;
-    --new-menu-dots: #696880;
+    --heading-accent: #ff7aa8;
+    --heading-h1: #ece8f1;
+    --new-small-strips: #16121d;
+    --new-big-strips: #130f19;
+    --new-col-color: #2f2839;
+    --new-menu-dots: #7d7590;
     --new-menu-hover: #fff;
     --menu-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.5);
-    --popup-color: rgba(65, 64, 86, 0.3);
+    --popup-color: rgba(70, 50, 90, 0.3);
     --border-preview: transparent;
     --preview-box-shadow: none;
     --linkedin-border: #2e3438;
@@ -60,54 +190,75 @@
     --youtube-svg-border: #A0A0A0;
   }
   .light {
-    --new-back-drop: #1a2744;
-    --new-settings: #eceef1;
-    --new-sep: #d5d9dd;
-    --new-border: #e2e4e9;
-    --new-bgColor: #f4f5f7;
+    /* Semantic layer */
+    --vp-primary: #c72a63;
+    --vp-primary-hover: #a81f51;
+    --vp-primary-foreground: #ffffff;
+    --vp-secondary: #7b2fa8;
+    --vp-secondary-foreground: #ffffff;
+    --vp-accent: #c2410c;
+    --vp-accent-foreground: #ffffff;
+    --vp-focus-ring: #a81f51;
+    --vp-scrim: rgba(26, 18, 36, 0.5);
+
+    --vp-clay-shadow: 0 10px 20px -8px rgba(199, 42, 99, 0.5),
+      0 2px 3px rgba(60, 20, 50, 0.18), inset 0 2px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -3px 6px rgba(90, 10, 40, 0.2);
+    --vp-clay-shadow-pressed: 0 3px 8px -4px rgba(199, 42, 99, 0.45),
+      inset 0 3px 8px rgba(90, 10, 40, 0.28);
+    --vp-elev-1: 0 1px 2px rgba(50, 30, 70, 0.08);
+    --vp-elev-2: 0 6px 16px -6px rgba(50, 30, 70, 0.18);
+    --vp-elev-3: 0 18px 40px -12px rgba(50, 30, 70, 0.28);
+
+    /* Legacy tokens (re-pointed) */
+    --new-back-drop: #2a1838;
+    --new-settings: #efeaf2;
+    --new-sep: #ddd6e3;
+    --new-border: #e6e1e9;
+    --new-bgColor: #f7f4f8;
     --new-bgColorInner: #ffffff;
-    --studio-bg: #d4e0f0;
-    --studio-border: #aebdd4;
-    --new-bgLineColor: #e2e4e9;
-    --new-textItemFocused: #4338ca;
-    --new-textItemBlur: #63676c;
-    --new-boxFocused: #e0e7ff;
-    --new-textColor: 15 15 26;
-    --new-blockSeparator: #f2f2f4;
-    --new-btn-simple: #eceef1;
-    --new-btn-text: #0f0f1a;
-    --new-btn-primary: #4f46e5;
-    --new-btn-primary-accent: #4338ca;
+    --studio-bg: #efe8f3;
+    --studio-border: #d3c6de;
+    --new-bgLineColor: #e6e1e9;
+    --new-textItemFocused: #a81f51;
+    --new-textItemBlur: #625a6e;
+    --new-boxFocused: #fde7ef;
+    --new-textColor: 22 14 30;
+    --new-blockSeparator: #f3eff5;
+    --new-btn-simple: #efeaf2;
+    --new-btn-text: #160e1e;
+    --new-btn-primary: #c72a63;
+    --new-btn-primary-accent: #a81f51;
     --new-danger-text: #dc2626;
-    --new-ai-btn: #0891b2;
-    --new-promo: #9333ea;
-    --new-badge: #db2777;
+    --new-ai-btn: #7b2fa8;
+    --new-promo: #c2410c;
+    --new-badge: #c72a63;
     --new-priority-high: #f97066;
     --new-priority-medium: #ffac30;
     --new-priority-low: #0891b2;
-    --new-gray: #8888a0;
-    --new-input-text: #64748b;
+    --new-gray: #7a7288;
+    --new-input-text: #6b6479;
     --new-modal-custom: transparent;
-    --new-box-hover: #f4f6f8;
-    --new-table-border: #e2e4e9;
-    --new-table-header: #f5f7f9;
-    --new-table-text: #595d63;
-    --new-table-text-focused: #0e6ba8;
+    --new-box-hover: #f5f1f7;
+    --new-table-border: #e6e1e9;
+    --new-table-header: #f6f2f8;
+    --new-table-text: #575062;
+    --new-table-text-focused: #a81f51;
     --positive: #059669;
     --negative: #dc2626;
-    --heading-accent: #4338ca;
+    --heading-accent: #a81f51;
     --heading-h1: var(--new-btn-primary);
     --new-small-strips: #191828;
-    --new-big-strips: #f5f7f9;
-    --new-col-color: #eff1f3;
-    --new-menu-dots: #696880;
+    --new-big-strips: #f6f2f8;
+    --new-col-color: #f0ebf3;
+    --new-menu-dots: #6f6780;
     --new-menu-hover: #000;
     --menu-shadow: -22px 83px 24px 0 rgba(55, 52, 75, 0),
       -14px 53px 22px 0 rgba(55, 52, 75, 0.01),
       -8px 30px 19px 0 rgba(55, 52, 75, 0.05),
       -3px 13px 14px 0 rgba(55, 52, 75, 0.09),
       -1px 3px 8px 0 rgba(55, 52, 75, 0.1);
-    --popup-color: rgba(55, 37, 97, 0.2);
+    --popup-color: rgba(70, 37, 97, 0.2);
     --border-preview: #f1f0f3;
     --preview-box-shadow: 0 386px 108px 0 rgba(38, 32, 64, 0),
       0 247px 99px 0 rgba(38, 32, 64, 0.01),
@@ -126,18 +277,4 @@
     --youtube-action-color: #F1F1F1;
     --youtube-svg-border: #1A1A1A;
   }
-}
-
-:root {
-  --chart-1: #4f46e5;
-  --chart-2: #34d399;
-  --chart-3: #06b6d4;
-  --chart-4: #f97066;
-  --chart-5: #ffac30;
-  --chart-6: #a855f7;
-  --chart-7: #06b6d4;
-  --chart-8: #e4b895;
-  --chart-muted: #71767b;
-  --positive: #34d399;
-  --negative: #f97066;
 }

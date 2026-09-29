@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Agent } from '@postmill-ai/frontend/components/agents/agent';
 export const metadata: Metadata = {
-  title: 'Postmill - Agent',
+  title: 'ValidPost - Agent',
   description: 'agents',
 };
 export default async function Layout({

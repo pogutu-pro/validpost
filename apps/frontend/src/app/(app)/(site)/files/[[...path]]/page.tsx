@@ -1,7 +1,7 @@
 import { FileManager } from '@postmill-ai/frontend/components/files/file-manager';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
-  title: `Postmill Files`,
+  title: `ValidPost Files`,
   description: '',
 };
 

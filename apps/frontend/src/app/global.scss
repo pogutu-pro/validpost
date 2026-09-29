@@ -54,8 +54,80 @@ body {
   color: var(--new-btn-text);
 }
 
-body * {
-  outline: none !important;
+/* Mouse/touch focus stays quiet; keyboard focus always gets a visible ring
+   (this used to be `outline: none !important` on everything). */
+body *:focus:not(:focus-visible) {
+  outline: none;
+}
+
+body *:focus-visible {
+  outline: 2px solid var(--vp-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Tactile primary/creative control (claymorphism). Opt in with `.vp-clay`;
+   hover lifts, press sinks, and both are transform-only. */
+.vp-clay {
+  background-color: var(--vp-primary);
+  color: var(--vp-primary-foreground);
+  border-radius: var(--vp-radius);
+  box-shadow: var(--vp-clay-shadow);
+  transition: transform var(--vp-duration-fast) var(--vp-ease-out),
+    box-shadow var(--vp-duration-fast) var(--vp-ease-out),
+    background-color var(--vp-duration-fast) var(--vp-ease-out);
+}
+.vp-clay:hover:not(:disabled) {
+  background-color: var(--vp-primary-hover);
+  transform: translateY(-1px);
+}
+.vp-clay:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: var(--vp-clay-shadow-pressed);
+}
+.vp-clay:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Gradient reserved for brand moments (logo, hero, avatar ring). */
+.vp-gradient {
+  background-image: var(--vp-gradient);
+}
+
+/* Entrance used by bento tiles / cards: opacity + 8px rise, once. */
+.vp-rise {
+  animation: vpRise var(--vp-duration-slow) var(--vp-ease-out) both;
+}
+@keyframes vpRise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading placeholder (skeleton) — shimmer is a transform, not a repaint. */
+.vp-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--new-box-hover);
+  border-radius: var(--vp-radius);
+}
+.vp-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, var(--new-col-color), transparent);
+  animation: vpShimmer 1.4s ease-in-out infinite;
+}
+@keyframes vpShimmer {
+  to {
+    transform: translateX(100%);
+  }
 }
 
 .box {

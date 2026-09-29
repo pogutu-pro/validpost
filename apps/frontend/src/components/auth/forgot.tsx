@@ -40,9 +40,17 @@ export function Forgot() {
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div>
-            <h1 className="text-3xl font-bold text-start mb-4 cursor-pointer">
-              {t('forgot_password_1', 'Forgot Password')}
+            <h1 className="text-[32px] font-[600] tracking-[-0.03em] text-start mb-2">
+              {t('forgot_password_1', 'Forgot your password?')}
             </h1>
+            {!state && (
+              <p className="mb-6 text-[14px] text-textItemBlur">
+                {t(
+                  'forgot_password_subtitle',
+                  "Enter your email and we'll send you a link to get back in."
+                )}
+              </p>
+            )}
           </div>
           {!state ? (
             <>
@@ -57,7 +65,7 @@ export function Forgot() {
               </div>
               <div className="text-center mt-6">
                 <div className="w-full flex">
-                  <Button type="submit" className="flex-1 h-[52px]! rounded-[10px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0" loading={loading}>
+                  <Button type="submit" className="vp-clay flex-1 h-[52px]! border-0" loading={loading}>
                     {t(
                       'send_password_reset_email',
                       'Send Password Reset Email'
@@ -65,7 +73,7 @@ export function Forgot() {
                   </Button>
                 </div>
                 <p className="mt-4 text-sm">
-                  <Link href="/auth/login" className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium">
+                  <Link href="/auth/login" className="underline cursor-pointer text-btnPrimaryAccent hover:text-textColor font-medium">
                     {t('go_back_to_login', 'Go back to login')}
                   </Link>
                 </p>
@@ -80,7 +88,7 @@ export function Forgot() {
                 )}
               </div>
               <p className="mt-4 text-sm">
-                <Link href="/auth/login" className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium">
+                <Link href="/auth/login" className="underline cursor-pointer text-btnPrimaryAccent hover:text-textColor font-medium">
                   {t('go_back_to_login', 'Go back to login')}
                 </Link>
               </p>

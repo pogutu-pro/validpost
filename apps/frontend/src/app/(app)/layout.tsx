@@ -44,12 +44,23 @@ const jakartaSans = Plus_Jakarta_Sans({
 
 // Default document title for every route (a11y: `document-title` was empty on ~89 routes —
 // the app has no root metadata). `default` fills routes that don't set their own title;
-// routes that DO set one (e.g. "Postmill Posts") keep it verbatim — no template, so titles
-// that already carry the brand don't become "… · Postmill".
+// routes that DO set one (e.g. "ValidPost Posts") keep it verbatim — no template, so titles
+// that already carry the brand don't become "… · ValidPost".
 export const metadata = {
   title: {
     default: 'ValidPost',
   },
+  description:
+    'Create, schedule and publish across every social channel — with AI built in.',
+  openGraph: {
+    title: 'ValidPost',
+    description:
+      'Create, schedule and publish across every social channel — with AI built in.',
+    siteName: 'ValidPost',
+    type: 'website',
+  },
+  // Address-bar / mobile browser chrome follows the brand colour.
+  other: { 'theme-color': '#c72a63' },
 };
 
 export default async function AppLayout({ children }: { children: ReactNode }) {

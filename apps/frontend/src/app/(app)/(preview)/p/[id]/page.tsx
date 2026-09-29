@@ -16,7 +16,7 @@ import { CreationMethodBadge } from '@postmill-ai/frontend/components/launches/c
 
 dayjs.extend(utc);
 export const metadata: Metadata = {
-  title: `Postmill Preview`,
+  title: `ValidPost Preview`,
   description: '',
 };
 export default async function Auth(
