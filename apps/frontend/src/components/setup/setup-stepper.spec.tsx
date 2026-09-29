@@ -47,7 +47,7 @@ describe('SetupStepper', () => {
         onStepClick={vi.fn()}
       />
     );
-    const active = container.querySelector('[class*="bg-[#2B5CD3]/15"]');
+    const active = container.querySelector('[class*="bg-btnPrimary/10"]');
     expect(active).not.toBeNull();
   });
 
