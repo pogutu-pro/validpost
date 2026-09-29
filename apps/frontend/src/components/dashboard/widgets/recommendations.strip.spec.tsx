@@ -60,7 +60,7 @@ describe('RecommendationsStrip', () => {
 
     const { container } = render(<RecommendationsStrip />);
 
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders recommendation cards with priority badges and content', () => {

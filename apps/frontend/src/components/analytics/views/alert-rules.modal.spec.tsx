@@ -76,7 +76,7 @@ describe('AlertRulesModal', () => {
   it('renders the loading skeleton', () => {
     stub({ isLoading: true });
     const { container } = render(<AlertRulesModal />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the error state and retries via mutate', () => {

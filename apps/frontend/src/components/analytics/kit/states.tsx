@@ -15,34 +15,34 @@ interface TabSkeletonProps {
 export const TabSkeleton: FC<TabSkeletonProps> = ({ variant = 'cards', className }) => {
   if (variant === 'list') {
     return (
-      <div className={`space-y-[12px] animate-pulse ${className ?? ''}`}>
+      <div className={`space-y-[12px] ${className ?? ''}`}>
         {[1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="h-[72px] bg-newTableHeader rounded-[10px]" />
+          <div key={i} className="h-[72px] vp-skeleton" />
         ))}
       </div>
     );
   }
   if (variant === 'chart') {
     return (
-      <div className={`space-y-[16px] animate-pulse ${className ?? ''}`}>
-        <div className="h-[320px] bg-newTableHeader rounded-[12px]" />
+      <div className={`space-y-[16px] ${className ?? ''}`}>
+        <div className="h-[320px] vp-skeleton" />
       </div>
     );
   }
   return (
-    <div className={`space-y-[16px] animate-pulse ${className ?? ''}`}>
+    <div className={`space-y-[16px] ${className ?? ''}`}>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[12px] mobile:gap-[8px]">
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="h-[180px] mobile:h-[112px] bg-newTableHeader rounded-[12px]"
+            className="h-[180px] mobile:h-[112px] vp-skeleton"
           />
         ))}
       </div>
-      <div className="h-[320px] bg-newTableHeader rounded-[12px]" />
+      <div className="h-[320px] vp-skeleton" />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-[12px]">
-        <div className="h-[280px] bg-newTableHeader rounded-[12px]" />
-        <div className="h-[280px] bg-newTableHeader rounded-[12px]" />
+        <div className="h-[280px] vp-skeleton" />
+        <div className="h-[280px] vp-skeleton" />
       </div>
     </div>
   );
@@ -60,7 +60,7 @@ export const EmptyState: FC<EmptyStateProps> = ({ title, description, icon, acti
   const t = useT();
   return (
     <div className="flex flex-col items-center justify-center py-[48px] px-[24px] text-center">
-      <div className="w-[48px] h-[48px] mb-[16px] rounded-full bg-newTableHeader flex items-center justify-center text-newTableText">
+      <div className="w-[48px] h-[48px] mb-[16px] rounded-full bg-boxHover flex items-center justify-center text-btnPrimaryAccent">
         {icon ?? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M3 3v18h18M7 16l4-8 4 4 4-6" />

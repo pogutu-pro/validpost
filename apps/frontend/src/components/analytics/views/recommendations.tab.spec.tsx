@@ -23,7 +23,7 @@ describe('RecommendationsTab', () => {
     // Now uses the shared kit TabSkeleton (F5) — assert the pulsing placeholder,
     // matching the sibling tab specs (best-time, channels, content-insights).
     const { container } = render(<RecommendationsTab />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the error state', () => {

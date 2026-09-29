@@ -37,7 +37,7 @@ describe('HealthSection', () => {
   it('renders the loading skeleton', () => {
     stub({ isLoading: true });
     const { container } = render(<HealthSection />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the error state with retry', () => {

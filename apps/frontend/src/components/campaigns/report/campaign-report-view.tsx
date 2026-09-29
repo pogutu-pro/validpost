@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useCallback, useMemo, useState } from 'react';
+import { StatusBadge, postStatusFromState } from '@postmill-ai/frontend/components/ui/status-badge';
 import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
 import { useToaster } from '@postmill-ai/react/toaster/toaster';
 import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
@@ -439,9 +440,16 @@ export const CampaignReportView: FC<{ report: CampaignReport; publicMode?: boole
                     </td>
                     <td className="py-[12px] px-[16px] text-[13px] text-textColor">{post.integration?.name || '—'}</td>
                     <td className="py-[12px] px-[16px] text-[13px]">
-                      <span className={clsx('px-[8px] py-[2px] rounded-full text-[11px] font-medium', statePillClass(post.state))}>
-                        {t(`post_state_${post.state.toLowerCase()}`, post.state)}
-                      </span>
+                      {postStatusFromState(post.state) ? (
+                        <StatusBadge
+                          status={postStatusFromState(post.state)!}
+                          label={t(`post_state_${post.state.toLowerCase()}`, post.state)}
+                        />
+                      ) : (
+                        <span className={clsx('px-[8px] py-[2px] rounded-full text-[11px] font-medium', statePillClass(post.state))}>
+                          {t(`post_state_${post.state.toLowerCase()}`, post.state)}
+                        </span>
+                      )}
                     </td>
                     <td className="py-[12px] px-[16px] text-[13px] text-newTableText">{formatDate(post.publishDate, t('campaign_report_date_format', 'MMM D, YYYY'))}</td>
                     <td className="py-[12px] px-[16px] text-[13px] text-right tabular-nums text-textColor">{formatNumber(post.lastViews)}</td>

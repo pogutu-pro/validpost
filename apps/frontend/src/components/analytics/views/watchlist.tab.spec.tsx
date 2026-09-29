@@ -74,7 +74,7 @@ describe('WatchlistTab', () => {
   it('renders the loading skeleton while accounts are undefined', () => {
     stubAccounts();
     const { container } = render(<WatchlistTab />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the error state on load failure', () => {
@@ -265,7 +265,7 @@ describe('WatchlistTab', () => {
     stubSeries({ isLoading: true });
     const { container } = render(<WatchlistTab />);
     fireEvent.click(screen.getByRole('button', { name: 'Growth' }));
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
     expect(screen.queryByTestId('line-chart')).toBeNull();
   });
 

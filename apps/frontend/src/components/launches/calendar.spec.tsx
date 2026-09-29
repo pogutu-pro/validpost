@@ -294,31 +294,31 @@ describe('CalendarItem', () => {
   });
 
   describe('state status dots', () => {
-    it('renders a green Published dot for PUBLISHED state', () => {
+    it('renders a Published dot for PUBLISHED state', () => {
       const { container } = render(<CalendarItem {...baseProps()} />);
       const dot = container.querySelector('[data-tooltip-content="Published"]');
       expect(dot).toBeTruthy();
-      expect(dot!.className).toContain('bg-green-500');
+      expect(dot!.className).toContain('bg-vpPublished');
     });
 
-    it('renders a blue Scheduled dot for QUEUE state', () => {
+    it('renders a Scheduled dot for QUEUE state', () => {
       const post = basePost({ state: 'QUEUE' });
       const { container } = render(
         <CalendarItem {...baseProps()} state="QUEUE" post={post} />
       );
       const dot = container.querySelector('[data-tooltip-content="Scheduled"]');
       expect(dot).toBeTruthy();
-      expect(dot!.className).toContain('bg-blue-500');
+      expect(dot!.className).toContain('bg-vpScheduled');
     });
 
-    it('renders an amber Draft dot for DRAFT state', () => {
+    it('renders a Draft dot for DRAFT state', () => {
       const post = basePost({ state: 'DRAFT' });
       const { container } = render(
         <CalendarItem {...baseProps()} state="DRAFT" post={post} />
       );
       const dot = container.querySelector('[data-tooltip-content="Draft"]');
       expect(dot).toBeTruthy();
-      expect(dot!.className).toContain('bg-amber-500');
+      expect(dot!.className).toContain('bg-vpDraft');
     });
 
     it('returns no state pill for ERROR state', () => {

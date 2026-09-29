@@ -77,7 +77,7 @@ describe('MediaQueueWidget', () => {
   it('renders a list skeleton while loading', () => {
     render(<MediaQueueWidget />);
 
-    expect(document.querySelector('.animate-pulse')).toBeTruthy();
+    expect(document.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the empty state when there are no jobs', () => {

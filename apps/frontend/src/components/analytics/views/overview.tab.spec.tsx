@@ -104,7 +104,7 @@ describe('OverviewTab', () => {
     const { container } = render(
       <OverviewTab {...baseProps} loading={true} />
     );
-    const skeletons = container.querySelectorAll('.animate-pulse');
+    const skeletons = container.querySelectorAll('.vp-skeleton');
     expect(skeletons.length).toBeGreaterThan(0);
   });
 

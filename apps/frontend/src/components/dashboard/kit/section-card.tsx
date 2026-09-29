@@ -45,7 +45,7 @@ export const SectionCard: FC<SectionCardProps> = ({
   return (
     <div
       data-section-id={id}
-      className="bg-newBgColorInner border border-newTableBorder rounded-[12px] min-w-0 overflow-hidden flex flex-col"
+      className="vp-rise bg-newBgColorInner border border-newTableBorder rounded-vpLg shadow-elev1 min-w-0 overflow-hidden flex flex-col transition-shadow duration-200 hover:shadow-elev2"
     >
       <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-newTableBorder">
         <div className="flex items-center gap-[8px] min-w-0">
@@ -58,7 +58,7 @@ export const SectionCard: FC<SectionCardProps> = ({
             {title}
           </h2>
           {badge !== undefined && badge > 0 && (
-            <span className="shrink-0 min-w-[18px] h-[18px] px-[5px] flex items-center justify-center rounded-full bg-btnPrimary text-[10px] font-semibold text-white">
+            <span className="shrink-0 min-w-[18px] h-[18px] px-[5px] flex items-center justify-center rounded-full bg-vpPrimary text-[10px] font-semibold text-vpPrimaryFg">
               {badge > 99 ? '99+' : badge}
             </span>
           )}

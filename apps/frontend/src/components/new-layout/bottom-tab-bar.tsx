@@ -92,9 +92,9 @@ export const BottomTabBar: FC = () => {
               key={item.path}
               href={item.path}
               className={clsx(
-                'flex flex-1 flex-col items-center justify-center gap-[3px] text-[10px] font-[600] min-w-0',
+                'relative flex flex-1 flex-col items-center justify-center gap-[3px] text-[10px] font-[600] min-w-0 active:scale-[0.94] transition-transform duration-150',
                 isActive(item.path)
-                  ? 'text-btnPrimaryAccent'
+                  ? 'text-btnPrimaryAccent before:absolute before:top-0 before:h-[3px] before:w-[28px] before:rounded-b-full before:bg-vpGradient'
                   : 'text-textItemBlur hover:text-newTextColor'
               )}
             >

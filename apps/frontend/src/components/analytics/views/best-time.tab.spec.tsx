@@ -31,7 +31,7 @@ describe('BestTimeTab', () => {
   it('renders the loading state', () => {
     mockUseBestTime.mockReturnValue({ data: undefined, isLoading: true, DAY_LABELS, HOUR_LABELS });
     const { container } = render(<BestTimeTab />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the empty state when there is no heatmap', () => {

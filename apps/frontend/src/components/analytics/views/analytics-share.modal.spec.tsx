@@ -66,7 +66,7 @@ describe('AnalyticsShareModal', () => {
   it('renders the loading skeleton while the config loads', () => {
     stub({ isLoading: true });
     const { container } = render(<AnalyticsShareModal />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the description, range preset options and the channel list', () => {

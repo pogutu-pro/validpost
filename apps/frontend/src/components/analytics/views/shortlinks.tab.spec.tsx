@@ -71,7 +71,7 @@ describe('Analytics ShortlinksTab', () => {
       const { ShortlinksTab } = await import('./shortlinks.tab');
       const { container } = render(<ShortlinksTab from="2026-01-01" to="2026-01-31" />, { wrapper });
 
-      expect(container.querySelector('.animate-pulse')).toBeTruthy();
+      expect(container.querySelector('.vp-skeleton')).toBeTruthy();
     });
   });
 

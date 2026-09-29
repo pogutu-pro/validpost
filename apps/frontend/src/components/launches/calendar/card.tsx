@@ -157,17 +157,17 @@ export const CalendarItem: FC<{
   const statusDot = (() => {
     switch (state) {
       case 'PUBLISHED':
-        return { cls: 'bg-green-500', tip: t('published', 'Published') };
+        return { cls: 'bg-vpPublished', tip: t('published', 'Published') };
       case 'QUEUE':
-        return { cls: 'bg-blue-500', tip: t('scheduled', 'Scheduled') };
+        return { cls: 'bg-vpScheduled', tip: t('scheduled', 'Scheduled') };
       case 'PUBLISHING':
         return {
-          cls: 'bg-blue-500 animate-pulse',
+          cls: 'bg-vpScheduled animate-pulse',
           tip: t('publishing', 'Publishing'),
         };
       case 'ERROR':
         return {
-          cls: 'bg-red-500',
+          cls: 'bg-vpFailed',
           tip:
             post.error ||
             t(
@@ -176,7 +176,7 @@ export const CalendarItem: FC<{
             ),
         };
       case 'DRAFT':
-        return { cls: 'bg-amber-500', tip: t('draft', 'Draft') };
+        return { cls: 'bg-vpDraft', tip: t('draft', 'Draft') };
       default:
         return null;
     }

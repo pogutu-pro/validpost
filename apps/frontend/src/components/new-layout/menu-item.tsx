@@ -15,9 +15,9 @@ export const MenuItem: FC<{ label: string; icon: ReactNode; path: string; onClic
   const isActive = currentPath.indexOf(path) === 0;
 
   const className = clsx(
-    'group relative w-full minCustom:h-[54px] custom:h-[44px] py-[8px] px-[6px] minCustom:gap-[4px] custom:gap-[2px] flex flex-col font-[600] items-center justify-center rounded-[12px] hover:text-textItemFocused hover:bg-boxFocused transition-colors',
+    'group relative w-full minCustom:h-[54px] custom:h-[44px] py-[8px] px-[6px] minCustom:gap-[4px] custom:gap-[2px] flex flex-col font-[600] items-center justify-center rounded-[12px] hover:text-textItemFocused hover:bg-boxFocused transition-[color,background-color,transform] duration-150 active:scale-[0.96]',
     isActive
-      ? 'text-textItemFocused bg-boxFocused before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[4px] before:h-[20px] before:bg-btnPrimary before:rounded-r-[4px]'
+      ? 'text-textItemFocused bg-boxFocused before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[4px] before:h-[22px] before:bg-vpGradient before:rounded-r-[4px]'
       : 'text-textItemBlur'
   );
 
@@ -28,7 +28,7 @@ export const MenuItem: FC<{ label: string; icon: ReactNode; path: string; onClic
         {label}
       </div>
       {badge !== undefined && badge > 0 && (
-        <div className="absolute top-[4px] right-[4px] min-w-[16px] h-[16px] flex items-center justify-center rounded-full bg-btnPrimary text-[9px] font-[600] text-white px-[4px]">
+        <div className="absolute top-[4px] right-[4px] min-w-[16px] h-[16px] flex items-center justify-center rounded-full bg-vpPrimary text-[9px] font-[600] text-vpPrimaryFg px-[4px]">
           {badge > 99 ? '99+' : badge}
         </div>
       )}

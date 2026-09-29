@@ -32,7 +32,7 @@ describe('ContentInsightsSection', () => {
   it('renders the loading skeleton', () => {
     stub({ isLoading: true });
     const { container } = render(<ContentInsightsSection />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders an empty state for a zero-post org', () => {
