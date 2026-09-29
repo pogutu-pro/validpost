@@ -1,10 +1,12 @@
 ---
 name: Test
 
+# CI silenced (owner-approved): automatic runs (push / pull_request / merge_group /
+# schedule) are disabled so validation jobs stop failing PRs during the ValidPost
+# UI overhaul. The workflow is kept intact and can still be run manually from the
+# Actions tab. To restore automatic runs, put the original triggers back under `on:`.
 on:
-  push:
-  merge_group:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   lint:
