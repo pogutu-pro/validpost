@@ -155,7 +155,7 @@ export const ApprovedAppsComponent: FC = () => {
       {!!federationGrants?.length && (
         <div className="bg-newBgColorInner border-newTableBorder border rounded-[12px] p-[24px]">
           <div className="text-[16px] font-bold mb-[16px]">
-            {t('postmill_id_signins', 'Postmill ID sign-ins')}
+            {t('postmill_id_signins', 'ValidPost ID sign-ins')}
           </div>
           <div className="flex flex-col gap-[16px]">
             {federationGrants.map((grant: any) => (

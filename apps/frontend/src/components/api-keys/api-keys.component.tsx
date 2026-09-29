@@ -191,7 +191,7 @@ export const ApiKeysSection: FC<{ onKeyCreated?: (key: CreatedKey) => void }> = 
             {t('api_keys', 'API Keys')}
           </div>
           <div className="text-[13px] text-newTableText mt-[2px]">
-            {t('api_keys_description', 'Manage API keys for programmatic access to Postmill.')}
+            {t('api_keys_description', 'Manage API keys for programmatic access to ValidPost.')}
           </div>
         </div>
         <button

@@ -161,8 +161,8 @@ describe('StorageTab', () => {
 
       await waitFor(() => {
         expect(screen.getByText('Storage Providers')).toBeDefined();
-        // LOCAL provider surfaces as the "Postmill Storage" card.
-        expect(screen.getByText('Postmill Storage')).toBeDefined();
+        // LOCAL provider surfaces as the "ValidPost Storage" card.
+        expect(screen.getByText('ValidPost Storage')).toBeDefined();
       });
     });
 
@@ -266,16 +266,16 @@ describe('StorageTab', () => {
       );
     });
 
-    it('local (Postmill Storage) is display-only: no modal on click, no Test action', async () => {
+    it('local (ValidPost Storage) is display-only: no modal on click, no Test action', async () => {
       mockProviders = [localProvider];
 
       const { StorageTab } = await import('./storage.tab');
       renderWithSWR(<StorageTab />);
 
       await waitFor(() => {
-        expect(screen.getByText('Postmill Storage')).toBeDefined();
+        expect(screen.getByText('ValidPost Storage')).toBeDefined();
       });
-      fireEvent.click(screen.getByText('Postmill Storage'));
+      fireEvent.click(screen.getByText('ValidPost Storage'));
 
       expect(mockOpenModal).not.toHaveBeenCalled();
       // Built-in storage has no settings and no connection test.

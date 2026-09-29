@@ -98,7 +98,7 @@ export const DailyBrief: FC<DailyBriefProps> = ({ open, onOpenChange }) => {
           'warning'
         );
       } else if (err?.providerError) {
-        // The org's own AI provider said no — name it, don't imply Postmill broke.
+        // The org's own AI provider said no — name it, don't imply ValidPost broke.
         toaster.show(providerErrorToastText(t, err.providerError), 'warning');
       } else {
         toaster.show(

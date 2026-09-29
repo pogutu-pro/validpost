@@ -269,7 +269,7 @@ const ExtensionNotFound: FC = () => {
       <p className="text-[14px] text-textColor/80">
         {t(
           'extension_not_available',
-          'The Postmill browser extension is not installed. You need to install it before connecting this channel.'
+          'The ValidPost browser extension is not installed. You need to install it before connecting this channel.'
         )}
       </p>
       <div className="flex gap-[10px]">
@@ -340,7 +340,7 @@ const ChromeExtensionWarning: FC<{
         <li>
           {t(
             'chrome_extension_warning_liability',
-            'Postmill does not take responsibility for any issues arising or account termination due to the use of this method.'
+            'ValidPost does not take responsibility for any issues arising or account termination due to the use of this method.'
           )}
         </li>
       </ul>
@@ -704,7 +704,7 @@ export const AddProviderComponent: FC<{
             toaster.show(
               t(
                 'extension_not_installed',
-                'Postmill browser extension is not installed or not reachable.'
+                'ValidPost browser extension is not installed or not reachable.'
               ),
               'warning'
             );
@@ -950,7 +950,7 @@ export const AddProviderComponent: FC<{
                       <div className="text-[10px] leading-tight text-newTableText">
                         {t(
                           'uses_postmill_app_no_setup',
-                          'Uses the Postmill app — no setup needed'
+                          'Uses the ValidPost app — no setup needed'
                         )}
                       </div>
                       <button
@@ -973,7 +973,7 @@ export const AddProviderComponent: FC<{
                       <div className="text-[10px] leading-tight text-newTableText text-center">
                         {t(
                           'platform_app_not_available',
-                          'Postmill does not provide an app for this network — connect with your own app (see setup instructions)'
+                          'ValidPost does not provide an app for this network — connect with your own app (see setup instructions)'
                         )}
                       </div>
                     )

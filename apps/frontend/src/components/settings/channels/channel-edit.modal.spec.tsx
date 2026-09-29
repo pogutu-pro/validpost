@@ -278,13 +278,13 @@ describe('ChannelConfigForm platform-app connect', () => {
     mockConnectSequence({}, [
       {
         identifier: 'instagram-standalone',
-        name: 'Postmill',
+        name: 'ValidPost',
         disabled: false,
         inBetweenSteps: false,
       },
     ]);
     renderForm(true, { withSetup: true, edit: true });
-    expect(await screen.findByText('Connected as Postmill')).toBeTruthy();
+    expect(await screen.findByText('Connected as ValidPost')).toBeTruthy();
     expect(
       screen.getByRole('button', { name: 'Connect another account' })
     ).toBeTruthy();

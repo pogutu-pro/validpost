@@ -48,7 +48,7 @@ export const LogoutComponent: FC<{ isIcon?: boolean }> = ({ isIcon }) => {
             data-tooltip-id="tooltip"
             data-tooltip-content={t(
               'logout_from_postmill',
-              'Logout from Postmill'
+              'Logout from ValidPost'
             )}
           >
             <path
@@ -58,7 +58,7 @@ export const LogoutComponent: FC<{ isIcon?: boolean }> = ({ isIcon }) => {
           </svg>
         ) : (
           <span className="text-dangerText">
-            {t('logout_from_postmill', 'Logout from Postmill')}
+            {t('logout_from_postmill', 'Logout from ValidPost')}
           </span>
         )}
       </button>

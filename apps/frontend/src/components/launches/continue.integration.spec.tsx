@@ -98,9 +98,8 @@ describe('ContinueIntegration popup completion', () => {
 
     render(
       <ContinueIntegration
-        provider="x"
-        // X (OAuth 1.0a) calls back with oauth_token/oauth_verifier.
-        searchParams={{ oauth_token: 't', oauth_verifier: 'v' }}
+        provider="discord"
+        searchParams={{ state: 's', code: 'c' }}
         logged={true}
       />
     );
@@ -109,7 +108,7 @@ describe('ContinueIntegration popup completion', () => {
     expect(postMessage).toHaveBeenCalledWith(
       {
         type: 'postmill:channel-connected',
-        provider: 'x',
+        provider: 'discord',
         message: 'Channel Updated',
       },
       window.location.origin
@@ -125,15 +124,14 @@ describe('ContinueIntegration popup completion', () => {
 
     render(
       <ContinueIntegration
-        provider="x"
-        // X (OAuth 1.0a) calls back with oauth_token/oauth_verifier.
-        searchParams={{ oauth_token: 't', oauth_verifier: 'v' }}
+        provider="discord"
+        searchParams={{ state: 's', code: 'c' }}
         logged={true}
       />
     );
 
     await waitFor(() =>
-      expect(mockPush).toHaveBeenCalledWith('/posts?added=x&msg=Channel Updated')
+      expect(mockPush).toHaveBeenCalledWith('/posts?added=discord&msg=Channel Updated')
     );
     expect(postMessage).not.toHaveBeenCalled();
     expect(closeSpy).not.toHaveBeenCalled();

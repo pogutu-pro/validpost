@@ -38,8 +38,8 @@ const SCOPE_LABELS: Record<string, { key: string; text: string }> = {
 // metadata only.
 const FEDERATION_CLIENTS: Record<string, { name: string; description: string }> = {
   federation: {
-    name: 'Postmill Template Store',
-    description: 'Sign in with your Postmill account',
+    name: 'ValidPost Template Store',
+    description: 'Sign in with your ValidPost account',
   },
 };
 
@@ -335,7 +335,7 @@ export default function OAuthAuthorizePage() {
             <div className="text-[14px] text-gray-400 mb-[12px]">
               {t(
                 'oauth_requesting_access',
-                'This application is requesting access to your Postmill account. It will be able to:'
+                'This application is requesting access to your ValidPost account. It will be able to:'
               )}
             </div>
             <ul className="text-[14px] list-disc list-inside space-y-[4px]">

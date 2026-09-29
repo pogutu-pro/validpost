@@ -119,7 +119,7 @@ export const AgentChat: FC = () => {
               className="w-full h-full"
               labels={{
                 title: t('your_assistant', 'Your Assistant'),
-                initial: t('agent_welcome_message', `Hello, I am your Postmill agent 🙌🏻.
+                initial: t('agent_welcome_message', `Hello, I am your ValidPost agent 🙌🏻.
 
 I can schedule posts to your channels, generate images and videos, analyze your performance, manage campaigns, and reply to comments.
 

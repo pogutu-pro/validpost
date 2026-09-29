@@ -266,7 +266,7 @@ const McpSection = ({
           <div className="text-[13px] text-newTableText mt-[2px]">
             {t(
               'connect_your_mcp_client_to_postmill_to_schedule_your_posts_faster',
-              'Connect Postmill MCP server to your client (Http streaming) to schedule your posts faster!'
+              'Connect ValidPost MCP server to your client (Http streaming) to schedule your posts faster!'
             )}
           </div>
         </div>
@@ -403,7 +403,7 @@ const localCliSteps = [
   },
   {
     labelKey: 'cli_step_install_skill',
-    label: 'Install the Postmill skill for your AI agent',
+    label: 'Install the ValidPost skill for your AI agent',
     code: 'npx skills add @postmill-ai/postmill-agent',
   },
 ] as const;
@@ -421,7 +421,7 @@ const ciCliSteps = [
   },
   {
     labelKey: 'cli_step_install_skill',
-    label: 'Install the Postmill skill for your AI agent',
+    label: 'Install the ValidPost skill for your AI agent',
     code: 'npx skills add @postmill-ai/postmill-agent',
   },
 ] as const;
@@ -477,7 +477,7 @@ const CliSection = ({ apiKey }: { apiKey: string }) => {
           <div className="text-[13px] text-newTableText mt-[2px]">
             {t(
               'cli_description',
-              'Use the Postmill CLI to automate posting from your terminal, or install the skill to let your AI agent schedule posts for you.'
+              'Use the ValidPost CLI to automate posting from your terminal, or install the skill to let your AI agent schedule posts for you.'
             )}
           </div>
         </div>
@@ -583,7 +583,7 @@ const PublicApiContent = () => {
         <br />
         {t(
           'api_auth_note_line2',
-          'If you are building a product that schedules posts on behalf of other Postmill users,'
+          'If you are building a product that schedules posts on behalf of other ValidPost users,'
         )}
         <br />
         {t(
@@ -642,7 +642,7 @@ export const PublicComponent = () => {
             <p className="text-[13px] text-newTableText">
               {t(
                 'access_description',
-                'Create and manage API keys to connect Postmill to your own tools and scripts.'
+                'Create and manage API keys to connect ValidPost to your own tools and scripts.'
               )}
             </p>
           </div>
@@ -658,7 +658,7 @@ export const PublicComponent = () => {
             <p className="text-[13px] text-newTableText">
               {t(
                 'apps_description',
-                'Register developer apps and MCP clients that can connect to Postmill on your behalf.'
+                'Register developer apps and MCP clients that can connect to ValidPost on your behalf.'
               )}
             </p>
           </div>

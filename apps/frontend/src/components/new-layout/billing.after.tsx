@@ -25,7 +25,7 @@ export const BillingAfter = () => {
         <h1 className="text-3xl [@media(max-width:1024px)]:text-xl">
           {t(
             'join_10000_entrepreneurs_who_use_postmill',
-            'Join 10,000+ Entrepreneurs Who Use Postmill'
+            'Join 10,000+ Entrepreneurs Who Use ValidPost'
           )}
           <br />
           {t(

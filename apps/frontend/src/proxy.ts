@@ -91,7 +91,7 @@ export async function proxy(request: NextRequest) {
   const org = nextUrl.searchParams.get('org');
   const url = new URL(nextUrl).search;
 
-  // Postmill ID federation: the consent screen is the one authenticated page an
+  // ValidPost ID federation: the consent screen is the one authenticated page an
   // external relying party links a COLD browser to. The generic branch below
   // rewrites to `/auth${search}` and so discards the pathname, which strands the
   // visitor on the dashboard after sign-in — the store then waits for a callback

@@ -42,7 +42,7 @@ export const useDailyBrief = () => {
   const generate = useCallback(async (): Promise<DailyBriefResponse> => {
     const res = await fetch('/dashboard/brief', { method: 'POST' });
     if (!res.ok) {
-      // 502 = the org's AI provider failed (attributed envelope), never Postmill.
+      // 502 = the org's AI provider failed (attributed envelope), never ValidPost.
       const apiError = await readApiError(
         res,
         t('brief_generation_failed', 'Brief generation failed')

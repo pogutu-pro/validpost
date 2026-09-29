@@ -412,7 +412,7 @@ export const StorageTab: React.FC<{ activeSubTab?: SubTab }> = ({
           onRemove={(id) => handleDelete(id)}
           ProviderIconComponent={ProviderIcon}
           // The whole row opens the config modal — no Edit/Configure buttons.
-          // Local (Postmill Storage) is the built-in store: display-only row,
+          // Local (ValidPost Storage) is the built-in store: display-only row,
           // no settings modal and no test.
           onRowClick={(provider) => {
             if (localProvider && provider.id === localProvider.id) return;
@@ -448,7 +448,7 @@ export const StorageTab: React.FC<{ activeSubTab?: SubTab }> = ({
             );
           }}
           renderActions={(provider) => {
-            // Local (Postmill Storage): no actions — nothing to configure or test.
+            // Local (ValidPost Storage): no actions — nothing to configure or test.
             if (localProvider && provider.id === localProvider.id) {
               return null;
             }

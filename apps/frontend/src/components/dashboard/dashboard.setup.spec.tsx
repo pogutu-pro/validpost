@@ -66,7 +66,7 @@ describe('DashboardSetup (Part G)', () => {
   it('shows all six steps incomplete with empty data and 0/6 progress', () => {
     render(<DashboardSetup />);
 
-    expect(screen.getByText('Welcome to Postmill')).toBeTruthy();
+    expect(screen.getByText('Welcome to ValidPost')).toBeTruthy();
     expect(screen.getByText('0/6')).toBeTruthy();
     for (const key of ['channel', 'ai', 'storage', 'media', 'team', 'post']) {
       expect(isStepDone(key)).toBe(false);
@@ -151,13 +151,13 @@ describe('DashboardSetup (Part G)', () => {
     const { container } = render(<DashboardSetup />);
 
     expect(container.firstChild).toBeNull();
-    expect(screen.queryByText('Welcome to Postmill')).toBeNull();
+    expect(screen.queryByText('Welcome to ValidPost')).toBeNull();
   });
 
   it('dismiss persists to localStorage and hides the panel', () => {
     const { container } = render(<DashboardSetup />);
 
-    expect(screen.getByText('Welcome to Postmill')).toBeTruthy();
+    expect(screen.getByText('Welcome to ValidPost')).toBeTruthy();
     fireEvent.click(screen.getByText('Dismiss'));
 
     expect(localStorage.getItem('onboarding_dismissed')).toBe('true');

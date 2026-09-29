@@ -55,7 +55,7 @@ export const CommsConfigForm: FC<{
 
 // Per-provider comms config, mirroring the channels' ChannelConfigForm:
 // - Platform mode (platformConfigured && platformConnect): a full-width
-//   Connect button (OAuth popup, or one-click "Use the Postmill app"
+//   Connect button (OAuth popup, or one-click "Use the ValidPost app"
 //   for env-driven providers) is the whole story; setup steps, webhook,
 //   credential fields and the enabled switch collapse under Advanced.
 // - Flat mode (no platformConnect): numbered
@@ -575,7 +575,7 @@ const CommsConfigFormInner: FC<{
 
   // Platform connect: the default (and only primary) action in platform mode.
   // OAuth providers run a consent popup; env providers wire up the
-  // deployment's Postmill app with one click.
+  // deployment's ValidPost app with one click.
   const connectBlock = platformMode && (
     <div className="flex flex-col gap-[6px]">
       <button

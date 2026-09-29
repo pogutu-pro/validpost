@@ -262,7 +262,7 @@ describe('CommsConfigForm platform vs flat mode', () => {
     await renderForm('oauth-demo');
 
     expect(await screen.findByText('Connect with OAuth Demo')).toBeDefined();
-    expect(screen.getByText('Uses the Postmill app — no setup needed')).toBeDefined();
+    expect(screen.getByText('Uses the ValidPost app — no setup needed')).toBeDefined();
     const advanced = screen.getByRole('button', { name: 'Advanced' });
     expect(advanced.getAttribute('aria-expanded')).toBe('false');
     // Setup content is hidden until Advanced is expanded.
@@ -545,7 +545,7 @@ describe('CommsConfigForm platform connect', () => {
   it('env connect POSTs platform-connect and refetches on success', async () => {
     await renderForm('discord');
 
-    fireEvent.click(await screen.findByText('Use the Postmill app'));
+    fireEvent.click(await screen.findByText('Use the ValidPost app'));
 
     await waitFor(() =>
       expect(mockFetchFn).toHaveBeenCalledWith(
@@ -574,7 +574,7 @@ describe('CommsConfigForm platform connect', () => {
     });
     await renderForm('discord');
 
-    fireEvent.click(await screen.findByText('Use the Postmill app'));
+    fireEvent.click(await screen.findByText('Use the ValidPost app'));
 
     expect(
       await screen.findByText('Discord bot token rejected by the gateway'),

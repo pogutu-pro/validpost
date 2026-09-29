@@ -16,7 +16,7 @@ import { contentPacksDescriptor } from '@postmill-ai/frontend/components/setting
  * badges, Configure/Make-Primary/Remove/Test all built-in). Making a premium
  * pack Primary uses the panel's built-in `set-active` action.
  *
- * The free "Postmill (Default)" pack does NOT fit the panel's per-row Make
+ * The free "ValidPost (Default)" pack does NOT fit the panel's per-row Make
  * Primary (reverting to it hits a different `/deactivate` endpoint, and there is
  * no provider row for it), so it is rendered as a banner via the panel's
  * `children` slot — highlighted when no premium pack is active.
