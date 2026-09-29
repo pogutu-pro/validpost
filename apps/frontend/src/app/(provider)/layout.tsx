@@ -1,7 +1,7 @@
 import { MantineWrapper } from '@postmill-ai/react/helpers/mantine.wrapper';
 
 export const dynamic = 'force-dynamic';
-export const metadata = { title: { default: 'Postmill', template: '%s' } };
+export const metadata = { title: { default: 'ValidPost', template: '%s' } };
 import '../tailwind.css';
 import '../global.scss';
 import 'react-tooltip/dist/react-tooltip.css';

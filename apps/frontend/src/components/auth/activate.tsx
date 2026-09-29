@@ -101,7 +101,7 @@ export function Activate() {
             ) : (
               <Button
                 onClick={resetToForm}
-                className="rounded-[10px] h-[52px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0"
+                className="vp-clay h-[52px]! border-0"
               >
                 {t('send_again', 'Send Again')}
               </Button>
@@ -116,7 +116,7 @@ export function Activate() {
               )}
             </div>
             <Link href="/auth/login">
-              <Button className="rounded-[10px] h-[52px]! w-full bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0">
+              <Button className="vp-clay h-[52px]! w-full border-0">
                 {t('go_to_login', 'Go to Login')}
               </Button>
             </Link>
@@ -133,7 +133,7 @@ export function Activate() {
               />
               <Button
                 type="submit"
-                className="rounded-[10px] h-[52px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0"
+                className="vp-clay h-[52px]! border-0"
                 loading={loading}
                 disabled={cooldown > 0}
               >
@@ -149,7 +149,7 @@ export function Activate() {
         {status !== 'already_activated' && (
           <p className="mt-4 text-sm text-textColor">
             {t('already_activated', 'Already activated?')}&nbsp;
-            <Link href="/auth/login" className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium">
+            <Link href="/auth/login" className="underline cursor-pointer text-btnPrimaryAccent hover:text-textColor font-medium">
               {t('sign_in', 'Sign In')}
             </Link>
           </p>

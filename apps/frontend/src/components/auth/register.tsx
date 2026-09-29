@@ -262,9 +262,12 @@ export function RegisterAfter({
       <form className="flex-1 flex" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col flex-1">
           <div>
-            <h1 className="text-[40px] font-[500] tracking-[-0.8px] text-start cursor-pointer">
+            <h1 className="text-[36px] font-[600] tracking-[-0.03em] text-start">
               {t('sign_up', 'Sign Up')}
             </h1>
+            <p className="mt-[6px] text-[14px] text-textItemBlur">
+              {t('sign_up_subtitle', "Let's get your content moving.")}
+            </p>
           </div>
           {!isAfterProvider && visibleProviders.length > 0 && (
             <div className="text-[14px] mt-[32px] mb-[12px]">
@@ -331,7 +334,7 @@ export function RegisterAfter({
                 &nbsp;
                 <a
                   href={`https://validpost.ai/terms`}
-                  className="underline hover:font-bold text-[#4F46E5] hover:text-[#4338CA]"
+                  className="underline text-btnPrimaryAccent hover:text-textColor"
                   rel="nofollow"
                 >
                   {t('terms_of_service', 'Terms of Service')}
@@ -341,7 +344,7 @@ export function RegisterAfter({
                 <a
                   href={`https://validpost.ai/privacy`}
                   rel="nofollow"
-                  className="underline hover:font-bold text-[#4F46E5] hover:text-[#4338CA]"
+                  className="underline text-btnPrimaryAccent hover:text-textColor"
                 >
                   {t('privacy_policy', 'Privacy Policy')}
                 </a>
@@ -351,7 +354,7 @@ export function RegisterAfter({
                 <div className="w-full flex">
                   <Button
                     type="submit"
-                    className="flex-1 rounded-[10px] h-[52px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0"
+                    className="vp-clay flex-1 h-[52px]! border-0"
                     loading={loading}
                   >
                     {t('create_account', 'Create Account')}
@@ -362,7 +365,7 @@ export function RegisterAfter({
                   &nbsp;
                   <Link
                     href="/auth/login"
-                    className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium"
+                    className="underline cursor-pointer text-btnPrimaryAccent hover:text-textColor font-medium"
                   >
                     {t('sign_in', 'Sign In')}
                   </Link>

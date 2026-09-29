@@ -130,9 +130,12 @@ export function Login() {
       <form className="flex-1 flex" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col flex-1">
           <div>
-            <h1 className="text-[40px] font-[500] tracking-[-0.8px] text-start cursor-pointer">
-              {t('sign_in', 'Sign In')}
+            <h1 className="text-[36px] font-[600] tracking-[-0.03em] text-start">
+              {t('sign_in', 'Welcome back')}
             </h1>
+            <p className="mt-[6px] text-[14px] text-textItemBlur">
+              {t('sign_in_subtitle', 'Sign in and get your content moving.')}
+            </p>
           </div>
           {visibleProviders.length > 0 && (
             <div className="text-[14px] mt-[32px] mb-[12px]">
@@ -189,7 +192,7 @@ export function Login() {
                 <div className="w-full flex">
                   <Button
                     type="submit"
-                    className="flex-1 rounded-[10px] h-[52px]! bg-[#4F46E5] hover:bg-[#4338CA] text-white border-0"
+                    className="vp-clay flex-1 h-[52px]! border-0"
                     loading={loading}
                   >
                     {t('sign_in_1', 'Sign in')}
@@ -199,7 +202,7 @@ export function Login() {
                   {t('don_t_have_an_account', "Don't Have An Account?")}&nbsp;
                   <Link
                     href="/auth"
-                    className="underline cursor-pointer text-[#4F46E5] hover:text-[#4338CA] font-medium"
+                    className="underline cursor-pointer text-btnPrimaryAccent hover:text-textColor font-medium"
                   >
                     {t('sign_up', 'Sign Up')}
                   </Link>
@@ -207,7 +210,7 @@ export function Login() {
                 <p className="mt-4 text-sm">
                   <Link
                     href="/auth/forgot"
-                    className="underline hover:font-bold cursor-pointer text-[#4F46E5] hover:text-[#4338CA]"
+                    className="underline cursor-pointer text-btnPrimaryAccent hover:text-textColor"
                   >
                     {t('forgot_password', 'Forgot password')}
                   </Link>

@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 import { BillingComponent } from '@postmill-ai/frontend/components/billing/billing.component';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
-  title: `Postmill Billing`,
+  title: `ValidPost Billing`,
   description: '',
 };
 export default async function Page() {

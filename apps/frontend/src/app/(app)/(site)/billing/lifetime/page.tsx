@@ -2,7 +2,7 @@ import { LifetimeDeal } from '@postmill-ai/frontend/components/billing/lifetime.
 export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
-  title: `Postmill Lifetime deal`,
+  title: `ValidPost Lifetime deal`,
   description: '',
 };
 export default async function Page() {
