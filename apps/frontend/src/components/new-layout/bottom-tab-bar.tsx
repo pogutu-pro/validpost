@@ -119,7 +119,7 @@ export const BottomTabBar: FC = () => {
             <span className="w-[22px] h-[22px] flex items-center justify-center">
               {MoreIcon}
             </span>
-            <span className="leading-none">{t('more', 'More')}</span>
+            <span className="leading-none text-[10px] font-[600]">{t('more', 'More')}</span>
           </button>
         </div>
       </nav>

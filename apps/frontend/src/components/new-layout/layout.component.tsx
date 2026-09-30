@@ -176,11 +176,11 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
                   <AnnouncementBanner />
                   <div className="flex-1 flex">
                     <Support />
-                    <div className="mobile:hidden flex flex-col bg-newBgColorInner w-[72px] rounded-l-[12px] border-r border-newTableBorder">
+                    <div className="mobile:hidden flex flex-col bg-newBgColorInner w-[84px] rounded-l-[12px] border-r border-newTableBorder">
                       <div
                         id="left-menu"
                         className={clsx(
-                          'fixed h-full w-[72px] inset-s-[17px] flex flex-1 top-0'
+                          'fixed h-full w-[84px] inset-s-[17px] flex flex-1 top-0'
                         )}
                       >
                         <div className="flex flex-col h-full flex-1 py-[16px]">
