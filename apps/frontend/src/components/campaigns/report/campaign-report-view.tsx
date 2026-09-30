@@ -166,7 +166,7 @@ export const CampaignReportView: FC<{ report: CampaignReport; publicMode?: boole
 
   const campaign = report.campaign;
   const engagement = report.engagement;
-  const color = campaign.color || '#2B5CD3';
+  const color = campaign.color || '#D42A66';
 
   const sortedChannels = useMemo(() => {
     return Object.entries(report.channelBreakdown || {}).sort((a, b) => b[1].views - a[1].views);

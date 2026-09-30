@@ -2,13 +2,13 @@
 //
 // Replaces the 6-colour palette that used to be re-declared as a literal array
 // in overview.tab, post.detail.chart, and the drill panels (F1), and the raw
-// `#2B5CD3` accent that filter.bar hard-coded 12×.
+// `#D42A66` accent that filter.bar hard-coded 12×.
 
 /**
  * The brand accent. This is the ONE place the raw hex literal lives — everywhere
  * else references `ACCENT`, the `designerAccent` Tailwind token, or `--new-btn-primary`.
  */
-export const ACCENT = '#2B5CD3';
+export const ACCENT = '#E1306C';
 
 /** RGB triple of {@link ACCENT}, for building rgba() ramps without re-parsing hex. */
 export const ACCENT_RGB = '43, 92, 211';
@@ -18,7 +18,7 @@ export const ACCENT_RGB = '43, 92, 211';
  * token (defined in colors.scss for both themes) with a hard-coded fallback.
  */
 export const CHART_PALETTE: string[] = [
-  'var(--chart-1, #2b5cd3)',
+  'var(--chart-1, #e1306c)',
   'var(--chart-2, #32d583)',
   'var(--chart-3, #1d9bf0)',
   'var(--chart-4, #f97066)',

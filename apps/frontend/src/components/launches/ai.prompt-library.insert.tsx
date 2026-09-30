@@ -169,7 +169,7 @@ const PromptLibraryDropdown: FC<{
       <div className="max-h-[300px] overflow-y-auto">
         {isLoading && (
           <div className="flex justify-center py-[20px]">
-            <Loading height={20} width={20} type="spin" color="#2b5cd3" />
+            <Loading height={20} width={20} type="spin" color="#D42A66" />
           </div>
         )}
 

@@ -130,7 +130,7 @@ export const ShortlinkPicker: FC<{
       ref={ref}
       className={clsx(
         'border rounded-[8px] justify-center flex items-center relative h-[36px] lg:h-[44px] text-[13px] lg:text-[15px] font-[600] select-none',
-        isOpen ? 'border-[#2B5CD3]' : 'border-newTextColor/10'
+        isOpen ? 'border-btnPrimary' : 'border-newTextColor/10'
       )}
     >
       <button

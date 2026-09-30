@@ -238,7 +238,7 @@ export default function OAuthAuthorizePage() {
     return (
       <div className="flex flex-1 items-center justify-center text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-[#2B5CD3] rounded-full blur-[120px]" />
+          <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-btnPrimary rounded-full blur-[120px]" />
           <div className="absolute bottom-[20%] right-[10%] w-[250px] h-[250px] bg-[#1d9bf0] rounded-full blur-[120px]" />
         </div>
         <div className="relative z-10 text-center">
@@ -249,7 +249,7 @@ export default function OAuthAuthorizePage() {
             {t('please_wait_ellipsis', 'Please wait...')}
           </div>
           <div className="mt-[32px] flex justify-center">
-            <div className="w-[48px] h-[48px] border-[3px] border-[#2B5CD3] border-t-transparent rounded-full animate-spin" />
+            <div className="w-[48px] h-[48px] border-[3px] border-btnPrimary border-t-transparent rounded-full animate-spin" />
           </div>
         </div>
       </div>
@@ -260,7 +260,7 @@ export default function OAuthAuthorizePage() {
     return (
       <div className="flex flex-1 items-center justify-center text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-[#2B5CD3] rounded-full blur-[120px]" />
+          <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-btnPrimary rounded-full blur-[120px]" />
           <div className="absolute bottom-[20%] right-[10%] w-[250px] h-[250px] bg-[#1d9bf0] rounded-full blur-[120px]" />
         </div>
         <div className="relative z-10 text-center">
@@ -298,7 +298,7 @@ export default function OAuthAuthorizePage() {
   return (
     <div className="flex flex-1 items-center justify-center text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-[#2B5CD3] rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-btnPrimary rounded-full blur-[120px]" />
         <div className="absolute bottom-[20%] right-[10%] w-[250px] h-[250px] bg-[#1d9bf0] rounded-full blur-[120px]" />
       </div>
 
@@ -360,7 +360,7 @@ export default function OAuthAuthorizePage() {
             <button
               onClick={() => handleAction('approve')}
               disabled={submitting}
-              className="flex-1 bg-[#2B5CD3] hover:bg-[#7B3FF2] disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
+              className="flex-1 bg-btnPrimary hover:bg-vpPrimaryHover disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
             >
               {t('authorize', 'Authorize')}
             </button>

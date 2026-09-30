@@ -6,7 +6,7 @@ import { resolveCSSVar, useCSSToken } from '../kit/chart-theme';
 
 function resolveChartColors(): string[] {
   return [
-    resolveCSSVar('var(--chart-1, #2b5cd3)'),
+    resolveCSSVar('var(--chart-1, #e1306c)'),
     resolveCSSVar('var(--chart-2, #32d583)'),
     resolveCSSVar('var(--chart-3, #1d9bf0)'),
     resolveCSSVar('var(--chart-4, #f97066)'),

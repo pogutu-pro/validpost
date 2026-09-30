@@ -197,7 +197,7 @@ export const ApiKeysSection: FC<{ onKeyCreated?: (key: CreatedKey) => void }> = 
         <button
           type="button"
           onClick={() => setCreating(true)}
-          className="cursor-pointer px-[20px] h-[44px] bg-[#2B5CD3] hover:bg-[#5520CB] transition-colors text-white rounded-[8px] text-[15px] font-[600]"
+          className="cursor-pointer px-[20px] h-[44px] bg-btnPrimary hover:bg-vpPrimaryHover transition-colors text-white rounded-[8px] text-[15px] font-[600]"
         >
           {t('create_key', 'Create Key')}
         </button>
@@ -238,7 +238,7 @@ export const ApiKeysSection: FC<{ onKeyCreated?: (key: CreatedKey) => void }> = 
               <button
                 type="button"
                 onClick={createKey}
-                className="cursor-pointer px-[20px] h-[44px] bg-[#2B5CD3] hover:bg-[#5520CB] transition-colors text-white rounded-[8px] text-[15px] font-[600]"
+                className="cursor-pointer px-[20px] h-[44px] bg-btnPrimary hover:bg-vpPrimaryHover transition-colors text-white rounded-[8px] text-[15px] font-[600]"
               >
                 {t('create', 'Create')}
               </button>
@@ -306,7 +306,7 @@ export const ApiKeysSection: FC<{ onKeyCreated?: (key: CreatedKey) => void }> = 
                           <button
                             type="button"
                             onClick={() => rotateKey(key.id)}
-                            className="cursor-pointer px-[8px] h-[28px] bg-[#2B5CD3] text-white rounded-[4px] text-[11px] font-[600]"
+                            className="cursor-pointer px-[8px] h-[28px] bg-btnPrimary text-white rounded-[4px] text-[11px] font-[600]"
                           >
                             {t('confirm', 'Confirm')}
                           </button>

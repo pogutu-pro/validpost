@@ -17,7 +17,7 @@ interface BarChartProps {
 export const BarChart: FC<BarChartProps> = ({
   labels,
   values,
-  color = 'var(--chart-1, #2b5cd3)',
+  color = 'var(--chart-1, #e1306c)',
   height = 250,
   format = 'number',
   horizontal = false,

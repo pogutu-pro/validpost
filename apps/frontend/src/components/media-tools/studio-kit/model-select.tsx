@@ -8,7 +8,7 @@ import { useStudioModels } from './hooks';
 // (GET /media/studio/:provider/models?operation=) and falls back to the descriptor's
 // static options when the catalog is empty/unavailable. Native — no UI library.
 const inputClass =
-  'w-full px-[12px] py-[9px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] transition-colors';
+  'w-full px-[12px] py-[9px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-btnPrimary transition-colors';
 
 interface Option {
   value: string;
@@ -104,7 +104,7 @@ export const ModelSelect: FC<{
                 pick(o.value);
               }}
               className={`block w-full text-left px-[12px] py-[8px] text-[13px] hover:bg-boxHover transition-colors ${
-                o.value === value ? 'text-textColor bg-[#2B5CD3]/15' : 'text-newTextColor/80'
+                o.value === value ? 'text-textColor bg-btnPrimary/15' : 'text-newTextColor/80'
               }`}
             >
               {o.label}

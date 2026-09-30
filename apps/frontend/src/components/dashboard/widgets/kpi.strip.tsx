@@ -40,7 +40,7 @@ export const KpiStrip: FC<KpiStripProps> = ({ from, to, integrationIds }) => {
     return [
       {
         kpi: engagement ?? staticKPI(t('kpi_engagement_7d', 'Engagement (7d)'), 0),
-        accent: 'var(--chart-1, #2b5cd3)',
+        accent: 'var(--chart-1, #e1306c)',
         // Each tile opens the page that explains its number.
         href: '/analytics',
       },

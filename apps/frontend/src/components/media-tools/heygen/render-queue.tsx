@@ -115,7 +115,7 @@ export const RenderQueue: FC<{ jobs: HeyGenJob[] | undefined; isLoading: boolean
                 <button
                   type="button"
                   onClick={() => post(job)}
-                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-[#2B5CD3] text-white text-[12px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-btnPrimary text-white text-[12px] font-[500] hover:bg-btnPrimary/80 transition-all"
                 >
                   {t('post', 'Post')}
                 </button>

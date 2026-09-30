@@ -116,14 +116,14 @@ export const StockAudio: FC<StockAudioProps> = ({ mode = 'browse', onSelect, onS
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t('search_music_audio_placeholder', 'Search music & audio...')}
-          className="w-full h-[44px] pl-[38px] pr-[34px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-[#2B5CD3] text-textColor"
+          className="w-full h-[44px] pl-[38px] pr-[34px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-btnPrimary text-textColor"
         />
         {query && (
           <button
             type="button"
             onClick={() => setQuery('')}
             aria-label={t('clear_search', 'Clear search')}
-            className="absolute right-[10px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] flex items-center justify-center text-newTextColor/60 hover:text-newTextColor rounded-full focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+            className="absolute right-[10px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] flex items-center justify-center text-newTextColor/60 hover:text-newTextColor rounded-full focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
           >
             ✕
           </button>
@@ -138,7 +138,7 @@ export const StockAudio: FC<StockAudioProps> = ({ mode = 'browse', onSelect, onS
           <button
             type="button"
             onClick={() => mutate()}
-            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] hover:bg-[#1e4ab5]"
+            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-btnPrimary text-white text-[13px] hover:bg-[#1e4ab5]"
           >
             {t('try_again', 'Try again')}
           </button>
@@ -163,7 +163,7 @@ export const StockAudio: FC<StockAudioProps> = ({ mode = 'browse', onSelect, onS
           <button
             type="button"
             onClick={() => mutate()}
-            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-btnPrimary text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
           >
             {t('try_again', 'Try again')}
           </button>
@@ -186,7 +186,7 @@ export const StockAudio: FC<StockAudioProps> = ({ mode = 'browse', onSelect, onS
                 key={s}
                 type="button"
                 onClick={() => setQuery(s)}
-                className="h-[30px] px-[14px] rounded-full border border-newColColor text-[12px] text-newTextColor/70 hover:text-btnPrimaryAccent hover:border-[#2B5CD3] transition-colors"
+                className="h-[30px] px-[14px] rounded-full border border-newColColor text-[12px] text-newTextColor/70 hover:text-btnPrimaryAccent hover:border-btnPrimary transition-colors"
               >
                 {s}
               </button>
@@ -234,7 +234,7 @@ export const StockAudio: FC<StockAudioProps> = ({ mode = 'browse', onSelect, onS
                     });
                     onSelect?.({ url, name });
                   }}
-                  className="shrink-0 px-[14px] py-[8px] rounded-[8px] bg-[#2B5CD3] text-white text-[12px] font-[500] hover:bg-[#2B5CD3]/80 transition-all flex items-center gap-[6px]"
+                  className="shrink-0 px-[14px] py-[8px] rounded-[8px] bg-btnPrimary text-white text-[12px] font-[500] hover:bg-btnPrimary/80 transition-all flex items-center gap-[6px]"
                 >
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />

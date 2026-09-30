@@ -165,8 +165,8 @@ export const OverflowTabs: FC<OverflowTabsProps> = ({
         'flex items-center gap-[6px] shrink-0 px-[12px] h-[34px] rounded-[8px] text-[13px] whitespace-nowrap border transition-all',
         focusRing,
         active
-          ? 'bg-[#2B5CD3]/20 text-textColor border-transparent'
-          : 'border-studioBorder text-newTextColor/70 hover:bg-boxHover hover:text-textColor hover:border-[#2B5CD3]'
+          ? 'bg-btnPrimary/20 text-textColor border-transparent'
+          : 'border-studioBorder text-newTextColor/70 hover:bg-boxHover hover:text-textColor hover:border-btnPrimary'
       );
     }
     return clsx(

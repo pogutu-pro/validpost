@@ -102,14 +102,14 @@ export const StockStickers: FC<StockStickersProps> = ({ mode = 'browse', onSelec
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t('search_stickers_placeholder', 'Search stickers...')}
-            className="w-full h-[44px] pl-[38px] pr-[34px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-[#2B5CD3] text-textColor"
+            className="w-full h-[44px] pl-[38px] pr-[34px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-btnPrimary text-textColor"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
               aria-label={t('clear_search', 'Clear search')}
-              className="absolute right-[10px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] flex items-center justify-center text-newTextColor/60 hover:text-newTextColor rounded-full focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+              className="absolute right-[10px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] flex items-center justify-center text-newTextColor/60 hover:text-newTextColor rounded-full focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
             >
               ✕
             </button>
@@ -133,7 +133,7 @@ export const StockStickers: FC<StockStickersProps> = ({ mode = 'browse', onSelec
           <button
             type="button"
             onClick={() => mutate()}
-            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-btnPrimary text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
           >
             {t('try_again', 'Try again')}
           </button>
@@ -163,7 +163,7 @@ export const StockStickers: FC<StockStickersProps> = ({ mode = 'browse', onSelec
           <button
             type="button"
             onClick={() => mutate()}
-            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-btnPrimary text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
           >
             {t('try_again', 'Try again')}
           </button>
@@ -189,7 +189,7 @@ export const StockStickers: FC<StockStickersProps> = ({ mode = 'browse', onSelec
                 key={s}
                 type="button"
                 onClick={() => setQuery(s)}
-                className="h-[30px] px-[14px] rounded-full border border-newColColor text-[12px] text-newTextColor/70 hover:text-btnPrimaryAccent hover:border-[#2B5CD3] transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+                className="h-[30px] px-[14px] rounded-full border border-newColColor text-[12px] text-newTextColor/70 hover:text-btnPrimaryAccent hover:border-btnPrimary transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
               >
                 {s}
               </button>
@@ -232,7 +232,7 @@ export const StockStickers: FC<StockStickersProps> = ({ mode = 'browse', onSelec
                   type="button"
                   onClick={activate}
                   aria-label={sticker.description || t('open_preview', 'Open preview')}
-                  className="block w-full aspect-square relative overflow-hidden bg-transparent cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#2B5CD3]"
+                  className="block w-full aspect-square relative overflow-hidden bg-transparent cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-btnPrimary"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element -- external stock thumbnail */}
                   <img

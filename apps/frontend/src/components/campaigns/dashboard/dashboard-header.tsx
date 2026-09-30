@@ -175,7 +175,7 @@ export const DashboardHeader: FC<DashboardHeaderProps> = ({ campaign, onMutate }
           <div className="flex items-center gap-[12px] pe-[40px]">
             <div
               className="w-[16px] h-[16px] rounded-full border border-newTableBorder"
-              style={{ backgroundColor: campaign.color || '#2b5cd3' }}
+              style={{ backgroundColor: campaign.color || '#D42A66' }}
             />
             <h1 className="text-[24px] font-semibold text-textColor">{campaign.name}</h1>
             <StatusBadge archived={campaign.archived} />

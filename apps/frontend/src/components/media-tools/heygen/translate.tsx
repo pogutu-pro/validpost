@@ -80,7 +80,7 @@ export const Translate: FC<TranslateProps> = ({ onGenerated }) => {
       <button
         type="button"
         onClick={sourcePicker.open}
-        className="flex items-center gap-[12px] p-[12px] rounded-[10px] border border-studioBorder hover:border-[#2B5CD3] transition-all text-left"
+        className="flex items-center gap-[12px] p-[12px] rounded-[10px] border border-studioBorder hover:border-btnPrimary transition-all text-left"
       >
         <div className="w-[96px] h-[54px] rounded-[8px] bg-black overflow-hidden flex items-center justify-center shrink-0">
           {source ? (
@@ -105,7 +105,7 @@ export const Translate: FC<TranslateProps> = ({ onGenerated }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t('heygen_search_languages', 'Search languages…')}
-          className="w-full h-[36px] px-[12px] mb-[8px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+          className="w-full h-[36px] px-[12px] mb-[8px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-btnPrimary"
         />
         {langsLoading ? (
           <div className="text-[12px] text-newTextColor/60 py-[10px]">{t('heygen_loading_languages', 'Loading languages…')}</div>
@@ -120,8 +120,8 @@ export const Translate: FC<TranslateProps> = ({ onGenerated }) => {
                 onClick={() => toggle(lang)}
                 className={`px-[12px] h-[30px] rounded-full text-[12px] border transition-all ${
                   selected.includes(lang)
-                    ? 'bg-[#2B5CD3] border-[#2B5CD3] text-white'
-                    : 'border-studioBorder text-newTextColor/70 hover:border-[#2B5CD3] hover:text-textColor'
+                    ? 'bg-btnPrimary border-btnPrimary text-white'
+                    : 'border-studioBorder text-newTextColor/70 hover:border-btnPrimary hover:text-textColor'
                 }`}
               >
                 {lang}
@@ -135,7 +135,7 @@ export const Translate: FC<TranslateProps> = ({ onGenerated }) => {
         type="button"
         onClick={generate}
         disabled={!valid || generating}
-        className="px-[20px] h-[42px] rounded-[10px] bg-[#2B5CD3] text-white text-[14px] font-[600] hover:bg-[#2B5CD3]/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all w-fit"
+        className="px-[20px] h-[42px] rounded-[10px] bg-btnPrimary text-white text-[14px] font-[600] hover:bg-btnPrimary/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all w-fit"
       >
         {generating ? t('heygen_starting', 'Starting…') : t('heygen_translate_to_files', 'Translate → Files')}
       </button>

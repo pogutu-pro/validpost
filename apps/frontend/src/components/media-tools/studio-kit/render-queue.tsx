@@ -181,7 +181,7 @@ export const RenderQueue: FC<RenderQueueProps> = ({
             ref={highlighted ? scrollIntoViewRef : undefined}
             className={`rounded-[10px] border bg-newBgColorInner overflow-hidden transition-colors ${
               highlighted
-                ? 'border-[#2B5CD3] ring-2 ring-[#2B5CD3]/40'
+                ? 'border-btnPrimary ring-2 ring-btnPrimary/40'
                 : 'border-studioBorder'
             }`}
           >
@@ -229,7 +229,7 @@ export const RenderQueue: FC<RenderQueueProps> = ({
                 <button
                   type="button"
                   onClick={() => insertTranscript(job)}
-                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-[#2B5CD3] text-white text-[12px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-btnPrimary text-white text-[12px] font-[500] hover:bg-btnPrimary/80 transition-all"
                 >
                   {t('to_composer', 'To composer')}
                 </button>
@@ -247,7 +247,7 @@ export const RenderQueue: FC<RenderQueueProps> = ({
                 <button
                   type="button"
                   onClick={() => post(job)}
-                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-[#2B5CD3] text-white text-[12px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-btnPrimary text-white text-[12px] font-[500] hover:bg-btnPrimary/80 transition-all"
                 >
                   {t('post', 'Post')}
                 </button>

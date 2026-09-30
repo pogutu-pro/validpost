@@ -145,14 +145,14 @@ export const StockVectors: FC<StockVectorsProps> = ({ mode = 'browse', onSelect,
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t('search_vectors_placeholder', 'Search vectors...')}
-            className="w-full h-[44px] pl-[38px] pr-[34px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-[#2B5CD3] text-textColor"
+            className="w-full h-[44px] pl-[38px] pr-[34px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-btnPrimary text-textColor"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
               aria-label={t('clear_search', 'Clear search')}
-              className="absolute right-[10px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] flex items-center justify-center text-newTextColor/60 hover:text-newTextColor rounded-full focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+              className="absolute right-[10px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] flex items-center justify-center text-newTextColor/60 hover:text-newTextColor rounded-full focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
             >
               ✕
             </button>
@@ -180,9 +180,9 @@ export const StockVectors: FC<StockVectorsProps> = ({ mode = 'browse', onSelect,
           type="button"
           onClick={() => setColor('')}
           aria-pressed={color === ''}
-          className={`h-[30px] px-[12px] rounded-full border text-[12px] transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3] ${
+          className={`h-[30px] px-[12px] rounded-full border text-[12px] transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary ${
             color === ''
-              ? 'border-[#2B5CD3] bg-[#2B5CD3]/15 text-btnPrimaryAccent font-[500]'
+              ? 'border-btnPrimary bg-btnPrimary/15 text-btnPrimaryAccent font-[500]'
               : 'border-newColColor text-newTextColor/70 hover:text-textColor hover:border-newTextColor/40'
           }`}
         >
@@ -198,8 +198,8 @@ export const StockVectors: FC<StockVectorsProps> = ({ mode = 'browse', onSelect,
             aria-pressed={color === c.value}
             aria-label={t('color_name', 'Color: {{color}}', { color: colorLabel })}
             title={colorLabel}
-            className={`relative w-[30px] h-[30px] rounded-full border transition-transform focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3] hover:scale-110 ${
-              color === c.value ? 'border-[#2B5CD3] ring-2 ring-[#2B5CD3]/40' : 'border-newColColor'
+            className={`relative w-[30px] h-[30px] rounded-full border transition-transform focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary hover:scale-110 ${
+              color === c.value ? 'border-btnPrimary ring-2 ring-btnPrimary/40' : 'border-newColColor'
             }`}
           >
             <span className="absolute inset-[3px] rounded-full" style={{ background: c.swatch }} />
@@ -224,7 +224,7 @@ export const StockVectors: FC<StockVectorsProps> = ({ mode = 'browse', onSelect,
           <button
             type="button"
             onClick={() => mutate()}
-            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-btnPrimary text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
           >
             {t('try_again', 'Try again')}
           </button>
@@ -257,7 +257,7 @@ export const StockVectors: FC<StockVectorsProps> = ({ mode = 'browse', onSelect,
           <button
             type="button"
             onClick={() => mutate()}
-            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+            className="mt-[6px] px-[16px] h-[36px] rounded-[8px] bg-btnPrimary text-white text-[13px] hover:bg-[#1e4ab5] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
           >
             {t('try_again', 'Try again')}
           </button>
@@ -283,7 +283,7 @@ export const StockVectors: FC<StockVectorsProps> = ({ mode = 'browse', onSelect,
                 key={s}
                 type="button"
                 onClick={() => setQuery(s)}
-                className="h-[30px] px-[14px] rounded-full border border-newColColor text-[12px] text-newTextColor/70 hover:text-btnPrimaryAccent hover:border-[#2B5CD3] transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2B5CD3]"
+                className="h-[30px] px-[14px] rounded-full border border-newColColor text-[12px] text-newTextColor/70 hover:text-btnPrimaryAccent hover:border-btnPrimary transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-btnPrimary"
               >
                 {s}
               </button>

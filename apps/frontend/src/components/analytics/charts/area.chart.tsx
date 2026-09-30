@@ -13,7 +13,7 @@ interface AreaChartProps {
 
 export const AreaChart: FC<AreaChartProps> = ({
   data,
-  color = '#2b5cd3',
+  color = '#D42A66',
   height = 200,
   format = 'number',
 }) => {

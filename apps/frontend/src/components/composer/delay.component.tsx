@@ -94,7 +94,7 @@ export const DelayComponent: FC<{
         }
         className={clsx(
           'cursor-pointer flex items-center gap-[4px] border-0 p-0 bg-transparent',
-          currentDelay > 0 && 'bg-[#2b5cd3] text-white rounded-full'
+          currentDelay > 0 && 'bg-btnPrimary text-white rounded-full'
         )}
       >
         <DelayIcon />
@@ -109,7 +109,7 @@ export const DelayComponent: FC<{
                 key={option.value}
                 className={clsx(
                   'h-[32px] flex items-center justify-center rounded-[4px] cursor-pointer hover:bg-newBgColor text-[13px] border-0 p-0',
-                  currentDelay === option.value && 'bg-[#2B5CD3] text-white hover:bg-[#2B5CD3]'
+                  currentDelay === option.value && 'bg-btnPrimary text-white hover:bg-btnPrimary'
                 )}
               >
                 {option.label}
@@ -127,8 +127,8 @@ export const DelayComponent: FC<{
                 onClick={(e) => e.stopPropagation()}
                 placeholder={t('custom_min_placeholder', 'Custom min')}
                 className={clsx(
-                  'flex-1 w-full h-[32px] px-[8px] rounded-[4px] bg-newBgColor border text-[13px] outline-hidden focus:border-[#2B5CD3]',
-                  isCustomDelay ? 'border-[#2B5CD3]' : 'border-newTextColor/10'
+                  'flex-1 w-full h-[32px] px-[8px] rounded-[4px] bg-newBgColor border text-[13px] outline-hidden focus:border-btnPrimary',
+                  isCustomDelay ? 'border-btnPrimary' : 'border-newTextColor/10'
                 )}
               />
               <button
@@ -140,7 +140,7 @@ export const DelayComponent: FC<{
                     setCustomValue('');
                   }
                 }}
-                className="h-[32px] px-[10px] rounded-[4px] bg-[#2B5CD3] text-white text-[12px] font-[600] hover:bg-[#2B5CD3]/80"
+                className="h-[32px] px-[10px] rounded-[4px] bg-btnPrimary text-white text-[12px] font-[600] hover:bg-btnPrimary/80"
               >
                 Set
               </button>

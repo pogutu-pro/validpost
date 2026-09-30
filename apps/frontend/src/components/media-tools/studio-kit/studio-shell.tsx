@@ -124,7 +124,7 @@ export function StudioShell({ descriptor }: { descriptor: StudioDescriptor }) {
   if (!status) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2B5CD3]" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-btnPrimary" />
       </div>
     );
   }
@@ -148,7 +148,7 @@ export function StudioShell({ descriptor }: { descriptor: StudioDescriptor }) {
         </p>
         <a
           href="/settings/content/ai-media"
-          className="mt-[4px] px-[16px] py-[9px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+          className="mt-[4px] px-[16px] py-[9px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[500] hover:bg-btnPrimary/80 transition-all"
         >
           {translate('studio_configure_provider', 'Configure {{title}}', { title })}
         </a>
@@ -208,7 +208,7 @@ export function StudioShell({ descriptor }: { descriptor: StudioDescriptor }) {
                 type="button"
                 onClick={onGenerate}
                 disabled={!canGenerate || generating}
-                className="self-start px-[20px] py-[10px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[600] hover:bg-[#2B5CD3]/80 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                className="self-start px-[20px] py-[10px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[600] hover:bg-btnPrimary/80 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {generating ? translate('starting_ellipsis', 'Starting…') : translate('generate', 'Generate')}
               </button>

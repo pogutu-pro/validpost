@@ -176,7 +176,7 @@ vi.mock('@postmill-ai/frontend/components/composer/composer-library.modal', () =
 }));
 vi.mock('@postmill-ai/frontend/components/ui/color-picker', () => ({
   ColorPicker: () => null,
-  DEFAULT_POST_COLOR: '#2B5CD3',
+  DEFAULT_POST_COLOR: '#D42A66',
 }));
 vi.mock('@postmill-ai/frontend/components/ui/icons', () => ({
   SettingsIcon: () => null,

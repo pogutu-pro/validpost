@@ -105,7 +105,7 @@ export const FolderTree: FC<{
     const isSelected = selectedFolderId === folder.id;
     const isDragOver = isOver(folder.id);
     const hasChildren = folder.children && folder.children.length > 0;
-    const folderColor = folder.color || '#2B5CD3';
+    const folderColor = folder.color || '#D42A66';
     const providerInfo = folder.storageProvider;
 
     return (
@@ -117,9 +117,9 @@ export const FolderTree: FC<{
           className={clsx(
             'flex items-center gap-[6px] px-[8px] py-[6px] rounded-[6px] cursor-pointer group transition-all text-[13px]',
             isSelected
-              ? 'bg-[#2B5CD3]/20 text-textColor'
+              ? 'bg-btnPrimary/20 text-textColor'
               : isDragOver
-                ? 'bg-[#2B5CD3]/30 text-textColor'
+                ? 'bg-btnPrimary/30 text-textColor'
                 : 'text-textColor hover:bg-newColColor/50'
           )}
           onClick={() => onSelectFolder(folder.id)}
@@ -154,7 +154,7 @@ export const FolderTree: FC<{
               onChange={(e) => setRenamingName(e.target.value)}
               onBlur={() => handleRename(folder.id)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleRename(folder.id); if (e.key === 'Escape') setRenamingId(null); }}
-              className="flex-1 bg-transparent border-b border-[#2B5CD3] text-textColor text-[13px] outline-hidden"
+              className="flex-1 bg-transparent border-b border-btnPrimary text-textColor text-[13px] outline-hidden"
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
@@ -162,7 +162,7 @@ export const FolderTree: FC<{
           )}
 
           {providerInfo && (
-            <span className="inline-flex items-center gap-[4px] bg-[#2B5CD3]/15 rounded-[4px] px-[5px] py-[2px] text-[11px] text-newTextColor/70">
+            <span className="inline-flex items-center gap-[4px] bg-btnPrimary/15 rounded-[4px] px-[5px] py-[2px] text-[11px] text-newTextColor/70">
               <ProviderIcon identifier={providerInfo.type} name={providerInfo.name} size={14} />
               {providerInfo.type}
             </span>
@@ -225,9 +225,9 @@ export const FolderTree: FC<{
           className={clsx(
             'flex items-center gap-[8px] px-[12px] py-[8px] cursor-pointer text-[13px] transition-all',
             selectedFolderId === null
-              ? 'bg-[#2B5CD3]/20 text-textColor'
+              ? 'bg-btnPrimary/20 text-textColor'
               : isOver(null)
-                ? 'bg-[#2B5CD3]/30 text-textColor'
+                ? 'bg-btnPrimary/30 text-textColor'
                 : 'text-textColor hover:bg-newColColor/50'
           )}
         >
@@ -251,7 +251,7 @@ export const FolderTree: FC<{
                 if (e.key === 'Escape') { setNewFolderParent(null); setNewFolderName(''); }
               }}
               placeholder={t('folder_name_placeholder', 'Folder name...')}
-              className="flex-1 bg-transparent border-b border-[#2B5CD3] text-textColor text-[13px] outline-hidden placeholder:text-newTextColor/30"
+              className="flex-1 bg-transparent border-b border-btnPrimary text-textColor text-[13px] outline-hidden placeholder:text-newTextColor/30"
             />
           </div>
         )}

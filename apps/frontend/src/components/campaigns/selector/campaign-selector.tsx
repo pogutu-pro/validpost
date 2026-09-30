@@ -99,7 +99,7 @@ export const CampaignSelector: FC<{
                 >
                   <span
                     className="w-[8px] h-[8px] rounded-full"
-                    style={{ backgroundColor: c.color || '#2b5cd3' }}
+                    style={{ backgroundColor: c.color || '#D42A66' }}
                   />
                   {c.name}
                   <button
@@ -139,7 +139,7 @@ export const CampaignSelector: FC<{
                   >
                     <span
                       className="w-[8px] h-[8px] rounded-full shrink-0"
-                      style={{ backgroundColor: c.color || '#2b5cd3' }}
+                      style={{ backgroundColor: c.color || '#D42A66' }}
                     />
                     {c.name}
                     {c.archived && (

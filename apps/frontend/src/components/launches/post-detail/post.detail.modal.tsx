@@ -1193,7 +1193,7 @@ export const PostDetailModal: FC<PostDetailModalProps> = ({
                   >
                     <span
                       className="w-[8px] h-[8px] rounded-full shrink-0"
-                      style={{ backgroundColor: tw.tag?.color || '#2b5cd3' }}
+                      style={{ backgroundColor: tw.tag?.color || '#D42A66' }}
                     />
                     {tw.tag?.name}
                   </span>

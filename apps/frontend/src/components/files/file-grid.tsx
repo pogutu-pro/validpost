@@ -327,9 +327,9 @@ const FolderTile: FC<{
       <svg width="22" height="22" viewBox="0 0 16 16" fill="none" className="shrink-0" aria-hidden="true">
         <path
           d="M2 4.5C2 3.39543 2.89543 2.5 4 2.5H5.93934C6.46977 2.5 6.97848 2.71071 7.35355 3.08579L8 3.73223C8.18935 3.92156 8.44705 4.02708 8.71573 4.02708H12C13.1046 4.02708 14 4.92251 14 6.02708V11.5C14 12.6046 13.1046 13.5 12 13.5H4C2.89543 13.5 2 12.6046 2 11.5V4.5Z"
-          fill={folder.color || '#2B5CD3'}
+          fill={folder.color || '#D42A66'}
           fillOpacity="0.25"
-          stroke={folder.color || '#2B5CD3'}
+          stroke={folder.color || '#D42A66'}
           strokeWidth="1.3"
         />
       </svg>

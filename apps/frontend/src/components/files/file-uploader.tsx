@@ -51,7 +51,7 @@ export const FileUploader: FC<{
           className={clsx(
             'relative cursor-pointer flex gap-[8px] h-[36px] px-[14px] justify-center items-center rounded-[8px] text-[13px] transition-all',
             isHeader
-              ? 'bg-[#2B5CD3] text-white hover:opacity-90'
+              ? 'bg-btnPrimary text-white hover:opacity-90'
               : 'bg-btnSimple text-textColor hover:bg-boxHover'
           )}
         >

@@ -83,7 +83,7 @@ export const TalkingPhoto: FC<TalkingPhotoProps> = ({ voices, onGenerated }) => 
       <button
         type="button"
         onClick={photoPicker.open}
-        className="flex items-center gap-[12px] p-[12px] rounded-[10px] border border-studioBorder hover:border-[#2B5CD3] transition-all text-left"
+        className="flex items-center gap-[12px] p-[12px] rounded-[10px] border border-studioBorder hover:border-btnPrimary transition-all text-left"
       >
         <div className="w-[64px] h-[64px] rounded-[8px] bg-newBgColorInner overflow-hidden flex items-center justify-center shrink-0">
           {photo ? (
@@ -107,7 +107,7 @@ export const TalkingPhoto: FC<TalkingPhotoProps> = ({ voices, onGenerated }) => 
             children: <VoicePicker voices={voices} selectedId={voice?.voiceId} onSelect={(v) => setVoice({ voiceId: v.voiceId, name: v.name })} />,
           })
         }
-        className="flex items-center justify-between gap-[8px] px-[12px] py-[10px] rounded-[10px] border border-studioBorder hover:border-[#2B5CD3] transition-all text-left"
+        className="flex items-center justify-between gap-[8px] px-[12px] py-[10px] rounded-[10px] border border-studioBorder hover:border-btnPrimary transition-all text-left"
       >
         <div>
           <div className="text-[13px] text-textColor">{voice?.name || t('heygen_pick_a_voice', 'Pick a voice')}</div>
@@ -121,13 +121,13 @@ export const TalkingPhoto: FC<TalkingPhotoProps> = ({ voices, onGenerated }) => 
         onChange={(e) => setText(e.target.value)}
         placeholder={t('heygen_what_should_photo_say', 'What should the photo say?')}
         rows={5}
-        className="w-full px-[12px] py-[10px] rounded-[10px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] resize-none"
+        className="w-full px-[12px] py-[10px] rounded-[10px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-btnPrimary resize-none"
       />
 
       <select
         value={dimensionKey}
         onChange={(e) => setDimensionKey(e.target.value)}
-        className="h-[38px] px-[10px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] w-fit"
+        className="h-[38px] px-[10px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-btnPrimary w-fit"
       >
         {DIMENSIONS.map((d) => (
           <option key={d.key} value={d.key}>{d.label}</option>
@@ -138,7 +138,7 @@ export const TalkingPhoto: FC<TalkingPhotoProps> = ({ voices, onGenerated }) => 
         type="button"
         onClick={generate}
         disabled={!valid || generating}
-        className="px-[20px] h-[42px] rounded-[10px] bg-[#2B5CD3] text-white text-[14px] font-[600] hover:bg-[#2B5CD3]/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all w-fit"
+        className="px-[20px] h-[42px] rounded-[10px] bg-btnPrimary text-white text-[14px] font-[600] hover:bg-btnPrimary/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all w-fit"
       >
         {generating ? t('heygen_starting', 'Starting…') : t('heygen_generate_talking_photo_to_files', 'Generate talking photo → Files')}
       </button>

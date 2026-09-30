@@ -203,7 +203,7 @@ const ContentToolsModal: FC<{ close: () => void }> = (props) => {
                 className={clsx(
                   'm-0 p-0 border-0 bg-transparent cursor-pointer rounded-[4px] px-[10px] h-[30px] flex items-center text-[12px] border',
                   selectedPlatforms.includes(p)
-                    ? 'bg-[#2B5CD3] border-[#2B5CD3] text-white'
+                    ? 'bg-btnPrimary border-btnPrimary text-white'
                     : 'bg-newColColor border-newBgLineColor'
                 )}
               >
@@ -226,7 +226,7 @@ const ContentToolsModal: FC<{ close: () => void }> = (props) => {
                 className={clsx(
                   'm-0 p-0 border-0 bg-transparent cursor-pointer rounded-[4px] px-[10px] h-[30px] flex items-center text-[12px] border',
                   selectedLocales.includes(l.key)
-                    ? 'bg-[#2B5CD3] border-[#2B5CD3] text-white'
+                    ? 'bg-btnPrimary border-btnPrimary text-white'
                     : 'bg-newColColor border-newBgLineColor'
                 )}
               >
@@ -251,7 +251,7 @@ const ContentToolsModal: FC<{ close: () => void }> = (props) => {
                 className={clsx(
                   'm-0 p-0 border-0 bg-transparent cursor-pointer rounded-[4px] w-[36px] h-[30px] flex items-center justify-center text-[12px] border',
                   variantCount === n
-                    ? 'bg-[#2B5CD3] border-[#2B5CD3] text-white'
+                    ? 'bg-btnPrimary border-btnPrimary text-white'
                     : 'bg-newColColor border-newBgLineColor'
                 )}
               >

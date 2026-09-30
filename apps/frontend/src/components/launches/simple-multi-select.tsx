@@ -96,7 +96,7 @@ export const SimpleMultiSelect: FC<{
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={t('search', 'Search...')}
-                className="w-full h-[36px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+                className="w-full h-[36px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-btnPrimary"
               />
             </div>
           )}
@@ -119,7 +119,7 @@ export const SimpleMultiSelect: FC<{
                     className={clsx(
                       'flex items-center gap-[10px] w-full px-[8px] py-[8px] rounded-[8px] text-left transition-colors',
                       selected
-                        ? 'bg-[#2B5CD3]/15 text-textColor'
+                        ? 'bg-btnPrimary/15 text-textColor'
                         : 'hover:bg-boxHover text-textColor'
                     )}
                   >
@@ -127,7 +127,7 @@ export const SimpleMultiSelect: FC<{
                       className={clsx(
                         'w-[18px] h-[18px] rounded-[4px] border flex items-center justify-center shrink-0',
                         selected
-                          ? 'bg-[#2B5CD3] border-[#2B5CD3]'
+                          ? 'bg-btnPrimary border-btnPrimary'
                           : 'border-newColColor'
                       )}
                     >
