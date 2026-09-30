@@ -64,7 +64,7 @@ export function StepLlm({
       title={t('setup_llm_title', 'Connect an LLM provider')}
       subtitle={t(
         'setup_llm_subtitle',
-        'Pick a Large Language Model provider to power AI features. This step is required before you can finish setup.'
+        'Pick a Large Language Model provider to power AI features. You can skip this and add one later in Settings.'
       )}
     >
       <ProviderSettingsPanel

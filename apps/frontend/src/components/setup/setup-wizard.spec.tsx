@@ -61,10 +61,10 @@ describe('SetupWizard', () => {
     window.sessionStorage.clear();
   });
 
-  it('disables Next on step 1 when no LLM is active', () => {
+  it('never blocks: Next is enabled on step 1 even when no LLM is active', () => {
     render(<SetupWizard />);
     const next = screen.getByRole('button', { name: /next/i }) as HTMLButtonElement;
-    expect(next.disabled).toBe(true);
+    expect(next.disabled).toBe(false);
   });
 
   it('enables Next on step 1 when an LLM is active', () => {
@@ -75,7 +75,6 @@ describe('SetupWizard', () => {
   });
 
   it('advances to the next step when Next is clicked', () => {
-    summaryData = { aiProviderActive: true };
     render(<SetupWizard />);
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
     expect(screen.getByTestId('stepper-1')).toBeDefined();
@@ -95,12 +94,11 @@ describe('SetupWizard', () => {
     expect(window.sessionStorage.getItem('setup:step')).toBe('1');
   });
 
-  it('Finish calls complete endpoint, mutates /user/self, then navigates to /dashboard', async () => {
-    summaryData = { aiProviderActive: true };
+  it('Skip setup completes setup without an AI provider, mutates /user/self, then navigates to /dashboard', async () => {
     mockFetch.mockResolvedValue({ ok: true, json: async () => ({ setupCompleted: true }) });
 
     render(<SetupWizard />);
-    fireEvent.click(screen.getByRole('button', { name: /finish setup/i }));
+    fireEvent.click(screen.getByRole('button', { name: /skip setup/i }));
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledWith('/settings/setup/complete', { method: 'POST' });
