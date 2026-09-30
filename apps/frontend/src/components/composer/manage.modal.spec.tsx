@@ -519,4 +519,63 @@ describe('ManageModal', () => {
     // The assistant dialog header renders (portal to document.body).
     expect(await screen.findByText('Your Assistant')).toBeTruthy();
   });
+  // Guided flow: Create → Preview → Improve → Schedule → Publish.
+  it('guides the user from real state: write first, then pick a channel, then ready', () => {
+    h.state.global = [{ id: 'g1', content: '<p></p>', delay: 0, media: [] }];
+    h.state.selectedIntegrations = [];
+    const { unmount } = renderModal();
+    expect(screen.getByRole('navigation', { name: /post progress/i })).toBeTruthy();
+    expect(screen.getByText(/start with your message/i)).toBeTruthy();
+    unmount();
+
+    h.state.global = [{ id: 'g1', content: '<p>hello</p>', delay: 0, media: [] }];
+    const second = renderModal();
+    expect(screen.getByText(/pick a channel to see your live preview/i)).toBeTruthy();
+    second.unmount();
+
+    h.state.selectedIntegrations = [
+      { integration: { id: 'int1' }, settings: {}, ref: { current: {} } },
+    ];
+    renderModal();
+    expect(screen.getByText(/looking good/i)).toBeTruthy();
+  });
+
+  it('keeps Post now in a menu that opens on click (usable on touch and keyboard)', async () => {
+    renderModal();
+    expect(screen.queryByRole('menu')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /more ways to publish/i }));
+    expect(screen.getByRole('menuitem', { name: /post now/i })).toBeTruthy();
+    expect(screen.getByRole('menuitem', { name: /save as template/i })).toBeTruthy();
+  });
+
+  it('celebrates in the ValidPost voice: scheduled, draft saved, published', async () => {
+    // A successful save closes the real modal, so each case starts fresh.
+    renderModal();
+    await act(async () => {
+      fireEvent.click(scheduleButton());
+    });
+    await waitFor(() =>
+      expect(h.toasterShow).toHaveBeenCalledWith("Scheduled. It's on your calendar.")
+    );
+    cleanup();
+
+    h.toasterShow.mockClear();
+    renderModal();
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: /save as draft/i }));
+    });
+    await waitFor(() => expect(h.toasterShow).toHaveBeenCalledWith('Draft saved.'));
+    cleanup();
+
+    h.toasterShow.mockClear();
+    renderModal();
+    fireEvent.click(screen.getByRole('button', { name: /more ways to publish/i }));
+    await act(async () => {
+      fireEvent.click(screen.getByRole('menuitem', { name: /post now/i }));
+    });
+    await waitFor(() =>
+      expect(h.toasterShow).toHaveBeenCalledWith("Published. It's out there.")
+    );
+  });
 });
+
