@@ -21,7 +21,7 @@ const makeDto = (config: Partial<AiDesignerConfigDto> & { variants: number }) =>
 
 describe('StartAiDesignerSessionDto', () => {
   it('accepts a valid channel preset id', async () => {
-    const dto = makeDto({ channels: ['ig-post', 'x-post'], variants: 1 });
+    const dto = makeDto({ channels: ['ig-post', 'linkedin-post'], variants: 1 });
     const errors = await validate(dto);
     expect(errors).toHaveLength(0);
   });

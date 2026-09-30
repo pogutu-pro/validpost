@@ -262,21 +262,21 @@ describe('OrgProviderConfigService audit (F2c)', () => {
     });
 
     it('allows enabling without credentials when a platform app exists (create)', async () => {
-      vi.stubEnv('X_API_KEY', 'env-key');
-      vi.stubEnv('X_API_SECRET', 'env-secret');
+      vi.stubEnv('LINKEDIN_CLIENT_ID', 'env-key');
+      vi.stubEnv('LINKEDIN_CLIENT_SECRET', 'env-secret');
       repository.create.mockResolvedValue(
-        baseRow({ identifier: 'x', clientId: null, clientSecret: null })
+        baseRow({ identifier: 'linkedin', clientId: null, clientSecret: null })
       );
 
       await service.createConfig(
         'o1',
-        { identifier: 'x', name: 'Platform X', enabled: true },
+        { identifier: 'linkedin', name: 'Platform LinkedIn', enabled: true },
         'u1'
       );
 
       expect(repository.create).toHaveBeenCalledWith(
         'o1',
-        expect.objectContaining({ identifier: 'x', enabled: true })
+        expect.objectContaining({ identifier: 'linkedin', enabled: true })
       );
     });
 
@@ -291,12 +291,12 @@ describe('OrgProviderConfigService audit (F2c)', () => {
     });
 
     it('allows enabling a credential-less set when a platform app exists (update)', async () => {
-      vi.stubEnv('X_API_KEY', 'env-key');
-      vi.stubEnv('X_API_SECRET', 'env-secret');
+      vi.stubEnv('LINKEDIN_CLIENT_ID', 'env-key');
+      vi.stubEnv('LINKEDIN_CLIENT_SECRET', 'env-secret');
       repository.getById.mockResolvedValue(
-        baseRow({ identifier: 'x', enabled: false, clientId: null, clientSecret: null })
+        baseRow({ identifier: 'linkedin', enabled: false, clientId: null, clientSecret: null })
       );
-      repository.updateById.mockResolvedValue(baseRow({ identifier: 'x' }));
+      repository.updateById.mockResolvedValue(baseRow({ identifier: 'linkedin' }));
 
       await service.updateConfig('o1', 'cfg1', { enabled: true }, 'u1');
 
@@ -374,14 +374,14 @@ describe('OrgProviderConfigService audit (F2c)', () => {
     it('translates P2002 on create into a friendly BadRequest', async () => {
       repository.create.mockRejectedValue(p2002());
       await expect(
-        service.createConfig('o1', { identifier: 'x', name: 'Dup', enabled: false }, 'u1')
+        service.createConfig('o1', { identifier: 'linkedin', name: 'Dup', enabled: false }, 'u1')
       ).rejects.toThrow('A channel with this name already exists for this provider');
     });
 
     it('rethrows non-duplicate create errors unchanged', async () => {
       repository.create.mockRejectedValue(new Error('db down'));
       await expect(
-        service.createConfig('o1', { identifier: 'x', name: 'App', enabled: false }, 'u1')
+        service.createConfig('o1', { identifier: 'linkedin', name: 'App', enabled: false }, 'u1')
       ).rejects.toThrow('db down');
     });
 

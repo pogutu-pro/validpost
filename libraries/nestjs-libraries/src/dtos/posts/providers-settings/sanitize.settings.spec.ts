@@ -46,7 +46,7 @@ import {
 } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/sanitize.settings';
 import { EmptySettings } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/all.providers.settings';
 import { InstagramDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/instagram.dto';
-import { XDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/x.dto';
+import { LinkedinDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/linkedin.dto';
 import { ThreadsSettingsDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/threads.settings.dto';
 import { CreatePostDto } from '@validpost/nestjs-libraries/dtos/posts/create.post.dto';
 import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
@@ -64,17 +64,8 @@ const contamination = {
 
 describe('declaredSettingsKeys', () => {
   it('derives keys from class-validator metadata (no hand-maintained lists)', () => {
-    expect(declaredSettingsKeys(XDto)).toEqual(
-      new Set([
-        '__type',
-        'community',
-        'who_can_reply_post',
-        'made_with_ai',
-        'paid_partnership',
-        'poll',
-        'active_thread_finisher',
-        'thread_finisher',
-      ])
+    expect(declaredSettingsKeys(LinkedinDto)).toEqual(
+      new Set(['__type', 'post_as_images_carousel', 'carousel_name', 'poll'])
     );
     expect(declaredSettingsKeys(InstagramDto)).toEqual(
       new Set([
@@ -94,18 +85,16 @@ describe('declaredSettingsKeys', () => {
 });
 
 describe('sanitizeProviderSettings', () => {
-  it('x: keeps its own keys + thread finisher + cross-cutting, drops foreign keys', () => {
-    const clean = sanitizeProviderSettings('x', {
+  it('linkedin: keeps its own keys + cross-cutting, drops foreign keys', () => {
+    const clean = sanitizeProviderSettings('linkedin', {
       ...contamination,
-      who_can_reply_post: 'everyone',
-      made_with_ai: true,
+      post_as_images_carousel: true,
+      carousel_name: 'Launch',
     });
     expect(clean).toEqual({
       firstComment: 'cross-cutting, kept',
-      thread_finisher: 'That is a wrap',
-      active_thread_finisher: true,
-      who_can_reply_post: 'everyone',
-      made_with_ai: true,
+      post_as_images_carousel: true,
+      carousel_name: 'Launch',
     });
   });
 
@@ -127,7 +116,7 @@ describe('sanitizeProviderSettings', () => {
     });
   });
 
-  it.each(['mastodon', 'bluesky', 'telegram', 'nostr', 'vk'])(
+  it.each(['telegram'])(
     '%s (None provider): everything except cross-cutting keys is stripped',
     (identifier) => {
       const clean = sanitizeProviderSettings(identifier, { ...contamination });
@@ -136,7 +125,7 @@ describe('sanitizeProviderSettings', () => {
   );
 
   it('keeps internal-plug keys (plug--<name>--<field>) on any provider', () => {
-    const clean = sanitizeProviderSettings('bluesky', {
+    const clean = sanitizeProviderSettings('telegram', {
       'plug--reply--active': true,
       'plug--reply--delay': '10',
       foreign: 'x',
@@ -149,7 +138,7 @@ describe('sanitizeProviderSettings', () => {
 
   it('keeps the composer group color (cross-cutting)', () => {
     expect(
-      sanitizeProviderSettings('mastodon', { color: '#ff0000', foreign: 1 })
+      sanitizeProviderSettings('telegram', { color: '#ff0000', foreign: 1 })
     ).toEqual({ color: '#ff0000' });
   });
 
@@ -163,7 +152,7 @@ describe('sanitizeProviderSettings', () => {
       firstCommentPostedAt: '2099-02-01T12:01:00.000Z',
     };
 
-    for (const identifier of ['x', 'instagram', 'mastodon']) {
+    for (const identifier of ['linkedin', 'instagram', 'telegram']) {
       const resaved = sanitizeProviderSettings(identifier, {
         ...markers,
         foreign: 'stripped',
@@ -180,8 +169,8 @@ describe('sanitizeProviderSettings', () => {
   });
 
   it('tolerates missing / non-object settings', () => {
-    expect(sanitizeProviderSettings('x', undefined)).toEqual({});
-    expect(sanitizeProviderSettings('x', 'junk')).toEqual({});
+    expect(sanitizeProviderSettings('linkedin', undefined)).toEqual({});
+    expect(sanitizeProviderSettings('linkedin', 'junk')).toEqual({});
   });
 });
 
@@ -211,10 +200,9 @@ const createBody = (posts: any[]) => ({
 describe('CreatePostDto under the global pipe (transform + whitelist + forbidNonWhitelisted)', () => {
   it('accepts a multi-channel body with contaminated settings and no __type', async () => {
     const body = createBody([
-      postPayload('bluesky-1', { ...contamination }),
+      postPayload('telegram-1', { ...contamination }),
       postPayload('instagram-1', { ...contamination }),
-      postPayload('mastodon-1', { ...contamination }),
-      postPayload('x-1', { ...contamination, who_can_reply_post: 'everyone' }),
+      postPayload('linkedin-1', { ...contamination, post_as_images_carousel: true }),
     ]);
 
     const transformed = await globalPipe().transform(body, {
@@ -222,12 +210,12 @@ describe('CreatePostDto under the global pipe (transform + whitelist + forbidNon
       metatype: CreatePostDto,
     });
 
-    expect(transformed.posts).toHaveLength(4);
+    expect(transformed.posts).toHaveLength(3);
   });
 
   it('still rejects an unknown __type with the provider list', async () => {
     const body = createBody([
-      postPayload('x-1', { __type: 'not-a-provider' }),
+      postPayload('linkedin-1', { __type: 'not-a-provider' }),
     ]);
 
     const err = await globalPipe()
@@ -241,7 +229,7 @@ describe('CreatePostDto under the global pipe (transform + whitelist + forbidNon
 
   it('accepts a known __type', async () => {
     const body = createBody([
-      postPayload('x-1', { __type: 'x', who_can_reply_post: 'everyone' }),
+      postPayload('linkedin-1', { __type: 'linkedin', post_as_images_carousel: false }),
     ]);
 
     await expect(
@@ -251,7 +239,7 @@ describe('CreatePostDto under the global pipe (transform + whitelist + forbidNon
 
   it('skips settings validation entirely for drafts', async () => {
     const body = createBody([
-      { ...postPayload('x-1', { __type: 'not-a-provider' }), type: 'draft' },
+      { ...postPayload('linkedin-1', { __type: 'not-a-provider' }), type: 'draft' },
     ]);
 
     await expect(
@@ -264,10 +252,9 @@ describe('PostsService.mapTypeToPost — multi-channel create with contaminated 
   let service: PostsService;
 
   const integrations: Record<string, string> = {
-    'bluesky-1': 'bluesky',
+    'telegram-1': 'telegram',
     'instagram-1': 'instagram',
-    'mastodon-1': 'mastodon',
-    'x-1': 'x',
+    'linkedin-1': 'linkedin',
   };
 
   beforeEach(() => {
@@ -301,10 +288,9 @@ describe('PostsService.mapTypeToPost — multi-channel create with contaminated 
 
   it('pins __type to the integration provider and stores only supported keys', async () => {
     const body = createBody([
-      postPayload('bluesky-1', { ...contamination }),
+      postPayload('telegram-1', { ...contamination }),
       postPayload('instagram-1', { ...contamination }),
-      postPayload('mastodon-1', { ...contamination }),
-      postPayload('x-1', { ...contamination, who_can_reply_post: 'everyone' }),
+      postPayload('linkedin-1', { ...contamination, post_as_images_carousel: true }),
     ]) as CreatePostDto;
 
     const mapped = await service.mapTypeToPost(body, 'org-1');
@@ -314,12 +300,8 @@ describe('PostsService.mapTypeToPost — multi-channel create with contaminated 
     );
 
     // None providers: foreign keys stripped, cross-cutting firstComment kept.
-    expect(byId['bluesky-1']).toEqual({
-      __type: 'bluesky',
-      firstComment: 'cross-cutting, kept',
-    });
-    expect(byId['mastodon-1']).toEqual({
-      __type: 'mastodon',
+    expect(byId['telegram-1']).toEqual({
+      __type: 'telegram',
       firstComment: 'cross-cutting, kept',
     });
     // Instagram: own keys survive; thread finisher does not.
@@ -329,24 +311,22 @@ describe('PostsService.mapTypeToPost — multi-channel create with contaminated 
       collaborators: [{ label: '@someone' }],
       post_type: 'post',
     });
-    // X: own keys + thread finisher survive; instagram's keys do not.
-    expect(byId['x-1']).toEqual({
-      __type: 'x',
+    // LinkedIn: own keys survive; instagram's keys and the thread finisher do not.
+    expect(byId['linkedin-1']).toEqual({
+      __type: 'linkedin',
       firstComment: 'cross-cutting, kept',
-      thread_finisher: 'That is a wrap',
-      active_thread_finisher: true,
-      who_can_reply_post: 'everyone',
+      post_as_images_carousel: true,
     });
   });
 
   it('overrides a client-sent __type with the integration provider', async () => {
     const body = createBody([
-      postPayload('bluesky-1', { __type: 'reddit', firstComment: 'hi' }),
+      postPayload('telegram-1', { __type: 'reddit', firstComment: 'hi' }),
     ]) as CreatePostDto;
 
     const mapped = await service.mapTypeToPost(body, 'org-1');
     expect((mapped.posts[0] as any).settings).toEqual({
-      __type: 'bluesky',
+      __type: 'telegram',
       firstComment: 'hi',
     });
   });

@@ -368,9 +368,13 @@ describe('IntegrationManager', () => {
       const result = await manager.getAllIntegrations();
 
       expect(result.social).toHaveLength(2);
-      expect(result.social[0].identifier).toBe('tiktok');
-      expect(result.social[1].identifier).toBe('linkedin');
-      expect(result.social[0].platformConfigured).toBe(true);
+      expect(result.social.map((s: any) => s.identifier).sort()).toEqual([
+        'linkedin',
+        'tiktok',
+      ]);
+      expect(
+        result.social.every((s: any) => s.platformConfigured === true)
+      ).toBe(true);
       // org scope is never consulted without an orgId
       expect(mockOrgPcm.getEnabledIdentifiers).not.toHaveBeenCalled();
       expect(mockOrgPcm.getAllConfigs).not.toHaveBeenCalled();
@@ -400,9 +404,9 @@ describe('IntegrationManager', () => {
 
       const result = await manager.getAllIntegrations('org-1');
 
-      expect(result.social.map((s: any) => s.identifier)).toEqual([
-        'tiktok',
+      expect(result.social.map((s: any) => s.identifier).sort()).toEqual([
         'instagramstandalone',
+        'tiktok',
       ]);
       expect(
         result.social.find((s: any) => s.identifier === 'tiktok').platformConfigured
@@ -557,12 +561,12 @@ describe('IntegrationManager', () => {
 
   describe('getAllRulesDescription', () => {
     it('returns rules description for providers that have it, empty string for others', () => {
-      setRulesMetadata('tiktok', 'X can have maximum 4 pictures');
+      setRulesMetadata('tiktok', 'TikTok can have maximum 4 pictures');
       setRulesMetadata('linkedin', 'LinkedIn supports images and documents');
 
       const result = manager.getAllRulesDescription();
 
-      expect(result.x).toBe('X can have maximum 4 pictures');
+      expect(result.tiktok).toBe('TikTok can have maximum 4 pictures');
       expect(result.linkedin).toBe('LinkedIn supports images and documents');
       expect(result.discord).toBe('');
       expect(Object.keys(result).length).toBe(11);
