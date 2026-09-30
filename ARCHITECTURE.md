@@ -6,7 +6,7 @@ are cross-referenced by path. Every claim below was verified against the code at
 of writing; where this file and the code disagree, the code wins.
 
 ValidPost is an AI-native platform to schedule social-media and chat posts to
-45+ channels: scheduled publishing, a calendar view, persisted analytics, team management
+11 channels: scheduled publishing, a calendar view, persisted analytics, team management
 (RBAC), and a media library with AI generation studios.
 
 ## 1. System overview
