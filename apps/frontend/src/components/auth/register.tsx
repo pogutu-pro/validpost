@@ -333,7 +333,7 @@ export function RegisterAfter({
                 )}
                 &nbsp;
                 <a
-                  href={`https://validpost.ai/terms`}
+                  href={`https://validpost.io/terms`}
                   className="underline text-btnPrimaryAccent hover:text-textColor"
                   rel="nofollow"
                 >
@@ -342,7 +342,7 @@ export function RegisterAfter({
                 &nbsp;
                 {t('and', 'and')}&nbsp;
                 <a
-                  href={`https://validpost.ai/privacy`}
+                  href={`https://validpost.io/privacy`}
                   rel="nofollow"
                   className="underline text-btnPrimaryAccent hover:text-textColor"
                 >
