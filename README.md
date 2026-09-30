@@ -25,17 +25,29 @@
 
 # ValidPost AI
 
-**AI-native social media management and scheduling.**
+**AI-native social media management and scheduling** for teams and agencies.
 
-ValidPost is a cloud-hosted social media scheduler for agencies and multi-brand teams: a visual publishing calendar, 11 social and chat channels, 46 built-in media tools, and bring-your-own-key AI across 30 providers. Let every organization manage its own channels, brands, and AI keys. An alternative to Buffer, Hootsuite, and Sprout Social.
+ValidPost is a cloud-hosted social media scheduler: visual publishing calendar, 11 channels across 9 platforms, 46 built-in media tools, and bring-your-own-key AI across 30 providers. Let every organization manage its own channels, brands, and AI keys.
 
-**[Website](https://validpost.io)** · **[Docs](https://docs.validpost.io)** · **[Quick Start](#-quick-start)** · **[Node SDK (`@validpost/validpost-sdk`)](https://www.npmjs.com/package/@validpost/validpost-sdk)** · **[Public API](https://docs.validpost.io/developer-docs/public-api.html)**
+**[Website](https://validpost.io)** · **[Docs](https://docs.validpost.io)** · **[Quick Start](#-quick-start)** · **[SDK](https://www.npmjs.com/package/@validpost/validpost-sdk)** · **[API](https://docs.validpost.io/developer-docs/public-api.html)**
 
 ---
 
-## 📸 Screenshots
+## Quick Overview
 
-<!-- TODO(media follow-up): product demo video. -->
+| Core Capability | Features |
+|---|---|
+| **📅 Publishing** | Visual calendar, 11 channels, one composer, channel-aware previews |
+| **🎨 Media** | Designer, AI Designer, 38 provider studios, 6 stock browsers |
+| **📊 Analytics** | Persisted metrics, trends, heatmaps, best-time recommendations |
+| **💬 Engagement** | Cross-channel inbox, team collaboration, sentiment filtering |
+| **🤖 AI** | 30 providers, brand voice, RAG search, spend caps, governed access |
+| **🗂️ Campaigns** | Multi-post coordination, client reports, goal tracking, UTM tagging |
+| **👥 Teams** | 5 built-in roles, 90-permission RBAC, session management |
+
+---
+
+## 📸 See It In Action
 
 ValidPost brings **design**, **publishing**, **analytics**, and **engagement** into one workspace. Click any screenshot for the full-size view.
 
@@ -62,115 +74,161 @@ ValidPost brings **design**, **publishing**, **analytics**, and **engagement** i
   </tr>
 </table>
 
-That's the 30-second tour — the full feature tour, with every screen, lives in the [documentation](https://docs.validpost.io).
+Full feature tour at [docs.validpost.io](https://docs.validpost.io).
 
 ---
 
-## 🚀 Quick Start
+## Getting Started
 
-Sign up at [validpost.io](https://validpost.io) to start scheduling posts across LinkedIn, Instagram, Facebook, Threads, TikTok, YouTube, Google Business Profile, Discord, and Telegram.
+### For Users
 
-For deployment and configuration details, see the [documentation](https://docs.validpost.io).
+**[Sign up](https://validpost.io)** to start scheduling posts to LinkedIn, Instagram, Facebook, Threads, TikTok, YouTube, Google Business Profile, Discord, and Telegram.
 
-## 🔌 Channel setup
+### For Deployment
 
-Channels connect through OAuth apps registered with each platform. To offer one-click connections on your installation, configure [platform channel apps](https://docs.validpost.io/operations-guide/platform-channel-apps.html) for the providers you want to support: register an app in the provider's developer portal, add the issued credentials to `.env`, and test with an authorized account. Some providers require app review before broader access and may ask for app details, screenshots, or a demo video.
+1. **Channel Configuration**: Register OAuth apps with each platform and add credentials to `.env`. See [platform channel apps guide](https://docs.validpost.io/operations-guide/platform-channel-apps.html).
+2. **Direct Auth**: For platforms like Telegram, direct-auth tokens (API keys) work directly without platform apps.
+3. **Self-Hosted**: Configure your own object storage, email provider, short-link provider, and AI keys per organization.
 
-Organizations can also connect channels with their own app keys, and direct-auth channels (such as a Telegram bot token) need no platform app at all. On ValidPost's hosted service, platform apps are already configured, so one-click OAuth is available by default for supported channels.
+See [full deployment docs](https://docs.validpost.io) for details.
 
 ---
 
-## 📅 Visual publishing calendar
+## Core Features
 
-Month, week, and day views of scheduled, published, draft, and failed posts across every channel. Filter by channel, open a post to review its content and performance, or drag it within the week view to reschedule. Times follow each user's timezone.
+### 📅 Visual Publishing Calendar
 
-## 📢 11 channels, one composer
+Month, week, and day views of scheduled, published, draft, and failed posts across every channel. Filter by channel, open a post to review performance, or drag to reschedule. Times follow each user's timezone.
 
-Schedule and publish across 9 platforms — 11 channel types in all — from a single composer. Native support for polls, first-comment automation, threads, per-channel settings, and channel-aware previews means each platform gets exactly what it expects — from a single write. Attach media from your library or create it in-app, pick a brand per post, and toggle link shortening per post with your organization's own short-link provider.
+**Supported Channels**: LinkedIn · LinkedIn Page · Instagram (Business + Standalone) · Facebook Page · Threads · YouTube · Google Business Profile · TikTok · Discord · Telegram
 
-## 🌐 Supported channels
+*Optional: Per-channel VPN routing for outbound publishing egress.*
 
-LinkedIn · LinkedIn Page · Instagram (Business) · Instagram (Standalone) · Facebook Page · Threads · YouTube · Google Business Profile · TikTok · Discord · Telegram
+### 🎨 Content Creation Suite
 
-Per-channel VPN routing is available for outbound publishing — each channel can optionally egress through its own configured VPN region.
+**46 built-in media tools** — create, edit, generate, and source media without leaving ValidPost:
 
-## 🤖 AI at the core — BYOK, governed, multi-provider
+- **Designer**: Layered image/video editor (Konva canvas + timeline) for power users
+- **AI Designer**: Conversational creative agent for describing designs instead of drawing
+- **38 Provider Studios**: Image, video, audio, avatar, and music generation (BYOK)
+- **6 Stock Browsers**: Photos, videos, vectors, stickers, audio, icons
 
-ValidPost is AI-native from the ground up. A single governed AI layer powers every surface, and you bring your own keys: **30 providers** — 17 direct model providers plus 13 multi-model hubs and gateways — configured per organization, with no bundled credits, quotas, or metering.
+Cross-channel publishing: one design holds multiple variants per platform (aspect ratio, sizing, layout). Export to library or directly to posts.
 
-Configure as many LLM and media providers as you like, then pick separate default models for text, vision, workflows, and media tasks — a specific LLM, or a model from a media provider such as Replicate, HeyGen, or Runway. Media tasks span image, video, audio, avatars, captions, and music, including editing and upscaling.
+### 📊 Persisted Multi-Channel Analytics
 
-On top of that: brand-voice profiles, a shared prompt library, retrieval-augmented (RAG) search over your own content, guardrails for prompt injection, PII, brand safety, and NSFW content, and per-org spend caps with a full audit log. Every AI entry point is scoped, rate-limited, and budget-checked — a tenant's AI calls never fall back to a deployment-level key.
+Daily metric snapshots provide real trends instead of one-off fetches. Drill into any channel, metric, or date range; see heatmaps, best-time-to-post recommendations, anomalies, and competitor watchlists. All metrics normalized across providers.
 
-## 🪄 The ValidPost agent
+### 💬 Cross-Channel Comment Inbox
 
-A natural-language assistant that operates the whole platform: schedule and reschedule posts, generate images, video, and voiceovers in any configured studio, pull analytics and best-time-to-post recommendations, manage campaigns, search your media library and stock sources, and reply to synced comments — all from one chat. Outward actions always go through an explicit confirmation card (a pre-filled composer, a draft reply, or a media job summary), so nothing publishes without your approval.
+Every reply on every post, synced into one inbox. Reply directly, assign to teammates, draft AI-assisted responses in brand voice. Filter by unread, workflow state, sentiment, channel, or assignee.
 
-Use the agent in-app or from **Telegram or Discord** — the same connections deliver notifications for published and failed posts, comments, budgets, media jobs, and more, routed centrally across in-app, email, and chat.
+### 🗂️ Campaign Hub
 
-## 🎨 46 built-in media tools
+Take campaigns from first draft to client report in one workspace:
+- Define client/project, dates, goals
+- Group posts, channels, media, templates
+- Create cross-channel drafts → approve → publish
+- Track performance vs. goals
+- Share read-only client reports (PDF/CSV export)
+- Optional UTM tagging per campaign
 
-Create, edit, generate, and source media without leaving ValidPost. The media suite is **46 tools**: two designers, **38 BYOK provider studios** spanning image, video, audio, avatar, and music generation, and **6 stock browsers** for photos, videos, vectors, stickers, audio, and icons.
+### 🏷️ Multi-Brand Publishing
 
-The **Designer** is a layered image and video editor — a Konva canvas plus a full timeline — for people at home in Photoshop, Illustrator, or After Effects. The **AI Designer** drives the same production workflow through a conversational creative agent, for people who would rather describe the design than draw it.
+Manage distinct voices and visual identities:
+- Set per-brand writing instructions (language + channel specific)
+- Brand kits: colors, logos, fonts, reference images, intros/outros
+- Designer surface: flags off-brand elements
+- AI Designer: works from brand instructions and palette
 
-Both are built for cross-channel publishing: one editable source file holds multiple channel-specific variants, each with its own aspect ratio, sizing, and layout. From a single design you can create a multi-channel scheduled post, save individual exports to your media library, or both. Every generated, uploaded, or sourced asset lands in the media library for reuse, on local or S3-compatible storage of your choosing.
+### 🤖 AI at the Core — BYOK, Governed
 
-## 📊 Persisted multi-channel analytics
+ValidPost is AI-native from the ground up. Single governed AI layer powers every surface; you bring your own keys.
 
-Metrics are snapshotted daily and persisted, so you get real period-over-period trends instead of one-off live fetches. Drill into any channel, metric, or date range; see best-time-to-post heatmaps, prioritized recommendations, anomaly alerts, and a competitor watchlist — all normalized into a consistent cross-provider metric set.
+**30 AI Providers**: 17 direct (OpenAI, Anthropic, Google, etc.) + 13 hubs/gateways. Configured per organization with no bundled credits or quotas.
 
-## 💬 Cross-channel comment inbox
+**Capabilities**:
+- Pick separate default models for text, vision, workflows, media tasks
+- Media providers: Replicate, HeyGen, Runway, etc.
+- Brand-voice profiles + shared prompt library
+- RAG search over your own content
+- Guardrails: prompt injection, PII, brand safety, NSFW detection
+- Per-org spend caps + full audit log
+- Every AI entry point scoped, rate-limited, budget-checked
 
-Every reply on everything you publish, synced into one inbox. Reply directly, like or acknowledge, assign conversations to teammates, and draft responses with AI in the selected brand voice. Filter by unread, workflow state, sentiment, channel, or assignee, and bulk-mark-read — without bouncing between platform dashboards.
+### 🪄 ValidPost Agent
 
-## 🗂️ Campaign Hub
+Natural-language assistant that operates the whole platform:
+- Schedule/reschedule posts
+- Generate media in any configured studio
+- Pull analytics + best-time recommendations
+- Manage campaigns, search media library, reply to comments
+- All actions go through explicit confirmation (composer, draft reply, media summary)
 
-Take a campaign from first draft to client report in one workspace. Define a client or project, dates, tags, and measurable goals, then group posts, channels, media, and post templates under it. Create cross-channel drafts, approve or reject them, and move approved posts into the publishing queue; optional UTM tagging adds campaign, source, and medium parameters at publish time.
+**Integrations**: Telegram, Discord (in-app or chat-native). Same connections deliver notifications (publish, fail, comments, budget, media, etc.) routed centrally across in-app, email, chat.
 
-The hub tracks draft, scheduled, and published posts alongside views, likes, replies, clicks, per-channel performance, and progress toward goals, with campaign-scoped replies, an activity history, and a threaded team discussion. Share a read-only client report — KPIs, trends, channel breakdowns, goal progress — via a revocable link, or export it as PDF or CSV.
+---
 
-## 🏷️ Multi-brand publishing
+## Enterprise Features
 
-Manage distinct voices and visual identities for clients, products, or publications. Set a default brand, choose a brand per post in the composer, and give each one language- and channel-specific writing instructions so AI-assisted content stays in voice.
+### 👥 Teams & Access Control
 
-Each brand carries a reusable kit of colors, logos, fonts, reference images, and optional video intros and outros. The Designer surfaces the default brand's kit and flags off-brand colors and fonts; the AI Designer works from the selected brand's instructions, palette, and fonts.
+- **5 built-in roles**: Owner / Admin / Editor / Member / Viewer
+- **90-permission RBAC**: 18 resources × 5 actions (posts, media, channels, analytics, brands, billing, etc.)
+- **Invite by email or shareable link**; create accounts directly
+- **Authentication**: Email + password, or any generic OIDC provider
+- **Session management**: Members can review and revoke active devices
 
-## 👥 Teams & access control
+### 🌍 Localization
 
-Invite teammates by email or shareable link, or create accounts directly. Role-based access control starts with **5 built-in roles** (Owner / Admin / Editor / Member / Viewer); build custom roles from a **90-permission catalog (18 resources × 5 actions)** covering posts, media, channels, analytics, brands, billing, and more. Permissions are enforced server-side on every protected action.
+Full UI in 13 languages: English, Arabic, German, Spanish, French, Italian, Japanese, Korean, Portuguese, Russian, Turkish, Vietnamese, Chinese.
 
-Sign in with email and password, or with any generic OIDC provider. Members can review their active sessions and revoke individual devices.
+### 🔒 Security-Hardened
 
-## 🌍 Localization
+- Secrets encrypted at rest (AES-256-GCM)
+- Data access scoped per organization
+- SSRF-checked URLs (DNS + redirects)
+- CSRF protection on cookie-authenticated changes
+- Security headers, CSP, API rate limits, strict validation
+- BYOK object storage (S3 / R2 / Backblaze B2 / IDrive)
+- Pluggable email, short-link providers
+- Optional per-channel VPN egress
 
-The full UI — composer, settings, media tools, analytics, and auth — ships in 13 languages: English, Arabic, German, Spanish, French, Italian, Japanese, Korean, Portuguese, Russian, Turkish, Vietnamese, and Chinese.
+### 🔗 Integrations & APIs
 
-## 🔒 Security-hardened
+- **Public API**: Programmatic scheduling, analytics, channel management
+- **MCP Surface**: For AI agents
+- **Node SDK**: [`@validpost/validpost-sdk`](https://www.npmjs.com/package/@validpost/validpost-sdk)
+- **RSS Auto-Posting**: Feed → scheduled queue per channel
+- **Webhooks**: Publish events to your endpoints
+- **Automation Platforms**: n8n, Make, Zapier
 
-Security runs through the application: secrets are encrypted at rest with AES-256-GCM, data access is scoped to each organization, and requests to user-supplied URLs are SSRF-checked across DNS lookups and redirects. Cookie-authenticated changes require CSRF protection, and production security headers, a Content Security Policy, API rate limits, and strict request validation add further safeguards. Bring your own object storage (S3 / R2 / Backblaze B2 / IDrive), swap in pluggable email and short-link providers, and optionally route outbound posting through per-channel VPN egress.
+See [API docs](https://docs.validpost.io/developer-docs/public-api.html).
 
-## 🔗 Automation & integrations
+---
 
-ValidPost exposes a **Public API** for programmatic scheduling, analytics, and channel management, an **MCP** surface for AI agents, and an official Node SDK — [`@validpost/validpost-sdk`](https://www.npmjs.com/package/@validpost/validpost-sdk). Built in: **RSS auto-posting** (turn any feed into a scheduled queue per channel) and **outgoing webhooks** that push publish events to your endpoints, per channel or account-wide. The Public API also connects ValidPost to automation platforms such as n8n, Make, and Zapier. See the [API docs](https://docs.validpost.io/developer-docs/public-api.html) to get started.
+## Technical Stack
 
-## 🛠️ Tech stack
+| Layer | Tech |
+|---|---|
+| **Frontend** | Next.js (React, App Router), Tailwind 4, Sentry |
+| **Backend** | NestJS, Prisma 6.5.0, PostgreSQL |
+| **Jobs** | Inngest |
+| **Cache** | Redis |
+| **Monorepo** | pnpm workspaces |
+| **Integrations** | Pluggable email, storage, short-link, AI providers |
 
-- pnpm workspaces (monorepo)
-- Next.js (React, App Router)
-- NestJS
-- Prisma + PostgreSQL
-- Inngest (background jobs)
-- Redis
-- Pluggable email, storage, short-link, and AI providers
+---
 
-## Platform requirements
+## Platform Requirements
 
-ValidPost publishes — and, where a platform supports it, retrieves comments and analytics — through each platform's official API, using OAuth flows the user completes directly with that platform. Available actions, permissions, and app-review requirements vary by provider; if you operate a deployment, you are responsible for meeting each provider's terms and securing the access it requires.
+ValidPost publishes and retrieves comments/analytics through each platform's official API using OAuth flows. Available actions and permissions vary by provider; app-review requirements are platform-specific. If you operate a deployment, you are responsible for meeting each provider's terms and securing the access required.
+
+---
 
 ## About
 
-ValidPost is created and maintained by Stratnovo, and is built on official [@reaatech](https://www.npmjs.com/~reaatech) packages for its agentic foundations — including `@reaatech/agent-mesh`, `@reaatech/guardrail-chain`, `@reaatech/hybrid-rag`, `@reaatech/agent-budget-*`, and the `@reaatech/media-pipeline-mcp-*` suite.
+ValidPost is created and maintained by **Stratnovo**, built on official [@reaatech](https://www.npmjs.com/~reaatech) packages including `@reaatech/agent-mesh`, `@reaatech/guardrail-chain`, `@reaatech/hybrid-rag`, `@reaatech/agent-budget-*`, and `@reaatech/media-pipeline-mcp-*`.
 
 ## License
 
