@@ -191,7 +191,7 @@ export const LayoutComponent = ({ children }: { children: ReactNode }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0 bg-newBgLineColor rounded-r-[12px] overflow-hidden flex flex-col gap-px blurMe">
+                    <div className="flex-1 min-w-0 bg-newBgLineColor rounded-r-[12px] overflow-hidden flex flex-col gap-px blurMe mobile:pb-[calc(61px+env(safe-area-inset-bottom))]">
                       <div className="flex bg-newBgColorInner h-[56px] px-[20px] items-center">
                         <div className="text-[20px] font-[600] flex flex-1 items-center gap-[10px] min-w-0">
                           <Link
