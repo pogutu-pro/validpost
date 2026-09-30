@@ -15,7 +15,6 @@ import {
   ValidityMedia,
 } from '@validpost/provider-kernel';
 import { FacebookDto } from '@validpost/provider-kernel';
-import { DribbbleDto } from '@validpost/provider-kernel';
 import { Integration } from '@prisma/client';
 import { hasExtension } from '@validpost/helpers/utils/has.extension';
 import { timer } from '@validpost/helpers/utils/timer';

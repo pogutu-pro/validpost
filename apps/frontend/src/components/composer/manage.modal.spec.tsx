@@ -454,9 +454,13 @@ describe('ManageModal', () => {
       fireEvent.click(scheduleButton());
     });
 
+    // The raw server message ("nope") is never shown; a 5xx gets calm, plain copy.
     await waitFor(() =>
-      expect(h.toasterShow.mock.calls.flat()).toContain('nope')
+      expect(h.toasterShow.mock.calls.flat()).toContain(
+        'Something went wrong on our side. Your post is safe — try again in a moment.'
+      )
     );
+    expect(h.toasterShow.mock.calls.flat()).not.toContain('nope');
     // Never POSTed the post, and the button is usable again.
     expect(postCalls()).toBe(0);
     await waitFor(() => expect((scheduleButton() as HTMLButtonElement).disabled).toBe(false));

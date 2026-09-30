@@ -57,6 +57,7 @@ import SafeImage from '@validpost/react/helpers/safe.image';
 import { useRouter } from 'next/navigation';
 import { ComposerLibraryModal } from '@validpost/frontend/components/composer/composer-library.modal';
 import { ComposerFlow } from '@validpost/frontend/components/composer/flow.progress';
+import { friendlyComposerError } from '@validpost/frontend/components/composer/errors';
 import { computeComposerFlow, editorText } from '@validpost/frontend/components/composer/flow';
 import { SplitButton } from '@validpost/frontend/components/ui/split-button';
 
@@ -560,8 +561,12 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         });
         if (!validRes.ok) {
           toaster.show(
-            (await validRes.json().catch(() => null))?.message ||
-              t('failed_to_validate_post', 'Failed to validate your post'),
+            friendlyComposerError(
+              validRes.status,
+              (await validRes.json().catch(() => null))?.message,
+              t('failed_to_validate_post', "We couldn't check your post. Try again."),
+              t
+            ),
             'warning'
           );
           setLoading(false);
@@ -679,8 +684,12 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
           });
           if (!res.ok) {
             toaster.show(
-              (await res.json().catch(() => null))?.message ||
-                t('failed_to_save_post', 'Failed to save your post'),
+              friendlyComposerError(
+                res.status,
+                (await res.json().catch(() => null))?.message,
+                t('failed_to_save_post', "We couldn't save your post. Try again."),
+                t
+              ),
               'warning'
             );
             setLoading(false);
