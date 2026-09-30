@@ -9,7 +9,7 @@ const mockT = vi.fn((_key: string, fallback?: string, opts?: Record<string, any>
     .replace('{{total}}', String(opts?.total ?? ''));
 });
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
 
@@ -47,7 +47,7 @@ describe('SetupStepper', () => {
         onStepClick={vi.fn()}
       />
     );
-    const active = container.querySelector('[class*="bg-[#2B5CD3]/15"]');
+    const active = container.querySelector('[class*="bg-btnPrimary/10"]');
     expect(active).not.toBeNull();
   });
 

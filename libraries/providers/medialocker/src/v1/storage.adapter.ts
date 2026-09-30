@@ -13,7 +13,7 @@ import {
   fromBuffer,
   fromFile,
   DetectedFileType,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const TYPE = 'MEDIALOCKER';
 const DISPLAY = 'MediaLocker';

@@ -31,7 +31,7 @@ const mockModel = {
   },
 };
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/prisma.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/prisma.service', () => ({
   PrismaRepository: class {
     get model() {
       return mockModel;

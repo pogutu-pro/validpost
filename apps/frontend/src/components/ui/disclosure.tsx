@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { clsx } from 'clsx';
-import { ChevronDownIcon } from '@postmill-ai/frontend/components/ui/icons';
+import { ChevronDownIcon } from '@validpost/frontend/components/ui/icons';
 
 /**
  * Controlled disclosure (accordion section): a full-width header button that

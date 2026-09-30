@@ -7,7 +7,7 @@ const push = vi.fn();
 const mockShow = vi.fn();
 const mockGenerate = vi.fn();
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
@@ -15,11 +15,11 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push }),
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockShow }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/use-ai-active', () => ({
+vi.mock('@validpost/frontend/components/layout/use-ai-active', () => ({
   useAiActive: vi.fn(),
   AI_SETUP_HREF: '/settings/ai/llm-providers',
 }));
@@ -28,14 +28,14 @@ vi.mock('../hooks/useDailyBrief', () => ({
   useDailyBrief: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/kit/states', () => ({
+vi.mock('@validpost/frontend/components/analytics/kit/states', () => ({
   TabSkeleton: ({ variant }: { variant?: string }) => (
     <div data-testid="tab-skeleton" data-variant={variant} />
   ),
   EmptyState: ({ title }: { title?: string }) => <div>{title}</div>,
 }));
 
-vi.mock('@postmill-ai/react/form/button', () => ({
+vi.mock('@validpost/react/form/button', () => ({
   Button: ({ children, onClick }: any) => (
     <button type="button" onClick={onClick}>
       {children}
@@ -43,7 +43,7 @@ vi.mock('@postmill-ai/react/form/button', () => ({
   ),
 }));
 
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
 import { useDailyBrief } from '../hooks/useDailyBrief';
 
 const mockAiActive = useAiActive as unknown as ReturnType<typeof vi.fn>;

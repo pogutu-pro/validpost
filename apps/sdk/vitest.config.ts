@@ -4,7 +4,7 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@postmill-ai/nestjs-libraries': path.resolve(__dirname, '../../libraries/nestjs-libraries/src'),
+      '@validpost/nestjs-libraries': path.resolve(__dirname, '../../libraries/nestjs-libraries/src'),
     },
   },
   test: {

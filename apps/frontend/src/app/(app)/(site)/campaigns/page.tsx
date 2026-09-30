@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { CampaignsPage } from '@postmill-ai/frontend/components/campaigns/campaigns.page';
+import { CampaignsPage } from '@validpost/frontend/components/campaigns/campaigns.page';
 
 const CampaignsRoute: FC = () => {
   return <CampaignsPage />;

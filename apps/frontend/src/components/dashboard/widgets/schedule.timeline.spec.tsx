@@ -6,7 +6,7 @@ import { ScheduleTimeline } from './schedule.timeline';
 
 const mockPush = vi.fn();
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
@@ -14,7 +14,7 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
@@ -22,7 +22,7 @@ vi.mock('swr', () => ({
   default: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/kit/states', () => ({
+vi.mock('@validpost/frontend/components/analytics/kit/states', () => ({
   EmptyState: ({ title, description }: { title: string; description: string }) => (
     <div data-testid="empty-state">
       <span data-testid="empty-title">{title}</span>
@@ -34,7 +34,7 @@ vi.mock('@postmill-ai/frontend/components/analytics/kit/states', () => ({
   ),
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/kit/channel-avatar', () => ({
+vi.mock('@validpost/frontend/components/analytics/kit/channel-avatar', () => ({
   ChannelAvatar: (props: { identifier?: string; name?: string; size?: number }) => (
     <div
       data-testid="channel-avatar"

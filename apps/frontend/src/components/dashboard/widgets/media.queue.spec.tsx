@@ -8,7 +8,7 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
@@ -16,7 +16,7 @@ vi.mock('swr', () => ({
   default: () => ({ data: undefined, error: undefined, isLoading: true, mutate: vi.fn() }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_key: string, fallback: string, vars?: Record<string, unknown>) =>
@@ -77,7 +77,7 @@ describe('MediaQueueWidget', () => {
   it('renders a list skeleton while loading', () => {
     render(<MediaQueueWidget />);
 
-    expect(document.querySelector('.animate-pulse')).toBeTruthy();
+    expect(document.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the empty state when there are no jobs', () => {

@@ -8,7 +8,7 @@ import { createFetchError } from '../../fetch-error';
 import {
   VpnConfigResponse,
   VpnProviderInfo,
-} from '@postmill-ai/frontend/components/settings/vpn/hooks/useVpnConfig';
+} from '@validpost/frontend/components/settings/vpn/hooks/useVpnConfig';
 
 /**
  * VPN provider settings surface descriptor (Provider Settings Kit).

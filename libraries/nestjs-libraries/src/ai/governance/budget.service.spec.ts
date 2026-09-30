@@ -5,20 +5,20 @@ const mockCreateSpendLog = vi.fn().mockResolvedValue(undefined);
 const mockGetSettings = vi.fn().mockResolvedValue(null);
 const mockGetOrgBudget = vi.fn().mockResolvedValue(null);
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-settings.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-settings.manager', () => ({
   AiSettingsManager: class MockManager {
     getSettings = mockGetSettings;
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
   AiSettingsService: class MockAiSettings {
     createSpendLog = mockCreateSpendLog;
     getOrgBudget = mockGetOrgBudget;
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/notifications/notification.service', () => ({
   NotificationService: class MockNotifications {
     notifyBudgetThreshold = vi.fn().mockResolvedValue(undefined);
   },
@@ -32,9 +32,9 @@ vi.mock('@reaatech/agent-budget-pricing', () => ({
 }));
 
 import { BudgetService } from './budget.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
 
 const mockFindFirstProviderConfig = vi.fn().mockResolvedValue(null);
 const mockOrgProviderRepo = {

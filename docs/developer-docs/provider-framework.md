@@ -2,7 +2,7 @@
 
 > Verified against v1.0.0
 
-Postmill integrates with external services across AI, media generation, social channels, short-links, VPN egress, storage, email, auth, and content packs. The **unified provider framework** replaces the previous collection of bespoke registries with a single `ProviderKernel` and a consistent package-per-provider model.
+ValidPost integrates with external services across AI, media generation, social channels, short-links, VPN egress, storage, email, auth, and content packs. The **unified provider framework** replaces the previous collection of bespoke registries with a single `ProviderKernel` and a consistent package-per-provider model.
 
 ## Goals
 
@@ -16,14 +16,14 @@ Postmill integrates with external services across AI, media generation, social c
 
 ```
 ┌─────────────────────────────────────┐
-│ @postmill-ai/provider-kernel            │
+│ @validpost/provider-kernel            │
 │ ProviderKernel (domain/provider@ver)│
 │ ProviderManifest, ProviderModule    │
 │ domain contracts, conformance kit   │
 └─────────────────────────────────────┘
           ▲ depends on
 ┌─────────────────────────────────────┐
-│ @postmill-ai/provider-<name>            │
+│ @validpost/provider-<name>            │
 │ src/v1/<domain>.adapter.ts          │
 │ src/v1/<domain>.manifest.ts         │
 │ ... one module per (domain, version)│

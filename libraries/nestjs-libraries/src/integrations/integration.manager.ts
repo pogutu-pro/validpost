@@ -14,26 +14,26 @@ import {
   ProviderKernel,
   ChannelSetupDescriptor,
   normalizeExternalInstanceUrl,
-} from '@postmill-ai/provider-kernel';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { OrgProviderConfigManager } from '@postmill-ai/nestjs-libraries/integrations/org-provider-config.manager';
-import { ProviderNotConfiguredError } from '@postmill-ai/nestjs-libraries/integrations/provider-not-configured.error';
+} from '@validpost/provider-kernel';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { OrgProviderConfigManager } from '@validpost/nestjs-libraries/integrations/org-provider-config.manager';
+import { ProviderNotConfiguredError } from '@validpost/nestjs-libraries/integrations/provider-not-configured.error';
 import {
   getEnvClientInfo,
   getEnvEnabledIdentifiers,
   isEnvEnabled,
-} from '@postmill-ai/nestjs-libraries/integrations/channel-env-credentials';
-import { IntegrationRepository } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.repository';
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { RefreshToken } from '@postmill-ai/nestjs-libraries/integrations/social.abstract';
-import { timer } from '@postmill-ai/helpers/utils/timer';
+} from '@validpost/nestjs-libraries/integrations/channel-env-credentials';
+import { IntegrationRepository } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.repository';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { RefreshToken } from '@validpost/nestjs-libraries/integrations/social.abstract';
+import { timer } from '@validpost/helpers/utils/timer';
 import {
   PROVIDER_CAPABILITIES,
   ProviderCapability,
-} from '@postmill-ai/nestjs-libraries/integrations/social/provider-capabilities';
+} from '@validpost/nestjs-libraries/integrations/social/provider-capabilities';
 
 @Injectable()
 export class IntegrationManager {

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { ExtraFieldProps } from './extra-field.types';
 import { BudgetLimitsFields } from './budget-limits.fields';
 

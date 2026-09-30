@@ -1,10 +1,10 @@
 import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { MediaJobLifecycleService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { MediaJobLifecycleService } from '@validpost/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
 
 export interface TranscriptWord {
   word: string;

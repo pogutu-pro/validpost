@@ -22,7 +22,7 @@ Before every upgrade, read `CHANGELOG.md` at the new version tag. Note:
 Take a full backup before every upgrade. See [Backup & Retention](./backup-and-retention.md).
 
 ```bash
-docker exec postmill-postgres pg_dump -U postmill-user postmill-db-local > pre_upgrade_$(date +%Y%m%d).sql
+docker exec validpost-postgres pg_dump -U validpost-user validpost-db-local > pre_upgrade_$(date +%Y%m%d).sql
 ```
 
 ### 3. Bump the image tag
@@ -30,9 +30,9 @@ docker exec postmill-postgres pg_dump -U postmill-user postmill-db-local > pre_u
 ```yaml
 # docker-compose.yaml or your deployment config
 services:
-  postmill:
-    image: ghcr.io/postmill-ai/postmill-app:v1.0.0  # pin a specific tag, not :latest
-    # image: postmillai/postmill-app:v1.0.0         # the same image on Docker Hub
+  validpost:
+    image: ghcr.io/pogutu-pro/validpost:v1.0.0  # pin a specific tag, not :latest
+    # image: validpostai/validpost-app:v1.0.0         # the same image on Docker Hub
 ```
 
 Pinning specific tags gives you a known rollback target. Using `:latest` means every restart may
@@ -43,11 +43,11 @@ pull an untested version. Both registries carry the same release — see
 
 ```bash
 # Docker Compose
-docker compose pull postmill
-docker compose up -d postmill
+docker compose pull validpost
+docker compose up -d validpost
 
 # Coolify / Portainer / Kubernetes
-# Trigger a redeploy of the postmill service with the new image tag
+# Trigger a redeploy of the validpost service with the new image tag
 ```
 
 ### 5. Apply migrations
@@ -55,13 +55,13 @@ docker compose up -d postmill
 The container runs `prisma-generate` on boot (via `postinstall`), regenerating the Prisma client to
 match the schema baked into the new image. It does **not** apply committed migrations automatically.
 
-Postmill ships committed Prisma migrations under
+ValidPost ships committed Prisma migrations under
 `libraries/nestjs-libraries/src/database/prisma/migrations/`. The canonical apply path is
 `prisma migrate deploy`:
 
 ```bash
 # Run inside the running container
-docker exec postmill pnpm dlx prisma@6.5.0 migrate deploy \
+docker exec validpost pnpm dlx prisma@6.5.0 migrate deploy \
   --schema ./libraries/nestjs-libraries/src/database/prisma/schema.prisma
 ```
 
@@ -103,16 +103,16 @@ If you need an in-place schema sync outside the normal migration flow, use the h
 
 ```bash
 # Safe additive sync (refuses data loss)
-./tools/db/postmill-migrate.sh
+./tools/db/validpost-migrate.sh
 
 # Destructive — back up first!
-./tools/db/postmill-migrate.sh --accept-data-loss
+./tools/db/validpost-migrate.sh --accept-data-loss
 ```
 
 Or run directly in the container:
 
 ```bash
-docker exec postmill pnpm dlx prisma@6.5.0 db push \
+docker exec validpost pnpm dlx prisma@6.5.0 db push \
   --schema ./libraries/nestjs-libraries/src/database/prisma/schema.prisma
 ```
 
@@ -146,8 +146,8 @@ Migrations are forward-only. To roll back a destructive change, restore the pre-
 
 ```bash
 # Stop the app first so nothing writes during the restore
-cat pre_push_YYYYMMDD_HHMMSS.sql | docker exec -i postmill-postgres \
-  psql -U postmill-user -d postmill-db-local
+cat pre_push_YYYYMMDD_HHMMSS.sql | docker exec -i validpost-postgres \
+  psql -U validpost-user -d validpost-db-local
 ```
 
 Then redeploy the previous image tag.

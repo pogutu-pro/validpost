@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 export interface ProviderHealthRecord {
   lastSuccessAt: number | null;

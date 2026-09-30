@@ -967,7 +967,7 @@ describe('AiDesignerGateway handleStart cleanup', () => {
       userId: 'u1',
       mode: 'chat',
       format: 'image',
-      config: { channels: ['x-post'], variants: 1 },
+      config: { channels: ['linkedin-post'], variants: 1 },
       brief: null,
       state: 'intake',
       activeDesignIds: null,
@@ -1009,7 +1009,7 @@ describe('AiDesignerGateway handleStart cleanup', () => {
     await gw.handleStart(client, {
       nonce: 'n1',
       mode: 'chat',
-      config: { channels: ['x-post'], variants: 1 },
+      config: { channels: ['linkedin-post'], variants: 1 },
     });
 
     expect(service.createSession).toHaveBeenCalled();

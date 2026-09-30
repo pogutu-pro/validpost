@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { CHECK_POLICIES_KEY } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { AuthorizationActions, Sections } from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
+import { CHECK_POLICIES_KEY } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { AuthorizationActions, Sections } from '@validpost/backend/services/auth/permissions/permission.exception.class';
 
 
 const mockRuntimeCtor = vi.fn();
@@ -45,7 +45,7 @@ const mockOpenaiAdapter = {
 const mockResolveConfigForScope = vi.fn().mockResolvedValue(null);
 const mockGovernedLanguageModel = vi.fn().mockResolvedValue(mockLanguageModel);
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-model.provider', () => ({
   AIModelProvider: class {
     resolveConfigForScope = mockResolveConfigForScope;
     governedLanguageModel = mockGovernedLanguageModel;
@@ -56,11 +56,11 @@ vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service', () => ({
   SubscriptionService: class {},
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/chat/mastra.service', () => ({
+vi.mock('@validpost/nestjs-libraries/chat/mastra.service', () => ({
   MastraService: class {
     mastra = vi.fn().mockResolvedValue({
       getAgent: vi.fn().mockReturnValue({
@@ -74,7 +74,7 @@ vi.mock('@postmill-ai/nestjs-libraries/chat/mastra.service', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/feature-flags', () => ({
+vi.mock('@validpost/nestjs-libraries/feature-flags', () => ({
   FeatureFlagsService: class {
     isDisabled = vi.fn().mockReturnValue(false);
   },
@@ -99,11 +99,11 @@ import {
   copilotRuntimeNodeHttpEndpoint,
   copilotRuntimeNestEndpoint,
 } from '@copilotkit/runtime';
-import { MastraService } from '@postmill-ai/nestjs-libraries/chat/mastra.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { FeatureFlagsService } from '@postmill-ai/nestjs-libraries/feature-flags';
+import { MastraService } from '@validpost/nestjs-libraries/chat/mastra.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { FeatureFlagsService } from '@validpost/nestjs-libraries/feature-flags';
 import { RequestContext } from '@mastra/core/di';
-import { BudgetExceeded, GuardrailViolation } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
+import { BudgetExceeded, GuardrailViolation } from '@validpost/nestjs-libraries/ai/governance/errors';
 
 describe('CopilotController', () => {
   let controller: CopilotController;
@@ -142,7 +142,7 @@ describe('CopilotController', () => {
       });
     const mkRes = () => ({ status: vi.fn().mockReturnThis(), json: vi.fn() }) as any;
 
-    // Sentry POSTMILL-APP-D: @copilotkit/runtime ≥1.69 never calls a service
+    // Sentry VALIDPOST-APP-D: @copilotkit/runtime ≥1.69 never calls a service
     // adapter's process(); an agents-less runtime auto-builds a BuiltInAgent from
     // the adapter and throws CopilotApiDiscoveryError (unhandled) when the adapter
     // can't name its model — every LangChainAdapter provider. The route must pass
@@ -307,7 +307,7 @@ describe('CopilotController', () => {
   describe('/:thread/list endpoint', () => {
     const getMemory = async () => {
       const mastra = await (mastraService as any).mastra();
-      return mastra.getAgent('postmill').getMemory();
+      return mastra.getAgent('validpost').getMemory();
     };
     const org = { id: 'org-1' } as any;
 

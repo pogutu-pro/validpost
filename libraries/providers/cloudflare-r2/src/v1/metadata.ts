@@ -1,4 +1,4 @@
-import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+import { ProviderMetadata } from '@validpost/provider-kernel';
 
 export const metadata: ProviderMetadata = {
   "website": "https://www.cloudflare.com/developer-platform/products/r2/",

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { Logger } from '@nestjs/common';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
 import { DemoSeeder } from './demo-seeder';
 
 // The cast contract the e2e personas bind to. e2e/tests/auth.setup.ts signs in

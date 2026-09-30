@@ -6,7 +6,7 @@ Reference implementation: `libraries/providers/resend` (adapter at `src/v1/email
 
 ## Contract: `EmailCapability`
 
-Defined in `libraries/providers/kernel/src/domains/email.ts`, re-exported from `@postmill-ai/provider-kernel` and (aliased as `EmailAdapter`) from `@postmill-ai/nestjs-libraries/emails/email-adapter.interface`:
+Defined in `libraries/providers/kernel/src/domains/email.ts`, re-exported from `@validpost/provider-kernel` and (aliased as `EmailAdapter`) from `@validpost/nestjs-libraries/emails/email-adapter.interface`:
 
 ```ts
 export interface EmailCapability {
@@ -73,8 +73,8 @@ Resend's svix pattern (`libraries/providers/resend/src/v1/email.adapter.ts:53-85
 
 ```
 libraries/providers/<id>/
-  package.json          # name @postmill-ai/provider-<id>, main/types src/index.ts,
-                        # deps: @postmill-ai/provider-kernel workspace:* + vendor SDK; script: test → vitest run
+  package.json          # name @validpost/provider-<id>, main/types src/index.ts,
+                        # deps: @validpost/provider-kernel workspace:* + vendor SDK; script: test → vitest run
   src/index.ts          # default-exports ProviderModule[] (all versions)
   src/v1/index.ts       # re-export the module
   src/v1/metadata.ts    # ProviderMetadata (id, displayName, kind "action", hasModelList false)
@@ -104,7 +104,7 @@ The kernel registers by `manifest.domain`/`providerId`/`version`. Note: email pr
 
 ## Universal steps vs. overview.md
 
-From the universal provider-add flow in `agents/providers/overview.md`, these **apply**: create the workspace package, implement the capability interface, export a `ProviderModule` with `status: 'active'`, add `@postmill-ai/provider-<id>` to `apps/backend/package.json`, add the import + spread to `providerModules` in `apps/backend/src/providers.generated.ts` (committed file, alphabetical, no generator script), write adapter + conformance tests, run `pnpm install`.
+From the universal provider-add flow in `agents/providers/overview.md`, these **apply**: create the workspace package, implement the capability interface, export a `ProviderModule` with `status: 'active'`, add `@validpost/provider-<id>` to `apps/backend/package.json`, add the import + spread to `providerModules` in `apps/backend/src/providers.generated.ts` (committed file, alphabetical, no generator script), write adapter + conformance tests, run `pnpm install`.
 
 These **do not apply** to email: per-org `credentialFields` / `OrgProviderConfiguration` rows, encryption of stored credentials, catalog/Settings UI, frontend work of any kind, new REST controllers or DTOs (the webhook route is shared), Prisma schema changes.
 
@@ -113,18 +113,18 @@ Operational step unique to email: document the adapter in the `.env.example` ema
 ## Tests
 
 - Adapter spec: `libraries/providers/resend/src/v1/__tests__/resend.adapter.spec.ts` — mock the vendor SDK (`vi.mock('resend')`, `vi.mock('svix')`), set/clear `EMAIL_*` env in `beforeEach`/`afterEach`, cover name/capabilities, `isConfigured`, `send` param mapping and error propagation, webhook verify/parse.
-- Conformance spec: `libraries/providers/resend/src/v1/__tests__/conformance.spec.ts` — `runDomainConformance('email', module, { requiredMethods: ['send', 'isConfigured', 'verifyWebhook', 'parseWebhook'], capabilityKeys: ['webhooks', 'openTracking', 'clickTracking'] })` from `@postmill-ai/provider-kernel` (helper at `libraries/providers/kernel/src/testing/conformance.ts`).
+- Conformance spec: `libraries/providers/resend/src/v1/__tests__/conformance.spec.ts` — `runDomainConformance('email', module, { requiredMethods: ['send', 'isConfigured', 'verifyWebhook', 'parseWebhook'], capabilityKeys: ['webhooks', 'openTracking', 'clickTracking'] })` from `@validpost/provider-kernel` (helper at `libraries/providers/kernel/src/testing/conformance.ts`).
 - Registry behavior spec (selection/fallback): `libraries/nestjs-libraries/src/emails/email-adapter.registry.spec.ts`.
 - Webhook endpoint spec: `apps/backend/src/api/routes/email-webhooks.controller.spec.ts`.
 - Run: `vitest run --root libraries/providers/<id>` (and `vitest run --root libraries/nestjs-libraries` if you touch the registry). See `agents/testing.md`.
 
 ## Checklist
 
-1. [ ] Create `libraries/providers/<id>/` package mirroring `resend` (package.json `@postmill-ai/provider-<id>`, `src/index.ts` default module array, `src/v1/{index.ts,metadata.ts,email.adapter.ts}`).
+1. [ ] Create `libraries/providers/<id>/` package mirroring `resend` (package.json `@validpost/provider-<id>`, `src/index.ts` default module array, `src/v1/{index.ts,metadata.ts,email.adapter.ts}`).
 2. [ ] Implement `EmailCapability`: `name`, `capabilities` flags, `requiredEnvKeys` (reuse the shared `EMAIL_*` keys; add provider-specific ones only when unavoidable), `isConfigured()`, `send()` returning `providerMessageId`.
 3. [ ] If the provider supports status webhooks, implement `verifyWebhook`/`parseWebhook` (svix or equivalent) and set `capabilities.webhooks: true`; do not add a controller — `POST /webhooks/email` is shared.
 4. [ ] Export `ProviderModule` with `manifest.domain: 'email'`, `version: 'v1'`, `credentialFields: []`, `status: 'active'`.
-5. [ ] Add `"@postmill-ai/provider-<id>": "workspace:*"` to `apps/backend/package.json` and the import + array spread in `apps/backend/src/providers.generated.ts`; run `pnpm install`.
+5. [ ] Add `"@validpost/provider-<id>": "workspace:*"` to `apps/backend/package.json` and the import + array spread in `apps/backend/src/providers.generated.ts`; run `pnpm install`.
 6. [ ] Update the `.env.example` email block (provider list in the `EMAIL_PROVIDER` comment, any new `EMAIL_*` keys).
 7. [ ] Write `src/v1/__tests__/<id>.adapter.spec.ts` and `conformance.spec.ts` (copy resend's patterns); run `vitest run --root libraries/providers/<id>`.
 8. [ ] Verify end-to-end selection: `EMAIL_PROVIDER=<id>` + required env set ⇒ `EmailService.hasProvider()` true and sends log to `EmailLog`; unset/unknown ⇒ `empty` fallback, no crash.

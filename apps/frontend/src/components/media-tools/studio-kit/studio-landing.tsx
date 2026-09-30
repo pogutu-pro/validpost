@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   studioNs,
   studioBadgeKey,
@@ -53,7 +53,7 @@ export function StudioLanding({
               {landing.badges.map((b) => (
                 <span
                   key={b}
-                  className="px-[10px] py-[4px] rounded-full bg-[#2B5CD3]/12 border border-studioBorder text-textColor text-[12px] font-[500]"
+                  className="px-[10px] py-[4px] rounded-full bg-btnPrimary/12 border border-studioBorder text-textColor text-[12px] font-[500]"
                 >
                   {t(studioBadgeKey(b), b)}
                 </span>
@@ -70,7 +70,7 @@ export function StudioLanding({
         <div className="flex flex-wrap items-center justify-center gap-[10px] mt-[24px]">
           <a
             href={`/settings/content/ai-media?search=${encodeURIComponent(identifier)}`}
-            className="inline-flex items-center gap-[8px] px-[20px] py-[11px] rounded-[10px] bg-[#2B5CD3] text-white text-[14px] font-[600] hover:bg-[#2B5CD3]/85 transition-all"
+            className="inline-flex items-center gap-[8px] px-[20px] py-[11px] rounded-[10px] bg-btnPrimary text-white text-[14px] font-[600] hover:bg-btnPrimary/85 transition-all"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -102,7 +102,7 @@ export function StudioLanding({
             <div className="grid grid-cols-2 mobile:grid-cols-1 gap-x-[20px] gap-y-[12px]">
               {landing.highlights.map((h, i) => (
                 <div key={h} className="flex items-start gap-[10px]">
-                  <span className="mt-px inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full bg-[#2B5CD3]/15 text-btnPrimaryAccent">
+                  <span className="mt-px inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full bg-btnPrimary/15 text-btnPrimaryAccent">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 6 9 17l-5-5" />
                     </svg>

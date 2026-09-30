@@ -11,7 +11,7 @@ The free default catalog is **Unsplash**, gated by the operator environment vari
 
 If your organization has an active [Content Pack](../settings) that declares `photos` — currently
 **Magnific**, **Vecteezy**, **Adobe Stock**, or **Envato Elements** — that premium catalog is shown
-first for the same search. If the pack is absent, does not cover photos, or errors, Postmill falls
+first for the same search. If the pack is absent, does not cover photos, or errors, ValidPost falls
 back to Unsplash. A Content Pack daily-cap error is surfaced as a 402 instead of silently falling
 back.
 
@@ -35,7 +35,7 @@ preview modal with a larger view, dimensions, author link, source, and any requi
   cropping, text, or export.
 - **Save to Files** — imports the photo into `/files` via `POST /files/import`. For Unsplash assets,
   this also triggers the required download-location ping back to `api.unsplash.com` using the
-  deployment's access key. For Content Pack assets, Postmill first mints a licensed download URL
+  deployment's access key. For Content Pack assets, ValidPost first mints a licensed download URL
   from the item id and then imports the resulting file.
 
 Saved files carry `source` and `attribution` metadata so the original creator stays traceable.

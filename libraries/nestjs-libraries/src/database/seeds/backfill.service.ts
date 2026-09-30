@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { createHash } from 'node:crypto';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { MigrationLedgerRepository } from '@postmill-ai/nestjs-libraries/database/prisma/migration-ledger/migration-ledger.repository';
-import { DefaultsSeedService } from '@postmill-ai/nestjs-libraries/ai/defaults/defaults-seed.service';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { decryptLegacyCbc } from '@postmill-ai/nestjs-libraries/database/seeds/legacy-cbc.crypto';
+import { PrismaService } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { MigrationLedgerRepository } from '@validpost/nestjs-libraries/database/prisma/migration-ledger/migration-ledger.repository';
+import { DefaultsSeedService } from '@validpost/nestjs-libraries/ai/defaults/defaults-seed.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { decryptLegacyCbc } from '@validpost/nestjs-libraries/database/seeds/legacy-cbc.crypto';
 import { stat } from 'node:fs/promises';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 
 function deriveFingerprint(data: (string | null | undefined)[]): string {
   const hash = createHash('sha1');

@@ -6,7 +6,7 @@ import path from 'node:path';
 // Override with TEST_DATABASE_ADMIN_URL (see .env.example / local-development.md).
 const ADMIN_URL =
   process.env.TEST_DATABASE_ADMIN_URL ||
-  'postgresql://postmill-local:postmill-local-pwd@localhost:5432/postgres';
+  'postgresql://validpost-local:validpost-local-pwd@localhost:5432/postgres';
 
 const SCHEMA = path.resolve(__dirname, '../database/prisma/schema.prisma');
 // Package root (libraries/nestjs-libraries) — a safe cwd for `pnpm exec prisma`.
@@ -36,7 +36,7 @@ export async function createTestDatabase(): Promise<{
   url: string;
   drop: () => Promise<void>;
 }> {
-  const dbName = `postmill_test_${process.pid}`;
+  const dbName = `validpost_test_${process.pid}`;
 
   await withAdmin(async (admin) => {
     // DROP IF EXISTS guards against a stale DB left by a crashed prior run with the

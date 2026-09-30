@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: {
     keys: vi.fn(),
     del: vi.fn(),
@@ -10,7 +10,7 @@ vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
 }));
 
 import { bustDefaultsCatalogCache, getOrCacheModelList } from './defaults-cache';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 describe('bustDefaultsCatalogCache', () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
 # Writing a payment provider
 
-Postmill bills subscriptions through pluggable **payment providers**. Stripe, PayPal and the
+ValidPost bills subscriptions through pluggable **payment providers**. Stripe, PayPal and the
 app stores ship in the box; this page is for operators and contributors who need another one — a
 regional gateway such as Razorpay, Paystack or Mollie, or an internal billing system.
 
@@ -19,7 +19,7 @@ vendor webhook ──► /payments/webhooks/<id> ──► your adapter.receiveW
 - **Adapter** (`libraries/providers/<id>/src/v1/payments.adapter.ts`): talks to the vendor.
   Creates checkouts, changes plans, cancels, lists charges, verifies webhook signatures and
   translates vendor payloads into a small set of *normalized events*. It receives prices in the
-  request and knows nothing about Postmill's database.
+  request and knows nothing about ValidPost's database.
 - **Orchestrator** (`libraries/nestjs-libraries/src/payments/payments.service.ts`): owns every
   database transition. `applyEvent()` is the single entry point for vendor state, whether it
   arrives by webhook, by polling after a redirect, from an app-store receipt or from the daily
@@ -91,7 +91,7 @@ vendor's but not yours (another app on the same account, the other store environ
 Each event carries `customerRef` — the vendor's stable reference for this customer (a Stripe
 customer id, a PayPal subscription id, an App Store original transaction id). It becomes
 `Organization.paymentId`, and it is how later webhooks find the organization. If your vendor has
-no customer object, echo Postmill's organization id back through whatever free-form field the
+no customer object, echo ValidPost's organization id back through whatever free-form field the
 vendor offers (`custom_id`, `appAccountToken`, `obfuscatedExternalAccountId`) and return it as
 `orgIdHint` on the first activation; the orchestrator binds the org to the `customerRef` from
 then on.
@@ -111,7 +111,7 @@ then on.
 
 ### Prices
 
-Provider packages depend on the kernel only, so they cannot import Postmill's plan table.
+Provider packages depend on the kernel only, so they cannot import ValidPost's plan table.
 Every call that may need to create a vendor price receives the amounts explicitly:
 `PaymentsPlanPrice { tier, monthlyCents, yearlyCents, currency }` and
 `PaymentsAddonSpec { type, productName, unitAmountCents, currency }`. Stripe's adapter creates

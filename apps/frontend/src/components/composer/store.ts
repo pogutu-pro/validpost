@@ -2,10 +2,10 @@
 
 import { create } from 'zustand';
 import dayjs from 'dayjs';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 import { createRef, RefObject } from 'react';
-import { PostComment } from '@postmill-ai/frontend/components/composer/providers/post-comment.enum';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
+import { PostComment } from '@validpost/frontend/components/composer/providers/post-comment.enum';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
 
 interface Values {
   id: string;

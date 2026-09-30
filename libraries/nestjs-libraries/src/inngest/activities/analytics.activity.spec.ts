@@ -1,42 +1,42 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { RefreshToken } from '@postmill-ai/nestjs-libraries/integrations/social.abstract';
+import { RefreshToken } from '@validpost/nestjs-libraries/integrations/social.abstract';
 import { Logger } from '@nestjs/common';
 import dayjs from 'dayjs';
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/integration.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/integration.manager', () => ({
   IntegrationManager: vi.fn(),
 }));
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/prisma.service',
+  '@validpost/nestjs-libraries/database/prisma/prisma.service',
   () => ({
     PrismaService: vi.fn(),
   })
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service',
+  '@validpost/nestjs-libraries/database/prisma/organizations/organization.service',
   () => ({
     OrganizationService: vi.fn(),
   })
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service',
+  '@validpost/nestjs-libraries/database/prisma/integrations/integration.service',
   () => ({
     IntegrationService: vi.fn(),
   })
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service',
+  '@validpost/nestjs-libraries/integrations/refresh.integration.service',
   () => ({
     RefreshIntegrationService: vi.fn(),
   })
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics',
+  '@validpost/nestjs-libraries/integrations/social/analytics.metrics',
   () => ({
     normalizeMetric: vi.fn(),
     METRIC_REGISTRY: {
@@ -47,7 +47,7 @@ vi.mock(
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/social/provider-capabilities',
+  '@validpost/nestjs-libraries/integrations/social/provider-capabilities',
   () => ({
     PROVIDER_CAPABILITIES: {
       mastodon: { watchlist: false },
@@ -56,13 +56,13 @@ vi.mock(
   })
 );
 
-vi.mock('@postmill-ai/helpers/utils/timer', () => ({
+vi.mock('@validpost/helpers/utils/timer', () => ({
   timer: vi.fn().mockResolvedValue(undefined),
 }));
 
 // Fixtures carry plain token strings; decryption is a pass-through in this spec
 // (crypto strictness is covered by integration-token.utils.spec.ts).
-vi.mock('@postmill-ai/helpers/auth/auth.service', async (importOriginal) => {
+vi.mock('@validpost/helpers/auth/auth.service', async (importOriginal) => {
   const actual = await importOriginal<any>();
   return {
     ...actual,
@@ -74,17 +74,17 @@ vi.mock('@postmill-ai/helpers/auth/auth.service', async (importOriginal) => {
   };
 });
 
-import { AnalyticsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/analytics.activity';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
-import { normalizeMetric } from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import type { OrgShortLinkSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
-import type { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import type { EmailLogService } from '@postmill-ai/nestjs-libraries/database/prisma/emails/email-log.service';
-import { AnalyticsService } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
+import { AnalyticsActivity } from '@validpost/nestjs-libraries/inngest/activities/analytics.activity';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
+import { normalizeMetric } from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
+import { timer } from '@validpost/helpers/utils/timer';
+import type { OrgShortLinkSettingsService } from '@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
+import type { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import type { EmailLogService } from '@validpost/nestjs-libraries/database/prisma/emails/email-log.service';
+import { AnalyticsService } from '@validpost/nestjs-libraries/analytics/analytics.service';
 
 type Mocked<T> = T & { [K in keyof T]: T[K] extends (...args: any[]) => any ? ReturnType<typeof vi.fn> : T[K] };
 

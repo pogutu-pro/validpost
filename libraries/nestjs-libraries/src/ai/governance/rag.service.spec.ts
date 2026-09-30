@@ -5,7 +5,7 @@ import { EventEmitter } from 'events';
 const redisEmitter = new EventEmitter();
 let redisList: string[] = [];
 
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => {
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => {
   const mock: any = {
     lpush: vi.fn(async (key: string, value: string) => {
       redisList.unshift(value);
@@ -230,7 +230,7 @@ describe('RagService', () => {
     it('enqueues to Redis when RAG is enabled and all params are valid', async () => {
       enableRag();
       const service = createService();
-      const { ioRedis } = await import('@postmill-ai/nestjs-libraries/redis/redis.service');
+      const { ioRedis } = await import('@validpost/nestjs-libraries/redis/redis.service');
       await expect(
         service.indexContent({
           organizationId: 'org-1',
@@ -251,7 +251,7 @@ describe('RagService', () => {
       // service produced, lpush is not called. We capture the produced hash by
       // first running once with null, reading the queued payload's contentHash.
       const service = createService();
-      const { ioRedis } = await import('@postmill-ai/nestjs-libraries/redis/redis.service');
+      const { ioRedis } = await import('@validpost/nestjs-libraries/redis/redis.service');
       await service.indexContent({
         organizationId: 'org-1',
         sourceType: 'post',
@@ -724,7 +724,7 @@ describe('RagService', () => {
     it('processes one queued job then stops (single drain, no infinite loop)', async () => {
       enableRag();
       const service = createService();
-      const { ioRedis } = await import('@postmill-ai/nestjs-libraries/redis/redis.service');
+      const { ioRedis } = await import('@validpost/nestjs-libraries/redis/redis.service');
 
       // Stop the loop after the first BRPOP so the test does not hang on the
       // worker's `while (this._workerRunning)` poll.
@@ -749,7 +749,7 @@ describe('RagService', () => {
     it('requeues a job when processing throws', async () => {
       enableRag();
       const service = createService();
-      const { ioRedis } = await import('@postmill-ai/nestjs-libraries/redis/redis.service');
+      const { ioRedis } = await import('@validpost/nestjs-libraries/redis/redis.service');
       mockRepo.replaceSourceChunks.mockRejectedValue(new Error('boom'));
 
       vi.mocked(ioRedis.brpoplpush).mockImplementationOnce(async () => {
@@ -773,7 +773,7 @@ describe('RagService', () => {
     it('swallows an RPOP error then stops', async () => {
       enableRag();
       const service = createService();
-      const { ioRedis } = await import('@postmill-ai/nestjs-libraries/redis/redis.service');
+      const { ioRedis } = await import('@validpost/nestjs-libraries/redis/redis.service');
       (service as any)._workerDelayMs = 1;
 
       vi.mocked(ioRedis.brpoplpush).mockImplementationOnce(async () => {
@@ -887,7 +887,7 @@ describe('RagService', () => {
           enabled: true,
           vectorStore: 'qdrant',
           qdrantUrl: 'http://qdrant:6333',
-          qdrantCollection: 'postmill_rag',
+          qdrantCollection: 'validpost_rag',
         },
       });
     }

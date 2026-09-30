@@ -11,7 +11,7 @@ import { buildPathElement, PEN_DEFAULT_STROKE } from './pen-tools';
  * and the shape-only controls that must stay hidden for it.
  */
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -19,7 +19,7 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
 }));
 
 // The colour picker reaches for the logged-in org to remember recent swatches.
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({ orgId: 'org-1' }),
 }));
 

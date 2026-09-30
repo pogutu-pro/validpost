@@ -13,20 +13,20 @@ import {
   canvasCompositeFor,
   isNativeBlend,
   blendPixels,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/pixel-ops';
+} from '@validpost/nestjs-libraries/media/designer-doc/pixel-ops';
 import {
   splitStyles,
   elementStyles,
   stylePadding,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/layer-styles';
+} from '@validpost/nestjs-libraries/media/designer-doc/layer-styles';
 import {
   drawOverStyle,
   drawUnderStyle,
   paintBackdropFilter,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/layer-style-render';
-import type { DesignerLayerStyle } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { warpPadding } from '@postmill-ai/nestjs-libraries/media/designer-doc/warp';
-import { cornerRadii } from '@postmill-ai/nestjs-libraries/media/designer-doc/shape-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/layer-style-render';
+import type { DesignerLayerStyle } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { warpPadding } from '@validpost/nestjs-libraries/media/designer-doc/warp';
+import { cornerRadii } from '@validpost/nestjs-libraries/media/designer-doc/shape-geometry';
 import { patternTile } from './patterns';
 
 /**

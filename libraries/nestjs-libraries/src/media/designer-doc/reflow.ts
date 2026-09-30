@@ -1,4 +1,4 @@
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
 import type { DesignerBackground, DesignerElement } from './designer-doc.schema';
 import { subjectPointToFocalPoint } from './focal-point';
 

@@ -11,7 +11,7 @@ import {
   GraphEditor,
 } from './graph-editor';
 import type { VideoClip } from './designer.store';
-import type { Keyframe } from '@postmill-ai/nestjs-libraries/media/designer-doc/keyframes';
+import type { Keyframe } from '@validpost/nestjs-libraries/media/designer-doc/keyframes';
 
 /**
  * The graph editor's geometry.
@@ -21,7 +21,7 @@ import type { Keyframe } from '@postmill-ai/nestjs-libraries/media/designer-doc/
  * reshapes a curve when it is wrong.
  */
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>

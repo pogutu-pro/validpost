@@ -3,12 +3,12 @@
 This guide is for operators running a production ValidPost instance. It covers
 deployment, configuration, backup, and ongoing maintenance.
 
-## What's involved in running Postmill
+## What's involved in running ValidPost
 
-Postmill is a multi-service application that schedules and publishes social media and chat posts
+ValidPost is a multi-service application that schedules and publishes social media and chat posts
 across 36 channels. Running your own instance means operating:
 
-- The **Postmill** application container (Node.js backend + Next.js frontend combined)
+- The **ValidPost** application container (Node.js backend + Next.js frontend combined)
 - A **PostgreSQL 17** database (application data)
 - A **Redis 7** cache and message broker
 - **Inngest** for durable background jobs (dev server locally, Cloud in production)

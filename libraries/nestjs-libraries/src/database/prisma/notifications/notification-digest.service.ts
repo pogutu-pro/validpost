@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { NotificationCategory } from '@postmill-ai/nestjs-libraries/dtos/notifications/notification-preference.dto';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { NotificationCategory } from '@validpost/nestjs-libraries/dtos/notifications/notification-preference.dto';
 
 export interface DigestItem {
   title: string;

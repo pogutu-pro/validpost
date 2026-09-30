@@ -10,7 +10,7 @@ const mockImageModel = vi.fn().mockResolvedValue({
 });
 const mockGenerateTextWithModel = vi.fn().mockResolvedValue('{"x":0.5,"y":0.5}');
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-model.provider', () => ({
   AIModelProvider: class MockProvider {
     imageModel = mockImageModel;
     generateTextWithModel = mockGenerateTextWithModel;
@@ -24,7 +24,7 @@ vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
 const mockCreateMediaJob = vi.fn().mockResolvedValue({ id: 'job-1' });
 const mockCreateSpendLog = vi.fn();
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
   AiSettingsService: class MockAiSettings {
     createMediaJob = mockCreateMediaJob;
     createSpendLog = mockCreateSpendLog;
@@ -32,7 +32,7 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.s
 }));
 
 const mockRecordSpend = vi.fn();
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/budget.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/budget.service', () => ({
   BudgetService: class MockBudget {
     recordSpend = mockRecordSpend;
     checkBudget = vi.fn().mockResolvedValue({ allowed: true });
@@ -41,7 +41,7 @@ vi.mock('@postmill-ai/nestjs-libraries/ai/governance/budget.service', () => ({
 
 const mockGetSettings = vi.fn().mockResolvedValue(null);
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-settings.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-settings.manager', () => ({
   AiSettingsManager: class MockManager {
     getSettings = mockGetSettings;
   },
@@ -64,14 +64,14 @@ vi.mock('@reaatech/media-pipeline-mcp-provenance', () => ({
 }));
 
 import { AiMediaService } from './media.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
 import {
   MediaProviderAdapter,
   MediaProviderCapabilities,
-} from '@postmill-ai/nestjs-libraries/media/media-provider-adapter.interface';
-import { BudgetService } from '@postmill-ai/nestjs-libraries/ai/governance/budget.service';
+} from '@validpost/nestjs-libraries/media/media-provider-adapter.interface';
+import { BudgetService } from '@validpost/nestjs-libraries/ai/governance/budget.service';
 
 const NO_CAPS: MediaProviderCapabilities = {
   image: false,

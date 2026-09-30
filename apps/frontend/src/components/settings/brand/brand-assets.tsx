@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Slider } from '@postmill-ai/react/form/slider';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Slider } from '@validpost/react/form/slider';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
 
 interface BrandAsset {
   fileId?: string;
@@ -41,7 +41,7 @@ export const BrandAssets = ({
   const [enforcementEnabled, setEnforcementEnabled] = useState(
     !!initial?.enforcement?.enabled
   );
-  const [newColor, setNewColor] = useState('#2B5CD3');
+  const [newColor, setNewColor] = useState('#D42A66');
   const [saving, setSaving] = useState(false);
 
   const addColor = useCallback(() => {
@@ -95,7 +95,7 @@ export const BrandAssets = ({
       <div className="flex flex-col gap-[10px]">
         <div className="text-[13px]">{t('color_palette', 'Your brand colours')}</div>
         <div className="text-[12px] text-newTableText">
-          {t('color_palette_hint', 'Add the colours you use. Click the swatch to pick one, or paste a colour code like #2B5CD3.')}
+          {t('color_palette_hint', 'Add the colours you use. Click the swatch to pick one, or paste a colour code like #D42A66.')}
         </div>
         <div className="flex flex-wrap items-center gap-[8px]">
           {palette.map((c) => (

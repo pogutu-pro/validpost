@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_k: string, d: string) => d,
 }));
 
@@ -12,12 +12,12 @@ vi.mock('chart.js/auto', () => ({
     destroy() {}
   },
 }));
-vi.mock('@postmill-ai/frontend/components/analytics/hooks/useCountUp', () => ({
+vi.mock('@validpost/frontend/components/analytics/hooks/useCountUp', () => ({
   useCountUp: (target: number) => target,
 }));
 
 const mockUseCampaignAnalytics = vi.fn();
-vi.mock('@postmill-ai/frontend/components/campaigns/hooks/campaign.hooks', async (orig) => {
+vi.mock('@validpost/frontend/components/campaigns/hooks/campaign.hooks', async (orig) => {
   const actual = (await orig()) as Record<string, unknown>;
   return {
     ...actual,

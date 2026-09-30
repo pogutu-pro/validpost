@@ -1,6 +1,6 @@
 ---
 name: add-email-provider
-description: Add a transactional email provider (SMTP or API-based sender adapter) to the Postmill ProviderKernel email domain. Use when adding an email provider, a transactional email adapter, or an SMTP/API email sending provider selected by EMAIL_PROVIDER.
+description: Add a transactional email provider (SMTP or API-based sender adapter) to the ValidPost ProviderKernel email domain. Use when adding an email provider, a transactional email adapter, or an SMTP/API email sending provider selected by EMAIL_PROVIDER.
 ---
 
 # Add an email provider
@@ -34,15 +34,15 @@ Webhooks: one shared endpoint `POST /webhooks/email` (`apps/backend/src/api/rout
 
 ## Procedure
 
-1. Scaffold `libraries/providers/<id>/` mirroring `libraries/providers/resend`: `package.json` (`@postmill-ai/provider-<id>`, `main`/`types`: `src/index.ts`, deps `@postmill-ai/provider-kernel` `workspace:*` + vendor SDK, script `test: vitest run`); `src/index.ts` default-exporting the `ProviderModule[]` array; `src/v1/{index.ts, metadata.ts, email.adapter.ts, __tests__/}`.
+1. Scaffold `libraries/providers/<id>/` mirroring `libraries/providers/resend`: `package.json` (`@validpost/provider-<id>`, `main`/`types`: `src/index.ts`, deps `@validpost/provider-kernel` `workspace:*` + vendor SDK, script `test: vitest run`); `src/index.ts` default-exporting the `ProviderModule[]` array; `src/v1/{index.ts, metadata.ts, email.adapter.ts, __tests__/}`.
 2. Implement `EmailCapability` in `email.adapter.ts`; keep `create()` network-free (lazy-construct the SDK client, as resend does). End the file with `export const <id>EmailModule: ProviderModule<any, any>` — manifest `domain: 'email'`, `version: 'v1'`, `status: 'active'`, `credentialFields: []` (always empty). In `metadata.ts`: `kind: "action"`, `domains: []` (email serves no AI/media default surface — a kernel spec enforces it), `hasModelList: false`, `mediaCategories: []`.
 3. If the provider supports status webhooks, implement `verifyWebhook`/`parseWebhook` and set `capabilities.webhooks: true`. Do **not** add a controller or route.
 4. Registration — 3 edits + install (detail: `agents/providers/overview.md` § Registration):
-   - `apps/backend/src/providers.generated.ts` (hand-maintained despite the name): add `import <id>Modules from '@postmill-ai/provider-<id>';` and spread `...<id>Modules,` into the `providerModules` array — both alphabetical.
-   - `tsconfig.base.json`: two path aliases, `"@postmill-ai/provider-<id>": ["libraries/providers/<id>/src"]` and `".../*": ["libraries/providers/<id>/src/*"]`.
-   - `apps/backend/package.json`: `"@postmill-ai/provider-<id>": "workspace:*"` in `dependencies`; then run `pnpm install`.
+   - `apps/backend/src/providers.generated.ts` (hand-maintained despite the name): add `import <id>Modules from '@validpost/provider-<id>';` and spread `...<id>Modules,` into the `providerModules` array — both alphabetical.
+   - `tsconfig.base.json`: two path aliases, `"@validpost/provider-<id>": ["libraries/providers/<id>/src"]` and `".../*": ["libraries/providers/<id>/src/*"]`.
+   - `apps/backend/package.json`: `"@validpost/provider-<id>": "workspace:*"` in `dependencies`; then run `pnpm install`.
 5. Update the `.env.example` "Email provider" block (~line 40): provider list in the `EMAIL_PROVIDER` comment plus any new `EMAIL_*` keys.
-6. Tests: copy `libraries/providers/resend/src/v1/__tests__/resend.adapter.spec.ts` (mock the vendor SDK with `vi.mock`, set/clear `EMAIL_*` env in `beforeEach`/`afterEach`; cover name/capabilities, `isConfigured`, `send` mapping + errors, webhook verify/parse) and `conformance.spec.ts` (`runDomainConformance('email', module, { requiredMethods: ['send', 'isConfigured', 'verifyWebhook', 'parseWebhook'], capabilityKeys: ['webhooks', 'openTracking', 'clickTracking'] })` from `@postmill-ai/provider-kernel`).
+6. Tests: copy `libraries/providers/resend/src/v1/__tests__/resend.adapter.spec.ts` (mock the vendor SDK with `vi.mock`, set/clear `EMAIL_*` env in `beforeEach`/`afterEach`; cover name/capabilities, `isConfigured`, `send` mapping + errors, webhook verify/parse) and `conformance.spec.ts` (`runDomainConformance('email', module, { requiredMethods: ['send', 'isConfigured', 'verifyWebhook', 'parseWebhook'], capabilityKeys: ['webhooks', 'openTracking', 'clickTracking'] })` from `@validpost/provider-kernel`).
 7. Add a row + update header counts in `libraries/providers/PROVIDERS_INVENTORY.md` (maintained by hand).
 
 No DB work: `EmailLog.provider` is a free-form string — no schema change, no migration. No frontend work of any kind.

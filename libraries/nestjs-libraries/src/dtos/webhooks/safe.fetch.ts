@@ -83,7 +83,7 @@ function stripCredentialHeaders(init: RequestInit | undefined): RequestInit {
 // D4: HMAC-SHA256 signature for an outbound webhook body. Secret is the
 // deployment-wide WEBHOOK_SIGNING_SECRET; when unset it falls back to
 // JWT_SECRET (mirroring EncryptionService's key-derivation) so signing is
-// always on. Returns the `sha256=<hex>` value for the X-Postmill-Signature header.
+// always on. Returns the `sha256=<hex>` value for the X-ValidPost-Signature header.
 export function webhookSignature(rawBody: string): string {
   const secret =
     process.env.WEBHOOK_SIGNING_SECRET || process.env.JWT_SECRET || '';

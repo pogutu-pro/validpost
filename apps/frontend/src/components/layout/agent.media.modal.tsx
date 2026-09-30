@@ -1,10 +1,10 @@
 'use client';
 
 import { FC, useCallback, useState } from 'react';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 
 export const AgentMediaModal: FC = () => {
   const fetch = useFetch();
@@ -33,7 +33,7 @@ export const AgentMediaModal: FC = () => {
       <div className="text-[14px] leading-[22px] text-newTextColor opacity-80">
         {t(
           'agent_media_different_company',
-          'UGC videos are powered by AgentMedia (agent-media.ai), a separate product with its own account and pricing — not part of your Postmill subscription.'
+          'UGC videos are powered by AgentMedia (agent-media.ai), a separate product with its own account and pricing — not part of your ValidPost subscription.'
         )}
       </div>
 

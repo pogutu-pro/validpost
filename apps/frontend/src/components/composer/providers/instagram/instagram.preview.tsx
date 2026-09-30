@@ -1,15 +1,15 @@
 'use client';
 
-import { useIntegration } from '@postmill-ai/frontend/components/launches/helpers/use.integration';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { stripHtmlValidation } from '@postmill-ai/helpers/utils/strip.html.validation';
-import { textSlicer } from '@postmill-ai/helpers/utils/count.length';
+import { useIntegration } from '@validpost/frontend/components/launches/helpers/use.integration';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { stripHtmlValidation } from '@validpost/helpers/utils/strip.html.validation';
+import { textSlicer } from '@validpost/helpers/utils/count.length';
 import { FC } from 'react';
-import { VideoOrImage } from '@postmill-ai/react/helpers/video.or.image';
-import { SliderComponent } from '@postmill-ai/frontend/components/ui/slider.component';
-import { SafeContent } from '@postmill-ai/frontend/components/shared/safe-content';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { VideoOrImage } from '@validpost/react/helpers/video.or.image';
+import { SliderComponent } from '@validpost/frontend/components/ui/slider.component';
+import { SafeContent } from '@validpost/frontend/components/shared/safe-content';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const InstagramPreview: FC<{
   maximumCharacters?: number;
@@ -42,14 +42,14 @@ export const InstagramPreview: FC<{
       newContent
         .slice(start, end)
         .replace(/\[\[\[([.\s\S]*?)]]]/, (match, match1) => {
-          return `<span class="font-bold font-[arial]" style="color: #2b5cd3">${match1}</span>`;
+          return `<span class="font-bold font-[arial]" style="color: var(--new-btn-primary-accent)">${match1}</span>`;
         }) +
       `<mark class="bg-red-500" data-tooltip-id="tooltip" data-tooltip-content="${t(
         'this_text_will_be_cropped',
         'This text will be cropped'
       )}">` +
       newContent.slice(end).replace(/\[\[\[([.\s\S]*?)]]]/, (match, match1) => {
-        return `<span class="font-bold font-[arial]" style="color: #2b5cd3">${match1}</span>`;
+        return `<span class="font-bold font-[arial]" style="color: var(--new-btn-primary-accent)">${match1}</span>`;
       }) +
       `</mark>`;
 

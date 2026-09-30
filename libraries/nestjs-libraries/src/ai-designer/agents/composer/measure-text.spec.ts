@@ -73,10 +73,10 @@ describe('createTextMeasurer', () => {
     // The other half of the contract: the fallback must not swallow a font
     // that genuinely loaded, or measuring would have been pointless.
     const { registerFont } = await import('canvas');
-    registerFont(PROBE_FONT_FILE, { family: 'PostmillProbeFace' });
+    registerFont(PROBE_FONT_FILE, { family: 'ValidPostProbeFace' });
     const measure = await createTextMeasurer();
     const text = 'Shop the sale';
-    expect(measure(text, 48, { fontFamily: 'PostmillProbeFace' })).not.toBe(
+    expect(measure(text, 48, { fontFamily: 'ValidPostProbeFace' })).not.toBe(
       approximateAdvance(text, 48)
     );
   });

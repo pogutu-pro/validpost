@@ -3,21 +3,21 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { MEDIA_SETUP_HREF } from '@postmill-ai/frontend/components/layout/use-media-tools-status';
-import { EmptyState } from '@postmill-ai/frontend/components/ui/empty-state';
-import { LoadingRows } from '@postmill-ai/frontend/components/ui/loading-rows';
-import { studioBadgeKey } from '@postmill-ai/frontend/components/media-tools/studio-kit/i18n-keys';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { MEDIA_SETUP_HREF } from '@validpost/frontend/components/layout/use-media-tools-status';
+import { EmptyState } from '@validpost/frontend/components/ui/empty-state';
+import { LoadingRows } from '@validpost/frontend/components/ui/loading-rows';
+import { studioBadgeKey } from '@validpost/frontend/components/media-tools/studio-kit/i18n-keys';
 import {
   SORTED_MEDIA_TABS,
   providerIdentifier,
   type MediaTab,
   type StudioBadge,
-} from '@postmill-ai/frontend/components/media-tools/media-tools.nav';
-import { useEnabledMediaProviders } from '@postmill-ai/frontend/components/media-tools/use-enabled-media-providers';
-import { MediaQueuePanel } from '@postmill-ai/frontend/components/media-tools/media-queue';
+} from '@validpost/frontend/components/media-tools/media-tools.nav';
+import { useEnabledMediaProviders } from '@validpost/frontend/components/media-tools/use-enabled-media-providers';
+import { MediaQueuePanel } from '@validpost/frontend/components/media-tools/media-queue';
 
 /**
  * The /media index.
@@ -50,14 +50,14 @@ const HeroPair: React.FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
       <Link
         href="/media/designer"
-        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-[#4F46E5]/50 hover:shadow-lg hover:shadow-[#4F46E5]/5 transition-all"
+        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-btnPrimary/50 hover:shadow-lg hover:shadow-btnPrimary/5 transition-all"
       >
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-[0.5] group-hover:opacity-100 transition-opacity"
           style={{
             backgroundImage:
-              'linear-gradient(to right, color-mix(in srgb, #4F46E5 14%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, #4F46E5 14%, transparent) 1px, transparent 1px)',
+              'linear-gradient(to right, color-mix(in srgb, var(--new-btn-primary) 14%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--new-btn-primary) 14%, transparent) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
             maskImage: 'linear-gradient(to bottom right, black, transparent 72%)',
             WebkitMaskImage: 'linear-gradient(to bottom right, black, transparent 72%)',
@@ -85,7 +85,7 @@ const HeroPair: React.FC = () => {
 
       <Link
         href="/media/ai-designer"
-        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-[#4F46E5]/50 hover:shadow-lg hover:shadow-[#4F46E5]/5 transition-all"
+        className="group relative overflow-hidden rounded-[14px] border border-newTableBorder bg-newBgColorInner p-[22px] mobile:p-[18px] flex flex-col gap-[10px] min-h-[188px] hover:border-btnPrimary/50 hover:shadow-lg hover:shadow-btnPrimary/5 transition-all"
       >
         <div className="flex flex-col gap-[8px] flex-1">
           <span className="text-[11px] font-[600] uppercase tracking-[0.14em] text-newTableText">
@@ -117,7 +117,7 @@ const StudioCard: React.FC<{ tab: MediaTab }> = ({ tab }) => {
   return (
     <Link
       href={tab.href}
-      className="group flex items-start gap-[12px] rounded-[12px] border border-newTableBorder bg-newBgColorInner p-[14px] hover:border-[#4F46E5]/50 hover:shadow-md hover:shadow-[#4F46E5]/5 transition-all"
+      className="group flex items-start gap-[12px] rounded-[12px] border border-newTableBorder bg-newBgColorInner p-[14px] hover:border-btnPrimary/50 hover:shadow-md hover:shadow-btnPrimary/5 transition-all"
     >
       <span className="shrink-0">
         <ProviderIcon identifier={identifier} name={tab.label} size={34} />
@@ -129,7 +129,7 @@ const StudioCard: React.FC<{ tab: MediaTab }> = ({ tab }) => {
             {tab.badges.map((badge) => (
               <span
                 key={badge}
-                className="px-[7px] py-[2px] rounded-full bg-[#4F46E5]/10 text-[11px] font-[500] text-btnPrimaryAccent"
+                className="px-[7px] py-[2px] rounded-full bg-btnPrimary/10 text-[11px] font-[500] text-btnPrimaryAccent"
               >
                 {t(studioBadgeKey(badge), badge)}
               </span>
@@ -237,7 +237,7 @@ export const MediaIndex: React.FC = () => {
               canConfigure ? (
                 <Link
                   href={MEDIA_SETUP_HREF}
-                  className="inline-flex items-center gap-[8px] px-[16px] py-[9px] rounded-[8px] bg-[#4F46E5] text-white text-[13px] font-[600] hover:bg-[#4338CA] transition-colors"
+                  className="inline-flex items-center gap-[8px] px-[16px] py-[9px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[600] hover:bg-vpPrimaryHover transition-colors"
                 >
                   {t('media_index_empty_cta', 'Connect a provider')}
                   <ArrowIcon />
@@ -263,7 +263,7 @@ export const MediaIndex: React.FC = () => {
             <Link
               key={tab.href}
               href={tab.href}
-              className="inline-flex items-center gap-[8px] rounded-[10px] border border-newTableBorder bg-newBgColorInner ps-[12px] pe-[14px] py-[9px] text-[13px] text-textColor hover:border-[#4F46E5]/50 hover:shadow-sm transition-all"
+              className="inline-flex items-center gap-[8px] rounded-[10px] border border-newTableBorder bg-newBgColorInner ps-[12px] pe-[14px] py-[9px] text-[13px] text-textColor hover:border-btnPrimary/50 hover:shadow-sm transition-all"
             >
               <span className="w-[18px] h-[18px] flex items-center justify-center shrink-0 text-newTableText">
                 {tab.icon}
@@ -289,8 +289,8 @@ const FilterChip: React.FC<{
     className={clsx(
       'px-[11px] py-[5px] rounded-full text-[12px] font-[500] border transition-all',
       active
-        ? 'bg-[#4F46E5] border-[#4F46E5] text-white shadow-sm'
-        : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor hover:border-[#4F46E5]/30'
+        ? 'bg-btnPrimary border-btnPrimary text-white shadow-sm'
+        : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:text-textColor hover:border-btnPrimary/30'
     )}
   >
     {children}

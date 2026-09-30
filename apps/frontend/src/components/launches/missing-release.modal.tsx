@@ -2,12 +2,12 @@
 
 import React, { FC, useCallback, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { Button } from '@postmill-ai/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { Button } from '@validpost/react/form/button';
 
 export const MissingReleaseModal: FC<{
   postId: string;
@@ -85,7 +85,7 @@ export const MissingReleaseModal: FC<{
             onClick={() => setSelected(item.id)}
             className={`cursor-pointer rounded-[8px] overflow-hidden border-2 transition-all ${
               selected === item.id
-                ? 'border-[#2B5CD3] scale-[1.02]'
+                ? 'border-btnPrimary scale-[1.02]'
                 : 'border-transparent hover:border-textColor/20'
             }`}
           >

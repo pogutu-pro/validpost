@@ -1,6 +1,6 @@
 # Notifications
 
-Postmill routes every user-facing notification through a single notification service. The UI surfaces are the in-app bell, the per-user preference panel, and the admin broadcast page.
+ValidPost routes every user-facing notification through a single notification service. The UI surfaces are the in-app bell, the per-user preference panel, and the admin broadcast page.
 
 ## In-app notification bell
 

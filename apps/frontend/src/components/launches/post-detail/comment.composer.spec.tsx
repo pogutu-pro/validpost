@@ -4,7 +4,7 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 
 const mockFetchFn = vi.fn();
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
 

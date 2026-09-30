@@ -15,7 +15,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   isTransientStatus,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 interface HeyGenGenerateResponse {
   data?: { video_id?: string };

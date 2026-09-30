@@ -1,4 +1,4 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import {
@@ -9,9 +9,9 @@ import type { AgentResponse, ContextPacket } from '@reaatech/agent-mesh';
 import {
   CHANNEL_PRESETS,
   type ChannelPreset,
-} from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
+} from '@validpost/nestjs-libraries/integrations/social/channel-presets';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
 import { z } from 'zod';
 import { AiDesignerSkillRouter } from '../../skills/ai-designer-skill-router.service';
 import { DesignPlanV2FieldsSchema } from '../../ai-designer.schemas';

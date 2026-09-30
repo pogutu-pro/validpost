@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
@@ -11,7 +11,7 @@ vi.mock('next/navigation', () => ({
   useSearchParams: () => searchParams,
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({}) }),
 }));
 
@@ -47,7 +47,7 @@ vi.mock('./comment.card', () => ({
   ),
 }));
 
-vi.mock('@postmill-ai/frontend/components/ui/page-header', () => ({
+vi.mock('@validpost/frontend/components/ui/page-header', () => ({
   PageHeader: () => <div data-testid="page-header" />,
 }));
 
@@ -55,11 +55,11 @@ vi.mock('./filters/replies.filter.bar', () => ({
   RepliesFilterBar: () => <div data-testid="filter-bar" />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.integration.list', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.integration.list', () => ({
   useIntegrationList: () => ({ data: [] }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/roles/hooks/use-roles', () => ({
+vi.mock('@validpost/frontend/components/settings/roles/hooks/use-roles', () => ({
   useTeamMembers: () => ({ data: [] }),
 }));
 

@@ -1,8 +1,8 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import * as Sentry from '@sentry/nestjs';
-import { ProviderKernel, ProviderManifestError } from '@postmill-ai/provider-kernel';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { FeatureFlagsService } from '@postmill-ai/nestjs-libraries/feature-flags';
+import { ProviderKernel, ProviderManifestError } from '@validpost/provider-kernel';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { FeatureFlagsService } from '@validpost/nestjs-libraries/feature-flags';
 import { providerModules } from './providers.generated';
 
 @Injectable()

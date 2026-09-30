@@ -1,9 +1,9 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
 import { ModelSelect } from './model-select';
 import { studioFieldKey, studioOptionKey } from './i18n-keys';
 import type { FileFieldValue, StudioField, StudioFieldValue } from './types';
@@ -32,7 +32,7 @@ const Label: FC<{ label?: string; required?: boolean }> = ({ label, required }) 
 };
 
 const inputClass =
-  'w-full px-[12px] py-[9px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] transition-colors';
+  'w-full px-[12px] py-[9px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-btnPrimary transition-colors';
 
 const MediaPicker: FC<{ field: StudioField & { type: 'media' }; value?: FileFieldValue; onChange: (v: FileFieldValue | undefined) => void }> = ({
   field,
@@ -169,7 +169,7 @@ export const StudioForm: FC<StudioFormProps> = ({ fields, values, onChange, prov
                     step={field.step ?? 1}
                     value={(value as number) ?? (field.default as number) ?? field.min}
                     onChange={(e) => onChange(field.name, Number(e.target.value))}
-                    className="flex-1 accent-[#2B5CD3]"
+                    className="flex-1 accent-btnPrimary"
                   />
                   <span className="text-[12px] text-textColor w-[40px] text-right tabular-nums">
                     {(value as number) ?? (field.default as number) ?? field.min}
@@ -195,7 +195,7 @@ export const StudioForm: FC<StudioFormProps> = ({ fields, values, onChange, prov
                 className={`flex items-center gap-[8px] text-[13px] ${(value as boolean) ?? (field.default as boolean) ? 'text-textColor' : 'text-newTextColor/60'}`}
               >
                 <span
-                  className={`w-[36px] h-[20px] rounded-full p-[2px] transition-colors ${(value as boolean) ?? (field.default as boolean) ? 'bg-[#2B5CD3]' : 'bg-studioBorder'}`}
+                  className={`w-[36px] h-[20px] rounded-full p-[2px] transition-colors ${(value as boolean) ?? (field.default as boolean) ? 'bg-btnPrimary' : 'bg-studioBorder'}`}
                 >
                   <span
                     className={`block w-[16px] h-[16px] rounded-full bg-white transition-transform ${(value as boolean) ?? (field.default as boolean) ? 'translate-x-[16px]' : ''}`}

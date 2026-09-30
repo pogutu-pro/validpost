@@ -3,11 +3,11 @@
 import { useState, useCallback } from 'react';
 import { useUser } from '../layout/user.context';
 import copy from 'copy-to-clipboard';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { DeveloperComponent } from '@postmill-ai/frontend/components/developer/developer.component';
-import { ApiKeysSection, CreatedKey } from '@postmill-ai/frontend/components/api-keys/api-keys.component';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { DeveloperComponent } from '@validpost/frontend/components/developer/developer.component';
+import { ApiKeysSection, CreatedKey } from '@validpost/frontend/components/api-keys/api-keys.component';
 import clsx from 'clsx';
 
 const mcpClients = [
@@ -39,20 +39,20 @@ const getMcpConfig = (
     switch (client) {
       case 'Claude Code':
         return {
-          config: `claude mcp add postmill --transport http "${urlWithKey}"`,
+          config: `claude mcp add validpost --transport http "${urlWithKey}"`,
           hint: 'Run this command in your terminal.',
           hintKey: 'run_in_terminal',
         };
       case 'Cursor':
         return {
-          config: json({ mcpServers: { postmill: { url: urlWithKey } } }),
+          config: json({ mcpServers: { validpost: { url: urlWithKey } } }),
           hint: 'Add to .cursor/mcp.json in your project root.',
           hintKey: 'add_to_cursor_mcp_json',
         };
       case 'VS Code / Copilot':
         return {
           config: json({
-            servers: { postmill: { type: 'http', url: urlWithKey } },
+            servers: { validpost: { type: 'http', url: urlWithKey } },
           }),
           hint: 'Add to .vscode/mcp.json in your project root.',
           hintKey: 'add_to_vscode_mcp_json',
@@ -60,32 +60,32 @@ const getMcpConfig = (
       case 'Windsurf':
         return {
           config: json({
-            mcpServers: { postmill: { serverUrl: urlWithKey } },
+            mcpServers: { validpost: { serverUrl: urlWithKey } },
           }),
           hint: 'Add to ~/.codeium/windsurf/mcp_config.json',
           hintKey: 'add_to_windsurf_mcp_config',
         };
       case 'Amp':
         return {
-          config: `amp mcp add postmill ${urlWithKey}`,
+          config: `amp mcp add validpost ${urlWithKey}`,
           hint: 'Run this command in your terminal.',
           hintKey: 'run_in_terminal',
         };
       case 'Codex':
         return {
-          config: `# ~/.codex/config.toml\n\n[mcp_servers.postmill]\nurl = "${urlWithKey}"`,
+          config: `# ~/.codex/config.toml\n\n[mcp_servers.validpost]\nurl = "${urlWithKey}"`,
           hint: 'Add to ~/.codex/config.toml',
           hintKey: 'add_to_codex_config_toml',
         };
       case 'Gemini CLI':
         return {
-          config: json({ mcpServers: { postmill: { url: urlWithKey } } }),
+          config: json({ mcpServers: { validpost: { url: urlWithKey } } }),
           hint: 'Add to ~/.gemini/settings.json',
           hintKey: 'add_to_gemini_settings',
         };
       case 'Warp':
         return {
-          config: json({ postmill: { url: urlWithKey } }),
+          config: json({ validpost: { url: urlWithKey } }),
           hint: 'Settings > MCP Servers > + Add, then paste this config.',
           hintKey: 'warp_mcp_settings_hint',
         };
@@ -95,7 +95,7 @@ const getMcpConfig = (
   switch (client) {
     case 'Claude Code':
       return {
-        config: `claude mcp add --transport http postmill ${urlBase} --header "Authorization: ${bearer}"`,
+        config: `claude mcp add --transport http validpost ${urlBase} --header "Authorization: ${bearer}"`,
         hint: 'Run this command in your terminal.',
         hintKey: 'run_in_terminal',
       };
@@ -103,7 +103,7 @@ const getMcpConfig = (
       return {
         config: json({
           mcpServers: {
-            postmill: { url: urlBase, headers: { Authorization: bearer } },
+            validpost: { url: urlBase, headers: { Authorization: bearer } },
           },
         }),
         hint: 'Add to .cursor/mcp.json in your project root.',
@@ -113,7 +113,7 @@ const getMcpConfig = (
       return {
         config: json({
           servers: {
-            postmill: {
+            validpost: {
               type: 'http',
               url: urlBase,
               headers: { Authorization: bearer },
@@ -127,7 +127,7 @@ const getMcpConfig = (
       return {
         config: json({
           mcpServers: {
-            postmill: {
+            validpost: {
               serverUrl: urlBase,
               headers: { Authorization: bearer },
             },
@@ -140,7 +140,7 @@ const getMcpConfig = (
       return {
         config: json({
           'amp.mcpServers': {
-            postmill: { url: urlBase, headers: { Authorization: bearer } },
+            validpost: { url: urlBase, headers: { Authorization: bearer } },
           },
         }),
         hint: 'Add to your Amp settings.json',
@@ -148,7 +148,7 @@ const getMcpConfig = (
       };
     case 'Codex':
       return {
-        config: `# ~/.codex/config.toml\n\n[mcp_servers.postmill]\nurl = "${urlBase}"\nhttp_headers = { "Authorization" = "${bearer}" }`,
+        config: `# ~/.codex/config.toml\n\n[mcp_servers.validpost]\nurl = "${urlBase}"\nhttp_headers = { "Authorization" = "${bearer}" }`,
         hint: 'Add to ~/.codex/config.toml',
         hintKey: 'add_to_codex_config_toml',
       };
@@ -156,7 +156,7 @@ const getMcpConfig = (
       return {
         config: json({
           mcpServers: {
-            postmill: { url: urlBase, headers: { Authorization: bearer } },
+            validpost: { url: urlBase, headers: { Authorization: bearer } },
           },
         }),
         hint: 'Add to ~/.gemini/settings.json',
@@ -165,7 +165,7 @@ const getMcpConfig = (
     case 'Warp':
       return {
         config: json({
-          postmill: { url: urlBase, headers: { Authorization: bearer } },
+          validpost: { url: urlBase, headers: { Authorization: bearer } },
         }),
         hint: 'Settings > MCP Servers > + Add, then paste this config.',
         hintKey: 'warp_mcp_settings_hint',
@@ -265,15 +265,15 @@ const McpSection = ({
           </div>
           <div className="text-[13px] text-newTableText mt-[2px]">
             {t(
-              'connect_your_mcp_client_to_postmill_to_schedule_your_posts_faster',
-              'Connect Postmill MCP server to your client (Http streaming) to schedule your posts faster!'
+              'connect_your_mcp_client_to_validpost_to_schedule_your_posts_faster',
+              'Connect ValidPost MCP server to your client (Http streaming) to schedule your posts faster!'
             )}
           </div>
         </div>
         <div className="flex gap-[6px] shrink-0 pt-[2px]">
           <a
             className="cursor-pointer px-[16px] h-[36px] bg-btnPrimary hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-            href="https://docs.postmill.ai/mcp/introduction"
+            href="https://docs.validpost.io/mcp/introduction"
             target="_blank"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
@@ -394,17 +394,17 @@ const localCliSteps = [
   {
     labelKey: 'cli_step_install_cli',
     label: 'Install the CLI',
-    code: 'npm install -g postmill',
+    code: 'npm install -g validpost',
   },
   {
     labelKey: 'cli_step_run_auth_login',
-    label: 'Run: postmill auth:login',
-    code: 'postmill auth:login',
+    label: 'Run: validpost auth:login',
+    code: 'validpost auth:login',
   },
   {
     labelKey: 'cli_step_install_skill',
-    label: 'Install the Postmill skill for your AI agent',
-    code: 'npx skills add @postmill-ai/postmill-agent',
+    label: 'Install the ValidPost skill for your AI agent',
+    code: 'npx skills add @validpost/validpost-agent',
   },
 ] as const;
 
@@ -412,17 +412,17 @@ const ciCliSteps = [
   {
     labelKey: 'cli_step_install_cli',
     label: 'Install the CLI',
-    code: 'npm install -g postmill',
+    code: 'npm install -g validpost',
   },
   {
     labelKey: 'cli_step_set_env_var',
     label: 'Set your API key as an environment variable',
-    code: 'export POSTMILL_API_KEY="{API_KEY}"',
+    code: 'export VALIDPOST_API_KEY="{API_KEY}"',
   },
   {
     labelKey: 'cli_step_install_skill',
-    label: 'Install the Postmill skill for your AI agent',
-    code: 'npx skills add @postmill-ai/postmill-agent',
+    label: 'Install the ValidPost skill for your AI agent',
+    code: 'npx skills add @validpost/validpost-agent',
   },
 ] as const;
 
@@ -477,14 +477,14 @@ const CliSection = ({ apiKey }: { apiKey: string }) => {
           <div className="text-[13px] text-newTableText mt-[2px]">
             {t(
               'cli_description',
-              'Use the Postmill CLI to automate posting from your terminal, or install the skill to let your AI agent schedule posts for you.'
+              'Use the ValidPost CLI to automate posting from your terminal, or install the skill to let your AI agent schedule posts for you.'
             )}
           </div>
         </div>
         <div className="flex gap-[6px] shrink-0 pt-[2px]">
           <a
             className="cursor-pointer px-[16px] h-[36px] bg-btnPrimary hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-            href="https://docs.postmill.ai/cli/introduction"
+            href="https://docs.validpost.io/cli/introduction"
             target="_blank"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
@@ -583,7 +583,7 @@ const PublicApiContent = () => {
         <br />
         {t(
           'api_auth_note_line2',
-          'If you are building a product that schedules posts on behalf of other Postmill users,'
+          'If you are building a product that schedules posts on behalf of other ValidPost users,'
         )}
         <br />
         {t(
@@ -642,7 +642,7 @@ export const PublicComponent = () => {
             <p className="text-[13px] text-newTableText">
               {t(
                 'access_description',
-                'Create and manage API keys to connect Postmill to your own tools and scripts.'
+                'Create and manage API keys to connect ValidPost to your own tools and scripts.'
               )}
             </p>
           </div>
@@ -658,7 +658,7 @@ export const PublicComponent = () => {
             <p className="text-[13px] text-newTableText">
               {t(
                 'apps_description',
-                'Register developer apps and MCP clients that can connect to Postmill on your behalf.'
+                'Register developer apps and MCP clients that can connect to ValidPost on your behalf.'
               )}
             </p>
           </div>

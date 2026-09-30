@@ -5,7 +5,7 @@ import {
   VpnConfigValidationResult,
   VpnCredentialField,
   VpnProviderCapabilities,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 export class CyberghostAdapter implements VpnCapability {
   readonly identifier = 'cyberghost';

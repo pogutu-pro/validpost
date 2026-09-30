@@ -95,7 +95,7 @@ describe('AiErrorDisplay', () => {
 
   // 502 ProviderUpstreamError envelope: attribute the failure to the org's
   // provider, explain the kind, link to settings.
-  it('renders an upstream provider error attributed to the provider, not Postmill', () => {
+  it('renders an upstream provider error attributed to the provider, not ValidPost', () => {
     render(
       <AiErrorDisplay
         error={{
@@ -114,7 +114,7 @@ describe('AiErrorDisplay', () => {
     );
     expect(
       screen.getByText(
-        'Google AI Studio returned an error — this comes from your Google AI Studio account, not Postmill.'
+        'Google AI Studio returned an error — this comes from your Google AI Studio account, not ValidPost.'
       )
     ).toBeTruthy();
     expect(screen.getByText(/You exceeded your current quota/)).toBeTruthy();

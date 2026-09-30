@@ -7,15 +7,15 @@ import {
   PostResponse,
   SocialCommentDTO,
   SocialProvider,
-} from '@postmill-ai/provider-kernel';
-import { makeId, makeOauthState } from '@postmill-ai/provider-kernel';
-import { SocialAbstract } from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
+import { makeId, makeOauthState } from '@validpost/provider-kernel';
+import { SocialAbstract } from '@validpost/provider-kernel';
 import dayjs from 'dayjs';
 import { Integration } from '@prisma/client';
-import { DiscordDto } from '@postmill-ai/provider-kernel';
-import { Tool } from '@postmill-ai/provider-kernel';
-import { getOrgCredential } from '@postmill-ai/provider-kernel';
-import { safeFetch } from '@postmill-ai/provider-kernel';
+import { DiscordDto } from '@validpost/provider-kernel';
+import { Tool } from '@validpost/provider-kernel';
+import { getOrgCredential } from '@validpost/provider-kernel';
+import { safeFetch } from '@validpost/provider-kernel';
 import { Logger } from '@nestjs/common';
 
 import { metadata as providerMetadata } from './metadata';
@@ -651,7 +651,7 @@ import {
   ProviderModule as __ProviderModule,
   SocialProviderKernelAdapter as __Bridge,
   PROVIDER_CAPABILITIES as __CAPS,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const __adapter = new DiscordProvider();
 

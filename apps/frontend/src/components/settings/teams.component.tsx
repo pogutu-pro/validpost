@@ -1,26 +1,26 @@
 'use client';
 
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
 import React, { useCallback, useMemo, useState } from 'react';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
 import { capitalize } from 'lodash';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Input } from '@postmill-ai/react/form/input';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Input } from '@validpost/react/form/input';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Select } from '@postmill-ai/react/form/select';
+import { Select } from '@validpost/react/form/select';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { AddTeamMemberDto } from '@postmill-ai/nestjs-libraries/dtos/settings/add.team.member.dto';
-import { CreateTeamUserDto } from '@postmill-ai/nestjs-libraries/dtos/settings/create-team-user.dto';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
+import { AddTeamMemberDto } from '@validpost/nestjs-libraries/dtos/settings/add.team.member.dto';
+import { CreateTeamUserDto } from '@validpost/nestjs-libraries/dtos/settings/create-team-user.dto';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
 import copy from 'copy-to-clipboard';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { DataTable, StatusPill, AvatarCell } from '@postmill-ai/frontend/components/ui/data-table';
-import { useRoles, RoleItem } from '@postmill-ai/frontend/components/settings/roles/hooks/use-roles';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { ManageRolesModal } from '@postmill-ai/frontend/components/settings/roles/manage-roles.modal';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { DataTable, StatusPill, AvatarCell } from '@validpost/frontend/components/ui/data-table';
+import { useRoles, RoleItem } from '@validpost/frontend/components/settings/roles/hooks/use-roles';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { ManageRolesModal } from '@validpost/frontend/components/settings/roles/manage-roles.modal';
 
 const PAGE_SIZE = 25;
 

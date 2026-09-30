@@ -1,5 +1,5 @@
 {
-  "name": "@postmill-ai/nestjs-libraries",
+  "name": "@validpost/nestjs-libraries",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -47,7 +47,7 @@
     "@opentelemetry/auto-instrumentations-node": "0.77.0",
     "@opentelemetry/exporter-trace-otlp-http": "0.219.0",
     "@opentelemetry/sdk-node": "^0.218.0",
-    "@postmill-ai/provider-kernel": "workspace:*",
+    "@validpost/provider-kernel": "workspace:*",
     "@prisma/client": "6.5.0",
     "@reaatech/a2a-reference-auth": "^0.2.0",
     "@reaatech/a2a-reference-mcp-bridge": "^0.1.0",

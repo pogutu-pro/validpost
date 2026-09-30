@@ -12,7 +12,7 @@ import {
   SafeFetchPort,
   ProviderModule,
   mediaUpstreamError,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // xAI (Grok) — same key as the xAI LLM provider (registry id `xai`), reused via the
 // universal-credential fallback. Image generation is OpenAI-compatible:

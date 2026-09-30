@@ -2,8 +2,8 @@
 
 import React, { FC, useCallback, useRef } from 'react';
 import { ColorSwatch, SegmentedControl, Slider } from './index';
-import type { DesignerGradient } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import type { DesignerGradient } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 /**
  * The gradient editor.

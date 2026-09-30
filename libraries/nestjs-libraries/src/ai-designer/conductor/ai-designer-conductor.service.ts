@@ -1,19 +1,19 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, Optional } from '@nestjs/common';
 import { dispatchToAgent } from '@reaatech/agent-mesh-router';
 import { registryState } from '@reaatech/agent-mesh-registry';
 import type { AgentResponse } from '@reaatech/agent-mesh';
-import { DesignService } from '@postmill-ai/nestjs-libraries/database/prisma/design/design.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
+import { DesignService } from '@validpost/nestjs-libraries/database/prisma/design/design.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
 import type {
   DesignerDoc,
   DesignerOutput,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
-import type { DesignerDocOp } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc-ops.schema';
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
-import { GuardrailViolation } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
+import type { DesignerDocOp } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc-ops.schema';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
+import { GuardrailViolation } from '@validpost/nestjs-libraries/ai/governance/errors';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
 import { AiDesignerService } from '../ai-designer.service';
 import {
   MAX_INTENT_LENGTH,

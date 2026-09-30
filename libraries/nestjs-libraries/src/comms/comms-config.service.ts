@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { randomBytes } from 'node:crypto';
-import { CommsCapability, ProviderNotFoundError } from '@postmill-ai/provider-kernel';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { CommsCapability, ProviderNotFoundError } from '@validpost/provider-kernel';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import { CommsConfigRepository } from './comms-config.repository';
 import {
   getCommsPlatformCredentials,

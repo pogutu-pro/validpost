@@ -7,7 +7,7 @@ const mockT = vi.fn((_key: string, fallback?: string, opts?: Record<string, any>
   return fallback;
 });
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
 
@@ -37,7 +37,7 @@ vi.mock('../hooks/useShortLinks', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/shortlinks/hooks/useShortlinksConfig', () => ({
+vi.mock('@validpost/frontend/components/settings/shortlinks/hooks/useShortlinksConfig', () => ({
   useShortlinksConfig: () => ({ data: mockConfigData }),
 }));
 
@@ -71,7 +71,7 @@ describe('Analytics ShortlinksTab', () => {
       const { ShortlinksTab } = await import('./shortlinks.tab');
       const { container } = render(<ShortlinksTab from="2026-01-01" to="2026-01-31" />, { wrapper });
 
-      expect(container.querySelector('.animate-pulse')).toBeTruthy();
+      expect(container.querySelector('.vp-skeleton')).toBeTruthy();
     });
   });
 

@@ -1,5 +1,5 @@
-import i18next from '@postmill-ai/react/translation/i18next';
-import { areYouSure } from '@postmill-ai/frontend/components/layout/new-modal';
+import i18next from '@validpost/react/translation/i18next';
+import { areYouSure } from '@validpost/frontend/components/layout/new-modal';
 
 export const deleteDialog = async (
   message: string,

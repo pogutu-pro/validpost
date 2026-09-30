@@ -1,11 +1,11 @@
 # ARCHITECTURE.md
 
-System architecture of the Postmill monorepo for AI coding agents: structure, data flow,
+System architecture of the ValidPost monorepo for AI coding agents: structure, data flow,
 and invariants. This is not a how-to — task-oriented procedures live in `agents/*.md` and
 are cross-referenced by path. Every claim below was verified against the code at the time
 of writing; where this file and the code disagree, the code wins.
 
-Postmill is an AI-native platform to schedule social-media and chat posts to
+ValidPost is an AI-native platform to schedule social-media and chat posts to
 45+ channels: scheduled publishing, a calendar view, persisted analytics, team management
 (RBAC), and a media library with AI generation studios.
 
@@ -23,7 +23,7 @@ Postmill is an AI-native platform to schedule social-media and chat posts to
   │  Next.js App Router  │  │            │  /public/v1/*        │
   │  port 4200           │  │            │  (PublicApiModule)   │
   └─────────┬───────────┘  │            └──────────┬──────────┘
-            │ SWR via useFetch (@postmill-ai/helpers)          │
+            │ SWR via useFetch (@validpost/helpers)          │
             ▼                 ▼                     ▼
   ┌───────────────────────────────────────────────────────────┐
   │  apps/backend — thin NestJS REST API (port 3000)          │
@@ -56,7 +56,7 @@ PNPM monorepo; workspaces driven by `pnpm --filter`. **pnpm only — never npm/y
 | `apps/frontend` | Next.js App Router + React, port 4200, Tailwind 3, Sentry-instrumented. |
 | `apps/extension` | Browser extension. |
 | `apps/commands` | CLI commands. |
-| `apps/sdk` | Published SDK, npm name `@postmill-ai/postmill-sdk`. |
+| `apps/sdk` | Published SDK, npm name `@validpost/validpost-sdk`. |
 | `libraries/nestjs-libraries` | The bulk of all server logic: services, managers, Prisma schema + migrations, repositories, Inngest activities, provider resolution. |
 | `libraries/helpers` | Shared isomorphic utilities: `useFetch` (`src/utils/custom.fetch.tsx`), `AuthService` JWT helpers, `ConfigurationChecker`. |
 | `libraries/react-shared-libraries` | Shared React components/hooks (canonical `Button`, `Input`), i18n (`useT`). |
@@ -73,16 +73,16 @@ Import aliases (`tsconfig.base.json` `compilerOptions.paths`):
 
 | Alias | Resolves to | Note |
 |---|---|---|
-| `@postmill-ai/backend/*` | `apps/backend/src/*` | Alias only — the package's real name is `postmill-backend`. |
-| `@postmill-ai/frontend/*` | `apps/frontend/src/*` | |
-| `@postmill-ai/helpers/*` | `libraries/helpers/src/*` | Matches package name `@postmill-ai/helpers`. |
-| `@postmill-ai/nestjs-libraries/*` | `libraries/nestjs-libraries/src/*` | Matches package name. |
-| `@postmill-ai/react/*` | `libraries/react-shared-libraries/src/*` | **≠ package name** (`@postmill-ai/react-shared-libraries`). Import via the alias, not the package name. |
-| `@postmill-ai/extension/*` | `apps/extension/src/*` | |
-| `@postmill-ai/provider-kernel` | `libraries/providers/kernel/src` (+`/*`) | |
-| `@postmill-ai/provider-<id>` | `libraries/providers/<id>/src` (+`/*`) | One alias pair per provider package (~150). |
+| `@validpost/backend/*` | `apps/backend/src/*` | Alias only — the package's real name is `validpost-backend`. |
+| `@validpost/frontend/*` | `apps/frontend/src/*` | |
+| `@validpost/helpers/*` | `libraries/helpers/src/*` | Matches package name `@validpost/helpers`. |
+| `@validpost/nestjs-libraries/*` | `libraries/nestjs-libraries/src/*` | Matches package name. |
+| `@validpost/react/*` | `libraries/react-shared-libraries/src/*` | **≠ package name** (`@validpost/react-shared-libraries`). Import via the alias, not the package name. |
+| `@validpost/extension/*` | `apps/extension/src/*` | |
+| `@validpost/provider-kernel` | `libraries/providers/kernel/src` (+`/*`) | |
+| `@validpost/provider-<id>` | `libraries/providers/<id>/src` (+`/*`) | One alias pair per provider package (~150). |
 
-At runtime the backend resolves bare `@postmill-ai/provider-*` imports through
+At runtime the backend resolves bare `@validpost/provider-*` imports through
 `apps/backend/src/register-provider-paths.ts`, which must be the first import in
 `main.ts` (see §3).
 
@@ -93,18 +93,18 @@ Deep tour of the libraries: `agents/libraries.md`.
 ### Boot order (`apps/backend/src/main.ts`)
 
 1. `import './register-provider-paths'` — first line; installs the runtime resolver for
-   bare `@postmill-ai/provider-*` imports before any transitive require of a provider package.
-2. `initializeOtel()` (`@postmill-ai/nestjs-libraries/otel/initialize.otel`) — before Sentry
+   bare `@validpost/provider-*` imports before any transitive require of a provider package.
+2. `initializeOtel()` (`@validpost/nestjs-libraries/otel/initialize.otel`) — before Sentry
    and before Nest creation so auto-instrumentations patch modules as they load; no-op
    unless configured (`DEV_DISABLE_OPENTELEMETRY`).
-3. `initializeSentry('backend', true)` (`@postmill-ai/nestjs-libraries/sentry/initialize.sentry`).
+3. `initializeSentry('backend', true)` (`@validpost/nestjs-libraries/sentry/initialize.sentry`).
 4. `BigInt.prototype.toJSON = Number` — Express `JSON.stringify` throws on BigInt columns
    (e.g. `StorageProviderConfig.quotaBytes`); serialized as JS number.
 5. `NestFactory.create(AppModule, { rawBody: true, cors: … })` — CORS allowlist:
    `FRONTEND_URL`, `http://localhost:6274` (Inngest dev), optional `MAIN_URL`.
 6. `app.enableShutdownHooks()` + SIGTERM/SIGINT → `app.close()` once (drains Redis/Prisma).
 7. Socket.IO `IoAdapter` on the same HTTP server (`/collaboration`, `/ai-designer` namespaces).
-8. `await startMcp(app)` — MCP server (`@postmill-ai/nestjs-libraries/chat/start.mcp`).
+8. `await startMcp(app)` — MCP server (`@validpost/nestjs-libraries/chat/start.mcp`).
 9. Global `ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true })`
    — unknown DTO fields are rejected; declare new optional fields on the DTO.
 10. `json({ limit: '50mb' })` only on `/copilot/{*splat}` and `/posts` (Express 5 wildcard
@@ -115,11 +115,11 @@ Deep tour of the libraries: `agents/libraries.md`.
     unset-`NODE_ENV` deploy gets no helmet. `NOT_SECURED` in production does **not** strip helmet.
 13. Global filters, in registration order: `SubscriptionExceptionFilter` →
     `PostValidationExceptionFilter` → `HttpExceptionFilter`
-    (`@postmill-ai/nestjs-libraries/services/exception.filter`). Additional `APP_FILTER`s from
+    (`@validpost/nestjs-libraries/services/exception.filter`). Additional `APP_FILTER`s from
     `AppModule`: Sentry `FILTER`, `PROVIDER_NOT_CONFIGURED_FILTER`, `SHORT_LINK_PROVIDER_FILTER`,
     `ProviderExceptionFilter` (maps kernel errors → HTTP; retired → 410).
 14. `loadSwagger(app)`.
-15. `checkConfiguration()` — `ConfigurationChecker` (`@postmill-ai/helpers/configuration/configuration.checker`)
+15. `checkConfiguration()` — `ConfigurationChecker` (`@validpost/helpers/configuration/configuration.checker`)
     runs **before** listen; fatal-missing secrets exit non-zero in production or under
     `CONFIG_CHECK_STRICT` (`NOT_SECURED` bypasses the exit).
 16. `app.listen(port)` (`PORT` default 3000; `BACKEND_LISTEN_HOST` optional), then
@@ -145,7 +145,7 @@ CopilotKit is mounted through its **single-route** adapter — `POST /copilot/ch
 Both routes pass an explicit `agents` map and **no service adapter**: `/copilot/chat` runs a
 `BuiltInAgent` on the org's governed model (`AIModelProvider.governedLanguageModel('agent')`),
 `/copilot/agent` runs the Mastra agents. An agents-less runtime makes CopilotKit derive an agent
-from the adapter and throw when it can't (Sentry POSTMILL-APP-D).
+from the adapter and throw when it can't (Sentry VALIDPOST-APP-D).
 
 Guard registration order in `apps/backend/src/app.module.ts` is exactly throttle → policies →
 RBAC. `User.isSuperAdmin` bypasses RBAC, **not** the billing gate. Throttler default:
@@ -347,7 +347,7 @@ Function table and per-function detail: `agents/jobs.md`.
   This repo only reads them: `AuthProviderManager`
   (`apps/backend/src/services/auth/providers/auth-provider.manager.ts`) is DB-first with an
   env-bootstrap fallback (env counts only when the provider's complete credential set is
-  present: `POSTMILL_GENERIC_OAUTH=true` + `POSTMILL_OAUTH_CLIENT_ID/SECRET/AUTH_URL/TOKEN_URL`
+  present: `VALIDPOST_GENERIC_OAUTH=true` + `VALIDPOST_OAUTH_CLIENT_ID/SECRET/AUTH_URL/TOKEN_URL`
   for OIDC via `Provider.GENERIC`). `LOCAL` auth is always available unless
   `DISABLE_REGISTRATION=true`.
 

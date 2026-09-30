@@ -1,16 +1,16 @@
 'use client';
 import { useCallback } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Composer } from '@postmill-ai/frontend/components/composer/composer';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { EmptyState } from '@postmill-ai/frontend/components/ui/empty-state';
-import { Button } from '@postmill-ai/react/form/button';
-import { useAddProvider } from '@postmill-ai/frontend/components/launches/add.provider.component';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { Composer } from '@validpost/frontend/components/composer/composer';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { EmptyState } from '@validpost/frontend/components/ui/empty-state';
+import { Button } from '@validpost/react/form/button';
+import { useAddProvider } from '@validpost/frontend/components/launches/add.provider.component';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export default function CreatePostPage() {
   const fetch = useFetch();
@@ -67,9 +67,15 @@ export default function CreatePostPage() {
     const canCreateChannels =
       !permissions.isResolved || permissions.hasPermission('channels', 'create');
     return (
-      <div className="flex justify-center p-[40px]">
+      <div className="flex flex-1 w-full justify-center items-start p-[40px] mobile:p-[16px]">
         <EmptyState
           className="w-full max-w-[480px]"
+          icon={
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </svg>
+          }
           title={t('composer_no_channels_title', 'No channels connected')}
           description={
             canCreateChannels

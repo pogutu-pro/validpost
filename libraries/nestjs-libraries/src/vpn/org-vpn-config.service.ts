@@ -1,11 +1,11 @@
 import { Inject, Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { createHash } from 'node:crypto';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { OrgVpnConfigRepository } from '@postmill-ai/nestjs-libraries/database/prisma/vpn/org-vpn-config.repository';
-import { OrgProviderConfigRepository } from '@postmill-ai/nestjs-libraries/database/prisma/provider-configs/org-provider-config.repository';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { ProviderKernel, ProviderNotFoundError } from '@postmill-ai/provider-kernel';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { OrgVpnConfigRepository } from '@validpost/nestjs-libraries/database/prisma/vpn/org-vpn-config.repository';
+import { OrgProviderConfigRepository } from '@validpost/nestjs-libraries/database/prisma/provider-configs/org-provider-config.repository';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { ProviderKernel, ProviderNotFoundError } from '@validpost/provider-kernel';
 import { VpnProviderAdapter } from './vpn-provider.interface';
 import {
   VpnProviderCapabilities,

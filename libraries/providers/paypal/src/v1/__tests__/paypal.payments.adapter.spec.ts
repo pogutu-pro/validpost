@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { PaypalPaymentsAdapter } from '../payments.adapter';
-import { PaymentsUnsupportedOperationError, PaymentsWebhookVerificationError } from '@postmill-ai/provider-kernel';
+import { PaymentsUnsupportedOperationError, PaymentsWebhookVerificationError } from '@validpost/provider-kernel';
 
 type Handler = (init: RequestInit | undefined) => { status?: number; body?: unknown } | Promise<{ status?: number; body?: unknown }>;
 
@@ -58,7 +58,7 @@ beforeEach(() => {
   process.env.PAYPAL_ENV = 'sandbox';
   f = fakeFetch();
   adapter = new PaypalPaymentsAdapter(f.fetch as any);
-  f.routes.set('GET /v1/billing/plans/P-1', () => ({ body: { id: 'P-1', name: 'Postmill PRO MONTHLY' } }));
+  f.routes.set('GET /v1/billing/plans/P-1', () => ({ body: { id: 'P-1', name: 'ValidPost PRO MONTHLY' } }));
 });
 
 describe('config + auth', () => {
@@ -82,9 +82,9 @@ describe('config + auth', () => {
 describe('catalog + checkout', () => {
   it('creates product and plan on demand (with a trial cycle) and returns the approval redirect', async () => {
     f.routes.set('GET /v1/catalogs/products', () => ({ body: { products: [] } }));
-    f.routes.set('POST /v1/catalogs/products', () => ({ body: { id: 'PROD-1', name: 'Postmill PRO' } }));
+    f.routes.set('POST /v1/catalogs/products', () => ({ body: { id: 'PROD-1', name: 'ValidPost PRO' } }));
     f.routes.set('GET /v1/billing/plans', () => ({ body: { plans: [] } }));
-    f.routes.set('POST /v1/billing/plans', () => ({ body: { id: 'P-NEW', name: 'Postmill PRO MONTHLY TRIAL' } }));
+    f.routes.set('POST /v1/billing/plans', () => ({ body: { id: 'P-NEW', name: 'ValidPost PRO MONTHLY TRIAL' } }));
     f.routes.set('POST /v1/billing/subscriptions', () => ({ body: sub({ id: 'I-NEW' }) }));
 
     const r = await adapter.createCheckout({
@@ -112,8 +112,8 @@ describe('catalog + checkout', () => {
   });
 
   it('reuses an existing plan by name and yearly amounts', async () => {
-    f.routes.set('GET /v1/catalogs/products', () => ({ body: { products: [{ id: 'PROD-1', name: 'Postmill PRO' }] } }));
-    f.routes.set('GET /v1/billing/plans', () => ({ body: { plans: [{ id: 'P-Y', name: 'Postmill PRO YEARLY 290.00 USD' }] } }));
+    f.routes.set('GET /v1/catalogs/products', () => ({ body: { products: [{ id: 'PROD-1', name: 'ValidPost PRO' }] } }));
+    f.routes.set('GET /v1/billing/plans', () => ({ body: { plans: [{ id: 'P-Y', name: 'ValidPost PRO YEARLY 290.00 USD' }] } }));
     f.routes.set('POST /v1/billing/subscriptions', () => ({ body: sub() }));
     await adapter.createCheckout({ customerRef: null, orgId: 'org-1', userId: 'u', email: '', plan: PLAN, period: 'YEARLY', allowTrial: false, identifier: 'uid-2', metadata: {}, returnUrls: { success: 's', cancel: 'c' }, mode: 'hosted' });
     expect(f.calls.some((c) => c.method === 'POST' && c.url.endsWith('/v1/billing/plans'))).toBe(false);
@@ -121,9 +121,9 @@ describe('catalog + checkout', () => {
   });
 
   it('a price change creates a new plan instead of reusing the old one by name', async () => {
-    f.routes.set('GET /v1/catalogs/products', () => ({ body: { products: [{ id: 'PROD-1', name: 'Postmill PRO' }] } }));
-    f.routes.set('GET /v1/billing/plans', () => ({ body: { plans: [{ id: 'P-OLD', name: 'Postmill PRO MONTHLY 19.00 USD' }] } }));
-    f.routes.set('POST /v1/billing/plans', () => ({ body: { id: 'P-NEW', name: 'Postmill PRO MONTHLY 29.00 USD' } }));
+    f.routes.set('GET /v1/catalogs/products', () => ({ body: { products: [{ id: 'PROD-1', name: 'ValidPost PRO' }] } }));
+    f.routes.set('GET /v1/billing/plans', () => ({ body: { plans: [{ id: 'P-OLD', name: 'ValidPost PRO MONTHLY 19.00 USD' }] } }));
+    f.routes.set('POST /v1/billing/plans', () => ({ body: { id: 'P-NEW', name: 'ValidPost PRO MONTHLY 29.00 USD' } }));
     f.routes.set('POST /v1/billing/subscriptions', () => ({ body: sub() }));
     await adapter.createCheckout({ customerRef: null, orgId: 'org-1', userId: 'u', email: '', plan: PLAN, period: 'MONTHLY', allowTrial: false, identifier: 'uid-3', metadata: {}, returnUrls: { success: 's', cancel: 'c' }, mode: 'hosted' });
     expect(f.calls.find((c) => c.method === 'POST' && c.url.endsWith('/v1/billing/subscriptions'))!.body.plan_id).toBe('P-NEW');
@@ -150,8 +150,8 @@ describe('catalog + checkout', () => {
 
 describe('plan change + cancel', () => {
   it('revise with an approval link redirects; a downgrade without one stays pending', async () => {
-    f.routes.set('GET /v1/catalogs/products', () => ({ body: { products: [{ id: 'PROD-1', name: 'Postmill STARTER' }] } }));
-    f.routes.set('GET /v1/billing/plans', () => ({ body: { plans: [{ id: 'P-S', name: 'Postmill STARTER MONTHLY 29.00 USD' }] } }));
+    f.routes.set('GET /v1/catalogs/products', () => ({ body: { products: [{ id: 'PROD-1', name: 'ValidPost STARTER' }] } }));
+    f.routes.set('GET /v1/billing/plans', () => ({ body: { plans: [{ id: 'P-S', name: 'ValidPost STARTER MONTHLY 29.00 USD' }] } }));
     f.routes.set('POST /v1/billing/subscriptions/I-ABC/revise', () => ({ body: { links: [{ rel: 'approve', href: 'https://paypal.com/revise' }] } }));
     const req = { customerRef: 'I-ABC', currentTier: 'PRO' as const, plan: { ...PLAN, tier: 'STARTER' as const }, period: 'MONTHLY' as const, direction: 'downgrade' as const, identifier: 'i', userId: 'u', metadata: {} };
     expect(await adapter.changePlan(req)).toEqual({ kind: 'redirect', url: 'https://paypal.com/revise' });
@@ -258,7 +258,7 @@ describe('webhooks', () => {
     expect(noAmount.events[0]).not.toHaveProperty('amountCents');
   });
 
-  it('drops events whose plan is not a Postmill plan, but a failed plan lookup propagates so PayPal redelivers', async () => {
+  it('drops events whose plan is not a ValidPost plan, but a failed plan lookup propagates so PayPal redelivers', async () => {
     f.routes.set('POST /v1/notifications/verify-webhook-signature', () => ({ body: { verification_status: 'SUCCESS' } }));
     f.routes.set('GET /v1/billing/plans/P-X', () => ({ body: { id: 'P-X', name: 'Something else' } }));
     expect((await deliver({ id: 'E10', event_type: 'BILLING.SUBSCRIPTION.ACTIVATED', resource: sub({ plan_id: 'P-X' }) })).events).toEqual([]);

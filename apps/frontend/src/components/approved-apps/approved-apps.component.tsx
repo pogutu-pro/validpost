@@ -1,12 +1,12 @@
 'use client';
 
 import { FC, Fragment, useCallback } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { Button } from '@postmill-ai/react/form/button';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import dayjs from 'dayjs';
 
 const useApprovedApps = () => {
@@ -155,7 +155,7 @@ export const ApprovedAppsComponent: FC = () => {
       {!!federationGrants?.length && (
         <div className="bg-newBgColorInner border-newTableBorder border rounded-[12px] p-[24px]">
           <div className="text-[16px] font-bold mb-[16px]">
-            {t('postmill_id_signins', 'Postmill ID sign-ins')}
+            {t('validpost_id_signins', 'ValidPost ID sign-ins')}
           </div>
           <div className="flex flex-col gap-[16px]">
             {federationGrants.map((grant: any) => (

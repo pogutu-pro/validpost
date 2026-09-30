@@ -4,12 +4,12 @@ import {
   SETTINGS_SECTION_ORDER,
   visibleSettingsNav,
   type SettingsGateCtx,
-} from '@postmill-ai/frontend/components/settings/settings-nav.config';
+} from '@validpost/frontend/components/settings/settings-nav.config';
 import {
   LEGACY_TAB_TO_PATH,
   SETTINGS_DEFAULT_PATH,
-} from '@postmill-ai/frontend/components/settings/settings-paths';
-import en from '@postmill-ai/react/translation/locales/en/translation.json';
+} from '@validpost/frontend/components/settings/settings-paths';
+import en from '@validpost/react/translation/locales/en/translation.json';
 
 // Guards the settings nav config: the legacy ?tab= compat map must cover every old tab key,
 // hrefs must be unique routes, and the tier/permission gates must mirror the old SettingsPopup

@@ -47,15 +47,15 @@ const res = (ok: boolean, status: number, body: any) => ({
 // ---------------------------------------------------------------------------
 // Module mocks
 // ---------------------------------------------------------------------------
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback?: string) => fallback || _key,
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => (...args: any[]) => h.fetchImpl(...args),
 }));
 
-vi.mock('@postmill-ai/frontend/components/composer/content-qa/usePreflight', () => ({
+vi.mock('@validpost/frontend/components/composer/content-qa/usePreflight', () => ({
   usePreflight: () => ({
     runPreflight: (...args: any[]) => h.runPreflightImpl(...args),
     loading: false,
@@ -66,7 +66,7 @@ vi.mock('@postmill-ai/frontend/components/composer/content-qa/usePreflight', () 
 }));
 
 vi.mock(
-  '@postmill-ai/frontend/components/composer/content-qa/preflight.panel',
+  '@validpost/frontend/components/composer/content-qa/preflight.panel',
   () => ({
     PreflightPanel: ({ onProceed, onClose }: any) => (
       <div data-testid="preflight-panel">
@@ -81,19 +81,19 @@ vi.mock(
   })
 );
 
-vi.mock('@postmill-ai/frontend/components/composer/store', () => ({
+vi.mock('@validpost/frontend/components/composer/store', () => ({
   useLaunchStore: (selector: any) => selector(h.state),
 }));
 
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.existing.data', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.existing.data', () => ({
   useExistingData: () => h.existing,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: (...a: any[]) => h.toasterShow(...a) }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({
     openModal: (...a: any[]) => h.openModal(...a),
     closeAll: (...a: any[]) => h.closeAll(...a),
@@ -104,29 +104,29 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: (...a: any[]) => h.routerPush(...a) }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/use-ai-active', () => ({
+vi.mock('@validpost/frontend/components/layout/use-ai-active', () => ({
   useAiActive: () => h.aiActive,
 }));
 
 vi.mock(
-  '@postmill-ai/frontend/components/settings/shortlink-preference.component',
+  '@validpost/frontend/components/settings/shortlink-preference.component',
   () => ({
     useShortlinkPreference: () => ({ data: { shortlink: 'NO' } }),
     ShortlinkPreferenceComponent: () => null,
   })
 );
 
-vi.mock('@postmill-ai/react/helpers/delete.dialog', () => ({
+vi.mock('@validpost/react/helpers/delete.dialog', () => ({
   deleteDialog: vi.fn(async () => true),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/services/make.is', () => ({
+vi.mock('@validpost/nestjs-libraries/services/make.is', () => ({
   makeId: () => 'grp-generated',
 }));
 
 // ShowAllProviders exposes getAllValues through its ref — the composer reads it.
 vi.mock(
-  '@postmill-ai/frontend/components/composer/providers/show.all.providers',
+  '@validpost/frontend/components/composer/providers/show.all.providers',
   async () => {
     const RealReact = (await vi.importActual<any>('react')).default;
     return {
@@ -141,56 +141,56 @@ vi.mock(
 );
 
 // Lightweight stubs for the remaining heavy children.
-vi.mock('@postmill-ai/frontend/components/composer/picks.socials.component', () => ({
+vi.mock('@validpost/frontend/components/composer/picks.socials.component', () => ({
   PicksSocialsComponent: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/composer/editor', () => ({
+vi.mock('@validpost/frontend/components/composer/editor', () => ({
   EditorWrapper: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/composer/select.current', () => ({
+vi.mock('@validpost/frontend/components/composer/select.current', () => ({
   SelectCurrent: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/helpers/date.picker', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/date.picker', () => ({
   DatePicker: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/repeat.component', () => ({
+vi.mock('@validpost/frontend/components/launches/repeat.component', () => ({
   RepeatComponent: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/tags.component', () => ({
+vi.mock('@validpost/frontend/components/launches/tags.component', () => ({
   TagsComponent: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/brand-picker', () => ({
+vi.mock('@validpost/frontend/components/launches/brand-picker', () => ({
   BrandPicker: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/composer/shortlink-picker', () => ({
+vi.mock('@validpost/frontend/components/composer/shortlink-picker', () => ({
   ShortlinkPicker: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/creation.method.badge', () => ({
+vi.mock('@validpost/frontend/components/launches/creation.method.badge', () => ({
   CreationMethodBadge: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/composer/dummy.code.component', () => ({
+vi.mock('@validpost/frontend/components/composer/dummy.code.component', () => ({
   DummyCodeComponent: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/composer/composer-library.modal', () => ({
+vi.mock('@validpost/frontend/components/composer/composer-library.modal', () => ({
   ComposerLibraryModal: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/ui/color-picker', () => ({
+vi.mock('@validpost/frontend/components/ui/color-picker', () => ({
   ColorPicker: () => null,
-  DEFAULT_POST_COLOR: '#2B5CD3',
+  DEFAULT_POST_COLOR: '#D42A66',
 }));
-vi.mock('@postmill-ai/frontend/components/ui/icons', () => ({
+vi.mock('@validpost/frontend/components/ui/icons', () => ({
   SettingsIcon: () => null,
   ChevronDownIcon: () => null,
   TrashIcon: () => null,
   DropdownArrowSmallIcon: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/ui/is.scroll.hook', () => ({
+vi.mock('@validpost/frontend/components/ui/is.scroll.hook', () => ({
   useHasScroll: () => false,
 }));
-vi.mock('@postmill-ai/react/form/button', () => ({
+vi.mock('@validpost/react/form/button', () => ({
   Button: ({ children, ...p }: any) => <button {...p}>{children}</button>,
 }));
-vi.mock('@postmill-ai/react/helpers/safe.image', () => ({
+vi.mock('@validpost/react/helpers/safe.image', () => ({
   default: () => null,
 }));
 vi.mock('@copilotkit/react-ui', () => ({
@@ -454,9 +454,13 @@ describe('ManageModal', () => {
       fireEvent.click(scheduleButton());
     });
 
+    // The raw server message ("nope") is never shown; a 5xx gets calm, plain copy.
     await waitFor(() =>
-      expect(h.toasterShow.mock.calls.flat()).toContain('nope')
+      expect(h.toasterShow.mock.calls.flat()).toContain(
+        'Something went wrong on our side. Your post is safe — try again in a moment.'
+      )
     );
+    expect(h.toasterShow.mock.calls.flat()).not.toContain('nope');
     // Never POSTed the post, and the button is usable again.
     expect(postCalls()).toBe(0);
     await waitFor(() => expect((scheduleButton() as HTMLButtonElement).disabled).toBe(false));
@@ -519,4 +523,63 @@ describe('ManageModal', () => {
     // The assistant dialog header renders (portal to document.body).
     expect(await screen.findByText('Your Assistant')).toBeTruthy();
   });
+  // Guided flow: Create → Preview → Improve → Schedule → Publish.
+  it('guides the user from real state: write first, then pick a channel, then ready', () => {
+    h.state.global = [{ id: 'g1', content: '<p></p>', delay: 0, media: [] }];
+    h.state.selectedIntegrations = [];
+    const { unmount } = renderModal();
+    expect(screen.getByRole('navigation', { name: /post progress/i })).toBeTruthy();
+    expect(screen.getByText(/start with your message/i)).toBeTruthy();
+    unmount();
+
+    h.state.global = [{ id: 'g1', content: '<p>hello</p>', delay: 0, media: [] }];
+    const second = renderModal();
+    expect(screen.getByText(/pick a channel to see your live preview/i)).toBeTruthy();
+    second.unmount();
+
+    h.state.selectedIntegrations = [
+      { integration: { id: 'int1' }, settings: {}, ref: { current: {} } },
+    ];
+    renderModal();
+    expect(screen.getByText(/looking good/i)).toBeTruthy();
+  });
+
+  it('keeps Post now in a menu that opens on click (usable on touch and keyboard)', async () => {
+    renderModal();
+    expect(screen.queryByRole('menu')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /more ways to publish/i }));
+    expect(screen.getByRole('menuitem', { name: /post now/i })).toBeTruthy();
+    expect(screen.getByRole('menuitem', { name: /save as template/i })).toBeTruthy();
+  });
+
+  it('celebrates in the ValidPost voice: scheduled, draft saved, published', async () => {
+    // A successful save closes the real modal, so each case starts fresh.
+    renderModal();
+    await act(async () => {
+      fireEvent.click(scheduleButton());
+    });
+    await waitFor(() =>
+      expect(h.toasterShow).toHaveBeenCalledWith("Scheduled. It's on your calendar.")
+    );
+    cleanup();
+
+    h.toasterShow.mockClear();
+    renderModal();
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: /save as draft/i }));
+    });
+    await waitFor(() => expect(h.toasterShow).toHaveBeenCalledWith('Draft saved.'));
+    cleanup();
+
+    h.toasterShow.mockClear();
+    renderModal();
+    fireEvent.click(screen.getByRole('button', { name: /more ways to publish/i }));
+    await act(async () => {
+      fireEvent.click(screen.getByRole('menuitem', { name: /post now/i }));
+    });
+    await waitFor(() =>
+      expect(h.toasterShow).toHaveBeenCalledWith("Published. It's out there.")
+    );
+  });
 });
+

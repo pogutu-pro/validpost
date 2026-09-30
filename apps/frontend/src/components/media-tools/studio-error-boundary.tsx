@@ -1,7 +1,7 @@
 'use client';
 
 import { Component, FC, ReactNode } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface Props {
   children: ReactNode;
@@ -50,7 +50,7 @@ class StudioErrorBoundaryInner extends Component<InnerProps, State> {
             <button
               type="button"
               onClick={this.reset}
-              className="mt-[4px] px-[16px] py-[9px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+              className="mt-[4px] px-[16px] py-[9px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[500] hover:bg-btnPrimary/80 transition-all"
             >
               {t('try_again', 'Try again')}
             </button>

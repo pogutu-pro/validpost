@@ -1,6 +1,6 @@
 # Background jobs: Inngest architecture & recipes
 
-Inngest is **THE** background-job system in Postmill. The previous workflow orchestrator
+Inngest is **THE** background-job system in ValidPost. The previous workflow orchestrator
 (Temporal) was removed: there is **no `while(true)` poll loop, no `continueAsNew`, no
 task-queue worker process**. All durable execution goes through the Inngest SDK against the
 single served endpoint `/api/inngest`.
@@ -13,7 +13,7 @@ Cross-references: `agents/backend.md` (module wiring), `agents/database.md` (Pri
 
 | Piece | Path | Role |
 |---|---|---|
-| Client singleton | `libraries/nestjs-libraries/src/inngest/inngest.client.ts` | `export const inngest = new Inngest({ id: 'postmill' })`; SDK reads `eventKey`/`signingKey`/`env`/`baseUrl` from env automatically (`INNGEST_DEV=1` selects dev mode — v4 defaults to cloud mode). Also exports `isInngestEnabled()` → `USE_INNGEST === 'true' \|\| USE_INNGEST === '1'`. |
+| Client singleton | `libraries/nestjs-libraries/src/inngest/inngest.client.ts` | `export const inngest = new Inngest({ id: 'validpost' })`; SDK reads `eventKey`/`signingKey`/`env`/`baseUrl` from env automatically (`INNGEST_DEV=1` selects dev mode — v4 defaults to cloud mode). Also exports `isInngestEnabled()` → `USE_INNGEST === 'true' \|\| USE_INNGEST === '1'`. |
 | Event types | `libraries/nestjs-libraries/src/inngest/inngest.types.ts` | `InngestEvents` record (`'post/publish'`, `'email/send'`, `'analytics/sync-org'`, …) plus one exported `eventType(name, { schema: staticSchema<...>() })` per trigger event (v4 — the client-level `EventSchemas` was removed; the eventType is passed directly as the function trigger so handlers keep a typed `event.data`). **Add new events here first.** |
 | Nest module | `libraries/nestjs-libraries/src/inngest/inngest.module.ts` | Registers all `*Activity` classes + `InngestRunService` + `InngestService` as providers/exports; imports `DatabaseModule`. |
 | Function builder | `libraries/nestjs-libraries/src/inngest/inngest.service.ts` | `InngestService` constructor injects every activity and calls `createFunctions({...})`; `getFunctions()` returns the array. Built in the **constructor** (not `onModuleInit`) so `InngestController` (instantiated after) sees the populated list. |
@@ -205,7 +205,7 @@ steps, retries, the run ledger, and per-org fan-out for free.
 docker compose -f docker/docker-compose.dev.yaml --profile jobs up -d   # postgres + redis + Inngest dev server
 ```
 
-- The `jobs` profile starts `postmill-inngest` (`inngest dev -u http://postmill-app:3000/api/inngest`),
+- The `jobs` profile starts `validpost-inngest` (`inngest dev -u http://validpost-app:3000/api/inngest`),
   dev-server UI + event API on **http://localhost:8288**. It retries discovery until the
   backend is up, so start order doesn't matter.
 - Set `USE_INNGEST=true` in the backend env or events are silently skipped at emit time
@@ -228,7 +228,7 @@ Factory-spec pattern (canonical: `analytics-collection.spec.ts`):
 
 1. Mock the client module so no real Inngest connection happens:
    ```ts
-   vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+   vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
      inngest: { send: vi.fn(), createFunction: vi.fn() },
    }));
    ```

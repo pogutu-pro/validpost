@@ -2,8 +2,8 @@ import { Controller, Post, Body, HttpCode, HttpStatus, Req } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { IsString, IsOptional, IsIn } from 'class-validator';
 import { Request } from 'express';
-import { GuardrailService } from '@postmill-ai/nestjs-libraries/ai/governance/guardrail.service';
-import { GuardrailViolation } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
+import { GuardrailService } from '@validpost/nestjs-libraries/ai/governance/guardrail.service';
+import { GuardrailViolation } from '@validpost/nestjs-libraries/ai/governance/errors';
 
 class ModerateRequest {
   @IsString()

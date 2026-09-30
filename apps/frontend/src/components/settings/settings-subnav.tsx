@@ -4,8 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
 
 export interface SettingsSubnavItem {
   href: string;

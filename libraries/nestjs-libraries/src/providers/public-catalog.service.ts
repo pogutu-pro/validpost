@@ -1,11 +1,11 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ProviderDomain, ProviderKernel } from '@postmill-ai/provider-kernel';
+import { ProviderDomain, ProviderKernel } from '@validpost/provider-kernel';
 import {
   PublicCatalogDomainDto,
   PublicCatalogDto,
   PublicCatalogProviderDto,
-} from '@postmill-ai/nestjs-libraries/dtos/providers/public-catalog.dto';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
+} from '@validpost/nestjs-libraries/dtos/providers/public-catalog.dto';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
 import {
   CatalogEntry,
   ProviderCatalogService,

@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import type { NextFunction, Request, Response } from 'express';
 
-vi.mock('@postmill-ai/helpers/subdomain/subdomain.management', () => ({
+vi.mock('@validpost/helpers/subdomain/subdomain.management', () => ({
   getCookieUrlFromDomain: () => 'localhost',
 }));
 

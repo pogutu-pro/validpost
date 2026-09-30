@@ -15,7 +15,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   mediaUpstreamFromPoll,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const BASE = 'https://api.dev.runwayml.com/v1';
 const API_VERSION = '2024-11-06';

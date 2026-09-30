@@ -1,36 +1,36 @@
 'use client';
 
-import { Slider } from '@postmill-ai/react/form/slider';
+import { Slider } from '@validpost/react/form/slider';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import type { Subscription } from '@prisma/client';
 import { useDebouncedCallback } from 'use-debounce';
-import ReactLoading from '@postmill-ai/frontend/components/layout/loading';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import ReactLoading from '@validpost/frontend/components/layout/loading';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import clsx from 'clsx';
 import {
   pricing,
   PlanInterface,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { FAQComponent } from '@postmill-ai/frontend/components/billing/faq.component';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { FAQComponent } from '@validpost/frontend/components/billing/faq.component';
 import { useSWRConfig } from 'swr';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Textarea } from '@postmill-ai/react/form/textarea';
-import { useFireEvents } from '@postmill-ai/helpers/utils/use.fire.events';
-import { useUtmUrl } from '@postmill-ai/helpers/utils/utm.saver';
-import { useTrack } from '@postmill-ai/react/helpers/use.track';
-import { TrackEnum } from '@postmill-ai/nestjs-libraries/user/track.enum';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { FinishTrial } from '@postmill-ai/frontend/components/billing/finish.trial';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { useDubClickId } from '@postmill-ai/frontend/components/layout/dubAnalytics';
-import { LogoutComponent } from '@postmill-ai/frontend/components/layout/logout.component';
-import { PageHeader } from '@postmill-ai/frontend/components/ui/page-header';
-import { useBillingConfig } from '@postmill-ai/frontend/components/billing/use-billing-config';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Textarea } from '@validpost/react/form/textarea';
+import { useFireEvents } from '@validpost/helpers/utils/use.fire.events';
+import { useUtmUrl } from '@validpost/helpers/utils/utm.saver';
+import { useTrack } from '@validpost/react/helpers/use.track';
+import { TrackEnum } from '@validpost/nestjs-libraries/user/track.enum';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { FinishTrial } from '@validpost/frontend/components/billing/finish.trial';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { useDubClickId } from '@validpost/frontend/components/layout/dubAnalytics';
+import { LogoutComponent } from '@validpost/frontend/components/layout/logout.component';
+import { PageHeader } from '@validpost/frontend/components/ui/page-header';
+import { useBillingConfig } from '@validpost/frontend/components/billing/use-billing-config';
 
 type TierKey = PlanInterface['current'];
 

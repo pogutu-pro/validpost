@@ -1,6 +1,6 @@
 # Sessions & Devices
 
-Postmill authenticates users with short-lived JWT access tokens and longer-lived rotating refresh tokens. The **Session** model tracks every refresh token, so you can review and revoke active devices from the UI.
+ValidPost authenticates users with short-lived JWT access tokens and longer-lived rotating refresh tokens. The **Session** model tracks every refresh token, so you can review and revoke active devices from the UI.
 
 ## Access and refresh tokens
 

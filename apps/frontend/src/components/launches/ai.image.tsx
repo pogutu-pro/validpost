@@ -1,13 +1,13 @@
 'use client';
-import { Button } from '@postmill-ai/react/form/button';
+import { Button } from '@validpost/react/form/button';
 import { FC, useCallback, useState } from 'react';
 import clsx from 'clsx';
-import Loading from '@postmill-ai/frontend/components/layout/loading';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import Loading from '@validpost/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useToaster } from '@validpost/react/toaster/toaster';
 const list = [
   'Realistic',
   'Cartoon',
@@ -106,7 +106,7 @@ ${style}
               className={clsx(
                 'cursor-pointer rounded-[4px] px-[10px] h-[30px] flex items-center text-[12px] border',
                 style === p
-                  ? 'bg-[#2B5CD3] border-[#2B5CD3] text-white'
+                  ? 'bg-btnPrimary border-btnPrimary text-white'
                   : 'bg-newColColor border-newBgLineColor'
               )}
             >

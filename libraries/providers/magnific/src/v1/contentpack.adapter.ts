@@ -11,7 +11,7 @@ import {
   StockStickerItem,
   StockVectorItem,
   StockVideoItem,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const BASE_URL = 'https://api.magnific.com';
 

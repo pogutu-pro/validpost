@@ -1,6 +1,6 @@
 'use client';
 
-import { LEGACY_TAB_TO_PATH } from '@postmill-ai/frontend/components/settings/settings-paths';
+import { LEGACY_TAB_TO_PATH } from '@validpost/frontend/components/settings/settings-paths';
 
 /**
  * Where dashboard cards and items send you.

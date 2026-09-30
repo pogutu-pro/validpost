@@ -200,7 +200,7 @@ export function planUnitAmountCents(plan: PaymentsPlanPrice, period: PaymentsPer
 export interface PaymentsAddonSpec {
   /** `ADDONS` key, e.g. `storage`. */
   type: string;
-  /** Vendor-facing product name, e.g. `Postmill Extra Storage`. */
+  /** Vendor-facing product name, e.g. `ValidPost Extra Storage`. */
   productName: string;
   /** Monthly price of one pack. */
   unitAmountCents: number;

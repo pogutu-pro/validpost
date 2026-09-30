@@ -16,15 +16,15 @@ const holder = vi.hoisted(() => ({
   ghostState: { text: null as string | null, from: null as number | null, suppressed: false },
 }));
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({ backendUrl: 'http://api.test' }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/csrf.header', () => ({
+vi.mock('@validpost/helpers/utils/csrf.header', () => ({
   csrfHeader: () => ({ 'x-csrf-token': 'tok' }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/use-ai-active', () => ({
+vi.mock('@validpost/frontend/components/layout/use-ai-active', () => ({
   useAiActive: () => holder.aiActive,
 }));
 
@@ -36,7 +36,7 @@ vi.mock('./use-inline-suggest-pref', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/composer/store', () => ({
+vi.mock('@validpost/frontend/components/composer/store', () => ({
   useLaunchStore: (selector: any) => selector(holder.store),
 }));
 
@@ -45,7 +45,7 @@ vi.mock('@postmill-ai/frontend/components/composer/store', () => ({
 // logout redirect. None of that may be triggered by someone pausing
 // mid-sentence, so this path must use raw window.fetch. Blowing up here is the
 // guard: if anyone swaps the transport, the suite says so.
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => {
     throw new Error(
       'ghost completion must not use useFetch — its afterRequest surfaces toasts, billing dialogs and logout redirects'
@@ -53,7 +53,7 @@ vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: holder.toastShow }),
 }));
 

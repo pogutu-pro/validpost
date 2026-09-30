@@ -2,12 +2,12 @@
 
 import React, { FC, useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { FileItem } from './file-manager';
 
 const loadDims = (src: string) =>
@@ -133,7 +133,7 @@ export const BulkToolbar: FC<{
   if (selectedFiles.length === 0) return null;
 
   return (
-    <div className="flex items-center gap-[8px] px-[12px] py-[8px] mb-[10px] bg-[#2B5CD3]/10 rounded-[8px] border border-[#2B5CD3]/20">
+    <div className="flex items-center gap-[8px] px-[12px] py-[8px] mb-[10px] bg-btnPrimary/10 rounded-[8px] border border-btnPrimary/20">
       <div className="text-[13px] text-textColor font-[500]">
         {t('selected_files_count', '{{count}} selected', { count: selectedFiles.length })}
       </div>
@@ -184,7 +184,7 @@ export const BulkToolbar: FC<{
                 onClick={() => setTargetFolderId(null)}
                 className={clsx(
                   'w-full text-left px-[10px] py-[6px] rounded-[6px] text-[13px] transition-all',
-                  targetFolderId === null ? 'bg-[#2B5CD3]/20 text-textColor' : 'text-textColor hover:bg-boxHover'
+                  targetFolderId === null ? 'bg-btnPrimary/20 text-textColor' : 'text-textColor hover:bg-boxHover'
                 )}
               >
                 {t('root_no_folder', 'Root (no folder)')}
@@ -195,7 +195,7 @@ export const BulkToolbar: FC<{
                   onClick={() => setTargetFolderId(f.id)}
                   className={clsx(
                     'w-full text-left px-[10px] py-[6px] rounded-[6px] text-[13px] transition-all',
-                    targetFolderId === f.id ? 'bg-[#2B5CD3]/20 text-textColor' : 'text-textColor hover:bg-boxHover'
+                    targetFolderId === f.id ? 'bg-btnPrimary/20 text-textColor' : 'text-textColor hover:bg-boxHover'
                   )}
                   style={{ paddingLeft: `${10 + f.depth * 16}px` }}
                 >
@@ -212,7 +212,7 @@ export const BulkToolbar: FC<{
               </button>
               <button
                 onClick={handleBulkMove}
-                className="px-[14px] py-[8px] rounded-[8px] text-[13px] text-white bg-[#2B5CD3] hover:bg-[#2B5CD3]/80 transition-all"
+                className="px-[14px] py-[8px] rounded-[8px] text-[13px] text-white bg-btnPrimary hover:bg-btnPrimary/80 transition-all"
               >
                 {t('move', 'Move')}
               </button>

@@ -10,7 +10,7 @@ const mockGovernedLanguageModelFn = vi.fn().mockResolvedValue({
 
 const mockModuleRefGet = vi.fn();
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-model.provider', () => ({
   AIModelProvider: class {
     governedLanguageModel = mockGovernedLanguageModelFn;
   },
@@ -52,7 +52,7 @@ vi.mock('@mastra/memory', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/chat/mastra.store', () => ({
+vi.mock('@validpost/nestjs-libraries/chat/mastra.store', () => ({
   pStore: { _type: 'mastra.pg.store' },
 }));
 
@@ -62,11 +62,11 @@ vi.mock('@nestjs/core', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/chat/tools/tool.list', () => ({
+vi.mock('@validpost/nestjs-libraries/chat/tools/tool.list', () => ({
   toolList: [],
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/brands/brands.service', () => ({
+vi.mock('@validpost/nestjs-libraries/brands/brands.service', () => ({
   BrandsService: class {
     getDefaultBrand = vi.fn().mockResolvedValue(null);
   },
@@ -81,22 +81,22 @@ vi.mock('dayjs', () => {
   };
 });
 
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
-import { pStore } from '@postmill-ai/nestjs-libraries/chat/mastra.store';
+import { pStore } from '@validpost/nestjs-libraries/chat/mastra.store';
 import { ModuleRef } from '@nestjs/core';
 import { LoadToolsService, AgentState } from './load.tools.service';
-import { ToolFirewallService } from '@postmill-ai/nestjs-libraries/ai/governance/tool-firewall.service';
-import { toolList as mockToolList } from '@postmill-ai/nestjs-libraries/chat/tools/tool.list';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
-import { ContentAgentBuilder, CONTENT_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/content.agent';
-import { MediaAgentBuilder, MEDIA_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/media.agent';
-import { AnalyticsAgentBuilder, ANALYTICS_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/analytics.agent';
-import { OpsAgentBuilder, OPS_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/ops.agent';
+import { ToolFirewallService } from '@validpost/nestjs-libraries/ai/governance/tool-firewall.service';
+import { toolList as mockToolList } from '@validpost/nestjs-libraries/chat/tools/tool.list';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
+import { ContentAgentBuilder, CONTENT_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/content.agent';
+import { MediaAgentBuilder, MEDIA_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/media.agent';
+import { AnalyticsAgentBuilder, ANALYTICS_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/analytics.agent';
+import { OpsAgentBuilder, OPS_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/ops.agent';
 import { SUPERVISOR_TOOL_NAMES } from './load.tools.service';
 
-import { CommsConfirmationGate } from '@postmill-ai/nestjs-libraries/chat/tools/comms-confirmation.gate';
+import { CommsConfirmationGate } from '@validpost/nestjs-libraries/chat/tools/comms-confirmation.gate';
 
 // In-memory stand-in for RedisService — the gate only needs get/set/del.
 const stubRedis = () => {
@@ -204,21 +204,21 @@ describe('LoadToolsService', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('creates an Agent with id "postmill"', async () => {
+    it('creates an Agent with id "validpost"', async () => {
       vi.spyOn(service, 'loadTools').mockResolvedValue({});
 
       const agent = await service.agent();
 
       expect(agent).toBeInstanceOf(Agent as any);
-      expect(agent.id).toBe('postmill');
+      expect(agent.id).toBe('validpost');
     });
 
-    it('creates an Agent with name "postmill" and correct description', async () => {
+    it('creates an Agent with name "validpost" and correct description', async () => {
       vi.spyOn(service, 'loadTools').mockResolvedValue({});
 
       const agent = await service.agent();
 
-      expect(agent.name).toBe('postmill');
+      expect(agent.name).toBe('validpost');
       expect(agent.description).toBe(
         'Agent that helps manage and schedule social media posts for users',
       );

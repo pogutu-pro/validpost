@@ -1,4 +1,4 @@
-import type { ProviderManifest } from '@postmill-ai/provider-kernel';
+import type { ProviderManifest } from '@validpost/provider-kernel';
 import { ContentPackCapability } from './content-pack.interface';
 
 export interface ContentPackCredentialField {

@@ -5,7 +5,7 @@ import { KPI, formatCompactNumber } from '../utils';
 import { useCountUp } from '../hooks/useCountUp';
 import { AreaChart } from '../charts/area.chart';
 import { ACCENT } from './palette';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // One KPI tile, merging the former `KPICard` (rich: animated value + trend +
 // sparkline) and `KpiCard` (plain label/value) into a single component (F4).
@@ -133,7 +133,7 @@ const RichTile: FC<{ kpi: KPI; color: string; onClick?: () => void }> = ({
       }`}
     >
       <div className="px-[16px] pt-[14px] pb-[8px] mobile:px-[12px] mobile:pt-[10px] mobile:pb-[4px] flex items-center justify-between gap-[6px]">
-        <span className="text-[13px] mobile:text-[11px] font-medium text-newTableText uppercase tracking-wide truncate">
+        <span className="text-[12px] mobile:text-[11px] font-medium text-newTableText uppercase tracking-[0.04em] leading-[1.25] break-words">
           {kpi.label}
         </span>
         {kpi.percentageChange !== 0 && (

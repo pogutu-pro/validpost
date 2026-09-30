@@ -3,7 +3,7 @@ import { CaptionService, MAX_WORDS_PER_SEGMENT } from './caption.service';
 
 const mockSafeFetch = vi.fn();
 
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: (...args: any[]) => mockSafeFetch(...args),
 }));
 
@@ -110,7 +110,7 @@ describe('CaptionService', () => {
       arrayBuffer: async () => Buffer.from('fake-source-mp4-bytes').buffer,
       headers: { get: () => 'video/mp4' },
     });
-    mockMkdtempSync.mockReturnValue('/tmp/postmill-caption-xxx');
+    mockMkdtempSync.mockReturnValue('/tmp/validpost-caption-xxx');
     mockReadFileSync.mockReturnValue(fakeCaptionedVideoBuffer);
     mockSpawn.mockImplementation(() => makeFfmpegProcess(0));
   });

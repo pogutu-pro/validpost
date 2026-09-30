@@ -4,7 +4,7 @@ import {
   decryptPostIntegrationTokens,
 } from './integration-token.utils';
 
-vi.mock('@postmill-ai/helpers/auth/auth.service', () => ({
+vi.mock('@validpost/helpers/auth/auth.service', () => ({
   AuthService: {
     fixedDecryption: vi.fn((value: string) => {
       if (!value.startsWith('v2:')) {

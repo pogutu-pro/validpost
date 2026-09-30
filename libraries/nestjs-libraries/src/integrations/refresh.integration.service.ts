@@ -6,16 +6,16 @@ import {
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { Integration } from '@prisma/client';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
 import {
   AuthTokenDetails,
   SocialProvider,
-} from '@postmill-ai/nestjs-libraries/integrations/social/social.integrations.interface';
+} from '@validpost/nestjs-libraries/integrations/social/social.integrations.interface';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
 
 @Injectable()
 export class RefreshIntegrationService {

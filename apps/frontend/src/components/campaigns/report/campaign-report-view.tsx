@@ -1,16 +1,17 @@
 'use client';
 
 import { FC, useCallback, useMemo, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { StatusBadge, postStatusFromState } from '@validpost/frontend/components/ui/status-badge';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 import dayjs from 'dayjs';
 import clsx from 'clsx';
-import { LineChart } from '@postmill-ai/frontend/components/analytics/charts/line.chart';
-import { BarChart } from '@postmill-ai/frontend/components/analytics/charts/bar.chart';
-import { metricLabelT } from '@postmill-ai/frontend/components/campaigns/metric-labels';
-import { readableTextColor } from '@postmill-ai/frontend/components/shared/readable-text-color';
+import { LineChart } from '@validpost/frontend/components/analytics/charts/line.chart';
+import { BarChart } from '@validpost/frontend/components/analytics/charts/bar.chart';
+import { metricLabelT } from '@validpost/frontend/components/campaigns/metric-labels';
+import { readableTextColor } from '@validpost/frontend/components/shared/readable-text-color';
 
 const stripHtml = (html?: string | null): string =>
   (html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -165,7 +166,7 @@ export const CampaignReportView: FC<{ report: CampaignReport; publicMode?: boole
 
   const campaign = report.campaign;
   const engagement = report.engagement;
-  const color = campaign.color || '#2B5CD3';
+  const color = campaign.color || '#D42A66';
 
   const sortedChannels = useMemo(() => {
     return Object.entries(report.channelBreakdown || {}).sort((a, b) => b[1].views - a[1].views);
@@ -439,9 +440,16 @@ export const CampaignReportView: FC<{ report: CampaignReport; publicMode?: boole
                     </td>
                     <td className="py-[12px] px-[16px] text-[13px] text-textColor">{post.integration?.name || '—'}</td>
                     <td className="py-[12px] px-[16px] text-[13px]">
-                      <span className={clsx('px-[8px] py-[2px] rounded-full text-[11px] font-medium', statePillClass(post.state))}>
-                        {t(`post_state_${post.state.toLowerCase()}`, post.state)}
-                      </span>
+                      {postStatusFromState(post.state) ? (
+                        <StatusBadge
+                          status={postStatusFromState(post.state)!}
+                          label={t(`post_state_${post.state.toLowerCase()}`, post.state)}
+                        />
+                      ) : (
+                        <span className={clsx('px-[8px] py-[2px] rounded-full text-[11px] font-medium', statePillClass(post.state))}>
+                          {t(`post_state_${post.state.toLowerCase()}`, post.state)}
+                        </span>
+                      )}
                     </td>
                     <td className="py-[12px] px-[16px] text-[13px] text-newTableText">{formatDate(post.publishDate, t('campaign_report_date_format', 'MMM D, YYYY'))}</td>
                     <td className="py-[12px] px-[16px] text-[13px] text-right tabular-nums text-textColor">{formatNumber(post.lastViews)}</td>

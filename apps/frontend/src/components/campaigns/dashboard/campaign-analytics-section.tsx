@@ -2,15 +2,15 @@
 
 import { FC, useMemo } from 'react';
 import dayjs from 'dayjs';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { LineChart } from '@postmill-ai/frontend/components/analytics/charts/line.chart';
-import { BarChart } from '@postmill-ai/frontend/components/analytics/charts/bar.chart';
-import { TabSkeleton, EmptyState, ErrorState } from '@postmill-ai/frontend/components/analytics/kit/states';
-import { metricLabelT } from '@postmill-ai/frontend/components/campaigns/metric-labels';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { LineChart } from '@validpost/frontend/components/analytics/charts/line.chart';
+import { BarChart } from '@validpost/frontend/components/analytics/charts/bar.chart';
+import { TabSkeleton, EmptyState, ErrorState } from '@validpost/frontend/components/analytics/kit/states';
+import { metricLabelT } from '@validpost/frontend/components/campaigns/metric-labels';
 import {
   useCampaignAnalytics,
   resolveCampaignAnalyticsRange,
-} from '@postmill-ai/frontend/components/campaigns/hooks/campaign.hooks';
+} from '@validpost/frontend/components/campaigns/hooks/campaign.hooks';
 
 interface CampaignAnalyticsSectionProps {
   campaignId?: string;

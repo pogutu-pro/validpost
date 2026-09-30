@@ -1,5 +1,5 @@
 import type { DesignerElement } from './designer.store';
-import type { DesignerCrop } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import type { DesignerCrop } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 
 /**
  * Crop maths for the on-canvas Crop tool.

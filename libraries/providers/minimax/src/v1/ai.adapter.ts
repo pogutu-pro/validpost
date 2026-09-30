@@ -1,4 +1,4 @@
-import { OpenAICompatibleAdapter, type ProviderModule } from '@postmill-ai/provider-kernel';
+import { OpenAICompatibleAdapter, type ProviderModule } from '@validpost/provider-kernel';
 
 import { metadata as providerMetadata } from './metadata';
 const adapter = new OpenAICompatibleAdapter('minimax', 'MiniMax', 'https://api.minimax.chat/v1', {"image":true}, undefined, 'direct');

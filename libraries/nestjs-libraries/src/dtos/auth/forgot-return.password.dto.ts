@@ -1,5 +1,5 @@
 import { IsDefined, IsString, MinLength } from 'class-validator';
-import { MatchesProperty } from '@postmill-ai/nestjs-libraries/dtos/auth/matches.property.validator';
+import { MatchesProperty } from '@validpost/nestjs-libraries/dtos/auth/matches.property.validator';
 
 export class ForgotReturnPasswordDto {
   @IsString()

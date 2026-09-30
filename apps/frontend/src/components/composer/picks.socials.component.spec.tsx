@@ -4,18 +4,18 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { PicksSocialsComponent } from './picks.socials.component';
 import { useLaunchStore } from './store';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback || key,
 }));
 
-vi.mock('@postmill-ai/react/helpers/safe.image', () => ({
+vi.mock('@validpost/react/helpers/safe.image', () => ({
   default: ({ src, alt, className, width, height }: any) => (
     // eslint-disable-next-line @next/next/no-img-element -- test mock
     <img src={src} alt={alt} className={className} width={width} height={height} />
   ),
 }));
 
-vi.mock('@postmill-ai/react/helpers/image.with.fallback', () => ({
+vi.mock('@validpost/react/helpers/image.with.fallback', () => ({
   default: ({ src, alt, className, style, width, height }: any) => (
     // eslint-disable-next-line @next/next/no-img-element -- test mock
     <img src={src} alt={alt} className={className} style={style} width={width} height={height} />

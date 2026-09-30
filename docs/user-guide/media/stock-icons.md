@@ -9,7 +9,7 @@ is not a generation studio.
 The free default catalog is **Iconify**, which uses a public API and requires no operator key.
 
 If your organization has an active [Content Pack](../settings) that declares `icons` — currently
-**Magnific** — that premium catalog is shown first. Otherwise Postmill falls back to Iconify. A
+**Magnific** — that premium catalog is shown first. Otherwise ValidPost falls back to Iconify. A
 Content Pack daily-cap error is surfaced as a 402.
 
 ## Search

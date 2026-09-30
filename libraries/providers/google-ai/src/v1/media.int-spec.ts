@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { googleaiMediaModule } from './media.adapter';
-import { ProviderUpstreamError } from '@postmill-ai/provider-kernel';
+import { ProviderUpstreamError } from '@validpost/provider-kernel';
 
 interface Rec {
   url: string;
@@ -124,9 +124,9 @@ describe('google-ai media adapter (Gemini Developer API)', () => {
     expect(out.image).toBe('data:image/png;base64,SU1H');
   });
 
-  // Sentry POSTMILL-APP-P: a user's free-tier key hit this exact 429. It must
+  // Sentry VALIDPOST-APP-P: a user's free-tier key hit this exact 429. It must
   // surface as the PROVIDER's quota problem (typed, attributed), never as a
-  // Postmill 500.
+  // ValidPost 500.
   it('upstream 429 quota on image generation → ProviderUpstreamError{kind:quota} naming Google AI Studio', async () => {
     const body = {
       error: {

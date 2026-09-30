@@ -48,7 +48,7 @@ with one `video_export` credit charged. Sibling docs: `agents/backend.md`,
    - Claims the payload atomically via Redis `GETDEL` (single winner; a losing duplicate
      runner skips silently and must **not** mark the job failed).
    - Podman path (`isPodmanRenderEnabled()`): writes the spec into
-     `renderWorkDir(jobId)` = `os.tmpdir()/postmill-render-work/<jobId>`, then
+     `renderWorkDir(jobId)` = `os.tmpdir()/validpost-render-work/<jobId>`, then
      `PodmanRenderService.run(workDir, spec)`.
    - In-process fallback: `FfmpegVideoEncoderService` (+ `ChromiumFrameCaptureService`)
      under `withTimeout(getRenderTimeoutMs())`.
@@ -78,7 +78,7 @@ with one `video_export` credit charged. Sibling docs: `agents/backend.md`,
   `RENDER_THUMBNAIL_NAME`, `renderOutputName`. Dependency-free by design; both host and
   worker import it. Keep the two sides in lockstep when changing it.
 - **Image:** `docker/Containerfile.render` —
-  `podman build -f docker/Containerfile.render -t localhost/postmill-render:latest .`
+  `podman build -f docker/Containerfile.render -t localhost/validpost-render:latest .`
   (app build + distro Chromium/FFmpeg + the worker CLI as ENTRYPOINT).
 - The in-container Chromium resolves the render route/assets against `spec.baseUrl`
   (`NEXT_PUBLIC_BACKEND_URL`/`FRONTEND_URL`); `options.renderToken` comes from
@@ -95,8 +95,8 @@ with one `video_export` credit charged. Sibling docs: `agents/backend.md`,
 | `VIDEO_RENDER_PODMAN_ENABLED` | off | truthy → container path |
 | `VIDEO_RENDER_TIMEOUT_MS` | `120000` | In-process encode wall-clock cap |
 | `VIDEO_RENDER_PODMAN_BIN` | `podman` | Binary |
-| `VIDEO_RENDER_IMAGE` | `localhost/postmill-render:latest` | Worker image |
-| `VIDEO_RENDER_POD` | `postmill-render` | Shared pod (aggregate cgroup) |
+| `VIDEO_RENDER_IMAGE` | `localhost/validpost-render:latest` | Worker image |
+| `VIDEO_RENDER_POD` | `validpost-render` | Shared pod (aggregate cgroup) |
 | `VIDEO_RENDER_CPUS` / `VIDEO_RENDER_MEMORY` | `4` / `8g` | Per-container cgroup caps |
 | `VIDEO_RENDER_NETWORK` | `bridge` | `host` is opt-in and defeats the container's network isolation (SSRF surface) |
 | `VIDEO_RENDER_SPLIT_FALLBACK` | on | Split-render fallback toggle |
@@ -123,4 +123,4 @@ pipeline. `NEXT_PUBLIC_BACKEND_URL` / `FRONTEND_URL` feed `baseUrl()`.
 - `VIDEO_RENDER_NETWORK=host` weakens container network isolation; treat as a security
   decision, not a convenience flag.
 - When touching the container contract (`render-job-spec.ts`, worker CLI), rebuild the
-  `postmill-render` image; host and worker are versioned together.
+  `validpost-render` image; host and worker are versioned together.

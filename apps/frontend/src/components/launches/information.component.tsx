@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC, Fragment, useMemo } from 'react';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { useShallow } from 'zustand/react/shallow';
 import clsx from 'clsx';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import SafeImage from '@validpost/react/helpers/safe.image';
 import { capitalize } from 'lodash';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { hasLinks } from '@postmill-ai/helpers/utils/strip.links';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { hasLinks } from '@validpost/helpers/utils/strip.links';
 
 const Valid: FC = () => {
   return (

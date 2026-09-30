@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { LoggerPort } from '@postmill-ai/provider-kernel';
+import type { LoggerPort } from '@validpost/provider-kernel';
 
 vi.mock('fs', () => ({
   mkdirSync: vi.fn(),

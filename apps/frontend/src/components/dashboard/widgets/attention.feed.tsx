@@ -3,10 +3,10 @@
 import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAttention, AttentionItemDto } from '../hooks/useAttention';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { EmptyState, TabSkeleton } from '@postmill-ai/frontend/components/analytics/kit/states';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { EmptyState, TabSkeleton } from '@validpost/frontend/components/analytics/kit/states';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   ANALYTICS_USAGE_HREF,
   MEDIA_QUEUE_HREF,

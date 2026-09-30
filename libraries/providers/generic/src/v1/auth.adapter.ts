@@ -4,7 +4,7 @@ import {
   ProviderRuntimeContext,
   AuthCapability,
   AuthUserInfo,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Self-contained kernel auth module for the GENERIC / OIDC login provider.
 // Mirrors the legacy apps/backend oauth.provider.ts DB-first → env-fallback
@@ -42,12 +42,12 @@ interface ResolvedOidcConfig {
 }
 
 function getEnvConfig(): ResolvedOidcConfig | null {
-  const clientId = process.env.POSTMILL_OAUTH_CLIENT_ID || '';
-  const clientSecret = process.env.POSTMILL_OAUTH_CLIENT_SECRET || '';
+  const clientId = process.env.VALIDPOST_OAUTH_CLIENT_ID || '';
+  const clientSecret = process.env.VALIDPOST_OAUTH_CLIENT_SECRET || '';
   const {
-    POSTMILL_OAUTH_AUTH_URL: authUrl,
-    POSTMILL_OAUTH_TOKEN_URL: tokenUrl,
-    POSTMILL_OAUTH_USERINFO_URL: userInfoUrl,
+    VALIDPOST_OAUTH_AUTH_URL: authUrl,
+    VALIDPOST_OAUTH_TOKEN_URL: tokenUrl,
+    VALIDPOST_OAUTH_USERINFO_URL: userInfoUrl,
     FRONTEND_URL: frontendUrl,
   } = process.env;
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { AnnouncementsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/announcements/announcements.repository';
-import { AnnouncementDto } from '@postmill-ai/nestjs-libraries/dtos/announcements/announcements.dto';
+import { AnnouncementsRepository } from '@validpost/nestjs-libraries/database/prisma/announcements/announcements.repository';
+import { AnnouncementDto } from '@validpost/nestjs-libraries/dtos/announcements/announcements.dto';
 
 @Injectable()
 export class AnnouncementsService {

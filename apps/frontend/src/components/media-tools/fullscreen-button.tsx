@@ -2,7 +2,7 @@
 
 import React, { FC } from 'react';
 import { useFullscreen } from './use-fullscreen';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // Self-contained full-screen toggle for the media studios — drop it into any
 // studio header. It expands the studio to fill the browser window; the matching

@@ -2,11 +2,11 @@
 
 > Verified against v1.0.0
 
-Terminology reference for the Postmill platform.
+Terminology reference for the ValidPost platform.
 
 ## Core concepts
 
-**Postmill**
+**ValidPost**
 The application itself — a social media and chat post scheduling platform supporting 36 channels.
 
 **Organization**
@@ -19,7 +19,7 @@ A social media platform or chat service integration (e.g., X, LinkedIn, Discord,
 A single connected channel instance — credentials and settings for one account on one platform. Stored as an `Integration` row, encrypted at rest via `EncryptionService`.
 
 **Inngest**
-The durable job engine that schedules and executes background work. Postmill uses Inngest Cloud (or the local Inngest dev server) for event-driven and cron-triggered functions: post publishing, analytics collection, comment syncing, email delivery, autopost processing, and token refresh. Functions are served by the backend at `/api/inngest`.
+The durable job engine that schedules and executes background work. ValidPost uses Inngest Cloud (or the local Inngest dev server) for event-driven and cron-triggered functions: post publishing, analytics collection, comment syncing, email delivery, autopost processing, and token refresh. Functions are served by the backend at `/api/inngest`.
 
 **Durable Execution**
 An execution model where job state is persisted on every step. Inngest provides retries, concurrency controls, and idempotency so that background work resumes reliably after restarts or failures.

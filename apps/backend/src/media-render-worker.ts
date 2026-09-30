@@ -10,15 +10,15 @@
  */
 import * as fs from 'fs';
 import * as path from 'path';
-import { ChromiumFrameCaptureService } from '@postmill-ai/nestjs-libraries/media/design-render/chromium-frame-capture.service';
-import { FfmpegVideoEncoderService } from '@postmill-ai/nestjs-libraries/media/design-render/ffmpeg-video-encoder.service';
-import { mergeLocalFiles } from '@postmill-ai/nestjs-libraries/media/replicate-studio/video-merge';
+import { ChromiumFrameCaptureService } from '@validpost/nestjs-libraries/media/design-render/chromium-frame-capture.service';
+import { FfmpegVideoEncoderService } from '@validpost/nestjs-libraries/media/design-render/ffmpeg-video-encoder.service';
+import { mergeLocalFiles } from '@validpost/nestjs-libraries/media/replicate-studio/video-merge';
 import {
   RenderJobSpec,
   RENDER_OUTPUT_DIR,
   RENDER_THUMBNAIL_NAME,
   renderOutputName,
-} from '@postmill-ai/nestjs-libraries/media/design-render/render-job-spec';
+} from '@validpost/nestjs-libraries/media/design-render/render-job-spec';
 
 async function main(): Promise<void> {
   const jobFile = process.argv[2];

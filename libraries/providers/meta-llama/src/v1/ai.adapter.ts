@@ -1,4 +1,4 @@
-import { OpenAICompatibleAdapter, type ProviderModule } from '@postmill-ai/provider-kernel';
+import { OpenAICompatibleAdapter, type ProviderModule } from '@validpost/provider-kernel';
 
 import { metadata as providerMetadata } from './metadata';
 const adapter = new OpenAICompatibleAdapter('meta-llama', 'Llama', 'https://api.llama-api.com', undefined, undefined, 'direct');

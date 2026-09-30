@@ -2,11 +2,11 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { FullscreenButton } from '@postmill-ai/frontend/components/media-tools/fullscreen-button';
-import { useFullscreenSurface } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { FullscreenButton } from '@validpost/frontend/components/media-tools/fullscreen-button';
+import { useFullscreenSurface } from '@validpost/frontend/components/media-tools/use-fullscreen';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { useReplicateStore, type CategoryDefinition } from './replicate.store';
 import { ModelPicker } from './model-picker';
 import { DynamicForm } from './dynamic-form';
@@ -16,7 +16,7 @@ import { InpaintMaskEditor } from './inpaint-mask-editor';
 import { MergeEditor } from './merge-editor';
 import { MemeEditor } from './meme-editor';
 import { CommandPalette } from './command-palette';
-import { StudioLanding } from '@postmill-ai/frontend/components/media-tools/studio-kit/studio-landing';
+import { StudioLanding } from '@validpost/frontend/components/media-tools/studio-kit/studio-landing';
 import { REPLICATE_LANDING } from './landing';
 import { useGenerate, missingRequiredFields, FOLDER_REQUIRED_CATEGORIES } from './use-generate';
 

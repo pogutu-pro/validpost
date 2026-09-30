@@ -7,7 +7,7 @@ import { createFetchError } from '../../fetch-error';
 import {
   ShortlinkProviderInfo,
   ShortlinksConfigResponse,
-} from '@postmill-ai/frontend/components/settings/shortlinks/hooks/useShortlinksConfig';
+} from '@validpost/frontend/components/settings/shortlinks/hooks/useShortlinksConfig';
 
 /**
  * Short-link provider settings surface descriptor (migrated from

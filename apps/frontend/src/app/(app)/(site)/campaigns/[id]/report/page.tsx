@@ -1,9 +1,9 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useCampaignReport } from '@postmill-ai/frontend/components/campaigns/hooks/campaign.hooks';
-import { CampaignReportView } from '@postmill-ai/frontend/components/campaigns/report/campaign-report-view';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useCampaignReport } from '@validpost/frontend/components/campaigns/hooks/campaign.hooks';
+import { CampaignReportView } from '@validpost/frontend/components/campaigns/report/campaign-report-view';
 
 export default function CampaignReportPage() {
   const t = useT();

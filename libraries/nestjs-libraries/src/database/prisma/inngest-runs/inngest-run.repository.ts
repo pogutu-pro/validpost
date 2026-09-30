@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 
 export interface InngestFunctionRunView {
   functionId: string;

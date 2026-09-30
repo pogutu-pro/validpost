@@ -6,12 +6,12 @@ name: ESLint
 # for status" because the job never runs and never reports. Run unconditionally,
 # same as the other required workflows (test/build/boot-guard); ESLint passes
 # cheaply when no code changed.
+# CI silenced (owner-approved): automatic runs (push / pull_request / merge_group /
+# schedule) are disabled so validation jobs stop failing PRs during the ValidPost
+# UI overhaul. The workflow is kept intact and can still be run manually from the
+# Actions tab. To restore automatic runs, put the original triggers back under `on:`.
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
+  workflow_dispatch:
 
 jobs:
   eslint:

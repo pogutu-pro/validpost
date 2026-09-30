@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const LumaStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/luma/luma-studio').then((m) => m.LumaStudio),
+  () => import('@validpost/frontend/components/media-tools/luma/luma-studio').then((m) => m.LumaStudio),
   { ssr: false }
 );
 

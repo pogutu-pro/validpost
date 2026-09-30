@@ -1,6 +1,6 @@
 # `/setup` Onboarding Gate
 
-The setup gate is a one-time, persisted onboarding wizard shown to the first owner or admin of a new organization. It walks through the org-level providers required to use Postmill.
+The setup gate is a one-time, persisted onboarding wizard shown to the first owner or admin of a new organization. It walks through the org-level providers required to use ValidPost.
 
 ## Data model
 

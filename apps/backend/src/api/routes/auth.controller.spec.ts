@@ -2,8 +2,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import jwt from 'jsonwebtoken';
 
 import { AuthController } from './auth.controller';
-import { AuthService } from '@postmill-ai/backend/services/auth/auth.service';
-import { AuthService as AuthChecker } from '@postmill-ai/helpers/auth/auth.service';
+import { AuthService } from '@validpost/backend/services/auth/auth.service';
+import { AuthService as AuthChecker } from '@validpost/helpers/auth/auth.service';
 
 // ---------------------------------------------------------------------------
 // F1 — Auth/OAuth behavioural tests.

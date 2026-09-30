@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // Mirrors NOTIFICATION_CATEGORIES (backend DTO) and the label-key convention of
 // notification-preferences.panel.tsx (its consts are module-private). Keep the

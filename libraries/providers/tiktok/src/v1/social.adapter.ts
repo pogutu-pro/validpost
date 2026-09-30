@@ -7,20 +7,20 @@ import {
   PostResponse,
   SocialCommentDTO,
   SocialProvider,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import dayjs from 'dayjs';
-import { makeOauthState } from '@postmill-ai/provider-kernel';
+import { makeOauthState } from '@validpost/provider-kernel';
 import {
   BadBody,
   SocialAbstract,
   ValidityMedia,
-} from '@postmill-ai/provider-kernel';
-import { TikTokDto } from '@postmill-ai/provider-kernel';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { readOrFetch } from '@postmill-ai/helpers/utils/read.or.fetch';
+} from '@validpost/provider-kernel';
+import { TikTokDto } from '@validpost/provider-kernel';
+import { timer } from '@validpost/helpers/utils/timer';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { readOrFetch } from '@validpost/helpers/utils/read.or.fetch';
 import { Integration } from '@prisma/client';
-import { Rules } from '@postmill-ai/provider-kernel';
+import { Rules } from '@validpost/provider-kernel';
 
 
 import { metadata as providerMetadata } from './metadata';
@@ -29,7 +29,7 @@ import { metadata as providerMetadata } from './metadata';
 )
 export class TiktokProvider extends SocialAbstract implements SocialProvider {
   identifier = 'tiktok';
-  name = 'Tiktok';
+  name = 'TikTok';
   isBetweenSteps = false;
   convertToJPEG = true;
   scopes = [
@@ -309,7 +309,7 @@ export class TiktokProvider extends SocialAbstract implements SocialProvider {
     if (body.indexOf('url_ownership_unverified') > -1) {
       return {
         type: 'bad-body' as const,
-        value: 'You have to upload the picture/video to Postmill when sending a URL',
+        value: 'You have to upload the picture/video to ValidPost when sending a URL',
       };
     }
 
@@ -701,7 +701,7 @@ export class TiktokProvider extends SocialAbstract implements SocialProvider {
     // Videos upload as FILE_UPLOAD bytes, not PULL_FROM_URL: URL pulls require
     // the posting domain to pass TikTok's URL-ownership verification, which a
     // tenant/self-hosted domain will never have (observed live:
-    // url_ownership_unverified on app.postmill.ai). Photos keep PULL_FROM_URL.
+    // url_ownership_unverified on app.validpost.io). Photos keep PULL_FROM_URL.
     let videoBuffer: Buffer | undefined;
     if (!isPhoto) {
       const videoPath = firstPost?.media?.[0]?.path;
@@ -1157,7 +1157,7 @@ import {
   ProviderModule as __ProviderModule,
   SocialProviderKernelAdapter as __Bridge,
   PROVIDER_CAPABILITIES as __CAPS,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const __adapter = new TiktokProvider();
 

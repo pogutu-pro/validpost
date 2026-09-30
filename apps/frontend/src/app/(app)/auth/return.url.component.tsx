@@ -6,6 +6,9 @@ const ReturnUrlComponent: FC = () => {
   const params = useSearchParams();
   const url = params.get('returnUrl');
   useEffect(() => {
+    // No returnUrl param: nothing to remember. Without this guard `new URL(null)`
+    // parses as the path "/null" and the literal string "null" gets stored.
+    if (!url) return;
     try {
       // Resolved against our own origin so a relative returnUrl is honoured
       // rather than throwing into the catch below and vanishing; the origin

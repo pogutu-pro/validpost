@@ -3,7 +3,7 @@ import { ArgumentsHost } from '@nestjs/common';
 
 // removeAuth clears auth cookies on the response; stub it so the filter under
 // test doesn't depend on the express cookie internals.
-vi.mock('@postmill-ai/backend/services/auth/auth.middleware', () => ({
+vi.mock('@validpost/backend/services/auth/auth.middleware', () => ({
   removeAuth: vi.fn(),
 }));
 

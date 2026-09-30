@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -10,7 +10,7 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
 }));
 
 const mockFetch = vi.fn();
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
@@ -26,20 +26,20 @@ vi.mock('dayjs', () => {
   return { default: d };
 });
 
-vi.mock('@postmill-ai/frontend/components/layout/set.timezone', () => ({
+vi.mock('@validpost/frontend/components/layout/set.timezone', () => ({
   newDayjs: () => ({}),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/redirect', () => ({
+vi.mock('@validpost/frontend/components/layout/redirect', () => ({
   Redirect: () => null,
 }));
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({}),
 }));
 
 // The real context module pulls in the whole calendar context tree.
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.integration', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.integration', () => ({
   IntegrationContext: React.createContext({}),
 }));
 
@@ -51,7 +51,7 @@ vi.mock('@sentry/nextjs', () => ({
 // A minimal two-step provider: a button that saves a fixed selection. Defined
 // inside the factory — vi.mock factories are hoisted above module-level consts.
 vi.mock(
-  '@postmill-ai/frontend/components/composer/providers/continue-provider/list',
+  '@validpost/frontend/components/composer/providers/continue-provider/list',
   () => ({
     continueProviderList: {
       facebook: (props: { onSave: (data: any) => Promise<void> }) => (
@@ -92,15 +92,14 @@ describe('ContinueIntegration popup completion', () => {
       value: opener,
     });
 
-  it('posts postmill:channel-connected to the opener and closes the popup on success', async () => {
+  it('posts validpost:channel-connected to the opener and closes the popup on success', async () => {
     setOpener({ postMessage });
     mockFetch.mockResolvedValue(okResponse({ id: 'int-1', inBetweenSteps: false }));
 
     render(
       <ContinueIntegration
-        provider="x"
-        // X (OAuth 1.0a) calls back with oauth_token/oauth_verifier.
-        searchParams={{ oauth_token: 't', oauth_verifier: 'v' }}
+        provider="discord"
+        searchParams={{ state: 's', code: 'c' }}
         logged={true}
       />
     );
@@ -108,8 +107,8 @@ describe('ContinueIntegration popup completion', () => {
     await waitFor(() => expect(postMessage).toHaveBeenCalled());
     expect(postMessage).toHaveBeenCalledWith(
       {
-        type: 'postmill:channel-connected',
-        provider: 'x',
+        type: 'validpost:channel-connected',
+        provider: 'discord',
         message: 'Channel Updated',
       },
       window.location.origin
@@ -125,15 +124,14 @@ describe('ContinueIntegration popup completion', () => {
 
     render(
       <ContinueIntegration
-        provider="x"
-        // X (OAuth 1.0a) calls back with oauth_token/oauth_verifier.
-        searchParams={{ oauth_token: 't', oauth_verifier: 'v' }}
+        provider="discord"
+        searchParams={{ state: 's', code: 'c' }}
         logged={true}
       />
     );
 
     await waitFor(() =>
-      expect(mockPush).toHaveBeenCalledWith('/posts?added=x&msg=Channel Updated')
+      expect(mockPush).toHaveBeenCalledWith('/posts?added=discord&msg=Channel Updated')
     );
     expect(postMessage).not.toHaveBeenCalled();
     expect(closeSpy).not.toHaveBeenCalled();
@@ -356,7 +354,7 @@ describe('ContinueIntegration popup completion', () => {
     );
 
     // Never POSTs — an undefined `code` would only 400 with "code must be a
-    // string" (POSTMILL-APP-9).
+    // string" (VALIDPOST-APP-9).
     await screen.findByText(
       'Authorization did not complete — no authorization code was returned. Please try connecting again.'
     );

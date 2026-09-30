@@ -1,6 +1,6 @@
 # Backup & Retention
 
-Postmill keeps all application state in PostgreSQL and uploaded media on local disk or object storage. Schema changes are applied through committed Prisma migrations (`pnpm run prisma-migrate-deploy`), which is the path used by CI and the production boot sequence. Backups are still essential: rollback is forward-only, and a failed or destructive migration is only recoverable from a snapshot.
+ValidPost keeps all application state in PostgreSQL and uploaded media on local disk or object storage. Schema changes are applied through committed Prisma migrations (`pnpm run prisma-migrate-deploy`), which is the path used by CI and the production boot sequence. Backups are still essential: rollback is forward-only, and a failed or destructive migration is only recoverable from a snapshot.
 
 ## What to back up
 
@@ -10,10 +10,10 @@ The primary data store. Contains users, organizations, posts, integrations, toke
 
 ```bash
 # From the Docker host
-docker exec postmill-postgres pg_dump -U postmill-user postmill-db-local > postmill_$(date +%Y%m%d).sql
+docker exec validpost-postgres pg_dump -U validpost-user validpost-db-local > validpost_$(date +%Y%m%d).sql
 
 # Or with a connection string
-pg_dump "$DATABASE_URL" > postmill_$(date +%Y%m%d).sql
+pg_dump "$DATABASE_URL" > validpost_$(date +%Y%m%d).sql
 ```
 
 Schedule this daily. Keep at least 7 days of backups.
@@ -24,7 +24,7 @@ All uploaded media (images, videos, audio). If using local storage, back up the 
 
 ```bash
 # From the Docker host
-docker run --rm -v postmill-uploads:/data -v $(pwd):/backup alpine tar czf /backup/uploads_$(date +%Y%m%d).tar.gz -C /data .
+docker run --rm -v validpost-uploads:/data -v $(pwd):/backup alpine tar czf /backup/uploads_$(date +%Y%m%d).tar.gz -C /data .
 ```
 
 If using cloud object storage (R2, S3, B2, IDrive e2), enable versioning and/or cross-region replication on the bucket.
@@ -44,7 +44,7 @@ These secrets encrypt OAuth tokens, AI provider credentials, storage credentials
 
 ## Automated data retention
 
-Postmill prunes and rolls up data through Inngest scheduled functions. You do not need to run manual cleanup queries.
+ValidPost prunes and rolls up data through Inngest scheduled functions. You do not need to run manual cleanup queries.
 
 | Data | Default retention | Mechanism | Env var |
 |------|-------------------|-----------|---------|
@@ -64,25 +64,25 @@ See [Inngest & Cron](./inngest-and-cron.md) for how the functions operate.
 
 ## Why backups are critical
 
-Postmill's schema is managed with committed Prisma migrations:
+ValidPost's schema is managed with committed Prisma migrations:
 
 - `pnpm run prisma-migrate-deploy` applies migrations in order and is forward-only.
 - Adding a nullable or defaulted column is safe.
 - Renaming or dropping a column is destructive and should be done as a contract step in an expand/contract plan.
 - The destructive-diff guard (`tools/db/schema-destructive-guard.mjs`) rejects `DROP TABLE`/`DROP COLUMN` and `ADD COLUMN … NOT NULL` without a default unless `ALLOW_DESTRUCTIVE_SCHEMA=true`.
 
-`prisma db push` is for local prototyping only. The `tools/db/postmill-migrate.sh` helper wraps `prisma db push` for manual, in-place sync against a running container and warns you to back up before using `--accept-data-loss`. Always back up before any manual schema operation or contract deploy.
+`prisma db push` is for local prototyping only. The `tools/db/validpost-migrate.sh` helper wraps `prisma db push` for manual, in-place sync against a running container and warns you to back up before using `--accept-data-loss`. Always back up before any manual schema operation or contract deploy.
 
 ## Restore checklist
 
 1. **Stop the application** — prevent write traffic during restore.
 2. **Restore Postgres**:
    ```bash
-   docker exec -i postmill-postgres psql -U postmill-user postmill-db-local < postmill_20260609.sql
+   docker exec -i validpost-postgres psql -U validpost-user validpost-db-local < validpost_20260609.sql
    ```
 3. **Restore uploads**:
    ```bash
-   docker run --rm -v postmill-uploads:/data -v $(pwd):/backup alpine tar xzf /backup/uploads_20260609.tar.gz -C /data
+   docker run --rm -v validpost-uploads:/data -v $(pwd):/backup alpine tar xzf /backup/uploads_20260609.tar.gz -C /data
    ```
 4. **Verify `JWT_SECRET` and `ENCRYPTION_KEY`** match the values from the backup:
    - If you changed `JWT_SECRET` since the backup, all encrypted tokens will fail to decrypt.
@@ -98,14 +98,14 @@ Postmill's schema is managed with committed Prisma migrations:
 
 ```bash
 #!/usr/bin/env bash
-# /etc/cron.daily/postmill-backup
+# /etc/cron.daily/validpost-backup
 set -euo pipefail
-BACKUP_DIR="/var/backups/postmill"
+BACKUP_DIR="/var/backups/validpost"
 DATE=$(date +%Y%m%d-%H%M)
 mkdir -p "$BACKUP_DIR"
 
-docker exec postmill-postgres pg_dump -U postmill-user postmill-db-local > "$BACKUP_DIR/db_$DATE.sql"
-docker run --rm -v postmill-uploads:/data -v "$BACKUP_DIR":/backup alpine tar czf "/backup/uploads_$DATE.tar.gz" -C /data .
+docker exec validpost-postgres pg_dump -U validpost-user validpost-db-local > "$BACKUP_DIR/db_$DATE.sql"
+docker run --rm -v validpost-uploads:/data -v "$BACKUP_DIR":/backup alpine tar czf "/backup/uploads_$DATE.tar.gz" -C /data .
 
 # Keep 7 days
 find "$BACKUP_DIR" -name '*.sql' -mtime +7 -delete

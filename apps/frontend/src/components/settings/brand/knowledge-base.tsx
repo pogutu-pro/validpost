@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Slider } from '@postmill-ai/react/form/slider';
-import { DataTable } from '@postmill-ai/frontend/components/ui/data-table';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Slider } from '@validpost/react/form/slider';
+import { DataTable } from '@validpost/frontend/components/ui/data-table';
 
 interface RagStatus {
   enabled: boolean;
@@ -90,11 +90,11 @@ export const KnowledgeBase = () => {
   const [vectorStore, setVectorStore] = useState('pgvector');
   const [qdrantUrl, setQdrantUrl] = useState('');
   const [qdrantApiKey, setQdrantApiKey] = useState('');
-  const [qdrantCollection, setQdrantCollection] = useState('postmill_rag');
+  const [qdrantCollection, setQdrantCollection] = useState('validpost_rag');
   const [distance, setDistance] = useState('Cosine');
   // Remote pgvector
   const [pgUrl, setPgUrl] = useState('');
-  const [pgTable, setPgTable] = useState('postmill_rag');
+  const [pgTable, setPgTable] = useState('validpost_rag');
   const [pgConfigured, setPgConfigured] = useState(false);
   // Pinecone
   const [pineconeApiKey, setPineconeApiKey] = useState('');
@@ -127,10 +127,10 @@ export const KnowledgeBase = () => {
     const data = await res.json();
     setVectorStore(data.vectorStore || 'pgvector');
     setQdrantUrl(data.qdrantUrl || '');
-    setQdrantCollection(data.qdrantCollection || 'postmill_rag');
+    setQdrantCollection(data.qdrantCollection || 'validpost_rag');
     setDistance(data.distance || 'Cosine');
     setQdrantConfigured(!!data.qdrantConfigured);
-    setPgTable(data.pgTable || 'postmill_rag');
+    setPgTable(data.pgTable || 'validpost_rag');
     setPgConfigured(!!data.pgConfigured);
     setPineconeIndex(data.pineconeIndex || '');
     setPineconeHost(data.pineconeHost || '');
@@ -441,7 +441,7 @@ export const KnowledgeBase = () => {
                   className="bg-newBgColorInner border border-newTableBorder rounded-[8px] p-[8px] text-textColor text-[13px]"
                   value={pgTable}
                   onChange={(e) => setPgTable(e.target.value)}
-                  placeholder={t('rag_table_placeholder', 'postmill_rag')}
+                  placeholder={t('rag_table_placeholder', 'validpost_rag')}
                 />
               </div>
             </>
@@ -475,7 +475,7 @@ export const KnowledgeBase = () => {
                   className="bg-newBgColorInner border border-newTableBorder rounded-[8px] p-[8px] text-textColor text-[13px]"
                   value={qdrantCollection}
                   onChange={(e) => setQdrantCollection(e.target.value)}
-                  placeholder={t('rag_table_placeholder', 'postmill_rag')}
+                  placeholder={t('rag_table_placeholder', 'validpost_rag')}
                 />
               </div>
               <div className="flex flex-col gap-[4px]">
@@ -512,7 +512,7 @@ export const KnowledgeBase = () => {
                   className="bg-newBgColorInner border border-newTableBorder rounded-[8px] p-[8px] text-textColor text-[13px]"
                   value={pineconeIndex}
                   onChange={(e) => setPineconeIndex(e.target.value)}
-                  placeholder={t('pinecone_index_placeholder', 'postmill-rag')}
+                  placeholder={t('pinecone_index_placeholder', 'validpost-rag')}
                 />
               </div>
               <div className="flex flex-col gap-[4px]">

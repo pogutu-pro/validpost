@@ -57,7 +57,7 @@ function loadModule(file, patch) {
   });
   const mod = { exports: {} };
   const localRequire = (spec) => {
-    if (spec === '@postmill-ai/frontend/components/shared/readable-text-color') return readable;
+    if (spec === '@validpost/frontend/components/shared/readable-text-color') return readable;
     if (spec.startsWith('.')) throw new Error(`unexpected relative import ${spec}`);
     return require(spec);
   };

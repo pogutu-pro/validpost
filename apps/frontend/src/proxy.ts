@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getCookieUrlFromDomain } from '@postmill-ai/helpers/subdomain/subdomain.management';
-import { internalFetch } from '@postmill-ai/helpers/utils/internal.fetch';
+import { getCookieUrlFromDomain } from '@validpost/helpers/subdomain/subdomain.management';
+import { internalFetch } from '@validpost/helpers/utils/internal.fetch';
 import acceptLanguage from 'accept-language';
 import {
   cookieName,
   headerName,
   languages,
-} from '@postmill-ai/react/translation/i18n.config';
+} from '@validpost/react/translation/i18n.config';
 acceptLanguage.languages(languages);
 
 // This function can be marked `async` if using `await` inside
@@ -91,7 +91,7 @@ export async function proxy(request: NextRequest) {
   const org = nextUrl.searchParams.get('org');
   const url = new URL(nextUrl).search;
 
-  // Postmill ID federation: the consent screen is the one authenticated page an
+  // ValidPost ID federation: the consent screen is the one authenticated page an
   // external relying party links a COLD browser to. The generic branch below
   // rewrites to `/auth${search}` and so discards the pathname, which strands the
   // visitor on the dashboard after sign-in — the store then waits for a callback
@@ -123,7 +123,7 @@ export async function proxy(request: NextRequest) {
       '/integrations/social/linkedin': 'LINKEDIN',
     };
     const provider = nextUrl.pathname.startsWith('/settings')
-      ? process.env.POSTMILL_GENERIC_OAUTH === 'true'
+      ? process.env.VALIDPOST_GENERIC_OAUTH === 'true'
         ? 'GENERIC'
         : 'GITHUB'
       : callbackProvider[nextUrl.pathname];

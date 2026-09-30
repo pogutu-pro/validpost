@@ -1,4 +1,4 @@
-import { FileManager } from '@postmill-ai/frontend/components/files/file-manager';
+import { FileManager } from '@validpost/frontend/components/files/file-manager';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: `ValidPost Files`,

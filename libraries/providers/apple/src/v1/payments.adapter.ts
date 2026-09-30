@@ -26,7 +26,7 @@ import {
   ProviderModule,
   WebhookReceipt,
   parseStoreProductId,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const MANAGE_URL = 'https://apps.apple.com/account/subscriptions';
 
@@ -61,7 +61,7 @@ const message = (err: unknown) => (err as Error)?.message ?? String(err);
  * land on `POST /payments/webhooks/apple`. Both are verified against Apple's
  * root certificates with `@apple/app-store-server-library`.
  *
- * Binding: the app sets `appAccountToken` to the Postmill organization id (a
+ * Binding: the app sets `appAccountToken` to the ValidPost organization id (a
  * UUID, which is what Apple requires) at purchase time; the server refuses a
  * purchase whose token does not match the calling org. `customerRef` is the
  * `originalTransactionId`, stable across renewals and plan changes.
@@ -117,7 +117,7 @@ export class ApplePaymentsAdapter implements PaymentsCapability {
   }
 
   private get _prefix(): string {
-    return process.env.PAYMENTS_APPLE_PRODUCT_PREFIX || 'postmill';
+    return process.env.PAYMENTS_APPLE_PRODUCT_PREFIX || 'validpost';
   }
 
   /**

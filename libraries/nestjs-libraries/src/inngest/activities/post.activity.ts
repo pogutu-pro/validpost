@@ -1,34 +1,34 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
 import { Integration, Post, State } from '@prisma/client';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { stripHtmlValidation } from '@postmill-ai/helpers/utils/strip.html.validation';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { AuthTokenDetails } from '@postmill-ai/nestjs-libraries/integrations/social/social.integrations.interface';
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { WebhooksService } from '@postmill-ai/nestjs-libraries/database/prisma/webhooks/webhooks.service';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
-import { PROVIDER_CAPABILITIES } from '@postmill-ai/nestjs-libraries/integrations/social/provider-capabilities';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { stripHtmlValidation } from '@validpost/helpers/utils/strip.html.validation';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { AuthTokenDetails } from '@validpost/nestjs-libraries/integrations/social/social.integrations.interface';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
+import { timer } from '@validpost/helpers/utils/timer';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { WebhooksService } from '@validpost/nestjs-libraries/database/prisma/webhooks/webhooks.service';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { PROVIDER_CAPABILITIES } from '@validpost/nestjs-libraries/integrations/social/provider-capabilities';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { BadBodyError } from '@postmill-ai/nestjs-libraries/inngest/errors/bad-body.error';
-import { OrgProviderConfigService } from '@postmill-ai/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service';
-import { OrgVpnConfigService } from '@postmill-ai/nestjs-libraries/vpn/org-vpn-config.service';
-import { VpnDispatcherService } from '@postmill-ai/nestjs-libraries/vpn/vpn-dispatcher.service';
-import { runWithVpnDispatcher } from '@postmill-ai/nestjs-libraries/vpn/vpn.context';
-import { CampaignsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaigns.repository';
-import { PostsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.repository';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { BadBodyError } from '@validpost/nestjs-libraries/inngest/errors/bad-body.error';
+import { OrgProviderConfigService } from '@validpost/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service';
+import { OrgVpnConfigService } from '@validpost/nestjs-libraries/vpn/org-vpn-config.service';
+import { VpnDispatcherService } from '@validpost/nestjs-libraries/vpn/vpn-dispatcher.service';
+import { runWithVpnDispatcher } from '@validpost/nestjs-libraries/vpn/vpn.context';
+import { CampaignsRepository } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaigns.repository';
+import { PostsRepository } from '@validpost/nestjs-libraries/database/prisma/posts/posts.repository';
 import { v4 as uuidv4 } from 'uuid';
-import { CircuitBreakerService } from '@postmill-ai/nestjs-libraries/ai/governance/circuit-breaker.service';
-import { webhookSignature, webhookTimeoutMs } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { CircuitBreakerService } from '@validpost/nestjs-libraries/ai/governance/circuit-breaker.service';
+import { webhookSignature, webhookTimeoutMs } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import type { Dispatcher } from 'undici';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 // Drops fields the workflow and downstream activities never read — biggest wins are `error` (grows per retry) and `childrenPost` (Prisma side-loads it on every recursive row).
 // 2.5: also strips the decrypted OAuth secrets (`token`/`refreshToken`/
@@ -727,7 +727,7 @@ export class PostActivity {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'X-Postmill-Signature': signature,
+                'X-ValidPost-Signature': signature,
               },
               body,
               signal: AbortSignal.timeout(webhookTimeoutMs()),

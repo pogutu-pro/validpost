@@ -14,11 +14,11 @@ import type { VideoClip, VideoOutput } from './designer.store';
 import { composeClipsAtPlayhead, sourceTimeForPlayhead } from './video-preview';
 import { clipGeometryUpdate, type ClipBox } from './clip-geometry';
 import { getBuffer } from './raster-layers';
-import { captionWordStates } from '@postmill-ai/nestjs-libraries/media/designer-doc/caption-styles';
+import { captionWordStates } from '@validpost/nestjs-libraries/media/designer-doc/caption-styles';
 import {
   pointsForShape,
   flattenPoints,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/shape-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/shape-geometry';
 
 interface VideoCanvasOverlayProps {
   store: ReturnType<typeof import('./designer.store').createDesignerStore>;

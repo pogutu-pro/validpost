@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import {
   MediaSelectorModal,
   type MediaSelectorModalProps,
-} from '@postmill-ai/frontend/components/media-tools/media-selector-modal';
+} from '@validpost/frontend/components/media-tools/media-selector-modal';
 
 /**
  * The one sanctioned way to open the media picker.

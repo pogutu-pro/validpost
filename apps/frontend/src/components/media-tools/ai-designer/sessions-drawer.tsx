@@ -2,16 +2,16 @@
 
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { Drawer } from '@postmill-ai/frontend/components/analytics/kit/drawer';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { LoadingRows } from '@postmill-ai/frontend/components/ui/loading-rows';
-import { EmptyState } from '@postmill-ai/frontend/components/ui/empty-state';
+import { Drawer } from '@validpost/frontend/components/analytics/kit/drawer';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { LoadingRows } from '@validpost/frontend/components/ui/loading-rows';
+import { EmptyState } from '@validpost/frontend/components/ui/empty-state';
 import {
   useAiDesignerSessions,
   useDeleteAiDesignerSession,
 } from './ai-designer.hooks';
-import type { AiDesignerSessionDto } from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+import type { AiDesignerSessionDto } from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 
 /** Coarse relative time — the exact minute never matters in a history list. */
 const relativeTime = (iso: string, t: ReturnType<typeof useT>): string => {

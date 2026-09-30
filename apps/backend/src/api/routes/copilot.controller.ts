@@ -16,18 +16,18 @@ import {
   copilotRuntimeNestEndpoint,
 } from '@copilotkit/runtime';
 import { BuiltInAgent } from '@copilotkit/runtime/v2';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { Organization, User } from '@prisma/client';
 import { MastraAgent } from '@ag-ui/mastra';
-import { MastraService } from '@postmill-ai/nestjs-libraries/chat/mastra.service';
+import { MastraService } from '@validpost/nestjs-libraries/chat/mastra.service';
 import { Request, Response } from 'express';
 import { RequestContext } from '@mastra/core/di';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { AuthorizationActions, Sections } from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { BudgetExceeded, GuardrailViolation } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
-import { FeatureFlagsService } from '@postmill-ai/nestjs-libraries/feature-flags';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { AuthorizationActions, Sections } from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { BudgetExceeded, GuardrailViolation } from '@validpost/nestjs-libraries/ai/governance/errors';
+import { FeatureFlagsService } from '@validpost/nestjs-libraries/feature-flags';
 
 export type AgentRequestContext = {
   // Set by @ag-ui/mastra from the CopilotKit readables, never by this controller.
@@ -85,7 +85,7 @@ export class CopilotController {
    * single-route transport never calls a service adapter's `process()` — it
    * runs an agent, so a runtime without `agents` auto-builds one from the
    * adapter and throws `CopilotApiDiscoveryError` when the adapter cannot
-   * name its model (Sentry POSTMILL-APP-D: every LangChainAdapter provider).
+   * name its model (Sentry VALIDPOST-APP-D: every LangChainAdapter provider).
    * Passing an explicit BuiltInAgent on the org's governed model sidesteps
    * the adapter zoo entirely and restores the gates the old `process()` proxy
    * used to apply: budget check + usage recording (`languageModel`) and prompt
@@ -211,7 +211,7 @@ export class CopilotController {
       return { messages: [] };
     }
     const mastra = await this._mastraService.mastra();
-    const memory = await mastra.getAgent('postmill').getMemory();
+    const memory = await mastra.getAgent('validpost').getMemory();
     // Distinguish "thread unknown to this org" (404) from a genuinely empty
     // history — otherwise the UI renders the new-chat welcome screen for a
     // conversation that is simply not visible to this org (cross-org link,
@@ -257,7 +257,7 @@ export class CopilotController {
       return { threads: [] };
     }
     const mastra = await this._mastraService.mastra();
-    const memory = await mastra.getAgent('postmill').getMemory();
+    const memory = await mastra.getAgent('validpost').getMemory();
     const list = await memory.listThreads({
       filter: { resourceId: organization.id },
       perPage: Number(perPage) || 50,

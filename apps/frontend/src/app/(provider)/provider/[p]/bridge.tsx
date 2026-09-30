@@ -5,7 +5,7 @@ import {
   type ProviderPreviewHandle,
   type ProviderPreviewProps,
   type ProviderPreviewValidation,
-} from '@postmill-ai/frontend/components/provider-preview/preview.provider.component';
+} from '@validpost/frontend/components/provider-preview/preview.provider.component';
 
 type InitPayload = {
   value?: Record<string, unknown>;

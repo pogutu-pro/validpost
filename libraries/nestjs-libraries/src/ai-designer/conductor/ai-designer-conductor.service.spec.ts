@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { AiDesignerConductorService } from './ai-designer-conductor.service';
 import { AiDesignerInputPolicyService } from '../ai-designer-input-policy.service';
 import { AiDesignerSkillRouter } from '../skills/ai-designer-skill-router.service';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
 import {
   registerInProcessAgent,
   unregisterInProcessAgent,
@@ -2215,7 +2215,7 @@ describe('AiDesignerConductorService._collectAssetNeeds (variant-scoped)', () =>
 
   const SQUARE_OUT = { formatId: 'ig-post', width: 1080, height: 1080 };
   const WIDE_OUT = { formatId: 'fb-post', width: 1200, height: 630 };
-  const WIDE_OUT_2 = { formatId: 'x-post', width: 1200, height: 675 };
+  const WIDE_OUT_2 = { formatId: 'linkedin-post', width: 1200, height: 675 };
   const TALL_OUT = { formatId: 'ig-story', width: 1080, height: 1920 };
 
   it('gives every plan its own variant-scoped need per slot (originals stay distinct)', () => {
@@ -4210,7 +4210,7 @@ describe('AiDesignerConductorService regenerateAsset fixes', () => {
     // that into the same line three times.
     const { conductor, saver, headsUpNotes } = makeRegenConductor({
       primarySkipped: true,
-      channels: ['ig-post', 'ig-story', 'x-post'],
+      channels: ['ig-post', 'ig-story', 'linkedin-post'],
       criticFindings: (call) => (call === 1 ? [] : [REGEN_FINDING]),
     });
     saver.updateDesign.mockResolvedValue({
@@ -4220,7 +4220,7 @@ describe('AiDesignerConductorService regenerateAsset fixes', () => {
       outputPreviews: [
         { formatId: 'ig-post', fileId: 'f-post', url: 'https://example.com/post.png' },
         { formatId: 'ig-story', fileId: 'f-story', url: 'https://example.com/story.png' },
-        { formatId: 'x-post', fileId: 'f-x', url: 'https://example.com/x.png' },
+        { formatId: 'linkedin-post', fileId: 'f-x', url: 'https://example.com/x.png' },
       ],
     });
 
@@ -4246,7 +4246,7 @@ describe('AiDesignerConductorService regenerateAsset fixes', () => {
     // technique changes, so a SECOND attempt is allowed (and only then).
     const { conductor, saver, regenDispatches, headsUpNotes } = makeRegenConductor({
       primarySkipped: true,
-      channels: ['ig-post', 'ig-story', 'x-post'],
+      channels: ['ig-post', 'ig-story', 'linkedin-post'],
       criticFindings: (call) =>
         call === 1 ? [] : call === 2 ? [REGEN_FINDING] : [BRAND_FINDING],
     });
@@ -4257,7 +4257,7 @@ describe('AiDesignerConductorService regenerateAsset fixes', () => {
       outputPreviews: [
         { formatId: 'ig-post', fileId: 'f-post', url: 'https://example.com/post.png' },
         { formatId: 'ig-story', fileId: 'f-story', url: 'https://example.com/story.png' },
-        { formatId: 'x-post', fileId: 'f-x', url: 'https://example.com/x.png' },
+        { formatId: 'linkedin-post', fileId: 'f-x', url: 'https://example.com/x.png' },
       ],
     });
 

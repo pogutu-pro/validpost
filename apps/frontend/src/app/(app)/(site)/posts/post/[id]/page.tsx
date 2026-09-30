@@ -1,16 +1,16 @@
 'use client';
 import { useCallback } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useParams, useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
-import { ExistingDataContextProvider } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
-import { Composer } from '@postmill-ai/frontend/components/composer/composer';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { EmptyState } from '@postmill-ai/frontend/components/ui/empty-state';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { ExistingDataContextProvider } from '@validpost/frontend/components/launches/helpers/use.existing.data';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
+import { Composer } from '@validpost/frontend/components/composer/composer';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { EmptyState } from '@validpost/frontend/components/ui/empty-state';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export default function EditPostPage() {
   const fetch = useFetch();
@@ -62,9 +62,15 @@ export default function EditPostPage() {
   // used to render `null` with no way out.
   if (!postData) {
     return (
-      <div className="flex justify-center p-[40px]">
+      <div className="flex flex-1 w-full justify-center items-start p-[40px] mobile:p-[16px]">
         <EmptyState
           className="w-full max-w-[480px]"
+          icon={
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </svg>
+          }
           title={t('post_not_found_title', 'Post not found')}
           description={t(
             'post_not_found_desc',

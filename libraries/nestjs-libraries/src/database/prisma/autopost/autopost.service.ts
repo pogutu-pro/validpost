@@ -4,8 +4,8 @@ import {
   Injectable,
   Logger,
 } from '@nestjs/common';
-import { AutopostRepository } from '@postmill-ai/nestjs-libraries/database/prisma/autopost/autopost.repository';
-import { AutopostDto } from '@postmill-ai/nestjs-libraries/dtos/autopost/autopost.dto';
+import { AutopostRepository } from '@validpost/nestjs-libraries/database/prisma/autopost/autopost.repository';
+import { AutopostDto } from '@validpost/nestjs-libraries/dtos/autopost/autopost.dto';
 import dayjs from 'dayjs';
 import { END, START, StateGraph } from '@langchain/langgraph';
 import { AutoPost, Integration } from '@prisma/client';
@@ -14,17 +14,17 @@ import striptags from 'striptags';
 import { JSDOM } from 'jsdom';
 import { z } from 'zod';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { AiMediaService } from '@postmill-ai/nestjs-libraries/ai/governance/media.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { AiMediaService } from '@validpost/nestjs-libraries/ai/governance/media.service';
 import Parser from 'rss-parser';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 const parser = new Parser();
 
 interface WorkflowChannelsState {

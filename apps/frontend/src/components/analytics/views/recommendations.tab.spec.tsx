@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: mockPush }) }));
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_k: string, d: string) => d,
 }));
 
@@ -23,7 +23,7 @@ describe('RecommendationsTab', () => {
     // Now uses the shared kit TabSkeleton (F5) — assert the pulsing placeholder,
     // matching the sibling tab specs (best-time, channels, content-insights).
     const { container } = render(<RecommendationsTab />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the error state', () => {

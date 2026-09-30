@@ -1,6 +1,6 @@
 ---
 name: add-shortlink-provider
-description: Add a URL shortener / short-link provider (link shortening service, branded short domain) to Postmill's unified provider framework. Use when adding or scaffolding a shortlink provider package under libraries/providers, implementing ShortLinkCapability / BaseShortLinkAdapter, or wiring shortlink settings or OAuth connect.
+description: Add a URL shortener / short-link provider (link shortening service, branded short domain) to ValidPost's unified provider framework. Use when adding or scaffolding a shortlink provider package under libraries/providers, implementing ShortLinkCapability / BaseShortLinkAdapter, or wiring shortlink settings or OAuth connect.
 ---
 
 # Add a short-link provider
@@ -26,7 +26,7 @@ Scaffold one workspace package implementing `ShortLinkCapability`, register it w
 
 3. Route all outbound HTTP through the injected `SafeFetchPort`: `constructor(protected readonly _fetch: SafeFetchPort) {}` (inherited) and `this._fetch(...)` — never bare `fetch` (SSRF invariant).
 
-4. Scaffold the package mirroring `libraries/providers/bitly/`: `package.json` (`@postmill-ai/provider-<id>`, `main`/`types`: `src/index.ts`, dep `@postmill-ai/provider-kernel: workspace:*`, script `test: vitest run`), `src/index.ts` default-exporting `ProviderModule[]`, `src/v1/{index.ts, metadata.ts, shortlink.adapter.ts}`. In `src/v1/index.ts` build the manifest with `domain: 'shortlink'`, `version: 'v1'`, `status: 'active'`, spreading `_meta` fields (`credentialFields`, `capabilities`, `authType`, `defaultDomain`, `setupNotes`); `create: (rt) => new <Id>Adapter(rt.fetch)` must be network-free.
+4. Scaffold the package mirroring `libraries/providers/bitly/`: `package.json` (`@validpost/provider-<id>`, `main`/`types`: `src/index.ts`, dep `@validpost/provider-kernel: workspace:*`, script `test: vitest run`), `src/index.ts` default-exporting `ProviderModule[]`, `src/v1/{index.ts, metadata.ts, shortlink.adapter.ts}`. In `src/v1/index.ts` build the manifest with `domain: 'shortlink'`, `version: 'v1'`, `status: 'active'`, spreading `_meta` fields (`credentialFields`, `capabilities`, `authType`, `defaultDomain`, `setupNotes`); `create: (rt) => new <Id>Adapter(rt.fetch)` must be network-free.
 
 5. Set `capabilities` flags (`create/expand/statistics/bulkStatistics/customDomain`) to match exactly the methods implemented — conformance checks this.
 
@@ -37,9 +37,9 @@ Scaffold one workspace package implementing `ShortLinkCapability`, register it w
 8. Frontend: write nothing. `apps/frontend/src/components/settings/shared/kit/descriptors/shortlinks.descriptor.ts` (`shortlinksDescriptor`) renders config/test/set-primary/remove from the manifest; `form.oauth: true` + the `oauth-block` render the Connect-with-OAuth flow automatically for `authType === 'oauth2'` (session key `oauth_shortlink_provider`). Endpoints: `apps/backend/src/api/routes/org-shortlink-settings.controller.ts` (`/settings/shortlinks/*`); OAuth server logic: `libraries/nestjs-libraries/src/short-linking/short-link-oauth.service.ts`.
 
 9. Register — 3 edits + install:
-   - `apps/backend/src/providers.generated.ts` (hand-maintained despite the name): alphabetical `import <id>Modules from '@postmill-ai/provider-<id>';` + `...<id>Modules,` in `providerModules`.
-   - `tsconfig.base.json`: two aliases `"@postmill-ai/provider-<id>": ["libraries/providers/<id>/src"]` and `".../*": ["libraries/providers/<id>/src/*"]`.
-   - `apps/backend/package.json`: `"@postmill-ai/provider-<id>": "workspace:*"` in `dependencies`.
+   - `apps/backend/src/providers.generated.ts` (hand-maintained despite the name): alphabetical `import <id>Modules from '@validpost/provider-<id>';` + `...<id>Modules,` in `providerModules`.
+   - `tsconfig.base.json`: two aliases `"@validpost/provider-<id>": ["libraries/providers/<id>/src"]` and `".../*": ["libraries/providers/<id>/src/*"]`.
+   - `apps/backend/package.json`: `"@validpost/provider-<id>": "workspace:*"` in `dependencies`.
    - `pnpm install` from repo root.
    Boot registration is automatic via `apps/backend/src/providers.bootstrap.ts`, gated by `DEV_DISABLE_SHORTLINKS`.
 

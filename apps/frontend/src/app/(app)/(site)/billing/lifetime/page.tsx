@@ -1,4 +1,4 @@
-import { LifetimeDeal } from '@postmill-ai/frontend/components/billing/lifetime.deal';
+import { LifetimeDeal } from '@validpost/frontend/components/billing/lifetime.deal';
 export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
 export const metadata: Metadata = {

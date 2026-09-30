@@ -6,32 +6,32 @@ import {
   Injectable,
   Logger,
 } from '@nestjs/common';
-import { IntegrationRepository } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.repository';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
+import { IntegrationRepository } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.repository';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
 import {
   AnalyticsData,
   SocialProvider,
-} from '@postmill-ai/nestjs-libraries/integrations/social/social.integrations.interface';
+} from '@validpost/nestjs-libraries/integrations/social/social.integrations.interface';
 import { Integration, Organization } from '@prisma/client';
 import { randomUUID } from 'crypto';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
 import dayjs from 'dayjs';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { RefreshToken } from '@postmill-ai/nestjs-libraries/integrations/social.abstract';
-import { IntegrationTimeDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/integration.time.dto';
-import { PlugDto } from '@postmill-ai/nestjs-libraries/dtos/plugs/plug.dto';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
+import { timer } from '@validpost/helpers/utils/timer';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
+import { RefreshToken } from '@validpost/nestjs-libraries/integrations/social.abstract';
+import { IntegrationTimeDto } from '@validpost/nestjs-libraries/dtos/integrations/integration.time.dto';
+import { PlugDto } from '@validpost/nestjs-libraries/dtos/plugs/plug.dto';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
 import { uniq, uniqBy } from 'lodash';
 import utc from 'dayjs/plugin/utc';
-import { AutopostService } from '@postmill-ai/nestjs-libraries/database/prisma/autopost/autopost.service';
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
+import { AutopostService } from '@validpost/nestjs-libraries/database/prisma/autopost/autopost.service';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 dayjs.extend(utc);
 

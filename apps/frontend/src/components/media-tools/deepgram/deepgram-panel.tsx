@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useCallback, useMemo, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
-import type { StudioCustomProps } from '@postmill-ai/frontend/components/media-tools/studio-kit/types';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
+import type { StudioCustomProps } from '@validpost/frontend/components/media-tools/studio-kit/types';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface Segment {
   start: number;
@@ -152,7 +152,7 @@ export const DeepgramPanel: React.FC<StudioCustomProps> = ({ onGenerated }) => {
       return;
     }
     const integrations = await integrationsRes.json();
-    const { Composer } = await import('@postmill-ai/frontend/components/composer/composer');
+    const { Composer } = await import('@validpost/frontend/components/composer/composer');
     const dayjs = (await import('dayjs')).default;
     modal.openModal({
       fullScreen: true,
@@ -268,7 +268,7 @@ export const DeepgramPanel: React.FC<StudioCustomProps> = ({ onGenerated }) => {
         type="button"
         onClick={transcribe}
         disabled={!source || loading}
-        className="self-start px-[20px] py-[10px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[600] hover:bg-[#2B5CD3]/80 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+        className="self-start px-[20px] py-[10px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[600] hover:bg-btnPrimary/80 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
       >
         {loading ? t('deepgram_transcribing', 'Transcribing…') : t('deepgram_transcribe', 'Transcribe')}
       </button>
@@ -313,7 +313,7 @@ export const DeepgramPanel: React.FC<StudioCustomProps> = ({ onGenerated }) => {
                 {t('deepgram_edit_in_designer', 'Edit in Designer')}
               </button>
             )}
-            <button type="button" onClick={sendToComposer} className="px-[12px] py-[8px] rounded-[8px] bg-[#2B5CD3] text-white text-[12px] font-[500] hover:bg-[#2B5CD3]/80 transition-all">
+            <button type="button" onClick={sendToComposer} className="px-[12px] py-[8px] rounded-[8px] bg-btnPrimary text-white text-[12px] font-[500] hover:bg-btnPrimary/80 transition-all">
               {t('deepgram_send_to_composer', 'Send to composer')}
             </button>
           </div>

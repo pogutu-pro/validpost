@@ -1,15 +1,15 @@
 import 'reflect-metadata';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { DashboardService, DashboardSummaryResponse } from './dashboard.service';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { SocialCommentsService } from '@postmill-ai/nestjs-libraries/database/prisma/social-comments/social.comments.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { OrgAiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
-import { AiMediaService } from '@postmill-ai/nestjs-libraries/ai/governance/media.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { RedisService } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { pricing } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { SocialCommentsService } from '@validpost/nestjs-libraries/database/prisma/social-comments/social.comments.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { OrgAiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
+import { AiMediaService } from '@validpost/nestjs-libraries/ai/governance/media.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { RedisService } from '@validpost/nestjs-libraries/redis/redis.service';
+import { pricing } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 
 const org = { id: 'org-1', timezone: 'UTC' } as any;
 const user = { id: 'user-1' } as any;

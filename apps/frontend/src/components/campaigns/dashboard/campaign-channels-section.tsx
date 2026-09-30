@@ -1,10 +1,10 @@
 'use client';
 
 import { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { useAddProvider } from '@postmill-ai/frontend/components/launches/add.provider.component';
-import { KebabMenu } from '@postmill-ai/frontend/components/ui/kebab-menu';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { useAddProvider } from '@validpost/frontend/components/launches/add.provider.component';
+import { KebabMenu } from '@validpost/frontend/components/ui/kebab-menu';
 
 interface CampaignChannel {
   id: string;

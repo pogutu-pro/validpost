@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AiSettingsRepository } from './ai-settings.repository';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { AIProviderAdapter } from '@postmill-ai/nestjs-libraries/ai/ai-provider.interface';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/provider-kernel.token';
-import { ProviderKernel, DEFAULT_VERSION } from '@postmill-ai/provider-kernel';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { AIProviderAdapter } from '@validpost/nestjs-libraries/ai/ai-provider.interface';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/provider-kernel.token';
+import { ProviderKernel, DEFAULT_VERSION } from '@validpost/provider-kernel';
 import {
   UpsertBrandProfileData,
   validateBrandProfileData,

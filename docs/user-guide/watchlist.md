@@ -34,7 +34,7 @@ The handle is validated to contain only alphanumeric characters, dots, underscor
 
 ## Metrics Collected
 
-Postmill probes the public profile page of each watched account and extracts follower/subscriber
+ValidPost probes the public profile page of each watched account and extracts follower/subscriber
 counts. The metric recorded depends on what the profile page exposes:
 
 - **followers_count** or **followerCount**: Follower count from JSON metadata.

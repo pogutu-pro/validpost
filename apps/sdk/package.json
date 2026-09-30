@@ -1,7 +1,7 @@
 {
-  "name": "@postmill-ai/postmill-sdk",
+  "name": "@validpost/validpost-sdk",
   "version": "2.0.0",
-  "description": "Official Node SDK for Postmill — schedule posts, manage channels, and drive the public API.",
+  "description": "Official Node SDK for ValidPost — schedule posts, manage channels, and drive the public API.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -20,19 +20,19 @@
     "social media",
     "scheduling tool",
     "social media scheduling tool",
-    "postmill",
+    "validpost",
     "social media scheduling",
     "sdk"
   ],
-  "author": "REAA Technologies",
+  "author": "Stratnovo",
   "license": "AGPL-3.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/postmill-ai/postmill-app.git"
+    "url": "git+https://github.com/pogutu-pro/validpost.git"
   },
-  "homepage": "https://postmill.ai",
+  "homepage": "https://validpost.io",
   "bugs": {
-    "url": "https://github.com/postmill-ai/postmill-app/issues"
+    "url": "https://github.com/pogutu-pro/validpost/issues"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

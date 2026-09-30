@@ -18,7 +18,7 @@ wait_tcp() {  # host port name
   return 1
 }
 
-wait_tcp postmill-postgres 5432 postgres
+wait_tcp validpost-postgres 5432 postgres
 # Redis is external now (Upstash via REDIS_URL) — nothing local to wait for.
 
 # node_modules lives in a named volume, so install only on first boot.

@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
-import { providerModules } from '@postmill-ai/backend/providers.generated';
+import { providerModules } from '@validpost/backend/providers.generated';
 import {
   PUBLIC_CATALOG_DOMAINS,
   publicProviderIconPath,
-} from '@postmill-ai/nestjs-libraries/providers/public-catalog.service';
+} from '@validpost/nestjs-libraries/providers/public-catalog.service';
 
 // The public catalogue (`GET /public/integrations/list`) hands out an icon URL
 // for every provider it lists; the files live in the frontend's static dir.

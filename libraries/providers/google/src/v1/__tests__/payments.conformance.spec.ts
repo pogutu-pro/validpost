@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { runPaymentsConformance } from '@postmill-ai/provider-kernel';
+import { runPaymentsConformance } from '@validpost/provider-kernel';
 import defaultModules from '../../index';
 
 describe('google payments conformance', () => {

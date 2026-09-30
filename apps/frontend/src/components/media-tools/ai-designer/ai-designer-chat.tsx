@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { FullscreenButton } from '@postmill-ai/frontend/components/media-tools/fullscreen-button';
-import { useFullscreenSurface } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
+import { Button } from '@validpost/react/form/button';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { FullscreenButton } from '@validpost/frontend/components/media-tools/fullscreen-button';
+import { useFullscreenSurface } from '@validpost/frontend/components/media-tools/use-fullscreen';
 import { MessageRenderer, TypingIndicator } from './message-renderer';
 import { useAiDesignerSession } from './ai-designer.hooks';
 import {
@@ -21,7 +21,7 @@ import type {
   AiDesignerRenderResult,
   AiDesignerSessionDto,
   AiDesignerSessionState,
-} from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+} from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 
 interface AiDesignerChatProps {
   sessionId: string;

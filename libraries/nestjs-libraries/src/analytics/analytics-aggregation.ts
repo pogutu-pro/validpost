@@ -6,7 +6,7 @@
 import {
   METRIC_REGISTRY,
   isKnownMetric,
-} from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
+} from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
 import { Logger } from '@nestjs/common';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';

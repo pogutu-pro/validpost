@@ -13,43 +13,43 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { AuthorizationActions, Sections } from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { AuthorizationActions, Sections } from '@validpost/backend/services/auth/permissions/permission.exception.class';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CustomFileValidationPipe } from '@postmill-ai/nestjs-libraries/upload/custom.upload.validation';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { StockMediaService, CONTENT_PACK_CAPABILITY_MAP } from '@postmill-ai/nestjs-libraries/media/stock/stock-media.service';
-import { ContentPackDailyCapError } from '@postmill-ai/nestjs-libraries/media/stock/content-packs/content-pack.interface';
-import { ImportFromUrlDto } from '@postmill-ai/nestjs-libraries/dtos/file/import.from.url.dto';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { SaveMediaInformationDto } from '@postmill-ai/nestjs-libraries/dtos/file/save.media.information.dto';
-import { CreateFolderDto } from '@postmill-ai/nestjs-libraries/dtos/file/create.folder.dto';
-import { UpdateFolderDto } from '@postmill-ai/nestjs-libraries/dtos/file/update.folder.dto';
-import { MoveMediaDto } from '@postmill-ai/nestjs-libraries/dtos/file/move.media.dto';
-import { RenameMediaDto } from '@postmill-ai/nestjs-libraries/dtos/file/rename.media.dto';
-import { UpdateMediaTagsDto } from '@postmill-ai/nestjs-libraries/dtos/file/update.media.tags.dto';
-import { UpdateMediaDescriptionDto } from '@postmill-ai/nestjs-libraries/dtos/file/update.media.description.dto';
-import { BulkDeleteMediaDto } from '@postmill-ai/nestjs-libraries/dtos/file/bulk.delete.media.dto';
-import { BulkMoveMediaDto } from '@postmill-ai/nestjs-libraries/dtos/file/bulk.move.media.dto';
-import { BulkSaveMediaDto } from '@postmill-ai/nestjs-libraries/dtos/file/bulk.save.media.dto';
-import { GetFilesQueryDto } from '@postmill-ai/nestjs-libraries/dtos/file/get.files.query.dto';
-import { SaveMediaDto } from '@postmill-ai/nestjs-libraries/dtos/file/save.media.dto';
-import { UploadServerBodyDto } from '@postmill-ai/nestjs-libraries/dtos/file/upload.server.dto';
-import { UploadSimpleBodyDto } from '@postmill-ai/nestjs-libraries/dtos/file/upload.simple.dto';
-import { SearchFilesQueryDto } from '@postmill-ai/nestjs-libraries/dtos/file/search.files.query.dto';
+import { CustomFileValidationPipe } from '@validpost/nestjs-libraries/upload/custom.upload.validation';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { StockMediaService, CONTENT_PACK_CAPABILITY_MAP } from '@validpost/nestjs-libraries/media/stock/stock-media.service';
+import { ContentPackDailyCapError } from '@validpost/nestjs-libraries/media/stock/content-packs/content-pack.interface';
+import { ImportFromUrlDto } from '@validpost/nestjs-libraries/dtos/file/import.from.url.dto';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { SaveMediaInformationDto } from '@validpost/nestjs-libraries/dtos/file/save.media.information.dto';
+import { CreateFolderDto } from '@validpost/nestjs-libraries/dtos/file/create.folder.dto';
+import { UpdateFolderDto } from '@validpost/nestjs-libraries/dtos/file/update.folder.dto';
+import { MoveMediaDto } from '@validpost/nestjs-libraries/dtos/file/move.media.dto';
+import { RenameMediaDto } from '@validpost/nestjs-libraries/dtos/file/rename.media.dto';
+import { UpdateMediaTagsDto } from '@validpost/nestjs-libraries/dtos/file/update.media.tags.dto';
+import { UpdateMediaDescriptionDto } from '@validpost/nestjs-libraries/dtos/file/update.media.description.dto';
+import { BulkDeleteMediaDto } from '@validpost/nestjs-libraries/dtos/file/bulk.delete.media.dto';
+import { BulkMoveMediaDto } from '@validpost/nestjs-libraries/dtos/file/bulk.move.media.dto';
+import { BulkSaveMediaDto } from '@validpost/nestjs-libraries/dtos/file/bulk.save.media.dto';
+import { GetFilesQueryDto } from '@validpost/nestjs-libraries/dtos/file/get.files.query.dto';
+import { SaveMediaDto } from '@validpost/nestjs-libraries/dtos/file/save.media.dto';
+import { UploadServerBodyDto } from '@validpost/nestjs-libraries/dtos/file/upload.server.dto';
+import { UploadSimpleBodyDto } from '@validpost/nestjs-libraries/dtos/file/upload.simple.dto';
+import { SearchFilesQueryDto } from '@validpost/nestjs-libraries/dtos/file/search.files.query.dto';
 import { diskStorage } from 'multer';
 import { tmpdir } from 'os';
 import { mkdirSync } from 'fs';
 import fs from 'fs';
 import * as path from 'path';
-import { UPLOAD_LIMITS } from '@postmill-ai/nestjs-libraries/upload/upload-limits';
+import { UPLOAD_LIMITS } from '@validpost/nestjs-libraries/upload/upload-limits';
 
-const TMP_UPLOAD_DIR = path.join(tmpdir(), 'postmill-uploads');
+const TMP_UPLOAD_DIR = path.join(tmpdir(), 'validpost-uploads');
 try { mkdirSync(TMP_UPLOAD_DIR, { recursive: true }); } catch {}
 
 @ApiTags('Files')

@@ -1,6 +1,6 @@
 # Inngest & Cron Jobs
 
-Postmill uses **Inngest** as its durable job engine. Background jobs — analytics collection, comment sync, missing-post scanning, email delivery, media rendering, retention pruning, and watched-account probing — run as Inngest functions with retries, concurrency controls, and observability through the Inngest dashboard.
+ValidPost uses **Inngest** as its durable job engine. Background jobs — analytics collection, comment sync, missing-post scanning, email delivery, media rendering, retention pruning, and watched-account probing — run as Inngest functions with retries, concurrency controls, and observability through the Inngest dashboard.
 
 The backend (`apps/backend`) serves the Inngest handler at `/api/inngest`. Functions are registered from modules in `apps/backend/src/inngest/functions/` and triggered by cron schedules or events.
 
@@ -16,7 +16,7 @@ For local development you can use the **Inngest dev server** (`inngest-cli`) poi
 | `INNGEST_SIGNING_KEY` | Primary signing key for validating requests |
 | `INNGEST_SIGNING_KEY_FALLBACK` | Optional fallback key for rotation |
 | `INNGEST_ENV` | Optional branch environment name |
-| `INNGEST_SERVE_ORIGIN` | Public backend origin (e.g. `https://postmill.example.com`) |
+| `INNGEST_SERVE_ORIGIN` | Public backend origin (e.g. `https://validpost.example.com`) |
 | `INNGEST_SERVE_PATH` | Optional path override (default `/api/inngest`) |
 | `USE_INNGEST` | Feature flag — set `true` to enable the cutover |
 

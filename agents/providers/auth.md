@@ -1,6 +1,6 @@
 # Adding an auth (login) provider
 
-How to add a new platform login provider (OAuth/OIDC sign-in) to Postmill: a kernel `auth`-domain module in `libraries/providers/<id>`, a new `Provider` Prisma enum value, and wiring in `AuthProviderManager`. Reference implementation: `libraries/providers/github/src/v1/auth.adapter.ts`.
+How to add a new platform login provider (OAuth/OIDC sign-in) to ValidPost: a kernel `auth`-domain module in `libraries/providers/<id>`, a new `Provider` Prisma enum value, and wiring in `AuthProviderManager`. Reference implementation: `libraries/providers/github/src/v1/auth.adapter.ts`.
 
 ## IMPORTANT: auth providers are platform-level, not org-level
 
@@ -8,7 +8,7 @@ Unlike every other provider domain (AI, media, social, …), auth providers are 
 
 - Platform login providers are managed by a **separate administration app** (a distinct repo). This repo only **reads** `AuthProviderConfig` rows (DB-first) and falls back to deployment env vars. There is no `/admin` frontend or login-provider write API here.
 - `LOCAL` (email/password) auth is always available. Self-service registration is gated by `DISABLE_REGISTRATION` (`AuthService.canRegister`, `apps/backend/src/services/auth/auth.service.ts:68`) — when `DISABLE_REGISTRATION=true`, registration is blocked **except** via `Provider.GENERIC` (OIDC SSO), which always bypasses the gate.
-- OIDC SSO for self-hosted deployments is already covered by the `GENERIC` provider (`libraries/providers/generic/src/v1/auth.adapter.ts`) via the `POSTMILL_OAUTH_*` env vars — do not add a new provider just to point at a different OIDC IdP.
+- OIDC SSO for self-hosted deployments is already covered by the `GENERIC` provider (`libraries/providers/generic/src/v1/auth.adapter.ts`) via the `VALIDPOST_OAUTH_*` env vars — do not add a new provider just to point at a different OIDC IdP.
 - Consequence: adding a new auth provider is **rare**. Confirm the work is not better done as a `GENERIC` OIDC configuration before writing code.
 
 ## Contract: `AuthCapability`
@@ -38,7 +38,7 @@ export interface AuthCapability {
 
 ### Missing-email providers (`emailRequired`)
 
-Most adapters must return an email (X/Facebook mint a synthetic `*.login.postmill.local`
+Most adapters must return an email (X/Facebook mint a synthetic `*.login.validpost.local`
 address when the platform withholds it). When a provider deliberately does neither — e.g.
 **Apple**, whose email claim ships only on first consent and is hidden behind the private
 relay — `getUser` may leave `email` undefined. The framework then re-prompts the user for an
@@ -69,7 +69,7 @@ The adapter must define a local `AuthProviderRepoLike` structural interface (as 
 
 Facebook and LinkedIn login reuse the **platform channel app** — the operator's `FACEBOOK_APP_ID`/`FACEBOOK_APP_SECRET` and `LINKEDIN_CLIENT_ID`/`LINKEDIN_CLIENT_SECRET` from the `.env.example` "Channel OAuth apps" block (`CHANNEL_ENV_MAPPINGS` in `libraries/nestjs-libraries/src/integrations/channel-env-credentials.ts`). There is no separate login credential set; each adapter reads the same channel env vars. Facebook has one extra knob: Business-type Meta apps (Facebook Login for Business) reject a bare `scope=public_profile,email`, so the Facebook auth adapter emits `config_id=` from `FACEBOOK_SSO_CONFIG_ID` (login-only Configuration) or, failing that, the channel `FACEBOOK_CONFIG_ID` — env app only; DB-configured creds keep the scope URL (a Configuration belongs to one app).
 
-**X is the exception.** X login runs OAuth 2.0 + PKCE, which X authenticates with the app's separate "OAuth 2.0 Client ID and Client Secret" — the OAuth 1.0a consumer key pair (`X_API_KEY`/`X_API_SECRET`) the social adapter posts with is *not* a valid OAuth 2.0 client. The X auth adapter therefore reads `X_CLIENT_ID`/`X_CLIENT_SECRET` and must never touch the channel keys. It requests `tweet.read users.read users.email` (`X_SSO_SCOPES`) — `/2/users/me` refuses a token with `users.read` alone, and `users.email` yields `confirmed_email` (used when present, synthetic `x_<id>@x.login.postmill.local` otherwise); both the token exchange and the profile lookup check `response.ok` and throw X's error text. It also binds each attempt's PKCE verifier to a nonce carried in `state=login.<nonce>` (Redis `login:x:sso:pkce:<nonce>`), which is why `AuthCapability.getToken` takes an optional third `state` argument (threaded from `POST /auth/oauth/:provider/exists` body → `AuthService.checkExists`). The frontend proxy only substring-matches `state=login`, so the suffix is transparent to it.
+**X is the exception.** X login runs OAuth 2.0 + PKCE, which X authenticates with the app's separate "OAuth 2.0 Client ID and Client Secret" — the OAuth 1.0a consumer key pair (`X_API_KEY`/`X_API_SECRET`) the social adapter posts with is *not* a valid OAuth 2.0 client. The X auth adapter therefore reads `X_CLIENT_ID`/`X_CLIENT_SECRET` and must never touch the channel keys. It requests `tweet.read users.read users.email` (`X_SSO_SCOPES`) — `/2/users/me` refuses a token with `users.read` alone, and `users.email` yields `confirmed_email` (used when present, synthetic `x_<id>@x.login.validpost.local` otherwise); both the token exchange and the profile lookup check `response.ok` and throw X's error text. It also binds each attempt's PKCE verifier to a nonce carried in `state=login.<nonce>` (Redis `login:x:sso:pkce:<nonce>`), which is why `AuthCapability.getToken` takes an optional third `state` argument (threaded from `POST /auth/oauth/:provider/exists` body → `AuthService.checkExists`). The frontend proxy only substring-matches `state=login`, so the suffix is transparent to it.
 
 Each is gated by an opt-in flag: `FACEBOOK_SSO_ENABLED`, `X_SSO_ENABLED`, `LINKEDIN_SSO_ENABLED`. The env gate in `AuthProviderManager.getProviders()` requires **both** the flag `=== 'true'` **and** the full credential set for that login, so the login page never advertises a provider whose app is unconfigured.
 
@@ -117,10 +117,10 @@ The full universal provider-package procedure (workspace package scaffold, `meta
 
 1. [ ] Confirm the need is real (not coverable by `GENERIC` OIDC) — auth providers are platform-level and managed by the external administration app.
 2. [ ] Add the new uppercase value to the `Provider` enum in `libraries/nestjs-libraries/src/database/prisma/schema.prisma` and author the committed migration (`agents/database.md`); run `pnpm run prisma-generate`.
-3. [ ] Scaffold `libraries/providers/<id>` (`@postmill-ai/provider-<id>`, deps on `@postmill-ai/provider-kernel` + `@postmill-ai/nestjs-libraries`) per `agents/providers/overview.md`.
+3. [ ] Scaffold `libraries/providers/<id>` (`@validpost/provider-<id>`, deps on `@validpost/provider-kernel` + `@validpost/nestjs-libraries`) per `agents/providers/overview.md`.
 4. [ ] Implement `src/v1/auth.adapter.ts`: a class implementing `AuthCapability` + an exported `ProviderModule` with manifest `domain: 'auth'`, lowercase `providerId`, `version: 'v1'`, `authType: 'oauth2'`.
 5. [ ] Implement `resolveConfig`: DB-first via `ctx.extras.authProviderRepo.findByProvider('<PROVIDER>')`, decrypt with `ctx.encryption.decrypt`, env fallback, throw when unconfigured; all HTTP via `ctx.fetch`.
-6. [ ] Export the module array from `src/index.ts` and register it (alphabetically) in `apps/backend/src/providers.generated.ts`, add the two path aliases (`"@postmill-ai/provider-<id>"` + `"@postmill-ai/provider-<id>/*"`) to `tsconfig.base.json`, and add the `workspace:*` dep to `apps/backend/package.json` (+ `pnpm install`). The aliases are what pull the sources into the tsc program so `dist/libraries/providers/<id>/src/*.js` exists for the `register-provider-paths` runtime shim — skip them and the built backend crashes on the raw-TS copy in node_modules (boot-guard's OpenAPI drift gate catches this).
+6. [ ] Export the module array from `src/index.ts` and register it (alphabetically) in `apps/backend/src/providers.generated.ts`, add the two path aliases (`"@validpost/provider-<id>"` + `"@validpost/provider-<id>/*"`) to `tsconfig.base.json`, and add the `workspace:*` dep to `apps/backend/package.json` (+ `pnpm install`). The aliases are what pull the sources into the tsc program so `dist/libraries/providers/<id>/src/*.js` exists for the `register-provider-paths` runtime shim — skip them and the built backend crashes on the raw-TS copy in node_modules (boot-guard's OpenAPI drift gate catches this).
 7. [ ] Add the env-presence gate for the new provider in `AuthProviderManager.getProviders()` (`apps/backend/src/services/auth/providers/auth-provider.manager.ts`) so the login page can advertise it. For a dual-use channel-app provider (FACEBOOK/X/LINKEDIN pattern) the gate is the `<P>_SSO_ENABLED` flag AND the channel app env vars — not a separate login credential set.
 8. [ ] Frontend: add the provider's button component to `providerComponents` (`apps/frontend/src/components/auth/login.tsx`) and its callback-path fragment to the redirect map in `apps/frontend/src/proxy.ts`.
 9. [ ] Add/extend tests (`auth.adapter.spec.ts`, `auth-provider.manager.spec.ts`) and run `vitest run --root libraries/providers/kernel` + `vitest run --root apps/backend` — the conformance spec must pass with the new module registered.

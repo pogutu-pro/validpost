@@ -10,34 +10,34 @@
  *    tool name, fails here.
  *
  * 2. LIVE_EVAL=1 (opt-in, needs a real model key, kept OUT of PR CI): actually
- *    drives `postmill.generate(prompt)` per routing case and asserts the run
+ *    drives `validpost.generate(prompt)` per routing case and asserts the run
  *    delegated to the expected specialist (from the tool-call trace). This is the
  *    only layer that guarantees routing QUALITY (that tiering didn't regress which
  *    specialist handles a prompt). Run manually/scheduled — see the block below.
  */
 import { describe, it, expect, vi } from 'vitest';
 
-vi.mock('@postmill-ai/nestjs-libraries/chat/mastra.store', () => ({
+vi.mock('@validpost/nestjs-libraries/chat/mastra.store', () => ({
   pStore: { _type: 'mock.mastra.store' },
 }));
 
-import { LoadToolsService, SUPERVISOR_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/load.tools.service';
-import { pickTools } from '@postmill-ai/nestjs-libraries/chat/agents/specialist-tool-subset';
-import { CONTENT_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/content.agent';
-import { MEDIA_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/media.agent';
-import { ANALYTICS_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/analytics.agent';
-import { OPS_TOOL_NAMES } from '@postmill-ai/nestjs-libraries/chat/agents/ops.agent';
-import { ToolFirewallService } from '@postmill-ai/nestjs-libraries/ai/governance/tool-firewall.service';
-import { toolList } from '@postmill-ai/nestjs-libraries/chat/tools/tool.list';
+import { LoadToolsService, SUPERVISOR_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/load.tools.service';
+import { pickTools } from '@validpost/nestjs-libraries/chat/agents/specialist-tool-subset';
+import { CONTENT_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/content.agent';
+import { MEDIA_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/media.agent';
+import { ANALYTICS_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/analytics.agent';
+import { OPS_TOOL_NAMES } from '@validpost/nestjs-libraries/chat/agents/ops.agent';
+import { ToolFirewallService } from '@validpost/nestjs-libraries/ai/governance/tool-firewall.service';
+import { toolList } from '@validpost/nestjs-libraries/chat/tools/tool.list';
 import { ModuleRef } from '@nestjs/core';
-import { ContentAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/content.agent';
-import { MediaAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/media.agent';
-import { AnalyticsAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/analytics.agent';
-import { OpsAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/ops.agent';
-import { IntegrationValidationTool } from '@postmill-ai/nestjs-libraries/chat/tools/integration.validation.tool';
-import { IntegrationTriggerTool } from '@postmill-ai/nestjs-libraries/chat/tools/integration.trigger.tool';
+import { ContentAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/content.agent';
+import { MediaAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/media.agent';
+import { AnalyticsAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/analytics.agent';
+import { OpsAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/ops.agent';
+import { IntegrationValidationTool } from '@validpost/nestjs-libraries/chat/tools/integration.validation.tool';
+import { IntegrationTriggerTool } from '@validpost/nestjs-libraries/chat/tools/integration.trigger.tool';
 
-import { CommsConfirmationGate } from '@postmill-ai/nestjs-libraries/chat/tools/comms-confirmation.gate';
+import { CommsConfirmationGate } from '@validpost/nestjs-libraries/chat/tools/comms-confirmation.gate';
 
 const stubRedis = () => {
   const store = new Map<string, string>();
@@ -447,13 +447,13 @@ describe('routing eval', () => {
   for (const testCase of ROUTING_CASES) {
     it(`${supervisorMode ? '[supervisor] ' : '[flat] '}${testCase.prompt} → ${testCase.expectedToolId}`, async () => {
       const service = await buildLoadToolsService();
-      const postmill = await service.agent();
+      const validpost = await service.agent();
 
       let toolSource: Record<string, any>;
       if (!supervisorMode || testCase.expectedSpecialist === 'supervisor') {
-        toolSource = await postmill.listTools();
+        toolSource = await validpost.listTools();
       } else {
-        const staticAgents = ((postmill as any).__getStaticAgents?.() ?? {}) as Record<string, any>;
+        const staticAgents = ((validpost as any).__getStaticAgents?.() ?? {}) as Record<string, any>;
         const specialist = staticAgents[testCase.expectedSpecialist];
         expect(specialist).toBeDefined();
         toolSource = await (specialist as any).listTools();
@@ -465,14 +465,14 @@ describe('routing eval', () => {
     });
   }
 
-  it('flat agent includes all expected tools directly on postmill', async () => {
+  it('flat agent includes all expected tools directly on validpost', async () => {
     // Isolate the env flip so a mid-test throw can't leak flat mode into sibling
     // tests (which read AGENT_SUPERVISOR_ENABLED at their own construction time).
     vi.stubEnv('AGENT_SUPERVISOR_ENABLED', 'false');
     try {
       const service = await buildLoadToolsService();
-      const postmill = await service.agent();
-      const tools = await postmill.listTools();
+      const validpost = await service.agent();
+      const tools = await validpost.listTools();
 
       for (const testCase of ROUTING_CASES) {
         const found = findToolById(tools, testCase.expectedToolId);
@@ -549,10 +549,10 @@ describe('routing eval', () => {
       if (testCase.expectedSpecialist === 'supervisor') continue;
       it(`[live] "${testCase.prompt}" delegates to ${testCase.expectedSpecialist}`, async () => {
         const service = await buildLoadToolsService();
-        const postmill = await service.agent();
-        expect(typeof (postmill as any).generate).toBe('function');
+        const validpost = await service.agent();
+        expect(typeof (validpost as any).generate).toBe('function');
 
-        const result: any = await (postmill as any).generate(testCase.prompt);
+        const result: any = await (validpost as any).generate(testCase.prompt);
         // Collect every tool/agent name touched during the run.
         const steps: any[] = result?.steps ?? result?.response?.steps ?? [];
         const calledNames = new Set<string>();

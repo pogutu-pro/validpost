@@ -6,13 +6,13 @@ import type {
   ArrowHead,
   LineCap,
   LineJoin,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/stroke-style';
-import { WARP_PRESETS } from '@postmill-ai/nestjs-libraries/media/designer-doc/warp';
+} from '@validpost/nestjs-libraries/media/designer-doc/stroke-style';
+import { WARP_PRESETS } from '@validpost/nestjs-libraries/media/designer-doc/warp';
 import type { DesignerElement } from '../designer.store';
 import { useBrandColors } from './use-brand-colors';
 import { ShadowSection, BackdropSection } from './shadow-section';
 import { FillSection } from './fill-section';
-import { cornerRadii } from '@postmill-ai/nestjs-libraries/media/designer-doc/shape-geometry';
+import { cornerRadii } from '@validpost/nestjs-libraries/media/designer-doc/shape-geometry';
 
 const CORNER_LABELS = [
   { key: 'tl', label: 'Top left', labelKey: 'designer_corner_top_left' },
@@ -20,7 +20,7 @@ const CORNER_LABELS = [
   { key: 'br', label: 'Bottom right', labelKey: 'designer_corner_bottom_right' },
   { key: 'bl', label: 'Bottom left', labelKey: 'designer_corner_bottom_left' },
 ];
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface ShapeInspectorProps {
   element: DesignerElement;

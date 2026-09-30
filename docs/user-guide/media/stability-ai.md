@@ -1,6 +1,6 @@
 # Stability AI
 
-**Stability AI** (`/media/stability-ai`) brings the Stable Image family of models into Postmill — open, enterprise-grade generative media for still-image creation. Its tagline is *“Open generative media for everyone.”*
+**Stability AI** (`/media/stability-ai`) brings the Stable Image family of models into ValidPost — open, enterprise-grade generative media for still-image creation. Its tagline is *“Open generative media for everyone.”*
 
 ## Where to configure
 

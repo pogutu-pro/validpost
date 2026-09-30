@@ -42,8 +42,8 @@ Six booleans: `wireguard`, `openvpn`, `ikev2`, `socks5`, `multiHop`, `killSwitch
 
 ```
 libraries/providers/<id>/
-  package.json            # name @postmill-ai/provider-<id>, main/types src/index.ts,
-                          # dep @postmill-ai/provider-kernel: workspace:*, script "test": "vitest run"
+  package.json            # name @validpost/provider-<id>, main/types src/index.ts,
+                          # dep @validpost/provider-kernel: workspace:*, script "test": "vitest run"
   src/index.ts            # default-exports ProviderModule[] array
   src/v1/index.ts         # re-export the module
   src/v1/metadata.ts      # ProviderMetadata (id, displayName, kind: 'action', hasModelList: false, ...)
@@ -109,13 +109,13 @@ Compressed delta over the universal flow in `agents/providers/overview.md`:
 1. Scaffold `libraries/providers/<id>/` per the layout above (copy `nordvpn` for a static catalog, `custom-proxy` for a user-supplied endpoint).
 2. Implement `VpnCapability`: `credentialFields`, all six `capabilities` flags, `validateConfig`, plus `proxyRegions`+`resolveProxyAuth` (static) or `resolveRegions`+`resolveProxyAuth` (dynamic); optional `healthCheck`.
 3. Export `<id>VpnModule` with `manifest.domain: 'vpn'`, `version: 'v1'`, `status: 'active'`; default-export the module array from `src/index.ts`.
-4. Register: dependency in `apps/backend/package.json`, two path mappings in `tsconfig.base.json` (`@postmill-ai/provider-<id>` and `/*`), import + spread in `apps/backend/src/providers.generated.ts` (hand-maintained, alphabetical), then `pnpm install`.
+4. Register: dependency in `apps/backend/package.json`, two path mappings in `tsconfig.base.json` (`@validpost/provider-<id>` and `/*`), import + spread in `apps/backend/src/providers.generated.ts` (hand-maintained, alphabetical), then `pnpm install`.
 5. Optionally add a featured seed row in `libraries/nestjs-libraries/src/database/seeds/featured-provider.seeder.ts` (`{ domain: 'vpn', providerId: '<id>', sortOrder: n }`).
 6. No controller, service, repository, schema, or frontend changes.
 
 ## Tests
 
-- Per-package: `pnpm --filter @postmill-ai/provider-<id> test` (vitest). Mirror the two existing specs:
+- Per-package: `pnpm --filter @validpost/provider-<id> test` (vitest). Mirror the two existing specs:
   - Conformance — `nordvpn/src/v1/__tests__/conformance.spec.ts`: `runDomainConformance('vpn', mod, { requiredMethods: ['validateConfig', 'resolveProxyAuth', 'healthCheck'], capabilityKeys: [...] })`.
   - Behavioral — `custom-proxy/src/v1/vpn.adapter.spec.ts`: mocked-`net` tests for `healthCheck`, plus `validateConfig` edge cases.
 - Global conformance — `libraries/providers/kernel/src/__tests__/all-providers.conformance.spec.ts` runs every module in `providerModules`; `REQUIRED_METHODS.vpn = ['validateConfig']`. Run `vitest run --root libraries/providers`.
@@ -123,11 +123,11 @@ Compressed delta over the universal flow in `agents/providers/overview.md`:
 
 ## Checklist
 
-- [ ] Package scaffolded under `libraries/providers/<id>/` with `package.json` (`@postmill-ai/provider-kernel: workspace:*`, `"test": "vitest run"`).
+- [ ] Package scaffolded under `libraries/providers/<id>/` with `package.json` (`@validpost/provider-kernel: workspace:*`, `"test": "vitest run"`).
 - [ ] `src/v1/vpn.adapter.ts` implements `VpnCapability` with a routable region source (`proxyRegions` or `resolveRegions`) and `resolveProxyAuth`; without one the provider is a badge-only entry that never routes.
 - [ ] `validateConfig` returns `{ valid, errors }` and covers every `required` credential field; `resolveProxyAuth` returns `null` on malformed creds.
 - [ ] Module manifest: `domain: 'vpn'`, `version: 'v1'`, `status: 'active'`; `create()` performs no I/O.
 - [ ] Registered in `apps/backend/package.json`, `tsconfig.base.json` (both path entries), and `apps/backend/src/providers.generated.ts` (alphabetical); `pnpm install` run.
 - [ ] `healthCheck` (if real) opens connections only to config-supplied host/port — SSRF validation is the service's job, not the adapter's.
-- [ ] Conformance spec + adapter unit spec added; `pnpm --filter @postmill-ai/provider-<id> test` and `vitest run --root libraries/providers` pass.
+- [ ] Conformance spec + adapter unit spec added; `pnpm --filter @validpost/provider-<id> test` and `vitest run --root libraries/providers` pass.
 - [ ] No backend controller/service/schema or frontend descriptor edits — verify the provider shows up via `GET /settings/vpn/config` and the region picker reflects static vs dynamic behavior.

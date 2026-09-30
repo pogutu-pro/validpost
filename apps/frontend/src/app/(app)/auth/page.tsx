@@ -1,10 +1,10 @@
-import { internalFetch } from '@postmill-ai/helpers/utils/internal.fetch';
+import { internalFetch } from '@validpost/helpers/utils/internal.fetch';
 export const dynamic = 'force-dynamic';
-import { Register } from '@postmill-ai/frontend/components/auth/register';
+import { Register } from '@validpost/frontend/components/auth/register';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getT } from '@postmill-ai/react/translation/get.translation.service.backend';
-import { LoginWithOidc } from '@postmill-ai/frontend/components/auth/login.with.oidc';
+import { getT } from '@validpost/react/translation/get.translation.service.backend';
+import { LoginWithOidc } from '@validpost/frontend/components/auth/login.with.oidc';
 export const metadata: Metadata = {
   title: `ValidPost Register`,
   description: '',

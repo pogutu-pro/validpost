@@ -25,8 +25,8 @@ whichever suits your environment.
 
 | Registry | Image | Notes |
 |---|---|---|
-| GitHub Container Registry | `ghcr.io/postmill-ai/postmill-app` | Used by the shipped `docker-compose.yaml`. No anonymous pull rate limit |
-| Docker Hub | `postmillai/postmill-app` | The same image. Anonymous pulls are subject to Docker Hub's rate limits |
+| GitHub Container Registry | `ghcr.io/pogutu-pro/validpost` | Used by the shipped `docker-compose.yaml`. No anonymous pull rate limit |
+| Docker Hub | `validpostai/validpost-app` | The same image. Anonymous pulls are subject to Docker Hub's rate limits |
 
 Every release is published to both as `:vX.Y.Z` and `:latest`, built for `linux/amd64` only.
 
@@ -38,22 +38,22 @@ digest from the registry you actually pull from.
 
 ## Service inventory
 
-### Application stack (`postmill-network`)
+### Application stack (`validpost-network`)
 
 | Service              | Image                                   | Port            | Purpose |
 |----------------------|-----------------------------------------|-----------------|---------|
-| `postmill`           | `ghcr.io/postmill-ai/postmill-app:latest` (or `postmillai/postmill-app:latest` — see [Container images](#container-images))  | `4007:5000`     | All-in-one app: nginx on :5000 routes `/api/*` → NestJS backend (:3000) and everything else → Next.js frontend (:4200); backend and frontend are internal-only |
-| `postmill-postgres`  | `postgres:17-alpine`                    | —               | Application database |
+| `validpost`           | `ghcr.io/pogutu-pro/validpost:latest` (or `validpostai/validpost-app:latest` — see [Container images](#container-images))  | `4007:5000`     | All-in-one app: nginx on :5000 routes `/api/*` → NestJS backend (:3000) and everything else → Next.js frontend (:4200); backend and frontend are internal-only |
+| `validpost-postgres`  | `postgres:17-alpine`                    | —               | Application database |
 | `spotlight`          | `ghcr.io/getsentry/spotlight:latest`    | `8969:8969`     | Sentry debug proxy (dev/monitoring) |
 
-**Postmill container environment** (the minimum required):
+**ValidPost container environment** (the minimum required):
 
 ```yaml
 MAIN_URL: 'http://localhost:4007'
 FRONTEND_URL: 'http://localhost:4007'
 NEXT_PUBLIC_BACKEND_URL: 'http://localhost:4007/api'
 JWT_SECRET: 'your-random-secret-here'
-DATABASE_URL: 'postgresql://postmill-user:postmill-password@postmill-postgres:5432/postmill-db-local'
+DATABASE_URL: 'postgresql://validpost-user:validpost-password@validpost-postgres:5432/validpost-db-local'
 # Redis is an external endpoint (for example, Upstash). Provide a redis:// or rediss:// URL.
 REDIS_URL: '${REDIS_URL}'
 BACKEND_INTERNAL_URL: 'http://localhost:3000'
@@ -68,23 +68,23 @@ API_LIMIT: 600
 
 | Network            | Type   | Services |
 |--------------------|--------|----------|
-| `postmill-network` | bridge | postmill, postmill-postgres, spotlight |
+| `validpost-network` | bridge | validpost, validpost-postgres, spotlight |
 
 ### Volumes
 
 | Volume               | Mount point               | Purpose |
 |----------------------|---------------------------|---------|
 | `postgres-volume`    | `/var/lib/postgresql/data` | Application Postgres data |
-| `postmill-config`    | `/config/`                | Application runtime config |
-| `postmill-uploads`   | `/uploads/`               | Uploaded media (always local) |
+| `validpost-config`    | `/config/`                | Application runtime config |
+| `validpost-uploads`   | `/uploads/`               | Uploaded media (always local) |
 
 The `:latest` tag shown above is suitable for quick-start only. In production, pin a specific
-version tag (for example, `ghcr.io/postmill-ai/postmill-app:v1.0.0`, or `postmillai/postmill-app:v1.0.0`
+version tag (for example, `ghcr.io/pogutu-pro/validpost:v1.0.0`, or `validpostai/validpost-app:v1.0.0`
 on Docker Hub) to get a known rollback target.
 
 ## Background jobs
 
-Background jobs are handled by Inngest. Set the required environment variables on the `postmill`
+Background jobs are handled by Inngest. Set the required environment variables on the `validpost`
 service:
 
 ```yaml
@@ -92,7 +92,7 @@ environment:
   USE_INNGEST: 'true'
   INNGEST_EVENT_KEY: '...'
   INNGEST_SIGNING_KEY: '...'
-  INNGEST_SERVE_ORIGIN: 'https://postmill.example.com'
+  INNGEST_SERVE_ORIGIN: 'https://validpost.example.com'
 ```
 
 For local development, use the Inngest dev server instead:
@@ -115,14 +115,14 @@ See [Inngest & Cron](./inngest-and-cron.md) for details.
 
 ### TLS reverse proxy
 
-The `postmill` service listens on port 5000 (HTTP). In production, place it behind a reverse proxy
+The `validpost` service listens on port 5000 (HTTP). In production, place it behind a reverse proxy
 with TLS termination (nginx, Caddy, Traefik, or your cloud load balancer).
 
 ```nginx
 # Example nginx
 server {
     listen 443 ssl;
-    server_name postmill.example.com;
+    server_name validpost.example.com;
 
     location / {
         proxy_pass http://127.0.0.1:4007;
@@ -140,7 +140,7 @@ permissions, or your orchestration platform's secret store.
 
 ### Backups
 
-At minimum, back up the `postgres-volume` volume and the `postmill-uploads` volume. See
+At minimum, back up the `postgres-volume` volume and the `validpost-uploads` volume. See
 [Backup & Retention](./backup-and-retention.md).
 
 ### Resource limits
@@ -149,7 +149,7 @@ Add resource constraints to the compose file for production:
 
 ```yaml
 services:
-  postmill:
+  validpost:
     deploy:
       resources:
         limits:
@@ -165,7 +165,7 @@ installed in the runtime image, so use `npx`:
 
 ```bash
 # Run inside the container once the image is up
-docker exec postmill npx --yes prisma@6.5.0 migrate deploy \
+docker exec validpost npx --yes prisma@6.5.0 migrate deploy \
   --schema ./libraries/nestjs-libraries/src/database/prisma/schema.prisma
 ```
 

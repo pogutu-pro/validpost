@@ -1,13 +1,13 @@
 # Integrations
 
-Postmill's **Integrations** pillar covers every social channel, messaging destination, and content network the app can post to. This page describes the integration model, how credentials are resolved, the capability matrix that drives the composer UI, the OAuth/token/cookie auth paths, and how per-channel VPN egress works.
+ValidPost's **Integrations** pillar covers every social channel, messaging destination, and content network the app can post to. This page describes the integration model, how credentials are resolved, the capability matrix that drives the composer UI, the OAuth/token/cookie auth paths, and how per-channel VPN egress works.
 
 ## Integration model
 
 A social integration is a connection between an organization and an external platform. The runtime pieces are:
 
 - **`Integration` row** — a connected channel (`providerIdentifier`, `internalId`, encrypted token/refresh token, posting times, groups, etc.).
-- **Provider adapter** — a versioned package under `libraries/providers/<provider>/` that implements the social domain contract (`@postmill-ai/provider-kernel`).
+- **Provider adapter** — a versioned package under `libraries/providers/<provider>/` that implements the social domain contract (`@validpost/provider-kernel`).
 - **`IntegrationManager`** — the central service (`libraries/nestjs-libraries/src/integrations/integration.manager.ts`) that enumerates providers, resolves credentials, builds the channel list, generates OAuth URLs, and dispatches provider tools.
 
 Resolution always goes through the [provider framework](./provider-framework.md): the manager asks `ProviderResolutionService` for the exact `(social, providerId, version)` module, and the adapter's pinned version is respected for already-connected channels even when the provider is later disabled for new connections.
@@ -89,7 +89,7 @@ Most social providers use OAuth 2.0 or OAuth 1.0a:
 Some providers do not use OAuth:
 
 - **API-token providers** (e.g. Telegram bots, Nostr) connect by pasting a token. The token is encrypted at rest and used directly.
-- **Browser-extension providers** (e.g. Instagram standalone) authenticate by extracting cookies via the Postmill browser extension. `POST /integrations/extension-refresh` accepts a signed JWT, verifies the integration id, and refreshes the stored cookie token.
+- **Browser-extension providers** (e.g. Instagram standalone) authenticate by extracting cookies via the ValidPost browser extension. `POST /integrations/extension-refresh` accepts a signed JWT, verifies the integration id, and refreshes the stored cookie token.
 - **Custom-instance providers** (e.g. Mastodon, Lemmy, PeerTube) may ask for an instance URL plus an access token.
 
 All stored credentials — OAuth tokens, refresh tokens, API tokens, cookies, and custom instance details — are encrypted with `EncryptionService` (AES-GCM, `v2:` prefix) before being written to the database.

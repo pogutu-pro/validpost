@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-vi.mock('@postmill-ai/helpers/utils/timer', () => ({
+vi.mock('@validpost/helpers/utils/timer', () => ({
   timer: vi.fn(async () => {}),
 }));
 import {

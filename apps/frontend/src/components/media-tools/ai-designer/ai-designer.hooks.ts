@@ -2,11 +2,11 @@
 
 import { useCallback } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import type {
   AiDesignerSessionDto,
   AiDesignerMessagePayload,
-} from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+} from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 
 export interface AiDesignerSessionHydrate {
   session: AiDesignerSessionDto;
@@ -61,4 +61,4 @@ export const useDeleteAiDesignerSession = () => {
 
 // Moved to media-tools/media-import.ts — six surfaces need it, not just this one.
 // Re-exported here so existing importers (and their specs) keep working.
-export { useImportStockMedia } from '@postmill-ai/frontend/components/media-tools/media-import';
+export { useImportStockMedia } from '@validpost/frontend/components/media-tools/media-import';

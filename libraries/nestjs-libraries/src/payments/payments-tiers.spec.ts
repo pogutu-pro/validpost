@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { pricing } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { PaymentsTier } from '@postmill-ai/provider-kernel';
+import { pricing } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { PaymentsTier } from '@validpost/provider-kernel';
 
 // The kernel cannot import pricing.ts, so it carries its own tier union. The
 // Record below is an exhaustiveness anchor: extending `PaymentsTier` without a

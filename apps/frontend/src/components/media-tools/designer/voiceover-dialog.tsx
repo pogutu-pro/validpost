@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { useMediaVoices } from './use-media-voices';
 
 interface VoiceoverDialogProps {

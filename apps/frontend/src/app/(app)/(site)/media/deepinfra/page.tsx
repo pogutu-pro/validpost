@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const DeepInfraStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/deepinfra/deepinfra-studio').then((m) => m.DeepInfraStudio),
+  () => import('@validpost/frontend/components/media-tools/deepinfra/deepinfra-studio').then((m) => m.DeepInfraStudio),
   { ssr: false }
 );
 

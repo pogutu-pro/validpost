@@ -1,17 +1,17 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
 import {
   RoleItem,
   useRoles,
   usePermissionsCatalog,
-} from '@postmill-ai/frontend/components/settings/roles/hooks/use-roles';
-import { RoleEditor } from '@postmill-ai/frontend/components/settings/roles/role-editor';
+} from '@validpost/frontend/components/settings/roles/hooks/use-roles';
+import { RoleEditor } from '@validpost/frontend/components/settings/roles/role-editor';
 
 interface EditorState {
   mode: 'create' | 'edit';

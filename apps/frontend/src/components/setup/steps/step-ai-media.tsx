@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { StepFrame } from '@postmill-ai/frontend/components/setup/step-frame';
-import { MediaProvidersTab } from '@postmill-ai/frontend/components/settings/media-providers/media-providers.tab';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { StepFrame } from '@validpost/frontend/components/setup/step-frame';
+import { MediaProvidersTab } from '@validpost/frontend/components/settings/media-providers/media-providers.tab';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export function StepAiMedia() {
   const t = useT();

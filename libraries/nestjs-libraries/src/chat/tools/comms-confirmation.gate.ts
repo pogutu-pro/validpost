@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { randomBytes } from 'node:crypto';
-import { RedisService } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { getAccess, parseOrg, parseUser } from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
-import { summarizeToolCall } from '@postmill-ai/nestjs-libraries/chat/tools/comms-action-summary';
+import { RedisService } from '@validpost/nestjs-libraries/redis/redis.service';
+import { getAccess, parseOrg, parseUser } from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
+import { summarizeToolCall } from '@validpost/nestjs-libraries/chat/tools/comms-action-summary';
 
 export type PendingAction = {
   confirmationId: string;

@@ -1,18 +1,18 @@
 'use client';
 
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import i18next from '@postmill-ai/react/translation/i18next';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
 import clsx from 'clsx';
 import type { FileItem } from './file-manager';
 import type { FolderItem } from './folder.utils';
-import { DataTable } from '@postmill-ai/frontend/components/ui/data-table';
-import type { Column } from '@postmill-ai/frontend/components/ui/data-table';
-import { useLongPress } from '@postmill-ai/frontend/components/ui/use-long-press';
+import { DataTable } from '@validpost/frontend/components/ui/data-table';
+import type { Column } from '@validpost/frontend/components/ui/data-table';
+import { useLongPress } from '@validpost/frontend/components/ui/use-long-press';
 
 /** Shape `useContextMenu().openAt` accepts. */
 type MenuEvent = {
@@ -175,7 +175,7 @@ export const FileList: FC<{
                 if (e.key === 'Enter') handleRename(file.id);
                 if (e.key === 'Escape') setRenamingId(null);
               }}
-              className="bg-transparent border-b border-[#2B5CD3] text-[13px] text-textColor outline-hidden"
+              className="bg-transparent border-b border-btnPrimary text-[13px] text-textColor outline-hidden"
             />
           );
         }
@@ -240,9 +240,9 @@ export const FileList: FC<{
             <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path
                 d="M2 4.5C2 3.39543 2.89543 2.5 4 2.5H5.93934C6.46977 2.5 6.97848 2.71071 7.35355 3.08579L8 3.73223C8.18935 3.92156 8.44705 4.02708 8.71573 4.02708H12C13.1046 4.02708 14 4.92251 14 6.02708V11.5C14 12.6046 13.1046 13.5 12 13.5H4C2.89543 13.5 2 12.6046 2 11.5V4.5Z"
-                fill={folder.color || '#2B5CD3'}
+                fill={folder.color || '#D42A66'}
                 fillOpacity="0.25"
-                stroke={folder.color || '#2B5CD3'}
+                stroke={folder.color || '#D42A66'}
                 strokeWidth="1.3"
               />
             </svg>

@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string, vars?: Record<string, unknown>) =>
     vars
       ? Object.entries(vars).reduce((s, [k, v]) => s.replace(`{{${k}}}`, String(v)), fallback)
@@ -22,7 +22,7 @@ vi.mock('next/navigation', () => ({
 let requestedStatus: string | undefined;
 let queueState: any;
 let widgetState: any;
-vi.mock('@postmill-ai/frontend/components/dashboard/hooks/useMediaJobs', () => ({
+vi.mock('@validpost/frontend/components/dashboard/hooks/useMediaJobs', () => ({
   useMediaJobsQueue: (status?: string) => {
     requestedStatus = status;
     return queueState;
@@ -32,7 +32,7 @@ vi.mock('@postmill-ai/frontend/components/dashboard/hooks/useMediaJobs', () => (
 
 // RenderQueue pulls in the composer, modals and toaster; the queue page's job is
 // the counts, the filter and paging, so stand it in.
-vi.mock('@postmill-ai/frontend/components/media-tools/studio-kit/render-queue', () => ({
+vi.mock('@validpost/frontend/components/media-tools/studio-kit/render-queue', () => ({
   RenderQueue: ({ jobs, variant, highlightJobId }: any) => (
     <div data-testid="render-queue" data-variant={variant} data-highlight={highlightJobId ?? ''}>
       {(jobs ?? []).map((j: any) => (

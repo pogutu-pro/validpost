@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createHmac } from 'node:crypto';
 
 const redisStore = new Map<string, string>();
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: {
     get: vi.fn(async (key: string) => redisStore.get(key) ?? null),
     set: vi.fn(async (key: string, value: string) => void redisStore.set(key, value)),
@@ -10,7 +10,7 @@ vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
 }));
 
 import { MetaCallbacksService, metaDeletionStatusKey } from './meta-callbacks.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 const b64url = (input: Buffer | string) =>
   Buffer.from(input).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -216,7 +216,7 @@ describe('MetaCallbacksService', () => {
       const result = await service.requestDeletion('facebook', 'fbuser-1');
       expect(usersRepository.getUserByProvider).toHaveBeenCalledWith('fbuser-1', 'FACEBOOK');
       expect(result.status.notes?.[0]).toContain('Facebook Login');
-      expect(result.status.notes?.[0]).toContain('support@postmill.ai');
+      expect(result.status.notes?.[0]).toContain('support@validpost.io');
     });
 
     it('does not look for SSO accounts for non-Facebook families', async () => {

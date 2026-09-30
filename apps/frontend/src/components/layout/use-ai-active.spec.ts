@@ -9,7 +9,7 @@ vi.mock('swr', () => ({
 }));
 
 const mockFetch = vi.fn();
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
@@ -41,7 +41,7 @@ describe('useAiActive', () => {
   });
 
   it('returns false when a provider is active but agent scope cannot resolve', () => {
-    // Sentry POSTMILL-APP-D/E/F: an active row with incomplete credentials
+    // Sentry VALIDPOST-APP-D/E/F: an active row with incomplete credentials
     // must NOT mount CopilotKit — the /copilot/chat handshake would reject
     // ("No default agent provided") and crash the client sync.
     mockData = { active: { identifier: 'google' }, agentReady: false };

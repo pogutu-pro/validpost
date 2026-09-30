@@ -1,6 +1,6 @@
 'use client';
 
-import { FileManager } from '@postmill-ai/frontend/components/files/file-manager';
+import { FileManager } from '@validpost/frontend/components/files/file-manager';
 
 export const MediaLayoutComponent = () => {
   return (

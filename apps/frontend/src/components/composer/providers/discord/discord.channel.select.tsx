@@ -1,10 +1,10 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
-import { useCustomProviderFunction } from '@postmill-ai/frontend/components/launches/helpers/use.custom.provider.function';
-import { Select } from '@postmill-ai/react/form/select';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useCustomProviderFunction } from '@validpost/frontend/components/launches/helpers/use.custom.provider.function';
+import { Select } from '@validpost/react/form/select';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const DiscordChannelSelect: FC<{
   name: string;
   onChange: (event: {

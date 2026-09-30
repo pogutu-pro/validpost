@@ -3,14 +3,14 @@
 import {
   PostComment,
   withProvider,
-} from '@postmill-ai/frontend/components/composer/providers/high.order.provider';
-import { FacebookDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/facebook.dto';
-import { Input } from '@postmill-ai/react/form/input';
-import { Select } from '@postmill-ai/react/form/select';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
-import { FacebookPreview } from '@postmill-ai/frontend/components/composer/providers/facebook/facebook.preview';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { FirstCommentField } from '@postmill-ai/frontend/components/composer/providers/shared/first-comment.field';
+} from '@validpost/frontend/components/composer/providers/high.order.provider';
+import { FacebookDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/facebook.dto';
+import { Input } from '@validpost/react/form/input';
+import { Select } from '@validpost/react/form/select';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
+import { FacebookPreview } from '@validpost/frontend/components/composer/providers/facebook/facebook.preview';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { FirstCommentField } from '@validpost/frontend/components/composer/providers/shared/first-comment.field';
 
 const postType = [
   {

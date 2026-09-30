@@ -4,30 +4,30 @@ import * as crypto from 'crypto';
 import dayjs from 'dayjs';
 import { Provider } from '@prisma/client';
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/users/users.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/users/users.service', () => ({
   UsersService: class {},
 }));
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service',
+  '@validpost/nestjs-libraries/database/prisma/organizations/organization.service',
   () => ({
     OrganizationService: class {},
   })
 );
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service',
+  '@validpost/nestjs-libraries/database/prisma/notifications/notification.service',
   () => ({
     NotificationService: class {},
   })
 );
-vi.mock('@postmill-ai/nestjs-libraries/services/email.service', () => ({
+vi.mock('@validpost/nestjs-libraries/services/email.service', () => ({
   EmailService: class {},
 }));
-vi.mock('@postmill-ai/backend/services/auth/providers/providers.manager', () => ({
+vi.mock('@validpost/backend/services/auth/providers/providers.manager', () => ({
   ProvidersManager: class {},
 }));
 
 const newsletterRegister = vi.fn().mockResolvedValue(undefined);
-vi.mock('@postmill-ai/nestjs-libraries/newsletter/newsletter.service', () => ({
+vi.mock('@validpost/nestjs-libraries/newsletter/newsletter.service', () => ({
   NewsletterService: {
     register: (...args: unknown[]) => newsletterRegister(...args),
   },
@@ -38,7 +38,7 @@ const authCheckerMock = {
   verifyJWT: vi.fn(),
   comparePassword: vi.fn(),
 };
-vi.mock('@postmill-ai/helpers/auth/auth.service', () => ({
+vi.mock('@validpost/helpers/auth/auth.service', () => ({
   AuthService: {
     signJWT: (payload: { id: string }) => authCheckerMock.signJWT(payload),
     verifyJWT: (token: string) => authCheckerMock.verifyJWT(token),
@@ -48,8 +48,8 @@ vi.mock('@postmill-ai/helpers/auth/auth.service', () => ({
 }));
 
 import { AuthService } from './auth.service';
-import { CreateOrgUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto';
-import { LoginUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto';
+import { CreateOrgUserDto } from '@validpost/nestjs-libraries/dtos/auth/create.org.user.dto';
+import { LoginUserDto } from '@validpost/nestjs-libraries/dtos/auth/login.user.dto';
 
 const sha256 = (value: string) =>
   crypto.createHash('sha256').update(value).digest('hex');
@@ -739,13 +739,13 @@ describe('AuthService (backend)', () => {
 
       expect(notificationService.sendEmail).toHaveBeenCalledWith(
         'gh@example.com',
-        'Welcome to Postmill',
-        expect.stringContaining('docs.postmill.ai/user-guide'),
-        'support@postmill.ai'
+        'Welcome to ValidPost',
+        expect.stringContaining('docs.validpost.io/user-guide'),
+        'support@validpost.io'
       );
       expect(notificationService.sendEmail).toHaveBeenCalledWith(
         'admin@example.com',
-        'New Postmill signup: gh@example.com',
+        'New ValidPost signup: gh@example.com',
         expect.stringContaining('Acme')
       );
     });
@@ -769,13 +769,13 @@ describe('AuthService (backend)', () => {
       process.env.ADMIN_NOTIFICATIONS_EMAIL = 'admin@example.com';
       providerInstance.getUser.mockResolvedValue({
         id: 'x-1',
-        email: 'x_123@x.login.postmill.local',
+        email: 'x_123@x.login.validpost.local',
       });
       usersService.getUserByProvider.mockResolvedValue(null);
       organizationService.createOrgAndUser.mockResolvedValue({
         id: 'org-3',
         users: [
-          { user: { id: 'user-3', email: 'x_123@x.login.postmill.local' } },
+          { user: { id: 'user-3', email: 'x_123@x.login.validpost.local' } },
         ],
       });
 
@@ -1001,13 +1001,13 @@ describe('AuthService (backend)', () => {
 
       expect(notificationService.sendEmail).toHaveBeenCalledWith(
         'x@example.com',
-        'Welcome to Postmill',
-        expect.stringContaining('docs.postmill.ai/user-guide'),
-        'support@postmill.ai'
+        'Welcome to ValidPost',
+        expect.stringContaining('docs.validpost.io/user-guide'),
+        'support@validpost.io'
       );
       expect(notificationService.sendEmail).toHaveBeenCalledWith(
         'admin@example.com',
-        'New Postmill signup: x@example.com',
+        'New ValidPost signup: x@example.com',
         expect.stringContaining('LOCAL')
       );
     });

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const LtxStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/ltx/ltx-studio').then((m) => m.LtxStudio),
+  () => import('@validpost/frontend/components/media-tools/ltx/ltx-studio').then((m) => m.LtxStudio),
   { ssr: false }
 );
 

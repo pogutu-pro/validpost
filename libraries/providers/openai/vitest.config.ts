@@ -4,10 +4,10 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@postmill-ai/provider-kernel': path.resolve(__dirname, '../kernel/src'),
-      '@postmill-ai/nestjs-libraries': path.resolve(__dirname, '../../nestjs-libraries/src'),
-      '@postmill-ai/helpers': path.resolve(__dirname, '../../helpers/src'),
-      '@postmill-ai/backend': path.resolve(__dirname, '../../../apps/backend/src'),
+      '@validpost/provider-kernel': path.resolve(__dirname, '../kernel/src'),
+      '@validpost/nestjs-libraries': path.resolve(__dirname, '../../nestjs-libraries/src'),
+      '@validpost/helpers': path.resolve(__dirname, '../../helpers/src'),
+      '@validpost/backend': path.resolve(__dirname, '../../../apps/backend/src'),
     },
   },
   test: {

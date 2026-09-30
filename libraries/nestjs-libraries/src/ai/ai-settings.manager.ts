@@ -1,13 +1,13 @@
 import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import type { Redis } from 'ioredis';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 import {
   parseQualified,
   qualify,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Cross-replica cache invalidation channel (A3).
 const AI_INVALIDATE_CHANNEL = 'config:invalidate:ai';

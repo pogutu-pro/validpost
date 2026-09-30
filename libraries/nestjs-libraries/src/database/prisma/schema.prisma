@@ -1052,7 +1052,7 @@ model OAuthAuthorization {
   @@index([revokedAt])
 }
 
-// "Postmill ID" first-party federation: this instance's RS256 signing identity for
+// "ValidPost ID" first-party federation: this instance's RS256 signing identity for
 // id_tokens issued to the pinned first-party apps (e.g. the template store). Single
 // row, auto-generated on first use — privateKeyEnc is an EncryptionService `v2:`
 // AES-GCM blob holding the RSA private PEM. Delete the row to rotate.

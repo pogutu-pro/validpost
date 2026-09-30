@@ -87,13 +87,13 @@ describe('DiscordCommsAdapter', () => {
       expect(msg.ackResponse).toEqual({ type: 1 });
     });
 
-    it('maps a /postmill command to a message with an ephemeral type-4 ack', () => {
+    it('maps a /validpost command to a message with an ephemeral type-4 ack', () => {
       const [msg] = adapter.parseInbound(
         Buffer.from(
           JSON.stringify({
             type: 2,
             id: 'int-1',
-            data: { name: 'postmill', options: [{ name: 'message', value: 'hello' }] },
+            data: { name: 'validpost', options: [{ name: 'message', value: 'hello' }] },
             user: { id: 'U1' },
           }),
         ),
@@ -133,13 +133,13 @@ describe('DiscordCommsAdapter', () => {
     expect(result).toEqual({ messageId: 'M1', externalChannelId: 'C9' });
   });
 
-  it('provisions the global /postmill command via POST (not PUT)', async () => {
+  it('provisions the global /validpost command via POST (not PUT)', async () => {
     fetchMock.mockResolvedValueOnce(jsonResponse({ id: 'cmd-1' }));
     await adapter.provision();
     expect(fetchMock.mock.calls[0][0]).toContain('/applications/app-1/commands');
     expect(fetchMock.mock.calls[0][1].method).toBe('POST');
     expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toMatchObject({
-      name: 'postmill',
+      name: 'validpost',
       options: [{ name: 'message', required: true, type: 3, description: expect.any(String) }],
     });
   });

@@ -1,8 +1,8 @@
 'use client';
 
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { SettingsGate } from '@postmill-ai/frontend/components/settings/settings-gate';
-import { SignaturesComponent } from '@postmill-ai/frontend/components/settings/signatures.component';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { SettingsGate } from '@validpost/frontend/components/settings/settings-gate';
+import { SignaturesComponent } from '@validpost/frontend/components/settings/signatures.component';
 
 export default function Page() {
   const user = useUser();

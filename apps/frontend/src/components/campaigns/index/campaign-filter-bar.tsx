@@ -2,8 +2,8 @@
 
 import { FC, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import type { Campaign } from '@postmill-ai/frontend/components/campaigns/campaign-types';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import type { Campaign } from '@validpost/frontend/components/campaigns/campaign-types';
 
 export type CampaignSort =
   | 'created'
@@ -180,7 +180,7 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
             <div className="flex items-center gap-[8px]">
               <div className="text-[16px] font-[600]">{t('filters', 'Filters')}</div>
               {activeCount > 0 && (
-                <span className="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#2B5CD3] text-white text-[11px] font-[600] flex items-center justify-center">
+                <span className="min-w-[20px] h-[20px] px-[6px] rounded-full bg-btnPrimary text-white text-[11px] font-[600] flex items-center justify-center">
                   {activeCount}
                 </span>
               )}
@@ -189,7 +189,7 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
               type="button"
               aria-label={t('close', 'Close')}
               onClick={() => setSheetOpen(false)}
-              className="w-[32px] h-[32px] flex items-center justify-center rounded-[8px] text-newTableText hover:bg-[#2B5CD3]/15 hover:text-textColor transition-all"
+              className="w-[32px] h-[32px] flex items-center justify-center rounded-[8px] text-newTableText hover:bg-btnPrimary/15 hover:text-textColor transition-all"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path
@@ -227,7 +227,7 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
               <div className="flex items-center justify-between min-h-[16px] mb-[6px]">
                 <div className="flex items-center gap-[6px]">
                   {filters.status !== DEFAULT_CAMPAIGN_FILTERS.status && (
-                    <span className="w-[6px] h-[6px] rounded-full bg-[#2B5CD3]" />
+                    <span className="w-[6px] h-[6px] rounded-full bg-btnPrimary" />
                   )}
                   <div className="text-[12px] font-[600] text-newTableText">
                     {t('status', 'Status:')}
@@ -252,8 +252,8 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
                     className={clsx(
                       'flex-1 h-[42px] px-[12px] flex justify-center items-center rounded-[8px] transition-all cursor-pointer text-[14px] font-[500] border',
                       filters.status === o.value
-                        ? 'border-[#2B5CD3] bg-[#2B5CD3]/15 text-btnPrimaryAccent'
-                        : 'bg-newBgColorInner border-newTableBorder text-textColor hover:border-[#2B5CD3]/50 hover:text-btnPrimaryAccent'
+                        ? 'border-btnPrimary bg-btnPrimary/15 text-btnPrimaryAccent'
+                        : 'bg-newBgColorInner border-newTableBorder text-textColor hover:border-btnPrimary/50 hover:text-btnPrimaryAccent'
                     )}
                   >
                     {o.label}
@@ -268,7 +268,7 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
                 <div className="flex items-center justify-between min-h-[16px] mb-[6px]">
                   <div className="flex items-center gap-[6px]">
                     {filters.client && (
-                      <span className="w-[6px] h-[6px] rounded-full bg-[#2B5CD3]" />
+                      <span className="w-[6px] h-[6px] rounded-full bg-btnPrimary" />
                     )}
                     <div className="text-[12px] font-[600] text-newTableText">
                       {t('client', 'Client')}
@@ -305,7 +305,7 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
                 <div className="flex items-center justify-between min-h-[16px] mb-[6px]">
                   <div className="flex items-center gap-[6px]">
                     {filters.tags.length > 0 && (
-                      <span className="w-[6px] h-[6px] rounded-full bg-[#2B5CD3]" />
+                      <span className="w-[6px] h-[6px] rounded-full bg-btnPrimary" />
                     )}
                     <div className="text-[12px] font-[600] text-newTableText">
                       {t('tags', 'Tags')}
@@ -332,8 +332,8 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
                         className={clsx(
                           'px-[12px] py-[6px] rounded-full text-[12px] border transition-all',
                           on
-                            ? 'border-[#2B5CD3] bg-[#2B5CD3]/15 text-btnPrimaryAccent'
-                            : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:border-[#2B5CD3]/50 hover:text-btnPrimaryAccent'
+                            ? 'border-btnPrimary bg-btnPrimary/15 text-btnPrimaryAccent'
+                            : 'bg-newBgColorInner border-newTableBorder text-newTableText hover:border-btnPrimary/50 hover:text-btnPrimaryAccent'
                         )}
                       >
                         {tag}
@@ -351,7 +351,7 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
               type="button"
               onClick={() => set({ status: DEFAULT_CAMPAIGN_FILTERS.status, client: '', tags: [] })}
               disabled={activeCount === 0}
-              className="flex-1 h-[40px] rounded-[8px] border border-newTableBorder text-[14px] font-[500] text-textColor hover:bg-[#2B5CD3]/10 transition-all disabled:opacity-40 disabled:cursor-default disabled:hover:bg-transparent"
+              className="flex-1 h-[40px] rounded-[8px] border border-newTableBorder text-[14px] font-[500] text-textColor hover:bg-btnPrimary/10 transition-all disabled:opacity-40 disabled:cursor-default disabled:hover:bg-transparent"
             >
               {activeCount > 0
                 ? t('clear_all_count', 'Clear all ({{count}})', { count: activeCount })
@@ -360,7 +360,7 @@ export const CampaignFilterBar: FC<CampaignFilterBarProps> = ({
             <button
               type="button"
               onClick={() => setSheetOpen(false)}
-              className="flex-1 h-[40px] rounded-[8px] bg-[#2B5CD3] text-white text-[14px] font-[600] hover:opacity-90 transition-all"
+              className="flex-1 h-[40px] rounded-[8px] bg-btnPrimary text-white text-[14px] font-[600] hover:opacity-90 transition-all"
             >
               {t('done', 'Done')}
             </button>

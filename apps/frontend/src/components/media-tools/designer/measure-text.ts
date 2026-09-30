@@ -2,7 +2,7 @@ import {
   fitTextToBox,
   type FittedText,
   type MeasureText,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/fit-text';
+} from '@validpost/nestjs-libraries/media/designer-doc/fit-text';
 import type { DesignerElement } from './designer.store';
 
 /**

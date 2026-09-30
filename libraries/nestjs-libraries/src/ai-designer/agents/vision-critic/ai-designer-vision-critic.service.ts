@@ -1,4 +1,4 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import sharp from 'sharp';
 import {
@@ -6,16 +6,16 @@ import {
   type InProcessHandler,
 } from '@reaatech/agent-mesh-router';
 import type { AgentResponse, ContextPacket } from '@reaatech/agent-mesh';
-import { AiDefaultsService } from '@postmill-ai/nestjs-libraries/ai/defaults/ai-defaults.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
+import { AiDefaultsService } from '@validpost/nestjs-libraries/ai/defaults/ai-defaults.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
 import {
   isLocalStorageUrl,
   loadVisionImageBytes,
   readLocalUpload,
   resolveVisionImageUrl,
-} from '@postmill-ai/nestjs-libraries/ai/vision-image-url';
-import { isSafePublicHttpsUrl } from '@postmill-ai/nestjs-libraries/dtos/webhooks/webhook.url.validator';
+} from '@validpost/nestjs-libraries/ai/vision-image-url';
+import { isSafePublicHttpsUrl } from '@validpost/nestjs-libraries/dtos/webhooks/webhook.url.validator';
 import type {
   DesignPlan,
   Fix,

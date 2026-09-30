@@ -3,7 +3,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import React from 'react';
 import { EffectsList } from './panels/effects-list';
 import { createDesignerStore, type DesignerElement } from './designer.store';
-import { LAYER_STYLE_DESCRIPTORS } from '@postmill-ai/nestjs-libraries/media/designer-doc/layer-style-descriptors';
+import { LAYER_STYLE_DESCRIPTORS } from '@validpost/nestjs-libraries/media/designer-doc/layer-style-descriptors';
 
 /**
  * Layer styles were add-only: the Layer Style menu applied `defaultStyle` and
@@ -11,14 +11,14 @@ import { LAYER_STYLE_DESCRIPTORS } from '@postmill-ai/nestjs-libraries/media/des
  * that was missing, and the schema bounds it has to stay inside.
  */
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
       vars ? d.replace(/\{\{(\w+)\}\}/g, (_m, k) => String(vars[k])) : d,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({ orgId: 'org-1' }),
 }));
 

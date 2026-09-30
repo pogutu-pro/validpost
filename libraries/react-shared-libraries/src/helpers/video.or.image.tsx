@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { clsx } from 'clsx';
-import { isVideoPath } from '@postmill-ai/helpers/utils/video.extensions';
+import { isVideoPath } from '@validpost/helpers/utils/video.extensions';
 export const VideoOrImage: FC<{
   src: string;
   autoplay: boolean;

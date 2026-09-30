@@ -3,28 +3,28 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 
-import type { DashboardSummary } from '@postmill-ai/frontend/components/dashboard/hooks/useDashboardSummary';
+import type { DashboardSummary } from '@validpost/frontend/components/dashboard/hooks/useDashboardSummary';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string, vars?: Record<string, unknown>) =>
     vars
       ? Object.entries(vars).reduce((s, [k, v]) => s.replace(`{{${k}}}`, String(v)), fallback)
       : fallback,
 }));
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({
     tier: { team_members: 5, brand_kits: 1, api: true, webhooks: true, campaigns: true },
   }),
 }));
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => ({ hasPermission: () => true, isResolved: true }),
 }));
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({ isGeneral: true, billingEnabled: true }),
 }));
 
 let summary: Partial<DashboardSummary> | undefined;
-vi.mock('@postmill-ai/frontend/components/dashboard/hooks/useDashboardSummary', () => ({
+vi.mock('@validpost/frontend/components/dashboard/hooks/useDashboardSummary', () => ({
   useDashboardSummary: () => ({ data: summary }),
 }));
 

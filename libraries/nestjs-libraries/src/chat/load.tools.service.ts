@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
-import { pStore } from '@postmill-ai/nestjs-libraries/chat/mastra.store';
+import { pStore } from '@validpost/nestjs-libraries/chat/mastra.store';
 import { array, object, string } from 'zod';
 import { ModuleRef } from '@nestjs/core';
-import { toolList } from '@postmill-ai/nestjs-libraries/chat/tools/tool.list';
+import { toolList } from '@validpost/nestjs-libraries/chat/tools/tool.list';
 import dayjs from 'dayjs';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { ToolFirewallService } from '@postmill-ai/nestjs-libraries/ai/governance/tool-firewall.service';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
-import { resolveOrgIdFromModelContext } from '@postmill-ai/nestjs-libraries/chat/agents/resolve-org-context';
-import { pickTools } from '@postmill-ai/nestjs-libraries/chat/agents/specialist-tool-subset';
-import { getAccess } from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
-import { ContentAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/content.agent';
-import { MediaAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/media.agent';
-import { AnalyticsAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/analytics.agent';
-import { OpsAgentBuilder } from '@postmill-ai/nestjs-libraries/chat/agents/ops.agent';
-import { CommsConfirmationGate } from '@postmill-ai/nestjs-libraries/chat/tools/comms-confirmation.gate';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { ToolFirewallService } from '@validpost/nestjs-libraries/ai/governance/tool-firewall.service';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
+import { resolveOrgIdFromModelContext } from '@validpost/nestjs-libraries/chat/agents/resolve-org-context';
+import { pickTools } from '@validpost/nestjs-libraries/chat/agents/specialist-tool-subset';
+import { getAccess } from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
+import { ContentAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/content.agent';
+import { MediaAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/media.agent';
+import { AnalyticsAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/analytics.agent';
+import { OpsAgentBuilder } from '@validpost/nestjs-libraries/chat/agents/ops.agent';
+import { CommsConfirmationGate } from '@validpost/nestjs-libraries/chat/tools/comms-confirmation.gate';
 
 // The supervisor holds only this tool directly; specialists partition the
 // rest. Exported so the MCP/A2A tool-union and the parity eval can build the full
@@ -279,7 +279,7 @@ ${brandVoice}${currentView}${surface}
       Global information:
         - Date (UTC): ${dayjs().format('YYYY-MM-DD HH:mm:ss')}
 ${brandVoice}${currentView}${surface}
-      You are the Postmill supervisor agent. Your job is to understand the user's intent, then route to the correct specialist agent. You own one tool directly: integrationList — call it yourself whenever the user asks which channels are connected, how many channels are configured, or needs a channel id. "Channels" are the workspace's connected social accounts.
+      You are the ValidPost supervisor agent. Your job is to understand the user's intent, then route to the correct specialist agent. You own one tool directly: integrationList — call it yourself whenever the user asks which channels are connected, how many channels are configured, or needs a channel id. "Channels" are the workspace's connected social accounts.
 
       Specialists:
         - content — drafts, rewriting, brand-voice copy, RAG/brand-memory searches, and the research-grounded generator.
@@ -311,8 +311,8 @@ ${brandVoice}${currentView}${surface}
 
     if (!supervisorEnabled) {
       return new Agent({
-        id: 'postmill',
-        name: 'postmill',
+        id: 'validpost',
+        name: 'validpost',
         description: 'Agent that helps manage and schedule social media posts for users',
         instructions: this._flatInstructions.bind(this),
         model: (context: any) =>
@@ -337,8 +337,8 @@ ${brandVoice}${currentView}${surface}
     const supervisorTools = pickTools(tools, SUPERVISOR_TOOL_NAMES);
 
     return new Agent({
-      id: 'postmill',
-      name: 'postmill',
+      id: 'validpost',
+      name: 'validpost',
       description: 'Supervisor agent that routes intent to domain specialists',
       instructions: this._supervisorInstructions.bind(this),
       model: (context: any) =>

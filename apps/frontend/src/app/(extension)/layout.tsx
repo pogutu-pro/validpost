@@ -3,14 +3,14 @@ import '../tailwind.css';
 import '../global.scss';
 import 'react-tooltip/dist/react-tooltip.css';
 import '@copilotkit/react-ui/styles.css';
-import LayoutContext from '@postmill-ai/frontend/components/layout/layout.context';
+import LayoutContext from '@validpost/frontend/components/layout/layout.context';
 import { ReactNode } from 'react';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import clsx from 'clsx';
-import { VariableContextComponent } from '@postmill-ai/react/helpers/variable.context';
-import { NO_PAYMENTS } from '@postmill-ai/react/helpers/variable.context';
-import { paymentsVariables } from '@postmill-ai/frontend/app/payments.vars';
-import UtmSaver from '@postmill-ai/helpers/utils/utm.saver';
+import { VariableContextComponent } from '@validpost/react/helpers/variable.context';
+import { NO_PAYMENTS } from '@validpost/react/helpers/variable.context';
+import { paymentsVariables } from '@validpost/frontend/app/payments.vars';
+import UtmSaver from '@validpost/helpers/utils/utm.saver';
 
 const jakartaSans = Plus_Jakarta_Sans({
   weight: ['600', '500'],
@@ -23,6 +23,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body
@@ -38,9 +39,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
           discordUrl={process.env.NEXT_PUBLIC_DISCORD_SUPPORT!}
           frontEndUrl={process.env.FRONTEND_URL!}
           isGeneral={!!process.env.IS_GENERAL}
-          genericOauth={process.env.POSTMILL_GENERIC_OAUTH === 'true'}
-          oauthLogoUrl={process.env.NEXT_PUBLIC_POSTMILL_OAUTH_LOGO_URL!}
-          oauthDisplayName={process.env.NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME!}
+          genericOauth={process.env.VALIDPOST_GENERIC_OAUTH === 'true'}
+          oauthLogoUrl={process.env.NEXT_PUBLIC_VALIDPOST_OAUTH_LOGO_URL!}
+          oauthDisplayName={process.env.NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME!}
           uploadDirectory={process.env.NEXT_PUBLIC_UPLOAD_STATIC_DIRECTORY!}
           mainUrl={process.env.MAIN_URL || ''}
           mcpUrl={process.env.MCP_URL}

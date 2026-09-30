@@ -2,12 +2,12 @@ import type {
   DesignerDoc,
   DesignerElement,
   DesignerOutput,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 import { estimateWrappedLines } from '../agents/composer/measure-text';
 import {
   getSafeZoneInset,
   groupKeyOf,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/reflow';
+} from '@validpost/nestjs-libraries/media/designer-doc/reflow';
 import type { DesignPlan } from '../ai-designer.types';
 
 /**

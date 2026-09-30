@@ -18,15 +18,15 @@ const mockT = vi.fn((_key: string, fallback?: string, opts?: Record<string, any>
   return fallback;
 });
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
 
@@ -35,7 +35,7 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
 // and only stub the decision hook + useModals (the config form opens through
 // openModal — no ModalManager is mounted in this suite, so we capture the call
 // and render `children` manually where the form itself is under test).
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', async (importOriginal) => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', async (importOriginal) => ({
   ...((await importOriginal()) as any),
   useDecisionModal: () => ({ open: mockDecisionOpen }),
   useModals: () => ({
@@ -45,13 +45,13 @@ vi.mock('@postmill-ai/frontend/components/layout/new-modal', async (importOrigin
   }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/shared/provider-icon', () => ({
+vi.mock('@validpost/frontend/components/shared/provider-icon', () => ({
   default: ({ identifier, name }: { identifier: string; name: string }) => (
     <span data-testid="provider-icon" data-identifier={identifier}>{name}</span>
   ),
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/shared/use-provider-catalog', () => ({
+vi.mock('@validpost/frontend/components/settings/shared/use-provider-catalog', () => ({
   useProviderCatalog: () => ({ data: [] }),
   selectableVersions: () => [],
   latestActiveVersion: () => undefined,

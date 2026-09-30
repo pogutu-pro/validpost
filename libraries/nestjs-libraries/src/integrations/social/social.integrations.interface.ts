@@ -1,6 +1,6 @@
 /**
  * Re-export shim — the social provider types were relocated into
- * `@postmill-ai/provider-kernel` (step 7.5.2) so provider packages import them from
+ * `@validpost/provider-kernel` (step 7.5.2) so provider packages import them from
  * the kernel. The ~8 nestjs-libraries consumers and the bridge are unchanged.
  */
 export type {
@@ -19,4 +19,4 @@ export type {
   ISocialMediaComments,
   FetchPageInformationResult,
   SocialProvider,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';

@@ -1,17 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
-import { FullscreenButton } from '@postmill-ai/frontend/components/media-tools/fullscreen-button';
-import { useFullscreenSurface } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
+import { FullscreenButton } from '@validpost/frontend/components/media-tools/fullscreen-button';
+import { useFullscreenSurface } from '@validpost/frontend/components/media-tools/use-fullscreen';
 import { Storyboard } from './storyboard';
 import { TalkingPhoto } from './talking-photo';
 import { Voiceover } from './voiceover';
 import { Translate } from './translate';
 import { RenderQueue } from './render-queue';
-import { StudioLanding } from '@postmill-ai/frontend/components/media-tools/studio-kit/studio-landing';
+import { StudioLanding } from '@validpost/frontend/components/media-tools/studio-kit/studio-landing';
 import { HEYGEN_LANDING } from './landing';
 import { useHeygenStatus, useHeygenAvatars, useHeygenVoices, useHeygenJobs } from './use-heygen';
 
@@ -41,7 +41,7 @@ export function HeyGenStudio() {
   if (!status) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2B5CD3]" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-btnPrimary" />
       </div>
     );
   }

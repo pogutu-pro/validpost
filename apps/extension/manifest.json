@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Postmill",
+  "name": "ValidPost",
+  "author": "Stratnovo",
   "version": "2.0.0",
-  "description": "Postmill browser extension for social media scheduling",
+  "description": "ValidPost browser extension for social media scheduling",
   "icons": {
     "32": "icon-32.png",
     "128": "icon-128.png"
@@ -21,7 +22,7 @@
     "matches": [
       "http://localhost/*",
       "https://localhost/*",
-      "https://*.postmill.ai/*"
+      "https://*.validpost.io/*"
     ]
   }
 }

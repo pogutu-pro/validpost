@@ -9,7 +9,7 @@ import { createFetchError } from '../../fetch-error';
 import {
   ContentPackConfigResponse,
   ContentPackProviderInfo,
-} from '@postmill-ai/frontend/components/settings/content-packs/hooks/useContentPacksConfig';
+} from '@validpost/frontend/components/settings/content-packs/hooks/useContentPacksConfig';
 
 /**
  * Content Packs provider settings surface descriptor (Provider Settings Kit).
@@ -22,7 +22,7 @@ import {
  *      packs.
  *   2. "Primary" is a single org-wide POINTER (`Organization.activeContentPack
  *      Identifier`), not a per-row flag. Making a premium pack Primary uses the
- *      built-in `set-active` route. Reverting to the free "Postmill (Default)"
+ *      built-in `set-active` route. Reverting to the free "ValidPost (Default)"
  *      pack is a SEPARATE `/deactivate` endpoint that has no per-row equivalent,
  *      so the tab renders that control itself via the panel's `children` slot.
  *

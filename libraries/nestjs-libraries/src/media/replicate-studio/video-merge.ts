@@ -3,8 +3,8 @@ import { promisify } from 'util';
 import { writeFile, unlink, mkdtemp, rm, readFile } from 'fs/promises';
 import { join } from 'path';
 import { tmpdir } from 'os';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
-import type { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
+import type { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
 
 const execFileAsync = promisify(execFile);
 

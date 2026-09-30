@@ -2,11 +2,11 @@
 
 import React, { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { Slider } from '@postmill-ai/react/form/slider';
-import { Select } from '@postmill-ai/react/form/select';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { Slider } from '@validpost/react/form/slider';
+import { Select } from '@validpost/react/form/select';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface LanguageProfile {
   instructions?: string;

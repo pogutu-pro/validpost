@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: {
     send: vi.fn(),
     createFunction: vi.fn(),
   },
 }));
 
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { mediaRenderEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { mediaRenderEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
 import { createMediaRender } from './media-render';
 import { createMockStep, captureFunctionHandler } from '../test/step.mock';
 

@@ -21,9 +21,9 @@ import {
   ProviderModule,
   WebhookReceipt,
   planUnitAmountCents,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
-const SERVICE_TAG = 'postmill';
+const SERVICE_TAG = 'validpost';
 
 /**
  * Stripe payments adapter — the vendor-facing half of the former
@@ -237,7 +237,7 @@ export class StripePaymentsAdapter implements PaymentsCapability {
   }
 
   private _email(email: string): string {
-    return email.indexOf('@') > -1 ? email : `${email}@postmill.ai`;
+    return email.indexOf('@') > -1 ? email : `${email}@validpost.io`;
   }
 
   // ---------------------------------------------------------------- catalog

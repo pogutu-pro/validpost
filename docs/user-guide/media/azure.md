@@ -1,6 +1,6 @@
 # Azure OpenAI
 
-**Azure OpenAI** (`/media/azure`) brings Microsoft Azure's managed OpenAI service into Postmill, letting you generate images with DALL·E and gpt-image deployments through Azure's enterprise AI infrastructure.
+**Azure OpenAI** (`/media/azure`) brings Microsoft Azure's managed OpenAI service into ValidPost, letting you generate images with DALL·E and gpt-image deployments through Azure's enterprise AI infrastructure.
 
 ## Where to configure
 

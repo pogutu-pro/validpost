@@ -2,10 +2,10 @@
 
 import { FC } from 'react';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // The default heading colour (primary blue). A null value means "default".
-export const DEFAULT_POST_COLOR = '#2b5cd3';
+export const DEFAULT_POST_COLOR = '#D42A66';
 
 const PRESET_COLORS = [
   '#e5484d', // red
@@ -34,7 +34,7 @@ const Swatch: FC<{
     style={{ backgroundColor: color }}
     className={clsx(
       'w-[28px] h-[28px] rounded-full flex items-center justify-center transition-transform hover:scale-110 outline-hidden',
-      selected && 'ring-2 ring-offset-2 ring-offset-newBgColorInner ring-[#2B5CD3]'
+      selected && 'ring-2 ring-offset-2 ring-offset-newBgColorInner ring-btnPrimary'
     )}
   >
     {selected && (
@@ -85,7 +85,7 @@ export const ColorPicker: FC<{
         <span
           className={clsx(
             'w-[28px] h-[28px] rounded-full border border-newTableBorder overflow-hidden flex items-center justify-center',
-            normalized && !isPreset && 'ring-2 ring-offset-2 ring-offset-newBgColorInner ring-[#2B5CD3]'
+            normalized && !isPreset && 'ring-2 ring-offset-2 ring-offset-newBgColorInner ring-btnPrimary'
           )}
           style={{ backgroundColor: normalized && !isPreset ? normalized : 'transparent' }}
         >

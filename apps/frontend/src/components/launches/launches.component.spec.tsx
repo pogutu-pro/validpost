@@ -14,10 +14,10 @@ let integrationsLoading = true;
 // returns `isLoading: true`, so the component short-circuits to the loading
 // state. The mount `useEffect` (which owns the `isSameOrigin` logic under test)
 // still runs because it is declared above that early return.
-vi.mock('@postmill-ai/frontend/components/launches/calendar.context', () => ({
+vi.mock('@validpost/frontend/components/launches/calendar.context', () => ({
   CalendarWeekProvider: ({ children }: any) => <>{children}</>,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/calendar', () => ({
+vi.mock('@validpost/frontend/components/launches/calendar', () => ({
   useCalendar: () => ({ startDate: '', endDate: '', posts: [] }),
 }));
 // `LaunchesAgentContext` pulls useCalendar from the aliased path, which resolves
@@ -28,13 +28,13 @@ vi.mock('./calendar', () => ({
   Calendar: () => null,
   useCalendar: () => ({ startDate: null, endDate: null, posts: [] }),
 }));
-vi.mock('@postmill-ai/frontend/components/agent/agent-context-bridge', () => ({
+vi.mock('@validpost/frontend/components/agent/agent-context-bridge', () => ({
   pushAgentUiContext: () => () => {},
 }));
-vi.mock('@postmill-ai/frontend/components/launches/filters', () => ({
+vi.mock('@validpost/frontend/components/launches/filters', () => ({
   Filters: () => null,
 }));
-vi.mock('@postmill-ai/frontend/components/layout/loading', () => ({
+vi.mock('@validpost/frontend/components/layout/loading', () => ({
   LoadingComponent: () => <div data-testid="loading" />,
 }));
 vi.mock('next/navigation', () => ({
@@ -42,27 +42,27 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ replace: mockReplace }),
   usePathname: () => '/posts',
 }));
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: mockOpenModal }),
 }));
-vi.mock('@postmill-ai/frontend/components/launches/post-detail/post.detail.modal', () => ({
+vi.mock('@validpost/frontend/components/launches/post-detail/post.detail.modal', () => ({
   PostDetailModal: ({ postId }: { postId: string }) => (
     <div data-testid="post-detail" data-post-id={postId} />
   ),
 }));
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockShow }),
 }));
-vi.mock('@postmill-ai/helpers/utils/use.fire.events', () => ({
+vi.mock('@validpost/helpers/utils/use.fire.events', () => ({
   useFireEvents: () => vi.fn(),
 }));
-vi.mock('@postmill-ai/frontend/components/launches/helpers/dnd.provider', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/dnd.provider', () => ({
   DNDProvider: ({ children }: any) => <>{children}</>,
 }));
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback || key,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.integration.list', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.integration.list', () => ({
   useIntegrationList: () => ({
     isLoading: integrationsLoading,
     data: integrationsLoading ? undefined : [],
@@ -70,7 +70,7 @@ vi.mock('@postmill-ai/frontend/components/launches/helpers/use.integration.list'
     error: undefined,
   }),
 }));
-vi.mock('@postmill-ai/frontend/components/launches/add.provider.component', () => ({
+vi.mock('@validpost/frontend/components/launches/add.provider.component', () => ({
   useAddProvider: () => vi.fn(),
 }));
 

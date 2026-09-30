@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // Controlled multi-select post-tag picker — same dropdown display as the
 // campaign/channel filters, with each tag's colour swatch. Opens inline so it
@@ -103,7 +103,7 @@ export const TagFilterSelect: FC<{
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={t('search_tags', 'Search tags...')}
-                className="w-full h-[40px] pl-[38px] pr-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+                className="w-full h-[40px] pl-[38px] pr-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-btnPrimary"
               />
             </div>
           </div>
@@ -126,7 +126,7 @@ export const TagFilterSelect: FC<{
                     className={clsx(
                       'flex items-center gap-[10px] w-full px-[8px] py-[8px] rounded-[8px] text-left transition-colors',
                       selected
-                        ? 'bg-[#2B5CD3]/15 text-textColor'
+                        ? 'bg-btnPrimary/15 text-textColor'
                         : 'hover:bg-boxHover text-textColor'
                     )}
                   >
@@ -134,7 +134,7 @@ export const TagFilterSelect: FC<{
                       className={clsx(
                         'w-[18px] h-[18px] rounded-[4px] border flex items-center justify-center shrink-0',
                         selected
-                          ? 'bg-[#2B5CD3] border-[#2B5CD3]'
+                          ? 'bg-btnPrimary border-btnPrimary'
                           : 'border-newColColor'
                       )}
                     >

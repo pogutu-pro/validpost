@@ -4,6 +4,6 @@ set -uo pipefail
 
 cd "$(dirname "$0")/.."
 
-docker kill postmill || true
-docker rm postmill || true
-docker create --name postmill -p 3000:3000 -p 4200:4200 localhost/postmill
+docker kill validpost || true
+docker rm validpost || true
+docker create --name validpost -p 3000:3000 -p 4200:4200 localhost/validpost

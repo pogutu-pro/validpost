@@ -1,5 +1,5 @@
-import { DESIGNER_DOC_VERSION } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.migrate';
-import type { DesignerDoc } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { DESIGNER_DOC_VERSION } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.migrate';
+import type { DesignerDoc } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 
 // Hand-authored starter content for the Designer "Start a design" modal.
 //
@@ -347,7 +347,7 @@ export const DEMO_DESIGNS: DemoDesignSpec[] = [
         fill: '#ffffff',
         align: 'center',
       }),
-      text('t-2', [90, 660, 900, 80], 'Use code POSTMILL at checkout', {
+      text('t-2', [90, 660, 900, 80], 'Use code VALIDPOST at checkout', {
         fontSize: 40,
         fontWeight: 400,
         fill: '#fee2e2',

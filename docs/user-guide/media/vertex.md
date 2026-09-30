@@ -10,7 +10,7 @@ Configure under **Settings → Media**. Vertex uses **GCP service-account creden
 - GCP Location (e.g. `us-central1`)
 - GCP Service Account JSON
 
-Postmill mints a short-lived OAuth token from the service-account JSON on every request. The same three fields are used by the AI Vertex adapter. See [Settings](../settings).
+ValidPost mints a short-lived OAuth token from the service-account JSON on every request. The same three fields are used by the AI Vertex adapter. See [Settings](../settings).
 
 ## Tabs / operations
 
@@ -27,7 +27,7 @@ Postmill mints a short-lived OAuth token from the service-account JSON on every 
 
 - Vertex has **no completion webhook** for Veo; jobs finish via the `media-jobs-poll` cron.
 - The service-account JSON must have access to the Vertex AI scope. Invalid JSON, missing project, or `invalid_grant` are treated as terminal config errors.
-- If Veo returns a `gs://` URI, Postmill downloads it with the minted token and inlines the video as a data URL so it can be imported safely.
+- If Veo returns a `gs://` URI, ValidPost downloads it with the minted token and inlines the video as a data URL so it can be imported safely.
 
 ## Related docs
 

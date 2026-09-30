@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import type { MediaSelectorItem } from '@postmill-ai/frontend/components/media-tools/media-selector-modal';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import type { MediaSelectorItem } from '@validpost/frontend/components/media-tools/media-selector-modal';
 
 /**
  * Import a stock-sourced media item into the org's `/files` library so it has a

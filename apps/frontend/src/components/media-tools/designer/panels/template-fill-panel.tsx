@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC, useMemo } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { ColorSwatch } from '../controls';
 import { useMediaPicker } from '../../use-media-picker';
 import {
   fillSlot,
   templateFields,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/symbols';
+} from '@validpost/nestjs-libraries/media/designer-doc/symbols';
 import type { DesignerOutput } from '../designer.store';
 
 /**

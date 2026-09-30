@@ -14,7 +14,7 @@ import {
   type AiModelOptions as AIModelOptions,
   type ProviderModule,
   type SafeFetchPort,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const OPENAI_CAPABILITIES: AICapabilities = {
   text: true,

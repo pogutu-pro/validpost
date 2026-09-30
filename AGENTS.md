@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for AI coding agents working in this repository. **Postmill** is an open-source, AI-native
+Guidance for AI coding agents working in this repository. **ValidPost** is an open-source, AI-native
 platform to schedule social media and chat posts to **45+ channels** — schedule posts, calendar view,
 persisted analytics, team management, and a media library. Posts added to the calendar enter a
 workflow and are published at the right time.
@@ -31,7 +31,7 @@ refuses to publish a container image whose tag does not match `version.txt`, the
 Release (notes + image digest + `docker save` tarball).
 
 Two artifacts version **independently** of the product release: `apps/sdk` (the published
-`@postmill-ai/postmill-sdk` npm package) and `apps/extension` (the browser extension, published to
+`@validpost/validpost-sdk` npm package) and `apps/extension` (the browser extension, published to
 the Chrome Web Store). Do not "align" them to `version.txt`; bump each per its own semver when that
 artifact changes. An SDK release is an `sdk-vX.Y.Z` tag: `publish-sdk.yml` refuses a tag that does
 not match `apps/sdk/package.json`, publishes to npm (OIDC trusted publishing — no token secret) and
@@ -55,7 +55,7 @@ package to the root manifest unless it is genuinely shared across multiple works
 - `libraries/nestjs-libraries` — the bulk of shared server logic, Prisma schema, repositories. **Most
   backend logic belongs here.**
 - `libraries/helpers` — shared utilities, incl. the `useFetch` hook. `libraries/react-shared-libraries`
-  — shared React components (imported as `@postmill-ai/react/*`).
+  — shared React components (imported as `@validpost/react/*`).
 - `libraries/providers` — the unified provider framework (kernel + one package per provider).
 - `tools/` — repo-owned tooling, **not** a workspace. `tools/db` (migration/backfill helpers, incl.
   the two CI schema gates) and `tools/codegen` (generators whose output is committed). Anything CI
@@ -175,7 +175,7 @@ The one-paragraph version of the conventions — details and recipes in the link
   repositories touch Prisma. Logic lives in `libraries/nestjs-libraries`, not `apps/backend`.
   Sanctioned exceptions (seeders; `// layering: sanctioned leaf-read` sites) — keep them, don't
   "fix" them. Recipes and the full exception list: [`agents/backend.md`](./agents/backend.md).
-- **Frontend:** bespoke primitives first — `Button`/`Input` from `@postmill-ai/react/form/*`,
+- **Frontend:** bespoke primitives first — `Button`/`Input` from `@validpost/react/form/*`,
   `useModals()` for modals; Mantine only for Autocomplete/dates/hooks; no new UI kits; no
   `--color-custom*` tokens; SWR via `useFetch`, one hook per resource, never eslint-disable a hook.
   The rulebook: [`agents/ui-standards.md`](./agents/ui-standards.md).

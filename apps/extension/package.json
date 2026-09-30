@@ -1,7 +1,7 @@
 {
-  "name": "postmill-extension",
+  "name": "validpost-extension",
   "version": "2.0.0",
-  "description": "Postmill browser extension for cookie-based platform authentication",
+  "description": "ValidPost browser extension for cookie-based platform authentication",
   "license": "AGPL-3.0",
   "scripts": {
     "build": "rm -rf dist && vite build && cp manifest.json dist/manifest.json && cd dist && zip -r ../extension.zip .",

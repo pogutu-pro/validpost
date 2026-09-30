@@ -172,7 +172,7 @@ export const CANONICAL_METRICS: { key: string; labelKey: string; label: string }
 export {
   createFetchError,
   type FetchError,
-} from '@postmill-ai/frontend/components/settings/shared/fetch-error';
+} from '@validpost/frontend/components/settings/shared/fetch-error';
 
 const COMPACT_TIERS = [
   { limit: 1_000_000_000, suffix: 'B' },

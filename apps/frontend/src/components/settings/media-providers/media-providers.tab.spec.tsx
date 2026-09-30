@@ -6,15 +6,15 @@ import { SWRConfig } from 'swr';
 const mockFetchFn = vi.fn();
 const mockToasterShow = vi.fn();
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback || key,
 }));
 

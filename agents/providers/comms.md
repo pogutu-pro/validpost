@@ -2,7 +2,7 @@
 
 The `comms` domain gives chat apps (Slack, Telegram, Discord, Matrix, LINE) dual functionality
 next to their `social` posting role: (1) **agent chat** — a linked org user DMs the bot and the
-`postmill` Mastra agent replies in the same conversation — and (2) **notification delivery** —
+`validpost` Mastra agent replies in the same conversation — and (2) **notification delivery** —
 `NotificationService.notify()`'s 4th bucket DMs selected categories to linked users. Read
 [`overview.md`](./overview.md) first for the kernel contracts.
 
@@ -34,7 +34,7 @@ conformance-required; everything else is optional and declared via `CommsAdapter
 |---|---|---|---|
 | slack | `conversations.open` + `chat.postMessage` | Events API webhook (HMAC `v0:{ts}:{body}` vs `x-slack-signature`, 5-min skew guard); `url_verification` → `ackResponse` | Needs scopes `chat:write`, `im:write`, `im:history` + event `message.im` |
 | telegram | Bot API `sendMessage` via `ctx.fetch` (**never** `node-telegram-bot-api` — it bypasses safeFetch) | Webhook; `X-Telegram-Bot-Api-Secret-Token` equality; `registerWebhook` = `setWebhook` with an internally-generated `webhookSecret` stored inside the encrypted credentials | |
-| discord | DM channel (`/users/@me/channels`) + channel message | Interactions endpoint (ed25519); PING → `ackResponse {"type":1}`; the `/postmill` slash command → message **with a type-4 ephemeral `ackResponse`** (interactions demand a response body in 3s; the real reply arrives as a DM); `provision()` upserts the command via POST (never PUT — PUT replaces the app's whole command set) | |
+| discord | DM channel (`/users/@me/channels`) + channel message | Interactions endpoint (ed25519); PING → `ackResponse {"type":1}`; the `/validpost` slash command → message **with a type-4 ephemeral `ackResponse`** (interactions demand a response body in 3s; the real reply arrives as a DM); `provision()` upserts the command via POST (never PUT — PUT replaces the app's whole command set) | |
 | matrix | direct room (created `is_direct` on first send, then reused via `externalChannelId`) | **No webhook** — `pollInbound(cursor)` = `/sync` long-poll driven by the `comms-matrix-sync` Inngest cron; **null cursor = priming sync** (store `next_batch`, drop events — never replay history) | Drop own-user events (`/whoami`) |
 | line | `POST /v2/bot/message/push` (1:1 — **not** the social adapter's broadcast) | Webhook; `X-Line-Signature` base64 HMAC of the raw body | User must friend the bot first |
 
@@ -44,7 +44,7 @@ All signature/secret checks use `timingSafeStringEqual` /
 Telegram `from.is_bot`, Matrix own sender) or notify→reply loops occur.
 
 > **One webhook per app/bot**: Telegram `setWebhook` and the Slack/Discord/LINE endpoint URLs
-> are global per app. Per-org own-app (Advanced) configs therefore still mean one Postmill org
+> are global per app. Per-org own-app (Advanced) configs therefore still mean one ValidPost org
 > per bot/app. **Platform apps** (shared, env-configured) solve this with the platform route
 > below — one app/bot serves all orgs, inbound routed per org.
 
@@ -55,12 +55,12 @@ Mirrors the channels env-fallback idea but comms-scoped
 (`SLACK_ID`/`SLACK_SECRET`/`SLACK_SIGNING_SECRET`), discord/telegram/line = one-click env
 credentials (`DISCORD_CLIENT_ID`/`DISCORD_BOT_TOKEN`/`DISCORD_PUBLIC_KEY`, `TELEGRAM_TOKEN`,
 `LINE_CHANNEL_ACCESS_TOKEN`/`LINE_CHANNEL_SECRET`). All vars present ⇒ `platformConfigured` ⇒
-the settings modal shows "Connect with Slack" / "Use the Postmill app" by default with manual
+the settings modal shows "Connect with Slack" / "Use the ValidPost app" by default with manual
 credentials collapsed under Advanced; absent ⇒ flat manual mode. Matrix has no platform app.
 
 - **Connect**: `GET /settings/comms/oauth/slack/url` + public
   `GET /settings/comms/oauth/slack/callback` (`comms-oauth.controller.ts`; state bound in
-  Redis `comms-oauth:{state}`, 1h, single-use; success = postMessage `postmill:comms-connected`
+  Redis `comms-oauth:{state}`, 1h, single-use; success = postMessage `validpost:comms-connected`
   close page, else redirect `/settings/comms?connected=slack|?error=…`). Slack callback stores
   the bot token + env signing secret + `extraConfig.teamId`.
   `POST /settings/comms/platform-connect/:identifier` (discord/telegram/line) upserts env
@@ -94,7 +94,7 @@ credentials collapsed under Advanced; absent ⇒ flat manual mode. Matrix has no
   `comms/matrix.sync-one` per enabled matrix config (concurrency 1 per config protects the
   cursor).
 - **Agent turn** (`CommsAgentActivity`, mirrors `agent-digest.activity.ts`): budget + AI-config
-  pre-checks (each degrades to a short DM), then `mastra.getAgent('postmill').generate` with
+  pre-checks (each degrades to a short DM), then `mastra.getAgent('validpost').generate` with
   `memory: {resource: orgId, thread: 'comms:{linkId}:{channelKey}'}` (deterministic → multi-turn,
   visible under `/agents/[id]`), RequestContext `user = the real linked user`,
   `access.mode = 'comms'` (recognized read+write in `chat/tools/tool.helpers.ts`), bounded by

@@ -1,6 +1,6 @@
-# ⚠️  UPGRADING FROM A PRE-REBRAND COMPOSE (before the Postmill rename)?
-# This file uses renamed Docker volumes (postmill-*) and a renamed Postgres
-# role/database (postmill-user/postmill-db-local) — older installs used the
+# ⚠️  UPGRADING FROM A PRE-REBRAND COMPOSE (before the ValidPost rename)?
+# This file uses renamed Docker volumes (validpost-*) and a renamed Postgres
+# role/database (validpost-user/validpost-db-local) — older installs used the
 # previous names. A fresh install needs no action. An EXISTING install must
 # migrate its data, or it will come up empty (old volumes are not mounted,
 # and the renamed Postgres role/db won't exist on the already-initialized
@@ -13,14 +13,14 @@
 #
 # This file deliberately stays at the repo root and declares no top-level `name:`.
 # Compose derives the project name from the directory containing it, and that name
-# prefixes the named volumes below (postmill-config, postmill-uploads,
+# prefixes the named volumes below (validpost-config, validpost-uploads,
 # postgres-volume). Pinning a name here, or moving this file, would re-prefix those
 # volumes and bring an existing install up against empty storage. The dev compose
-# files under docker/ DO pin `name: postmill-app`, precisely because they moved.
+# files under docker/ DO pin `name: validpost-app`, precisely because they moved.
 services:
-  postmill:
-    image: ghcr.io/postmill-ai/postmill-app:latest
-    container_name: postmill
+  validpost:
+    image: ghcr.io/pogutu-pro/validpost:latest
+    container_name: validpost
     restart: always
     environment:
       # === Required Settings
@@ -28,7 +28,7 @@ services:
       FRONTEND_URL: 'http://localhost:4007'
       NEXT_PUBLIC_BACKEND_URL: 'http://localhost:4007/api'
       JWT_SECRET: 'random string that is unique to every install - just type random characters here!'
-      DATABASE_URL: 'postgresql://postmill-user:postmill-password@postmill-postgres:5432/postmill-db-local'
+      DATABASE_URL: 'postgresql://validpost-user:validpost-password@validpost-postgres:5432/validpost-db-local'
       # Redis is now an external endpoint (e.g. Upstash). Set a redis:// or rediss:// URL.
       REDIS_URL: '${REDIS_URL}'
       BACKEND_INTERNAL_URL: 'http://localhost:3000'
@@ -46,15 +46,15 @@ services:
       # === Channel provider credentials are now configured per-org via Settings → Channels.
 
       # === OAuth & Authentik Settings
-      # NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME: 'Authentik'
-      # NEXT_PUBLIC_POSTMILL_OAUTH_LOGO_URL: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/authentik.png'
-      # POSTMILL_GENERIC_OAUTH: 'false'
-      # POSTMILL_OAUTH_AUTH_URL: 'https://auth.example.com/application/o/authorize'
-      # POSTMILL_OAUTH_TOKEN_URL: 'https://auth.example.com/application/o/token'
-      # POSTMILL_OAUTH_USERINFO_URL: 'https://authentik.example.com/application/o/userinfo'
-      # POSTMILL_OAUTH_CLIENT_ID: ''
-      # POSTMILL_OAUTH_CLIENT_SECRET: ''
-      # POSTMILL_OAUTH_SCOPE: "openid profile email"  # Optional: uncomment to override default scope
+      # NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME: 'Authentik'
+      # NEXT_PUBLIC_VALIDPOST_OAUTH_LOGO_URL: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/authentik.png'
+      # VALIDPOST_GENERIC_OAUTH: 'false'
+      # VALIDPOST_OAUTH_AUTH_URL: 'https://auth.example.com/application/o/authorize'
+      # VALIDPOST_OAUTH_TOKEN_URL: 'https://auth.example.com/application/o/token'
+      # VALIDPOST_OAUTH_USERINFO_URL: 'https://authentik.example.com/application/o/userinfo'
+      # VALIDPOST_OAUTH_CLIENT_ID: ''
+      # VALIDPOST_OAUTH_CLIENT_SECRET: ''
+      # VALIDPOST_OAUTH_SCOPE: "openid profile email"  # Optional: uncomment to override default scope
 
       # === Sentry
 
@@ -91,33 +91,33 @@ services:
       # EMAIL_LOG_RETENTION_DAYS: "90"
 
     volumes:
-      - postmill-config:/config/
-      - postmill-uploads:/uploads/
+      - validpost-config:/config/
+      - validpost-uploads:/uploads/
     # The all-in-one image runs nginx on container port 5000, routing /api/* to
     # the NestJS backend (:3000) and everything else to the Next.js frontend
     # (:4200) — both internal only. Publish nginx, nothing else.
     ports:
       - "4007:5000"
     networks:
-      - postmill-network
+      - validpost-network
     depends_on:
-      postmill-postgres:
+      validpost-postgres:
         condition: service_healthy
 
-  postmill-postgres:
+  validpost-postgres:
     image: postgres:17-alpine
-    container_name: postmill-postgres
+    container_name: validpost-postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: postmill-password
-      POSTGRES_USER: postmill-user
-      POSTGRES_DB: postmill-db-local
+      POSTGRES_PASSWORD: validpost-password
+      POSTGRES_USER: validpost-user
+      POSTGRES_DB: validpost-db-local
     volumes:
       - postgres-volume:/var/lib/postgresql/data
     networks:
-      - postmill-network
+      - validpost-network
     healthcheck:
-      test: pg_isready -U postmill-user -d postmill-db-local
+      test: pg_isready -U validpost-user -d validpost-db-local
       interval: 10s
       timeout: 3s
       retries: 3
@@ -129,18 +129,18 @@ services:
       - 8969:8969/tcp
     image: ghcr.io/getsentry/spotlight:latest
     networks:
-      - postmill-network
+      - validpost-network
 
 volumes:
   postgres-volume:
     external: false
 
-  postmill-config:
+  validpost-config:
     external: false
 
-  postmill-uploads:
+  validpost-uploads:
     external: false
 
 networks:
-  postmill-network:
+  validpost-network:
     external: false

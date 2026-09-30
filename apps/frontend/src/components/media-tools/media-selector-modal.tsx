@@ -8,13 +8,13 @@ import { StockVideos } from './stock-videos';
 import { StockVectors } from './stock-vectors';
 import { StockStickers } from './stock-stickers';
 import { StockIcons } from './stock-icons';
-import { FileManager } from '@postmill-ai/frontend/components/files/file-manager';
-import type { FileItem } from '@postmill-ai/frontend/components/files/file-manager';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useImportStockMedia } from '@postmill-ai/frontend/components/media-tools/media-import';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
+import { FileManager } from '@validpost/frontend/components/files/file-manager';
+import type { FileItem } from '@validpost/frontend/components/files/file-manager';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useImportStockMedia } from '@validpost/frontend/components/media-tools/media-import';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
 
 export type MediaKind = 'image' | 'video' | 'audio';
 
@@ -414,7 +414,7 @@ export const MediaSelectorModal: React.FC<MediaSelectorModalProps> = ({
                   'px-4 py-1.5 rounded-sm text-sm font-medium whitespace-nowrap transition-all',
                   slotProps.className,
                   active
-                    ? 'bg-[#4F46E5] text-white shadow-sm'
+                    ? 'bg-btnPrimary text-white shadow-sm'
                     : 'text-newTextColor/60 hover:text-textColor'
                 )}
                 onClick={() => setActiveTab(item.key)}
@@ -452,8 +452,8 @@ export const MediaSelectorModal: React.FC<MediaSelectorModalProps> = ({
                 onClick={() => !isUploading && fileInputRef.current?.click()}
                 className={`relative flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed px-4 py-6 text-center cursor-pointer transition-all ${
                   isDragOver
-                    ? 'border-[#4F46E5] bg-[#4F46E5]/5 shadow-sm'
-                    : 'border-newColColor bg-newBgColorInner hover:border-[#4F46E5]/60'
+                    ? 'border-btnPrimary bg-btnPrimary/5 shadow-sm'
+                    : 'border-newColColor bg-newBgColorInner hover:border-btnPrimary/60'
                 } ${isUploading ? 'opacity-60 cursor-not-allowed' : ''}`}
               >
                 <input
@@ -556,7 +556,7 @@ export const MediaSelectorModal: React.FC<MediaSelectorModalProps> = ({
               type="button"
               disabled={selection.length === 0 || isResolving}
               onClick={confirmSelection}
-              className="px-4 py-2 rounded-sm bg-[#4F46E5] text-white text-sm font-medium shrink-0 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#4338CA] transition-colors"
+              className="px-4 py-2 rounded-sm bg-btnPrimary text-white text-sm font-medium shrink-0 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-vpPrimaryHover transition-colors"
             >
               {isResolving
                 ? t('importing_media', 'Importing\u2026')

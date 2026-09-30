@@ -1,4 +1,4 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import {
   registerInProcessAgent,
@@ -8,11 +8,11 @@ import type { AgentResponse } from '@reaatech/agent-mesh';
 import sharp from 'sharp';
 import { readFile } from 'fs/promises';
 import * as path from 'path';
-import { AiDefaultsService } from '@postmill-ai/nestjs-libraries/ai/defaults/ai-defaults.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { StockMediaService } from '@postmill-ai/nestjs-libraries/media/stock/stock-media.service';
-import { resolveIconifyIcon } from '@postmill-ai/nestjs-libraries/media/designer-doc/icon-resolver';
+import { AiDefaultsService } from '@validpost/nestjs-libraries/ai/defaults/ai-defaults.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { StockMediaService } from '@validpost/nestjs-libraries/media/stock/stock-media.service';
+import { resolveIconifyIcon } from '@validpost/nestjs-libraries/media/designer-doc/icon-resolver';
 import type { AssetAspect, AssetNeedRequest, AssetResult } from '../../ai-designer.types';
 import { assetKey } from '../../util/aspect';
 import { raceWithTimeout } from '../../util/race-with-timeout';

@@ -53,7 +53,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Zip extensions
-        run: FRONTEND_URL=https://app.postmill.ai pnpm run build:extension
+        run: FRONTEND_URL=https://app.validpost.io pnpm run build:extension
 
       - name: Publish to Chrome Web Store
         uses: mnao305/chrome-extension-upload@v6.0.0

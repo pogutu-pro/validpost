@@ -2,18 +2,18 @@ import { forwardRef, Inject, Injectable, BadRequestException, NotFoundException 
 import {
   pricing,
   AddonExtraColumn,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 import {
   OVERRIDABLE_LIMIT_KEYS,
   mergeEffectiveLimits,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/effective.limits';
-import { SubscriptionRepository } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.repository';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/effective.limits';
+import { SubscriptionRepository } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.repository';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
 import { Organization } from '@prisma/client';
 import dayjs from 'dayjs';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
 
 export type BillingTier = 'STARTER' | 'PRO' | 'TEAM' | 'AGENCY';
 

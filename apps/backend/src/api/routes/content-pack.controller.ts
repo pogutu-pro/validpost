@@ -12,16 +12,16 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { OrgContentPackSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/content-packs/org-content-pack-settings.service';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { OrgContentPackSettingsService } from '@validpost/nestjs-libraries/database/prisma/content-packs/org-content-pack-settings.service';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 import {
   UpsertContentPackConfigDto,
   ProviderTestConnectionDto,
-} from '@postmill-ai/nestjs-libraries/dtos/providers/provider-config.dtos';
+} from '@validpost/nestjs-libraries/dtos/providers/provider-config.dtos';
 
 @ApiTags('Org Content Pack Settings')
 @Controller('/settings/content-packs')

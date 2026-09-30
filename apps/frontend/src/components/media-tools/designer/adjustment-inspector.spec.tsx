@@ -3,7 +3,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import React from 'react';
 import { AdjustmentInspector } from './panels/adjustment-inspector';
 import { createDesignerStore, type DesignerElement } from './designer.store';
-import type { DesignerAdjustment } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import type { DesignerAdjustment } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 
 /**
  * Adjustment layers were add-only: `defaultAdjustmentValues` was read once at
@@ -11,7 +11,7 @@ import type { DesignerAdjustment } from '@postmill-ai/nestjs-libraries/media/des
  * were frozen at their defaults. These pin the write path.
  */
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -19,7 +19,7 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
 }));
 
 // The colour picker reaches for the logged-in org to remember recent swatches.
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({ orgId: 'org-1' }),
 }));
 

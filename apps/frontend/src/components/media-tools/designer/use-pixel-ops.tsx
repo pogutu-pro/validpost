@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDecisionModal, useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useDecisionModal, useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { DesignerElement, DesignerOutput, VideoClip, VideoTrack } from './designer.store';
 import { sharedStageRef } from './stage-ref';
 import {
@@ -19,7 +19,7 @@ import {
   createMask,
   type SelectionMask,
 } from './selection-mask';
-import { fill, stroke } from '@postmill-ai/nestjs-libraries/media/designer-doc/fill-stroke';
+import { fill, stroke } from '@validpost/nestjs-libraries/media/designer-doc/fill-stroke';
 import {
   FillDialog,
   StrokeDialog,
@@ -31,8 +31,8 @@ import { runFilter, blendThroughCoverage } from './filter-runner';
 import {
   filterById,
   defaultFilterParams,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-descriptors';
-import type { FilterParams } from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-ops';
+} from '@validpost/nestjs-libraries/media/designer-doc/filter-descriptors';
+import type { FilterParams } from '@validpost/nestjs-libraries/media/designer-doc/filter-ops';
 import {
   addSmartFilter,
   flattenSmartFilters,

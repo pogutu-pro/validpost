@@ -2,15 +2,15 @@
 
 import '@neynar/react/dist/style.css';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { Web3ProviderInterface } from '@postmill-ai/frontend/components/launches/web3/web3.provider.interface';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { Input } from '@postmill-ai/react/form/input';
-import { Button } from '@postmill-ai/react/form/button';
+import { Web3ProviderInterface } from '@validpost/frontend/components/launches/web3/web3.provider.interface';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { timer } from '@validpost/helpers/utils/timer';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { Input } from '@validpost/react/form/input';
+import { Button } from '@validpost/react/form/button';
 import copy from 'copy-to-clipboard';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const TelegramProvider: FC<Web3ProviderInterface> = (props) => {
   const { onComplete, nonce } = props;
   const fetch = useFetch();

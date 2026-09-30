@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string, vars?: Record<string, unknown>) =>
     vars
       ? Object.entries(vars).reduce(
@@ -11,10 +11,10 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
         )
       : fallback,
 }));
-vi.mock('@postmill-ai/react/helpers/use.media.directory', () => ({
+vi.mock('@validpost/react/helpers/use.media.directory', () => ({
   useMediaDirectory: () => ({ set: (p: string) => p }),
 }));
-vi.mock('@postmill-ai/react/translation/i18next', () => ({
+vi.mock('@validpost/react/translation/i18next', () => ({
   default: { resolvedLanguage: 'en' },
 }));
 

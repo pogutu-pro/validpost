@@ -7,20 +7,20 @@ import { TEXT_ANIMATION_PRESETS } from '../text-animation-presets';
 import { GraphEditor } from '../graph-editor';
 import { SmartFilterList } from './smart-filter-list';
 import { analyseBeats } from '../beat-sync';
-import { estimateBpm } from '@postmill-ai/nestjs-libraries/media/designer-doc/beat-detect';
+import { estimateBpm } from '@validpost/nestjs-libraries/media/designer-doc/beat-detect';
 import {
   CAPTION_PRESETS,
   captionPreset,
   type CaptionPreset,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/caption-styles';
+} from '@validpost/nestjs-libraries/media/designer-doc/caption-styles';
 import {
   DEFAULT_MOTION_BLUR_SAMPLES,
   DEFAULT_SHUTTER_ANGLE,
   MAX_MOTION_BLUR_SAMPLES,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/motion-blur';
+} from '@validpost/nestjs-libraries/media/designer-doc/motion-blur';
 import type { EaseType } from '../video-preview';
-import type { KeyframeEase } from '@postmill-ai/nestjs-libraries/media/designer-doc/keyframes';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import type { KeyframeEase } from '@validpost/nestjs-libraries/media/designer-doc/keyframes';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface ClipInspectorProps {
   store: any;

@@ -1,6 +1,6 @@
 # Adding a media studio
 
-Most generative media providers in Postmill are implemented through the **Studio Kit**: a descriptor-driven scaffold that lets you add a new `/media/<provider>` studio with a frontend descriptor, a backend adapter, and a route page. This page walks through the recipe using Qwen as the worked example.
+Most generative media providers in ValidPost are implemented through the **Studio Kit**: a descriptor-driven scaffold that lets you add a new `/media/<provider>` studio with a frontend descriptor, a backend adapter, and a route page. This page walks through the recipe using Qwen as the worked example.
 
 For the bespoke studios that do not fit the kit — Designer, AI Designer, HeyGen, Replicate, and Deepgram — see their dedicated docs and source paths.
 
@@ -104,7 +104,7 @@ export const qwenDescriptor: StudioDescriptor = {
 
 ## Step 2: implement the backend adapter
 
-Create `libraries/providers/<provider>/src/v1/media.adapter.ts`. It must implement `MediaProviderAdapter` from `@postmill-ai/provider-kernel` and export a `ProviderModule`.
+Create `libraries/providers/<provider>/src/v1/media.adapter.ts`. It must implement `MediaProviderAdapter` from `@validpost/provider-kernel` and export a `ProviderModule`.
 
 Required shape:
 
@@ -196,7 +196,7 @@ Create a 3-line studio component:
 ```tsx
 // apps/frontend/src/components/media-tools/qwen/qwen-studio.tsx
 'use client';
-import { StudioShell } from '@postmill-ai/frontend/components/media-tools/studio-kit/studio-shell';
+import { StudioShell } from '@validpost/frontend/components/media-tools/studio-kit/studio-shell';
 import { qwenDescriptor } from './descriptor';
 
 export function QwenStudio() {
@@ -212,7 +212,7 @@ And a Next.js page that lazy-loads it with `ssr: false` (the kit uses browser-on
 import dynamic from 'next/dynamic';
 
 const QwenStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/qwen/qwen-studio').then((m) => m.QwenStudio),
+  () => import('@validpost/frontend/components/media-tools/qwen/qwen-studio').then((m) => m.QwenStudio),
   { ssr: false }
 );
 
@@ -223,7 +223,7 @@ export default function QwenPage() {
 
 ## Step 5: wire the provider package
 
-1. Ensure `libraries/providers/<provider>/` has a workspace `package.json` depending on `@postmill-ai/provider-kernel`.
+1. Ensure `libraries/providers/<provider>/` has a workspace `package.json` depending on `@validpost/provider-kernel`.
 2. Export the media module from `libraries/providers/<provider>/src/index.ts` and `src/v1/index.ts`.
 3. Import the module in `apps/backend/src/providers.generated.ts` (hand-maintained, alphabetical order) and add the path mapping in `tsconfig.base.json`.
 4. Add the backend dependency in `apps/backend/package.json` if it is not already workspace-linked.

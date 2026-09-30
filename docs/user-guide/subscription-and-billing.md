@@ -1,6 +1,6 @@
 # Subscription and Billing
 
-The billing system at `/billing` manages subscription plans, payment methods, and invoicing when a payment provider (Stripe by default) is configured. Billing is entirely optional — Postmill works with all features available without one.
+The billing system at `/billing` manages subscription plans, payment methods, and invoicing when a payment provider (Stripe by default) is configured. Billing is entirely optional — ValidPost works with all features available without one.
 
 ## When no payment provider is configured
 
@@ -14,7 +14,7 @@ If no payment provider is set up (for Stripe that means no `STRIPE_PUBLISHABLE_K
 
 ### Subscription plans
 
-Postmill uses four fixed plans. Prices and limits are defined in `libraries/nestjs-libraries/src/database/prisma/subscriptions/pricing.ts` and surfaced dynamically by the billing backend — no `STRIPE_PRICE_*` environment variables are required.
+ValidPost uses four fixed plans. Prices and limits are defined in `libraries/nestjs-libraries/src/database/prisma/subscriptions/pricing.ts` and surfaced dynamically by the billing backend — no `STRIPE_PRICE_*` environment variables are required.
 
 | Plan | Monthly | Yearly | Channels | Posts/mo | Team seats | Video exports/mo | Hosted storage | BYO storage | Campaigns | API & MCP | Webhooks | Competitors | Analytics retention |
 |------|---------|--------|----------|----------|------------|------------------|----------------|-------------|-----------|-----------|----------|-------------|---------------------|
@@ -33,7 +33,7 @@ Postmill uses four fixed plans. Prices and limits are defined in `libraries/nest
 
 Two resources are metered against the plan limits plus any active add-ons:
 
-- **Hosted storage** — files stored in Postmill's local or cloud-backed storage count toward the plan's `storage_gb` cap. Connecting your own S3/R2/B2/IDrive bucket waives the hosted-storage cap for that provider (BYO storage is unlimited).
+- **Hosted storage** — files stored in ValidPost's local or cloud-backed storage count toward the plan's `storage_gb` cap. Connecting your own S3/R2/B2/IDrive bucket waives the hosted-storage cap for that provider (BYO storage is unlimited).
 - **Video exports** — completed exports from the Designer timeline and media studios count toward the plan's `video_exports` cap.
 
 Both caps are **hard caps**: once you hit the limit, the action is blocked until you upgrade or buy an add-on. There are no automatic overages.
@@ -79,7 +79,7 @@ The billing interface (`/billing`) lets you:
 
 ### Payment methods
 
-Add and manage credit/debit cards through Stripe's hosted payment form. Card details are tokenised by Stripe and never touch Postmill's servers. You can:
+Add and manage credit/debit cards through Stripe's hosted payment form. Card details are tokenised by Stripe and never touch ValidPost's servers. You can:
 
 - Add a new payment method.
 - Set a default payment method for recurring charges.

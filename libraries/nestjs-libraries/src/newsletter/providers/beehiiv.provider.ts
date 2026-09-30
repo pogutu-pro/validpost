@@ -1,5 +1,5 @@
-import { NewsletterInterface } from '@postmill-ai/nestjs-libraries/newsletter/newsletter.interface';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { NewsletterInterface } from '@validpost/nestjs-libraries/newsletter/newsletter.interface';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 
 export class BeehiivProvider implements NewsletterInterface {
   name = 'beehiiv';
@@ -8,7 +8,7 @@ export class BeehiivProvider implements NewsletterInterface {
       email,
       reactivate_existing: false,
       send_welcome_email: true,
-      utm_source: 'postmill_platform',
+      utm_source: 'validpost_platform',
     };
 
     await safeFetch(

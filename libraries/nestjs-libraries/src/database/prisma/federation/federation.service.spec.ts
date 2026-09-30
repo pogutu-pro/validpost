@@ -41,7 +41,7 @@ const makeGrant = (overrides: Record<string, unknown> = {}) => ({
   ...overrides,
 });
 
-describe('FederationService (Postmill ID)', () => {
+describe('FederationService (ValidPost ID)', () => {
   let repository: any;
   let encryption: any;
   let service: FederationService;
@@ -180,7 +180,7 @@ describe('FederationService (Postmill ID)', () => {
       });
 
       it('falls back to the template store callback, per-provider path included', () => {
-        const uri = 'https://templates.postmill.ai/auth/callback/postmill';
+        const uri = 'https://templates.validpost.io/auth/callback/validpost';
 
         expect(service.validateAuthorizeRequest(uri)).toEqual({
           redirectUri: uri,
@@ -190,7 +190,7 @@ describe('FederationService (Postmill ID)', () => {
       it('rejects the bare /auth/callback path — matching is exact, not prefix', () => {
         expect(() =>
           service.validateAuthorizeRequest(
-            'https://templates.postmill.ai/auth/callback'
+            'https://templates.validpost.io/auth/callback'
           )
         ).toThrowError(expect.objectContaining({ status: 400 }));
       });

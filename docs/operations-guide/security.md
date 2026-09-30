@@ -1,6 +1,6 @@
 # Security
 
-This page documents the security controls built into Postmill. It covers defense-in-depth layers
+This page documents the security controls built into ValidPost. It covers defense-in-depth layers
 from HTTP headers through encryption at rest, and is intended for operators who need to understand
 or audit the security posture of their deployment.
 

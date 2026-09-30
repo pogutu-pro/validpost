@@ -1,9 +1,9 @@
 'use client';
 
-import { TrackEnum } from '@postmill-ai/nestjs-libraries/user/track.enum';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { TrackEnum } from '@validpost/nestjs-libraries/user/track.enum';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useCallback } from 'react';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
+import { useVariables } from '@validpost/react/helpers/variable.context';
 
 /**
  * Tracking hook. Accept the user object as an argument to avoid importing the

@@ -1,9 +1,9 @@
 import { Injectable, HttpException } from '@nestjs/common';
-import { UsersRepository } from '@postmill-ai/nestjs-libraries/database/prisma/users/users.repository';
+import { UsersRepository } from '@validpost/nestjs-libraries/database/prisma/users/users.repository';
 import { Provider } from '@prisma/client';
-import { UserDetailDto } from '@postmill-ai/nestjs-libraries/dtos/users/user.details.dto';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { UserDetailDto } from '@validpost/nestjs-libraries/dtos/users/user.details.dto';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
 
 @Injectable()
 export class UsersService {

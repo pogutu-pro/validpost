@@ -23,7 +23,7 @@ async function resolvedAgents(runtime: CopilotRuntime) {
   return await instance.agents;
 }
 
-describe('@copilotkit/runtime construction contract (Sentry POSTMILL-APP-D)', () => {
+describe('@copilotkit/runtime construction contract (Sentry VALIDPOST-APP-D)', () => {
   it('an explicit BuiltInAgent on a v2 LanguageModel resolves a default agent with no service adapter', async () => {
     const runtime = new CopilotRuntime({
       agents: { default: new BuiltInAgent({ model: stubModel }) } as any,

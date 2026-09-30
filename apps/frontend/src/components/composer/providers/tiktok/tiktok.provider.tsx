@@ -7,16 +7,16 @@ import {
 import {
   PostComment,
   withProvider,
-} from '@postmill-ai/frontend/components/composer/providers/high.order.provider';
-import { TikTokDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/tiktok.dto';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
-import { Select } from '@postmill-ai/react/form/select';
-import { Checkbox } from '@postmill-ai/react/form/checkbox';
+} from '@validpost/frontend/components/composer/providers/high.order.provider';
+import { TikTokDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/tiktok.dto';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
+import { Select } from '@validpost/react/form/select';
+import { Checkbox } from '@validpost/react/form/checkbox';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useIntegration } from '@postmill-ai/frontend/components/launches/helpers/use.integration';
-import { Input } from '@postmill-ai/react/form/input';
-import { TiktokPreview } from '@postmill-ai/frontend/components/composer/providers/tiktok/tiktok.preview';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useIntegration } from '@validpost/frontend/components/launches/helpers/use.integration';
+import { Input } from '@validpost/react/form/input';
+import { TiktokPreview } from '@validpost/frontend/components/composer/providers/tiktok/tiktok.preview';
 
 const TikTokSettings: FC<{
   values?: any;
@@ -48,7 +48,7 @@ const TikTokSettings: FC<{
     }
     return t(
       'tiktok_restriction_upload_video',
-      'TikTok restriction: For upload-only video, TikTok does not accept a title or message. The content will default to "#Postmill" and you can edit it inside the TikTok app before publishing.'
+      'TikTok restriction: For upload-only video, TikTok does not accept a title or message. The content will default to "#ValidPost" and you can edit it inside the TikTok app before publishing.'
     );
   }, [hasMedia, isUploadMode, isVideo, t]);
 
@@ -307,7 +307,7 @@ const TikTokSettings: FC<{
               brand_organic_toggle || brand_content_toggle ? (
                 <a
                   target="_blank"
-                  className="text-[#2b5cd3] hover:underline"
+                  className="text-btnPrimaryAccent hover:underline"
                   href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en"
                 >
                   {t('music_usage_confirmation', 'Music Usage Confirmation')}
@@ -317,7 +317,7 @@ const TikTokSettings: FC<{
               brand_content_toggle ? (
                 <a
                   target="_blank"
-                  className="text-[#2b5cd3] hover:underline"
+                  className="text-btnPrimaryAccent hover:underline"
                   href="https://www.tiktok.com/legal/page/global/bc-policy/en"
                 >
                   {t('branded_content_policy', 'Branded Content Policy')}

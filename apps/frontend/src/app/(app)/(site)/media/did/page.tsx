@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const DIDStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/did/did-studio').then((m) => m.DIDStudio),
+  () => import('@validpost/frontend/components/media-tools/did/did-studio').then((m) => m.DIDStudio),
   { ssr: false }
 );
 

@@ -3,9 +3,9 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import { VideoRenderService, withTimeout } from './video-render.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: {
     set: vi.fn().mockResolvedValue('OK'),
     get: vi.fn(),
@@ -142,7 +142,7 @@ describe('VideoRenderService', () => {
       }),
     );
 
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'postmill-test-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'validpost-test-'));
     const videoPath = path.join(tmpDir, 'output.mp4');
     const thumbPath = path.join(tmpDir, 'thumb.jpg');
     fs.writeFileSync(videoPath, Buffer.from('fake-video'));
@@ -263,7 +263,7 @@ describe('VideoRenderService', () => {
       return undefined as any;
     });
 
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'postmill-race-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'validpost-race-'));
     const videoPath = path.join(tmpDir, 'output.mp4');
     fs.writeFileSync(videoPath, Buffer.from('v'));
     vi.mocked(encoder.encode).mockResolvedValue({

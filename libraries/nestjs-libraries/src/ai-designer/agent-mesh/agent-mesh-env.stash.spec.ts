@@ -80,13 +80,13 @@ describe('agent-mesh-env stash/shim', () => {
   });
 
   it('maps AI_DESIGNER_AGENT_REGISTRY to AGENT_REGISTRY_DIR pre-import and persists it', async () => {
-    process.env.AI_DESIGNER_AGENT_REGISTRY = '/tmp/postmill-agents';
+    process.env.AI_DESIGNER_AGENT_REGISTRY = '/tmp/validpost-agents';
 
     await import('./agent-mesh-env.stash');
-    expect(process.env.AGENT_REGISTRY_DIR).toBe('/tmp/postmill-agents');
+    expect(process.env.AGENT_REGISTRY_DIR).toBe('/tmp/validpost-agents');
 
     await import('./agent-mesh-env.shim');
-    expect(process.env.AGENT_REGISTRY_DIR).toBe('/tmp/postmill-agents');
+    expect(process.env.AGENT_REGISTRY_DIR).toBe('/tmp/validpost-agents');
   });
 
   it('caps MCP_MAX_RETRIES and restores out-of-range values after import', async () => {

@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string, vars?: Record<string, unknown>) =>
     vars
       ? Object.entries(vars).reduce((s, [k, v]) => s.replace(`{{${k}}}`, String(v)), fallback)
@@ -11,12 +11,12 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
 }));
 
 let enabled: Set<string> | undefined = new Set<string>();
-vi.mock('@postmill-ai/frontend/components/media-tools/use-enabled-media-providers', () => ({
+vi.mock('@validpost/frontend/components/media-tools/use-enabled-media-providers', () => ({
   useEnabledMediaProviders: () => ({ data: enabled }),
 }));
 
 let canConfigure = true;
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => ({ hasPermission: () => canConfigure, isResolved: true }),
 }));
 

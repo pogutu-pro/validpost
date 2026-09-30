@@ -13,7 +13,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   isTransientStatus,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import { GoogleAuth } from 'google-auth-library';
 
 import { metadata as providerMetadata } from './metadata';

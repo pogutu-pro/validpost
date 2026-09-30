@@ -20,26 +20,26 @@ vi.mock('./ai-designer.hooks', () => ({
   useAiDesignerSession: () => ({ data: hoisted.hydrate }),
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: vi.fn() }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback?: string) => fallback ?? _key,
 }));
 
-vi.mock('@postmill-ai/frontend/components/new-layout/logo', () => ({
+vi.mock('@validpost/frontend/components/new-layout/logo', () => ({
   Logo: () => <div data-testid="logo" />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/media-tools/fullscreen-button', () => ({
+vi.mock('@validpost/frontend/components/media-tools/fullscreen-button', () => ({
   FullscreenButton: () => <div data-testid="fullscreen-button" />,
 }));
 
 // Must be the alias path the component actually imports — this used to target
 // './use-fullscreen', which resolves to a file that doesn't exist beside this
 // spec, so the factory never applied and the real hook ran.
-vi.mock('@postmill-ai/frontend/components/media-tools/use-fullscreen', () => ({
+vi.mock('@validpost/frontend/components/media-tools/use-fullscreen', () => ({
   useFullscreen: () => ({ isFullscreen: false, toggle: vi.fn() }),
   useFullscreenSurface: () => 'rounded-[12px] overflow-hidden',
 }));

@@ -9,17 +9,17 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { WebhooksService } from '@postmill-ai/nestjs-libraries/database/prisma/webhooks/webhooks.service';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
+import { WebhooksService } from '@validpost/nestjs-libraries/database/prisma/webhooks/webhooks.service';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
 import {
   OnlyURL, SendWebhookDto, UpdateDto, WebhooksDto
-} from '@postmill-ai/nestjs-libraries/dtos/webhooks/webhooks.dto';
-import { AuthorizationActions, Sections } from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { safeFetch, webhookSignature, webhookTimeoutMs } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+} from '@validpost/nestjs-libraries/dtos/webhooks/webhooks.dto';
+import { AuthorizationActions, Sections } from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { safeFetch, webhookSignature, webhookTimeoutMs } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 
 @ApiTags('Webhooks')
 @Controller('/webhooks')
@@ -65,13 +65,13 @@ export class WebhookController {
       const body = JSON.stringify({
         event: 'ping',
         timestamp: new Date().toISOString(),
-        data: { message: 'This is a test ping from Postmill' },
+        data: { message: 'This is a test ping from ValidPost' },
       });
       const response = await safeFetch(webhook.url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Postmill-Signature': webhookSignature(body),
+          'X-ValidPost-Signature': webhookSignature(body),
         },
         body,
         signal: AbortSignal.timeout(webhookTimeoutMs()),
@@ -109,7 +109,7 @@ export class WebhookController {
         body: serialized,
         headers: {
           'Content-Type': 'application/json',
-          'X-Postmill-Signature': webhookSignature(serialized),
+          'X-ValidPost-Signature': webhookSignature(serialized),
         },
         signal: AbortSignal.timeout(webhookTimeoutMs()),
       });

@@ -2,8 +2,8 @@
 
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
 
 interface BrandProfile {
   id: string;

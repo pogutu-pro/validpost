@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useCallback } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { ColorSwatch, Slider } from '../controls';
 import { CurvesEditor, type CurvePoint } from '../curves-editor';
 import { Histogram } from '../histogram';
@@ -9,12 +9,12 @@ import { useBrandColors } from './use-brand-colors';
 import {
   ADJUSTMENT_DESCRIPTOR_BY_TYPE,
   IDENTITY_CURVE,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/adjustment-descriptors';
-import { defaultAdjustmentValues } from '@postmill-ai/nestjs-libraries/media/designer-doc/pixel-ops';
+} from '@validpost/nestjs-libraries/media/designer-doc/adjustment-descriptors';
+import { defaultAdjustmentValues } from '@validpost/nestjs-libraries/media/designer-doc/pixel-ops';
 import type {
   DesignerAdjustment,
   DesignerGradient,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 import type { DesignerElement } from '../designer.store';
 
 /**

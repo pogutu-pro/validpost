@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
 import { Integration } from '@prisma/client';
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
 
 @Injectable()
 export class IntegrationsActivity {

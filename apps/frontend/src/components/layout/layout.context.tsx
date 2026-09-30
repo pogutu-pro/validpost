@@ -2,18 +2,18 @@
 
 import { ReactNode, useCallback } from 'react';
 import { SWRConfig } from 'swr';
-import { FetchWrapperComponent } from '@postmill-ai/helpers/utils/custom.fetch';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useReturnUrl } from '@postmill-ai/frontend/app/(app)/auth/return.url.component';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { FetchWrapperComponent } from '@validpost/helpers/utils/custom.fetch';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useReturnUrl } from '@validpost/frontend/app/(app)/auth/return.url.component';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   completeSsoPopup,
   isSsoPopupCallback,
   navigateAfterAuth,
   SSO_CLOSE_FALLBACK_MS,
-} from '@postmill-ai/frontend/components/auth/sso-popup';
+} from '@validpost/frontend/components/auth/sso-popup';
 export default function LayoutContext(params: { children: ReactNode }) {
   if (params?.children) {
     // eslint-disable-next-line react/no-children-prop

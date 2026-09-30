@@ -1,6 +1,6 @@
 # Webhooks
 
-Postmill webhooks let you receive real-time notifications when events occur in your org. Webhooks are delivered via HTTP POST, dispatched through `safeFetch` for SSRF protection.
+ValidPost webhooks let you receive real-time notifications when events occur in your org. Webhooks are delivered via HTTP POST, dispatched through `safeFetch` for SSRF protection.
 
 > **Two delivery paths.** `post.published` (plus the `test-ping` and `/webhooks/send` routes) uses a
 > **signed, enveloped, retried** delivery. The comment and analytics events go through a separate,
@@ -58,13 +58,13 @@ Content-Type: application/json
 POST /webhooks/test-ping/:id
 ```
 
-Sends a signed test payload to the webhook URL using the same enveloped shape and `X-Postmill-Signature` header as `post.published` deliveries:
+Sends a signed test payload to the webhook URL using the same enveloped shape and `X-ValidPost-Signature` header as `post.published` deliveries:
 
 ```json
 {
   "event": "ping",
   "timestamp": "2026-06-09T00:00:00.000Z",
-  "data": { "message": "This is a test ping from Postmill" }
+  "data": { "message": "This is a test ping from ValidPost" }
 }
 ```
 
@@ -186,7 +186,7 @@ The batched digest path emits a different flat shape — `{ "event": "comment.ne
 
 ### HMAC signing
 
-**Signing is not universal.** Only three deliveries are signed with an HMAC-SHA256 `X-Postmill-Signature` header (formatted `sha256=<hex>`): **`post.published`** (`post.activity.ts:684,698`), the **test-ping**, and **`/webhooks/send`**. The comment and analytics events dispatched through `WebhooksService.dispatchEvent` are sent with **only** a `Content-Type` header and carry **no signature** (`webhooks.service.ts:51-55`) — receivers of those events cannot verify a signature.
+**Signing is not universal.** Only three deliveries are signed with an HMAC-SHA256 `X-ValidPost-Signature` header (formatted `sha256=<hex>`): **`post.published`** (`post.activity.ts:684,698`), the **test-ping**, and **`/webhooks/send`**. The comment and analytics events dispatched through `WebhooksService.dispatchEvent` are sent with **only** a `Content-Type` header and carry **no signature** (`webhooks.service.ts:51-55`) — receivers of those events cannot verify a signature.
 
 For the signed deliveries, the signature is computed over the **exact serialized JSON body** using a **deployment-wide secret** — `WEBHOOK_SIGNING_SECRET`. When that env var is unset, the secret falls back to `JWT_SECRET`, so signing is always available for the paths that use it.
 
@@ -194,7 +194,7 @@ For the signed deliveries, the signature is computed over the **exact serialized
 
 ```
 expected = "sha256=" + hex(HMAC_SHA256(WEBHOOK_SIGNING_SECRET, rawRequestBody))
-constant_time_equals(expected, header["X-Postmill-Signature"])
+constant_time_equals(expected, header["X-ValidPost-Signature"])
 ```
 
 Use the raw request body bytes exactly as received (do not re-serialize), and a constant-time comparison.
@@ -210,7 +210,7 @@ The secret is deployment-wide, not per-webhook.
 
 | Var | Default | Purpose |
 |-----|---------|---------|
-| `WEBHOOK_SIGNING_SECRET` | falls back to `JWT_SECRET` | HMAC key for the `X-Postmill-Signature` header |
+| `WEBHOOK_SIGNING_SECRET` | falls back to `JWT_SECRET` | HMAC key for the `X-ValidPost-Signature` header |
 | `WEBHOOK_TIMEOUT_MS` | `10000` | Per-request timeout for webhook dispatch |
 | `OUTBOUND_HTTP_TIMEOUT_MS` | `30000` | Default `safeFetch` timeout |
 | `SSRF_ALLOWED_PRIVATE_CIDRS` | — | Opt-in allowlist of private CIDRs for internal targets |

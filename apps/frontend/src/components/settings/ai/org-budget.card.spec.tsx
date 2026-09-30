@@ -7,16 +7,16 @@ const mockT = vi.fn((_key: string, fallback?: string) => fallback ?? _key);
 const mockHasPermission = vi.fn(() => true);
 let permissionsResolved = true;
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => ({ isResolved: permissionsResolved, hasPermission: mockHasPermission }),
 }));
 

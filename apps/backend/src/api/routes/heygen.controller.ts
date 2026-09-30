@@ -1,19 +1,19 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { AuthorizationActions, Sections } from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { AuthorizationActions, Sections } from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { Organization, User } from '@prisma/client';
-import { HeyGenService } from '@postmill-ai/nestjs-libraries/media/heygen/heygen.service';
+import { HeyGenService } from '@validpost/nestjs-libraries/media/heygen/heygen.service';
 import {
   CreateAvatarVideoDto,
   TalkingPhotoVideoDto,
   TextToSpeechDto,
   TranslateVideoDto,
-} from '@postmill-ai/nestjs-libraries/dtos/heygen';
+} from '@validpost/nestjs-libraries/dtos/heygen';
 
 @ApiTags('HeyGen Studio')
 @Controller('/media/heygen')

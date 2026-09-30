@@ -4,18 +4,18 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { useSidebarCollapse } from '@postmill-ai/frontend/components/layout/use-sidebar-collapse';
-import { SubmenuStrip } from '@postmill-ai/frontend/components/new-layout/submenu-strip';
-import { StudioErrorBoundary } from '@postmill-ai/frontend/components/media-tools/studio-error-boundary';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { useSidebarCollapse } from '@validpost/frontend/components/layout/use-sidebar-collapse';
+import { SubmenuStrip } from '@validpost/frontend/components/new-layout/submenu-strip';
+import { StudioErrorBoundary } from '@validpost/frontend/components/media-tools/studio-error-boundary';
 import {
   MEDIA_SECTION_LABELS,
   SORTED_MEDIA_TABS,
   providerIdentifier,
-} from '@postmill-ai/frontend/components/media-tools/media-tools.nav';
-import { useEnabledMediaProviders } from '@postmill-ai/frontend/components/media-tools/use-enabled-media-providers';
-import { MEDIA_QUEUE_HREF } from '@postmill-ai/frontend/components/dashboard/destinations';
+} from '@validpost/frontend/components/media-tools/media-tools.nav';
+import { useEnabledMediaProviders } from '@validpost/frontend/components/media-tools/use-enabled-media-providers';
+import { MEDIA_QUEUE_HREF } from '@validpost/frontend/components/dashboard/destinations';
 
 // The render queue is pinned above the studio sections rather than added to
 // MEDIA_TABS: it reports on the studios, it isn't one of them, and the tab

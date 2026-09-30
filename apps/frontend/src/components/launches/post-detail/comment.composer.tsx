@@ -1,9 +1,9 @@
 'use client';
-import { providerErrorFromBody, providerErrorToastText } from '@postmill-ai/frontend/components/ai/provider-error';
+import { providerErrorFromBody, providerErrorToastText } from '@validpost/frontend/components/ai/provider-error';
 
 import React, { FC, useCallback, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface CommentComposerProps {
   postId: string;

@@ -5,14 +5,14 @@ import { randomBytes } from 'node:crypto';
 /**
  * SocialAbstract — the base class every social provider extends. Relocated into
  * the kernel (v4.0.0 provider-framework, step 7.5.2) so provider packages no
- * longer depend on `@postmill-ai/nestjs-libraries`.
+ * longer depend on `@validpost/nestjs-libraries`.
  *
  * SECURITY-CRITICAL: `fetch()` carries the SSRF + per-channel VPN-egress posture.
  * The behaviour is BYTE-IDENTICAL to the pre-relocation implementation. The only
  * change is that the security primitives are dereferenced from an injected ports
  * object instead of imported directly — this keeps the single-instance symbols
  * (the VPN AsyncLocalStorage in `vpn.context.ts` and the inngest error classes)
- * living in `@postmill-ai/nestjs-libraries` so there is exactly ONE als and the
+ * living in `@validpost/nestjs-libraries` so there is exactly ONE als and the
  * `instanceof` checks in the inngest pipeline stay correct. The ports are wired
  * once at bootstrap via `setSocialFetchPorts` (see DatabaseModule.onModuleInit).
  */
@@ -38,7 +38,7 @@ let _ports: SocialFetchPorts | null = null;
 
 /**
  * Inject the security/runtime primitives used by SocialAbstract.fetch. Called
- * once at bootstrap from a `@postmill-ai/nestjs-libraries` module so the VPN als and
+ * once at bootstrap from a `@validpost/nestjs-libraries` module so the VPN als and
  * inngest error classes remain single-instance. Idempotent.
  */
 export function setSocialFetchPorts(p: SocialFetchPorts): void {
@@ -47,7 +47,7 @@ export function setSocialFetchPorts(p: SocialFetchPorts): void {
 
 /**
  * Port-bound `safeFetch`. Provider packages import this from the kernel instead
- * of `@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch`, so the heavy SSRF
+ * of `@validpost/nestjs-libraries/dtos/webhooks/safe.fetch`, so the heavy SSRF
  * primitives (`webhook.url.validator` with its class-validator deps and the
  * shared `ssrfSafeDispatcher` Agent) stay in nestjs-libraries as a single
  * instance. Behaviour is identical — the real implementation is injected.
@@ -84,7 +84,7 @@ const escapeMultipartName = (name: string) =>
 async function formDataToMultipart(
   form: FormData
 ): Promise<{ body: Buffer; contentType: string }> {
-  const boundary = `----postmillform${randomBytes(12).toString('hex')}`;
+  const boundary = `----validpostform${randomBytes(12).toString('hex')}`;
   const CRLF = '\r\n';
   const chunks: Buffer[] = [];
 

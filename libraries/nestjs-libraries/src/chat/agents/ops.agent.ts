@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import {
   specialistCommsRules,
   specialistPreamble,
-} from '@postmill-ai/nestjs-libraries/chat/agents/comms-surface';
+} from '@validpost/nestjs-libraries/chat/agents/comms-surface';
 import { Agent } from '@mastra/core/agent';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { resolveOrgIdFromModelContext } from '@postmill-ai/nestjs-libraries/chat/agents/resolve-org-context';
-import { pickTools } from '@postmill-ai/nestjs-libraries/chat/agents/specialist-tool-subset';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { resolveOrgIdFromModelContext } from '@validpost/nestjs-libraries/chat/agents/resolve-org-context';
+import { pickTools } from '@validpost/nestjs-libraries/chat/agents/specialist-tool-subset';
 
 export const OPS_TOOL_NAMES = [
   'integrationSchema',
@@ -34,7 +34,7 @@ export class OpsAgentBuilder {
       id: 'ops',
       name: 'ops',
       description: 'Specialist agent for scheduling, campaigns, comments, and post operations.',
-      instructions: ({ requestContext }: { requestContext?: any }) => `${specialistPreamble()}You are the operations specialist for Postmill.
+      instructions: ({ requestContext }: { requestContext?: any }) => `${specialistPreamble()}You are the operations specialist for ValidPost.
 
 Your job:
 - Schedule and manage posts: integrationSchema → triggerTool → schedulePostTool.

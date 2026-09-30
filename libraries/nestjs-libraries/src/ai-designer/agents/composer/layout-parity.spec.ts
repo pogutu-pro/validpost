@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { AiDesignerComposerService } from './ai-designer-composer.service';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
 import { COMPOSITION_IDS } from '../../layout/compositions';
 import type { DesignPlan } from '../../ai-designer.types';
 

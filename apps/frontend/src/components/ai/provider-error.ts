@@ -1,7 +1,7 @@
 // Upstream provider failures arrive as HTTP 502 with this envelope (see
 // ProviderExceptionFilter). The point of the shape is attribution: the user's
 // own Google / OpenAI / Runway account said no, and the UI must say so — a
-// bare "Internal server error" reads as Postmill being broken.
+// bare "Internal server error" reads as ValidPost being broken.
 
 export type ProviderErrorKind =
   | 'auth'
@@ -28,7 +28,7 @@ export interface ApiError {
   status: number;
   // Best human-readable message for a toast / inline line.
   message: string;
-  // Present when the failure came from the org's provider, not Postmill.
+  // Present when the failure came from the org's provider, not ValidPost.
   providerError?: ProviderError;
   // Raw parsed body (when JSON).
   body?: any;
@@ -85,11 +85,11 @@ export async function readApiError(response: Response, fallback = 'Request faile
 type Translate = (key: string, fallback: string, params?: Record<string, unknown>) => string;
 
 // "Google AI Studio returned an error — this comes from your Google AI Studio
-// account, not Postmill." + what the kind means for the user.
+// account, not ValidPost." + what the kind means for the user.
 export function providerErrorHeadline(t: Translate, pe: ProviderError): string {
   return t(
     'provider_error_headline',
-    '{{provider}} returned an error — this comes from your {{provider}} account, not Postmill.',
+    '{{provider}} returned an error — this comes from your {{provider}} account, not ValidPost.',
     { provider: pe.providerName }
   );
 }

@@ -3,13 +3,13 @@
 import { FC, useCallback, useState } from 'react';
 import Link from 'next/link';
 import useSWR, { useSWRConfig } from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import ReactLoading from '@postmill-ai/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import ReactLoading from '@validpost/frontend/components/layout/loading';
 import {
   NotificationItem,
   NotificationRow,
-} from '@postmill-ai/frontend/components/notifications/notification.component';
+} from '@validpost/frontend/components/notifications/notification.component';
 
 interface PaginatedNotifications {
   notifications: NotificationItem[];

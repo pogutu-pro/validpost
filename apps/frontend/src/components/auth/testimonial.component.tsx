@@ -3,8 +3,8 @@
 import {
   testimonials1,
   testimonials2,
-} from '@postmill-ai/react/helpers/testomonials';
-import { Testimonial } from '@postmill-ai/frontend/components/auth/testimonial';
+} from '@validpost/react/helpers/testomonials';
+import { Testimonial } from '@validpost/frontend/components/auth/testimonial';
 
 export const TestimonialComponent = () => {
   return (

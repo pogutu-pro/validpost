@@ -2,11 +2,11 @@
 
 import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useBrands, type Brand } from '@postmill-ai/frontend/components/settings/brand/use-brands';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useBrands, type Brand } from '@validpost/frontend/components/settings/brand/use-brands';
 
 // The Brands list (former BrandTab list view). "Edit" now navigates to the brand-edit route
 // (/settings/ai/brands/[id]/voice) instead of flipping in-page state.

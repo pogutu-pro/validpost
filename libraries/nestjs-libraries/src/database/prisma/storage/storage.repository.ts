@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, StorageProviderType } from '@prisma/client';
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 
 @Injectable()
 export class StorageRepository {

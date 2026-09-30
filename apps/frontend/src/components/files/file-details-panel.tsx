@@ -1,15 +1,15 @@
 'use client';
 
 import React, { FC, useCallback, useRef, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import clsx from 'clsx';
-import { AudioPlayer } from '@postmill-ai/frontend/components/media-tools/audio-player';
-import { CampaignSelector } from '@postmill-ai/frontend/components/campaigns/selector/campaign-selector';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import i18next from '@postmill-ai/react/translation/i18next';
+import { AudioPlayer } from '@validpost/frontend/components/media-tools/audio-player';
+import { CampaignSelector } from '@validpost/frontend/components/campaigns/selector/campaign-selector';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
 import type { FileItem } from './file-manager';
 
 const formatDate = (dateStr: string) => {
@@ -172,7 +172,7 @@ export const FileDetailsPanel: FC<{
                 onChange={(e) => setName(e.target.value)}
                 onBlur={handleSaveName}
                 onKeyDown={(e) => { if (e.key === 'Enter') handleSaveName(); if (e.key === 'Escape') { setName(displayName); setEditingName(false); } }}
-                className="w-full mt-[4px] bg-transparent border-b border-[#2B5CD3] text-[13px] text-textColor outline-hidden"
+                className="w-full mt-[4px] bg-transparent border-b border-btnPrimary text-[13px] text-textColor outline-hidden"
               />
             ) : (
               <div
@@ -198,7 +198,7 @@ export const FileDetailsPanel: FC<{
               onBlur={handleSaveDescription}
               placeholder={t('add_a_description_placeholder', 'Add a description...')}
               rows={3}
-              className="w-full mt-[4px] bg-newBgColor border border-newColColor rounded-[6px] px-[10px] py-[8px] text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] resize-none placeholder:text-textColor/30"
+              className="w-full mt-[4px] bg-newBgColor border border-newColColor rounded-[6px] px-[10px] py-[8px] text-[13px] text-textColor outline-hidden focus:border-btnPrimary resize-none placeholder:text-textColor/30"
             />
           </div>
 
@@ -208,7 +208,7 @@ export const FileDetailsPanel: FC<{
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-[4px] px-[8px] py-[3px] rounded-[12px] bg-[#2B5CD3]/15 text-[12px] text-btnPrimaryAccent"
+                  className="inline-flex items-center gap-[4px] px-[8px] py-[3px] rounded-[12px] bg-btnPrimary/15 text-[12px] text-btnPrimaryAccent"
                 >
                   {tag}
                   <button
@@ -230,7 +230,7 @@ export const FileDetailsPanel: FC<{
                   if (e.key === ',' || e.key === 'Tab') { e.preventDefault(); handleAddTag(tagsInput.replace(',', '')); }
                 }}
                 placeholder={t('add_tag_placeholder', 'Add tag...')}
-                className="flex-1 min-w-[80px] bg-transparent border-b border-newColColor text-[12px] text-textColor outline-hidden focus:border-[#2B5CD3] placeholder:text-textColor/30"
+                className="flex-1 min-w-[80px] bg-transparent border-b border-newColColor text-[12px] text-textColor outline-hidden focus:border-btnPrimary placeholder:text-textColor/30"
               />
             </div>
           </div>

@@ -1,6 +1,6 @@
 # AI Architecture
 
-Postmill ships a pluggable, multi-provider AI layer. Every AI surface resolves its provider through a single injection point (`AIModelProvider`) — there are no hardcoded provider calls, and **no `OPENAI_API_KEY` env-var fallback**. If an organization has no active provider, AI is off.
+ValidPost ships a pluggable, multi-provider AI layer. Every AI surface resolves its provider through a single injection point (`AIModelProvider`) — there are no hardcoded provider calls, and **no `OPENAI_API_KEY` env-var fallback**. If an organization has no active provider, AI is off.
 
 > For the end-user view, see [AI Tools](../user-guide/ai-tools.md).
 
@@ -58,7 +58,7 @@ AI adapters live in provider packages under `libraries/providers/<id>/src/v1/ai.
 
 **16 bespoke adapters:** `openai`, `anthropic`, `google`, `bedrock`, `vertex`, `azure`, `groq`, `fireworks`, `togetherai`, `deepseek`, `mistral`, `cohere`, `perplexity`, `xai`, `gateway`, `openrouter`
 
-**14 OpenAI-compatible adapters** via `OpenAICompatibleAdapter` from `@postmill-ai/provider-kernel`: `siliconflow`, `deepinfra`, `minimax`, `qwen`, `meta-llama`, `gmihub`, `bitdeer`, `lightning`, `vultr`, `kimi`, `zai`, `apertus`, `nvidia`, `openai-compatible`
+**14 OpenAI-compatible adapters** via `OpenAICompatibleAdapter` from `@validpost/provider-kernel`: `siliconflow`, `deepinfra`, `minimax`, `qwen`, `meta-llama`, `gmihub`, `bitdeer`, `lightning`, `vultr`, `kimi`, `zai`, `apertus`, `nvidia`, `openai-compatible`
 
 Each adapter implements the `AiCapability` interface from the kernel:
 

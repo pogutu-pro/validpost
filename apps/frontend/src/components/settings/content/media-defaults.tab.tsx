@@ -2,27 +2,27 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 import {
   AI_MEDIA_CATEGORIES,
   MEDIA_CATEGORY_OPERATION,
   type AiMediaCategory,
-} from '@postmill-ai/nestjs-libraries/ai/defaults/default-categories';
+} from '@validpost/nestjs-libraries/ai/defaults/default-categories';
 import {
   DefaultModelSelect,
   useDefaultCatalog,
-} from '@postmill-ai/frontend/components/settings/shared/default-model-select';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { StudioForm } from '@postmill-ai/frontend/components/media-tools/studio-kit/studio-form';
+} from '@validpost/frontend/components/settings/shared/default-model-select';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { StudioForm } from '@validpost/frontend/components/media-tools/studio-kit/studio-form';
 import type {
   StudioDescriptor,
   StudioField,
   StudioFieldValue,
-} from '@postmill-ai/frontend/components/media-tools/studio-kit/types';
-import i18next from '@postmill-ai/react/translation/i18next';
+} from '@validpost/frontend/components/media-tools/studio-kit/types';
+import i18next from '@validpost/react/translation/i18next';
 
 interface MediaDefaultRow {
   category: AiMediaCategory;

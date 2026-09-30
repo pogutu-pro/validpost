@@ -1,5 +1,5 @@
 
-# Copilot Coding Agent Instructions for Postmill
+# Copilot Coding Agent Instructions for ValidPost
 
 ## Project Architecture
 - Monorepo managed by NX, with apps in `apps/` and shared code in `libraries/`.
@@ -29,7 +29,7 @@
 
 ## Integration Points
 - External APIs: Social media (Instagram, Facebook), Make.com, N8N, Resend, Stripe, etc.
-- SDK (`apps/sdk`) provides programmatic access to Postmill features.
+- SDK (`apps/sdk`) provides programmatic access to ValidPost features.
 - Extension (`apps/extension`) is built with Vite, React, TypeScript, and Tailwind CSS.
 
 ## Key Files & Directories
@@ -43,9 +43,9 @@
 - `libraries/nestjs-libraries/src/database/prisma/schema.prisma` — Database schema
 
 ## Documentation
-- Main docs: https://docs.postmill.ai/
-- Developer guide: https://docs.postmill.ai/developer-docs/
-- Public API: https://docs.postmill.ai/public-api
+- Main docs: https://docs.validpost.io/
+- Developer guide: https://docs.validpost.io/developer-docs/
+- Public API: https://docs.validpost.io/public-api
 
 ---
 

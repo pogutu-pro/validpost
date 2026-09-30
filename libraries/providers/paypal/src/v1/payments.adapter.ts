@@ -21,7 +21,7 @@ import {
   SafeFetchPort,
   WebhookReceipt,
   planUnitAmountCents,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const LIVE_BASE = 'https://api-m.paypal.com';
 const SANDBOX_BASE = 'https://api-m.sandbox.paypal.com';
@@ -180,7 +180,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
   // ---------------------------------------------------------------- catalog
 
   private _productName(tier: PaymentsTier): string {
-    return `Postmill ${tier}`;
+    return `ValidPost ${tier}`;
   }
 
   /**
@@ -190,7 +190,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
    */
   private _planName(plan: PaymentsPlanPrice, period: PaymentsPeriod, trial: boolean): string {
     const amount = (planUnitAmountCents(plan, period) / 100).toFixed(2);
-    return `Postmill ${plan.tier} ${period} ${amount} ${plan.currency.toUpperCase()}${trial ? ' TRIAL' : ''}`;
+    return `ValidPost ${plan.tier} ${period} ${amount} ${plan.currency.toUpperCase()}${trial ? ' TRIAL' : ''}`;
   }
 
   /** Walk every page of a PayPal list endpoint (they page at 20 by default). */
@@ -285,7 +285,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
   /**
    * Reverse-map a plan id to tier/period, fetching the plan on a cache miss.
    * A failed fetch throws (the webhook answers 500 and PayPal redelivers);
-   * only a plan that is genuinely not a Postmill plan yields null.
+   * only a plan that is genuinely not a ValidPost plan yields null.
    */
   private async _planTier(planId: string): Promise<{ tier: PaymentsTier; period: PaymentsPeriod } | null> {
     let name = this._planNames.get(planId);
@@ -294,7 +294,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
       name = plan.name;
       this._planNames.set(planId, name);
     }
-    const m = /^Postmill (\w+) (MONTHLY|YEARLY)/.exec(name);
+    const m = /^ValidPost (\w+) (MONTHLY|YEARLY)/.exec(name);
     if (!m || !TIERS.includes(m[1] as PaymentsTier) || !PERIODS.includes(m[2] as PaymentsPeriod)) {
       return null;
     }
@@ -318,7 +318,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
         custom_id: `${request.orgId}|${request.identifier}`,
         ...(request.email ? { subscriber: { email_address: request.email } } : {}),
         application_context: {
-          brand_name: process.env.PAYPAL_BRAND_NAME || 'Postmill',
+          brand_name: process.env.PAYPAL_BRAND_NAME || 'ValidPost',
           user_action: 'SUBSCRIBE_NOW',
           return_url: request.returnUrls.success,
           cancel_url: request.returnUrls.cancel,
@@ -341,7 +341,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
       {
         plan_id: planId,
         application_context: {
-          brand_name: process.env.PAYPAL_BRAND_NAME || 'Postmill',
+          brand_name: process.env.PAYPAL_BRAND_NAME || 'ValidPost',
           return_url: request.metadata.returnUrl || '',
           cancel_url: request.metadata.returnUrl || '',
         },
@@ -378,7 +378,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
     }
     if (!alreadyCancelled) {
       await this._api('POST', `/v1/billing/subscriptions/${customerRef}/cancel`, {
-        reason: 'Cancelled from Postmill',
+        reason: 'Cancelled from ValidPost',
       });
     }
     // A subscription that never became ACTIVE (approval pending, suspended with
@@ -397,7 +397,7 @@ export class PaypalPaymentsAdapter implements PaymentsCapability {
 
   async cancelNow(customerRef: string): Promise<void> {
     await this._api('POST', `/v1/billing/subscriptions/${customerRef}/cancel`, {
-      reason: 'Cancelled from Postmill',
+      reason: 'Cancelled from ValidPost',
     });
   }
 

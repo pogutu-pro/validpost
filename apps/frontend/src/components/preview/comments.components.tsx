@@ -1,12 +1,12 @@
 'use client';
 
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { Button } from '@postmill-ai/react/form/button';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { Button } from '@validpost/react/form/button';
 import { FC, useCallback, useMemo, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const RenderComponents: FC<{
   postId: string;
 }> = (props) => {

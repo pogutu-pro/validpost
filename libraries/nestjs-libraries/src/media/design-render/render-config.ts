@@ -43,8 +43,8 @@ export interface PodmanRenderConfig {
 export function getPodmanRenderConfig(): PodmanRenderConfig {
   return {
     bin: process.env.VIDEO_RENDER_PODMAN_BIN || 'podman',
-    image: process.env.VIDEO_RENDER_IMAGE || 'localhost/postmill-render:latest',
-    pod: process.env.VIDEO_RENDER_POD || 'postmill-render',
+    image: process.env.VIDEO_RENDER_IMAGE || 'localhost/validpost-render:latest',
+    pod: process.env.VIDEO_RENDER_POD || 'validpost-render',
     cpus: intEnv('VIDEO_RENDER_CPUS', 4),
     memory: process.env.VIDEO_RENDER_MEMORY || '8g',
     // Isolated bridge network by default: the render container must NOT join the host

@@ -1,8 +1,8 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { PlatformIcon } from '@postmill-ai/frontend/components/shared/platform-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { PlatformIcon } from '@validpost/frontend/components/shared/platform-icon';
 
 /**
  * Uniform configure/edit modal header for provider surfaces (channels, comms,

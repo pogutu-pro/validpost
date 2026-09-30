@@ -1,12 +1,12 @@
 'use client';
 
 import { FC, useCallback, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR, { useSWRConfig } from 'swr';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useDecisionModal } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useDecisionModal } from '@validpost/frontend/components/layout/new-modal';
 import copy from 'copy-to-clipboard';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import dayjs from 'dayjs';
 
 interface ApiKey {
@@ -191,13 +191,13 @@ export const ApiKeysSection: FC<{ onKeyCreated?: (key: CreatedKey) => void }> = 
             {t('api_keys', 'API Keys')}
           </div>
           <div className="text-[13px] text-newTableText mt-[2px]">
-            {t('api_keys_description', 'Manage API keys for programmatic access to Postmill.')}
+            {t('api_keys_description', 'Manage API keys for programmatic access to ValidPost.')}
           </div>
         </div>
         <button
           type="button"
           onClick={() => setCreating(true)}
-          className="cursor-pointer px-[20px] h-[44px] bg-[#2B5CD3] hover:bg-[#5520CB] transition-colors text-white rounded-[8px] text-[15px] font-[600]"
+          className="cursor-pointer px-[20px] h-[44px] bg-btnPrimary hover:bg-vpPrimaryHover transition-colors text-white rounded-[8px] text-[15px] font-[600]"
         >
           {t('create_key', 'Create Key')}
         </button>
@@ -238,7 +238,7 @@ export const ApiKeysSection: FC<{ onKeyCreated?: (key: CreatedKey) => void }> = 
               <button
                 type="button"
                 onClick={createKey}
-                className="cursor-pointer px-[20px] h-[44px] bg-[#2B5CD3] hover:bg-[#5520CB] transition-colors text-white rounded-[8px] text-[15px] font-[600]"
+                className="cursor-pointer px-[20px] h-[44px] bg-btnPrimary hover:bg-vpPrimaryHover transition-colors text-white rounded-[8px] text-[15px] font-[600]"
               >
                 {t('create', 'Create')}
               </button>
@@ -306,7 +306,7 @@ export const ApiKeysSection: FC<{ onKeyCreated?: (key: CreatedKey) => void }> = 
                           <button
                             type="button"
                             onClick={() => rotateKey(key.id)}
-                            className="cursor-pointer px-[8px] h-[28px] bg-[#2B5CD3] text-white rounded-[4px] text-[11px] font-[600]"
+                            className="cursor-pointer px-[8px] h-[28px] bg-btnPrimary text-white rounded-[4px] text-[11px] font-[600]"
                           >
                             {t('confirm', 'Confirm')}
                           </button>

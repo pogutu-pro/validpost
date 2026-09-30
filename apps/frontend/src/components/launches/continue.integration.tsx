@@ -4,14 +4,14 @@ import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { HttpStatusCode } from 'axios';
 import * as Sentry from '@sentry/nextjs';
 import { useRouter } from 'next/navigation';
-import { Redirect } from '@postmill-ai/frontend/components/layout/redirect';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { Redirect } from '@validpost/frontend/components/layout/redirect';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import dayjs from 'dayjs';
-import { continueProviderList } from '@postmill-ai/frontend/components/composer/providers/continue-provider/list';
-import { IntegrationContext } from '@postmill-ai/frontend/components/launches/helpers/use.integration';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
+import { continueProviderList } from '@validpost/frontend/components/composer/providers/continue-provider/list';
+import { IntegrationContext } from '@validpost/frontend/components/launches/helpers/use.integration';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { useVariables } from '@validpost/react/helpers/variable.context';
 
 interface TwoStepState {
   integrationId: string;
@@ -70,7 +70,7 @@ export const ContinueIntegration: FC<{
         try {
           window.opener.postMessage(
             {
-              type: 'postmill:channel-connected',
+              type: 'validpost:channel-connected',
               provider,
               message: successMessage,
             },
@@ -108,7 +108,7 @@ export const ContinueIntegration: FC<{
 
       // A callback with no authorization code can never succeed — POSTing it
       // just 400s on the DTO with a raw "code must be a string" validation
-      // message that leaks into the UI and Sentry (POSTMILL-APP-9). This
+      // message that leaks into the UI and Sentry (VALIDPOST-APP-9). This
       // happens on OAuth error redirects (?error=...) — user denial or a
       // misconfigured app — and on stray hits of the callback URL. Intercept
       // before the POST and show a clean reason instead.

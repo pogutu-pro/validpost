@@ -4,17 +4,17 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useSidebarCollapse } from '@postmill-ai/frontend/components/layout/use-sidebar-collapse';
-import { LogoutComponent } from '@postmill-ai/frontend/components/layout/logout.component';
-import { SubmenuStrip } from '@postmill-ai/frontend/components/new-layout/submenu-strip';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useSidebarCollapse } from '@validpost/frontend/components/layout/use-sidebar-collapse';
+import { LogoutComponent } from '@validpost/frontend/components/layout/logout.component';
+import { SubmenuStrip } from '@validpost/frontend/components/new-layout/submenu-strip';
 import {
   visibleSettingsNav,
   type SettingsNavItem,
-} from '@postmill-ai/frontend/components/settings/settings-nav.config';
+} from '@validpost/frontend/components/settings/settings-nav.config';
 
 // Settings shell: the collapsible left rail + the page header, shared across every
 // /settings/* route. Replaces the old single-page SettingsPopup tab switcher — each rail

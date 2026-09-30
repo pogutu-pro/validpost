@@ -1,16 +1,16 @@
 'use client';
 
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { PlatformIcon } from '@postmill-ai/frontend/components/shared/platform-icon';
-import ProviderListShell from '@postmill-ai/frontend/components/settings/shared/provider-list-shell';
-import ProviderModalTitle from '@postmill-ai/frontend/components/settings/shared/provider-modal-title';
-import { ProviderSearchToolbar } from '@postmill-ai/frontend/components/settings/shared/kit/provider-search-toolbar';
-import { CapabilityBadges } from '@postmill-ai/frontend/components/settings/shared/kit/capabilities';
-import { CapabilityMeta } from '@postmill-ai/frontend/components/settings/shared/kit/provider-surface.types';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { PlatformIcon } from '@validpost/frontend/components/shared/platform-icon';
+import ProviderListShell from '@validpost/frontend/components/settings/shared/provider-list-shell';
+import ProviderModalTitle from '@validpost/frontend/components/settings/shared/provider-modal-title';
+import { ProviderSearchToolbar } from '@validpost/frontend/components/settings/shared/kit/provider-search-toolbar';
+import { CapabilityBadges } from '@validpost/frontend/components/settings/shared/kit/capabilities';
+import { CapabilityMeta } from '@validpost/frontend/components/settings/shared/kit/provider-surface.types';
 import {
   COMMS_CONNECTED_STORAGE_KEY,
   COMMS_FULLPAGE_STORAGE_KEY,
@@ -196,7 +196,7 @@ export const CommsTab: FC = () => {
       );
       if (connected && window.opener && window.opener !== window) {
         window.opener.postMessage(
-          { type: 'postmill:comms-connected', provider: connected },
+          { type: 'validpost:comms-connected', provider: connected },
           window.location.origin
         );
       }

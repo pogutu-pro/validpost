@@ -64,7 +64,7 @@ describe('SubscriptionService', () => {
   });
 
   describe('BillingTier type', () => {
-    it('matches the four Postmill tiers exactly', () => {
+    it('matches the four ValidPost tiers exactly', () => {
       expectTypeOf<BillingTier>().toEqualTypeOf<
         'STARTER' | 'PRO' | 'TEAM' | 'AGENCY'
       >();

@@ -1,12 +1,12 @@
 'use client';
 
 import { FC, useMemo, useState } from 'react';
-import { Select } from '@postmill-ai/react/form/select';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { Select } from '@validpost/react/form/select';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { useClickOutside } from '@mantine/hooks';
-import { isUSCitizen } from '@postmill-ai/frontend/components/launches/helpers/isuscitizen.utils';
+import { isUSCitizen } from '@validpost/frontend/components/launches/helpers/isuscitizen.utils';
 import clsx from 'clsx';
-import { RepeatIcon, DropdownArrowIcon } from '@postmill-ai/frontend/components/ui/icons';
+import { RepeatIcon, DropdownArrowIcon } from '@validpost/frontend/components/ui/icons';
 const getList = (t: (key: string, fallback: string) => string) => [
   {
     value: 1,
@@ -77,7 +77,7 @@ export const RepeatComponent: FC<{
       ref={ref}
       className={clsx(
         'border rounded-[8px] justify-center flex items-center relative h-[36px] lg:h-[44px] text-[13px] lg:text-[15px] font-[600] select-none',
-        isOpen ? 'border-[#2B5CD3]' : 'border-newTextColor/10',
+        isOpen ? 'border-btnPrimary' : 'border-newTextColor/10',
       )}
     >
       <div

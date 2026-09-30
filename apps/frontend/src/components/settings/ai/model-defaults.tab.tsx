@@ -2,19 +2,19 @@
 
 import React, { useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 import {
   AI_MODEL_CATEGORIES,
   type AiModelCategory,
-} from '@postmill-ai/nestjs-libraries/ai/defaults/default-categories';
+} from '@validpost/nestjs-libraries/ai/defaults/default-categories';
 import {
   DefaultModelSelect,
   useDefaultCatalog,
-} from '@postmill-ai/frontend/components/settings/shared/default-model-select';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+} from '@validpost/frontend/components/settings/shared/default-model-select';
+import { useToaster } from '@validpost/react/toaster/toaster';
 
 interface ModelDefaultRow {
   category: AiModelCategory;

@@ -2,14 +2,14 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { SWRConfig } from 'swr';
-import { Register } from '@postmill-ai/frontend/components/auth/register';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { Register } from '@validpost/frontend/components/auth/register';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import {
   isSsoPopupCallback,
   markSsoFullPage,
   resetSsoCallbackMode,
   SSO_COMPLETE_STORAGE_KEY,
-} from '@postmill-ai/frontend/components/auth/sso-popup';
+} from '@validpost/frontend/components/auth/sso-popup';
 
 // The /auth?provider=…&code=… callback page: the OAuth code exchange runs
 // inside the sign-in popup (or the user's own tab after a popup-blocked
@@ -21,7 +21,7 @@ import {
 
 let searchParams = new URLSearchParams();
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 vi.mock('next/link', () => ({
@@ -35,10 +35,10 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),
   useSearchParams: () => searchParams,
 }));
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: vi.fn(),
 }));
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({
     isGeneral: true,
     genericOauth: false,
@@ -48,22 +48,22 @@ vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
     oauthDisplayName: '',
   }),
 }));
-vi.mock('@postmill-ai/helpers/utils/use.fire.events', () => ({
+vi.mock('@validpost/helpers/utils/use.fire.events', () => ({
   useFireEvents: () => vi.fn(),
 }));
-vi.mock('@postmill-ai/react/helpers/use.track', () => ({
+vi.mock('@validpost/react/helpers/use.track', () => ({
   useTrack: () => vi.fn().mockResolvedValue(undefined),
 }));
 vi.mock('react-use-cookie', () => ({
   default: () => ['', vi.fn()],
 }));
-vi.mock('@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
   CreateOrgUserDto: class CreateOrgUserDto {},
 }));
 vi.mock('@hookform/resolvers/class-validator', () => ({
   classValidatorResolver: () => async (values: any) => ({ values, errors: {} }),
 }));
-vi.mock('@postmill-ai/frontend/components/auth/providers/wallet.provider', () => ({
+vi.mock('@validpost/frontend/components/auth/providers/wallet.provider', () => ({
   default: () => <div data-testid="wallet-provider" />,
 }));
 

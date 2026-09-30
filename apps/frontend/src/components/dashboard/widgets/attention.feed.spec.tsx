@@ -9,7 +9,7 @@ const mockRetry = vi.fn();
 const mockDismiss = vi.fn();
 const mockShow = vi.fn();
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_key: string, fallback: string, vars?: Record<string, unknown>) =>
@@ -22,7 +22,7 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push }),
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockShow }),
 }));
 
@@ -31,14 +31,14 @@ vi.mock('../hooks/useAttention', () => ({
   AttentionItemDto: {} as any,
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/kit/states', () => ({
+vi.mock('@validpost/frontend/components/analytics/kit/states', () => ({
   TabSkeleton: ({ variant }: { variant?: string }) => (
     <div data-testid="tab-skeleton" data-variant={variant} />
   ),
   EmptyState: ({ title }: { title?: string }) => <div data-testid="empty-state">{title}</div>,
 }));
 
-vi.mock('@postmill-ai/react/form/button', () => ({
+vi.mock('@validpost/react/form/button', () => ({
   Button: ({ children, onClick, disabled }: any) => (
     <button type="button" onClick={onClick} disabled={disabled}>
       {children}

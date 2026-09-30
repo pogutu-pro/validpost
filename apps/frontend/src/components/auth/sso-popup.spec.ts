@@ -4,13 +4,13 @@ import { act, renderHook } from '@testing-library/react';
 const fetchMock = vi.fn();
 const getAndClear = vi.fn();
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => fetchMock,
 }));
-vi.mock('@postmill-ai/frontend/app/(app)/auth/return.url.component', () => ({
+vi.mock('@validpost/frontend/app/(app)/auth/return.url.component', () => ({
   useReturnUrl: () => ({ getAndClear }),
 }));
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 

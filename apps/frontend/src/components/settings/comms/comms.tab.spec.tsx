@@ -15,25 +15,25 @@ const mockT = vi.fn(
 const mockOpenModal = vi.fn();
 const mockHasPermission = vi.fn(() => true);
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
 
 const mockDecisionOpen = vi.fn().mockResolvedValue(true);
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: mockOpenModal }),
   useDecisionModal: () => ({ open: mockDecisionOpen }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => ({ hasPermission: mockHasPermission }),
 }));
 
@@ -168,7 +168,7 @@ describe('CommsTab', () => {
     }
   });
 
-  it('posts postmill:comms-connected to the opener when it survives', async () => {
+  it('posts validpost:comms-connected to the opener when it survives', async () => {
     const postMessage = vi.fn();
     const closeSpy = vi.spyOn(window, 'close').mockImplementation(() => undefined);
     Object.defineProperty(window, 'opener', { value: { postMessage }, writable: true });
@@ -179,7 +179,7 @@ describe('CommsTab', () => {
 
       await waitFor(() => expect(postMessage).toHaveBeenCalled());
       expect(postMessage).toHaveBeenCalledWith(
-        { type: 'postmill:comms-connected', provider: 'oauth-demo' },
+        { type: 'validpost:comms-connected', provider: 'oauth-demo' },
         window.location.origin,
       );
       // The localStorage signal is written too — it is the COOP-proof path.

@@ -8,15 +8,15 @@ interface PageHeaderProps {
 
 export const PageHeader: FC<PageHeaderProps> = ({ title, description, action }) => {
   return (
-    <div className="flex items-center justify-between mb-[20px]">
+    <div className="flex items-center justify-between gap-[12px] mobile:flex-col mobile:items-stretch mb-[20px]">
       <div>
-        <h1 className="text-[20px] mobile:text-[24px] font-[600] text-textColor">{title}</h1>
+        <h1 className="text-[24px] mobile:text-[22px] font-[600] tracking-[-0.02em] text-textColor">{title}</h1>
         {description && (
           <p className="text-[13px] text-newTableText mt-[4px]">{description}</p>
         )}
       </div>
       {action && (
-        <div className="flex items-center gap-[8px]">{action}</div>
+        <div className="flex items-center gap-[8px] mobile:flex-wrap">{action}</div>
       )}
     </div>
   );

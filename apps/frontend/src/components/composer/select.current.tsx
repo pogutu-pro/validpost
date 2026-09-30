@@ -4,18 +4,18 @@ import { FC, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import {
   SelectedIntegrations,
   useLaunchStore,
-} from '@postmill-ai/frontend/components/composer/store';
+} from '@validpost/frontend/components/composer/store';
 import clsx from 'clsx';
 import Image from 'next/image';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import SafeImage from '@validpost/react/helpers/safe.image';
 import { useShallow } from 'zustand/react/shallow';
-import { GlobalIcon } from '@postmill-ai/frontend/components/ui/icons';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { GlobalIcon } from '@validpost/frontend/components/ui/icons';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 import {
   useDecisionModal,
   useModals,
-} from '@postmill-ai/frontend/components/layout/new-modal';
+} from '@validpost/frontend/components/layout/new-modal';
 
 export function useHasScroll(ref: RefObject<HTMLElement | null>): boolean {
   const [hasHorizontalScroll, setHasHorizontalScroll] = useState(false);
@@ -118,7 +118,7 @@ export const SelectCurrent: FC = () => {
               'cursor-pointer flex gap-[8px] rounded-[8px] w-[40px] h-[40px] justify-center items-center bg-newBgLineColor p-0',
               current !== 'global'
                 ? 'text-[#A3A3A3] border-0'
-                : 'border border-[#2b5cd3] text-[#2b5cd3]'
+                : 'border border-btnPrimary text-btnPrimaryAccent'
             )}
           >
             <div>
@@ -131,7 +131,7 @@ export const SelectCurrent: FC = () => {
               className={clsx(
                 'border relative flex gap-[8px] w-[40px] h-[40px] rounded-[8px] items-center bg-newBgLineColor justify-center',
                 current === integration.id
-                  ? 'border-[#2b5cd3] text-[#2b5cd3]'
+                  ? 'border-btnPrimary text-btnPrimaryAccent'
                   : 'border-transparent'
               )}
             >
@@ -215,7 +215,7 @@ export const IsGlobal: FC<{ id: string }> = ({ id }) => {
         'no_longer_global_mode',
         'No longer in global mode'
       )}
-      className="w-[8px] h-[8px] bg-[#2b5cd3] -top-px inset-e-[-3px] absolute rounded-full"
+      className="w-[8px] h-[8px] bg-btnPrimary -top-px inset-e-[-3px] absolute rounded-full"
     />
   );
 };

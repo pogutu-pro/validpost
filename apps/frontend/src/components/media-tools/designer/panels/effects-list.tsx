@@ -1,17 +1,17 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   EyeIcon,
   EyeOffIcon,
-} from '@postmill-ai/frontend/components/ui/icons/designer-tools';
+} from '@validpost/frontend/components/ui/icons/designer-tools';
 import {
   LAYER_STYLE_DESCRIPTORS,
   layerStyleDescriptor,
   type LayerStyleParam,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/layer-style-descriptors';
-import type { DesignerLayerStyle } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+} from '@validpost/nestjs-libraries/media/designer-doc/layer-style-descriptors';
+import type { DesignerLayerStyle } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 import { ColorSwatch, SegmentedControl, Slider } from '../controls';
 import { GradientEditor } from '../controls/gradient-editor';
 import { defaultStyle } from '../layer-actions';

@@ -1,11 +1,11 @@
 {
-  "name": "@postmill-ai/provider-elevenlabs",
+  "name": "@validpost/provider-elevenlabs",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
-    "@postmill-ai/provider-kernel": "workspace:*"
+    "@validpost/provider-kernel": "workspace:*"
   },
   "license": "AGPL-3.0",
   "engines": {

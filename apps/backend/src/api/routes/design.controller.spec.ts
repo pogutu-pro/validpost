@@ -1,21 +1,21 @@
 import 'reflect-metadata';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { CHECK_POLICIES_KEY } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { REQUIRE_PERMISSION_KEY } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { CHECK_POLICIES_KEY } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { REQUIRE_PERMISSION_KEY } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 import {
   AuthorizationActions,
   Sections,
-} from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
+} from '@validpost/backend/services/auth/permissions/permission.exception.class';
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/design/design.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/design/design.service', () => ({
   DesignService: class {},
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/file/file.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/file/file.service', () => ({
   FileService: class {},
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service', () => ({
+vi.mock('@validpost/nestjs-libraries/media/designer-doc/designer-doc.service', () => ({
   DesignerDocService: class {},
 }));
 

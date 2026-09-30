@@ -5,15 +5,15 @@ import { HttpStatus } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import * as crypto from 'crypto';
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/oauth/oauth.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/oauth/oauth.service', () => ({
   OAuthService: class {},
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/api-keys/api-keys.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/api-keys/api-keys.service', () => ({
   ApiKeysService: class {},
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/services/exception.filter', () => ({
+vi.mock('@validpost/nestjs-libraries/services/exception.filter', () => ({
   HttpForbiddenException: class HttpForbiddenException extends Error {
     constructor() {
       super('Forbidden');
@@ -22,7 +22,7 @@ vi.mock('@postmill-ai/nestjs-libraries/services/exception.filter', () => ({
 }));
 
 import { PublicAuthMiddleware } from './public.auth.middleware';
-import { HttpForbiddenException } from '@postmill-ai/nestjs-libraries/services/exception.filter';
+import { HttpForbiddenException } from '@validpost/nestjs-libraries/services/exception.filter';
 
 const sha256 = (value: string) =>
   crypto.createHash('sha256').update(value).digest('hex');
@@ -417,13 +417,13 @@ describe('PublicAuthMiddleware', () => {
     );
     expect(next).not.toHaveBeenCalled();
   });
-  // A Postmill ID (`posf_`) token is an IDENTITY assertion for the template
+  // A ValidPost ID (`posf_`) token is an IDENTITY assertion for the template
   // store. It must never buy org API access. Today that holds for one reason
   // only: `'posf_'.startsWith('pos_')` is false, because index 3 is `f` and not
   // `_`. That is a load-bearing accident of the prefix spelling — rename either
   // token and the federation credential silently becomes an org read token.
   // These assertions exist so the rename fails here instead of in production.
-  describe('Postmill ID federation tokens are not org credentials', () => {
+  describe('ValidPost ID federation tokens are not org credentials', () => {
     it('never routes a posf_ token to the OAuth resolver', async () => {
       apiKeysService.findActiveByHash.mockResolvedValue(null);
       const req = mockReq('posf_' + 'a'.repeat(40));

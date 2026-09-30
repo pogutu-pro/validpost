@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_k: string, d: string) => d,
 }));
 

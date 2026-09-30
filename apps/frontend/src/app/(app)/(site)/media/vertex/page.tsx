@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const VertexStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/vertex/vertex-studio').then((m) => m.VertexStudio),
+  () => import('@validpost/frontend/components/media-tools/vertex/vertex-studio').then((m) => m.VertexStudio),
   { ssr: false }
 );
 

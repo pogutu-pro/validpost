@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC } from 'react';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import SafeImage from '@validpost/react/helpers/safe.image';
 
 /**
  * The bare brand mark for a social platform, from `/icons/platforms/`.

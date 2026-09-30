@@ -1,27 +1,27 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { PaymentsService } from '@postmill-ai/nestjs-libraries/payments/payments.service';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { PaymentsService } from '@validpost/nestjs-libraries/payments/payments.service';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization, User } from '@prisma/client';
-import { BillingSubscribeDto } from '@postmill-ai/nestjs-libraries/dtos/billing/billing.subscribe.dto';
-import { CancelSubscriptionDto } from '@postmill-ai/backend/dtos/billing/cancel-subscription.dto';
-import { LifetimeCodeDto } from '@postmill-ai/backend/dtos/billing/lifetime-code.dto';
-import { RefundChargesDto } from '@postmill-ai/backend/dtos/billing/refund-charges.dto';
-import { AddSubscriptionDto } from '@postmill-ai/backend/dtos/billing/add-subscription.dto';
-import { NativeVerifyDto } from '@postmill-ai/nestjs-libraries/dtos/billing/native-verify.dto';
-import { ChangePlanDto } from '@postmill-ai/nestjs-libraries/dtos/billing/change-plan.dto';
-import { ManageAddonsDto } from '@postmill-ai/nestjs-libraries/dtos/billing/manage-addons.dto';
+import { BillingSubscribeDto } from '@validpost/nestjs-libraries/dtos/billing/billing.subscribe.dto';
+import { CancelSubscriptionDto } from '@validpost/backend/dtos/billing/cancel-subscription.dto';
+import { LifetimeCodeDto } from '@validpost/backend/dtos/billing/lifetime-code.dto';
+import { RefundChargesDto } from '@validpost/backend/dtos/billing/refund-charges.dto';
+import { AddSubscriptionDto } from '@validpost/backend/dtos/billing/add-subscription.dto';
+import { NativeVerifyDto } from '@validpost/nestjs-libraries/dtos/billing/native-verify.dto';
+import { ChangePlanDto } from '@validpost/nestjs-libraries/dtos/billing/change-plan.dto';
+import { ManageAddonsDto } from '@validpost/nestjs-libraries/dtos/billing/manage-addons.dto';
 import {
   ADDONS,
   AddonType,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 import { ApiTags } from '@nestjs/swagger';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
 import { Request } from 'express';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
 
 @ApiTags('Billing')
 @Controller('/billing')

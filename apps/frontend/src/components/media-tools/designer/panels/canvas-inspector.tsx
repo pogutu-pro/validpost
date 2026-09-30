@@ -5,7 +5,7 @@ import { ColorSwatch, Slider, SegmentedControl } from '../controls';
 import { useBrandColors } from './use-brand-colors';
 import { GradientEditor, gradientCss } from '../controls/gradient-editor';
 import { useMediaPicker } from '../../use-media-picker';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { DesignerGradient, DesignerOutput, VideoOutput } from '../designer.store';
 
 interface CanvasInspectorProps {

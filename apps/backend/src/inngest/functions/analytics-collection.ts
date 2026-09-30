@@ -1,13 +1,13 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
 import {
   analyticsSyncIntegrationEvent,
   analyticsSyncOrgEvent,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
+} from '@validpost/nestjs-libraries/inngest/inngest.types';
 import {
   AnalyticsActivity,
   ChannelSnapshotIntegrationRef,
-} from '@postmill-ai/nestjs-libraries/inngest/activities/analytics.activity';
-import { InngestRunService } from '@postmill-ai/nestjs-libraries/inngest/inngest-run.service';
+} from '@validpost/nestjs-libraries/inngest/activities/analytics.activity';
+import { InngestRunService } from '@validpost/nestjs-libraries/inngest/inngest-run.service';
 import { trackRun } from './track-run';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';

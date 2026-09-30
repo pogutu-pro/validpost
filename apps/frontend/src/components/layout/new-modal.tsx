@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
 import { useShallow } from 'zustand/react/shallow';
 import React, {
   createContext,
@@ -16,13 +16,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
 import { useHotkeys } from 'react-hotkeys-hook';
 import clsx from 'clsx';
 import { EventEmitter } from 'events';
-import i18next from '@postmill-ai/react/translation/i18next';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface OpenModalInterface {
   title?: any;

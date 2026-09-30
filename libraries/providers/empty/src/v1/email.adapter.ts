@@ -5,7 +5,7 @@ import {
   EmailSendParams,
   EmailSendResult,
   ProviderModule,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 export class EmptyAdapter implements EmailCapability {
   readonly name = 'empty';

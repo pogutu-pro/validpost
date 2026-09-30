@@ -5,11 +5,11 @@ import {
   computeContentInsights,
   bestTimeConfidence,
 } from './analytics-aggregation';
-import { METRIC_REGISTRY, isKnownMetric } from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
+import { METRIC_REGISTRY, isKnownMetric } from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import dayjs from 'dayjs';
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository', () => {
+vi.mock('@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository', () => {
   const mkMock = () => {
     const fn = vi.fn();
     // Default to resolving empty arrays so un-mocked calls don't crash
@@ -47,17 +47,17 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repos
   };
 });
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/integration.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/integration.manager', () => ({
   IntegrationManager: class MockManager {},
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
   IntegrationService: class MockService {
     checkAnalytics = vi.fn();
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/posts/posts.service', () => ({
   PostsService: class MockService {
     checkPostAnalytics = vi.fn();
   },
@@ -65,14 +65,14 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service', () 
 
 // 7.5: insights injects AIModelProvider — mock the heavy module so importing the
 // insights service in the spec doesn't drag in the whole AI stack.
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-model.provider', () => ({
   AIModelProvider: class MockAIModelProvider {
     resolveConfigForScope = vi.fn().mockResolvedValue(null);
     generateText = vi.fn().mockResolvedValue('');
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service', () => ({
   OrgShortLinkSettingsService: class MockOrgShortLinkSettingsService {
     getLinksForOrg = vi.fn();
     getAggregatedClicks = vi.fn();
@@ -80,7 +80,7 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink
 }));
 
 // Mock ioRedis to prevent cache cross-contamination between tests
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: {
     get: vi.fn().mockResolvedValue(null),
     set: vi.fn().mockResolvedValue('OK'),
@@ -96,10 +96,10 @@ vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
   },
 }));
 
-import { AnalyticsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { OrgShortLinkSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
+import { AnalyticsRepository } from '@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { OrgShortLinkSettingsService } from '@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
 // 5.3: the facade delegates to these sibling services. They are constructed
 // from the same mocks so every assertion below still exercises the real logic
 // through the facade — no behaviour change, only the wiring moved.

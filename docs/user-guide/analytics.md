@@ -150,7 +150,7 @@ The export returns a downloadable file with the appropriate content type and fil
 ## Live Fallback
 
 Analytics are primarily sourced from `AnalyticsSnapshot` and `PostAnalyticsSnapshot` tables.
-However, for posts or channels that do not yet have snapshots, Postmill falls back to live
+However, for posts or channels that do not yet have snapshots, ValidPost falls back to live
 platform queries through the provider integration layer. This ensures you always see the most
 current available data.
 

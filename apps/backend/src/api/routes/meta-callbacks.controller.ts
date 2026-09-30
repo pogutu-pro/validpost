@@ -12,8 +12,8 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { MetaCallbacksService } from '@postmill-ai/nestjs-libraries/integrations/meta-callbacks.service';
-import { MetaSignedRequestDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/meta-signed-request.dto';
+import { MetaCallbacksService } from '@validpost/nestjs-libraries/integrations/meta-callbacks.service';
+import { MetaSignedRequestDto } from '@validpost/nestjs-libraries/dtos/integrations/meta-signed-request.dto';
 
 /**
  * Meta app-level callbacks — public (NOT in the authenticatedController group):

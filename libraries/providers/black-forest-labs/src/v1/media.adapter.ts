@@ -12,7 +12,7 @@ import {
   ProviderModule,
   mediaUpstreamError,
   mediaUpstreamFromBody,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const BASE = 'https://api.bfl.ai/v1';
 

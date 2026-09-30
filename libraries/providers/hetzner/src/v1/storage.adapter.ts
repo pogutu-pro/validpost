@@ -1,5 +1,5 @@
 import { metadata as providerMetadata } from './metadata';
-import { makeS3StorageModule } from '@postmill-ai/provider-kernel';
+import { makeS3StorageModule } from '@validpost/provider-kernel';
 
 export const hetznerStorageModule = makeS3StorageModule({
   type: 'HETZNER',

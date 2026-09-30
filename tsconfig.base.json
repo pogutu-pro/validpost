@@ -34,799 +34,799 @@
       "@langchain/langgraph/prebuilt": [
         "node_modules/@langchain/langgraph/dist/prebuilt/index.d.ts"
       ],
-      "@postmill-ai/backend/*": [
+      "@validpost/backend/*": [
         "apps/backend/src/*"
       ],
-      "@postmill-ai/frontend/*": [
+      "@validpost/frontend/*": [
         "apps/frontend/src/*"
       ],
-      "@postmill-ai/helpers/*": [
+      "@validpost/helpers/*": [
         "libraries/helpers/src/*"
       ],
-      "@postmill-ai/nestjs-libraries/*": [
+      "@validpost/nestjs-libraries/*": [
         "libraries/nestjs-libraries/src/*"
       ],
-      "@postmill-ai/react/*": [
+      "@validpost/react/*": [
         "libraries/react-shared-libraries/src/*"
       ],
-      "@postmill-ai/plugins/*": [
+      "@validpost/plugins/*": [
         "libraries/plugins/src/*"
       ],
-      "@postmill-ai/extension/*": [
+      "@validpost/extension/*": [
         "apps/extension/src/*"
       ],
-      "@postmill-ai/provider-kernel": [
+      "@validpost/provider-kernel": [
         "libraries/providers/kernel/src"
       ],
-      "@postmill-ai/provider-kernel/*": [
+      "@validpost/provider-kernel/*": [
         "libraries/providers/kernel/src/*"
       ],
-      "@postmill-ai/provider-adobe-stock": [
+      "@validpost/provider-adobe-stock": [
         "libraries/providers/adobe-stock/src"
       ],
-      "@postmill-ai/provider-adobe-stock/*": [
+      "@validpost/provider-adobe-stock/*": [
         "libraries/providers/adobe-stock/src/*"
       ],
-      "@postmill-ai/provider-anthropic": [
+      "@validpost/provider-anthropic": [
         "libraries/providers/anthropic/src"
       ],
-      "@postmill-ai/provider-anthropic/*": [
+      "@validpost/provider-anthropic/*": [
         "libraries/providers/anthropic/src/*"
       ],
-      "@postmill-ai/provider-apertus": [
+      "@validpost/provider-apertus": [
         "libraries/providers/apertus/src"
       ],
-      "@postmill-ai/provider-apertus/*": [
+      "@validpost/provider-apertus/*": [
         "libraries/providers/apertus/src/*"
       ],
-      "@postmill-ai/provider-apple": [
+      "@validpost/provider-apple": [
         "libraries/providers/apple/src"
       ],
-      "@postmill-ai/provider-apple/*": [
+      "@validpost/provider-apple/*": [
         "libraries/providers/apple/src/*"
       ],
-      "@postmill-ai/provider-azure": [
+      "@validpost/provider-azure": [
         "libraries/providers/azure/src"
       ],
-      "@postmill-ai/provider-azure/*": [
+      "@validpost/provider-azure/*": [
         "libraries/providers/azure/src/*"
       ],
-      "@postmill-ai/provider-backblaze-b2": [
+      "@validpost/provider-backblaze-b2": [
         "libraries/providers/backblaze-b2/src"
       ],
-      "@postmill-ai/provider-backblaze-b2/*": [
+      "@validpost/provider-backblaze-b2/*": [
         "libraries/providers/backblaze-b2/src/*"
       ],
-      "@postmill-ai/provider-bedrock": [
+      "@validpost/provider-bedrock": [
         "libraries/providers/bedrock/src"
       ],
-      "@postmill-ai/provider-bedrock/*": [
+      "@validpost/provider-bedrock/*": [
         "libraries/providers/bedrock/src/*"
       ],
-      "@postmill-ai/provider-bitdeer": [
+      "@validpost/provider-bitdeer": [
         "libraries/providers/bitdeer/src"
       ],
-      "@postmill-ai/provider-bitdeer/*": [
+      "@validpost/provider-bitdeer/*": [
         "libraries/providers/bitdeer/src/*"
       ],
-      "@postmill-ai/provider-bitly": [
+      "@validpost/provider-bitly": [
         "libraries/providers/bitly/src"
       ],
-      "@postmill-ai/provider-bitly/*": [
+      "@validpost/provider-bitly/*": [
         "libraries/providers/bitly/src/*"
       ],
-      "@postmill-ai/provider-black-forest-labs": [
+      "@validpost/provider-black-forest-labs": [
         "libraries/providers/black-forest-labs/src"
       ],
-      "@postmill-ai/provider-black-forest-labs/*": [
+      "@validpost/provider-black-forest-labs/*": [
         "libraries/providers/black-forest-labs/src/*"
       ],
-      "@postmill-ai/provider-blink": [
+      "@validpost/provider-blink": [
         "libraries/providers/blink/src"
       ],
-      "@postmill-ai/provider-blink/*": [
+      "@validpost/provider-blink/*": [
         "libraries/providers/blink/src/*"
       ],
-      "@postmill-ai/provider-cleanuri": [
+      "@validpost/provider-cleanuri": [
         "libraries/providers/cleanuri/src"
       ],
-      "@postmill-ai/provider-cleanuri/*": [
+      "@validpost/provider-cleanuri/*": [
         "libraries/providers/cleanuri/src/*"
       ],
-      "@postmill-ai/provider-cloudflare-r2": [
+      "@validpost/provider-cloudflare-r2": [
         "libraries/providers/cloudflare-r2/src"
       ],
-      "@postmill-ai/provider-cloudflare-r2/*": [
+      "@validpost/provider-cloudflare-r2/*": [
         "libraries/providers/cloudflare-r2/src/*"
       ],
-      "@postmill-ai/provider-cohere": [
+      "@validpost/provider-cohere": [
         "libraries/providers/cohere/src"
       ],
-      "@postmill-ai/provider-cohere/*": [
+      "@validpost/provider-cohere/*": [
         "libraries/providers/cohere/src/*"
       ],
-      "@postmill-ai/provider-custom-proxy": [
+      "@validpost/provider-custom-proxy": [
         "libraries/providers/custom-proxy/src"
       ],
-      "@postmill-ai/provider-custom-proxy/*": [
+      "@validpost/provider-custom-proxy/*": [
         "libraries/providers/custom-proxy/src/*"
       ],
-      "@postmill-ai/provider-cuttly": [
+      "@validpost/provider-cuttly": [
         "libraries/providers/cuttly/src"
       ],
-      "@postmill-ai/provider-cuttly/*": [
+      "@validpost/provider-cuttly/*": [
         "libraries/providers/cuttly/src/*"
       ],
-      "@postmill-ai/provider-cyberghost": [
+      "@validpost/provider-cyberghost": [
         "libraries/providers/cyberghost/src"
       ],
-      "@postmill-ai/provider-cyberghost/*": [
+      "@validpost/provider-cyberghost/*": [
         "libraries/providers/cyberghost/src/*"
       ],
-      "@postmill-ai/provider-deepgram": [
+      "@validpost/provider-deepgram": [
         "libraries/providers/deepgram/src"
       ],
-      "@postmill-ai/provider-deepgram/*": [
+      "@validpost/provider-deepgram/*": [
         "libraries/providers/deepgram/src/*"
       ],
-      "@postmill-ai/provider-deepinfra": [
+      "@validpost/provider-deepinfra": [
         "libraries/providers/deepinfra/src"
       ],
-      "@postmill-ai/provider-deepinfra/*": [
+      "@validpost/provider-deepinfra/*": [
         "libraries/providers/deepinfra/src/*"
       ],
-      "@postmill-ai/provider-deepseek": [
+      "@validpost/provider-deepseek": [
         "libraries/providers/deepseek/src"
       ],
-      "@postmill-ai/provider-deepseek/*": [
+      "@validpost/provider-deepseek/*": [
         "libraries/providers/deepseek/src/*"
       ],
-      "@postmill-ai/provider-did": [
+      "@validpost/provider-did": [
         "libraries/providers/did/src"
       ],
-      "@postmill-ai/provider-did/*": [
+      "@validpost/provider-did/*": [
         "libraries/providers/did/src/*"
       ],
-      "@postmill-ai/provider-digitalocean-spaces": [
+      "@validpost/provider-digitalocean-spaces": [
         "libraries/providers/digitalocean-spaces/src"
       ],
-      "@postmill-ai/provider-digitalocean-spaces/*": [
+      "@validpost/provider-digitalocean-spaces/*": [
         "libraries/providers/digitalocean-spaces/src/*"
       ],
-      "@postmill-ai/provider-discord": [
+      "@validpost/provider-discord": [
         "libraries/providers/discord/src"
       ],
-      "@postmill-ai/provider-discord/*": [
+      "@validpost/provider-discord/*": [
         "libraries/providers/discord/src/*"
       ],
-      "@postmill-ai/provider-dub": [
+      "@validpost/provider-dub": [
         "libraries/providers/dub/src"
       ],
-      "@postmill-ai/provider-dub/*": [
+      "@validpost/provider-dub/*": [
         "libraries/providers/dub/src/*"
       ],
-      "@postmill-ai/provider-elevenlabs": [
+      "@validpost/provider-elevenlabs": [
         "libraries/providers/elevenlabs/src"
       ],
-      "@postmill-ai/provider-elevenlabs/*": [
+      "@validpost/provider-elevenlabs/*": [
         "libraries/providers/elevenlabs/src/*"
       ],
-      "@postmill-ai/provider-empty": [
+      "@validpost/provider-empty": [
         "libraries/providers/empty/src"
       ],
-      "@postmill-ai/provider-empty/*": [
+      "@validpost/provider-empty/*": [
         "libraries/providers/empty/src/*"
       ],
-      "@postmill-ai/provider-envato": [
+      "@validpost/provider-envato": [
         "libraries/providers/envato/src"
       ],
-      "@postmill-ai/provider-envato/*": [
+      "@validpost/provider-envato/*": [
         "libraries/providers/envato/src/*"
       ],
-      "@postmill-ai/provider-expressvpn": [
+      "@validpost/provider-expressvpn": [
         "libraries/providers/expressvpn/src"
       ],
-      "@postmill-ai/provider-expressvpn/*": [
+      "@validpost/provider-expressvpn/*": [
         "libraries/providers/expressvpn/src/*"
       ],
-      "@postmill-ai/provider-facebook": [
+      "@validpost/provider-facebook": [
         "libraries/providers/facebook/src"
       ],
-      "@postmill-ai/provider-facebook/*": [
+      "@validpost/provider-facebook/*": [
         "libraries/providers/facebook/src/*"
       ],
-      "@postmill-ai/provider-fal": [
+      "@validpost/provider-fal": [
         "libraries/providers/fal/src"
       ],
-      "@postmill-ai/provider-fal/*": [
+      "@validpost/provider-fal/*": [
         "libraries/providers/fal/src/*"
       ],
-      "@postmill-ai/provider-fireworks": [
+      "@validpost/provider-fireworks": [
         "libraries/providers/fireworks/src"
       ],
-      "@postmill-ai/provider-fireworks/*": [
+      "@validpost/provider-fireworks/*": [
         "libraries/providers/fireworks/src/*"
       ],
-      "@postmill-ai/provider-gateway": [
+      "@validpost/provider-gateway": [
         "libraries/providers/gateway/src"
       ],
-      "@postmill-ai/provider-gateway/*": [
+      "@validpost/provider-gateway/*": [
         "libraries/providers/gateway/src/*"
       ],
-      "@postmill-ai/provider-generic": [
+      "@validpost/provider-generic": [
         "libraries/providers/generic/src"
       ],
-      "@postmill-ai/provider-generic/*": [
+      "@validpost/provider-generic/*": [
         "libraries/providers/generic/src/*"
       ],
-      "@postmill-ai/provider-genviral": [
+      "@validpost/provider-genviral": [
         "libraries/providers/genviral/src"
       ],
-      "@postmill-ai/provider-genviral/*": [
+      "@validpost/provider-genviral/*": [
         "libraries/providers/genviral/src/*"
       ],
-      "@postmill-ai/provider-gmb": [
+      "@validpost/provider-gmb": [
         "libraries/providers/gmb/src"
       ],
-      "@postmill-ai/provider-gmb/*": [
+      "@validpost/provider-gmb/*": [
         "libraries/providers/gmb/src/*"
       ],
-      "@postmill-ai/provider-gmihub": [
+      "@validpost/provider-gmihub": [
         "libraries/providers/gmihub/src"
       ],
-      "@postmill-ai/provider-gmihub/*": [
+      "@validpost/provider-gmihub/*": [
         "libraries/providers/gmihub/src/*"
       ],
-      "@postmill-ai/provider-google": [
+      "@validpost/provider-google": [
         "libraries/providers/google/src"
       ],
-      "@postmill-ai/provider-google/*": [
+      "@validpost/provider-google/*": [
         "libraries/providers/google/src/*"
       ],
-      "@postmill-ai/provider-google-ai": [
+      "@validpost/provider-google-ai": [
         "libraries/providers/google-ai/src"
       ],
-      "@postmill-ai/provider-google-ai/*": [
+      "@validpost/provider-google-ai/*": [
         "libraries/providers/google-ai/src/*"
       ],
-      "@postmill-ai/provider-groq": [
+      "@validpost/provider-groq": [
         "libraries/providers/groq/src"
       ],
-      "@postmill-ai/provider-groq/*": [
+      "@validpost/provider-groq/*": [
         "libraries/providers/groq/src/*"
       ],
-      "@postmill-ai/provider-hedra": [
+      "@validpost/provider-hedra": [
         "libraries/providers/hedra/src"
       ],
-      "@postmill-ai/provider-hedra/*": [
+      "@validpost/provider-hedra/*": [
         "libraries/providers/hedra/src/*"
       ],
-      "@postmill-ai/provider-hetzner": [
+      "@validpost/provider-hetzner": [
         "libraries/providers/hetzner/src"
       ],
-      "@postmill-ai/provider-hetzner/*": [
+      "@validpost/provider-hetzner/*": [
         "libraries/providers/hetzner/src/*"
       ],
-      "@postmill-ai/provider-heygen": [
+      "@validpost/provider-heygen": [
         "libraries/providers/heygen/src"
       ],
-      "@postmill-ai/provider-heygen/*": [
+      "@validpost/provider-heygen/*": [
         "libraries/providers/heygen/src/*"
       ],
-      "@postmill-ai/provider-hideme": [
+      "@validpost/provider-hideme": [
         "libraries/providers/hideme/src"
       ],
-      "@postmill-ai/provider-hideme/*": [
+      "@validpost/provider-hideme/*": [
         "libraries/providers/hideme/src/*"
       ],
-      "@postmill-ai/provider-higgsfield": [
+      "@validpost/provider-higgsfield": [
         "libraries/providers/higgsfield/src"
       ],
-      "@postmill-ai/provider-higgsfield/*": [
+      "@validpost/provider-higgsfield/*": [
         "libraries/providers/higgsfield/src/*"
       ],
-      "@postmill-ai/provider-hotspotshield": [
+      "@validpost/provider-hotspotshield": [
         "libraries/providers/hotspotshield/src"
       ],
-      "@postmill-ai/provider-hotspotshield/*": [
+      "@validpost/provider-hotspotshield/*": [
         "libraries/providers/hotspotshield/src/*"
       ],
-      "@postmill-ai/provider-ideogram": [
+      "@validpost/provider-ideogram": [
         "libraries/providers/ideogram/src"
       ],
-      "@postmill-ai/provider-ideogram/*": [
+      "@validpost/provider-ideogram/*": [
         "libraries/providers/ideogram/src/*"
       ],
-      "@postmill-ai/provider-idrive-e2": [
+      "@validpost/provider-idrive-e2": [
         "libraries/providers/idrive-e2/src"
       ],
-      "@postmill-ai/provider-idrive-e2/*": [
+      "@validpost/provider-idrive-e2/*": [
         "libraries/providers/idrive-e2/src/*"
       ],
-      "@postmill-ai/provider-instagram": [
+      "@validpost/provider-instagram": [
         "libraries/providers/instagram/src"
       ],
-      "@postmill-ai/provider-instagram/*": [
+      "@validpost/provider-instagram/*": [
         "libraries/providers/instagram/src/*"
       ],
-      "@postmill-ai/provider-instagram-standalone": [
+      "@validpost/provider-instagram-standalone": [
         "libraries/providers/instagram-standalone/src"
       ],
-      "@postmill-ai/provider-instagram-standalone/*": [
+      "@validpost/provider-instagram-standalone/*": [
         "libraries/providers/instagram-standalone/src/*"
       ],
-      "@postmill-ai/provider-ipvanish": [
+      "@validpost/provider-ipvanish": [
         "libraries/providers/ipvanish/src"
       ],
-      "@postmill-ai/provider-ipvanish/*": [
+      "@validpost/provider-ipvanish/*": [
         "libraries/providers/ipvanish/src/*"
       ],
-      "@postmill-ai/provider-isgd": [
+      "@validpost/provider-isgd": [
         "libraries/providers/isgd/src"
       ],
-      "@postmill-ai/provider-isgd/*": [
+      "@validpost/provider-isgd/*": [
         "libraries/providers/isgd/src/*"
       ],
-      "@postmill-ai/provider-kimi": [
+      "@validpost/provider-kimi": [
         "libraries/providers/kimi/src"
       ],
-      "@postmill-ai/provider-kimi/*": [
+      "@validpost/provider-kimi/*": [
         "libraries/providers/kimi/src/*"
       ],
-      "@postmill-ai/provider-leonardo": [
+      "@validpost/provider-leonardo": [
         "libraries/providers/leonardo/src"
       ],
-      "@postmill-ai/provider-leonardo/*": [
+      "@validpost/provider-leonardo/*": [
         "libraries/providers/leonardo/src/*"
       ],
-      "@postmill-ai/provider-lightning": [
+      "@validpost/provider-lightning": [
         "libraries/providers/lightning/src"
       ],
-      "@postmill-ai/provider-lightning/*": [
+      "@validpost/provider-lightning/*": [
         "libraries/providers/lightning/src/*"
       ],
-      "@postmill-ai/provider-linkedin": [
+      "@validpost/provider-linkedin": [
         "libraries/providers/linkedin/src"
       ],
-      "@postmill-ai/provider-linkedin/*": [
+      "@validpost/provider-linkedin/*": [
         "libraries/providers/linkedin/src/*"
       ],
-      "@postmill-ai/provider-linkedin-page": [
+      "@validpost/provider-linkedin-page": [
         "libraries/providers/linkedin-page/src"
       ],
-      "@postmill-ai/provider-linkedin-page/*": [
+      "@validpost/provider-linkedin-page/*": [
         "libraries/providers/linkedin-page/src/*"
       ],
-      "@postmill-ai/provider-linkly": [
+      "@validpost/provider-linkly": [
         "libraries/providers/linkly/src"
       ],
-      "@postmill-ai/provider-linkly/*": [
+      "@validpost/provider-linkly/*": [
         "libraries/providers/linkly/src/*"
       ],
-      "@postmill-ai/provider-linode": [
+      "@validpost/provider-linode": [
         "libraries/providers/linode/src"
       ],
-      "@postmill-ai/provider-linode/*": [
+      "@validpost/provider-linode/*": [
         "libraries/providers/linode/src/*"
       ],
-      "@postmill-ai/provider-lnkify": [
+      "@validpost/provider-lnkify": [
         "libraries/providers/lnkify/src"
       ],
-      "@postmill-ai/provider-lnkify/*": [
+      "@validpost/provider-lnkify/*": [
         "libraries/providers/lnkify/src/*"
       ],
-      "@postmill-ai/provider-local": [
+      "@validpost/provider-local": [
         "libraries/providers/local/src"
       ],
-      "@postmill-ai/provider-local/*": [
+      "@validpost/provider-local/*": [
         "libraries/providers/local/src/*"
       ],
-      "@postmill-ai/provider-ltx": [
+      "@validpost/provider-ltx": [
         "libraries/providers/ltx/src"
       ],
-      "@postmill-ai/provider-ltx/*": [
+      "@validpost/provider-ltx/*": [
         "libraries/providers/ltx/src/*"
       ],
-      "@postmill-ai/provider-luma": [
+      "@validpost/provider-luma": [
         "libraries/providers/luma/src"
       ],
-      "@postmill-ai/provider-luma/*": [
+      "@validpost/provider-luma/*": [
         "libraries/providers/luma/src/*"
       ],
-      "@postmill-ai/provider-magnific": [
+      "@validpost/provider-magnific": [
         "libraries/providers/magnific/src"
       ],
-      "@postmill-ai/provider-magnific/*": [
+      "@validpost/provider-magnific/*": [
         "libraries/providers/magnific/src/*"
       ],
-      "@postmill-ai/provider-mailgun": [
+      "@validpost/provider-mailgun": [
         "libraries/providers/mailgun/src"
       ],
-      "@postmill-ai/provider-mailgun/*": [
+      "@validpost/provider-mailgun/*": [
         "libraries/providers/mailgun/src/*"
       ],
-      "@postmill-ai/provider-medialocker": [
+      "@validpost/provider-medialocker": [
         "libraries/providers/medialocker/src"
       ],
-      "@postmill-ai/provider-medialocker/*": [
+      "@validpost/provider-medialocker/*": [
         "libraries/providers/medialocker/src/*"
       ],
-      "@postmill-ai/provider-meta-llama": [
+      "@validpost/provider-meta-llama": [
         "libraries/providers/meta-llama/src"
       ],
-      "@postmill-ai/provider-meta-llama/*": [
+      "@validpost/provider-meta-llama/*": [
         "libraries/providers/meta-llama/src/*"
       ],
-      "@postmill-ai/provider-minimax": [
+      "@validpost/provider-minimax": [
         "libraries/providers/minimax/src"
       ],
-      "@postmill-ai/provider-minimax/*": [
+      "@validpost/provider-minimax/*": [
         "libraries/providers/minimax/src/*"
       ],
-      "@postmill-ai/provider-mistral": [
+      "@validpost/provider-mistral": [
         "libraries/providers/mistral/src"
       ],
-      "@postmill-ai/provider-mistral/*": [
+      "@validpost/provider-mistral/*": [
         "libraries/providers/mistral/src/*"
       ],
-      "@postmill-ai/provider-mozillavpn": [
+      "@validpost/provider-mozillavpn": [
         "libraries/providers/mozillavpn/src"
       ],
-      "@postmill-ai/provider-mozillavpn/*": [
+      "@validpost/provider-mozillavpn/*": [
         "libraries/providers/mozillavpn/src/*"
       ],
-      "@postmill-ai/provider-mullvad": [
+      "@validpost/provider-mullvad": [
         "libraries/providers/mullvad/src"
       ],
-      "@postmill-ai/provider-mullvad/*": [
+      "@validpost/provider-mullvad/*": [
         "libraries/providers/mullvad/src/*"
       ],
-      "@postmill-ai/provider-nordvpn": [
+      "@validpost/provider-nordvpn": [
         "libraries/providers/nordvpn/src"
       ],
-      "@postmill-ai/provider-nordvpn/*": [
+      "@validpost/provider-nordvpn/*": [
         "libraries/providers/nordvpn/src/*"
       ],
-      "@postmill-ai/provider-nvidia": [
+      "@validpost/provider-nvidia": [
         "libraries/providers/nvidia/src"
       ],
-      "@postmill-ai/provider-nvidia/*": [
+      "@validpost/provider-nvidia/*": [
         "libraries/providers/nvidia/src/*"
       ],
-      "@postmill-ai/provider-openai": [
+      "@validpost/provider-openai": [
         "libraries/providers/openai/src"
       ],
-      "@postmill-ai/provider-openai/*": [
+      "@validpost/provider-openai/*": [
         "libraries/providers/openai/src/*"
       ],
-      "@postmill-ai/provider-openai-compatible": [
+      "@validpost/provider-openai-compatible": [
         "libraries/providers/openai-compatible/src"
       ],
-      "@postmill-ai/provider-openai-compatible/*": [
+      "@validpost/provider-openai-compatible/*": [
         "libraries/providers/openai-compatible/src/*"
       ],
-      "@postmill-ai/provider-openrouter": [
+      "@validpost/provider-openrouter": [
         "libraries/providers/openrouter/src"
       ],
-      "@postmill-ai/provider-openrouter/*": [
+      "@validpost/provider-openrouter/*": [
         "libraries/providers/openrouter/src/*"
       ],
-      "@postmill-ai/provider-owly": [
+      "@validpost/provider-owly": [
         "libraries/providers/owly/src"
       ],
-      "@postmill-ai/provider-owly/*": [
+      "@validpost/provider-owly/*": [
         "libraries/providers/owly/src/*"
       ],
-      "@postmill-ai/provider-paypal": [
+      "@validpost/provider-paypal": [
         "libraries/providers/paypal/src"
       ],
-      "@postmill-ai/provider-paypal/*": [
+      "@validpost/provider-paypal/*": [
         "libraries/providers/paypal/src/*"
       ],
-      "@postmill-ai/provider-perplexity": [
+      "@validpost/provider-perplexity": [
         "libraries/providers/perplexity/src"
       ],
-      "@postmill-ai/provider-perplexity/*": [
+      "@validpost/provider-perplexity/*": [
         "libraries/providers/perplexity/src/*"
       ],
-      "@postmill-ai/provider-pia": [
+      "@validpost/provider-pia": [
         "libraries/providers/pia/src"
       ],
-      "@postmill-ai/provider-pia/*": [
+      "@validpost/provider-pia/*": [
         "libraries/providers/pia/src/*"
       ],
-      "@postmill-ai/provider-pixelme": [
+      "@validpost/provider-pixelme": [
         "libraries/providers/pixelme/src"
       ],
-      "@postmill-ai/provider-pixelme/*": [
+      "@validpost/provider-pixelme/*": [
         "libraries/providers/pixelme/src/*"
       ],
-      "@postmill-ai/provider-postmark": [
+      "@validpost/provider-postmark": [
         "libraries/providers/postmark/src"
       ],
-      "@postmill-ai/provider-postmark/*": [
+      "@validpost/provider-postmark/*": [
         "libraries/providers/postmark/src/*"
       ],
-      "@postmill-ai/provider-protonvpn": [
+      "@validpost/provider-protonvpn": [
         "libraries/providers/protonvpn/src"
       ],
-      "@postmill-ai/provider-protonvpn/*": [
+      "@validpost/provider-protonvpn/*": [
         "libraries/providers/protonvpn/src/*"
       ],
-      "@postmill-ai/provider-purevpn": [
+      "@validpost/provider-purevpn": [
         "libraries/providers/purevpn/src"
       ],
-      "@postmill-ai/provider-purevpn/*": [
+      "@validpost/provider-purevpn/*": [
         "libraries/providers/purevpn/src/*"
       ],
-      "@postmill-ai/provider-qwen": [
+      "@validpost/provider-qwen": [
         "libraries/providers/qwen/src"
       ],
-      "@postmill-ai/provider-qwen/*": [
+      "@validpost/provider-qwen/*": [
         "libraries/providers/qwen/src/*"
       ],
-      "@postmill-ai/provider-rebrandly": [
+      "@validpost/provider-rebrandly": [
         "libraries/providers/rebrandly/src"
       ],
-      "@postmill-ai/provider-rebrandly/*": [
+      "@validpost/provider-rebrandly/*": [
         "libraries/providers/rebrandly/src/*"
       ],
-      "@postmill-ai/provider-recraft": [
+      "@validpost/provider-recraft": [
         "libraries/providers/recraft/src"
       ],
-      "@postmill-ai/provider-recraft/*": [
+      "@validpost/provider-recraft/*": [
         "libraries/providers/recraft/src/*"
       ],
-      "@postmill-ai/provider-reelfarm": [
+      "@validpost/provider-reelfarm": [
         "libraries/providers/reelfarm/src"
       ],
-      "@postmill-ai/provider-reelfarm/*": [
+      "@validpost/provider-reelfarm/*": [
         "libraries/providers/reelfarm/src/*"
       ],
-      "@postmill-ai/provider-replicate": [
+      "@validpost/provider-replicate": [
         "libraries/providers/replicate/src"
       ],
-      "@postmill-ai/provider-replicate/*": [
+      "@validpost/provider-replicate/*": [
         "libraries/providers/replicate/src/*"
       ],
-      "@postmill-ai/provider-replug": [
+      "@validpost/provider-replug": [
         "libraries/providers/replug/src"
       ],
-      "@postmill-ai/provider-replug/*": [
+      "@validpost/provider-replug/*": [
         "libraries/providers/replug/src/*"
       ],
-      "@postmill-ai/provider-resend": [
+      "@validpost/provider-resend": [
         "libraries/providers/resend/src"
       ],
-      "@postmill-ai/provider-resend/*": [
+      "@validpost/provider-resend/*": [
         "libraries/providers/resend/src/*"
       ],
-      "@postmill-ai/provider-runway": [
+      "@validpost/provider-runway": [
         "libraries/providers/runway/src"
       ],
-      "@postmill-ai/provider-runway/*": [
+      "@validpost/provider-runway/*": [
         "libraries/providers/runway/src/*"
       ],
-      "@postmill-ai/provider-s3": [
+      "@validpost/provider-s3": [
         "libraries/providers/s3/src"
       ],
-      "@postmill-ai/provider-s3/*": [
+      "@validpost/provider-s3/*": [
         "libraries/providers/s3/src/*"
       ],
-      "@postmill-ai/provider-s3-compatible": [
+      "@validpost/provider-s3-compatible": [
         "libraries/providers/s3-compatible/src"
       ],
-      "@postmill-ai/provider-s3-compatible/*": [
+      "@validpost/provider-s3-compatible/*": [
         "libraries/providers/s3-compatible/src/*"
       ],
-      "@postmill-ai/provider-scaleway": [
+      "@validpost/provider-scaleway": [
         "libraries/providers/scaleway/src"
       ],
-      "@postmill-ai/provider-scaleway/*": [
+      "@validpost/provider-scaleway/*": [
         "libraries/providers/scaleway/src/*"
       ],
-      "@postmill-ai/provider-sendgrid": [
+      "@validpost/provider-sendgrid": [
         "libraries/providers/sendgrid/src"
       ],
-      "@postmill-ai/provider-sendgrid/*": [
+      "@validpost/provider-sendgrid/*": [
         "libraries/providers/sendgrid/src/*"
       ],
-      "@postmill-ai/provider-ses": [
+      "@validpost/provider-ses": [
         "libraries/providers/ses/src"
       ],
-      "@postmill-ai/provider-ses/*": [
+      "@validpost/provider-ses/*": [
         "libraries/providers/ses/src/*"
       ],
-      "@postmill-ai/provider-shortio": [
+      "@validpost/provider-shortio": [
         "libraries/providers/shortio/src"
       ],
-      "@postmill-ai/provider-shortio/*": [
+      "@validpost/provider-shortio/*": [
         "libraries/providers/shortio/src/*"
       ],
-      "@postmill-ai/provider-siliconflow": [
+      "@validpost/provider-siliconflow": [
         "libraries/providers/siliconflow/src"
       ],
-      "@postmill-ai/provider-siliconflow/*": [
+      "@validpost/provider-siliconflow/*": [
         "libraries/providers/siliconflow/src/*"
       ],
-      "@postmill-ai/provider-smtp": [
+      "@validpost/provider-smtp": [
         "libraries/providers/smtp/src"
       ],
-      "@postmill-ai/provider-smtp/*": [
+      "@validpost/provider-smtp/*": [
         "libraries/providers/smtp/src/*"
       ],
-      "@postmill-ai/provider-sniply": [
+      "@validpost/provider-sniply": [
         "libraries/providers/sniply/src"
       ],
-      "@postmill-ai/provider-sniply/*": [
+      "@validpost/provider-sniply/*": [
         "libraries/providers/sniply/src/*"
       ],
-      "@postmill-ai/provider-stability": [
+      "@validpost/provider-stability": [
         "libraries/providers/stability/src"
       ],
-      "@postmill-ai/provider-stability/*": [
+      "@validpost/provider-stability/*": [
         "libraries/providers/stability/src/*"
       ],
-      "@postmill-ai/provider-storj": [
+      "@validpost/provider-storj": [
         "libraries/providers/storj/src"
       ],
-      "@postmill-ai/provider-storj/*": [
+      "@validpost/provider-storj/*": [
         "libraries/providers/storj/src/*"
       ],
-      "@postmill-ai/provider-stripe": [
+      "@validpost/provider-stripe": [
         "libraries/providers/stripe/src"
       ],
-      "@postmill-ai/provider-stripe/*": [
+      "@validpost/provider-stripe/*": [
         "libraries/providers/stripe/src/*"
       ],
-      "@postmill-ai/provider-suno": [
+      "@validpost/provider-suno": [
         "libraries/providers/suno/src"
       ],
-      "@postmill-ai/provider-suno/*": [
+      "@validpost/provider-suno/*": [
         "libraries/providers/suno/src/*"
       ],
-      "@postmill-ai/provider-surfshark": [
+      "@validpost/provider-surfshark": [
         "libraries/providers/surfshark/src"
       ],
-      "@postmill-ai/provider-surfshark/*": [
+      "@validpost/provider-surfshark/*": [
         "libraries/providers/surfshark/src/*"
       ],
-      "@postmill-ai/provider-switchy": [
+      "@validpost/provider-switchy": [
         "libraries/providers/switchy/src"
       ],
-      "@postmill-ai/provider-switchy/*": [
+      "@validpost/provider-switchy/*": [
         "libraries/providers/switchy/src/*"
       ],
-      "@postmill-ai/provider-t2m": [
+      "@validpost/provider-t2m": [
         "libraries/providers/t2m/src"
       ],
-      "@postmill-ai/provider-t2m/*": [
+      "@validpost/provider-t2m/*": [
         "libraries/providers/t2m/src/*"
       ],
-      "@postmill-ai/provider-tavus": [
+      "@validpost/provider-tavus": [
         "libraries/providers/tavus/src"
       ],
-      "@postmill-ai/provider-tavus/*": [
+      "@validpost/provider-tavus/*": [
         "libraries/providers/tavus/src/*"
       ],
-      "@postmill-ai/provider-telegram": [
+      "@validpost/provider-telegram": [
         "libraries/providers/telegram/src"
       ],
-      "@postmill-ai/provider-telegram/*": [
+      "@validpost/provider-telegram/*": [
         "libraries/providers/telegram/src/*"
       ],
-      "@postmill-ai/provider-threads": [
+      "@validpost/provider-threads": [
         "libraries/providers/threads/src"
       ],
-      "@postmill-ai/provider-threads/*": [
+      "@validpost/provider-threads/*": [
         "libraries/providers/threads/src/*"
       ],
-      "@postmill-ai/provider-tiktok": [
+      "@validpost/provider-tiktok": [
         "libraries/providers/tiktok/src"
       ],
-      "@postmill-ai/provider-tiktok/*": [
+      "@validpost/provider-tiktok/*": [
         "libraries/providers/tiktok/src/*"
       ],
-      "@postmill-ai/provider-tinycc": [
+      "@validpost/provider-tinycc": [
         "libraries/providers/tinycc/src"
       ],
-      "@postmill-ai/provider-tinycc/*": [
+      "@validpost/provider-tinycc/*": [
         "libraries/providers/tinycc/src/*"
       ],
-      "@postmill-ai/provider-tinyurl": [
+      "@validpost/provider-tinyurl": [
         "libraries/providers/tinyurl/src"
       ],
-      "@postmill-ai/provider-tinyurl/*": [
+      "@validpost/provider-tinyurl/*": [
         "libraries/providers/tinyurl/src/*"
       ],
-      "@postmill-ai/provider-tly": [
+      "@validpost/provider-tly": [
         "libraries/providers/tly/src"
       ],
-      "@postmill-ai/provider-tly/*": [
+      "@validpost/provider-tly/*": [
         "libraries/providers/tly/src/*"
       ],
-      "@postmill-ai/provider-togetherai": [
+      "@validpost/provider-togetherai": [
         "libraries/providers/togetherai/src"
       ],
-      "@postmill-ai/provider-togetherai/*": [
+      "@validpost/provider-togetherai/*": [
         "libraries/providers/togetherai/src/*"
       ],
-      "@postmill-ai/provider-tunnelbear": [
+      "@validpost/provider-tunnelbear": [
         "libraries/providers/tunnelbear/src"
       ],
-      "@postmill-ai/provider-tunnelbear/*": [
+      "@validpost/provider-tunnelbear/*": [
         "libraries/providers/tunnelbear/src/*"
       ],
-      "@postmill-ai/provider-vecteezy": [
+      "@validpost/provider-vecteezy": [
         "libraries/providers/vecteezy/src"
       ],
-      "@postmill-ai/provider-vecteezy/*": [
+      "@validpost/provider-vecteezy/*": [
         "libraries/providers/vecteezy/src/*"
       ],
-      "@postmill-ai/provider-vertex": [
+      "@validpost/provider-vertex": [
         "libraries/providers/vertex/src"
       ],
-      "@postmill-ai/provider-vertex/*": [
+      "@validpost/provider-vertex/*": [
         "libraries/providers/vertex/src/*"
       ],
-      "@postmill-ai/provider-vgd": [
+      "@validpost/provider-vgd": [
         "libraries/providers/vgd/src"
       ],
-      "@postmill-ai/provider-vgd/*": [
+      "@validpost/provider-vgd/*": [
         "libraries/providers/vgd/src/*"
       ],
-      "@postmill-ai/provider-vultr": [
+      "@validpost/provider-vultr": [
         "libraries/providers/vultr/src"
       ],
-      "@postmill-ai/provider-vultr/*": [
+      "@validpost/provider-vultr/*": [
         "libraries/providers/vultr/src/*"
       ],
-      "@postmill-ai/provider-vyprvpn": [
+      "@validpost/provider-vyprvpn": [
         "libraries/providers/vyprvpn/src"
       ],
-      "@postmill-ai/provider-vyprvpn/*": [
+      "@validpost/provider-vyprvpn/*": [
         "libraries/providers/vyprvpn/src/*"
       ],
-      "@postmill-ai/provider-wallet": [
+      "@validpost/provider-wallet": [
         "libraries/providers/wallet/src"
       ],
-      "@postmill-ai/provider-wallet/*": [
+      "@validpost/provider-wallet/*": [
         "libraries/providers/wallet/src/*"
       ],
-      "@postmill-ai/provider-wan": [
+      "@validpost/provider-wan": [
         "libraries/providers/wan/src"
       ],
-      "@postmill-ai/provider-wan/*": [
+      "@validpost/provider-wan/*": [
         "libraries/providers/wan/src/*"
       ],
-      "@postmill-ai/provider-wasabi": [
+      "@validpost/provider-wasabi": [
         "libraries/providers/wasabi/src"
       ],
-      "@postmill-ai/provider-wasabi/*": [
+      "@validpost/provider-wasabi/*": [
         "libraries/providers/wasabi/src/*"
       ],
-      "@postmill-ai/provider-windscribe": [
+      "@validpost/provider-windscribe": [
         "libraries/providers/windscribe/src"
       ],
-      "@postmill-ai/provider-windscribe/*": [
+      "@validpost/provider-windscribe/*": [
         "libraries/providers/windscribe/src/*"
       ],
-      "@postmill-ai/provider-xai": [
+      "@validpost/provider-xai": [
         "libraries/providers/xai/src"
       ],
-      "@postmill-ai/provider-xai/*": [
+      "@validpost/provider-xai/*": [
         "libraries/providers/xai/src/*"
       ],
-      "@postmill-ai/provider-youtube": [
+      "@validpost/provider-youtube": [
         "libraries/providers/youtube/src"
       ],
-      "@postmill-ai/provider-youtube/*": [
+      "@validpost/provider-youtube/*": [
         "libraries/providers/youtube/src/*"
       ],
-      "@postmill-ai/provider-zai": [
+      "@validpost/provider-zai": [
         "libraries/providers/zai/src"
       ],
-      "@postmill-ai/provider-zai/*": [
+      "@validpost/provider-zai/*": [
         "libraries/providers/zai/src/*"
       ]
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
@@ -13,7 +13,7 @@ vi.mock('next/navigation', () => ({
 
 let mockIntegrations: any[] = [];
 vi.mock(
-  '@postmill-ai/frontend/components/launches/helpers/use.integration.list',
+  '@validpost/frontend/components/launches/helpers/use.integration.list',
   () => ({
     useIntegrationList: () => ({ data: mockIntegrations }),
   })
@@ -24,7 +24,7 @@ vi.mock('./hooks/useDashboardSummary', () => ({
   useDashboardSummary: () => ({ data: mockSummary }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => ({ isResolved: true, hasPermission: () => true }),
 }));
 
@@ -66,7 +66,7 @@ describe('DashboardSetup (Part G)', () => {
   it('shows all six steps incomplete with empty data and 0/6 progress', () => {
     render(<DashboardSetup />);
 
-    expect(screen.getByText('Welcome to Postmill')).toBeTruthy();
+    expect(screen.getByText('Welcome to ValidPost')).toBeTruthy();
     expect(screen.getByText('0/6')).toBeTruthy();
     for (const key of ['channel', 'ai', 'storage', 'media', 'team', 'post']) {
       expect(isStepDone(key)).toBe(false);
@@ -151,13 +151,13 @@ describe('DashboardSetup (Part G)', () => {
     const { container } = render(<DashboardSetup />);
 
     expect(container.firstChild).toBeNull();
-    expect(screen.queryByText('Welcome to Postmill')).toBeNull();
+    expect(screen.queryByText('Welcome to ValidPost')).toBeNull();
   });
 
   it('dismiss persists to localStorage and hides the panel', () => {
     const { container } = render(<DashboardSetup />);
 
-    expect(screen.getByText('Welcome to Postmill')).toBeTruthy();
+    expect(screen.getByText('Welcome to ValidPost')).toBeTruthy();
     fireEvent.click(screen.getByText('Dismiss'));
 
     expect(localStorage.getItem('onboarding_dismissed')).toBe('true');

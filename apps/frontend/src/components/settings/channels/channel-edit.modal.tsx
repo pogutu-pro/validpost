@@ -2,20 +2,20 @@
 
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useVpnConfig } from '@postmill-ai/frontend/components/settings/vpn/hooks/useVpnConfig';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useVpnConfig } from '@validpost/frontend/components/settings/vpn/hooks/useVpnConfig';
 import { ChannelVpnRegionSelect } from './channel-vpn-region-select';
-import { CampaignSelector } from '@postmill-ai/frontend/components/campaigns/selector/campaign-selector';
+import { CampaignSelector } from '@validpost/frontend/components/campaigns/selector/campaign-selector';
 import {
   ProviderVersionSelect,
   useProviderVersionSelection,
-} from '@postmill-ai/frontend/components/settings/shared/provider-version-select';
-import { web3List } from '@postmill-ai/frontend/components/launches/web3/web3.list';
+} from '@validpost/frontend/components/settings/shared/provider-version-select';
+import { web3List } from '@validpost/frontend/components/launches/web3/web3.list';
 
 const PROVIDER_APP_LINKS: Record<string, { label: string; url: string | null }> = {
   linkedin: { label: 'LinkedIn Developer Portal', url: 'https://www.linkedin.com/developers/apps' },
@@ -510,7 +510,7 @@ export const ChannelConfigForm: FC<ChannelConfigFormProps> = ({
         );
         return;
       }
-      const popup = window.open(data.url, 'postmill-oauth', 'width=640,height=720,popup');
+      const popup = window.open(data.url, 'validpost-oauth', 'width=640,height=720,popup');
       if (!popup) {
         // Popup blocked — fall back to the standard full-page OAuth redirect.
         window.location.href = data.url;
@@ -525,7 +525,7 @@ export const ChannelConfigForm: FC<ChannelConfigFormProps> = ({
       }, 1000);
       const onMessage = (event: MessageEvent) => {
         if (event.origin !== window.location.origin) return;
-        if ((event.data as { type?: string })?.type !== 'postmill:channel-connected') return;
+        if ((event.data as { type?: string })?.type !== 'validpost:channel-connected') return;
         cleanup();
         // The connect completed — the set is fully set up now, so enable it
         // (a set must not be enabled before it is set up).

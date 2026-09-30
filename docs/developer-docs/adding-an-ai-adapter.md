@@ -1,6 +1,6 @@
 # Adding an AI Provider Adapter
 
-Postmill's AI layer supports 30 providers through a pluggable adapter system. Each adapter lives in its own workspace package under `libraries/providers/<id>/` and is registered into the `ProviderKernel` at backend boot.
+ValidPost's AI layer supports 30 providers through a pluggable adapter system. Each adapter lives in its own workspace package under `libraries/providers/<id>/` and is registered into the `ProviderKernel` at backend boot.
 
 > Verified against v1.0.0
 
@@ -15,9 +15,9 @@ Before writing code, decide which pattern applies:
 | **Bespoke adapter** | Provider has its own `@ai-sdk/*` package (e.g. `@ai-sdk/anthropic`, `@ai-sdk/google`) | OpenAI, Anthropic, Google, xAI, Mistral |
 | **OpenAICompatibleAdapter** | Provider exposes an OpenAI-compatible API endpoint | SiliconFlow, DeepInfra, MiniMax, Qwen |
 
-For OpenAI-compatible providers, instantiate `OpenAICompatibleAdapter` from `@postmill-ai/provider-kernel` with a base URL and capabilities. No bespoke class is needed.
+For OpenAI-compatible providers, instantiate `OpenAICompatibleAdapter` from `@validpost/provider-kernel` with a base URL and capabilities. No bespoke class is needed.
 
-For bespoke providers, create a class implementing `AiCapability` from `@postmill-ai/provider-kernel`.
+For bespoke providers, create a class implementing `AiCapability` from `@validpost/provider-kernel`.
 
 ---
 
@@ -40,12 +40,12 @@ libraries/providers/<id>/
 
 ```json
 {
-  "name": "@postmill-ai/provider-yourprovider",
+  "name": "@validpost/provider-yourprovider",
   "version": "1.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "dependencies": {
-    "@postmill-ai/provider-kernel": "workspace:*"
+    "@validpost/provider-kernel": "workspace:*"
   }
 }
 ```
@@ -80,7 +80,7 @@ import {
   type SafeFetchPort,
   fetchOpenAIStyleModels,
   mergeLiveModels,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import { metadata as providerMetadata } from './metadata';
 
 const CAPABILITIES: AICapabilities = {
@@ -213,7 +213,7 @@ export const yourproviderAiModule: ProviderModule<any, any> = {
 ### OpenAI-compatible adapter
 
 ```typescript
-import { OpenAICompatibleAdapter, type ProviderModule } from '@postmill-ai/provider-kernel';
+import { OpenAICompatibleAdapter, type ProviderModule } from '@validpost/provider-kernel';
 import { metadata as providerMetadata } from './metadata';
 
 const adapter = new OpenAICompatibleAdapter(
@@ -292,18 +292,18 @@ export default [yourproviderAiModule];
 
 Wire the workspace package up in three places:
 
-1. `apps/backend/package.json` — add `"@postmill-ai/provider-yourprovider": "workspace:*"` (alphabetical), then run `pnpm install`.
+1. `apps/backend/package.json` — add `"@validpost/provider-yourprovider": "workspace:*"` (alphabetical), then run `pnpm install`.
 2. `tsconfig.base.json` — add the two path aliases (alphabetical):
 
 ```json
-"@postmill-ai/provider-yourprovider": ["libraries/providers/yourprovider/src"],
-"@postmill-ai/provider-yourprovider/*": ["libraries/providers/yourprovider/src/*"],
+"@validpost/provider-yourprovider": ["libraries/providers/yourprovider/src"],
+"@validpost/provider-yourprovider/*": ["libraries/providers/yourprovider/src/*"],
 ```
 
 3. Add the import and array entry to `apps/backend/src/providers.generated.ts`:
 
 ```typescript
-import yourproviderModules from '@postmill-ai/provider-yourprovider';
+import yourproviderModules from '@validpost/provider-yourprovider';
 
 export const providerModules = [
   // ... existing providers

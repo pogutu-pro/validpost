@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { PaymentsWebhooksController } from './payments.webhooks.controller';
 import { StripeController } from './stripe.controller';
 import { BillingController } from './billing.controller';
-import { REQUIRE_PERMISSION_KEY } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { REQUIRE_PERMISSION_KEY } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 
 // The pipeline (signature → idempotency → apply → record) is covered in
 // libraries/nestjs-libraries/src/payments/payments.service.spec.ts; these

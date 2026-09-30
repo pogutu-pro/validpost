@@ -11,28 +11,28 @@ import React, {
 } from 'react';
 import { Image as KonvaImage, Rect, Ellipse, Line, Star, Text as KonvaText, TextPath, Group, Shape } from 'react-konva';
 import Konva from 'konva';
-import { isNativeBlend } from '@postmill-ai/nestjs-libraries/media/designer-doc/pixel-ops';
+import { isNativeBlend } from '@validpost/nestjs-libraries/media/designer-doc/pixel-ops';
 import type { DesignerElement, DesignerGradient, TextRun } from './designer.store';
 import { computeCoverCrop } from './reflow';
 import { fittedFontSize, fitDesignerText } from './measure-text';
-import { measureLineWidth, applyTextTransform } from '@postmill-ai/nestjs-libraries/media/designer-doc/fit-text';
+import { measureLineWidth, applyTextTransform } from '@validpost/nestjs-libraries/media/designer-doc/fit-text';
 import {
   pointsForShape,
   flattenPoints,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/shape-geometry';
-import { tracePathNodes } from '@postmill-ai/nestjs-libraries/media/designer-doc/path-geometry';
-import { warpedOutline } from '@postmill-ai/nestjs-libraries/media/designer-doc/warp';
-import { arcPathData } from '@postmill-ai/nestjs-libraries/media/designer-doc/curved-text';
+} from '@validpost/nestjs-libraries/media/designer-doc/shape-geometry';
+import { tracePathNodes } from '@validpost/nestjs-libraries/media/designer-doc/path-geometry';
+import { warpedOutline } from '@validpost/nestjs-libraries/media/designer-doc/warp';
+import { arcPathData } from '@validpost/nestjs-libraries/media/designer-doc/curved-text';
 import {
   arrowHeadPoints,
   strokeEndpoints,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/stroke-style';
+} from '@validpost/nestjs-libraries/media/designer-doc/stroke-style';
 import { getBuffer } from './raster-layers';
-import { buildLayerTree, type LayerNode } from '@postmill-ai/nestjs-libraries/media/designer-doc/layer-tree';
+import { buildLayerTree, type LayerNode } from '@validpost/nestjs-libraries/media/designer-doc/layer-tree';
 import {
   expandSymbols,
   type SymbolDefinition,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/symbols';
+} from '@validpost/nestjs-libraries/media/designer-doc/symbols';
 import {
   LayerGroup,
   AdjustmentScope,
@@ -48,7 +48,7 @@ import {
   applyFilterTokens,
   blurFilterRadius,
   hasFilterEffect,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-pixels';
+} from '@validpost/nestjs-libraries/media/designer-doc/filter-pixels';
 
 type SelectHandler = (id: string, evt?: Konva.KonvaEventObject<any>) => void;
 

@@ -3,15 +3,15 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import EventEmitter from 'events';
 
 vi.mock('sharp', () => ({ default: vi.fn() }));
-vi.mock('@postmill-ai/helpers/utils/timer', () => ({ timer: vi.fn() }));
-vi.mock('@postmill-ai/helpers/utils/read.or.fetch', () => ({ readOrFetch: vi.fn().mockResolvedValue(Buffer.from('data')) }));
+vi.mock('@validpost/helpers/utils/timer', () => ({ timer: vi.fn() }));
+vi.mock('@validpost/helpers/utils/read.or.fetch', () => ({ readOrFetch: vi.fn().mockResolvedValue(Buffer.from('data')) }));
 vi.mock('@prisma/client', () => ({ PrismaClient: vi.fn(), ProviderConfiguration: class {}, Integration: class {} }));
-vi.mock('@postmill-ai/helpers/auth/auth.service', () => ({ AuthService: { fixedEncryption: vi.fn((s: string) => s), fixedDecryption: vi.fn((s: string) => s) } }));
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/prisma.service', () => ({
+vi.mock('@validpost/helpers/auth/auth.service', () => ({ AuthService: { fixedEncryption: vi.fn((s: string) => s), fixedDecryption: vi.fn((s: string) => s) } }));
+vi.mock('@validpost/nestjs-libraries/database/prisma/prisma.service', () => ({
   PrismaRepository: vi.fn(() => ({ model: {} })),
   PrismaService: class {},
 }));
-vi.mock('@postmill-ai/nestjs-libraries/integrations/credentials', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/credentials', () => ({
   getOrgCredential: () => 'mock-value',
   setCredentials: vi.fn(),
   getCredential: vi.fn(function() { return undefined; }),

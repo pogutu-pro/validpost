@@ -1,52 +1,52 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { Logger } from '@nestjs/common';
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/posts/posts.repository', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/posts/posts.repository', () => ({
   PostsRepository: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository', () => ({
   AnalyticsRepository: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/integration.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/integration.manager', () => ({
   IntegrationManager: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
   IntegrationService: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/file/file.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/file/file.service', () => ({
   FileService: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/short-linking/short.link.service', () => ({
+vi.mock('@validpost/nestjs-libraries/short-linking/short.link.service', () => ({
   ShortLinkService: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/openai/openai.service', () => ({
+vi.mock('@validpost/nestjs-libraries/openai/openai.service', () => ({
   OpenaiService: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/storage/storage.service', () => ({
   StorageService: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/refresh.integration.service', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/refresh.integration.service', () => ({
   RefreshIntegrationService: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: { send: vi.fn() },
   isInngestEnabled: vi.fn().mockReturnValue(true),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/rag.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/rag.service', () => ({
   RagService: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: { get: vi.fn(), set: vi.fn(), del: vi.fn() },
 }));
 
@@ -58,22 +58,22 @@ vi.mock('sharp', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/has.extension', () => ({
+vi.mock('@validpost/helpers/utils/has.extension', () => ({
   hasExtension: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/read.or.fetch', () => ({
+vi.mock('@validpost/helpers/utils/read.or.fetch', () => ({
   readOrFetch: vi.fn(),
 }));
 
 import { PostsService } from './posts.service';
-import { AnalyticsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { readOrFetch } from '@postmill-ai/helpers/utils/read.or.fetch';
+import { AnalyticsRepository } from '@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { readOrFetch } from '@validpost/helpers/utils/read.or.fetch';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
 import { State } from '@prisma/client';
 import dayjs from 'dayjs';
 

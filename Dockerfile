@@ -14,8 +14,8 @@
 # root): this builds in a throwaway stage, prunes dev dependencies, and the
 # runtime stage runs as an unprivileged user.
 #
-# Build:  docker build -f Dockerfile -t postmill-app .
-# Run:    docker run -p 4007:5000 --env-file .env postmill-app
+# Build:  docker build -f Dockerfile -t validpost-app .
+# Run:    docker run -p 4007:5000 --env-file .env validpost-app
 # (docker/Containerfile.render remains the separate Podman video-render worker.)
 
 # ---------- builder ----------
@@ -44,7 +44,7 @@ RUN pnpm install --frozen-lockfile
 # install-agnostic image we build with a placeholder absolute URL that survives
 # minification byte-identical; docker/entrypoint.sh seds the real runtime value
 # across .next/ on container start.
-ENV NEXT_PUBLIC_BACKEND_URL=https://backend-url-not-set.postmill.invalid/api
+ENV NEXT_PUBLIC_BACKEND_URL=https://backend-url-not-set.validpost.invalid/api
 RUN NODE_OPTIONS="--max-old-space-size=4096" pnpm run build \
     # The Turbopack/Webpack build cache (~700 MB) is useless at runtime and still
     # contains the placeholder URL; drop it so it never ships in the image.

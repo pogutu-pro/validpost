@@ -46,18 +46,18 @@ its `@apply` blocks working via `@reference './tailwind.css'`. PostCSS uses `@ta
 
 ## Primitive catalog
 
-Import alias: `@postmill-ai/react/*` → `libraries/react-shared-libraries/src/*` (tsconfig.base.json paths). All form primitives self-register with React Hook Form via `useFormContext()` — **wrap every form in `<FormProvider {...form}>`** (`react-hook-form`), or pass `disableForm` for standalone use. Labels go through `TranslatedLabel`: `label` is the English fallback, `translationKey` / `translationParams` the optional explicit i18n key.
+Import alias: `@validpost/react/*` → `libraries/react-shared-libraries/src/*` (tsconfig.base.json paths). All form primitives self-register with React Hook Form via `useFormContext()` — **wrap every form in `<FormProvider {...form}>`** (`react-hook-form`), or pass `disableForm` for standalone use. Labels go through `TranslatedLabel`: `label` is the English fallback, `translationKey` / `translationParams` the optional explicit i18n key.
 
 | Primitive | Import | Key props / contract |
 |---|---|---|
-| `Button` | `@postmill-ai/react/form/button` | Native `<button>` + `secondary`, `danger`, `loading` (built-in spinner, disables), `innerClassName`. Defaults `type="button"`. |
-| `Input` | `@postmill-ai/react/form/input` | `label`, `name` (both required), `icon`, `error`, `removeError`, `disableForm`, `customUpdate` (called when the RHF value changes), `translationKey`/`translationParams`. Reads RHF field error automatically. |
-| `Select` | `@postmill-ai/react/form/select` | `label`, `name`, `extraForm` (RegisterOptions), `hideErrors`, `disableForm`. |
-| `CustomSelect` | `@postmill-ai/react/form/custom.select` | `options: {value, label, icon?}[]`; stores the whole `{value,label}` object in RHF (`form.setValue`). **Requires FormProvider** — calls `form.watch`/`form.setValue` unconditionally; `disableForm` is declared but not implemented. |
-| `Checkbox` | `@postmill-ai/react/form/checkbox` | `variant?: 'default' \| 'hollow'`, `label`, `disableForm`, synthetic `onChange({target:{name,value}})`. |
-| `Textarea` | `@postmill-ai/react/form/textarea` | `label`, `name`, `disableForm`. |
-| `Slider` | `@postmill-ai/react/form/slider` | Boolean toggle: `value: 'on'\|'off'`, `fill`, `onChange`. Not RHF-bound. |
-| `ColorPicker` | `@postmill-ai/react/form/color.picker` | react-colorful `HexColorPicker`; `name`, `label`, `enabled`, `canBeCancelled`. |
+| `Button` | `@validpost/react/form/button` | Native `<button>` + `secondary`, `danger`, `loading` (built-in spinner, disables), `innerClassName`. Defaults `type="button"`. |
+| `Input` | `@validpost/react/form/input` | `label`, `name` (both required), `icon`, `error`, `removeError`, `disableForm`, `customUpdate` (called when the RHF value changes), `translationKey`/`translationParams`. Reads RHF field error automatically. |
+| `Select` | `@validpost/react/form/select` | `label`, `name`, `extraForm` (RegisterOptions), `hideErrors`, `disableForm`. |
+| `CustomSelect` | `@validpost/react/form/custom.select` | `options: {value, label, icon?}[]`; stores the whole `{value,label}` object in RHF (`form.setValue`). **Requires FormProvider** — calls `form.watch`/`form.setValue` unconditionally; `disableForm` is declared but not implemented. |
+| `Checkbox` | `@validpost/react/form/checkbox` | `variant?: 'default' \| 'hollow'`, `label`, `disableForm`, synthetic `onChange({target:{name,value}})`. |
+| `Textarea` | `@validpost/react/form/textarea` | `label`, `name`, `disableForm`. |
+| `Slider` | `@validpost/react/form/slider` | Boolean toggle: `value: 'on'\|'off'`, `fill`, `onChange`. Not RHF-bound. |
+| `ColorPicker` | `@validpost/react/form/color.picker` | react-colorful `HexColorPicker`; `name`, `label`, `enabled`, `canBeCancelled`. |
 
 ### Tab bars and chip strips
 
@@ -175,7 +175,7 @@ openModal({
 
 ## Feedback
 
-- **Toasts**: `useToaster().show(text, 'success' | 'warning')` from `@postmill-ai/react/toaster/toaster`. Renders through the single `<Toaster/>` mounted once in the app layout; auto-dismisses after ~4.2s with `animate-fadeDown`.
+- **Toasts**: `useToaster().show(text, 'success' | 'warning')` from `@validpost/react/toaster/toaster`. Renders through the single `<Toaster/>` mounted once in the app layout; auto-dismisses after ~4.2s with `animate-fadeDown`.
 - **Tooltips**: one global `react-tooltip` instance (`components/layout/top.tip.tsx`, `<Tooltip id="tooltip"/>`). Attach with attributes on the element: `data-tooltip-id="tooltip"` + `data-tooltip-content="..."`. Do not mount additional `Tooltip` instances.
 
 ## State conventions per context
@@ -201,8 +201,8 @@ openModal({
 - **dayjs everywhere** — never `moment`, never raw `Date` math for display.
 - Date/time picking: `DatePicker` (`components/launches/helpers/date.picker.tsx`) wraps `@mantine/dates` `DatePicker` (single date) + `TimeInput`; it works in `newDayjs` values. Range picking (calendar filters, analytics filter bar) uses `@mantine/dates` `DatePicker type="range"`, which speaks `'YYYY-MM-DD'` strings.
 - Timezone handling: `components/layout/set.timezone.tsx` — `getTimezone()` (user's stored timezone, `localStorage('timezone')`, falling back to `dayjs.tz.guess()`), `newDayjs()` (timezone-aware construction; date-only strings parse as midnight **in the user's timezone**), `getTimezoneAbbr()`.
-- UTC→local rendering: `UtcToLocalDateRender` (`@postmill-ai/react/helpers/utc.date.render`) — `date`, `format`.
-- **All user-facing strings** go through `useT()` from `@postmill-ai/react/translation/get.transation.service.client` (the filename typo `transation` is real — import it exactly). Pattern: `t('snake_case_key', 'English fallback', params?)`. Server components use `getT()` from `@postmill-ai/react/translation/get.translation.service.backend`. Form labels use `TranslatedLabel` (`label` = fallback, `translationKey` optional).
+- UTC→local rendering: `UtcToLocalDateRender` (`@validpost/react/helpers/utc.date.render`) — `date`, `format`.
+- **All user-facing strings** go through `useT()` from `@validpost/react/translation/get.transation.service.client` (the filename typo `transation` is real — import it exactly). Pattern: `t('snake_case_key', 'English fallback', params?)`. Server components use `getT()` from `@validpost/react/translation/get.translation.service.backend`. Form labels use `TranslatedLabel` (`label` = fallback, `translationKey` optional).
 - Optional literal-string audit: `I18N_LINT=1 pnpm exec eslint apps/frontend/src` enables `i18next/no-literal-string` at warn (off by default — see eslint.config.mjs).
 
 ## RBAC-aware rendering

@@ -1,12 +1,12 @@
 'use client';
 
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useCallback } from 'react';
 import useSWR from 'swr';
 import { createFetchError } from '../dashboard.utils';
 import type {
   UsageResponse,
-} from '@postmill-ai/frontend/components/settings/subscription/use-subscription';
+} from '@validpost/frontend/components/settings/subscription/use-subscription';
 
 export type { UsageResponse };
 

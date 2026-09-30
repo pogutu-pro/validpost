@@ -1,12 +1,12 @@
 'use client';
 
 import { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   MetricFilters,
   MetricKey,
   MetricOp,
-} from '@postmill-ai/frontend/components/launches/calendar.context';
+} from '@validpost/frontend/components/launches/calendar.context';
 
 // Per-metric operator + value filter for views / likes / comments. A metric is
 // only applied once it has a numeric value; the operator alone does nothing.
@@ -42,7 +42,7 @@ export const MetricFilter: FC<{
           <select
             value={value[key].op}
             onChange={(e) => update(key, { op: e.target.value as MetricOp })}
-            className="h-[38px] w-[64px] px-[8px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+            className="h-[38px] w-[64px] px-[8px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-btnPrimary"
           >
             {ops.map((o) => (
               <option key={o.value} value={o.value}>
@@ -60,7 +60,7 @@ export const MetricFilter: FC<{
               update(key, { value: raw === '' ? null : Number(raw) });
             }}
             placeholder={t('any', 'Any')}
-            className="flex-1 h-[38px] px-[10px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+            className="flex-1 h-[38px] px-[10px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-btnPrimary"
           />
         </div>
       ))}

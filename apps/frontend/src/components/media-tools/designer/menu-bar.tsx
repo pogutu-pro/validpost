@@ -13,7 +13,7 @@ import {
   type DesignerAction,
   type DesignerMenu,
 } from './actions';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface MenuBarProps {
   actions: DesignerAction[];

@@ -1,15 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AIMediaJob } from '@prisma/client';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { MediaArtifactMetadata } from '@postmill-ai/nestjs-libraries/media/media-provider-adapter.interface';
-import { mediaJobWebhookToken } from '@postmill-ai/nestjs-libraries/media/media-job-token';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
-import { readResponseCapped } from '@postmill-ai/nestjs-libraries/utils/capped-stream';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { MediaArtifactMetadata } from '@validpost/nestjs-libraries/media/media-provider-adapter.interface';
+import { mediaJobWebhookToken } from '@validpost/nestjs-libraries/media/media-job-token';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { readResponseCapped } from '@validpost/nestjs-libraries/utils/capped-stream';
 
 // AIMediaJob has no dedicated provider-job-id column; while a job is pending the
 // provider's external reference is stored in `artifactUrl` under this scheme and is

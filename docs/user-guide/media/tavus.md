@@ -19,7 +19,7 @@ Replica videos are **asynchronous**. After submission, the job appears in the Re
 ## Caveats
 
 - Completion is **webhook-first**, with the `media-jobs-poll` cron as a fallback.
-- Tavus returns both a `hosted_url` (an HTML share page) and a `download_url` (the actual MP4). Postmill uses only the `download_url` so the file can be imported into `/files`.
+- Tavus returns both a `hosted_url` (an HTML share page) and a `download_url` (the actual MP4). ValidPost uses only the `download_url` so the file can be imported into `/files`.
 - A replica id is required; the studio does not create replicas.
 
 ## Related docs

@@ -4,12 +4,12 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { useMenuItem } from '@postmill-ai/frontend/components/layout/top.menu';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useHasOpenModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useFullscreen } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
+import { useMenuItem } from '@validpost/frontend/components/layout/top.menu';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useHasOpenModals } from '@validpost/frontend/components/layout/new-modal';
+import { useFullscreen } from '@validpost/frontend/components/media-tools/use-fullscreen';
 import { MenuItemRow } from './menu-item-row';
 
 // Primary destinations pinned to the bottom bar. Home is always first; the remaining
@@ -92,9 +92,9 @@ export const BottomTabBar: FC = () => {
               key={item.path}
               href={item.path}
               className={clsx(
-                'flex flex-1 flex-col items-center justify-center gap-[3px] text-[10px] font-[600] min-w-0',
+                'relative flex flex-1 flex-col items-center justify-center gap-[3px] text-[10px] font-[600] min-w-0 active:scale-[0.94] transition-transform duration-150',
                 isActive(item.path)
-                  ? 'text-btnPrimaryAccent'
+                  ? 'text-btnPrimaryAccent before:absolute before:top-0 before:h-[3px] before:w-[28px] before:rounded-b-full before:bg-vpGradient'
                   : 'text-textItemBlur hover:text-newTextColor'
               )}
             >
@@ -119,7 +119,7 @@ export const BottomTabBar: FC = () => {
             <span className="w-[22px] h-[22px] flex items-center justify-center">
               {MoreIcon}
             </span>
-            <span className="leading-none">{t('more', 'More')}</span>
+            <span className="leading-none text-[10px] font-[600]">{t('more', 'More')}</span>
           </button>
         </div>
       </nav>

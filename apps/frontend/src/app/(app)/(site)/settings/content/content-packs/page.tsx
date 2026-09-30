@@ -1,8 +1,8 @@
 'use client';
 
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { ContentPacksTab } from '@postmill-ai/frontend/components/settings/content-packs/content-packs.tab';
-import { SettingsGate } from '@postmill-ai/frontend/components/settings/settings-gate';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { ContentPacksTab } from '@validpost/frontend/components/settings/content-packs/content-packs.tab';
+import { SettingsGate } from '@validpost/frontend/components/settings/settings-gate';
 
 export default function Page() {
   const permissions = usePermissions();

@@ -1,8 +1,8 @@
 import { usePlausible } from 'next-plausible';
 import { useCallback } from 'react';
 import { usePostHog } from 'posthog-js/react';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
 
 export const useFireEvents = () => {
   const { billingEnabled } = useVariables();

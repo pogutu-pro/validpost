@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { curveLut } from '@postmill-ai/nestjs-libraries/media/designer-doc/pixel-ops';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { curveLut } from '@validpost/nestjs-libraries/media/designer-doc/pixel-ops';
 import {
   CURVE_CHANNELS,
   IDENTITY_CURVE,
   type CurveChannel,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/adjustment-descriptors';
+} from '@validpost/nestjs-libraries/media/designer-doc/adjustment-descriptors';
 import { Histogram } from './histogram';
 
 /**

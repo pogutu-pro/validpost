@@ -1,11 +1,11 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { randomUUID } from 'crypto';
 import { Injectable, Logger, Optional } from '@nestjs/common';
 import { dispatchToAgent } from '@reaatech/agent-mesh-router';
 import type { AgentResponse } from '@reaatech/agent-mesh';
-import { BudgetService } from '@postmill-ai/nestjs-libraries/ai/governance/budget.service';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
+import { BudgetService } from '@validpost/nestjs-libraries/ai/governance/budget.service';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
 import {
   CONTENT_PIPELINE_AGENTS,
   CONTENT_PIPELINE_AGENT_IDS,

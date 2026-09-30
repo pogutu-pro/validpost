@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   ProviderVersionSelect,
   useProviderVersionSelection,
-} from '@postmill-ai/frontend/components/settings/shared/provider-version-select';
+} from '@validpost/frontend/components/settings/shared/provider-version-select';
 import {
   KitCredentialField,
   ProviderFormState,

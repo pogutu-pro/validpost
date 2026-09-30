@@ -1,6 +1,6 @@
 'use client';
 
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
+import { useVariables } from '@validpost/react/helpers/variable.context';
 export const ChromeExtensionComponent = () => {
   const { billingEnabled } = useVariables();
   if (!billingEnabled) {
@@ -8,7 +8,7 @@ export const ChromeExtensionComponent = () => {
   }
   return (
     <a
-      href="https://chromewebstore.google.com/detail/postmill/cidhffagahknaeodkplfbcpfeielnkjl"
+      href="https://chromewebstore.google.com/detail/validpost/cidhffagahknaeodkplfbcpfeielnkjl"
       target="_blank"
       className="hover:text-newTextColor"
     >

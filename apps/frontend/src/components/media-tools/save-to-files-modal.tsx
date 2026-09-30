@@ -2,11 +2,11 @@
 
 import React, { FC, useCallback, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface SaveToFilesModalProps {
   url: string;
@@ -91,7 +91,7 @@ export const SaveToFilesModal: FC<SaveToFilesModalProps> = ({ url, name, source,
         const integrationsRes = await fetch('/integrations');
         if (integrationsRes.ok) {
           const integrations = await integrationsRes.json();
-          const { Composer } = await import('@postmill-ai/frontend/components/composer/composer');
+          const { Composer } = await import('@validpost/frontend/components/composer/composer');
           const dayjs = (await import('dayjs')).default;
           modal.openModal({
             fullScreen: true,
@@ -123,17 +123,17 @@ export const SaveToFilesModal: FC<SaveToFilesModalProps> = ({ url, name, source,
             type="button"
             aria-pressed={selectedFolderId === folder.id}
             className={`flex items-center w-full text-left gap-[8px] px-[8px] py-[6px] rounded-[6px] text-[13px] transition-all ${
-              selectedFolderId === folder.id ? 'bg-[#2B5CD3]/20 text-textColor' : 'text-textColor hover:bg-newColColor/50'
+              selectedFolderId === folder.id ? 'bg-btnPrimary/20 text-textColor' : 'text-textColor hover:bg-newColColor/50'
             }`}
             style={{ paddingLeft: `${12 + depth * 16}px` }}
             onClick={() => setSelectedFolderId(folder.id)}
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M2 4.5C2 3.39543 2.89543 2.5 4 2.5H5.93934C6.46977 2.5 6.97848 2.71071 7.35355 3.08579L8 3.73223C8.18935 3.92156 8.44705 4.02708 8.71573 4.02708H12C13.1046 4.02708 14 4.92251 14 6.02708V11.5C14 12.6046 13.1046 13.5 12 13.5H4C2.89543 13.5 2 12.6046 2 11.5V4.5Z" fill={selectedFolderId === folder.id ? '#2B5CD3' : 'none'} stroke="currentColor" strokeWidth="1.3" />
+              <path d="M2 4.5C2 3.39543 2.89543 2.5 4 2.5H5.93934C6.46977 2.5 6.97848 2.71071 7.35355 3.08579L8 3.73223C8.18935 3.92156 8.44705 4.02708 8.71573 4.02708H12C13.1046 4.02708 14 4.92251 14 6.02708V11.5C14 12.6046 13.1046 13.5 12 13.5H4C2.89543 13.5 2 12.6046 2 11.5V4.5Z" fill={selectedFolderId === folder.id ? '#D42A66' : 'none'} stroke="currentColor" strokeWidth="1.3" />
             </svg>
             <span className="flex-1 truncate">{folder.name}</span>
             {providerInfo && (
-              <span className="inline-flex items-center gap-[4px] bg-[#2B5CD3]/15 rounded-[4px] px-[5px] py-[2px] text-[11px] text-newTextColor/70">
+              <span className="inline-flex items-center gap-[4px] bg-btnPrimary/15 rounded-[4px] px-[5px] py-[2px] text-[11px] text-newTextColor/70">
                 <ProviderIcon identifier={providerInfo.type} name={providerInfo.name} size={14} />
                 {providerInfo.type}
               </span>
@@ -156,7 +156,7 @@ export const SaveToFilesModal: FC<SaveToFilesModalProps> = ({ url, name, source,
           type="text"
           value={fileName}
           onChange={e => setFileName(e.target.value)}
-          className="w-full h-[40px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+          className="w-full h-[40px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] text-textColor outline-hidden focus:border-btnPrimary"
         />
         {source && (
           <div className="mt-[8px] text-[12px] text-newTextColor/60">
@@ -197,7 +197,7 @@ export const SaveToFilesModal: FC<SaveToFilesModalProps> = ({ url, name, source,
             type="button"
             aria-pressed={selectedFolderId === null}
             className={`flex items-center w-full text-left gap-[8px] px-[8px] py-[6px] rounded-[6px] text-[13px] transition-all ${
-              selectedFolderId === null ? 'bg-[#2B5CD3]/20 text-textColor' : 'text-textColor hover:bg-newColColor/50'
+              selectedFolderId === null ? 'bg-btnPrimary/20 text-textColor' : 'text-textColor hover:bg-newColColor/50'
             }`}
             onClick={() => setSelectedFolderId(null)}
           >
@@ -217,7 +217,7 @@ export const SaveToFilesModal: FC<SaveToFilesModalProps> = ({ url, name, source,
           value={newFolderName}
           onChange={e => setNewFolderName(e.target.value)}
           placeholder={t('new_folder_name_placeholder', 'New folder name...')}
-          className="flex-1 h-[36px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+          className="flex-1 h-[36px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[13px] text-textColor outline-hidden focus:border-btnPrimary"
           onKeyDown={e => { if (e.key === 'Enter') handleCreateFolder(); }}
         />
         <button
@@ -238,7 +238,7 @@ export const SaveToFilesModal: FC<SaveToFilesModalProps> = ({ url, name, source,
         <button
           disabled={saving || !fileName.trim()}
           onClick={() => handleSave(false)}
-          className="px-[16px] h-[40px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[500] hover:bg-[#2B5CD3]/80 disabled:opacity-50 transition-all"
+          className="px-[16px] h-[40px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[500] hover:bg-btnPrimary/80 disabled:opacity-50 transition-all"
         >
           {saving ? t('saving_dots', 'Saving...') : t('save_file', 'Save File')}
         </button>

@@ -1,27 +1,27 @@
 'use client';
-import { readApiError, providerErrorToastText } from '@postmill-ai/frontend/components/ai/provider-error';
+import { readApiError, providerErrorToastText } from '@validpost/frontend/components/ai/provider-error';
 
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
 import { useRouter } from 'next/navigation';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { FormProvider, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { GeneratorDto } from '@postmill-ai/nestjs-libraries/dtos/generator/generator.dto';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { Textarea } from '@postmill-ai/react/form/textarea';
-import { Checkbox } from '@postmill-ai/react/form/checkbox';
+import { GeneratorDto } from '@validpost/nestjs-libraries/dtos/generator/generator.dto';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { Textarea } from '@validpost/react/form/textarea';
+import { Checkbox } from '@validpost/react/form/checkbox';
 import clsx from 'clsx';
 import {
   CalendarWeekProvider,
   useCalendar,
-} from '@postmill-ai/frontend/components/launches/calendar.context';
+} from '@validpost/frontend/components/launches/calendar.context';
 import dayjs from 'dayjs';
-import { Select } from '@postmill-ai/react/form/select';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { Select } from '@validpost/react/form/select';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const FirstStep: FC = (props) => {
   const router = useRouter();

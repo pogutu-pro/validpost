@@ -1,11 +1,11 @@
 import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
-import { OrgDefaultModelRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
-import { OrgAiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { RuntimeContextFactory } from '@postmill-ai/nestjs-libraries/providers/runtime-context.factory';
-import { ProviderKernel, ProviderMetadata, AiCapability } from '@postmill-ai/provider-kernel';
-import { MediaProviderAdapter } from '@postmill-ai/nestjs-libraries/media/media-provider-adapter.interface';
+import { OrgDefaultModelRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
+import { OrgAiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { RuntimeContextFactory } from '@validpost/nestjs-libraries/providers/runtime-context.factory';
+import { ProviderKernel, ProviderMetadata, AiCapability } from '@validpost/provider-kernel';
+import { MediaProviderAdapter } from '@validpost/nestjs-libraries/media/media-provider-adapter.interface';
 import {
   AI_MODEL_CATEGORIES,
   AI_MEDIA_CATEGORIES,

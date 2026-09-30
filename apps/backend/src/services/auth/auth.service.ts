@@ -1,17 +1,17 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { Provider, User, UserOrganization } from '@prisma/client';
-import { CreateOrgUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto';
-import { LoginUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto';
-import { UsersService } from '@postmill-ai/nestjs-libraries/database/prisma/users/users.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { AuthService as AuthChecker } from '@postmill-ai/helpers/auth/auth.service';
-import { ProvidersManager } from '@postmill-ai/backend/services/auth/providers/providers.manager';
+import { CreateOrgUserDto } from '@validpost/nestjs-libraries/dtos/auth/create.org.user.dto';
+import { LoginUserDto } from '@validpost/nestjs-libraries/dtos/auth/login.user.dto';
+import { UsersService } from '@validpost/nestjs-libraries/database/prisma/users/users.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { AuthService as AuthChecker } from '@validpost/helpers/auth/auth.service';
+import { ProvidersManager } from '@validpost/backend/services/auth/providers/providers.manager';
 import dayjs from 'dayjs';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
-import { ForgotReturnPasswordDto } from '@postmill-ai/nestjs-libraries/dtos/auth/forgot-return.password.dto';
-import { OAuthLinkQueryDto } from '@postmill-ai/nestjs-libraries/dtos/auth/oauth-link-query.dto';
-import { NewsletterService } from '@postmill-ai/nestjs-libraries/newsletter/newsletter.service';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
+import { ForgotReturnPasswordDto } from '@validpost/nestjs-libraries/dtos/auth/forgot-return.password.dto';
+import { OAuthLinkQueryDto } from '@validpost/nestjs-libraries/dtos/auth/oauth-link-query.dto';
+import { NewsletterService } from '@validpost/nestjs-libraries/newsletter/newsletter.service';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import crypto from 'crypto';
 
 @Injectable()
@@ -82,12 +82,12 @@ export class AuthService {
     try {
       await this._notificationService.sendEmail(
         email,
-        'Welcome to Postmill',
+        'Welcome to ValidPost',
         `<p>Welcome aboard — your account is ready.</p>
-         <p>New here? The <a href="https://docs.postmill.ai/user-guide/">User Guide</a> walks you through connecting channels, scheduling your first posts, and using the AI agent.</p>
-         <p>Found a bug? <a href="https://github.com/postmill-ai/postmill-app/issues">Open an issue on GitHub</a>.</p>
-         <p>Questions? Contact <a href="mailto:support@postmill.ai">support@postmill.ai</a> or just reply to this email.</p>`,
-        'support@postmill.ai'
+         <p>New here? The <a href="https://docs.validpost.io/user-guide/">User Guide</a> walks you through connecting channels, scheduling your first posts, and using the AI agent.</p>
+         <p>Found a bug? <a href="https://github.com/pogutu-pro/validpost/issues">Open an issue on GitHub</a>.</p>
+         <p>Questions? Contact <a href="mailto:support@validpost.io">support@validpost.io</a> or just reply to this email.</p>`,
+        'support@validpost.io'
       );
     } catch (err) {
       Logger.warn(
@@ -110,7 +110,7 @@ export class AuthService {
     try {
       await this._notificationService.sendEmail(
         to,
-        `New Postmill signup: ${opts.email}`,
+        `New ValidPost signup: ${opts.email}`,
         `<ul>
            <li><strong>Email:</strong> ${opts.email}</li>
            <li><strong>Provider:</strong> ${opts.provider}</li>
@@ -298,10 +298,10 @@ export class AuthService {
       (err) => {}
     );
 
-    // Synthetic addresses (e.g. x_<id>@x.login.postmill.local) are minted by
+    // Synthetic addresses (e.g. x_<id>@x.login.validpost.local) are minted by
     // providers that return no email — never enroll them in the newsletter or
     // send them any email.
-    if (!email.endsWith('.login.postmill.local')) {
+    if (!email.endsWith('.login.validpost.local')) {
       await NewsletterService.register(email);
       await this._sendWelcomeEmail(email);
     }

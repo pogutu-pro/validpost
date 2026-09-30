@@ -2,14 +2,14 @@
 
 import React, { FC, useMemo, useRef, useState } from 'react';
 import { mutate as swrMutate } from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   useCampaigns,
   useCampaignsForEntity,
-} from '@postmill-ai/frontend/components/campaigns/hooks/campaign.hooks';
-import { CampaignEntitySlug } from '@postmill-ai/frontend/components/campaigns/campaign-types';
+} from '@validpost/frontend/components/campaigns/hooks/campaign.hooks';
+import { CampaignEntitySlug } from '@validpost/frontend/components/campaigns/campaign-types';
 
 // One reusable tagger, mounted in every entity edit UI. Tags/untags a campaign
 // onto the given (entityType, entityId). When entityId is falsy (item not saved
@@ -99,7 +99,7 @@ export const CampaignSelector: FC<{
                 >
                   <span
                     className="w-[8px] h-[8px] rounded-full"
-                    style={{ backgroundColor: c.color || '#2b5cd3' }}
+                    style={{ backgroundColor: c.color || '#D42A66' }}
                   />
                   {c.name}
                   <button
@@ -139,7 +139,7 @@ export const CampaignSelector: FC<{
                   >
                     <span
                       className="w-[8px] h-[8px] rounded-full shrink-0"
-                      style={{ backgroundColor: c.color || '#2b5cd3' }}
+                      style={{ backgroundColor: c.color || '#D42A66' }}
                     />
                     {c.name}
                     {c.archived && (

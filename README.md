@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://validpost.io" target="_blank">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/dece1bba-5703-408c-a712-02f7a7953f02">
-    <img alt="ValidPost Logo" src="https://github.com/user-attachments/assets/f5861b90-f71f-4ff7-90e4-6eb308023f17" width="280"/>
+    <source media="(prefers-color-scheme: dark)" srcset="apps/frontend/public/validpost-logo-invert.png">
+    <img alt="ValidPost Logo" src="apps/frontend/public/validpost-logo.png" width="280"/>
   </picture>
   </a>
 </p>
@@ -12,12 +12,14 @@
     <img src="https://img.shields.io/badge/License-AGPL%203.0-blue.svg" alt="License: AGPL-3.0">
   </a>
   <a href="https://validpost.io">
-    <img src="https://img.shields.io/badge/version-v1.0.0-2B5CD3.svg" alt="Version v1.0.0">
+    <img src="https://img.shields.io/badge/version-v1.0.0-E1306C.svg" alt="Version v1.0.0">
   </a>
   <a href="https://docs.validpost.io">
-    <img src="https://img.shields.io/badge/docs-docs.validpost.io-2B5CD3.svg" alt="Documentation">
+    <img src="https://img.shields.io/badge/docs-docs.validpost.io-E1306C.svg" alt="Documentation">
   </a>
 </p>
+
+<p align="center"><sub>Made by <strong>Stratnovo</strong></sub></p>
 
 ---
 
@@ -27,7 +29,7 @@
 
 ValidPost is a cloud-hosted social media scheduler for agencies and multi-brand teams: a visual publishing calendar, 45+ channels, 46 built-in media tools, and bring-your-own-key AI across 30 providers. Let every organization manage its own channels, brands, and AI keys. An alternative to Buffer, Hootsuite, and Sprout Social.
 
-**[Website](https://validpost.io)** · **[Docs](https://docs.validpost.io)** · **[Quick Start](#-quick-start)** · **[Node SDK (`@postmill-ai/postmill-sdk`)](https://www.npmjs.com/package/@postmill-ai/postmill-sdk)** · **[Public API](https://docs.validpost.io/developer-docs/public-api.html)**
+**[Website](https://validpost.io)** · **[Docs](https://docs.validpost.io)** · **[Quick Start](#-quick-start)** · **[Node SDK (`@validpost/validpost-sdk`)](https://www.npmjs.com/package/@validpost/validpost-sdk)** · **[Public API](https://docs.validpost.io/developer-docs/public-api.html)**
 
 ---
 
@@ -40,21 +42,21 @@ ValidPost brings **design**, **publishing**, **analytics**, and **engagement** i
 <table>
   <tr>
     <td width="50%" align="center" valign="top">
-      <a href="https://validpost.io/ss/postmill-ss-design.jpg"><img src="https://validpost.io/ss/postmill-ss-design-thumb.jpg" width="100%" alt="Design — the ValidPost designer: canvas with a multi-track video timeline"></a><br>
+      <a href="https://validpost.io/ss/validpost-ss-design.jpg"><img src="https://validpost.io/ss/validpost-ss-design-thumb.jpg" width="100%" alt="Design — the ValidPost designer: canvas with a multi-track video timeline"></a><br>
       <sub><b>Design</b> — designer canvas + video timeline, 46 media tools</sub>
     </td>
     <td width="50%" align="center" valign="top">
-      <a href="https://validpost.io/ss/postmill-ss-post.jpg"><img src="https://validpost.io/ss/postmill-ss-post-thumb.jpg" width="100%" alt="Post — the posts calendar with scheduled posts across channels"></a><br>
+      <a href="https://validpost.io/ss/validpost-ss-post.jpg"><img src="https://validpost.io/ss/validpost-ss-post-thumb.jpg" width="100%" alt="Post — the posts calendar with scheduled posts across channels"></a><br>
       <sub><b>Post</b> — calendar, 45+ channels, one composer</sub>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center" valign="top">
-      <a href="https://validpost.io/ss/postmill-ss-track.jpg"><img src="https://validpost.io/ss/postmill-ss-track-thumb.jpg" width="100%" alt="Track — the analytics overview with cross-channel metrics and trends"></a><br>
+      <a href="https://validpost.io/ss/validpost-ss-track.jpg"><img src="https://validpost.io/ss/validpost-ss-track-thumb.jpg" width="100%" alt="Track — the analytics overview with cross-channel metrics and trends"></a><br>
       <sub><b>Track</b> — persisted multi-channel analytics</sub>
     </td>
     <td width="50%" align="center" valign="top">
-      <a href="https://validpost.io/ss/postmill-ss-engage.jpg"><img src="https://validpost.io/ss/postmill-ss-engage-thumb.jpg" width="100%" alt="Engage — the reply inbox with comments from every channel in one place"></a><br>
+      <a href="https://validpost.io/ss/validpost-ss-engage.jpg"><img src="https://validpost.io/ss/validpost-ss-engage-thumb.jpg" width="100%" alt="Engage — the reply inbox with comments from every channel in one place"></a><br>
       <sub><b>Engage</b> — cross-channel reply inbox</sub>
     </td>
   </tr>
@@ -150,7 +152,7 @@ Security runs through the application: secrets are encrypted at rest with AES-25
 
 ## 🔗 Automation & integrations
 
-ValidPost exposes a **Public API** for programmatic scheduling, analytics, and channel management, an **MCP** surface for AI agents, and an official Node SDK — [`@postmill-ai/postmill-sdk`](https://www.npmjs.com/package/@postmill-ai/postmill-sdk). Built in: **RSS auto-posting** (turn any feed into a scheduled queue per channel) and **outgoing webhooks** that push publish events to your endpoints, per channel or account-wide. The Public API also connects ValidPost to automation platforms such as n8n, Make, and Zapier. See the [API docs](https://docs.validpost.io/developer-docs/public-api.html) to get started.
+ValidPost exposes a **Public API** for programmatic scheduling, analytics, and channel management, an **MCP** surface for AI agents, and an official Node SDK — [`@validpost/validpost-sdk`](https://www.npmjs.com/package/@validpost/validpost-sdk). Built in: **RSS auto-posting** (turn any feed into a scheduled queue per channel) and **outgoing webhooks** that push publish events to your endpoints, per channel or account-wide. The Public API also connects ValidPost to automation platforms such as n8n, Make, and Zapier. See the [API docs](https://docs.validpost.io/developer-docs/public-api.html) to get started.
 
 ## 🛠️ Tech stack
 
@@ -168,7 +170,7 @@ ValidPost publishes — and, where a platform supports it, retrieves comments an
 
 ## About
 
-ValidPost is created and maintained by StratNovo, and is built on official [@reaatech](https://www.npmjs.com/~reaatech) packages for its agentic foundations — including `@reaatech/agent-mesh`, `@reaatech/guardrail-chain`, `@reaatech/hybrid-rag`, `@reaatech/agent-budget-*`, and the `@reaatech/media-pipeline-mcp-*` suite.
+ValidPost is created and maintained by Stratnovo, and is built on official [@reaatech](https://www.npmjs.com/~reaatech) packages for its agentic foundations — including `@reaatech/agent-mesh`, `@reaatech/guardrail-chain`, `@reaatech/hybrid-rag`, `@reaatech/agent-budget-*`, and the `@reaatech/media-pipeline-mcp-*` suite.
 
 ## License
 

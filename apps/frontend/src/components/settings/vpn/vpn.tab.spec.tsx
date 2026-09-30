@@ -6,19 +6,19 @@ const mockFetch = vi.fn();
 const mockMutate = vi.fn();
 const mockOpenModal = vi.fn();
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: vi.fn() }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback ?? key,
 }));
 
-vi.mock('@postmill-ai/frontend/components/shared/provider-icon', () => ({
+vi.mock('@validpost/frontend/components/shared/provider-icon', () => ({
   __esModule: true,
   default: () => <span data-testid="provider-icon">icon</span>,
 }));
@@ -28,12 +28,12 @@ vi.mock('swr', () => ({
   useSWRConfig: () => ({ mutate: mockMutate }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/shared/use-provider-catalog', () => ({
+vi.mock('@validpost/frontend/components/settings/shared/use-provider-catalog', () => ({
   useProviderCatalog: () => ({ data: [] }),
 }));
 
 // Capture the config-modal open (no ModalManager in this suite).
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', async (importOriginal) => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
   useModals: () => ({
     openModal: mockOpenModal,

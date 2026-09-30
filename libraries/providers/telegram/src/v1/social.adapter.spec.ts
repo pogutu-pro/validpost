@@ -89,7 +89,7 @@ describe('TelegramProvider.post media resolution', () => {
   it('maps local frontend-URL uploads to the file on disk (Bot API needs a real upload)', async () => {
     const savedFrontend = process.env.FRONTEND_URL;
     const savedUpload = process.env.UPLOAD_DIRECTORY;
-    process.env.FRONTEND_URL = 'https://app.postmill.ai';
+    process.env.FRONTEND_URL = 'https://app.validpost.io';
     process.env.UPLOAD_DIRECTORY = '/srv/uploads';
     try {
       const sendPhoto = vi.fn(async () => ({ message_id: 11 }));
@@ -106,7 +106,7 @@ describe('TelegramProvider.post media resolution', () => {
             media: [
               {
                 id: 'm1',
-                path: 'https://app.postmill.ai/uploads/org/2026/09/04/pic.jpg',
+                path: 'https://app.validpost.io/uploads/org/2026/09/04/pic.jpg',
               },
             ],
           } as any,
@@ -154,8 +154,8 @@ describe('TelegramProvider.authenticate', () => {
     (provider as any).createBot = vi.fn(() => ({
       getChat: vi.fn(async () => ({
         id: -1001234567890,
-        title: 'Postmill AI',
-        username: 'postmill_ai',
+        title: 'ValidPost AI',
+        username: 'validpost_ai',
       })),
     }));
 
@@ -166,7 +166,7 @@ describe('TelegramProvider.authenticate', () => {
       { client_id: '', token: 'env-bot-token' } as any
     );
 
-    expect((result as any).id).toBe('postmill_ai');
+    expect((result as any).id).toBe('validpost_ai');
     expect((result as any).accessToken).toBe('-1001234567890');
   });
 });

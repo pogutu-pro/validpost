@@ -2,7 +2,7 @@
 
 > Verified against v1.0.0
 
-When a brand-new organization is created, Postmill shows a one-time onboarding wizard at **`/setup`**. The wizard walks the first user through the minimum configuration needed before the app is usable:
+When a brand-new organization is created, ValidPost shows a one-time onboarding wizard at **`/setup`**. The wizard walks the first user through the minimum configuration needed before the app is usable:
 
 1. **LLM provider (required)** — connect and activate at least one AI provider.
 2. **AI media providers** — optional image/video/audio generation providers.

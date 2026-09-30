@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -16,7 +16,7 @@ vi.mock('../hooks/useBestTime', () => ({
 }));
 
 const mockUseIntegrationList = vi.fn(() => ({ data: [] as any[] }));
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.integration.list', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.integration.list', () => ({
   useIntegrationList: () => mockUseIntegrationList(),
 }));
 
@@ -31,7 +31,7 @@ describe('BestTimeTab', () => {
   it('renders the loading state', () => {
     mockUseBestTime.mockReturnValue({ data: undefined, isLoading: true, DAY_LABELS, HOUR_LABELS });
     const { container } = render(<BestTimeTab />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the empty state when there is no heatmap', () => {

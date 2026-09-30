@@ -1,2 +1,2 @@
-// Re-export shim — DTO relocated into @postmill-ai/provider-kernel (step 7.5.1).
-export { GmbSettingsDto } from '@postmill-ai/provider-kernel/domains/social-dtos';
+// Re-export shim — DTO relocated into @validpost/provider-kernel (step 7.5.1).
+export { GmbSettingsDto } from '@validpost/provider-kernel/domains/social-dtos';

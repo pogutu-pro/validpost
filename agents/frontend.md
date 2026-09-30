@@ -8,10 +8,10 @@ Tests: [`agents/testing.md`](./testing.md).
 ## Stack & layout
 
 - Next.js App Router + React, dev port **4200**, Tailwind 3, Sentry-instrumented.
-- Path aliases (`tsconfig.base.json`): `@postmill-ai/frontend/*` → `apps/frontend/src/*`,
-  `@postmill-ai/react/*` → `libraries/react-shared-libraries/src/*`,
-  `@postmill-ai/helpers/*` → `libraries/helpers/src/*`,
-  `@postmill-ai/nestjs-libraries/*` → `libraries/nestjs-libraries/src/*`.
+- Path aliases (`tsconfig.base.json`): `@validpost/frontend/*` → `apps/frontend/src/*`,
+  `@validpost/react/*` → `libraries/react-shared-libraries/src/*`,
+  `@validpost/helpers/*` → `libraries/helpers/src/*`,
+  `@validpost/nestjs-libraries/*` → `libraries/nestjs-libraries/src/*`.
 
 ### Route groups under `apps/frontend/src/app/`
 
@@ -37,7 +37,7 @@ New authenticated pages go under `(app)/(site)/<feature>/page.tsx`.
 ## Data fetching — SWR via `useFetch`
 
 `useFetch` comes from `libraries/helpers/src/utils/custom.fetch.tsx`
-(alias `@postmill-ai/helpers/utils/custom.fetch`); it returns the fetch function built by
+(alias `@validpost/helpers/utils/custom.fetch`); it returns the fetch function built by
 `custom.fetch.func.ts` and provided via `FetchWrapperComponent` (mounted in
 `apps/frontend/src/components/layout/layout.context.tsx`, the `(app)` shell).
 
@@ -56,7 +56,7 @@ What the fetch wrapper does automatically:
 Standard pattern — one SWR hook per resource, defined per-file (no barrel exports of hooks):
 
 ```tsx
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
 
 export const useDashboardSummary = () => {
@@ -81,11 +81,11 @@ Rules:
 | Hook | Path | Notes |
 |---|---|---|
 | `useUser()` | `apps/frontend/src/components/layout/user.context.tsx` | current user (`UserSelfProfile`), org context |
-| `useVariables()` | `@postmill-ai/react/helpers/variable.context` | deployment/env flags: `isGeneral`, `billingEnabled`, `isSecured`, `backendUrl`, … |
+| `useVariables()` | `@validpost/react/helpers/variable.context` | deployment/env flags: `isGeneral`, `billingEnabled`, `isSecured`, `backendUrl`, … |
 | `usePermissions()` | `apps/frontend/src/components/layout/use-permissions.tsx` | `{ isResolved, hasPermission(resource, action) }` — RBAC UI gating; details in `ui-standards.md` |
 | `useModals()` | `apps/frontend/src/components/layout/new-modal.tsx` | bespoke modal manager — owned by `ui-standards.md` |
 | `useHasOpenModals()` | `apps/frontend/src/components/layout/new-modal.tsx:79` | boolean, any modal open |
-| `useT()` | `@postmill-ai/react/translation/get.transation.service.client` | i18n; `t('key', 'Fallback')` (note the historical `transation` typo in the path — it is real) |
+| `useT()` | `@validpost/react/translation/get.transation.service.client` | i18n; `t('key', 'Fallback')` (note the historical `transation` typo in the path — it is real) |
 | `LayoutContext` | `apps/frontend/src/components/layout/layout.context.tsx` | mounts `FetchWrapperComponent` + `afterRequest` logic |
 
 ## Error boundaries
@@ -126,7 +126,7 @@ Gate composer/UI features per channel on the shared capability matrix, not on ad
 
 - Source of truth: `PROVIDER_CAPABILITIES` / `ProviderCapability` in
   `libraries/providers/kernel/src/domains/social-capabilities.ts`.
-- Frontend import: `@postmill-ai/provider-kernel/domains/social-capabilities`
+- Frontend import: `@validpost/provider-kernel/domains/social-capabilities`
   (e.g. `apps/frontend/src/components/composer/editor.tsx:18`).
 - Backend re-export shim: `libraries/nestjs-libraries/src/integrations/social/provider-capabilities.ts`.
 - Fields: `analytics`, `comments`, `firstComment`, `poll`, `video`, `carousel`, `altText`, `maxMedia`,
@@ -276,7 +276,7 @@ Adding a new page / feature UI:
       eslint-disabled hooks; `.json()` on the raw `Response`.
 - [ ] Dashboard widget: dedicated hook in `components/dashboard/hooks/` (+ `.spec`), wrapped in
       `SectionCard` with stable `id`, `permission` prop if RBAC-gated; visibility via `useDashboardPrefs`.
-- [ ] Channel-specific UI gated on `PROVIDER_CAPABILITIES` (`@postmill-ai/provider-kernel/domains/social-capabilities`),
+- [ ] Channel-specific UI gated on `PROVIDER_CAPABILITIES` (`@validpost/provider-kernel/domains/social-capabilities`),
       not hardcoded provider lists.
 - [ ] RBAC-gated UI via `usePermissions()`; paid-feature gates via `CheckPayment` /
       `PreConditionComponent` where proactive gating is needed.

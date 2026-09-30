@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import 'reflect-metadata';
 import { BadRequestException } from '@nestjs/common';
 import { IntegrationsController } from './integrations.controller';
-import { InvalidExternalUrlError } from '@postmill-ai/provider-kernel';
+import { InvalidExternalUrlError } from '@validpost/provider-kernel';
 
 // Focused coverage for getIntegrationUrl error mapping: InvalidExternalUrlError
 // from the manager must surface as HTTP 400 (a rejected promise previously

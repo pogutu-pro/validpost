@@ -1,29 +1,29 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Integration } from '@prisma/client';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { OrgProviderConfigManager } from '@postmill-ai/nestjs-libraries/integrations/org-provider-config.manager';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
-import { WebhooksService } from '@postmill-ai/nestjs-libraries/database/prisma/webhooks/webhooks.service';
-import { WatchlistService } from '@postmill-ai/nestjs-libraries/database/prisma/watchlist/watchlist.service';
-import { PROVIDER_CAPABILITIES } from '@postmill-ai/nestjs-libraries/integrations/social/provider-capabilities';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { OrgProviderConfigManager } from '@validpost/nestjs-libraries/integrations/org-provider-config.manager';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
+import { WebhooksService } from '@validpost/nestjs-libraries/database/prisma/webhooks/webhooks.service';
+import { WatchlistService } from '@validpost/nestjs-libraries/database/prisma/watchlist/watchlist.service';
+import { PROVIDER_CAPABILITIES } from '@validpost/nestjs-libraries/integrations/social/provider-capabilities';
 import {
   normalizeMetric,
   METRIC_REGISTRY,
-} from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
+} from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { RefreshToken } from '@postmill-ai/nestjs-libraries/integrations/social.abstract';
-import { decryptIntegrationTokens, decryptPostIntegrationTokens } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration-token.utils';
-import { OrgShortLinkSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { EmailLogService } from '@postmill-ai/nestjs-libraries/database/prisma/emails/email-log.service';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
-import { AnalyticsService } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
-import { getRetentionDays } from '@postmill-ai/nestjs-libraries/analytics/analytics-aggregation';
-import { stripHtmlTags } from '@postmill-ai/helpers/utils/strip.tags';
+import { timer } from '@validpost/helpers/utils/timer';
+import { RefreshToken } from '@validpost/nestjs-libraries/integrations/social.abstract';
+import { decryptIntegrationTokens, decryptPostIntegrationTokens } from '@validpost/nestjs-libraries/database/prisma/integrations/integration-token.utils';
+import { OrgShortLinkSettingsService } from '@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { EmailLogService } from '@validpost/nestjs-libraries/database/prisma/emails/email-log.service';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
+import { AnalyticsService } from '@validpost/nestjs-libraries/analytics/analytics.service';
+import { getRetentionDays } from '@validpost/nestjs-libraries/analytics/analytics-aggregation';
+import { stripHtmlTags } from '@validpost/helpers/utils/strip.tags';
 
 dayjs.extend(isoWeek);
 

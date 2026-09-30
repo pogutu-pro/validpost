@@ -2,7 +2,7 @@
 
 ## Hardware sizing
 
-Postmill is a Node.js monorepo application backed by PostgreSQL and Redis. Background jobs run on
+ValidPost is a Node.js monorepo application backed by PostgreSQL and Redis. Background jobs run on
 Inngest, so deployments do not need a local workflow engine.
 
 | Tier      | Users  | CPU       | RAM    | Disk    | Notes |

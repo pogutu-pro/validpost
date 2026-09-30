@@ -9,7 +9,7 @@ import {
   StockSearchResponse,
   StockVectorItem,
   StockVideoItem,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Vecteezy Content API (https://www.vecteezy.com/api) — Bearer API key.
 // Vecteezy's content/download API is partner-gated; endpoints/shapes here are

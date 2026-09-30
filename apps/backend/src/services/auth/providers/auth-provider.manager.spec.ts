@@ -10,13 +10,13 @@ const ORIGINAL_ENV = { ...process.env };
 // into the advertised list.
 const PROVIDER_ENV_VARS = [
   'IS_GENERAL',
-  'POSTMILL_GENERIC_OAUTH',
-  'POSTMILL_OAUTH_CLIENT_ID',
-  'POSTMILL_OAUTH_CLIENT_SECRET',
-  'POSTMILL_OAUTH_AUTH_URL',
-  'POSTMILL_OAUTH_TOKEN_URL',
-  'POSTMILL_OAUTH_USERINFO_URL',
-  'NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME',
+  'VALIDPOST_GENERIC_OAUTH',
+  'VALIDPOST_OAUTH_CLIENT_ID',
+  'VALIDPOST_OAUTH_CLIENT_SECRET',
+  'VALIDPOST_OAUTH_AUTH_URL',
+  'VALIDPOST_OAUTH_TOKEN_URL',
+  'VALIDPOST_OAUTH_USERINFO_URL',
+  'NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME',
   'YOUTUBE_CLIENT_ID',
   'YOUTUBE_CLIENT_SECRET',
   'GITHUB_CLIENT_ID',
@@ -48,11 +48,11 @@ function clearProviderEnv() {
 }
 
 function setGenericOauthEnv() {
-  process.env.POSTMILL_OAUTH_CLIENT_ID = 'oidc-id';
-  process.env.POSTMILL_OAUTH_CLIENT_SECRET = 'oidc-secret';
-  process.env.POSTMILL_OAUTH_AUTH_URL = 'https://idp.example.com/authorize';
-  process.env.POSTMILL_OAUTH_TOKEN_URL = 'https://idp.example.com/token';
-  process.env.POSTMILL_OAUTH_USERINFO_URL = 'https://idp.example.com/userinfo';
+  process.env.VALIDPOST_OAUTH_CLIENT_ID = 'oidc-id';
+  process.env.VALIDPOST_OAUTH_CLIENT_SECRET = 'oidc-secret';
+  process.env.VALIDPOST_OAUTH_AUTH_URL = 'https://idp.example.com/authorize';
+  process.env.VALIDPOST_OAUTH_TOKEN_URL = 'https://idp.example.com/token';
+  process.env.VALIDPOST_OAUTH_USERINFO_URL = 'https://idp.example.com/userinfo';
 }
 
 function makeManager(overrides: {
@@ -102,11 +102,12 @@ afterEach(() => {
 
 describe('AuthProviderManager', () => {
   describe('getProviders', () => {
-    it('overlays enabled DB providers onto the env list (LOCAL always present)', async () => {
+    it('overlays enabled DB providers onto the env list (LOCAL always present) and drops unsupported ones', async () => {
       clearProviderEnv();
       const { manager, kernel, repo } = makeManager({
         repo: {
           list: vi.fn().mockResolvedValue([
+            // Removed login providers are filtered even when enabled in the DB.
             {
               provider: 'GOOGLE',
               enabled: true,
@@ -126,29 +127,22 @@ describe('AuthProviderManager', () => {
       const result = await manager.getProviders();
 
       expect(repo.list).toHaveBeenCalled();
+      expect(kernel.latestActive).toHaveBeenCalled();
       expect(result.providers).toEqual([
         { provider: 'LOCAL', displayName: 'Email', version: 'v2', status: 'active' },
-        { provider: 'GOOGLE', displayName: 'Workspace SSO', version: 'v2', status: 'active' },
         { provider: 'GENERIC', displayName: 'OIDC', version: 'v2', status: 'active' },
       ]);
     });
 
     it('merges DB rows with env providers: DB wins per provider, env-only providers stay listed', async () => {
       clearProviderEnv();
-      process.env.YOUTUBE_CLIENT_ID = 'yt-id';
-      process.env.YOUTUBE_CLIENT_SECRET = 'yt-secret';
-      process.env.FACEBOOK_SSO_ENABLED = 'true';
-      process.env.FACEBOOK_APP_ID = 'fb-app-id';
-      process.env.FACEBOOK_APP_SECRET = 'fb-app-secret';
+      process.env.VALIDPOST_GENERIC_OAUTH = 'true';
+      setGenericOauthEnv();
+      process.env.STRIPE_PUBLISHABLE_KEY = 'pk_test';
       const { manager } = makeManager({
         repo: {
           list: vi.fn().mockResolvedValue([
-            {
-              provider: 'GOOGLE',
-              enabled: true,
-              displayName: 'Workspace SSO',
-            },
-            { provider: 'X', enabled: true, displayName: null },
+            { provider: 'GENERIC', enabled: true, displayName: 'Company SSO' },
           ]),
         },
       });
@@ -157,12 +151,10 @@ describe('AuthProviderManager', () => {
 
       expect(result.providers).toEqual([
         { provider: 'LOCAL', displayName: 'Email', version: 'v1', status: 'active' },
-        // DB row wins over the env-derived GOOGLE entry (DB displayName preferred)
-        { provider: 'GOOGLE', displayName: 'Workspace SSO', version: 'v1', status: 'active' },
+        // DB row wins over the env-derived GENERIC entry (DB displayName preferred)
+        { provider: 'GENERIC', displayName: 'Company SSO', version: 'v1', status: 'active' },
         // env-only provider stays listed
-        { provider: 'FACEBOOK', displayName: 'Facebook', version: 'v1', status: 'active' },
-        // DB-only provider is appended
-        { provider: 'X', displayName: 'X', version: 'v1', status: 'active' },
+        { provider: 'WALLET', displayName: 'Wallet', version: 'v1', status: 'active' },
       ]);
     });
 
@@ -187,47 +179,27 @@ describe('AuthProviderManager', () => {
       expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
     });
 
-    it('does not advertise GOOGLE when only YOUTUBE_CLIENT_ID is set without its secret (half-config)', async () => {
-      clearProviderEnv();
-      process.env.YOUTUBE_CLIENT_ID = 'yt-id';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
-    });
-
-    it('advertises GOOGLE when both YOUTUBE_CLIENT_ID and YOUTUBE_CLIENT_SECRET are set', async () => {
+    it('never advertises removed login providers, even with their env credentials present', async () => {
       clearProviderEnv();
       process.env.YOUTUBE_CLIENT_ID = 'yt-id';
       process.env.YOUTUBE_CLIENT_SECRET = 'yt-secret';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual([
-        'LOCAL',
-        'GOOGLE',
-      ]);
-    });
-
-    it('advertises GITHUB when both GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET are set', async () => {
-      clearProviderEnv();
       process.env.GITHUB_CLIENT_ID = 'gh-id';
       process.env.GITHUB_CLIENT_SECRET = 'gh-secret';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual([
-        'LOCAL',
-        'GITHUB',
-      ]);
-    });
-
-    it('does not advertise GITHUB when only GITHUB_CLIENT_ID is set without its secret (half-config)', async () => {
-      clearProviderEnv();
-      process.env.GITHUB_CLIENT_ID = 'gh-id';
+      process.env.NEYNAR_CLIENT_ID = 'neynar-id';
+      process.env.FACEBOOK_SSO_ENABLED = 'true';
+      process.env.FACEBOOK_APP_ID = 'fb-app-id';
+      process.env.FACEBOOK_APP_SECRET = 'fb-app-secret';
+      process.env.X_SSO_ENABLED = 'true';
+      process.env.X_CLIENT_ID = 'x-oauth2-id';
+      process.env.X_CLIENT_SECRET = 'x-oauth2-secret';
+      process.env.LINKEDIN_SSO_ENABLED = 'true';
+      process.env.LINKEDIN_CLIENT_ID = 'li-id';
+      process.env.LINKEDIN_CLIENT_SECRET = 'li-secret';
+      process.env.APPLE_SSO_ENABLED = 'true';
+      process.env.APPLE_CLIENT_ID = 'io.validpost.app.auth';
+      process.env.APPLE_TEAM_ID = 'TEAMID1234';
+      process.env.APPLE_KEY_ID = 'KEYID5678';
+      process.env.APPLE_PRIVATE_KEY = 'cDx8LWtleS1iNjQ=';
       const { manager } = makeManager({});
 
       const result = await manager.getProviders();
@@ -235,11 +207,11 @@ describe('AuthProviderManager', () => {
       expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
     });
 
-    it('does not advertise GENERIC when POSTMILL_GENERIC_OAUTH is the shipped string "false"', async () => {
+    it('does not advertise GENERIC when VALIDPOST_GENERIC_OAUTH is the shipped string "false"', async () => {
       clearProviderEnv();
-      // .env.example ships POSTMILL_GENERIC_OAUTH="false" — a truthy string
-      // that must still disable OIDC, even with the POSTMILL_OAUTH_* set present.
-      process.env.POSTMILL_GENERIC_OAUTH = 'false';
+      // .env.example ships VALIDPOST_GENERIC_OAUTH="false" — a truthy string
+      // that must still disable OIDC, even with the VALIDPOST_OAUTH_* set present.
+      process.env.VALIDPOST_GENERIC_OAUTH = 'false';
       setGenericOauthEnv();
       const { manager } = makeManager({});
 
@@ -248,11 +220,11 @@ describe('AuthProviderManager', () => {
       expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
     });
 
-    it('does not advertise GENERIC when the toggle is "true" but the POSTMILL_OAUTH_* set is incomplete', async () => {
+    it('does not advertise GENERIC when the toggle is "true" but the VALIDPOST_OAUTH_* set is incomplete', async () => {
       clearProviderEnv();
-      process.env.POSTMILL_GENERIC_OAUTH = 'true';
-      process.env.POSTMILL_OAUTH_CLIENT_ID = 'oidc-id';
-      // missing POSTMILL_OAUTH_CLIENT_SECRET / AUTH_URL / TOKEN_URL / USERINFO_URL
+      process.env.VALIDPOST_GENERIC_OAUTH = 'true';
+      process.env.VALIDPOST_OAUTH_CLIENT_ID = 'oidc-id';
+      // missing VALIDPOST_OAUTH_CLIENT_SECRET / AUTH_URL / TOKEN_URL / USERINFO_URL
       const { manager } = makeManager({});
 
       const result = await manager.getProviders();
@@ -260,9 +232,9 @@ describe('AuthProviderManager', () => {
       expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
     });
 
-    it('advertises GENERIC when the toggle is "true" and the full POSTMILL_OAUTH_* set is present', async () => {
+    it('advertises GENERIC when the toggle is "true" and the full VALIDPOST_OAUTH_* set is present', async () => {
       clearProviderEnv();
-      process.env.POSTMILL_GENERIC_OAUTH = 'true';
+      process.env.VALIDPOST_GENERIC_OAUTH = 'true';
       setGenericOauthEnv();
       const { manager } = makeManager({});
 
@@ -274,7 +246,7 @@ describe('AuthProviderManager', () => {
       ]);
     });
 
-    it('keeps the Farcaster/Wallet env gates (NEYNAR_CLIENT_ID / STRIPE_PUBLISHABLE_KEY)', async () => {
+    it('advertises WALLET when billing is enabled (STRIPE_PUBLISHABLE_KEY) and never FARCASTER', async () => {
       clearProviderEnv();
       process.env.NEYNAR_CLIENT_ID = 'neynar-id';
       process.env.STRIPE_PUBLISHABLE_KEY = 'pk_test';
@@ -284,119 +256,14 @@ describe('AuthProviderManager', () => {
 
       expect(result.providers.map((p: any) => p.provider)).toEqual([
         'LOCAL',
-        'FARCASTER',
         'WALLET',
-      ]);
-    });
-
-    it('does not advertise FACEBOOK/X/LINKEDIN when the SSO flags are off, even with channel creds set', async () => {
-      clearProviderEnv();
-      process.env.FACEBOOK_APP_ID = 'fb-app-id';
-      process.env.FACEBOOK_APP_SECRET = 'fb-app-secret';
-      process.env.X_API_KEY = 'x-key';
-      process.env.X_API_SECRET = 'x-secret';
-      process.env.LINKEDIN_CLIENT_ID = 'li-id';
-      process.env.LINKEDIN_CLIENT_SECRET = 'li-secret';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
-    });
-
-    it('does not advertise X on the flag + OAuth 1.0a channel keys alone — login needs the OAuth 2.0 client pair', async () => {
-      clearProviderEnv();
-      process.env.X_SSO_ENABLED = 'true';
-      process.env.X_API_KEY = 'x-key';
-      process.env.X_API_SECRET = 'x-secret';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
-    });
-
-    it('does not advertise FACEBOOK when the flag is on but the secret is missing (half-config)', async () => {
-      clearProviderEnv();
-      process.env.FACEBOOK_SSO_ENABLED = 'true';
-      process.env.FACEBOOK_APP_ID = 'fb-app-id';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
-    });
-
-    it('advertises FACEBOOK, X and LINKEDIN when each SSO flag is on and its channel creds are present', async () => {
-      clearProviderEnv();
-      process.env.FACEBOOK_SSO_ENABLED = 'true';
-      process.env.FACEBOOK_APP_ID = 'fb-app-id';
-      process.env.FACEBOOK_APP_SECRET = 'fb-app-secret';
-      process.env.X_SSO_ENABLED = 'true';
-      process.env.X_CLIENT_ID = 'x-oauth2-id';
-      process.env.X_CLIENT_SECRET = 'x-oauth2-secret';
-      process.env.LINKEDIN_SSO_ENABLED = 'true';
-      process.env.LINKEDIN_CLIENT_ID = 'li-id';
-      process.env.LINKEDIN_CLIENT_SECRET = 'li-secret';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual([
-        'LOCAL',
-        'FACEBOOK',
-        'X',
-        'LINKEDIN',
-      ]);
-    });
-
-    it('does not advertise APPLE when the SSO flag is off, even with all creds set', async () => {
-      clearProviderEnv();
-      process.env.APPLE_CLIENT_ID = 'ai.postmill.app.auth';
-      process.env.APPLE_TEAM_ID = 'TEAMID1234';
-      process.env.APPLE_KEY_ID = 'KEYID5678';
-      process.env.APPLE_PRIVATE_KEY = 'cDx8LWtleS1iNjQ=';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
-    });
-
-    it('does not advertise APPLE when the flag is on but the credential set is incomplete', async () => {
-      clearProviderEnv();
-      process.env.APPLE_SSO_ENABLED = 'true';
-      process.env.APPLE_CLIENT_ID = 'ai.postmill.app.auth';
-      process.env.APPLE_TEAM_ID = 'TEAMID1234';
-      // missing APPLE_KEY_ID / APPLE_PRIVATE_KEY
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
-    });
-
-    it('advertises APPLE when the SSO flag is on and the full credential set is present', async () => {
-      clearProviderEnv();
-      process.env.APPLE_SSO_ENABLED = 'true';
-      process.env.APPLE_CLIENT_ID = 'ai.postmill.app.auth';
-      process.env.APPLE_TEAM_ID = 'TEAMID1234';
-      process.env.APPLE_KEY_ID = 'KEYID5678';
-      process.env.APPLE_PRIVATE_KEY = 'cDx8LWtleS1iNjQ=';
-      const { manager } = makeManager({});
-
-      const result = await manager.getProviders();
-
-      expect(result.providers.map((p: any) => p.provider)).toEqual([
-        'LOCAL',
-        'APPLE',
       ]);
     });
 
     it('uses DEFAULT_VERSION/active when the kernel has no manifest for a provider', async () => {
       clearProviderEnv();
-      process.env.GITHUB_CLIENT_ID = 'gh-id';
-      process.env.GITHUB_CLIENT_SECRET = 'gh-secret';
+      process.env.VALIDPOST_GENERIC_OAUTH = 'true';
+      setGenericOauthEnv();
       const { manager } = makeManager({
         kernel: {
           latestActive: vi.fn().mockReturnValue(undefined),
@@ -408,7 +275,7 @@ describe('AuthProviderManager', () => {
 
       expect(result.providers).toEqual([
         { provider: 'LOCAL', displayName: 'Email', version: 'v1', status: 'active' },
-        { provider: 'GITHUB', displayName: 'GitHub', version: 'v1', status: 'active' },
+        { provider: 'GENERIC', displayName: 'OIDC', version: 'v1', status: 'active' },
       ]);
     });
   });
@@ -417,9 +284,9 @@ describe('AuthProviderManager', () => {
     it('resolves the kernel module, normalises the id to lowercase, and forwards repo + redis', () => {
       const { manager, kernel, runtimeContext, repo } = makeManager({});
 
-      const provider = manager.getProvider('GITHUB');
+      const provider = manager.getProvider('GENERIC');
 
-      expect(kernel.resolveForRead).toHaveBeenCalledWith('auth', 'github', 'v1');
+      expect(kernel.resolveForRead).toHaveBeenCalledWith('auth', 'generic', 'v1');
       expect(runtimeContext.build).toHaveBeenCalledWith({
         extras: { authProviderRepo: repo, redis: expect.anything() },
       });
@@ -429,9 +296,9 @@ describe('AuthProviderManager', () => {
     it('respects an explicit version', () => {
       const { manager, kernel } = makeManager({});
 
-      manager.getProvider('GOOGLE', 'v2');
+      manager.getProvider('GENERIC', 'v2');
 
-      expect(kernel.resolveForRead).toHaveBeenCalledWith('auth', 'google', 'v2');
+      expect(kernel.resolveForRead).toHaveBeenCalledWith('auth', 'generic', 'v2');
     });
   });
 });

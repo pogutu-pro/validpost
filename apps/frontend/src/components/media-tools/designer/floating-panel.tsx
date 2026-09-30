@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 /**
  * A movable, height-resizable floating window for the Designer.

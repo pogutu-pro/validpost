@@ -1,16 +1,16 @@
 'use client';
 import { FC, Fragment, useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import { TopTitle } from '@postmill-ai/frontend/components/launches/helpers/top.title.component';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Textarea } from '@postmill-ai/react/form/textarea';
-import { Button } from '@postmill-ai/react/form/button';
+import { TopTitle } from '@validpost/frontend/components/launches/helpers/top.title.component';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Textarea } from '@validpost/react/form/textarea';
+import { Button } from '@validpost/react/form/button';
 import clsx from 'clsx';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { Input } from '@postmill-ai/react/form/input';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { Input } from '@validpost/react/form/input';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const CommentBox: FC<{
   value?: string;
   type: 'textarea' | 'input';

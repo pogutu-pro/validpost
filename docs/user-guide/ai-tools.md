@@ -1,6 +1,6 @@
 # AI Tools
 
-Postmill includes a pluggable AI layer that powers content generation, media creation, comment management, compliance checks, and brand intelligence. All AI features are gated on having at least one AI provider configured for your organisation — if no provider is active, AI features are disabled and the CopilotKit assistant does not mount in the frontend.
+ValidPost includes a pluggable AI layer that powers content generation, media creation, comment management, compliance checks, and brand intelligence. All AI features are gated on having at least one AI provider configured for your organisation — if no provider is active, AI features are disabled and the CopilotKit assistant does not mount in the frontend.
 
 Configure AI providers in **Settings → AI**. See [AI Architecture](../developer-docs/ai-architecture.md) for technical details, [AI Agent](./agent.md) for the conversational agent, and [Media Studios](./media/index.md) for the canvas tools.
 
@@ -165,7 +165,7 @@ The RAG system supports both `pgvector` (PostgreSQL ANN index via HNSW) and Qdra
 - **Vision** — image understanding and focal-point detection.
 - **Workflow** — reserved for future agentic workflow steps.
 
-For each category you can pick a provider/version/model from the live catalog, or leave it on **Auto** to let Postmill pick from your enabled providers. The AI scopes (`utility`, `generator`, `agent`, `mcp`) map to these categories: `utility` → low-reasoning, the rest → high-reasoning.
+For each category you can pick a provider/version/model from the live catalog, or leave it on **Auto** to let ValidPost pick from your enabled providers. The AI scopes (`utility`, `generator`, `agent`, `mcp`) map to these categories: `utility` → low-reasoning, the rest → high-reasoning.
 
 API endpoints:
 

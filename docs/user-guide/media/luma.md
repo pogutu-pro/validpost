@@ -4,7 +4,7 @@
 
 ## Where to configure
 
-Configure your Luma API key at **Settings → Media**. Postmill stores the key encrypted at rest; there is no environment-variable fallback.
+Configure your Luma API key at **Settings → Media**. ValidPost stores the key encrypted at rest; there is no environment-variable fallback.
 
 See [Settings](../settings) for provider setup and the media capability matrix.
 

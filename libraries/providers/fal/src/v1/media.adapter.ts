@@ -15,7 +15,7 @@ import {
   ProviderModule,
   mediaUpstreamError,
   mediaUpstreamFailure,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 interface FalQueueSubmitResponse {
   request_id?: string;

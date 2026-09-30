@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { parseQualified } from '@postmill-ai/provider-kernel';
-import { EmailAdapter } from '@postmill-ai/nestjs-libraries/emails/email-adapter.interface';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
+import { parseQualified } from '@validpost/provider-kernel';
+import { EmailAdapter } from '@validpost/nestjs-libraries/emails/email-adapter.interface';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
 
 /**
  * Facade that resolves the active email adapter through the ProviderKernel.

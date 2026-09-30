@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { DesignerElement, DesignerOutput } from '../designer.store';
 import {
   buildLayerTree,
@@ -9,8 +9,8 @@ import {
   descendantIds,
   isEffectivelyHidden,
   type LayerNode,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/layer-tree';
-import { SELECTABLE_BLEND_MODES } from '@postmill-ai/nestjs-libraries/media/designer-doc/pixel-ops';
+} from '@validpost/nestjs-libraries/media/designer-doc/layer-tree';
+import { SELECTABLE_BLEND_MODES } from '@validpost/nestjs-libraries/media/designer-doc/pixel-ops';
 import { layerThumbnail } from './layer-thumbnail';
 import { SmartFilterList } from './smart-filter-list';
 import {
@@ -18,7 +18,7 @@ import {
   EyeOffIcon,
   LockIcon,
   UnlockIcon,
-} from '@postmill-ai/frontend/components/ui/icons/designer-tools';
+} from '@validpost/frontend/components/ui/icons/designer-tools';
 
 interface LayersPanelProps {
   store: ReturnType<typeof import('../designer.store').createDesignerStore>;

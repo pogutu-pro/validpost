@@ -1,4 +1,4 @@
-import { SentryComponent } from '@postmill-ai/frontend/components/layout/sentry.component';
+import { SentryComponent } from '@validpost/frontend/components/layout/sentry.component';
 
 export const dynamic = 'force-dynamic';
 // Mantine 7+ ships plain CSS (no more emotion auto-inject); import it before
@@ -12,29 +12,29 @@ import '../tailwind.css';
 import '../global.scss';
 import 'react-tooltip/dist/react-tooltip.css';
 import '@copilotkit/react-ui/styles.css';
-import LayoutContext from '@postmill-ai/frontend/components/layout/layout.context';
+import LayoutContext from '@validpost/frontend/components/layout/layout.context';
 import { ReactNode } from 'react';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import PlausibleProvider from 'next-plausible';
 import clsx from 'clsx';
-import { VariableContextComponent } from '@postmill-ai/react/helpers/variable.context';
-import { paymentsVariables } from '@postmill-ai/frontend/app/payments.vars';
+import { VariableContextComponent } from '@validpost/react/helpers/variable.context';
+import { paymentsVariables } from '@validpost/frontend/app/payments.vars';
 import { Fragment } from 'react';
-import { PHProvider } from '@postmill-ai/react/helpers/posthog';
-import UtmSaver from '@postmill-ai/helpers/utils/utm.saver';
-import { DubAnalytics } from '@postmill-ai/frontend/components/layout/dubAnalytics';
-import { FacebookComponent } from '@postmill-ai/frontend/components/layout/facebook.component';
-import { GoogleTagManagerComponent } from '@postmill-ai/frontend/components/layout/gtm.component';
+import { PHProvider } from '@validpost/react/helpers/posthog';
+import UtmSaver from '@validpost/helpers/utils/utm.saver';
+import { DubAnalytics } from '@validpost/frontend/components/layout/dubAnalytics';
+import { FacebookComponent } from '@validpost/frontend/components/layout/facebook.component';
+import { GoogleTagManagerComponent } from '@validpost/frontend/components/layout/gtm.component';
 import { cookies } from 'next/headers';
 import {
   cookieName,
   fallbackLng,
-} from '@postmill-ai/react/translation/i18n.config';
-import { HtmlComponent } from '@postmill-ai/frontend/components/layout/html.component';
-import SetTimezone from '@postmill-ai/frontend/components/layout/set.timezone';
+} from '@validpost/react/translation/i18n.config';
+import { HtmlComponent } from '@validpost/frontend/components/layout/html.component';
+import SetTimezone from '@validpost/frontend/components/layout/set.timezone';
 import Script from 'next/script';
-import { ChangeDirClient } from '@postmill-ai/frontend/components/new-layout/change.dir.client';
-import { ChunkErrorRecovery } from '@postmill-ai/frontend/components/layout/chunk-error-recovery';
+import { ChangeDirClient } from '@validpost/frontend/components/new-layout/change.dir.client';
+import { ChunkErrorRecovery } from '@validpost/frontend/components/layout/chunk-error-recovery';
 
 const jakartaSans = Plus_Jakarta_Sans({
   weight: ['600', '500'],
@@ -52,6 +52,8 @@ export const metadata = {
   },
   description:
     'Create, schedule and publish across every social channel — with AI built in.',
+  authors: [{ name: 'Stratnovo' }],
+  creator: 'Stratnovo',
   openGraph: {
     title: 'ValidPost',
     description:
@@ -78,6 +80,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         {!!process.env.DATAFAST_WEBSITE_ID && (
           <Script
@@ -101,9 +104,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
           discordUrl={process.env.NEXT_PUBLIC_DISCORD_SUPPORT!}
           frontEndUrl={process.env.FRONTEND_URL!}
           isGeneral={!!process.env.IS_GENERAL}
-          genericOauth={process.env.POSTMILL_GENERIC_OAUTH === 'true'}
-          oauthLogoUrl={process.env.NEXT_PUBLIC_POSTMILL_OAUTH_LOGO_URL!}
-          oauthDisplayName={process.env.NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME!}
+          genericOauth={process.env.VALIDPOST_GENERIC_OAUTH === 'true'}
+          oauthLogoUrl={process.env.NEXT_PUBLIC_VALIDPOST_OAUTH_LOGO_URL!}
+          oauthDisplayName={process.env.NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME!}
           uploadDirectory={process.env.NEXT_PUBLIC_UPLOAD_STATIC_DIRECTORY!}
           mainUrl={process.env.MAIN_URL || ''}
           mcpUrl={process.env.MCP_URL}

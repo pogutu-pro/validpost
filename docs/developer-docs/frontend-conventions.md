@@ -1,6 +1,6 @@
 # Frontend Conventions
 
-Postmill's frontend runs on **Next.js (App Router) + React** with **Tailwind 3** for styling and **SWR** for data fetching. It listens on port `4200`.
+ValidPost's frontend runs on **Next.js (App Router) + React** with **Tailwind 3** for styling and **SWR** for data fetching. It listens on port `4200`.
 
 ---
 

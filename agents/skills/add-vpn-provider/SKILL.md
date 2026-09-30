@@ -1,6 +1,6 @@
 ---
 name: add-vpn-provider
-description: Add a VPN/egress proxy provider to Postmill's unified provider kernel — SOCKS5 or HTTP-CONNECT proxy regions for routing channel posting egress. Use when adding a VPN provider, proxy provider, egress proxy region, or SOCKS5/HTTP proxy for channel posting.
+description: Add a VPN/egress proxy provider to ValidPost's unified provider kernel — SOCKS5 or HTTP-CONNECT proxy regions for routing channel posting egress. Use when adding a VPN provider, proxy provider, egress proxy region, or SOCKS5/HTTP proxy for channel posting.
 ---
 
 # Add a VPN / proxy provider
@@ -14,7 +14,7 @@ Scaffold a `libraries/providers/<id>` package implementing `VpnCapability` so or
 ## Procedure
 
 1. Pick the region model: **static** catalog (reference `libraries/providers/nordvpn`) or **dynamic** config-derived region (reference `libraries/providers/custom-proxy`, the bring-your-own-proxy adapter).
-2. Scaffold `libraries/providers/<id>/`: `package.json` (name `@postmill-ai/provider-<id>`, `main`/`types` = `src/index.ts`, dep `@postmill-ai/provider-kernel: workspace:*`, script `"test": "vitest run"`), `src/index.ts` default-exporting the `ProviderModule[]` array, `src/v1/{index.ts, metadata.ts, vpn.adapter.ts}` (layout detail: `agents/providers/overview.md` § Package layout).
+2. Scaffold `libraries/providers/<id>/`: `package.json` (name `@validpost/provider-<id>`, `main`/`types` = `src/index.ts`, dep `@validpost/provider-kernel: workspace:*`, script `"test": "vitest run"`), `src/index.ts` default-exporting the `ProviderModule[]` array, `src/v1/{index.ts, metadata.ts, vpn.adapter.ts}` (layout detail: `agents/providers/overview.md` § Package layout).
 3. Implement the `VpnCapability` contract (`libraries/providers/kernel/src/domains/vpn.ts`) as a plain class — **no base class, no wrapper**:
    - `identifier`, `name`, `credentialFields: VpnCredentialField[]` (`type: 'text' | 'password' | 'select'`), `capabilities` (all 6 flags), `validateConfig(config)` → `{ valid, errors? }`.
    - One of the two region sources: static `proxyRegions?: VpnProxyRegion[]` **or** `resolveRegions(config): VpnProxyRegion[]` (dynamic; takes precedence, regions auto-enabled, no per-region toggle). A provider with neither never routes and never appears in the region picker.
@@ -24,9 +24,9 @@ Scaffold a `libraries/providers/<id>` package implementing `VpnCapability` so or
 4. Export the module from `src/v1/vpn.adapter.ts` — copy the exact shape at `nordvpn/src/v1/vpn.adapter.ts:86`: `manifest: { domain: 'vpn', providerId, version: 'v1', displayName, status: 'active', credentialFields, capabilities, setupNotes }`, `create: () => new MyAdapter()`. `manifest.domain: 'vpn'` is the kernel routing key; `create()` must be network-free (conformance-enforced).
 5. Author `src/v1/metadata.ts`: copy the existing VPN adapters verbatim (`nordvpn/src/v1/metadata.ts`) — `kind: 'action'`, `domains: []`, `hasModelList: false`, `mediaCategories: []`. The `domains` array is NOT what routes the module; the manifest domain is.
 6. Register (3 file edits + install):
-   - `apps/backend/package.json` — add `"@postmill-ai/provider-<id>": "workspace:*"` to dependencies.
-   - `tsconfig.base.json` — two path aliases: `"@postmill-ai/provider-<id>": ["libraries/providers/<id>/src"]` and `"@postmill-ai/provider-<id>/*": ["libraries/providers/<id>/src/*"]`.
-   - `apps/backend/src/providers.generated.ts` — hand-maintained despite the name: `import <id>Modules from '@postmill-ai/provider-<id>';` and spread `...<id>Modules,` (both alphabetical).
+   - `apps/backend/package.json` — add `"@validpost/provider-<id>": "workspace:*"` to dependencies.
+   - `tsconfig.base.json` — two path aliases: `"@validpost/provider-<id>": ["libraries/providers/<id>/src"]` and `"@validpost/provider-<id>/*": ["libraries/providers/<id>/src/*"]`.
+   - `apps/backend/src/providers.generated.ts` — hand-maintained despite the name: `import <id>Modules from '@validpost/provider-<id>';` and spread `...<id>Modules,` (both alphabetical).
    - Run `pnpm install`.
 7. Add specs under `src/v1/__tests__/`: conformance via `runDomainConformance('vpn', mod, { requiredMethods: ['validateConfig', 'resolveProxyAuth', 'healthCheck'], capabilityKeys: [...] })` (mirror `nordvpn/src/v1/__tests__/conformance.spec.ts`) plus a behavioral spec for `validateConfig` edge cases / `healthCheck` (mirror `custom-proxy/src/v1/vpn.adapter.spec.ts`).
 8. Optionally seed a featured row in `libraries/nestjs-libraries/src/database/seeds/featured-provider.seeder.ts` (`{ domain: 'vpn', providerId: '<id>', sortOrder: n }`). Update `libraries/providers/PROVIDERS_INVENTORY.md` (row + header counts).

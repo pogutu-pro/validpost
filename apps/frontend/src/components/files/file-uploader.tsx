@@ -2,12 +2,12 @@
 
 import React, { FC, useCallback, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useUppyUploader } from '@postmill-ai/frontend/components/files/new.uploader';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useUppyUploader } from '@validpost/frontend/components/files/new.uploader';
 import { Dashboard } from '@uppy/react';
-import { PlusIcon } from '@postmill-ai/frontend/components/ui/icons';
-import { UPLOAD_ALLOWED_MIME_TYPES } from '@postmill-ai/helpers/upload-limits.client';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { PlusIcon } from '@validpost/frontend/components/ui/icons';
+import { UPLOAD_ALLOWED_MIME_TYPES } from '@validpost/helpers/upload-limits.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const FileUploader: FC<{
   folderId: string | null;
@@ -51,7 +51,7 @@ export const FileUploader: FC<{
           className={clsx(
             'relative cursor-pointer flex gap-[8px] h-[36px] px-[14px] justify-center items-center rounded-[8px] text-[13px] transition-all',
             isHeader
-              ? 'bg-[#2B5CD3] text-white hover:opacity-90'
+              ? 'bg-btnPrimary text-white hover:opacity-90'
               : 'bg-btnSimple text-textColor hover:bg-boxHover'
           )}
         >

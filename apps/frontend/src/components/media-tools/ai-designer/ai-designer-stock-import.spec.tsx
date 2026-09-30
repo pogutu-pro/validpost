@@ -2,24 +2,24 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react';
 import React from 'react';
-import type { MediaSelectorItem } from '@postmill-ai/frontend/components/media-tools/media-selector-modal';
+import type { MediaSelectorItem } from '@validpost/frontend/components/media-tools/media-selector-modal';
 
 const mockFetch = vi.fn();
 const mockToasterShow = vi.fn();
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback?: string) => fallback ?? _key,
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/brand/use-brands', () => ({
+vi.mock('@validpost/frontend/components/settings/brand/use-brands', () => ({
   useBrands: () => ({ data: [] }),
 }));
 
@@ -45,7 +45,7 @@ const fileItem: MediaSelectorItem = {
   name: 'Existing File',
 };
 
-vi.mock('@postmill-ai/frontend/components/media-tools/media-selector-modal', () => ({
+vi.mock('@validpost/frontend/components/media-tools/media-selector-modal', () => ({
   MediaSelectorModal: ({ onConfirm, onSelect }: any) => (
     <div data-testid="media-selector-mock">
       <button data-testid="mock-confirm-stock" onClick={() => onConfirm?.([stockItem])}>

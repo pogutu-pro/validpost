@@ -1,9 +1,9 @@
 'use client';
 
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { ColorSwatch, Slider, SegmentedControl, Stepper } from '../controls';
 import { useBrandColors } from './use-brand-colors';
 import { ShadowSection, BackdropSection } from './shadow-section';

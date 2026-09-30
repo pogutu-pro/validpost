@@ -7,7 +7,7 @@ vi.mock('@sentry/nextjs', () => ({
   captureException: (...args: any[]) => mockCaptureException(...args),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (k: string, fallback?: string) => fallback || k,
 }));
 

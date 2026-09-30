@@ -119,16 +119,16 @@ const bitlyProviderModules = [bitlyShortlinkModule];
 export default bitlyProviderModules;
 ```
 
-`package.json` conventions (verbatim from `@postmill-ai/provider-bitly`):
+`package.json` conventions (verbatim from `@validpost/provider-bitly`):
 
 ```json
 {
-  "name": "@postmill-ai/provider-<id>",
+  "name": "@validpost/provider-<id>",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
-  "dependencies": { "@postmill-ai/provider-kernel": "workspace:*" },
+  "dependencies": { "@validpost/provider-kernel": "workspace:*" },
   "license": "AGPL-3.0",
   "engines": { "node": ">=24.0.0 <25.0.0" },
   "scripts": { "test": "vitest run" }
@@ -138,14 +138,14 @@ export default bitlyProviderModules;
 ### Registration — 4 hand edits
 
 1. `apps/backend/src/providers.generated.ts` — despite the name this file is **hand-maintained**:
-   add `import <id>Modules from '@postmill-ai/provider-<id>';` (alphabetical) and spread
+   add `import <id>Modules from '@validpost/provider-<id>';` (alphabetical) and spread
    `...<id>Modules,` into the exported `providerModules: ProviderModule<any, any>[]` array
    (alphabetical). Multi-domain packages (e.g. `openai` = ai + media) export multiple modules
    from one array.
 2. `tsconfig.base.json` — **two** path aliases:
-   `"@postmill-ai/provider-<id>": ["libraries/providers/<id>/src"]` and
-   `"@postmill-ai/provider-<id>/*": ["libraries/providers/<id>/src/*"]`.
-3. `apps/backend/package.json` — add `"@postmill-ai/provider-<id>": "workspace:*"` to
+   `"@validpost/provider-<id>": ["libraries/providers/<id>/src"]` and
+   `"@validpost/provider-<id>/*": ["libraries/providers/<id>/src/*"]`.
+3. `apps/backend/package.json` — add `"@validpost/provider-<id>": "workspace:*"` to
    `dependencies`.
 4. `pnpm install` — links the workspace package.
 

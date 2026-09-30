@@ -1,22 +1,22 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { FeatureFlagsService } from '@postmill-ai/nestjs-libraries/feature-flags';
-import { MastraService } from '@postmill-ai/nestjs-libraries/chat/mastra.service';
-import { LoadToolsService } from '@postmill-ai/nestjs-libraries/chat/load.tools.service';
+import { FeatureFlagsService } from '@validpost/nestjs-libraries/feature-flags';
+import { MastraService } from '@validpost/nestjs-libraries/chat/mastra.service';
+import { LoadToolsService } from '@validpost/nestjs-libraries/chat/load.tools.service';
 import { MCPServer } from '@mastra/mcp';
 import { randomUUID, createHash } from 'crypto';
-import { OAuthService } from '@postmill-ai/nestjs-libraries/database/prisma/oauth/oauth.service';
-import { ApiKeysService } from '@postmill-ai/nestjs-libraries/database/prisma/api-keys/api-keys.service';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { pricing } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { IdempotencyFactory } from '@postmill-ai/nestjs-libraries/ai/governance/idempotency.factory';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { resolveClientIp } from '@postmill-ai/nestjs-libraries/utils/client-ip';
+import { OAuthService } from '@validpost/nestjs-libraries/database/prisma/oauth/oauth.service';
+import { ApiKeysService } from '@validpost/nestjs-libraries/database/prisma/api-keys/api-keys.service';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { pricing } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { IdempotencyFactory } from '@validpost/nestjs-libraries/ai/governance/idempotency.factory';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
+import { resolveClientIp } from '@validpost/nestjs-libraries/utils/client-ip';
 import { runWithContext } from './async.storage';
 import { createOAuthMiddleware } from './oauth-middleware';
 import type { AuthStrategy, AuthResult, AuthContext } from '@reaatech/a2a-reference-auth';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 // Two-layer auth:
 // 1. Custom middleware resolves pos_/api-key tokens (backward compatible)
 // 2. @reaatech/a2a-reference-auth AuthStrategy enforces scopes on the resolved identity
@@ -354,7 +354,7 @@ export const startMcp = async (app: INestApplication) => {
 
   // ── Boot-time tool snapshot (hot provider/model changes are OK; tool-set changes need restart) ──
   const mastra = await mastraService.mastra();
-  const agent = mastra.getAgent('postmill');
+  const agent = mastra.getAgent('validpost');
 
   // Build the MCP/A2A tool union from the in-repo inventory (LoadToolsService),
   // NOT by reflecting Mastra's private `__getStaticAgents()`. Under the supervisor
@@ -369,13 +369,13 @@ export const startMcp = async (app: INestApplication) => {
   // This only affects the MCP *agents* map (not the tool union above), so the
   // private-internal fallback here is non-load-bearing.
   const staticAgents = ((agent as any).__getStaticAgents?.() ?? {}) as Record<string, any>;
-  const mcpAgents: Record<string, any> = { postmill: agent };
+  const mcpAgents: Record<string, any> = { validpost: agent };
   for (const [key, sub] of Object.entries(staticAgents)) {
     mcpAgents[key] = sub;
   }
 
   const serverConfig = {
-    name: 'Postmill MCP',
+    name: 'ValidPost MCP',
     version: '1.0.0',
     tools,
     agents: mcpAgents,

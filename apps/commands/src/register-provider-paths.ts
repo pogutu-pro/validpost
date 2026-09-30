@@ -1,8 +1,8 @@
 /**
- * Runtime resolver for the `@postmill-ai/provider-*` workspace packages.
+ * Runtime resolver for the `@validpost/provider-*` workspace packages.
  *
  * Same shim as apps/backend/src/register-provider-paths.ts, duplicated for the
- * commands app: `nest build` does not bundle, bare `@postmill-ai/provider-*`
+ * commands app: `nest build` does not bundle, bare `@validpost/provider-*`
  * specifiers would otherwise resolve to the raw TypeScript `src/index.ts` under
  * node_modules (which Node refuses to type-strip under node_modules), crashing
  * the CLI. Redirects to the already-compiled `dist/libraries/providers/<pkg>`
@@ -14,7 +14,7 @@ const Module = require('module');
 import { existsSync } from 'fs';
 import { isAbsolute, join, resolve, sep } from 'path';
 
-const PREFIX = '@postmill-ai/provider-';
+const PREFIX = '@validpost/provider-';
 // dist/apps/commands/src -> dist -> dist/libraries/providers
 const providersRoot = resolve(
   join(__dirname, '..', '..', '..', 'libraries', 'providers'),
@@ -24,8 +24,8 @@ const originalResolve = Module._resolveFilename;
 
 Module._resolveFilename = function (request: string, ...rest: any[]) {
   if (typeof request === 'string' && request.startsWith(PREFIX)) {
-    // '@postmill-ai/provider-kernel'        -> pkg 'kernel',  sub 'index'
-    // '@postmill-ai/provider-kernel/errors' -> pkg 'kernel',  sub 'errors'
+    // '@validpost/provider-kernel'        -> pkg 'kernel',  sub 'index'
+    // '@validpost/provider-kernel/errors' -> pkg 'kernel',  sub 'errors'
     const rel = request.slice(PREFIX.length);
 
     // Reject path-traversal or absolute specifiers before touching the filesystem.

@@ -90,7 +90,7 @@ Farcaster, Nostr, VK, ListMonk, Moltbook, Whop, Skool, MeWe, Tumblr, Pixelfed, P
 
 ## First-Comment Auto-Post
 
-When you include a first comment in the composer, Postmill automatically posts it after the main
+When you include a first comment in the composer, ValidPost automatically posts it after the main
 post publishes successfully. This behavior is part of the publish workflow:
 
 1. The main post is published to the selected channels.

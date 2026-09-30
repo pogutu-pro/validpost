@@ -2,26 +2,26 @@
 
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { pushAgentUiContext } from '@postmill-ai/frontend/components/agent/agent-context-bridge';
+import { pushAgentUiContext } from '@validpost/frontend/components/agent/agent-context-bridge';
 import Link from 'next/link';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
-import { useCampaignDashboard } from '@postmill-ai/frontend/components/campaigns/hooks/campaign.hooks';
-import { DashboardHeader } from '@postmill-ai/frontend/components/campaigns/dashboard/dashboard-header';
-import { DashboardKpis } from '@postmill-ai/frontend/components/campaigns/dashboard/dashboard-kpis';
-import { CampaignAnalyticsSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-analytics-section';
-import { TaggedItemsPanels } from '@postmill-ai/frontend/components/campaigns/dashboard/tagged-items-panels';
-import { CampaignChannelsSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-channels-section';
-import { CampaignFilesSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-files-section';
-import { CampaignTemplatesSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-templates-section';
-import { CampaignDraftsSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-drafts-section';
-import { CampaignPostsSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-posts-section';
-import { PlanningWorkspace } from '@postmill-ai/frontend/components/campaigns/dashboard/planning-workspace';
-import { ChangelogPanel } from '@postmill-ai/frontend/components/campaigns/dashboard/changelog-panel';
-import { CampaignCommentsSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-comments-section';
-import { CampaignDiscussionSection } from '@postmill-ai/frontend/components/campaigns/dashboard/campaign-discussion-section';
-import { ChannelOption } from '@postmill-ai/frontend/components/comments/comment.inbox.filters';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
+import { useCampaignDashboard } from '@validpost/frontend/components/campaigns/hooks/campaign.hooks';
+import { DashboardHeader } from '@validpost/frontend/components/campaigns/dashboard/dashboard-header';
+import { DashboardKpis } from '@validpost/frontend/components/campaigns/dashboard/dashboard-kpis';
+import { CampaignAnalyticsSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-analytics-section';
+import { TaggedItemsPanels } from '@validpost/frontend/components/campaigns/dashboard/tagged-items-panels';
+import { CampaignChannelsSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-channels-section';
+import { CampaignFilesSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-files-section';
+import { CampaignTemplatesSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-templates-section';
+import { CampaignDraftsSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-drafts-section';
+import { CampaignPostsSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-posts-section';
+import { PlanningWorkspace } from '@validpost/frontend/components/campaigns/dashboard/planning-workspace';
+import { ChangelogPanel } from '@validpost/frontend/components/campaigns/dashboard/changelog-panel';
+import { CampaignCommentsSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-comments-section';
+import { CampaignDiscussionSection } from '@validpost/frontend/components/campaigns/dashboard/campaign-discussion-section';
+import { ChannelOption } from '@validpost/frontend/components/comments/comment.inbox.filters';
 
 type TabKey =
   | 'posts'

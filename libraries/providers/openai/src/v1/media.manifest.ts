@@ -1,4 +1,4 @@
-import { ProviderManifest, type MediaCapability, type MediaProviderCapabilities } from '@postmill-ai/provider-kernel';
+import { ProviderManifest, type MediaCapability, type MediaProviderCapabilities } from '@validpost/provider-kernel';
 
 export const OPENAI_MEDIA_CAPABILITIES: MediaProviderCapabilities = {
   image: true,

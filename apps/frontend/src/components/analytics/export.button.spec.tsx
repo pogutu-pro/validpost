@@ -7,10 +7,10 @@ const mockShow = vi.fn();
 vi.mock('./hooks/useExport', () => ({
   useExport: () => ({ download: mockDownload }),
 }));
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockShow }),
 }));
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback ?? key,
 }));
 

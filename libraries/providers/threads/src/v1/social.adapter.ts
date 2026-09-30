@@ -8,17 +8,17 @@ import {
   SocialCommentDTO,
   SocialProvider,
   ThreadsSettingsDto,
-} from '@postmill-ai/provider-kernel';
-import { makeId, makeOauthState } from '@postmill-ai/provider-kernel';
-import { timer } from '@postmill-ai/helpers/utils/timer';
+} from '@validpost/provider-kernel';
+import { makeId, makeOauthState } from '@validpost/provider-kernel';
+import { timer } from '@validpost/helpers/utils/timer';
 import { Logger } from '@nestjs/common';
 import dayjs from 'dayjs';
-import { SocialAbstract } from '@postmill-ai/provider-kernel';
+import { SocialAbstract } from '@validpost/provider-kernel';
 import { capitalize, chunk } from 'lodash';
-import { Plug } from '@postmill-ai/helpers/decorators/plug.decorator';
+import { Plug } from '@validpost/helpers/decorators/plug.decorator';
 import { Integration } from '@prisma/client';
-import { stripHtmlValidation } from '@postmill-ai/helpers/utils/strip.html.validation';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
+import { stripHtmlValidation } from '@validpost/helpers/utils/strip.html.validation';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
 
 import { metadata as providerMetadata } from './metadata';
 export class ThreadsProvider extends SocialAbstract implements SocialProvider {
@@ -164,7 +164,7 @@ export class ThreadsProvider extends SocialAbstract implements SocialProvider {
       return {
         type: 'bad-body',
         value:
-          "One of the media URLs is invalid or inaccessible, make sure it's being uploaded to Postmill first",
+          "One of the media URLs is invalid or inaccessible, make sure it's being uploaded to ValidPost first",
       };
     }
     if (body.includes('text must be at most 500 characters')) {
@@ -844,7 +844,7 @@ import {
   ProviderModule as __ProviderModule,
   SocialProviderKernelAdapter as __Bridge,
   PROVIDER_CAPABILITIES as __CAPS,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const __adapter = new ThreadsProvider();
 

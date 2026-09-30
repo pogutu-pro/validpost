@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -37,7 +37,7 @@ describe('HealthSection', () => {
   it('renders the loading skeleton', () => {
     stub({ isLoading: true });
     const { container } = render(<HealthSection />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the error state with retry', () => {

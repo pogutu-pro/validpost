@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { providerModules } from '@postmill-ai/backend/providers.generated';
-import { PaymentsCapability } from '@postmill-ai/provider-kernel';
+import { providerModules } from '@validpost/backend/providers.generated';
+import { PaymentsCapability } from '@validpost/provider-kernel';
 import {
   PAYMENT_PROVIDER_ENV,
   PAYMENT_PROVIDER_IDS,
   isPaymentProviderConfigured,
-} from '@postmill-ai/helpers/billing/payments.env';
+} from '@validpost/helpers/billing/payments.env';
 
 /**
  * The pure env table in libraries/helpers (the billing master switch, usable

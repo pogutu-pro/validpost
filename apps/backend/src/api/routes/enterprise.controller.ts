@@ -1,15 +1,15 @@
 import { Body, Controller, Param, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 import * as crypto from 'crypto';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { isAllowedReturnUrl } from '@postmill-ai/nestjs-libraries/security/return-url.validator';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { ApiKeysService } from '@postmill-ai/nestjs-libraries/database/prisma/api-keys/api-keys.service';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { isAllowedReturnUrl } from '@validpost/nestjs-libraries/security/return-url.validator';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { ApiKeysService } from '@validpost/nestjs-libraries/database/prisma/api-keys/api-keys.service';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
 
 @ApiTags('Enterprise')
 @Controller('/enterprise')

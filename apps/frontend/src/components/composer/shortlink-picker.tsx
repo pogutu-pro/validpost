@@ -4,10 +4,10 @@ import React, { FC, useCallback, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import clsx from 'clsx';
 import { useClickOutside } from '@mantine/hooks';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { DropdownArrowIcon } from '@postmill-ai/frontend/components/ui/icons';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { DropdownArrowIcon } from '@validpost/frontend/components/ui/icons';
 
 interface ShortlinkProvider {
   identifier: string;
@@ -130,7 +130,7 @@ export const ShortlinkPicker: FC<{
       ref={ref}
       className={clsx(
         'border rounded-[8px] justify-center flex items-center relative h-[36px] lg:h-[44px] text-[13px] lg:text-[15px] font-[600] select-none',
-        isOpen ? 'border-[#2B5CD3]' : 'border-newTextColor/10'
+        isOpen ? 'border-btnPrimary' : 'border-newTextColor/10'
       )}
     >
       <button

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { EmailService } from '@postmill-ai/nestjs-libraries/services/email.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
+import { EmailService } from '@validpost/nestjs-libraries/services/email.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
 
 @Injectable()
 export class EmailActivity {

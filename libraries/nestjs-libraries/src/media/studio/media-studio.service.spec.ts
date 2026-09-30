@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { MediaStudioService, StudioGenerateParams } from './media-studio.service';
-import { ProviderUpstreamError } from '@postmill-ai/provider-kernel';
+import { ProviderUpstreamError } from '@validpost/provider-kernel';
 
 function makeService() {
   const orgSettings = {
@@ -247,9 +247,9 @@ describe('MediaStudioService', () => {
       });
     });
 
-    // Sentry POSTMILL-APP-P: the provider's failure must (a) be stored on the
+    // Sentry VALIDPOST-APP-P: the provider's failure must (a) be stored on the
     // job in its attributed form for the render queue and (b) propagate as the
-    // same typed error so the HTTP layer answers 502, not a Postmill 500.
+    // same typed error so the HTTP layer answers 502, not a ValidPost 500.
     it('marks the job failed with the attributed provider message and rethrows the typed error', async () => {
       const { service, adapter, lifecycle } = makeService();
       const upstream = new ProviderUpstreamError(

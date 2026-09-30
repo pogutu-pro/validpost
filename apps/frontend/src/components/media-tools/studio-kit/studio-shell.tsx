@@ -1,13 +1,13 @@
 'use client';
-import { ProviderError, providerErrorToastText } from '@postmill-ai/frontend/components/ai/provider-error';
+import { ProviderError, providerErrorToastText } from '@validpost/frontend/components/ai/provider-error';
 
 import React, { useMemo, useState } from 'react';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
-import { FullscreenButton } from '@postmill-ai/frontend/components/media-tools/fullscreen-button';
-import { useFullscreenSurface } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
+import { FullscreenButton } from '@validpost/frontend/components/media-tools/fullscreen-button';
+import { useFullscreenSurface } from '@validpost/frontend/components/media-tools/use-fullscreen';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { StudioForm } from './studio-form';
 import { StudioLanding } from './studio-landing';
 import { RenderQueue } from './render-queue';
@@ -124,7 +124,7 @@ export function StudioShell({ descriptor }: { descriptor: StudioDescriptor }) {
   if (!status) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2B5CD3]" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-btnPrimary" />
       </div>
     );
   }
@@ -148,7 +148,7 @@ export function StudioShell({ descriptor }: { descriptor: StudioDescriptor }) {
         </p>
         <a
           href="/settings/content/ai-media"
-          className="mt-[4px] px-[16px] py-[9px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+          className="mt-[4px] px-[16px] py-[9px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[500] hover:bg-btnPrimary/80 transition-all"
         >
           {translate('studio_configure_provider', 'Configure {{title}}', { title })}
         </a>
@@ -208,7 +208,7 @@ export function StudioShell({ descriptor }: { descriptor: StudioDescriptor }) {
                 type="button"
                 onClick={onGenerate}
                 disabled={!canGenerate || generating}
-                className="self-start px-[20px] py-[10px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[600] hover:bg-[#2B5CD3]/80 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                className="self-start px-[20px] py-[10px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[600] hover:bg-btnPrimary/80 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {generating ? translate('starting_ellipsis', 'Starting…') : translate('generate', 'Generate')}
               </button>

@@ -6,7 +6,7 @@ import sharp from 'sharp';
 // unbounded DNS lookup — fast locally, but slow enough on a CI runner under
 // coverage instrumentation to blow vitest's 5s per-test budget. Failing the fetch
 // here keeps the assertion identical and makes the timing deterministic.
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: vi.fn(async () => {
     throw new Error('network disabled in tests');
   }),

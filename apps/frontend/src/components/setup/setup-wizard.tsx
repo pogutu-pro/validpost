@@ -3,18 +3,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSWR, { useSWRConfig } from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
-import { SetupStepper } from '@postmill-ai/frontend/components/setup/setup-stepper';
-import { StepLlm } from '@postmill-ai/frontend/components/setup/steps/step-llm';
-import { StepAiMedia } from '@postmill-ai/frontend/components/setup/steps/step-ai-media';
-import { StepChannels } from '@postmill-ai/frontend/components/setup/steps/step-channels';
-import { StepContentPacks } from '@postmill-ai/frontend/components/setup/steps/step-content-packs';
-import { StepStorage } from '@postmill-ai/frontend/components/setup/steps/step-storage';
-import { StepShortlinks } from '@postmill-ai/frontend/components/setup/steps/step-shortlinks';
-import { StepVpn } from '@postmill-ai/frontend/components/setup/steps/step-vpn';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
+import { SetupStepper } from '@validpost/frontend/components/setup/setup-stepper';
+import { StepLlm } from '@validpost/frontend/components/setup/steps/step-llm';
+import { StepAiMedia } from '@validpost/frontend/components/setup/steps/step-ai-media';
+import { StepChannels } from '@validpost/frontend/components/setup/steps/step-channels';
+import { StepContentPacks } from '@validpost/frontend/components/setup/steps/step-content-packs';
+import { StepStorage } from '@validpost/frontend/components/setup/steps/step-storage';
+import { StepShortlinks } from '@validpost/frontend/components/setup/steps/step-shortlinks';
+import { StepVpn } from '@validpost/frontend/components/setup/steps/step-vpn';
 
 const STEP_COMPONENTS: React.FC<{
   onProviderChange?: () => void;
@@ -58,7 +58,7 @@ export function SetupWizard() {
 
   const steps = useMemo(
     () => [
-      { id: 'llm', label: t('setup_step_llm', 'LLM'), required: true },
+      { id: 'llm', label: t('setup_step_llm', 'LLM') },
       { id: 'ai-media', label: t('setup_step_ai_media', 'AI Media') },
       { id: 'channels', label: t('setup_step_channels', 'Channels') },
       { id: 'content-packs', label: t('setup_step_content_packs', 'Content Packs') },
@@ -88,18 +88,18 @@ export function SetupWizard() {
     }
   }, [currentStep]);
 
+  // Setup never blocks: AI is optional (with no provider, AI is simply off), so
+  // a new workspace can always reach the dashboard. Connecting a provider only
+  // switches AI features on.
   const aiProviderActive = llmActive || !!summary?.aiProviderActive;
   const isLastStep = currentStep === steps.length - 1;
-  const canFinish = aiProviderActive;
 
   const handleNext = useCallback(() => {
-    if (currentStep === 0 && !aiProviderActive) return;
     setCompletedSteps((prev) => new Set(prev).add(currentStep));
     setCurrentStep((s) => Math.min(s + 1, steps.length - 1));
-  }, [currentStep, aiProviderActive, steps.length]);
+  }, [currentStep, steps.length]);
 
   const handleSkip = useCallback(() => {
-    if (currentStep === 0) return;
     setSkippedSteps((prev) => new Set(prev).add(currentStep));
     setCompletedSteps((prev) => new Set(prev).add(currentStep));
     setCurrentStep((s) => Math.min(s + 1, steps.length - 1));
@@ -114,7 +114,6 @@ export function SetupWizard() {
   }, []);
 
   const finishSetup = useCallback(async () => {
-    if (!canFinish) return;
     setFinishing(true);
     setFinishError(null);
     try {
@@ -138,34 +137,42 @@ export function SetupWizard() {
         err instanceof Error ? err.message : t('setup_complete_failed', 'Could not complete setup')
       );
     }
-  }, [canFinish, fetch, globalMutate, router, t]);
+  }, [fetch, globalMutate, router, t]);
 
   const ActiveStepComponent = STEP_COMPONENTS[currentStep];
 
   return (
     <div className="flex flex-col h-full">
       <div className="shrink-0 px-[24px] pt-[24px] pb-[20px] border-b border-newBorder">
-        <div className="flex items-center gap-[10px] mb-[10px]">
-          <div className="w-[6px] h-[6px] rounded-full bg-btnPrimary" />
-          <span className="text-[11px] font-[600] uppercase tracking-[0.08em] text-btnPrimaryAccent">
-            {t('setup_badge', 'Workspace Setup')}
-          </span>
+        <div className="flex items-center justify-between gap-[10px] mb-[10px]">
+          <div className="flex items-center gap-[10px]">
+            <div className="w-[6px] h-[6px] rounded-full bg-btnPrimary" />
+            <span className="text-[11px] font-[600] uppercase tracking-[0.08em] text-btnPrimaryAccent">
+              {t('setup_badge', 'Workspace Setup')}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={finishSetup}
+            disabled={finishing}
+            className="text-[13px] font-[600] text-newTableText hover:text-textColor underline underline-offset-2 disabled:opacity-50 min-h-[32px] px-[4px]"
+          >
+            {t('setup_skip_all', 'Skip setup')}
+          </button>
         </div>
         <h1 className="text-[24px] font-[700] text-btnPrimary tracking-[-0.01em]">
           {t('setup_title', "Let's get your content moving")}
         </h1>
         <p className="text-[13px] text-newTableText mt-[8px] max-w-[720px] leading-[1.6]">
-          {t(
-            'setup_intro',
-            'A quick one-time setup to get ValidPost ready. Only the'
-          )}{' '}
-          <span className="text-textColor font-[600]">
-            {t('setup_step_llm', 'LLM')}
-          </span>{' '}
-          {t(
-            'setup_intro_2',
-            'step is required — connect an AI provider to continue. Everything else is optional: skip any step and change it later in Settings.'
-          )}
+          {aiProviderActive
+            ? t(
+                'setup_intro_ai_on',
+                'AI is on. Everything else here is optional — skip any step and change it later in Settings.'
+              )
+            : t(
+                'setup_intro_v2',
+                'Every step is optional. Connect an AI provider to switch on AI features, or skip ahead and set it all up later in Settings.'
+              )}
         </p>
       </div>
 
@@ -206,7 +213,7 @@ export function SetupWizard() {
         </Button>
 
         <div className="flex items-center gap-[12px]">
-          {currentStep !== 0 && !isLastStep && (
+          {!isLastStep && (
             <Button
               type="button"
               onClick={handleSkip}
@@ -216,7 +223,7 @@ export function SetupWizard() {
             </Button>
           )}
 
-          {canFinish && (
+          {isLastStep && (
             <Button
               type="button"
               onClick={finishSetup}
@@ -233,7 +240,6 @@ export function SetupWizard() {
             <Button
               type="button"
               onClick={handleNext}
-              disabled={currentStep === 0 && !aiProviderActive}
               className="vp-clay"
             >
               {t('next', 'Next')}

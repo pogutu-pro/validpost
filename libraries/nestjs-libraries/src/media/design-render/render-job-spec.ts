@@ -7,7 +7,7 @@ import * as path from 'path';
 
 /** Persistent host workdir for a render job (survives between enqueue and processing). */
 export function renderWorkDir(jobId: string): string {
-  return path.join(os.tmpdir(), 'postmill-render-work', jobId);
+  return path.join(os.tmpdir(), 'validpost-render-work', jobId);
 }
 
 export interface DesignRenderJobSpec {

@@ -2,9 +2,9 @@
 
 import { FC, ReactNode } from 'react';
 import { CopilotKit } from '@copilotkit/react-core';
-import { csrfHeader } from '@postmill-ai/helpers/utils/csrf.header';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
+import { csrfHeader } from '@validpost/helpers/utils/csrf.header';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
 
 /**
  * Mounts the CopilotKit runtime provider ONLY when the org has an active AI

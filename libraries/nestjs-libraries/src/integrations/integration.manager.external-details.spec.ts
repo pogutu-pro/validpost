@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import 'reflect-metadata';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
 
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-secret-for-merge-spec';
 

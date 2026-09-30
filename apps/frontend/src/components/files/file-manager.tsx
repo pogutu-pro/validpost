@@ -2,30 +2,30 @@
 
 import React, { FC, useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useDebounce } from 'use-debounce';
-import { FolderTree } from '@postmill-ai/frontend/components/files/folder-tree';
-import { FileGrid } from '@postmill-ai/frontend/components/files/file-grid';
-import { FileList } from '@postmill-ai/frontend/components/files/file-list';
-import { FileDetailsPanel } from '@postmill-ai/frontend/components/files/file-details-panel';
-import { FilePreviewModal } from '@postmill-ai/frontend/components/files/file-preview-modal';
-import { BulkToolbar } from '@postmill-ai/frontend/components/files/bulk-toolbar';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { FileUploader } from '@postmill-ai/frontend/components/files/file-uploader';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { TrashComponent } from '@postmill-ai/frontend/components/files/trash.component';
+import { FolderTree } from '@validpost/frontend/components/files/folder-tree';
+import { FileGrid } from '@validpost/frontend/components/files/file-grid';
+import { FileList } from '@validpost/frontend/components/files/file-list';
+import { FileDetailsPanel } from '@validpost/frontend/components/files/file-details-panel';
+import { FilePreviewModal } from '@validpost/frontend/components/files/file-preview-modal';
+import { BulkToolbar } from '@validpost/frontend/components/files/bulk-toolbar';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { FileUploader } from '@validpost/frontend/components/files/file-uploader';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { TrashComponent } from '@validpost/frontend/components/files/trash.component';
 import clsx from 'clsx';
-import { PageHeader } from '@postmill-ai/frontend/components/ui/page-header';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { ancestorsOf, childrenOf, resolveFolderPath, useFolderDropTarget, type FolderItem } from '@postmill-ai/frontend/components/files/folder.utils';
-import { FolderBreadcrumb } from '@postmill-ai/frontend/components/files/folder-breadcrumb';
-import { ContextMenu, type ContextMenuItem } from '@postmill-ai/frontend/components/ui/context-menu';
-import { useContextMenu } from '@postmill-ai/frontend/components/ui/use-context-menu';
-import { RenameDialog } from '@postmill-ai/frontend/components/files/rename-dialog';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
+import { PageHeader } from '@validpost/frontend/components/ui/page-header';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { ancestorsOf, childrenOf, resolveFolderPath, useFolderDropTarget, type FolderItem } from '@validpost/frontend/components/files/folder.utils';
+import { FolderBreadcrumb } from '@validpost/frontend/components/files/folder-breadcrumb';
+import { ContextMenu, type ContextMenuItem } from '@validpost/frontend/components/ui/context-menu';
+import { useContextMenu } from '@validpost/frontend/components/ui/use-context-menu';
+import { RenameDialog } from '@validpost/frontend/components/files/rename-dialog';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
 import { usePathname, useRouter } from 'next/navigation';
 
 type ViewMode = 'grid' | 'list';
@@ -580,7 +580,7 @@ export const FileManager: FC<{
               type="button"
               aria-label={t('close', 'Close')}
               onClick={() => setFolderDrawerOpen(false)}
-              className="w-[32px] h-[32px] flex items-center justify-center rounded-[8px] text-newTableText hover:bg-[#2B5CD3]/15 hover:text-textColor transition-all"
+              className="w-[32px] h-[32px] flex items-center justify-center rounded-[8px] text-newTableText hover:bg-btnPrimary/15 hover:text-textColor transition-all"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
@@ -629,7 +629,7 @@ export const FileManager: FC<{
                 value={search}
                 onChange={e => setSearchAndReset(e.target.value)}
                 placeholder={t('search_files_by_name_tags', 'Search files by name, tags...')}
-                className="w-full h-[44px] pl-[40px] pr-[14px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-[#2B5CD3] text-textColor"
+                className="w-full h-[44px] pl-[40px] pr-[14px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[14px] outline-hidden focus:border-btnPrimary text-textColor"
               />
               <svg
                 className="absolute left-[12px] top-[50%] translate-y-[-50%] text-newTextColor/60"
@@ -646,7 +646,7 @@ export const FileManager: FC<{
                 value={filterType}
                 aria-label={t('filter_by_file_type', 'Filter by file type')}
                 onChange={e => setFilterTypeAndReset(e.target.value)}
-                className="h-[44px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] shrink-0"
+                className="h-[44px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[13px] text-textColor outline-hidden focus:border-btnPrimary shrink-0"
               >
                 <option value="">{t('all_types', 'All types')}</option>
                 <option value="image">{t('images', 'Images')}</option>
@@ -663,7 +663,7 @@ export const FileManager: FC<{
                 const picked = SORT_OPTIONS.find(o => `${o.field}-${o.order}` === e.target.value);
                 if (picked) setSortAndReset(picked.field, picked.order);
               }}
-              className="h-[44px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] shrink-0"
+              className="h-[44px] px-[12px] rounded-[8px] bg-newBgColorInner border border-newColColor text-[13px] text-textColor outline-hidden focus:border-btnPrimary shrink-0"
             >
               {SORT_OPTIONS.map(option => (
                 <option key={`${option.field}-${option.order}`} value={`${option.field}-${option.order}`}>
@@ -680,7 +680,7 @@ export const FileManager: FC<{
                 aria-label={t('grid_view', 'Grid view')}
                 aria-pressed={viewMode === 'grid'}
                 className={clsx('p-[10px] rounded-[8px] border transition-all', viewMode === 'grid'
-                  ? 'border-[#2B5CD3] text-btnPrimaryAccent bg-[#2B5CD3]/10'
+                  ? 'border-btnPrimary text-btnPrimaryAccent bg-btnPrimary/10'
                   : 'border-newColColor text-textColor hover:bg-boxHover')}
               >
                 <GridIcon />
@@ -690,7 +690,7 @@ export const FileManager: FC<{
                 aria-label={t('list_view', 'List view')}
                 aria-pressed={viewMode === 'list'}
                 className={clsx('p-[10px] rounded-[8px] border transition-all', viewMode === 'list'
-                  ? 'border-[#2B5CD3] text-btnPrimaryAccent bg-[#2B5CD3]/10'
+                  ? 'border-btnPrimary text-btnPrimaryAccent bg-btnPrimary/10'
                   : 'border-newColColor text-textColor hover:bg-boxHover')}
               >
                 <ListViewIcon />
@@ -724,7 +724,7 @@ export const FileManager: FC<{
                   className={clsx(
                     'hidden lg:flex px-[12px] h-[44px] rounded-[8px] border text-[13px] transition-colors items-center gap-[6px]',
                     sidebarOpen
-                      ? 'border-[#2B5CD3] text-btnPrimaryAccent bg-[#2B5CD3]/10'
+                      ? 'border-btnPrimary text-btnPrimaryAccent bg-btnPrimary/10'
                       : 'border-newColColor text-textColor hover:bg-boxHover'
                   )}
                 >
@@ -845,7 +845,7 @@ export const FileManager: FC<{
                   onClick={() => setPage(pageNum)}
                   className={clsx('w-[36px] h-[36px] rounded-[6px] text-[13px] font-medium transition-all',
                     page === pageNum
-                      ? 'bg-[#2B5CD3] text-textColor'
+                      ? 'bg-btnPrimary text-textColor'
                       : 'text-textColor hover:bg-boxHover border border-newColColor')}
                 >
                   {pageNum + 1}

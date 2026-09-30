@@ -4,13 +4,13 @@ import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 
 const sendMock = vi.fn().mockResolvedValue(undefined);
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: { send: (...args: any[]) => sendMock(...args) },
   isInngestEnabled: () => true,
 }));
 
-import { PostActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/post.activity';
-import { XDto } from '@postmill-ai/provider-kernel/domains/social-dtos';
+import { PostActivity } from '@validpost/nestjs-libraries/inngest/activities/post.activity';
+import { LinkedinDto } from '@validpost/provider-kernel/domains/social-dtos';
 
 // Minimal constructor stub — the methods under test only touch a handful of deps.
 const build = (over: Partial<Record<string, any>> = {}) => {
@@ -182,7 +182,7 @@ describe('postSocial poll mapping + capability guard (2.2)', () => {
       getIntegrationById: vi.fn().mockResolvedValue({
         id: 'int-1',
         organizationId: 'org-1',
-        providerIdentifier: 'x',
+        providerIdentifier: 'linkedin',
         internalId: 'ig-1',
         token: 'TOKEN',
       }),
@@ -192,7 +192,7 @@ describe('postSocial poll mapping + capability guard (2.2)', () => {
     },
   });
 
-  it('forwards poll.options to the adapter for a poll-capable provider (x)', async () => {
+  it('forwards poll.options to the adapter for a poll-capable provider (linkedin)', async () => {
     const post = {
       id: 'p1',
       content: 'Vote',
@@ -213,7 +213,7 @@ describe('postSocial poll mapping + capability guard (2.2)', () => {
     });
 
     await activity.postSocial(
-      { id: 'int-1', organizationId: 'org-1', providerIdentifier: 'x' } as any,
+      { id: 'int-1', organizationId: 'org-1', providerIdentifier: 'linkedin' } as any,
       [post as any]
     );
 
@@ -297,9 +297,9 @@ describe('postSocial/postComment delete-after-claim guard', () => {
   });
 });
 
-describe('XDto poll validation (2.2)', () => {
+describe('LinkedinDto poll validation (2.2)', () => {
   const makeX = (poll: any) =>
-    plainToInstance(XDto, { who_can_reply_post: 'everyone', poll });
+    plainToInstance(LinkedinDto, { post_as_images_carousel: false, poll });
 
   it('rejects a 1-option poll', async () => {
     const errors = await validate(makeX({ options: ['only-one'], duration: 24 }));

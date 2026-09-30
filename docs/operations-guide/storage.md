@@ -1,6 +1,6 @@
 # Storage Setup
 
-Postmill supports multiple storage backends for uploaded media: local disk, Cloudflare R2, AWS S3,
+ValidPost supports multiple storage backends for uploaded media: local disk, Cloudflare R2, AWS S3,
 Backblaze B2, and IDrive e2. Each organization can mount its own storage provider independently,
 configured from the in-app Settings -> Storage page.
 
@@ -93,9 +93,9 @@ Native S3 API. Configure per-org in Settings → Storage using access key + secr
 
 **Bucket setup:**
 1. Create an S3 bucket in your preferred region.
-2. Optionally enable versioning and server-side encryption (Postmill encrypts at the application
+2. Optionally enable versioning and server-side encryption (ValidPost encrypts at the application
    layer and does not require SSE — but enabling it adds an extra layer of protection).
-3. Disable "Block all public access" if you intend to serve files publicly (Postmill can serve
+3. Disable "Block all public access" if you intend to serve files publicly (ValidPost can serve
    through presigned URLs instead).
 4. Create an IAM user with programmatic access and attach the policy above.
 
@@ -114,7 +114,7 @@ with `readFiles`, `writeFiles`, `deleteFiles`, and `listFiles` capabilities.
 **Bucket setup:**
 1. Create a bucket in the B2 web console (or via CLI).
 2. Go to App Keys → Add a New Application Key.
-3. Give it a name (e.g. "Postmill"), select your bucket, and enable the four capabilities above.
+3. Give it a name (e.g. "ValidPost"), select your bucket, and enable the four capabilities above.
 4. Copy the `keyID` and `applicationKey` — the key is shown only once.
 
 **Credential format:**

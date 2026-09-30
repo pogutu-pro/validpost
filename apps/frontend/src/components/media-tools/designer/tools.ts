@@ -10,8 +10,8 @@
  */
 
 import type { FC } from 'react';
-import type { IconProps } from '@postmill-ai/frontend/components/ui/icons';
-import * as I from '@postmill-ai/frontend/components/ui/icons/designer-tools';
+import type { IconProps } from '@validpost/frontend/components/ui/icons';
+import * as I from '@validpost/frontend/components/ui/icons/designer-tools';
 
 /** Which document modes a tool can be used in. Video mode has its own bindings. */
 export type ToolMode = 'image';

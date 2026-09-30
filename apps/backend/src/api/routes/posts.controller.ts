@@ -12,40 +12,40 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ParseCuidPipe } from '@postmill-ai/nestjs-libraries/pipes/parse-cuid.pipe';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { ParseCuidPipe } from '@validpost/nestjs-libraries/pipes/parse-cuid.pipe';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization, User } from '@prisma/client';
-import { GetPostsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/get.posts.dto';
-import { GetPostsListDto } from '@postmill-ai/nestjs-libraries/dtos/posts/get.posts.list.dto';
-import { CreatePostDto } from '@postmill-ai/nestjs-libraries/dtos/posts/create.post.dto';
-import { ValidatePostsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/validate.posts.dto';
-import { BulkCreatePostsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/bulk.create.posts.dto';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
+import { GetPostsDto } from '@validpost/nestjs-libraries/dtos/posts/get.posts.dto';
+import { GetPostsListDto } from '@validpost/nestjs-libraries/dtos/posts/get.posts.list.dto';
+import { CreatePostDto } from '@validpost/nestjs-libraries/dtos/posts/create.post.dto';
+import { ValidatePostsDto } from '@validpost/nestjs-libraries/dtos/posts/validate.posts.dto';
+import { BulkCreatePostsDto } from '@validpost/nestjs-libraries/dtos/posts/bulk.create.posts.dto';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
 import { ApiTags } from '@nestjs/swagger';
-import { GeneratorDto } from '@postmill-ai/nestjs-libraries/dtos/generator/generator.dto';
-import { CreateGeneratedPostsDto } from '@postmill-ai/nestjs-libraries/dtos/generator/create.generated.posts.dto';
-import { AgentGraphService } from '@postmill-ai/nestjs-libraries/agent/agent.graph.service';
-import { BudgetExceeded } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
-import { rethrowProviderError } from '@postmill-ai/nestjs-libraries/ai/governance/rethrow-provider-error';
+import { GeneratorDto } from '@validpost/nestjs-libraries/dtos/generator/generator.dto';
+import { CreateGeneratedPostsDto } from '@validpost/nestjs-libraries/dtos/generator/create.generated.posts.dto';
+import { AgentGraphService } from '@validpost/nestjs-libraries/agent/agent.graph.service';
+import { BudgetExceeded } from '@validpost/nestjs-libraries/ai/governance/errors';
+import { rethrowProviderError } from '@validpost/nestjs-libraries/ai/governance/rethrow-provider-error';
 import { Request, Response } from 'express';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { ShortLinkService } from '@postmill-ai/nestjs-libraries/short-linking/short.link.service';
-import { CreateTagDto } from '@postmill-ai/nestjs-libraries/dtos/posts/create.tag.dto';
-import { CreateCommentDto } from '@postmill-ai/nestjs-libraries/dtos/posts/create.comment.dto';
-import { SeparatePostsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/separate.posts.dto';
-import { ShouldShortlinkDto } from '@postmill-ai/nestjs-libraries/dtos/posts/should.shortlink.dto';
-import { SetPostColorDto } from '@postmill-ai/nestjs-libraries/dtos/posts/set.post.color.dto';
-import { ShortlinkActiveDto } from '@postmill-ai/nestjs-libraries/dtos/posts/shortlink-active.dto';
-import { UpdateReleaseIdDto } from '@postmill-ai/nestjs-libraries/dtos/posts/update-release-id.dto';
-import { ChangePostDateDto } from '@postmill-ai/nestjs-libraries/dtos/posts/change-post-date.dto';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { ShortLinkService } from '@validpost/nestjs-libraries/short-linking/short.link.service';
+import { CreateTagDto } from '@validpost/nestjs-libraries/dtos/posts/create.tag.dto';
+import { CreateCommentDto } from '@validpost/nestjs-libraries/dtos/posts/create.comment.dto';
+import { SeparatePostsDto } from '@validpost/nestjs-libraries/dtos/posts/separate.posts.dto';
+import { ShouldShortlinkDto } from '@validpost/nestjs-libraries/dtos/posts/should.shortlink.dto';
+import { SetPostColorDto } from '@validpost/nestjs-libraries/dtos/posts/set.post.color.dto';
+import { ShortlinkActiveDto } from '@validpost/nestjs-libraries/dtos/posts/shortlink-active.dto';
+import { UpdateReleaseIdDto } from '@validpost/nestjs-libraries/dtos/posts/update-release-id.dto';
+import { ChangePostDateDto } from '@validpost/nestjs-libraries/dtos/posts/change-post-date.dto';
 import { Throttle } from '@nestjs/throttler';
 import {
   AuthorizationActions,
   Sections,
-} from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
+} from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
 
 @ApiTags('Posts')
 @Controller('/posts')
@@ -293,7 +293,7 @@ export class PostsController {
       stream = await this._agentGraphService.start(org.id, body);
     } catch (err: any) {
       // The org's own AI provider said no → the global filter answers 502
-      // with the provider named, not a Postmill 500.
+      // with the provider named, not a ValidPost 500.
       rethrowProviderError(err);
       if (err instanceof BudgetExceeded) {
         // Same envelope as /copilot/chat so ai-error-display recognises it.

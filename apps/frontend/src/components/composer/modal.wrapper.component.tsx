@@ -1,8 +1,8 @@
 'use client';
 import { FC, ReactNode, useEffect, useRef } from 'react';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const ModalWrapperComponent: FC<{
   title: string;

@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { OAuthRepository } from '@postmill-ai/nestjs-libraries/database/prisma/oauth/oauth.repository';
-import { CreateOAuthAppDto } from '@postmill-ai/nestjs-libraries/dtos/oauth/create-oauth-app.dto';
-import { UpdateOAuthAppDto } from '@postmill-ai/nestjs-libraries/dtos/oauth/update-oauth-app.dto';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { OAuthRepository } from '@validpost/nestjs-libraries/database/prisma/oauth/oauth.repository';
+import { CreateOAuthAppDto } from '@validpost/nestjs-libraries/dtos/oauth/create-oauth-app.dto';
+import { UpdateOAuthAppDto } from '@validpost/nestjs-libraries/dtos/oauth/update-oauth-app.dto';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
 import crypto from 'crypto';
 
 @Injectable()

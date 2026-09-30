@@ -5,7 +5,7 @@ import {
   starVisualBox,
   validateDesignDoc,
 } from './doc-validator';
-import type { DesignerDoc } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import type { DesignerDoc } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 import type { DesignPlan } from '../ai-designer.types';
 
 let seq = 0;

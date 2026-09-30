@@ -1,10 +1,10 @@
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 import { ShortLinkPreference, SubscriptionTier, Provider, StorageProviderType } from '@prisma/client';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { CreateOrgUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { CreateOrgUserDto } from '@validpost/nestjs-libraries/dtos/auth/create.org.user.dto';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 // Terms-of-Service version recorded at account creation (I4 — consent tracking).
 // Bump when the ToS materially changes so re-acceptance can be detected.
@@ -47,7 +47,7 @@ export class OrganizationRepository {
                 activated: true,
                 email: email
                   ? email.split('@').join(`+${saasName}@`)
-                  : `${saasName}+` + makeId(10) + '@postmill.ai',
+                  : `${saasName}+` + makeId(10) + '@validpost.io',
                 providerName: 'LOCAL',
                 password: AuthService.hashPassword(makeId(500)),
                 profile: {

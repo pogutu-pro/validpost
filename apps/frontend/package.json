@@ -27,8 +27,8 @@
     "@mantine/hooks": "^9.5.1",
     "@neynar/react": "^1.2.22",
     "@pigment-css/react": "0.0.30",
-    "@postmill-ai/helpers": "workspace:*",
-    "@postmill-ai/react-shared-libraries": "workspace:*",
+    "@validpost/helpers": "workspace:*",
+    "@validpost/react-shared-libraries": "workspace:*",
     "@sentry/nextjs": "^10.56.0",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-base-ui": "^0.1.0",
@@ -131,7 +131,7 @@
     "vitest": "^4.1.11"
   },
   "keywords": [],
-  "author": "",
+  "author": "Stratnovo",
   "license": "AGPL-3.0",
   "engines": {
     "node": ">=24.0.0 <25.0.0"

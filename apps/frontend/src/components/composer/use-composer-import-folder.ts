@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useRef } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
 
 interface Folder {
   id: string;

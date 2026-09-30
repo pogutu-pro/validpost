@@ -9,7 +9,7 @@ import {
   AdminProvidersController,
   FeaturedProviderDto,
 } from './providers.controller';
-import { SuperAdminGuard } from '@postmill-ai/backend/services/auth/rbac/super-admin.guard';
+import { SuperAdminGuard } from '@validpost/backend/services/auth/rbac/super-admin.guard';
 
 const GUARDS_METADATA = '__guards__';
 
@@ -20,20 +20,20 @@ const mockFeaturedUpsert = vi.fn();
 const mockFeaturedReorder = vi.fn();
 const mockFeaturedRemove = vi.fn();
 
-vi.mock('@postmill-ai/nestjs-libraries/providers/provider-catalog.service', () => ({
+vi.mock('@validpost/nestjs-libraries/providers/provider-catalog.service', () => ({
   ProviderCatalogService: class {
     buildCatalog = mockBuildCatalog;
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/providers/provider-health.service', () => ({
+vi.mock('@validpost/nestjs-libraries/providers/provider-health.service', () => ({
   ProviderHealthService: class {
     buildHealth = mockBuildHealth;
   },
 }));
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/featured-providers/featured-provider.service',
+  '@validpost/nestjs-libraries/database/prisma/featured-providers/featured-provider.service',
   () => ({
     FeaturedProviderService: class {
       list = mockFeaturedList;
@@ -44,9 +44,9 @@ vi.mock(
   }),
 );
 
-import { ProviderCatalogService } from '@postmill-ai/nestjs-libraries/providers/provider-catalog.service';
-import { ProviderHealthService } from '@postmill-ai/nestjs-libraries/providers/provider-health.service';
-import { FeaturedProviderService } from '@postmill-ai/nestjs-libraries/database/prisma/featured-providers/featured-provider.service';
+import { ProviderCatalogService } from '@validpost/nestjs-libraries/providers/provider-catalog.service';
+import { ProviderHealthService } from '@validpost/nestjs-libraries/providers/provider-health.service';
+import { FeaturedProviderService } from '@validpost/nestjs-libraries/database/prisma/featured-providers/featured-provider.service';
 
 const superAdmin = { id: 'a1', isSuperAdmin: true } as any;
 

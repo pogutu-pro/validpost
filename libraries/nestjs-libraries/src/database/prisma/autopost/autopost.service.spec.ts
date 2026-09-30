@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/autopost/autopost.repository', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/autopost/autopost.repository', () => ({
   AutopostRepository: class {
     getAutoposts = vi.fn();
     createAutopost = vi.fn().mockResolvedValue({ id: 'ap-1' });
@@ -11,7 +11,7 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/autopost/autopost.reposit
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
   IntegrationService: class {
     getIntegrationsList = vi.fn().mockResolvedValue([]);
     getIntegrationById = vi.fn();
@@ -19,26 +19,26 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/posts/posts.service', () => ({
   PostsService: class {
     findFreeDateTime = vi.fn().mockResolvedValue('2026-01-01T12:00:00');
     createPost = vi.fn().mockResolvedValue([]);
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-model.provider', () => ({
   AIModelProvider: class {
     langchainModel = vi.fn();
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/media.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/media.service', () => ({
   AiMediaService: class {
     generateImage = vi.fn();
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: { send: vi.fn() },
   isInngestEnabled: vi.fn().mockReturnValue(true),
 }));
@@ -54,7 +54,7 @@ vi.mock('rss-parser', () => ({
     parseURL = parseURLMock;
   },
 }));
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: (...args: any[]) => safeFetchMock(...args),
 }));
 
@@ -62,12 +62,12 @@ import { AutopostService } from './autopost.service';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { AutopostRepository } from '@postmill-ai/nestjs-libraries/database/prisma/autopost/autopost.repository';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { AiMediaService } from '@postmill-ai/nestjs-libraries/ai/governance/media.service';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { AutopostRepository } from '@validpost/nestjs-libraries/database/prisma/autopost/autopost.repository';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { AiMediaService } from '@validpost/nestjs-libraries/ai/governance/media.service';
 
 describe('AutopostService.processCron Inngest dispatch', () => {
   let service: AutopostService;

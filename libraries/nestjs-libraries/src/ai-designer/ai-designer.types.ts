@@ -1,5 +1,5 @@
-import type { DesignerDoc, DesignerElement, DesignerTextStroke } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import type { TextContrastViolation } from '@postmill-ai/nestjs-libraries/media/design-render/design-render.types';
+import type { DesignerDoc, DesignerElement, DesignerTextStroke } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import type { TextContrastViolation } from '@validpost/nestjs-libraries/media/design-render/design-render.types';
 
 export type AiDesignerMode = 'chat' | 'prompt';
 

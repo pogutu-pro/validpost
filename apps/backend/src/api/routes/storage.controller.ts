@@ -10,31 +10,31 @@ import {
   UseGuards,
   ForbiddenException,
 } from '@nestjs/common';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { Organization, User, StorageProviderType } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
-import { SuperAdminGuard } from '@postmill-ai/backend/services/auth/rbac/super-admin.guard';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { PermissionsService } from '@postmill-ai/backend/services/auth/permissions/permissions.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
+import { SuperAdminGuard } from '@validpost/backend/services/auth/rbac/super-admin.guard';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { PermissionsService } from '@validpost/backend/services/auth/permissions/permissions.service';
 import {
   AuthorizationActions,
   Sections,
   SubscriptionException,
-} from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
+} from '@validpost/backend/services/auth/permissions/permission.exception.class';
 import {
   CreateStorageConfigDto,
   UpdateStorageConfigDto,
   MigrateStorageDto,
   SetOrgQuotaDto,
   SetDefaultFolderDto,
-} from '@postmill-ai/nestjs-libraries/dtos/providers/provider-config.dtos';
-import { AuditLogQueryDto } from '@postmill-ai/nestjs-libraries/dtos/storage/audit-log-query.dto';
+} from '@validpost/nestjs-libraries/dtos/providers/provider-config.dtos';
+import { AuditLogQueryDto } from '@validpost/nestjs-libraries/dtos/storage/audit-log-query.dto';
 
 @ApiTags('Storage Settings')
 @Controller('/settings/storage')

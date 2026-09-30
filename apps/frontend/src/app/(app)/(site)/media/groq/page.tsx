@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const GroqStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/groq/groq-studio').then((m) => m.GroqStudio),
+  () => import('@validpost/frontend/components/media-tools/groq/groq-studio').then((m) => m.GroqStudio),
   { ssr: false }
 );
 

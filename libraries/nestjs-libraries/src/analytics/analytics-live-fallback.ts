@@ -5,11 +5,11 @@
 // reaches back into the facade, so there is no DI cycle.
 
 import { Injectable } from '@nestjs/common';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { mapWithConcurrency } from '@postmill-ai/nestjs-libraries/utils/concurrency';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { AnalyticsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository';
-import { normalizeMetric } from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { mapWithConcurrency } from '@validpost/nestjs-libraries/utils/concurrency';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { AnalyticsRepository } from '@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository';
+import { normalizeMetric } from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
 import { Organization } from '@prisma/client';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';

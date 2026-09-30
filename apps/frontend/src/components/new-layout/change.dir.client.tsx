@@ -4,7 +4,7 @@ import dynamicLoad from 'next/dynamic';
 
 const ChangeDirComponent = dynamicLoad(
   () =>
-    import('@postmill-ai/frontend/components/new-layout/change.dir').then(
+    import('@validpost/frontend/components/new-layout/change.dir').then(
       (mod) => mod.ChangeDir
     ),
   {

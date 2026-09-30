@@ -1,11 +1,11 @@
 import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { OAuthService } from '@postmill-ai/nestjs-libraries/database/prisma/oauth/oauth.service';
-import { ApiKeysService } from '@postmill-ai/nestjs-libraries/database/prisma/api-keys/api-keys.service';
-import { AuthContextResolver } from '@postmill-ai/nestjs-libraries/auth/auth-context.resolver';
-import { HttpForbiddenException } from '@postmill-ai/nestjs-libraries/services/exception.filter';
+import { OAuthService } from '@validpost/nestjs-libraries/database/prisma/oauth/oauth.service';
+import { ApiKeysService } from '@validpost/nestjs-libraries/database/prisma/api-keys/api-keys.service';
+import { AuthContextResolver } from '@validpost/nestjs-libraries/auth/auth-context.resolver';
+import { HttpForbiddenException } from '@validpost/nestjs-libraries/services/exception.filter';
 import * as crypto from 'crypto';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 // How the caller authenticated on the public API. Stamped on the request so
 // downstream guards can apply the right policy posture:

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { OrgProviderConfigService } from '@postmill-ai/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service';
-import { replaceCredentialsMap, clearOrgCredentials, type CredentialEntry } from '@postmill-ai/nestjs-libraries/integrations/credentials';
-import { CHANNEL_ENV_MAPPINGS, getEnvClientInfo } from '@postmill-ai/nestjs-libraries/integrations/channel-env-credentials';
+import { OrgProviderConfigService } from '@validpost/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service';
+import { replaceCredentialsMap, clearOrgCredentials, type CredentialEntry } from '@validpost/nestjs-libraries/integrations/credentials';
+import { CHANNEL_ENV_MAPPINGS, getEnvClientInfo } from '@validpost/nestjs-libraries/integrations/channel-env-credentials';
 
 type DecryptedConfig = {
   id: string;

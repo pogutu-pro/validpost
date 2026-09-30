@@ -10,7 +10,7 @@ import {
   starPoints,
   trianglePoints,
   pointsForShape,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/shape-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/shape-geometry';
 
 const at = (x: number, y: number) => ({ x, y });
 

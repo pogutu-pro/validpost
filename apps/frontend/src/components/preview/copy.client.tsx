@@ -1,10 +1,10 @@
 'use client';
 
-import { Button } from '@postmill-ai/react/form/button';
+import { Button } from '@validpost/react/form/button';
 import copy from 'copy-to-clipboard';
 import { useCallback } from 'react';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const CopyClient = () => {
   const toast = useToaster();
   const t = useT();

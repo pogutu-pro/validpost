@@ -1,4 +1,4 @@
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
 
 /** One addressable output of a doc, as far as alias resolution is concerned. */
 export interface FormatCandidate {

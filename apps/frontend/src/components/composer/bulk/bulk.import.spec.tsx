@@ -3,15 +3,15 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { parseCsv, BulkImport } from './bulk.import';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback || key,
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
-vi.mock('@postmill-ai/frontend/components/ui/data-table', () => ({
+vi.mock('@validpost/frontend/components/ui/data-table', () => ({
   DataTable: () => <div data-testid="data-table" />,
 }));
 

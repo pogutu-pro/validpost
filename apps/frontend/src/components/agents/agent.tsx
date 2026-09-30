@@ -11,15 +11,15 @@ import React, {
 } from 'react';
 import clsx from 'clsx';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useWaitForClass } from '@postmill-ai/helpers/utils/use.wait.for.class';
-import { MultiFileComponent } from '@postmill-ai/frontend/components/files/file.component';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useWaitForClass } from '@validpost/helpers/utils/use.wait.for.class';
+import { MultiFileComponent } from '@validpost/frontend/components/files/file.component';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useIntegrationList } from '@postmill-ai/frontend/components/launches/helpers/use.integration.list';
-import { ChannelFilterSelect } from '@postmill-ai/frontend/components/launches/channel-filter-select';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useIntegrationList } from '@validpost/frontend/components/launches/helpers/use.integration.list';
+import { ChannelFilterSelect } from '@validpost/frontend/components/launches/channel-filter-select';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 
 export const MediaPortal: FC<{
   media: { path: string; id: string }[];

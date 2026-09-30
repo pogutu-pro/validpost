@@ -5,7 +5,7 @@ import { Stage, Layer, Transformer, Rect, Group, Line as KonvaLine, Image as Kon
 import {
   findEqualSpacing,
   type SpacingGuide,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/align-distribute';
+} from '@validpost/nestjs-libraries/media/designer-doc/align-distribute';
 import type Konva from 'konva';
 import { CanvasElements, gradientFillProps } from './elements';
 import { TextEditingOverlay } from './text-editing';
@@ -13,9 +13,9 @@ import { SafeZoneOverlay } from './safe-zones';
 import { Rulers } from './rulers';
 import { ContextMenu } from './context-menu';
 import { fitWithin } from './panels/fit-within';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { DesignerElement, DesignerOutput, VideoOutput } from './designer.store';
 import { composeClipsAtPlayhead } from './video-preview';
 import { VideoCanvasOverlay } from './video-canvas-overlay';
@@ -28,7 +28,7 @@ import { CropOverlay } from './crop-overlay';
 import { ensureFontsUsed } from './fonts';
 import { getImageNaturalSize } from './elements';
 import { computeCoverCrop } from './reflow';
-import { svgToPathElements } from '@postmill-ai/nestjs-libraries/media/designer-doc/svg-import';
+import { svgToPathElements } from '@validpost/nestjs-libraries/media/designer-doc/svg-import';
 import {
   type PenDraft,
   emptyDraft,
@@ -43,7 +43,7 @@ import {
   convertAnchorAt,
   findNodeAt,
 } from './pen-tools';
-import { tracePathNodes } from '@postmill-ai/nestjs-libraries/media/designer-doc/path-geometry';
+import { tracePathNodes } from '@validpost/nestjs-libraries/media/designer-doc/path-geometry';
 import {
   usePaintTools,
   isPaintTool,

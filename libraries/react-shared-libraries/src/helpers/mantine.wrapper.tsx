@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import {
   DecisionEverywhere,
   ModalManager,
-} from '@postmill-ai/frontend/components/layout/new-modal';
+} from '@validpost/frontend/components/layout/new-modal';
 export const MantineWrapper = (props: { children: ReactNode }) => {
   return (
     <ModalManager>

@@ -3,12 +3,12 @@
 import { FC } from 'react';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { getTimezone } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { StreakComponent } from '@postmill-ai/frontend/components/layout/streak.component';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { KebabMenu } from '@postmill-ai/frontend/components/ui/kebab-menu';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { getTimezone } from '@validpost/frontend/components/layout/set.timezone';
+import { StreakComponent } from '@validpost/frontend/components/layout/streak.component';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { KebabMenu } from '@validpost/frontend/components/ui/kebab-menu';
 import { CustomizePopover, DashboardSectionMeta } from './customize.popover';
 import { greetingForUser } from './dashboard.utils';
 

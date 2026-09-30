@@ -1,6 +1,6 @@
 ---
 name: add-auth-provider
-description: Add a platform login/auth provider (OAuth login provider, OIDC/SSO provider, social login) to the Postmill monorepo — a kernel `auth`-domain module plus a `Provider` Prisma enum migration. Use when asked to add a login provider, OAuth sign-in, SSO, or social login.
+description: Add a platform login/auth provider (OAuth login provider, OIDC/SSO provider, social login) to the ValidPost monorepo — a kernel `auth`-domain module plus a `Provider` Prisma enum migration. Use when asked to add a login provider, OAuth sign-in, SSO, or social login.
 ---
 
 # Add an auth (login) provider
@@ -16,12 +16,12 @@ Wire a new sign-in method (OAuth/OIDC) into the platform: kernel auth module + `
 
 - Auth providers are **platform-level**, not org-level: they control sign-in for the whole deployment. They are managed by a **separate administration app**; this repo only **reads** `AuthProviderConfig` rows (DB-first via `ctx.extras.authProviderRepo`, env-bootstrap fallback, decrypt via `ctx.encryption`). There is no write API or admin UI here.
 - `LOCAL` (email/password) is always available; registration is gated by `DISABLE_REGISTRATION` (`AuthService.canRegister`, `apps/backend/src/services/auth/auth.service.ts:68`). `Provider.GENERIC` (OIDC SSO) **bypasses** that gate.
-- OIDC SSO is already covered by the `GENERIC` provider (`libraries/providers/generic/src/v1/auth.adapter.ts`) via `POSTMILL_OAUTH_*` env vars. **Do not add a provider just to point at a different OIDC IdP** — confirm the need is real first.
+- OIDC SSO is already covered by the `GENERIC` provider (`libraries/providers/generic/src/v1/auth.adapter.ts`) via `VALIDPOST_OAUTH_*` env vars. **Do not add a provider just to point at a different OIDC IdP** — confirm the need is real first.
 
 ## Procedure
 
 1. **Enum first.** Add the new uppercase value to `enum Provider` (`libraries/nestjs-libraries/src/database/prisma/schema.prisma:1621`: `LOCAL, GITHUB, GOOGLE, FARCASTER, WALLET, GENERIC`) via a committed migration — one line `ALTER TYPE "Provider" ADD VALUE '<NEW>';`, following the medialocker precedent `migrations/20260714150606_add_medialocker_storage_type/migration.sql` (detail: `agents/database.md` § Enum additions). Run `pnpm run prisma-generate`.
-2. **Scaffold** `libraries/providers/<id>/` per the universal recipe (`agents/providers/overview.md` § Package layout): `package.json` (`@postmill-ai/provider-<id>`, dep on `@postmill-ai/provider-kernel`), `src/index.ts` default-exporting the module array, `src/v1/{index.ts, metadata.ts, auth.adapter.ts}`.
+2. **Scaffold** `libraries/providers/<id>/` per the universal recipe (`agents/providers/overview.md` § Package layout): `package.json` (`@validpost/provider-<id>`, dep on `@validpost/provider-kernel`), `src/index.ts` default-exporting the module array, `src/v1/{index.ts, metadata.ts, auth.adapter.ts}`.
 3. **Implement `AuthCapability`** (`libraries/providers/kernel/src/domains/auth.ts`) — reference `libraries/providers/github/src/v1/auth.adapter.ts`:
    - `generateLink(query?)` → authorization URL; `getToken(code, redirectUri?)` → access token; `getUser(providerToken)` → `AuthUserInfo` (`email`, `id` required; may return `false`); optional `postRegistration(providerToken, orgId)` (errors swallowed by `AuthService`, never fails registration).
    - Manifest: `domain: 'auth'`, lowercase `providerId`, `version: 'v1'`, `status: 'active'`, `authType: 'oauth2'`, `credentialFields: []` (credentials come from `AuthProviderConfig`/env, not org kernel credentials).
@@ -45,6 +45,6 @@ vitest run --root apps/backend         # manager + auth controller specs
 - **Treating this as org-level config.** Auth providers have no per-org settings UI and no write API in this repo — credentials live in `AuthProviderConfig` (written by the external admin app) or deployment env vars.
 - **Copying the WALLET env-gate pattern.** The `WALLET` gate in `getProviders()` keys on `STRIPE_PUBLISHABLE_KEY` — a known misalignment flagged in a code comment (`auth-provider.manager.ts:123-124`). Gate on your provider's real env credentials.
 - **Skipping the Prisma enum migration.** The `provider` column is the `Provider` enum; a kernel module alone is not enough — without the enum value, `AuthProviderRepository.findByProvider` and the DB rows cannot reference it.
-- **Adding a provider for OIDC SSO.** `Provider.GENERIC` + `POSTMILL_OAUTH_*` already covers arbitrary OIDC IdPs and bypasses `DISABLE_REGISTRATION`.
+- **Adding a provider for OIDC SSO.** `Provider.GENERIC` + `VALIDPOST_OAUTH_*` already covers arbitrary OIDC IdPs and bypasses `DISABLE_REGISTRATION`.
 - **Resurrecting legacy paths.** Comments referencing the `PROVIDER_KERNEL=legacy` decorator path (e.g. in the GitHub adapter) describe removed code — resolution is only through the kernel via `AuthProviderManager.getProvider`.
 - **Bare `fetch` or plaintext secrets.** Outbound HTTP must go through `ctx.fetch`; DB-stored `clientId`/`clientSecret` are AES-GCM encrypted — always `await ctx.encryption.decrypt(...)`.

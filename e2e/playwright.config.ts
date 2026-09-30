@@ -9,7 +9,7 @@ export default defineConfig({
   workers: 1,
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
   use: {
-    baseURL: 'https://app.postmill.ai',
+    baseURL: 'https://app.validpost.io',
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

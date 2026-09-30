@@ -35,7 +35,7 @@ interface LineChartProps {
 export const LineChart: FC<LineChartProps> = ({
   series,
   comparisonSeries,
-  color = 'var(--chart-1, #2b5cd3)',
+  color = 'var(--chart-1, #e1306c)',
   comparisonColor = 'var(--chart-muted, #71767b)',
   height = 300,
   format = 'number',
@@ -44,7 +44,7 @@ export const LineChart: FC<LineChartProps> = ({
 }) => {
   const ref = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<DrawChart | null>(null);
-  const resolvedColor = useCSSToken(color, '#2b5cd3');
+  const resolvedColor = useCSSToken(color, '#D42A66');
   const resolvedComparisonColor = useCSSToken(comparisonColor, '#71767b');
   const bgColor = useCSSToken('var(--new-bgColorInner)', '#1a1919');
   const textColor = useCSSToken('var(--new-btn-text)', '#ffffff');
@@ -148,7 +148,7 @@ export const LineChart: FC<LineChartProps> = ({
             if (endIdx === -1 || startIdx > endIdx) return; // no intersection
             const left = xScale.getPixelForValue(startIdx);
             const right = xScale.getPixelForValue(endIdx);
-            const bandColor = band.color || '#2b5cd3';
+            const bandColor = band.color || '#D42A66';
             ctx2.save();
             ctx2.fillStyle = hexToRgba(bandColor, 0.1);
             ctx2.fillRect(left, area.top, Math.max(right - left, 2), area.bottom - area.top);

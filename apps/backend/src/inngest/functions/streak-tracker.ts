@@ -1,7 +1,7 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { streakStartEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { EmailActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/email.activity';
-import { PostActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/post.activity';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { streakStartEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { EmailActivity } from '@validpost/nestjs-libraries/inngest/activities/email.activity';
+import { PostActivity } from '@validpost/nestjs-libraries/inngest/activities/post.activity';
 
 export const createStreakTracker = (
   emailActivity: EmailActivity,

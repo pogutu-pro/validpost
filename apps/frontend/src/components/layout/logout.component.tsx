@@ -1,10 +1,10 @@
 'use client';
 
 import React, { FC, useCallback } from 'react';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const LogoutComponent: FC<{ isIcon?: boolean }> = ({ isIcon }) => {
   const fetch = useFetch();
   const { isSecured } = useVariables();
@@ -47,8 +47,8 @@ export const LogoutComponent: FC<{ isIcon?: boolean }> = ({ isIcon }) => {
             xmlns="http://www.w3.org/2000/svg"
             data-tooltip-id="tooltip"
             data-tooltip-content={t(
-              'logout_from_postmill',
-              'Logout from Postmill'
+              'logout_from_validpost',
+              'Logout from ValidPost'
             )}
           >
             <path
@@ -58,7 +58,7 @@ export const LogoutComponent: FC<{ isIcon?: boolean }> = ({ isIcon }) => {
           </svg>
         ) : (
           <span className="text-dangerText">
-            {t('logout_from_postmill', 'Logout from Postmill')}
+            {t('logout_from_validpost', 'Logout from ValidPost')}
           </span>
         )}
       </button>

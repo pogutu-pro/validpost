@@ -4,7 +4,7 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { FullscreenButton } from './fullscreen-button';
 import { useFullscreenSurface } from './use-fullscreen';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 

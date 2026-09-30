@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { getAccess } from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
+import { getAccess } from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
 
 /**
  * Every specialist prompt starts with this. Specialists resolve relative

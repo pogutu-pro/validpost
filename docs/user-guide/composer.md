@@ -1,6 +1,6 @@
 # Composer
 
-The composer is Postmill's post creation and scheduling interface. It supports multi-channel
+The composer is ValidPost's post creation and scheduling interface. It supports multi-channel
 publishing with platform-specific editing, media attachment, polls, first comments, short links,
 per-channel overrides, and a preflight validation panel.
 
@@ -44,7 +44,7 @@ generation, linting, and hashtag suggestions.
 
 ## Media Attachment
 
-Drag and drop files into the upload area, or click to browse your media library. Postmill
+Drag and drop files into the upload area, or click to browse your media library. ValidPost
 validates:
 
 - **Max media count per platform**: Ranges from 0 (text-only platforms like Kick, Twitch, Nostr)

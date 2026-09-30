@@ -1,6 +1,6 @@
 # Configuration
 
-Every environment variable Postmill recognises, sourced from `.env.example`. All variables are read at boot time. Most feature-specific provider credentials (channel OAuth apps, AI providers, storage, short links) are configured per-organization in-app; this page covers the deployment-level variables.
+Every environment variable ValidPost recognises, sourced from `.env.example`. All variables are read at boot time. Most feature-specific provider credentials (channel OAuth apps, AI providers, storage, short links) are configured per-organization in-app; this page covers the deployment-level variables.
 
 ## Required
 
@@ -9,8 +9,8 @@ Every environment variable Postmill recognises, sourced from `.env.example`. All
 | `DATABASE_URL` | — | PostgreSQL connection string for the application database |
 | `REDIS_URL` | — | Redis connection string. Use `redis://` for local Redis or `rediss://` for Upstash / TLS endpoints |
 | `JWT_SECRET` | — | Secret key for signing JWT tokens; also used as the encryption key fallback |
-| `FRONTEND_URL` | — | Public-facing URL of the application (e.g. `https://postmill.example.com`) |
-| `NEXT_PUBLIC_BACKEND_URL` | — | Public URL of the backend API (e.g. `https://postmill.example.com/api`) |
+| `FRONTEND_URL` | — | Public-facing URL of the application (e.g. `https://validpost.example.com`) |
+| `NEXT_PUBLIC_BACKEND_URL` | — | Public URL of the backend API (e.g. `https://validpost.example.com/api`) |
 | `BACKEND_INTERNAL_URL` | — | Internal URL for backend-to-backend calls (e.g. `http://localhost:3000`) |
 | `MAIN_URL` | — | Alternative public URL, used in Docker Compose alongside `FRONTEND_URL` |
 | `IS_GENERAL` | — | Must be `true` for standard deployments |
@@ -128,7 +128,7 @@ Per-provider AI budgets are configured per-organization in **Settings → AI**. 
 |----------|---------|---------|
 | `API_LIMIT` | `600` | Public API rate limit per hour |
 | `OPENAI_APP_CHALLENGE` | — | Challenge string for OpenAI apps, served at `/.well-known/openai-apps-challenge` |
-| `MOBILE_APP_SCHEME` | `postmill://auth/callback` | Deep-link scheme the mobile OAuth callback (`GET /auth/oauth-mobile-callback`) redirects to |
+| `MOBILE_APP_SCHEME` | `validpost://auth/callback` | Deep-link scheme the mobile OAuth callback (`GET /auth/oauth-mobile-callback`) redirects to |
 | `NEXT_PUBLIC_OVERRIDE_BACKEND_URL` | — | Overrides the token endpoint advertised in the MCP OAuth discovery document (`/.well-known/oauth-authorization-server`); falls back to the backend URL |
 | `AGENT_MEDIA_SSO_KEY` | — | JWT signing key for the optional agent-media.ai SSO integration. Unset = `GET /user/agent-media-sso` returns `{ url: null }` |
 
@@ -158,16 +158,16 @@ per-provider setup: [Subscriptions & payment providers](./subscriptions.md).
 | `PAYPAL_CLIENT_SECRET` | — | PayPal REST app secret |
 | `PAYPAL_WEBHOOK_ID` | — | Id of the registered PayPal webhook (signature verification) |
 | `PAYPAL_ENV` | `live` | `live` or `sandbox` |
-| `PAYPAL_BRAND_NAME` | `Postmill` | Name shown on PayPal's approval page |
+| `PAYPAL_BRAND_NAME` | `ValidPost` | Name shown on PayPal's approval page |
 | `APPLE_IAP_BUNDLE_ID` | — | Mobile app bundle id — enables the App Store provider |
 | `APPLE_IAP_ISSUER_ID` / `APPLE_IAP_KEY_ID` / `APPLE_IAP_PRIVATE_KEY` | — | App Store Connect In-App Purchase key (base64 `.p8`) |
 | `APPLE_IAP_APP_APPLE_ID` | — | Numeric Apple ID of the app |
 | `APPLE_IAP_ENV` / `APPLE_IAP_ALLOW_SANDBOX` | `Production` / — | Store environment; `true` also accepts sandbox purchases |
-| `PAYMENTS_APPLE_PRODUCT_PREFIX` | `postmill` | App Store product-id prefix |
+| `PAYMENTS_APPLE_PRODUCT_PREFIX` | `validpost` | App Store product-id prefix |
 | `GOOGLE_PLAY_PACKAGE_NAME` | — | Mobile app package name — enables the Google Play provider |
 | `GOOGLE_PLAY_SERVICE_ACCOUNT_JSON` | — | Base64 service-account key with Play Developer API access |
 | `GOOGLE_PLAY_RTDN_SERVICE_ACCOUNT_EMAIL` / `GOOGLE_PLAY_RTDN_AUDIENCE` | — | Pub/Sub push authentication (service account email; audience defaults to the webhook URL) |
-| `PAYMENTS_GOOGLE_PRODUCT_PREFIX` | `postmill` | Google Play product-id prefix |
+| `PAYMENTS_GOOGLE_PRODUCT_PREFIX` | `validpost` | Google Play product-id prefix |
 | `ADDON_STORAGE_GB_PER_PACK` | `25` | Gigabytes added by one storage add-on pack |
 | `ADDON_VIDEO_EXPORTS_PER_PACK` | `50` | Video exports added by one video-exports add-on pack |
 | `ADDON_CHANNELS_PER_PACK` | `5` | Channels added by one channels add-on pack |
@@ -219,15 +219,15 @@ See [OAuth / SSO](./oauth-sso.md) for a complete setup walkthrough.
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `POSTMILL_GENERIC_OAUTH` | `false` | Set to `true` to enable generic OIDC login |
-| `POSTMILL_OAUTH_AUTH_URL` | — | OIDC provider authorization endpoint |
-| `POSTMILL_OAUTH_TOKEN_URL` | — | OIDC provider token endpoint |
-| `POSTMILL_OAUTH_USERINFO_URL` | — | OIDC provider userinfo endpoint |
-| `POSTMILL_OAUTH_CLIENT_ID` | — | OIDC client ID |
-| `POSTMILL_OAUTH_CLIENT_SECRET` | — | OIDC client secret |
-| `POSTMILL_OAUTH_SCOPE` | `openid profile email` | OIDC scopes to request |
-| `NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME` | — | Name shown on the login button |
-| `NEXT_PUBLIC_POSTMILL_OAUTH_LOGO_URL` | — | Logo URL shown on the login button |
+| `VALIDPOST_GENERIC_OAUTH` | `false` | Set to `true` to enable generic OIDC login |
+| `VALIDPOST_OAUTH_AUTH_URL` | — | OIDC provider authorization endpoint |
+| `VALIDPOST_OAUTH_TOKEN_URL` | — | OIDC provider token endpoint |
+| `VALIDPOST_OAUTH_USERINFO_URL` | — | OIDC provider userinfo endpoint |
+| `VALIDPOST_OAUTH_CLIENT_ID` | — | OIDC client ID |
+| `VALIDPOST_OAUTH_CLIENT_SECRET` | — | OIDC client secret |
+| `VALIDPOST_OAUTH_SCOPE` | `openid profile email` | OIDC scopes to request |
+| `NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME` | — | Name shown on the login button |
+| `NEXT_PUBLIC_VALIDPOST_OAUTH_LOGO_URL` | — | Logo URL shown on the login button |
 
 ## Social login bootstrap
 
@@ -275,7 +275,7 @@ These channel and comms variables are the only provider credentials read from th
 | `SLACK_SIGNING_SECRET` | Slack comms platform app — webhook signing secret (comms only; see [Platform Comms Apps](./platform-comms-apps.md#slack)) |
 | `DISCORD_PUBLIC_KEY` | Discord comms platform app — interaction webhook verification (comms only; see [Platform Comms Apps](./platform-comms-apps.md#discord)) |
 | `LINE_CHANNEL_SECRET` | LINE comms platform app — webhook signature verification (comms only; see [Platform Comms Apps](./platform-comms-apps.md#line)) |
-| `POSTMILL_OAUTH_CLIENT_ID` / `POSTMILL_OAUTH_CLIENT_SECRET` | Custom OAuth channel (shared with generic OIDC login) |
+| `VALIDPOST_OAUTH_CLIENT_ID` / `VALIDPOST_OAUTH_CLIENT_SECRET` | Custom OAuth channel (shared with generic OIDC login) |
 
 Three opt-in flags add the platform channel apps as **login providers** (the login page never advertises a provider whose credentials are incomplete). Facebook and LinkedIn reuse the channel creds above; X login needs its own OAuth 2.0 client pair — the OAuth 1.0a `X_API_KEY` / `X_API_SECRET` are channel-only. See [Platform Channel Apps → SSO dual-use](./platform-channel-apps.md#sso-dual-use-login-with-the-same-app).
 
@@ -311,7 +311,7 @@ Three opt-in flags add the platform channel apps as **login providers** (the log
 | `FACEBOOK_PIXEL_ACCESS_TOKEN` | — | Meta Conversions API access token for server-side pixel events |
 | `NEXT_PUBLIC_FACEBOOK_PIXEL` | — | Meta pixel ID (browser-visible). Server-side pixel events fire only when both this and `FACEBOOK_PIXEL_ACCESS_TOKEN` are set |
 
-**Provider errors vs. Postmill errors.** When an organization's own AI / media provider
+**Provider errors vs. ValidPost errors.** When an organization's own AI / media provider
 (OpenAI, Gemini, Runway, …) rejects a request — bad key, quota or billing limit, rate limit,
 invalid request, outage — the API answers **502** with
 `{ error: "ProviderUpstreamError", provider, providerName, kind, upstreamStatus, message, settingsUrl }`
@@ -320,7 +320,7 @@ billing limit was reached (HTTP 429): …"). `kind` is one of `auth`, `quota`, `
 `invalid_request`, `timeout`, `unavailable`, `unknown`. The backend logs one `provider upstream error <domain>/<provider> <kind> HTTP <status>` warning per occurrence. Sentry receives **only**
 `unavailable` / `timeout` / `unknown` kinds, as warnings tagged `provider` + `kind` (provider outages
 are worth seeing; a user's expired key or exhausted plan is not an application error). A 500 from
-the API therefore always means a Postmill-side failure.
+the API therefore always means a ValidPost-side failure.
 
 ## AI Designer chatbot
 
@@ -334,11 +334,11 @@ the API therefore always means a Postmill-side failure.
 | `AI_DESIGNER_ASSET_TIMEOUT_MS` | `90000` | Asset (image generation/stock) step deadline |
 | `AI_DESIGNER_STUCK_SESSION_MINUTES` | `15` | Planning/executing sessions untouched longer than this roll back to awaiting_plan |
 | `TRUST_PROXY_HOPS` | (disabled) | Number of XFF-appending reverse proxies in front of the backend. Unset/invalid = key on the socket peer address (safe default, not spoofable). When set, per-IP rate buckets key on the Nth-from-right `x-forwarded-for` entry. Applies to the `/ai-designer` connect-rate bucket **and** the HTTP throttler's per-IP buckets (login/register/enterprise/public-report) and the MCP rate limits. Operators behind a proxy **must** set it to the exact number of appending proxies — overestimating lands in attacker-controlled left-most XFF entries and makes the limits spoofable |
-| `SESSION_TTL_MINUTES` | — | agent-mesh package env var — no Postmill effect (see caveat below) |
+| `SESSION_TTL_MINUTES` | — | agent-mesh package env var — no ValidPost effect (see caveat below) |
 | `ENABLE_CIRCUIT_BREAKER` | — | agent-mesh package env var — forced off (see caveat below) |
-| `MCP_MAX_RETRIES` | — | agent-mesh package env var — no Postmill effect (see caveat below) |
+| `MCP_MAX_RETRIES` | — | agent-mesh package env var — no ValidPost effect (see caveat below) |
 
-`SESSION_TTL_MINUTES`, `ENABLE_CIRCUIT_BREAKER`, and `MCP_MAX_RETRIES` belong to the bundled `@reaatech/agent-mesh` package's env schema, not to Postmill itself. `agent-mesh-env.stash.ts` reads, neutralizes, and restores them around the package's import-time env parse: out-of-range values are stashed aside so they cannot crash the boot, and `ENABLE_CIRCUIT_BREAKER` is forced off because the package's global breaker is keyed by agent id only — Postmill uses the conductor's per-`(org, agent)` breaker instead. Setting these vars does not configure Postmill behaviour.
+`SESSION_TTL_MINUTES`, `ENABLE_CIRCUIT_BREAKER`, and `MCP_MAX_RETRIES` belong to the bundled `@reaatech/agent-mesh` package's env schema, not to ValidPost itself. `agent-mesh-env.stash.ts` reads, neutralizes, and restores them around the package's import-time env parse: out-of-range values are stashed aside so they cannot crash the boot, and `ENABLE_CIRCUIT_BREAKER` is forced off because the package's global breaker is keyed by agent id only — ValidPost uses the conductor's per-`(org, agent)` breaker instead. Setting these vars does not configure ValidPost behaviour.
 
 ## Local development feature flags
 
@@ -378,9 +378,9 @@ Set any of these to `true` or `1` to disable the corresponding subsystem during 
 | `COLLAB_REDIS_ADAPTER` | — | Reserved for the future Yjs-over-Redis adapter |
 | `OUTBOUND_HTTP_TIMEOUT_MS` | `30000` | Bound provider and webhook calls |
 | `WEBHOOK_TIMEOUT_MS` | `10000` | Outbound webhook delivery timeout |
-| `WEBHOOK_SIGNING_SECRET` | — | HMAC secret for `X-Postmill-Signature`. When unset, derives from `JWT_SECRET` |
+| `WEBHOOK_SIGNING_SECRET` | — | HMAC secret for `X-ValidPost-Signature`. When unset, derives from `JWT_SECRET` |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | — | OTLP/HTTP tracing endpoint. Off unless set |
-| `OTEL_SERVICE_NAME` | `postmill-backend` | OpenTelemetry service name |
+| `OTEL_SERVICE_NAME` | `validpost-backend` | OpenTelemetry service name |
 | `DATABASE_CONNECTION_LIMIT` | — | Prisma connection pool size appended to `DATABASE_URL` |
 | `DATABASE_POOL_TIMEOUT` | — | Prisma pool timeout appended to `DATABASE_URL` |
 | `ALLOW_DESTRUCTIVE_SCHEMA` | `false` | Allow `prisma db push` to perform destructive diffs |

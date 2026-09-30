@@ -3,11 +3,11 @@
 import 'reflect-metadata';
 import { FC, useCallback } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import dayjs from 'dayjs';
 import { useParams } from 'next/navigation';
-import { Composer } from '@postmill-ai/frontend/components/composer/composer';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
+import { Composer } from '@validpost/frontend/components/composer/composer';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
 export const StandaloneModal: FC = () => {
   const fetch = useFetch();
   const params = useParams<{ platform: string }>();

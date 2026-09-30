@@ -7,12 +7,12 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { PublicCatalogDto } from '@postmill-ai/nestjs-libraries/dtos/providers/public-catalog.dto';
+import { PublicCatalogDto } from '@validpost/nestjs-libraries/dtos/providers/public-catalog.dto';
 import {
   isPublicCatalogDomain,
   PUBLIC_CATALOG_DOMAINS,
   PublicCatalogService,
-} from '@postmill-ai/nestjs-libraries/providers/public-catalog.service';
+} from '@validpost/nestjs-libraries/providers/public-catalog.service';
 
 /**
  * Anonymous integrations catalogue — public (NOT in the authenticatedController

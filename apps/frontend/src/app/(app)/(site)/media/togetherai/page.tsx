@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const TogetherAiStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/togetherai/togetherai-studio').then((m) => m.TogetherAiStudio),
+  () => import('@validpost/frontend/components/media-tools/togetherai/togetherai-studio').then((m) => m.TogetherAiStudio),
   { ssr: false }
 );
 

@@ -11,13 +11,13 @@ vi.mock('@copilotkit/react-core', () => ({
     return <div data-testid="copilotkit">{children}</div>;
   },
 }));
-vi.mock('@postmill-ai/helpers/utils/csrf.header', () => ({
+vi.mock('@validpost/helpers/utils/csrf.header', () => ({
   csrfHeader: () => ({ 'x-csrf-token': 'tok' }),
 }));
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({ backendUrl: 'https://api.example' }),
 }));
-vi.mock('@postmill-ai/frontend/components/layout/use-ai-active', () => ({
+vi.mock('@validpost/frontend/components/layout/use-ai-active', () => ({
   useAiActive: () => aiActive,
 }));
 

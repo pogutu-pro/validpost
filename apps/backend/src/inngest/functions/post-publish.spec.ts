@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: {
     // Inngest v4: createFunction(options, handler) — triggers live in options.
     createFunction: vi.fn((opts: any, handler: any) => ({
@@ -13,7 +13,7 @@ vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
 // post-publish derives its per-provider task queues at import time from the
 // generated provider modules (the kernel's single source of truth). Mock a
 // small social subset (plus one non-social module that must be ignored).
-vi.mock('@postmill-ai/backend/providers.generated', () => ({
+vi.mock('@validpost/backend/providers.generated', () => ({
   providerModules: [
     { manifest: { domain: 'social', providerId: 'x', version: 'v1' }, create: () => ({ identifier: 'x', maxConcurrentJob: 1 }) },
     { manifest: { domain: 'social', providerId: 'instagram', version: 'v1' }, create: () => ({ identifier: 'instagram', maxConcurrentJob: 400 }) },
@@ -24,9 +24,9 @@ vi.mock('@postmill-ai/backend/providers.generated', () => ({
 }));
 
 import { createPostPublishFunctions } from './post-publish';
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { postPublishEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { providerModules } from '@postmill-ai/backend/providers.generated';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { postPublishEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { providerModules } from '@validpost/backend/providers.generated';
 
 describe('createPostPublishFunctions', () => {
   const postActivity = {} as any;

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { UsersService } from '@postmill-ai/nestjs-libraries/database/prisma/users/users.service';
-import { acquireLock } from '@postmill-ai/nestjs-libraries/redis/redis-lock';
+import { UsersService } from '@validpost/nestjs-libraries/database/prisma/users/users.service';
+import { acquireLock } from '@validpost/nestjs-libraries/redis/redis-lock';
 
 @Injectable()
 export class SessionCleanupService {

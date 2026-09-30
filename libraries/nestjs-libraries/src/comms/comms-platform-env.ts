@@ -8,7 +8,7 @@
 // seeded into the database at boot — env is resolved live, per request, and
 // persisted only when an org explicitly connects via platform-connect.
 
-import { hmacSha256Hex } from '@postmill-ai/provider-kernel';
+import { hmacSha256Hex } from '@validpost/provider-kernel';
 
 export type CommsPlatformConnect = 'env';
 
@@ -19,7 +19,7 @@ interface CommsPlatformEnvMapping {
   // platformConfigured requires ALL of them present.
   credentialEnvs: Array<{ env: string; key: string }>;
   // True when the operator must paste the platform webhook URL into the
-  // vendor console (Discord); false when Postmill registers it
+  // vendor console (Discord); false when ValidPost registers it
   // programmatically (Telegram setWebhook).
   manualWebhookUrl: boolean;
 }
@@ -78,7 +78,7 @@ export function isCommsPlatformConfigured(identifier: string): boolean {
 // echoes this value back in X-Telegram-Bot-Api-Secret-Token; deriving it
 // deterministically from the bot token keeps `registerWebhook` and inbound
 // verification in agreement without another env var or stored secret.
-const TELEGRAM_PLATFORM_WEBHOOK_SALT = 'postmill-comms-platform-webhook';
+const TELEGRAM_PLATFORM_WEBHOOK_SALT = 'validpost-comms-platform-webhook';
 
 export function getTelegramPlatformWebhookSecret(): string | undefined {
   const token = process.env.TELEGRAM_TOKEN;

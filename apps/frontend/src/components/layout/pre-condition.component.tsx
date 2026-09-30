@@ -2,10 +2,10 @@
 
 import React, { FC, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ModalWrapperComponent } from '@postmill-ai/frontend/components/composer/modal.wrapper.component';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { ModalWrapperComponent } from '@validpost/frontend/components/composer/modal.wrapper.component';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const PreConditionComponentModal: FC = () => {
   const modal = useModals();
@@ -15,7 +15,7 @@ export const PreConditionComponentModal: FC = () => {
       <div className="whitespace-pre-line">
         {t(
           'precondition_connected_previously',
-          'This social channel was connected previously to another Postmill account.\nTo continue, please fast-track your trial for an immediate charge.\n\n** Please be advised that the account will not eligible for a refund, and the charge is final.'
+          'This social channel was connected previously to another ValidPost account.\nTo continue, please fast-track your trial for an immediate charge.\n\n** Please be advised that the account will not eligible for a refund, and the charge is final.'
         )}
       </div>
       <div className="flex gap-[2px] justify-center">

@@ -6,17 +6,17 @@ import Image from 'next/image';
 import { useDrag } from 'react-dnd';
 import { Post, State, Tags, Integration } from '@prisma/client';
 import type { Integrations } from './context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { readableTextColor } from '@postmill-ai/frontend/components/shared/readable-text-color';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { VideoOrImage } from '@postmill-ai/react/helpers/video.or.image';
-import { stripHtmlValidation } from '@postmill-ai/helpers/utils/strip.html.validation';
-import { isVideoPath } from '@postmill-ai/helpers/utils/video.extensions';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { isUSCitizen } from '@postmill-ai/frontend/components/launches/helpers/isuscitizen.utils';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { CreationMethodBadge } from '@postmill-ai/frontend/components/launches/creation.method.badge';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { readableTextColor } from '@validpost/frontend/components/shared/readable-text-color';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { VideoOrImage } from '@validpost/react/helpers/video.or.image';
+import { stripHtmlValidation } from '@validpost/helpers/utils/strip.html.validation';
+import { isVideoPath } from '@validpost/helpers/utils/video.extensions';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { isUSCitizen } from '@validpost/frontend/components/launches/helpers/isuscitizen.utils';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { CreationMethodBadge } from '@validpost/frontend/components/launches/creation.method.badge';
 import {
   formatCompactNumber,
   ViewsIcon,
@@ -26,7 +26,7 @@ import {
 import {
   KebabMenu,
   KebabMenuItem,
-} from '@postmill-ai/frontend/components/ui/kebab-menu';
+} from '@validpost/frontend/components/ui/kebab-menu';
 import dayjs from 'dayjs';
 
 export const CalendarItem: FC<{
@@ -157,17 +157,17 @@ export const CalendarItem: FC<{
   const statusDot = (() => {
     switch (state) {
       case 'PUBLISHED':
-        return { cls: 'bg-green-500', tip: t('published', 'Published') };
+        return { cls: 'bg-vpPublished', tip: t('published', 'Published') };
       case 'QUEUE':
-        return { cls: 'bg-blue-500', tip: t('scheduled', 'Scheduled') };
+        return { cls: 'bg-vpScheduled', tip: t('scheduled', 'Scheduled') };
       case 'PUBLISHING':
         return {
-          cls: 'bg-blue-500 animate-pulse',
+          cls: 'bg-vpScheduled animate-pulse',
           tip: t('publishing', 'Publishing'),
         };
       case 'ERROR':
         return {
-          cls: 'bg-red-500',
+          cls: 'bg-vpFailed',
           tip:
             post.error ||
             t(
@@ -176,7 +176,7 @@ export const CalendarItem: FC<{
             ),
         };
       case 'DRAFT':
-        return { cls: 'bg-amber-500', tip: t('draft', 'Draft') };
+        return { cls: 'bg-vpDraft', tip: t('draft', 'Draft') };
       default:
         return null;
     }

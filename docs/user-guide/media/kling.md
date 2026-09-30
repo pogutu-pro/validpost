@@ -4,7 +4,7 @@
 
 ## Where to configure
 
-Kling runs through the **fal.ai** adapter, so you configure a single fal.ai API key at **Settings → Media**. The registry/config identifier is `fal`, but the studio title and nav remain "Kling." Postmill stores the key encrypted at rest; there is no environment-variable fallback.
+Kling runs through the **fal.ai** adapter, so you configure a single fal.ai API key at **Settings → Media**. The registry/config identifier is `fal`, but the studio title and nav remain "Kling." ValidPost stores the key encrypted at rest; there is no environment-variable fallback.
 
 See [Settings](../settings) for provider setup and the media capability matrix.
 

@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC, useCallback } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { HeyGenJob } from './use-heygen';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
 
 export const RenderQueue: FC<{ jobs: HeyGenJob[] | undefined; isLoading: boolean }> = ({ jobs, isLoading }) => {
   const t = useT();
@@ -41,7 +41,7 @@ export const RenderQueue: FC<{ jobs: HeyGenJob[] | undefined; isLoading: boolean
         return;
       }
       const integrations = await integrationsRes.json();
-      const { Composer } = await import('@postmill-ai/frontend/components/composer/composer');
+      const { Composer } = await import('@validpost/frontend/components/composer/composer');
       const dayjs = (await import('dayjs')).default;
       modal.openModal({
         fullScreen: true,
@@ -115,7 +115,7 @@ export const RenderQueue: FC<{ jobs: HeyGenJob[] | undefined; isLoading: boolean
                 <button
                   type="button"
                   onClick={() => post(job)}
-                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-[#2B5CD3] text-white text-[12px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+                  className="flex-1 px-[10px] py-[7px] rounded-[8px] bg-btnPrimary text-white text-[12px] font-[500] hover:bg-btnPrimary/80 transition-all"
                 >
                   {t('post', 'Post')}
                 </button>

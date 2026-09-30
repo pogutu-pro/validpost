@@ -14,7 +14,7 @@ import {
   ProviderModule,
   WebhookReceipt,
   parseStoreProductId,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 type SubscriptionPurchase = androidpublisher_v3.Schema$SubscriptionPurchaseV2;
 
@@ -47,7 +47,7 @@ const RTDN = {
  *   state, only the token. Push requests are authenticated by the OIDC token
  *   Pub/Sub attaches (audience = this endpoint, issuer = the configured push
  *   service account).
- * - Binding: the app sets `obfuscatedExternalAccountId` to the Postmill org id
+ * - Binding: the app sets `obfuscatedExternalAccountId` to the ValidPost org id
  *   at purchase time; `customerRef` is the purchase token. Play rotates the
  *   token on plan changes (`linkedPurchaseToken`) — the event carries the NEW
  *   token and the org id hint so the orchestrator re-points the org.
@@ -96,7 +96,7 @@ export class GooglePaymentsAdapter implements PaymentsCapability {
   }
 
   private get _prefix(): string {
-    return process.env.PAYMENTS_GOOGLE_PRODUCT_PREFIX || 'postmill';
+    return process.env.PAYMENTS_GOOGLE_PRODUCT_PREFIX || 'validpost';
   }
 
   // S-17 / known proxy gap (same as the google auth adapter): googleapis builds

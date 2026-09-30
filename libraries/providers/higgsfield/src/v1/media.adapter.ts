@@ -15,7 +15,7 @@ import {
   ProviderModule,
   mediaUpstreamError,
   mediaUpstreamFailure,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Higgsfield (platform.higgsfield.ai) — own-key media provider. Auth is a TWO-part credential
 // (`KEY_ID` + `KEY_SECRET`) sent as a single header `Authorization: Key <id>:<secret>` (see the

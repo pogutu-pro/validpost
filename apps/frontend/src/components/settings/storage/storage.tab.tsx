@@ -1,20 +1,20 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import ProviderListShell from '@postmill-ai/frontend/components/settings/shared/provider-list-shell';
-import ProviderModalTitle from '@postmill-ai/frontend/components/settings/shared/provider-modal-title';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useProviderCatalog } from '@postmill-ai/frontend/components/settings/shared/use-provider-catalog';
-import { ProviderFormModal } from '@postmill-ai/frontend/components/settings/storage/provider-form.modal';
-import { MigrationModal } from '@postmill-ai/frontend/components/settings/storage/migration.modal';
-import { AuditTab } from '@postmill-ai/frontend/components/settings/storage/audit.tab';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import ProviderListShell from '@validpost/frontend/components/settings/shared/provider-list-shell';
+import ProviderModalTitle from '@validpost/frontend/components/settings/shared/provider-modal-title';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useProviderCatalog } from '@validpost/frontend/components/settings/shared/use-provider-catalog';
+import { ProviderFormModal } from '@validpost/frontend/components/settings/storage/provider-form.modal';
+import { MigrationModal } from '@validpost/frontend/components/settings/storage/migration.modal';
+import { AuditTab } from '@validpost/frontend/components/settings/storage/audit.tab';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
 
 const formatBytes = (bytes: number): string => {
   if (bytes === 0) return '0 B';
@@ -412,7 +412,7 @@ export const StorageTab: React.FC<{ activeSubTab?: SubTab }> = ({
           onRemove={(id) => handleDelete(id)}
           ProviderIconComponent={ProviderIcon}
           // The whole row opens the config modal — no Edit/Configure buttons.
-          // Local (Postmill Storage) is the built-in store: display-only row,
+          // Local (ValidPost Storage) is the built-in store: display-only row,
           // no settings modal and no test.
           onRowClick={(provider) => {
             if (localProvider && provider.id === localProvider.id) return;
@@ -448,7 +448,7 @@ export const StorageTab: React.FC<{ activeSubTab?: SubTab }> = ({
             );
           }}
           renderActions={(provider) => {
-            // Local (Postmill Storage): no actions — nothing to configure or test.
+            // Local (ValidPost Storage): no actions — nothing to configure or test.
             if (localProvider && provider.id === localProvider.id) {
               return null;
             }

@@ -7,12 +7,12 @@ import {
   FILTER_FAMILY_ORDER,
   FILTER_FAMILY_LABELS,
   filtersInFamily,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-descriptors';
+} from '@validpost/nestjs-libraries/media/designer-doc/filter-descriptors';
 import { layerActions } from './layer-actions';
 import {
   distribute,
   type DistributeMode,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/align-distribute';
+} from '@validpost/nestjs-libraries/media/designer-doc/align-distribute';
 
 type DesignerStoreApi = ReturnType<
   typeof import('./designer.store').createDesignerStore
@@ -207,7 +207,7 @@ export const actionLabelKey = (a: DesignerAction): string => {
 
 /** Top-level menu order (drives the bar + the mobile overflow split). */
 /** The Designer's page on the public docs site (`docs/user-guide/media/designer.md`). */
-export const DESIGNER_DOCS_URL = 'https://docs.postmill.ai/user-guide/media/designer';
+export const DESIGNER_DOCS_URL = 'https://docs.validpost.io/user-guide/media/designer';
 
 export const MENU_ORDER: DesignerMenu[] = [
   'file',

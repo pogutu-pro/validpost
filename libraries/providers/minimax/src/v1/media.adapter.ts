@@ -14,7 +14,7 @@ import {
   ProviderModule,
   mediaUpstreamError,
   mediaUpstreamFailure,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const BASE = 'https://api.minimax.io/v1';
 

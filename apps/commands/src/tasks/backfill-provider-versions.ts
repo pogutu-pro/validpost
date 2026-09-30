@@ -1,6 +1,6 @@
 import { Command } from 'nestjs-command';
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { PrismaService } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 
 @Injectable()
 export class BackfillProviderVersions {

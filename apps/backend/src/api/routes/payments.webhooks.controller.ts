@@ -1,7 +1,7 @@
 import { Controller, Param, Post, Query, RawBodyRequest, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { PaymentsService } from '@postmill-ai/nestjs-libraries/payments/payments.service';
+import { PaymentsService } from '@validpost/nestjs-libraries/payments/payments.service';
 
 /**
  * One webhook route per payment provider. The provider adapter verifies the

@@ -1,9 +1,9 @@
 'use client';
 
 import { FC, useCallback } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
-import { TeamMemberItem } from '@postmill-ai/frontend/components/settings/roles/hooks/use-roles';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
+import { TeamMemberItem } from '@validpost/frontend/components/settings/roles/hooks/use-roles';
 
 export interface InboxFilters {
   status?: string;

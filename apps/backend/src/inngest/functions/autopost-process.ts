@@ -1,6 +1,6 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { autopostProcessEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { AutopostActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/autopost.activity';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { autopostProcessEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { AutopostActivity } from '@validpost/nestjs-libraries/inngest/activities/autopost.activity';
 
 export const createAutopostProcess = (autopostActivity: AutopostActivity) =>
   inngest.createFunction(

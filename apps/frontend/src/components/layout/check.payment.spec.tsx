@@ -5,16 +5,16 @@ import React from 'react';
 const mockFetch = vi.fn();
 const mockModalOpen = vi.fn();
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({ useFetch: () => mockFetch }));
-vi.mock('@postmill-ai/helpers/utils/timer', () => ({ timer: () => Promise.resolve() }));
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({ useToaster: () => ({ show: vi.fn() }) }));
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({ useFetch: () => mockFetch }));
+vi.mock('@validpost/helpers/utils/timer', () => ({ timer: () => Promise.resolve() }));
+vi.mock('@validpost/react/toaster/toaster', () => ({ useToaster: () => ({ show: vi.fn() }) }));
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useDecisionModal: () => ({ open: mockModalOpen }),
 }));
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_k: string, fallback: string) => fallback,
 }));
-vi.mock('@postmill-ai/frontend/components/layout/loading', () => ({
+vi.mock('@validpost/frontend/components/layout/loading', () => ({
   default: () => <div data-testid="spinner" />,
 }));
 

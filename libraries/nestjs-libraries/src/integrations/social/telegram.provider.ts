@@ -1,2 +1,2 @@
-// Re-export shim — provider relocated into @postmill-ai/provider-telegram (step 7.5.1).
-export { TelegramProvider } from '@postmill-ai/provider-telegram';
+// Re-export shim — provider relocated into @validpost/provider-telegram (step 7.5.1).
+export { TelegramProvider } from '@validpost/provider-telegram';

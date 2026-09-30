@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
 import { CommandModule as ExternalCommandModule } from 'nestjs-command';
-import { DatabaseModule } from '@postmill-ai/nestjs-libraries/database/prisma/database.module';
+import { DatabaseModule } from '@validpost/nestjs-libraries/database/prisma/database.module';
 import { RefreshTokens } from './tasks/refresh.tokens';
 import { ConfigurationTask } from './tasks/configuration';
 import { AgentRun } from './tasks/agent.run';
 import { BackfillProviderVersions } from './tasks/backfill-provider-versions';
 import { BackfillDesignThumbnails } from './tasks/backfill-design-thumbnails';
 import { SeedDemo } from './tasks/seed-demo';
-import { AgentModule } from '@postmill-ai/nestjs-libraries/agent/agent.module';
-import { UploadModule } from '@postmill-ai/nestjs-libraries/upload/upload.module';
-import { AiModule } from '@postmill-ai/nestjs-libraries/ai/ai.module';
-import { ProvidersModule } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { FeatureFlagsModule } from '@postmill-ai/nestjs-libraries/feature-flags/feature-flags.module';
-import { VpnModule } from '@postmill-ai/nestjs-libraries/vpn/vpn.module';
-import { MediaStudioModule } from '@postmill-ai/nestjs-libraries/media/studio/studio.module';
-import { ProvidersBootstrap } from '@postmill-ai/backend/providers.bootstrap';
-import { VideoRenderModule } from '@postmill-ai/nestjs-libraries/media/design-render/video-render.module';
+import { AgentModule } from '@validpost/nestjs-libraries/agent/agent.module';
+import { UploadModule } from '@validpost/nestjs-libraries/upload/upload.module';
+import { AiModule } from '@validpost/nestjs-libraries/ai/ai.module';
+import { ProvidersModule } from '@validpost/nestjs-libraries/providers/providers.module';
+import { FeatureFlagsModule } from '@validpost/nestjs-libraries/feature-flags/feature-flags.module';
+import { VpnModule } from '@validpost/nestjs-libraries/vpn/vpn.module';
+import { MediaStudioModule } from '@validpost/nestjs-libraries/media/studio/studio.module';
+import { ProvidersBootstrap } from '@validpost/backend/providers.bootstrap';
+import { VideoRenderModule } from '@validpost/nestjs-libraries/media/design-render/video-render.module';
 
 @Module({
   // UploadModule/AiModule/ProvidersModule/FeatureFlagsModule/VpnModule are

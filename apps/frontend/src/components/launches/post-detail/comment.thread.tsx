@@ -2,11 +2,11 @@
 
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import SafeImage from '@validpost/react/helpers/safe.image';
 import { CommentComposer } from './comment.composer';
 
 dayjs.extend(relativeTime);

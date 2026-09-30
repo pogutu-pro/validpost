@@ -8,11 +8,11 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: [
-      { find: '@postmill-ai/nestjs-libraries', replacement: path.resolve(__dirname, 'src') },
-      { find: '@postmill-ai/helpers', replacement: path.resolve(__dirname, '../helpers/src') },
-      { find: '@postmill-ai/backend', replacement: path.resolve(__dirname, '../../apps/backend/src') },
-      { find: '@postmill-ai/provider-kernel', replacement: path.resolve(__dirname, '../providers/kernel/src') },
-      { find: /^@postmill-ai\/provider-(.+)$/, replacement: path.resolve(__dirname, '../providers/$1/src') },
+      { find: '@validpost/nestjs-libraries', replacement: path.resolve(__dirname, 'src') },
+      { find: '@validpost/helpers', replacement: path.resolve(__dirname, '../helpers/src') },
+      { find: '@validpost/backend', replacement: path.resolve(__dirname, '../../apps/backend/src') },
+      { find: '@validpost/provider-kernel', replacement: path.resolve(__dirname, '../providers/kernel/src') },
+      { find: /^@validpost\/provider-(.+)$/, replacement: path.resolve(__dirname, '../providers/$1/src') },
     ],
   },
   test: {

@@ -11,9 +11,6 @@ describe('channel-env-credentials', () => {
     'LINKEDIN_CLIENT_ID',
     'LINKEDIN_CLIENT_SECRET',
     'TELEGRAM_TOKEN',
-    'VK_ID',
-    'X_API_KEY',
-    'X_API_SECRET',
     'FACEBOOK_APP_ID',
     'FACEBOOK_APP_SECRET',
     'FACEBOOK_CONFIG_ID',
@@ -22,8 +19,8 @@ describe('channel-env-credentials', () => {
     'DISCORD_BOT_TOKEN',
     // No channel mapping consumes these (generic OIDC login does); they must
     // never platform-enable a channel.
-    'POSTMILL_OAUTH_CLIENT_ID',
-    'POSTMILL_OAUTH_CLIENT_SECRET',
+    'VALIDPOST_OAUTH_CLIENT_ID',
+    'VALIDPOST_OAUTH_CLIENT_SECRET',
   ];
 
   beforeEach(() => {
@@ -83,22 +80,13 @@ describe('channel-env-credentials', () => {
     expect(isEnvEnabled('telegram')).toBe(true);
   });
 
-  it('allows id-only providers (vk) with no secret', () => {
-    process.env.VK_ID = 'vkid';
-    expect(getEnvClientInfo('vk')).toEqual({
-      client_id: 'vkid',
-      client_secret: '',
-      instanceUrl: '',
-    });
-  });
-
   it('returns undefined for unmapped providers', () => {
     expect(getEnvClientInfo('bluesky')).toBeUndefined();
   });
 
-  it('oauth_custom is not a channel mapping (POSTMILL_OAUTH_* belongs to generic OIDC login)', () => {
-    process.env.POSTMILL_OAUTH_CLIENT_ID = 'oidc-id';
-    process.env.POSTMILL_OAUTH_CLIENT_SECRET = 'oidc-secret';
+  it('oauth_custom is not a channel mapping (VALIDPOST_OAUTH_* belongs to generic OIDC login)', () => {
+    process.env.VALIDPOST_OAUTH_CLIENT_ID = 'oidc-id';
+    process.env.VALIDPOST_OAUTH_CLIENT_SECRET = 'oidc-secret';
     expect(getEnvClientInfo('oauth_custom')).toBeUndefined();
     expect(isEnvEnabled('oauth_custom')).toBe(false);
     expect(getEnvEnabledIdentifiers()).not.toContain('oauth_custom');
@@ -106,10 +94,11 @@ describe('channel-env-credentials', () => {
 
   it('lists only env-enabled identifiers', () => {
     process.env.TELEGRAM_TOKEN = 'bot-token';
-    process.env.VK_ID = 'vkid';
+    process.env.DISCORD_CLIENT_ID = 'discord-id';
+    process.env.DISCORD_CLIENT_SECRET = 'discord-secret';
     const ids = getEnvEnabledIdentifiers();
     expect(ids).toContain('telegram');
-    expect(ids).toContain('vk');
+    expect(ids).toContain('discord');
     expect(ids).not.toContain('linkedin');
   });
 

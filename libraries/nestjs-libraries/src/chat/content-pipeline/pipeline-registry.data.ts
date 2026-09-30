@@ -1,4 +1,4 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 
 /**
  * Bundled content-pipeline agent registry (agent-mesh v-next, in-process

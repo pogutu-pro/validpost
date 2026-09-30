@@ -2,7 +2,7 @@
 
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   TOOL_GROUPS,
   type DesignerTool,

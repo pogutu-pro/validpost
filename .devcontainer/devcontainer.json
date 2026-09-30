@@ -1,5 +1,5 @@
 {
-	"name": "Postmill Dev Container",
+	"name": "ValidPost Dev Container",
 	// Built from the production Dockerfile's `builder` stage: it already has the
 	// toolchain for the native modules (canvas, sharp, bcrypt) and the full source
 	// with devDependencies installed, which is exactly what a dev container needs.

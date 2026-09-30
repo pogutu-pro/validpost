@@ -1,23 +1,23 @@
 'use client';
 
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import Link from 'next/link';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
 import { useMemo, useState } from 'react';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { LoginUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto';
-import { OauthProvider } from '@postmill-ai/frontend/components/auth/providers/oauth.provider';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { LoginUserDto } from '@validpost/nestjs-libraries/dtos/auth/login.user.dto';
+import { OauthProvider } from '@validpost/frontend/components/auth/providers/oauth.provider';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import useSWR from 'swr';
 import dynamic from 'next/dynamic';
-import { WalletUiProvider } from '@postmill-ai/frontend/components/auth/providers/placeholder/wallet.ui.provider';
-import { SsoStatusContext, SsoStatus } from '@postmill-ai/frontend/components/auth/sso-popup';
-import { SsoStatusLine } from '@postmill-ai/frontend/components/auth/sso-status';
+import { WalletUiProvider } from '@validpost/frontend/components/auth/providers/placeholder/wallet.ui.provider';
+import { SsoStatusContext, SsoStatus } from '@validpost/frontend/components/auth/sso-popup';
+import { SsoStatusLine } from '@validpost/frontend/components/auth/sso-status';
 
 const WalletProvider = dynamic(
-  () => import('@postmill-ai/frontend/components/auth/providers/wallet.provider'),
+  () => import('@validpost/frontend/components/auth/providers/wallet.provider'),
   {
     ssr: false,
     loading: () => <WalletUiProvider />,
@@ -114,8 +114,8 @@ export function Login() {
 
     if (providersError) {
       return (
-        <div className="text-red-500 text-sm">
-          {t('failed_to_fetch_auth_providers', 'Failed to fetch auth providers')}
+        <div role="alert" className="text-red-500 text-sm mb-[12px]">
+          {t('failed_to_fetch_auth_providers', "We couldn't load the other sign-in options. Refresh the page to try again.")}
         </div>
       );
     }
@@ -131,9 +131,9 @@ export function Login() {
         <div className="flex flex-col flex-1">
           <div>
             <h1 className="text-[36px] font-[600] tracking-[-0.03em] text-start">
-              {t('sign_in', 'Welcome back')}
+              {t('auth_sign_in_title', 'Welcome back')}
             </h1>
-            <p className="mt-[6px] text-[14px] text-textItemBlur">
+            <p className="mt-[6px] mb-[16px] text-[14px] text-textItemBlur">
               {t('sign_in_subtitle', 'Sign in and get your content moving.')}
             </p>
           </div>

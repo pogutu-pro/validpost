@@ -1,6 +1,6 @@
 # User Guide
 
-Postmill is a social media and chat post scheduling platform. Schedule posts to 36 channels,
+ValidPost is a social media and chat post scheduling platform. Schedule posts to 36 channels,
 view your content on a calendar, track performance with persisted analytics, manage your team,
 organise media assets, and use AI to generate and optimise your content.
 

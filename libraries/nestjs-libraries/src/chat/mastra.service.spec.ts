@@ -1,15 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@postmill-ai/nestjs-libraries/chat/load.tools.service', () => ({
+vi.mock('@validpost/nestjs-libraries/chat/load.tools.service', () => ({
   LoadToolsService: class {
     agent = vi.fn().mockResolvedValue({
-      id: 'postmill',
-      name: 'postmill',
+      id: 'validpost',
+      name: 'validpost',
     });
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/chat/mastra.store', () => ({
+vi.mock('@validpost/nestjs-libraries/chat/mastra.store', () => ({
   pStore: { _type: 'mock.mastra.store' },
 }));
 
@@ -33,7 +33,7 @@ vi.mock('@mastra/core/mastra', () => ({
 }));
 
 import { MastraService } from './mastra.service';
-import { LoadToolsService } from '@postmill-ai/nestjs-libraries/chat/load.tools.service';
+import { LoadToolsService } from '@validpost/nestjs-libraries/chat/load.tools.service';
 import { Mastra } from '@mastra/core/mastra';
 
 describe('MastraService', () => {
@@ -42,15 +42,15 @@ describe('MastraService', () => {
     (MastraService as any)._mastraPromise = null;
   });
 
-  it('registers only the postmill agent at the top level', async () => {
+  it('registers only the validpost agent at the top level', async () => {
     const loadToolsService = new (LoadToolsService as any)();
     const mastraService = new MastraService(loadToolsService);
 
     const mastra = await mastraService.mastra();
     const agents = mastra.listAgents();
 
-    expect(Object.keys(agents)).toEqual(['postmill']);
-    expect(agents.postmill.id).toBe('postmill');
+    expect(Object.keys(agents)).toEqual(['validpost']);
+    expect(agents.validpost.id).toBe('validpost');
   });
 
   it('reuses the cached Mastra instance across calls', async () => {
@@ -70,7 +70,7 @@ describe('MastraService', () => {
     loadToolsService.agent = vi
       .fn()
       .mockRejectedValueOnce(new Error('transient store failure'))
-      .mockResolvedValueOnce({ id: 'postmill', name: 'postmill' });
+      .mockResolvedValueOnce({ id: 'validpost', name: 'validpost' });
 
     const mastraService = new MastraService(loadToolsService);
 
@@ -78,7 +78,7 @@ describe('MastraService', () => {
 
     // Second call rebuilds (cache was reset on rejection) and succeeds.
     const mastra = await mastraService.mastra();
-    expect(mastra.listAgents().postmill.id).toBe('postmill');
+    expect(mastra.listAgents().validpost.id).toBe('validpost');
     expect(loadToolsService.agent).toHaveBeenCalledTimes(2);
   });
 
@@ -88,7 +88,7 @@ describe('MastraService', () => {
     loadToolsService.agent = vi
       .fn()
       .mockRejectedValueOnce(new Error('boom'))
-      .mockResolvedValue({ id: 'postmill', name: 'postmill' });
+      .mockResolvedValue({ id: 'validpost', name: 'validpost' });
 
     const mastraService = new MastraService(loadToolsService);
 
@@ -103,7 +103,7 @@ describe('MastraService', () => {
 
     // A later call rebuilds successfully.
     const mastra = await mastraService.mastra();
-    expect(mastra.listAgents().postmill.id).toBe('postmill');
+    expect(mastra.listAgents().validpost.id).toBe('validpost');
     expect(loadToolsService.agent).toHaveBeenCalledTimes(2);
   });
 });

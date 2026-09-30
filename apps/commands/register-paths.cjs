@@ -1,5 +1,5 @@
 // Same trick as apps/backend/register-paths.cjs (see the rationale in its
-// dev.cjs): map @postmill-ai/* to the COMPILED dist, not source .ts — the
+// dev.cjs): map @validpost/* to the COMPILED dist, not source .ts — the
 // provider kernel and the ~144 provider packages only resolve against
 // compiled JS (their package.json `main` points at raw TS, which Node's ESM
 // loader refuses).

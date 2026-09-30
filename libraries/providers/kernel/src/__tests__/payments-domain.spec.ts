@@ -48,18 +48,18 @@ describe('storeProductId', () => {
   it('round-trips every tier/period through the store convention', () => {
     for (const tier of ['STARTER', 'PRO', 'TEAM', 'AGENCY'] as const) {
       for (const period of ['MONTHLY', 'YEARLY'] as const) {
-        const id = storeProductId('postmill', tier, period);
-        expect(id).toBe(`postmill.${tier.toLowerCase()}.${period === 'MONTHLY' ? 'monthly' : 'yearly'}`);
-        expect(parseStoreProductId('postmill', id)).toEqual({ tier, period });
+        const id = storeProductId('validpost', tier, period);
+        expect(id).toBe(`validpost.${tier.toLowerCase()}.${period === 'MONTHLY' ? 'monthly' : 'yearly'}`);
+        expect(parseStoreProductId('validpost', id)).toEqual({ tier, period });
       }
     }
   });
 
   it('rejects foreign prefixes, unknown tiers and malformed ids', () => {
-    expect(parseStoreProductId('postmill', 'other.pro.monthly')).toBeNull();
-    expect(parseStoreProductId('postmill', 'postmill.gold.monthly')).toBeNull();
-    expect(parseStoreProductId('postmill', 'postmill.pro.weekly')).toBeNull();
-    expect(parseStoreProductId('postmill', 'postmill.pro')).toBeNull();
+    expect(parseStoreProductId('validpost', 'other.pro.monthly')).toBeNull();
+    expect(parseStoreProductId('validpost', 'validpost.gold.monthly')).toBeNull();
+    expect(parseStoreProductId('validpost', 'validpost.pro.weekly')).toBeNull();
+    expect(parseStoreProductId('validpost', 'validpost.pro')).toBeNull();
   });
 });
 

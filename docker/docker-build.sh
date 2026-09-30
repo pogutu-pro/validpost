@@ -12,5 +12,5 @@ set -o xtrace
 
 cd "$(dirname "$0")/.."
 
-docker rmi localhost/postmill || true
-docker build -t localhost/postmill -f docker/Dockerfile.dev .
+docker rmi localhost/validpost || true
+docker build -t localhost/validpost -f docker/Dockerfile.dev .

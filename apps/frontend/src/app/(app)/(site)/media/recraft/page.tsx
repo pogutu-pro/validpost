@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const RecraftStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/recraft/recraft-studio').then((m) => m.RecraftStudio),
+  () => import('@validpost/frontend/components/media-tools/recraft/recraft-studio').then((m) => m.RecraftStudio),
   { ssr: false }
 );
 

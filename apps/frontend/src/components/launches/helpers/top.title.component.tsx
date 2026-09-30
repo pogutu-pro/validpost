@@ -1,9 +1,9 @@
 'use client';
 
 import { FC, ReactNode } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import clsx from 'clsx';
-import { ExpandIcon, CollapseIcon } from '@postmill-ai/frontend/components/ui/icons';
+import { ExpandIcon, CollapseIcon } from '@validpost/frontend/components/ui/icons';
 
 export const TopTitle: FC<{
   title: string;

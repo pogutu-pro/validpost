@@ -16,7 +16,7 @@ import {
   type ImageModel,
   type ProviderModule,
   type SafeFetchPort,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const GATEWAY_DEFAULT_BASE_URL = 'https://ai-gateway.vercel.sh/v1';
 

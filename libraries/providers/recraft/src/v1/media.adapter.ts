@@ -8,7 +8,7 @@ import {
   SafeFetchPort,
   ProviderModule,
   mediaUpstreamError,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Recraft — own-key (Bearer) image generation, strong on vector/SVG, brand styles, and icons.
 // Synchronous: a single POST returns hosted image URLs. Native params (style, substyle, size, n,

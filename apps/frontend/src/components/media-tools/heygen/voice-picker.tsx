@@ -1,9 +1,9 @@
 'use client';
 
 import React, { FC, useMemo, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { AudioPlayer } from '@postmill-ai/frontend/components/media-tools/audio-player';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { AudioPlayer } from '@validpost/frontend/components/media-tools/audio-player';
 import { HeyGenVoice } from './use-heygen';
 
 interface VoicePickerProps {
@@ -35,7 +35,7 @@ export const VoicePicker: FC<VoicePickerProps> = ({ voices, selectedId, onSelect
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={t('heygen_search_by_name_or_language', 'Search by name or language...')}
-        className="w-full h-[40px] px-[12px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[14px] text-textColor outline-hidden focus:border-[#2B5CD3]"
+        className="w-full h-[40px] px-[12px] rounded-[8px] bg-newBgColorInner border border-studioBorder text-[14px] text-textColor outline-hidden focus:border-btnPrimary"
       />
       {filtered.length === 0 ? (
         <div className="h-[200px] flex items-center justify-center text-[13px] text-newTextColor/65">
@@ -49,7 +49,7 @@ export const VoicePicker: FC<VoicePickerProps> = ({ voices, selectedId, onSelect
             <div
               key={v.voiceId}
               className={`flex items-center gap-[12px] p-[10px] rounded-[8px] border transition-all ${
-                selectedId === v.voiceId ? 'border-[#2B5CD3] bg-[#2B5CD3]/10' : 'border-studioBorder bg-newBgColorInner'
+                selectedId === v.voiceId ? 'border-btnPrimary bg-btnPrimary/10' : 'border-studioBorder bg-newBgColorInner'
               }`}
             >
               <div className="flex-1 min-w-0">
@@ -70,7 +70,7 @@ export const VoicePicker: FC<VoicePickerProps> = ({ voices, selectedId, onSelect
                   onSelect(v);
                   modal.closeAll();
                 }}
-                className="shrink-0 px-[14px] py-[8px] rounded-[8px] bg-[#2B5CD3] text-white text-[12px] font-[500] hover:bg-[#2B5CD3]/80 transition-all"
+                className="shrink-0 px-[14px] py-[8px] rounded-[8px] bg-btnPrimary text-white text-[12px] font-[500] hover:bg-btnPrimary/80 transition-all"
               >
                 {selectedId === v.voiceId ? t('heygen_selected', 'Selected') : t('heygen_use', 'Use')}
               </button>

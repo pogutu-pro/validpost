@@ -5,7 +5,7 @@ let mockIsGeneral = true;
 let mockBillingEnabled = false;
 let mockPathname = '/dashboard';
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({
     isGeneral: mockIsGeneral,
     billingEnabled: mockBillingEnabled,
@@ -14,11 +14,11 @@ vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
 
 const mockT = vi.fn((_key: string, fallback?: string) => fallback ?? _key);
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({
     id: 'test-user',
     orgId: 'test-org',
@@ -28,13 +28,13 @@ vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
   ContextWrapper: ({ children }: any) => children,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: vi.fn() }),
   ModalWrapper: ({ children }: any) => children,
   useHasOpenModals: () => false,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/agent.media.modal', () => ({
+vi.mock('@validpost/frontend/components/layout/agent.media.modal', () => ({
   AgentMediaModal: () => null,
 }));
 
@@ -53,13 +53,13 @@ let mockPermissions = {
   refresh: vi.fn(),
 };
 
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => mockPermissions,
 }));
 
 let mockIsFullscreen = false;
 
-vi.mock('@postmill-ai/frontend/components/media-tools/use-fullscreen', () => ({
+vi.mock('@validpost/frontend/components/media-tools/use-fullscreen', () => ({
   useFullscreen: () => ({ isFullscreen: mockIsFullscreen, toggle: vi.fn() }),
 }));
 

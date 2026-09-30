@@ -3,9 +3,9 @@
 import React, { FC, useCallback, useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/navigation';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import {
   StockPhotoItem,
   StockVideoItem,
@@ -14,8 +14,8 @@ import {
   StockIconItem,
 } from './stock.types';
 import { SaveToFilesModal } from './save-to-files-modal';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // Premium BYOK content packs mint a licensed download URL from the item id at
 // import time (mint-then-ingest). Keep in sync with the backend registry.
@@ -206,7 +206,7 @@ export const StockPreviewModal: FC<StockPreviewModalProps> = ({ item: initialIte
       const integrationsRes = await fetch('/integrations');
       const integrations = integrationsRes.ok ? await integrationsRes.json() : [];
       const { Composer } = await import(
-        '@postmill-ai/frontend/components/composer/composer'
+        '@validpost/frontend/components/composer/composer'
       );
       const dayjs = (await import('dayjs')).default;
       modal.closeAll();
@@ -370,7 +370,7 @@ export const StockPreviewModal: FC<StockPreviewModalProps> = ({ item: initialIte
             </a>
           </div>
           <div className="flex gap-[8px] items-center">
-            <span className="px-[8px] py-[2px] rounded-[4px] bg-[#2B5CD3]/20 text-[11px] text-btnPrimaryAccent font-[500]">
+            <span className="px-[8px] py-[2px] rounded-[4px] bg-btnPrimary/20 text-[11px] text-btnPrimaryAccent font-[500]">
               {sourceBadgeLabel}
             </span>
           </div>
@@ -400,7 +400,7 @@ export const StockPreviewModal: FC<StockPreviewModalProps> = ({ item: initialIte
           )}
           <button
             onClick={handleSaveToFiles}
-            className="px-[16px] py-[10px] rounded-[8px] bg-[#2B5CD3] text-white text-[13px] font-[500] hover:bg-[#2B5CD3]/80 transition-all flex items-center gap-[6px]"
+            className="px-[16px] py-[10px] rounded-[8px] bg-btnPrimary text-white text-[13px] font-[500] hover:bg-btnPrimary/80 transition-all flex items-center gap-[6px]"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -419,7 +419,7 @@ export const StockPreviewModal: FC<StockPreviewModalProps> = ({ item: initialIte
                 key={rel.id}
                 type="button"
                 onClick={() => setItem(rel)}
-                className="w-[120px] shrink-0 cursor-pointer rounded-[6px] overflow-hidden border border-newBorder hover:border-[#2B5CD3] transition-all"
+                className="w-[120px] shrink-0 cursor-pointer rounded-[6px] overflow-hidden border border-newBorder hover:border-btnPrimary transition-all"
               >
                 <div className="aspect-square">
                   {/* eslint-disable-next-line @next/next/no-img-element -- external stock thumbnail */}

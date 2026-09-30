@@ -9,53 +9,57 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { AddEditModalProps } from '@postmill-ai/frontend/components/composer/composer.types';
+import { AddEditModalProps } from '@validpost/frontend/components/composer/composer.types';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { PicksSocialsComponent } from '@postmill-ai/frontend/components/composer/picks.socials.component';
-import { EditorWrapper } from '@postmill-ai/frontend/components/composer/editor';
-import { SelectCurrent } from '@postmill-ai/frontend/components/composer/select.current';
-import { ShowAllProviders } from '@postmill-ai/frontend/components/composer/providers/show.all.providers';
-import { useExistingData } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
-import { DatePicker } from '@postmill-ai/frontend/components/launches/helpers/date.picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { PicksSocialsComponent } from '@validpost/frontend/components/composer/picks.socials.component';
+import { EditorWrapper } from '@validpost/frontend/components/composer/editor';
+import { SelectCurrent } from '@validpost/frontend/components/composer/select.current';
+import { ShowAllProviders } from '@validpost/frontend/components/composer/providers/show.all.providers';
+import { useExistingData } from '@validpost/frontend/components/launches/helpers/use.existing.data';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
+import { DatePicker } from '@validpost/frontend/components/launches/helpers/date.picker';
 import { useShallow } from 'zustand/react/shallow';
-import { RepeatComponent } from '@postmill-ai/frontend/components/launches/repeat.component';
-import { TagsComponent } from '@postmill-ai/frontend/components/launches/tags.component';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { stripHtmlTags } from '@postmill-ai/helpers/utils/strip.tags';
-import { hasLinks } from '@postmill-ai/helpers/utils/strip.links';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { RepeatComponent } from '@validpost/frontend/components/launches/repeat.component';
+import { TagsComponent } from '@validpost/frontend/components/launches/tags.component';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { stripHtmlTags } from '@validpost/helpers/utils/strip.tags';
+import { hasLinks } from '@validpost/helpers/utils/strip.links';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { capitalize } from 'lodash';
 import { CopilotChat } from '@copilotkit/react-ui';
 import { createPortal } from 'react-dom';
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
-import { DummyCodeComponent } from '@postmill-ai/frontend/components/composer/dummy.code.component';
-import { CreationMethodBadge } from '@postmill-ai/frontend/components/launches/creation.method.badge';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
+import { DummyCodeComponent } from '@validpost/frontend/components/composer/dummy.code.component';
+import { CreationMethodBadge } from '@validpost/frontend/components/launches/creation.method.badge';
 import {
   ColorPicker,
   DEFAULT_POST_COLOR,
-} from '@postmill-ai/frontend/components/ui/color-picker';
+} from '@validpost/frontend/components/ui/color-picker';
 import {
   SettingsIcon,
   ChevronDownIcon,
   TrashIcon,
   DropdownArrowSmallIcon,
-} from '@postmill-ai/frontend/components/ui/icons';
-import { useHasScroll } from '@postmill-ai/frontend/components/ui/is.scroll.hook';
-import { useShortlinkPreference } from '@postmill-ai/frontend/components/settings/shortlink-preference.component';
-import { BrandPicker } from '@postmill-ai/frontend/components/launches/brand-picker';
-import { ShortlinkPicker } from '@postmill-ai/frontend/components/composer/shortlink-picker';
-import { usePreflight, PreflightResponse } from '@postmill-ai/frontend/components/composer/content-qa/usePreflight';
-import { PreflightPanel } from '@postmill-ai/frontend/components/composer/content-qa/preflight.panel';
+} from '@validpost/frontend/components/ui/icons';
+import { useHasScroll } from '@validpost/frontend/components/ui/is.scroll.hook';
+import { useShortlinkPreference } from '@validpost/frontend/components/settings/shortlink-preference.component';
+import { BrandPicker } from '@validpost/frontend/components/launches/brand-picker';
+import { ShortlinkPicker } from '@validpost/frontend/components/composer/shortlink-picker';
+import { usePreflight, PreflightResponse } from '@validpost/frontend/components/composer/content-qa/usePreflight';
+import { PreflightPanel } from '@validpost/frontend/components/composer/content-qa/preflight.panel';
 import dayjs from 'dayjs';
-import { Button } from '@postmill-ai/react/form/button';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import { Button } from '@validpost/react/form/button';
+import SafeImage from '@validpost/react/helpers/safe.image';
 import { useRouter } from 'next/navigation';
-import { ComposerLibraryModal } from '@postmill-ai/frontend/components/composer/composer-library.modal';
+import { ComposerLibraryModal } from '@validpost/frontend/components/composer/composer-library.modal';
+import { ComposerFlow } from '@validpost/frontend/components/composer/flow.progress';
+import { friendlyComposerError } from '@validpost/frontend/components/composer/errors';
+import { computeComposerFlow, editorText } from '@validpost/frontend/components/composer/flow';
+import { SplitButton } from '@validpost/frontend/components/ui/split-button';
 
 const ColorPick: FC<{
   initial: string | null;
@@ -182,6 +186,28 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         ...internal.flatMap((i) => i.integrationValue),
       ].some((v) => hasLinks(v?.content)),
     [global, internal]
+  );
+
+  // Guided flow (Create → Preview → Improve → Schedule → Publish), derived from
+  // real composer state. An unpicked date is auto-bumped to "now" on save, so a
+  // stale date only counts as a problem when the user chose it.
+  const hasContent = useMemo(
+    () =>
+      [...global, ...internal.flatMap((i) => i.integrationValue)].some(
+        (v) => editorText(v?.content).length > 0 || (v?.media?.length ?? 0) > 0
+      ),
+    [global, internal]
+  );
+  const dateOk =
+    !dateUserPicked.current || !date.isBefore(dayjs().subtract(1, 'minute'));
+  const flow = useMemo(
+    () =>
+      computeComposerFlow({
+        hasContent,
+        channelCount: selectedIntegrations.length,
+        dateOk,
+      }),
+    [hasContent, selectedIntegrations.length, dateOk]
   );
 
   useEffect(() => {
@@ -535,8 +561,12 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         });
         if (!validRes.ok) {
           toaster.show(
-            (await validRes.json().catch(() => null))?.message ||
-              t('failed_to_validate_post', 'Failed to validate your post'),
+            friendlyComposerError(
+              validRes.status,
+              (await validRes.json().catch(() => null))?.message,
+              t('failed_to_validate_post', "We couldn't check your post. Try again."),
+              t
+            ),
             'warning'
           );
           setLoading(false);
@@ -654,8 +684,12 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
           });
           if (!res.ok) {
             toaster.show(
-              (await res.json().catch(() => null))?.message ||
-                t('failed_to_save_post', 'Failed to save your post'),
+              friendlyComposerError(
+                res.status,
+                (await res.json().catch(() => null))?.message,
+                t('failed_to_save_post', "We couldn't save your post. Try again."),
+                t
+              ),
               'warning'
             );
             setLoading(false);
@@ -666,9 +700,13 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
         if (!addEditSets) {
           mutate();
           toaster.show(
-            !existingData.integration
-              ? t('added_successfully', 'Added successfully')
-              : t('updated_successfully', 'Updated successfully')
+            type === 'now'
+              ? t('composer_published_now', "Published. It's out there.")
+              : type === 'draft'
+              ? t('composer_draft_saved', 'Draft saved.')
+              : type === 'update' || existingData.integration
+              ? t('composer_updated', 'Updated. Your changes are saved.')
+              : t('composer_scheduled', "Scheduled. It's on your calendar.")
           );
         }
         if (customClose) {
@@ -749,6 +787,16 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
               <CreationMethodBadge
                 creationMethod={existingData?.posts?.[0]?.creationMethod}
                 size="sm"
+              />
+            </div>
+            <div className="px-[20px] py-[10px] border-b border-newBorder bg-newBgColor/60">
+              <ComposerFlow
+                flow={flow}
+                aiActive={aiActive}
+                onStepClick={(id) => {
+                  if (id === 'preview') setMobileTab('preview');
+                  if (id === 'improve') setAssistantOpen(true);
+                }}
               />
             </div>
             <div className="flex-1 flex flex-col gap-[16px] min-h-0">
@@ -988,52 +1036,14 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
             )}
             <DatePicker onChange={pickDate} date={date} />
             {!addEditSets && (
-              <div className="group cursor-pointer relative">
-                <button
-                  type="button"
-                  disabled={
-                    selectedIntegrations.length === 0 || loading || locked
-                  }
-                  className="relative cursor-pointer disabled:cursor-not-allowed px-[12px] lg:px-[20px] h-[36px] lg:h-[44px] bg-btnSimple justify-center items-center flex gap-[6px] rounded-[8px] text-[13px] lg:text-[15px] font-[600] hover:bg-boxHover transition-colors"
-                >
-                  {loading && (
-                    <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]">
-                      <div className="animate-spin h-[20px] w-[20px] border-4 border-textColor border-t-transparent rounded-full" />
-                    </div>
-                  )}
-                  <div
-                    className={clsx(
-                      'flex items-center gap-[6px]',
-                      loading && 'invisible'
-                    )}
-                  >
-                    {t('save_as', 'Save as')}
-                    <DropdownArrowSmallIcon className="group-hover:rotate-180 text-textColor" />
-                  </div>
-                </button>
-                <div className="hidden group-hover:flex flex-col absolute bottom-full left-0 mb-[8px] w-[200px] bg-newBgColorInner border border-newTableBorder rounded-[8px] p-[8px] gap-[6px] z-300">
-                  <button
-                    type="button"
-                    disabled={
-                      selectedIntegrations.length === 0 || loading || locked
-                    }
-                    onClick={schedule('draft')}
-                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600] transition-colors"
-                  >
-                    {t('save_as_draft', 'Save as draft')}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={
-                      selectedIntegrations.length === 0 || loading || locked
-                    }
-                    onClick={saveAsTemplate}
-                    className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 h-[40px] rounded-[6px] bg-btnSimple hover:bg-boxHover flex justify-center items-center text-[14px] font-[600] transition-colors"
-                  >
-                    {t('save_as_template', 'Save as Template')}
-                  </button>
-                </div>
-              </div>
+              <button
+                type="button"
+                onClick={schedule('draft')}
+                disabled={selectedIntegrations.length === 0 || loading || locked}
+                className="h-[44px] mobile:h-[48px] px-[16px] rounded-vp border border-newTableBorder bg-btnSimple text-textColor text-[14px] font-[600] hover:bg-boxHover disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+              >
+                {t('save_as_draft', 'Save as draft')}
+              </button>
             )}
             {addEditSets && (
               <button
@@ -1047,56 +1057,48 @@ export const ManageModal: FC<AddEditModalProps> = (props) => {
               </button>
             )}
             {!addEditSets && (
-              <div className="group cursor-pointer relative w-full lg:w-auto">
-                <button
-                  disabled={
-                    selectedIntegrations.length === 0 || loading || locked
-                  }
-                  onClick={schedule('schedule')}
-                  className="text-white relative w-full lg:min-w-[180px] btnSub disabled:cursor-not-allowed disabled:opacity-80 outline-hidden gap-[8px] flex justify-center items-center h-[38px] lg:h-[44px] rounded-[8px] bg-btnPrimary ps-[14px] lg:ps-[20px] pe-[12px] lg:pe-[16px] hover:bg-btnPrimaryAccent transition-colors"
-                >
-                  {loading && (
-                    <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]">
-                      <div className="animate-spin h-[20px] w-[20px] border-4 border-white border-t-transparent rounded-full" />
-                    </div>
-                  )}
-                  <div
-                    className={clsx(
-                      'text-[13px] lg:text-[15px] font-[600]',
-                      loading && 'invisible'
-                    )}
-                  >
-                    {selectedIntegrations.length === 0
-                      ? t('select_a_channel', 'Select a Channel')
-                      : dummy
-                      ? t('create_output', 'Create output')
-                      : !existingData?.integration
-                      ? t('add_to_calendar', 'Add to Calendar')
-                      : existingData?.posts?.[0]?.state === 'DRAFT'
-                      ? t('schedule', 'Schedule')
-                      : t('update', 'Update')}
-                  </div>
-                  {!dummy && (
-                    <div className="flex justify-center items-center h-[20px] w-[20px] pt-[4px] arrow-change">
-                      <DropdownArrowSmallIcon className="group-hover:rotate-180 text-white" />
-                    </div>
-                  )}
-                </button>
-
-                {!dummy && (
-                  <button
-                    onClick={schedule('now')}
-                    disabled={
-                      selectedIntegrations.length === 0 || loading || locked
-                    }
-                    className="rounded-[8px] z-300 disabled:cursor-not-allowed disabled:opacity-80 hidden group-hover:flex absolute bottom-full left-[-12px] p-[12px] w-[206px] bg-newBgColorInner"
-                  >
-                    <div className="text-white rounded-[8px] bg-btnPrimary h-[44px] w-full flex justify-center items-center post-now hover:bg-btnPrimaryAccent transition-colors">
-                      {t('post_now', 'Post now')}
-                    </div>
-                  </button>
-                )}
-              </div>
+              <SplitButton
+                className="w-full lg:w-auto lg:min-w-[220px]"
+                label={
+                  selectedIntegrations.length === 0
+                    ? t('select_a_channel', 'Select a Channel')
+                    : dummy
+                    ? t('create_output', 'Create output')
+                    : !existingData?.integration
+                    ? t('add_to_calendar', 'Add to Calendar')
+                    : existingData?.posts?.[0]?.state === 'DRAFT'
+                    ? t('schedule', 'Schedule')
+                    : t('update', 'Update')
+                }
+                onClick={() => {
+                  void schedule('schedule')();
+                }}
+                disabled={selectedIntegrations.length === 0 || locked}
+                loading={loading}
+                menuLabel={t('more_ways_to_publish', 'More ways to publish')}
+                items={
+                  dummy
+                    ? []
+                    : [
+                        {
+                          key: 'now',
+                          label: t('post_now', 'Post now'),
+                          description: t('post_now_desc', 'Publish it right away'),
+                          onSelect: () => {
+                            void schedule('now')();
+                          },
+                        },
+                        {
+                          key: 'template',
+                          label: t('save_as_template', 'Save as Template'),
+                          description: t('save_as_template_desc', 'Reuse this post later'),
+                          onSelect: () => {
+                            void saveAsTemplate();
+                          },
+                        },
+                      ]
+                }
+              />
             )}
           </div>
         </div>

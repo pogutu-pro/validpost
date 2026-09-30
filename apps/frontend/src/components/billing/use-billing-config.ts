@@ -2,7 +2,7 @@
 
 import useSWR from 'swr';
 import { useCallback } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 
 export type BillingCheckoutMode = 'hosted' | 'embedded' | 'native';
 

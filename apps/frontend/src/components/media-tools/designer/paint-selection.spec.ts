@@ -45,7 +45,7 @@ import {
   simplifyPoints,
   normalisePathToBox,
   pathBounds,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/path-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/path-geometry';
 
 const imageData = (w: number, h: number, fill: [number, number, number, number]) => {
   const d = new Uint8ClampedArray(w * h * 4);

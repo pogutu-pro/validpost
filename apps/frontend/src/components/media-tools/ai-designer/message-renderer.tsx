@@ -2,27 +2,27 @@
 
 import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { SafeContent } from '@postmill-ai/frontend/components/shared/safe-content';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { TranslatedLabel } from '@postmill-ai/react/translation/translated-label';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Disclosure } from '@postmill-ai/frontend/components/ui/disclosure';
+import { SafeContent } from '@validpost/frontend/components/shared/safe-content';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { TranslatedLabel } from '@validpost/react/translation/translated-label';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Disclosure } from '@validpost/frontend/components/ui/disclosure';
 import { InteractiveForm } from './interactive-form';
 import { markdownToHtml } from './markdown-lite';
-import { getStylePreset } from '@postmill-ai/nestjs-libraries/ai-designer/styles';
-import { isCopySlot } from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+import { getStylePreset } from '@validpost/nestjs-libraries/ai-designer/styles';
+import { isCopySlot } from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 import type {
   AiDesignerMessagePayload,
   AiDesignerMsgContent,
   DesignPlan,
-} from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+} from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 
 // Lazy like the designer route — keeps Konva out of the chat's initial bundle.
 const Designer = dynamic(
   () =>
-    import('@postmill-ai/frontend/components/media-tools/designer/designer').then(
+    import('@validpost/frontend/components/media-tools/designer/designer').then(
       (m) => m.Designer
     ),
   { ssr: false }

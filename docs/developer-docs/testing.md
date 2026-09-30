@@ -1,6 +1,6 @@
 # Testing
 
-Postmill uses **Vitest** for all tests. The root `jest.config.ts` is vestigial and should not be extended.
+ValidPost uses **Vitest** for all tests. The root `jest.config.ts` is vestigial and should not be extended.
 
 > Verified against v1.0.0
 
@@ -56,7 +56,7 @@ Repository/data-layer tests that need a real database live in `*.int-spec.ts` fi
 pnpm run test:int
 ```
 
-Requires the dev Postgres to be up (`docker compose -f ./docker/docker-compose.dev.yaml up -d`). The harness reads `TEST_DATABASE_ADMIN_URL` (see `.env.example`; defaults to the dev container's `postgres` admin DB) and creates/drops a throwaway `postmill_test_<pid>` database per run, pushing the current schema into it via `pnpm exec prisma db push`. The `*.int-spec.ts` suffix is excluded from the normal unit run.
+Requires the dev Postgres to be up (`docker compose -f ./docker/docker-compose.dev.yaml up -d`). The harness reads `TEST_DATABASE_ADMIN_URL` (see `.env.example`; defaults to the dev container's `postgres` admin DB) and creates/drops a throwaway `validpost_test_<pid>` database per run, pushing the current schema into it via `pnpm exec prisma db push`. The `*.int-spec.ts` suffix is excluded from the normal unit run.
 
 ---
 

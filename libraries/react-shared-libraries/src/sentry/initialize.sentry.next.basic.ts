@@ -24,7 +24,7 @@ export const initializeSentryBasic = (environment: string, dsn: string, extensio
         },
         contexts: {
           app: {
-            name: 'Postmill Frontend',
+            name: 'ValidPost Frontend',
             version: process.env.NEXT_PUBLIC_APP_VERSION || '0.0.0',
           },
         },

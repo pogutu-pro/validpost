@@ -22,8 +22,8 @@ export NEXT_PUBLIC_BACKEND_URL="${NEXT_PUBLIC_BACKEND_URL:-http://localhost:4007
 # restart with a changed NEXT_PUBLIC_BACKEND_URL now re-substitutes correctly.
 NEXT_DIR=/app/apps/frontend/.next
 STATE_FILE="$NEXT_DIR/.backend-url-state"
-PLACEHOLDER_URL='https://backend-url-not-set.postmill.invalid/api'
-PLACEHOLDER_ORIGIN='https://backend-url-not-set.postmill.invalid'
+PLACEHOLDER_URL='https://backend-url-not-set.validpost.invalid/api'
+PLACEHOLDER_ORIGIN='https://backend-url-not-set.validpost.invalid'
 
 # Escape sed replacement specials (& | \) in runtime values.
 esc() { printf '%s' "$1" | sed -e 's/[&|\\]/\\&/g'; }

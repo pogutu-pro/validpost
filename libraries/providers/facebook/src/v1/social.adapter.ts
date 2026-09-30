@@ -7,19 +7,18 @@ import {
   PostResponse,
   SocialCommentDTO,
   SocialProvider,
-} from '@postmill-ai/provider-kernel';
-import { makeId, makeOauthState } from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
+import { makeId, makeOauthState } from '@validpost/provider-kernel';
 import dayjs from 'dayjs';
 import {
   SocialAbstract,
   ValidityMedia,
-} from '@postmill-ai/provider-kernel';
-import { FacebookDto } from '@postmill-ai/provider-kernel';
-import { DribbbleDto } from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
+import { FacebookDto } from '@validpost/provider-kernel';
 import { Integration } from '@prisma/client';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { Rules } from '@postmill-ai/provider-kernel';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { timer } from '@validpost/helpers/utils/timer';
+import { Rules } from '@validpost/provider-kernel';
 import { Logger } from '@nestjs/common';
 
 import { metadata as providerMetadata } from './metadata';
@@ -1006,7 +1005,7 @@ import {
   ProviderModule as __ProviderModule,
   SocialProviderKernelAdapter as __Bridge,
   PROVIDER_CAPABILITIES as __CAPS,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const __adapter = new FacebookProvider();
 

@@ -3,11 +3,11 @@
 import { FC, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
-import { ChannelFilterSelect } from '@postmill-ai/frontend/components/launches/channel-filter-select';
-import { CampaignFilterSelect } from '@postmill-ai/frontend/components/launches/campaign-filter-select';
-import { TeamMemberItem } from '@postmill-ai/frontend/components/settings/roles/hooks/use-roles';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
+import { ChannelFilterSelect } from '@validpost/frontend/components/launches/channel-filter-select';
+import { CampaignFilterSelect } from '@validpost/frontend/components/launches/campaign-filter-select';
+import { TeamMemberItem } from '@validpost/frontend/components/settings/roles/hooks/use-roles';
 
 interface RepliesFilterBarProps {
   status?: string;
@@ -212,7 +212,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
           <div className="flex items-center gap-[8px]">
             <div className="text-[16px] font-[600]">{t('filters', 'Filters')}</div>
             {appliedCount > 0 && (
-              <span className="min-w-[20px] h-[20px] px-[6px] rounded-full bg-[#2B5CD3] text-white text-[11px] font-[600] flex items-center justify-center">
+              <span className="min-w-[20px] h-[20px] px-[6px] rounded-full bg-btnPrimary text-white text-[11px] font-[600] flex items-center justify-center">
                 {appliedCount}
               </span>
             )}
@@ -221,7 +221,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
             type="button"
             aria-label={t('close', 'Close')}
             onClick={() => setOpen(false)}
-            className="w-[32px] h-[32px] flex items-center justify-center rounded-[8px] text-newTableText hover:bg-[#2B5CD3]/15 hover:text-textColor transition-all"
+            className="w-[32px] h-[32px] flex items-center justify-center rounded-[8px] text-newTableText hover:bg-btnPrimary/15 hover:text-textColor transition-all"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
@@ -241,7 +241,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
                   className={clsx(
                     'px-[12px] py-[6px] text-[13px] font-[500] rounded-[8px] border transition-colors',
                     status === opt.value
-                      ? 'bg-[#2B5CD3] text-white border-[#2B5CD3]'
+                      ? 'bg-btnPrimary text-white border-btnPrimary'
                       : 'bg-newBgColorInner text-newTableText border-newTableBorder hover:text-textColor'
                   )}
                 >
@@ -272,7 +272,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
                   className={clsx(
                     'px-[12px] py-[6px] text-[13px] font-[500] rounded-[8px] border transition-colors',
                     sentiment === opt.value
-                      ? 'bg-[#2B5CD3] text-white border-[#2B5CD3]'
+                      ? 'bg-btnPrimary text-white border-btnPrimary'
                       : 'bg-newBgColorInner text-newTableText border-newTableBorder hover:text-textColor'
                   )}
                 >
@@ -293,7 +293,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
                   className={clsx(
                     'px-[12px] py-[6px] text-[13px] font-[500] rounded-[8px] border transition-colors',
                     priority === opt.value
-                      ? 'bg-[#2B5CD3] text-white border-[#2B5CD3]'
+                      ? 'bg-btnPrimary text-white border-btnPrimary'
                       : 'bg-newBgColorInner text-newTableText border-newTableBorder hover:text-textColor'
                   )}
                 >
@@ -361,7 +361,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
             type="button"
             onClick={clearAll}
             disabled={appliedCount === 0}
-            className="flex-1 h-[40px] rounded-[8px] border border-newTableBorder text-[14px] font-[500] text-textColor hover:bg-[#2B5CD3]/10 transition-all disabled:opacity-40 disabled:cursor-default disabled:hover:bg-transparent"
+            className="flex-1 h-[40px] rounded-[8px] border border-newTableBorder text-[14px] font-[500] text-textColor hover:bg-btnPrimary/10 transition-all disabled:opacity-40 disabled:cursor-default disabled:hover:bg-transparent"
           >
             {appliedCount > 0
               ? t('clear_all_count', 'Clear all ({{count}})', { count: appliedCount })
@@ -370,7 +370,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="flex-1 h-[40px] rounded-[8px] bg-[#2B5CD3] text-white text-[14px] font-[600] hover:opacity-90 transition-all"
+            className="flex-1 h-[40px] rounded-[8px] bg-btnPrimary text-white text-[14px] font-[600] hover:opacity-90 transition-all"
           >
             {t('done', 'Done')}
           </button>
@@ -393,7 +393,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
               type="button"
               aria-label={t('remove_filter', 'Remove filter')}
               onClick={chip.onClear}
-              className="w-[18px] h-[18px] shrink-0 flex items-center justify-center rounded-full hover:bg-[#2B5CD3]/15 hover:text-textColor transition-all"
+              className="w-[18px] h-[18px] shrink-0 flex items-center justify-center rounded-full hover:bg-btnPrimary/15 hover:text-textColor transition-all"
             >
               <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
                 <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
@@ -422,7 +422,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
             : t('filter', 'Filter')
         }
         onClick={() => setOpen(true)}
-        className="relative shrink-0 w-[42px] h-[42px] flex items-center justify-center rounded-[8px] border border-newTableBorder bg-newBgColorInner hover:text-textColor hover:border-[#2B5CD3]/50 transition-all"
+        className="relative shrink-0 w-[42px] h-[42px] flex items-center justify-center rounded-[8px] border border-newTableBorder bg-newBgColorInner hover:text-textColor hover:border-btnPrimary/50 transition-all"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path
@@ -434,7 +434,7 @@ export const RepliesFilterBar: FC<RepliesFilterBarProps> = ({
           />
         </svg>
         {appliedCount > 0 && (
-          <span className="absolute top-[-6px] inset-e-[-6px] min-w-[18px] h-[18px] px-[4px] rounded-full bg-[#2B5CD3] text-white text-[11px] font-[600] leading-[18px] text-center">
+          <span className="absolute top-[-6px] inset-e-[-6px] min-w-[18px] h-[18px] px-[4px] rounded-full bg-btnPrimary text-white text-[11px] font-[600] leading-[18px] text-center">
             {appliedCount}
           </span>
         )}

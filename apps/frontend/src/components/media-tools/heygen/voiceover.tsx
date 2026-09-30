@@ -1,10 +1,10 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { VoicePicker } from './voice-picker';
 import { HeyGenVoice } from './use-heygen';
 
@@ -60,7 +60,7 @@ export const Voiceover: FC<VoiceoverProps> = ({ voices, onGenerated }) => {
             children: <VoicePicker voices={voices} selectedId={voice?.voiceId} onSelect={(v) => setVoice({ voiceId: v.voiceId, name: v.name })} />,
           })
         }
-        className="flex items-center justify-between gap-[8px] px-[12px] py-[10px] rounded-[10px] border border-studioBorder hover:border-[#2B5CD3] transition-all text-left"
+        className="flex items-center justify-between gap-[8px] px-[12px] py-[10px] rounded-[10px] border border-studioBorder hover:border-btnPrimary transition-all text-left"
       >
         <div>
           <div className="text-[13px] text-textColor">{voice?.name || t('heygen_pick_a_voice', 'Pick a voice')}</div>
@@ -74,14 +74,14 @@ export const Voiceover: FC<VoiceoverProps> = ({ voices, onGenerated }) => {
         onChange={(e) => setText(e.target.value)}
         placeholder={t('heygen_type_script_to_read_aloud', 'Type the script to read aloud…')}
         rows={7}
-        className="w-full px-[12px] py-[10px] rounded-[10px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-[#2B5CD3] resize-none"
+        className="w-full px-[12px] py-[10px] rounded-[10px] bg-newBgColorInner border border-studioBorder text-[13px] text-textColor outline-hidden focus:border-btnPrimary resize-none"
       />
 
       <button
         type="button"
         onClick={generate}
         disabled={!valid || generating}
-        className="px-[20px] h-[42px] rounded-[10px] bg-[#2B5CD3] text-white text-[14px] font-[600] hover:bg-[#2B5CD3]/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all w-fit"
+        className="px-[20px] h-[42px] rounded-[10px] bg-btnPrimary text-white text-[14px] font-[600] hover:bg-btnPrimary/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all w-fit"
       >
         {generating ? t('heygen_starting', 'Starting…') : t('heygen_generate_voiceover_to_files', 'Generate voiceover → Files')}
       </button>

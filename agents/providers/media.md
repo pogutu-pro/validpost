@@ -28,7 +28,7 @@ Key option/result types: `MediaGenerateOptions extends MediaCredentialOptions` (
 
 Poll semantics (enforced across adapters, see `libraries/providers/kernel/src/domains/media-guards.ts`):
 - 429/5xx on a status poll is **transient** → **throw** (`isTransientStatus`); the lifecycle retries. A returned `{status:'failed'}` is terminal.
-- **Upstream failures are typed, never `throw new Error(body)`** (`libraries/providers/kernel/src/upstream-error.ts`). A non-OK submit response: `if (!res.ok) throw await mediaUpstreamError(this, res, 'image')`. A terminal poll failure: `return { status: 'failed', error: mediaUpstreamFailure(this, res.status, body) }` (also for provider-reported failures inside a 200: `mediaUpstreamFailure(this, undefined, data.error)`); a sync poll loop rethrows with `mediaUpstreamFromPoll(this, poll.error)`. SDK-backed adapters wrap the SDK call: `throw mediaUpstreamFromUnknown(this, err, 'video')`. The helper classifies by status (`auth`/`quota`/`rate_limit`/`invalid_request`/`timeout`/`unavailable`), extracts the provider's message from the usual JSON shapes, redacts + bounds it, and names the provider (`this.name`) — so the studio, the render queue and the HTTP 502 envelope all say "Google AI Studio rejected the API key…", not "Internal server error". Why the rule exists: a plain `Error` became a Postmill 500 in the UI and a Sentry issue; an SDK `APICallError` (`{statusCode, message}`) was replayed by Nest as OUR status — a provider 401 logged the user out.
+- **Upstream failures are typed, never `throw new Error(body)`** (`libraries/providers/kernel/src/upstream-error.ts`). A non-OK submit response: `if (!res.ok) throw await mediaUpstreamError(this, res, 'image')`. A terminal poll failure: `return { status: 'failed', error: mediaUpstreamFailure(this, res.status, body) }` (also for provider-reported failures inside a 200: `mediaUpstreamFailure(this, undefined, data.error)`); a sync poll loop rethrows with `mediaUpstreamFromPoll(this, poll.error)`. SDK-backed adapters wrap the SDK call: `throw mediaUpstreamFromUnknown(this, err, 'video')`. The helper classifies by status (`auth`/`quota`/`rate_limit`/`invalid_request`/`timeout`/`unavailable`), extracts the provider's message from the usual JSON shapes, redacts + bounds it, and names the provider (`this.name`) — so the studio, the render queue and the HTTP 502 envelope all say "Google AI Studio rejected the API key…", not "Internal server error". Why the rule exists: a plain `Error` became a ValidPost 500 in the UI and a Sentry issue; an SDK `APICallError` (`{statusCode, message}`) was replayed by Nest as OUR status — a provider 401 logged the user out.
 - Model ids interpolated into request paths must pass `validateModelId(model)` (allowlist regex, blocks `..`/query/fragment injection).
 - Reading provider response bodies into memory: `readCappedArrayBuffer(res, maxBytes)`.
 
@@ -48,7 +48,7 @@ Reference implementation: `libraries/providers/qwen/src/v1/media.adapter.ts` (`Q
 
 ## 3. Package shape & registration
 
-Workspace package `libraries/providers/<id>` (name `@postmill-ai/provider-<id>`, dep `@postmill-ai/provider-kernel: workspace:*`, script `"test": "vitest run"`):
+Workspace package `libraries/providers/<id>` (name `@validpost/provider-<id>`, dep `@validpost/provider-kernel: workspace:*`, script `"test": "vitest run"`):
 
 ```
 src/v1/metadata.ts        # ProviderMetadata (id, kind, domains, mediaCategories, mediaModels — generated, §5)
@@ -74,7 +74,7 @@ export const myMediaModule: ProviderModule<any, any> = {
 
 Registration (all three, alphabetical order):
 - `apps/backend/src/providers.generated.ts` — import + spread (hand-maintained despite the name).
-- `tsconfig.base.json` — `paths` entry for `@postmill-ai/provider-<id>`.
+- `tsconfig.base.json` — `paths` entry for `@validpost/provider-<id>`.
 - `apps/backend/package.json` — `workspace:*` dependency.
 
 Boot path: `ProvidersBootstrap` (`apps/backend/src/providers.bootstrap.ts`) registers the modules into the `ProviderKernel`.
@@ -152,7 +152,7 @@ Package scaffolding, manifest validation rules (`validateManifest` — no `/`/`@
 
 ## 11. Tests
 
-Per-package Vitest. Recorded-fixture integration spec pattern: `libraries/providers/qwen/src/v1/media.int-spec.ts` uses `makeCtx`/`res` from `@postmill-ai/provider-kernel/testing/media-int-helpers` — assert endpoint URL, headers, request body shape, poll parsing (pending/completed/failed), transient-throw vs terminal-failed, and unsupported-op rejection. Run:
+Per-package Vitest. Recorded-fixture integration spec pattern: `libraries/providers/qwen/src/v1/media.int-spec.ts` uses `makeCtx`/`res` from `@validpost/provider-kernel/testing/media-int-helpers` — assert endpoint URL, headers, request body shape, poll parsing (pending/completed/failed), transient-throw vs terminal-failed, and unsupported-op rejection. Run:
 
 ```bash
 vitest run --root libraries/providers/<id>

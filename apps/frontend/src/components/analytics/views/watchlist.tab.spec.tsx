@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -15,12 +15,12 @@ vi.mock('../charts/line.chart', () => ({
 }));
 
 const mockFetch = vi.fn();
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
 const mockToasterShow = vi.fn();
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
 
@@ -74,7 +74,7 @@ describe('WatchlistTab', () => {
   it('renders the loading skeleton while accounts are undefined', () => {
     stubAccounts();
     const { container } = render(<WatchlistTab />);
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
   });
 
   it('renders the error state on load failure', () => {
@@ -265,7 +265,7 @@ describe('WatchlistTab', () => {
     stubSeries({ isLoading: true });
     const { container } = render(<WatchlistTab />);
     fireEvent.click(screen.getByRole('button', { name: 'Growth' }));
-    expect(container.querySelector('.animate-pulse')).toBeTruthy();
+    expect(container.querySelector('.vp-skeleton')).toBeTruthy();
     expect(screen.queryByTestId('line-chart')).toBeNull();
   });
 

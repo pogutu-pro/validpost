@@ -2,11 +2,11 @@
 
 import { FC, useMemo, useState } from 'react';
 import { useBestTime, BestTimeEntry } from '../hooks/useBestTime';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { heatmapColor } from '../kit/palette';
 import { TabSkeleton, EmptyState } from '../kit/states';
-import { useIntegrationList } from '@postmill-ai/frontend/components/launches/helpers/use.integration.list';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { useIntegrationList } from '@validpost/frontend/components/launches/helpers/use.integration.list';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 
 interface BestTimeTabProps {
   integrations?: string[];

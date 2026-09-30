@@ -1,18 +1,18 @@
-import { internalFetch } from '@postmill-ai/helpers/utils/internal.fetch';
-import { sanitizePostContent } from '@postmill-ai/helpers/utils/sanitize.post.content';
+import { internalFetch } from '@validpost/helpers/utils/internal.fetch';
+import { sanitizePostContent } from '@validpost/helpers/utils/sanitize.post.content';
 export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import SafeImage from '@validpost/react/helpers/safe.image';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CommentsComponents } from '@postmill-ai/frontend/components/preview/comments.components';
+import { CommentsComponents } from '@validpost/frontend/components/preview/comments.components';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { VideoOrImage } from '@postmill-ai/react/helpers/video.or.image';
-import { CopyClient } from '@postmill-ai/frontend/components/preview/copy.client';
-import { getT } from '@postmill-ai/react/translation/get.translation.service.backend';
-import { RenderPreviewDateClient } from '@postmill-ai/frontend/components/preview/render.preview.date.client';
-import { CreationMethodBadge } from '@postmill-ai/frontend/components/launches/creation.method.badge';
+import { VideoOrImage } from '@validpost/react/helpers/video.or.image';
+import { CopyClient } from '@validpost/frontend/components/preview/copy.client';
+import { getT } from '@validpost/react/translation/get.translation.service.backend';
+import { RenderPreviewDateClient } from '@validpost/frontend/components/preview/render.preview.date.client';
+import { CreationMethodBadge } from '@validpost/frontend/components/launches/creation.method.badge';
 
 dayjs.extend(utc);
 export const metadata: Metadata = {
@@ -58,7 +58,7 @@ export default async function Auth(
                 >
                   <div className="max-w-[55px]">
                     <SafeImage
-                      src={'/postmill.svg'}
+                      src={'/validpost.svg'}
                       width={55}
                       height={55}
                       alt="Logo"

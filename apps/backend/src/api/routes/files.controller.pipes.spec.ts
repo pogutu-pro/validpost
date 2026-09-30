@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import 'reflect-metadata';
 import { PIPES_METADATA, ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 import { RouteParamtypes } from '@nestjs/common/enums/route-paramtypes.enum';
-import { CustomFileValidationPipe } from '@postmill-ai/nestjs-libraries/upload/custom.upload.validation';
+import { CustomFileValidationPipe } from '@validpost/nestjs-libraries/upload/custom.upload.validation';
 
 import { FilesController } from './files.controller';
 import { PublicIntegrationsController } from '../../public-api/routes/v1/public.integrations.controller';

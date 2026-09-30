@@ -1,7 +1,7 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { Response } from 'express';
-import { PaymentsUnsupportedOperationError } from '@postmill-ai/provider-kernel';
+import { PaymentsUnsupportedOperationError } from '@validpost/provider-kernel';
 
 /** True for the kernel error class from any module realm (provider packages may load their own kernel copy). */
 export function isUnsupportedOperationError(err: unknown): err is PaymentsUnsupportedOperationError {

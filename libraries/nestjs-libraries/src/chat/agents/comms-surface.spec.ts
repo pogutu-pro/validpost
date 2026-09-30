@@ -41,6 +41,6 @@ describe('comms surface for specialists', () => {
     const ui = await agent.getInstructions({ requestContext: ctx('true', { mode: 'user' }) });
     expect(String(comms)).toContain('Chat-app surface');
     expect(String(ui)).not.toContain('Chat-app surface');
-    expect(String(ui)).toContain('Postmill'); // base instructions intact
+    expect(String(ui)).toContain('ValidPost'); // base instructions intact
   });
 });

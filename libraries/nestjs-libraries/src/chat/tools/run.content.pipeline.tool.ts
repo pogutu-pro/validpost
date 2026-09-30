@@ -1,14 +1,14 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 import { Injectable } from '@nestjs/common';
-import { ContentPipelineConductorService } from '@postmill-ai/nestjs-libraries/chat/content-pipeline/content-pipeline-conductor.service';
+import { ContentPipelineConductorService } from '@validpost/nestjs-libraries/chat/content-pipeline/content-pipeline-conductor.service';
 import {
   parseOrg,
   parseUser,
   requireRead,
-} from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
+} from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
 
 @Injectable()
 export class RunContentPipelineTool implements AgentToolInterface {

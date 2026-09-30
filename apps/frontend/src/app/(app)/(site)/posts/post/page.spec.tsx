@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -14,30 +14,30 @@ vi.mock('next/navigation', () => ({
   useSearchParams: () => ({ get: () => null }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
 // Composer pulls in the whole launch store tree; stub it — this spec covers the
 // page-level zero-channel guard, not the composer.
-vi.mock('@postmill-ai/frontend/components/composer/composer', () => ({
+vi.mock('@validpost/frontend/components/composer/composer', () => ({
   Composer: () => <div data-testid="composer" />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/loading', () => ({
+vi.mock('@validpost/frontend/components/layout/loading', () => ({
   LoadingComponent: () => <div data-testid="loading" />,
 }));
 
 const mockAddChannel = vi.fn();
 vi.mock(
-  '@postmill-ai/frontend/components/launches/add.provider.component',
+  '@validpost/frontend/components/launches/add.provider.component',
   () => ({
     useAddProvider: () => mockAddChannel,
   })
 );
 
 const mockPermissions = vi.fn();
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => mockPermissions(),
 }));
 
