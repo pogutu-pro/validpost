@@ -160,6 +160,7 @@ export const SplitButton: FC<SplitButtonProps> = ({
         <div
           id={menuId}
           role="menu"
+          tabIndex={-1}
           aria-label={menuLabel}
           onKeyDown={onMenuKeyDown}
           className={clsx(
