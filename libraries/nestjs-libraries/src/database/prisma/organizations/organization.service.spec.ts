@@ -58,11 +58,14 @@ describe('OrganizationService', () => {
   });
 
   describe('completeSetup', () => {
-    it('throws BadRequestException when no active LLM provider exists', async () => {
+    it('marks setup completed even when no LLM provider is configured (AI is optional)', async () => {
       mockOrgAiSettingsService.getActiveProvider.mockResolvedValue(null);
+      mockRepo.markSetupCompleted.mockResolvedValue({ id: 'org-1', setupCompletedAt: new Date() });
 
-      await expect(service.completeSetup('org-1')).rejects.toThrow('active LLM provider is required');
-      expect(mockRepo.markSetupCompleted).not.toHaveBeenCalled();
+      const result = await service.completeSetup('org-1');
+
+      expect(mockRepo.markSetupCompleted).toHaveBeenCalledWith('org-1');
+      expect(result.setupCompletedAt).toBeInstanceOf(Date);
     });
 
     it('marks setup completed when an active LLM provider exists', async () => {

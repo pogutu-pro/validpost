@@ -67,9 +67,15 @@ export default function CreatePostPage() {
     const canCreateChannels =
       !permissions.isResolved || permissions.hasPermission('channels', 'create');
     return (
-      <div className="flex justify-center p-[40px]">
+      <div className="flex flex-1 w-full justify-center items-start p-[40px] mobile:p-[16px]">
         <EmptyState
           className="w-full max-w-[480px]"
+          icon={
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </svg>
+          }
           title={t('composer_no_channels_title', 'No channels connected')}
           description={
             canCreateChannels

@@ -133,7 +133,7 @@ const RichTile: FC<{ kpi: KPI; color: string; onClick?: () => void }> = ({
       }`}
     >
       <div className="px-[16px] pt-[14px] pb-[8px] mobile:px-[12px] mobile:pt-[10px] mobile:pb-[4px] flex items-center justify-between gap-[6px]">
-        <span className="text-[13px] mobile:text-[11px] font-medium text-newTableText uppercase tracking-wide truncate">
+        <span className="text-[12px] mobile:text-[11px] font-medium text-newTableText uppercase tracking-[0.04em] leading-[1.25] break-words">
           {kpi.label}
         </span>
         {kpi.percentageChange !== 0 && (

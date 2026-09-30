@@ -1,6 +1,5 @@
 import { CreateOrgUserDto } from '@validpost/nestjs-libraries/dtos/auth/create.org.user.dto';
 import {
-  BadRequestException,
   forwardRef,
   HttpException,
   HttpStatus,
@@ -243,11 +242,11 @@ export class OrganizationService {
     return this._organizationRepository.getImpersonateUser(name);
   }
 
+  // Setup never requires an AI provider: with none configured AI is simply off
+  // for the org (see the no-env-fallback invariant), and it can be connected at
+  // any time in Settings → AI. Blocking here would lock new workspaces out of
+  // the calendar and composer.
   async completeSetup(orgId: string) {
-    const activeProvider = await this._orgAiSettingsService.getActiveProvider(orgId);
-    if (!activeProvider) {
-      throw new BadRequestException('An active LLM provider is required before completing setup.');
-    }
     return this._organizationRepository.markSetupCompleted(orgId);
   }
 }
