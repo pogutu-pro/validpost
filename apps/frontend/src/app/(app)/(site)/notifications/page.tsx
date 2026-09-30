@@ -1,4 +1,4 @@
-import { NotificationsPage } from '@postmill-ai/frontend/components/notifications/notifications.page';
+import { NotificationsPage } from '@validpost/frontend/components/notifications/notifications.page';
 
 export default function Page() {
   return <NotificationsPage />;

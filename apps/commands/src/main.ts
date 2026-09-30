@@ -1,4 +1,4 @@
-// Must be first: installs the runtime resolver for bare `@postmill-ai/provider-*` imports
+// Must be first: installs the runtime resolver for bare `@validpost/provider-*` imports
 // (see register-provider-paths.ts) before any transitive require of a provider package.
 import './register-provider-paths';
 import { NestFactory } from '@nestjs/core';

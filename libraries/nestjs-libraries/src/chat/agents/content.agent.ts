@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import {
   specialistCommsRules,
   specialistPreamble,
-} from '@postmill-ai/nestjs-libraries/chat/agents/comms-surface';
+} from '@validpost/nestjs-libraries/chat/agents/comms-surface';
 import { Agent } from '@mastra/core/agent';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { resolveOrgIdFromModelContext } from '@postmill-ai/nestjs-libraries/chat/agents/resolve-org-context';
-import { pickTools } from '@postmill-ai/nestjs-libraries/chat/agents/specialist-tool-subset';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { resolveOrgIdFromModelContext } from '@validpost/nestjs-libraries/chat/agents/resolve-org-context';
+import { pickTools } from '@validpost/nestjs-libraries/chat/agents/specialist-tool-subset';
 
 export const CONTENT_TOOL_NAMES = [
   'generatePostContent',
@@ -27,7 +27,7 @@ export class ContentAgentBuilder {
       id: 'content',
       name: 'content',
       description: 'Specialist agent for copy, brand voice, and content generation.',
-      instructions: ({ requestContext }: { requestContext?: any }) => `${specialistPreamble()}You are the content specialist for Postmill.
+      instructions: ({ requestContext }: { requestContext?: any }) => `${specialistPreamble()}You are the content specialist for ValidPost.
 
 Your job:
 - Draft, rewrite, or brainstorm social media copy.

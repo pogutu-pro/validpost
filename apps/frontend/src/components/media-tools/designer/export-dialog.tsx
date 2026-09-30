@@ -6,28 +6,28 @@ import { Stage, Layer, Rect, Group, Image as KonvaImage } from 'react-konva';
 import type Konva from 'konva';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
-import type { SelectedIntegrations } from '@postmill-ai/frontend/components/composer/store';
-import { PicksSocialsComponent } from '@postmill-ai/frontend/components/composer/picks.socials.component';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
+import type { SelectedIntegrations } from '@validpost/frontend/components/composer/store';
+import { PicksSocialsComponent } from '@validpost/frontend/components/composer/picks.socials.component';
 import { useBrandColors } from './panels/use-brand-colors';
 import { useBrandFonts } from './panels/use-brand-fonts';
 import { getBrandViolations } from './brand-compliance';
-import type { SymbolDefinition } from '@postmill-ai/nestjs-libraries/media/designer-doc/symbols';
+import type { SymbolDefinition } from '@validpost/nestjs-libraries/media/designer-doc/symbols';
 import { measureForElement } from './measure-text';
 import {
   layersNeedingRaster,
   outputToSvg,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/svg-export';
+} from '@validpost/nestjs-libraries/media/designer-doc/svg-export';
 import { CanvasElements, gradientFillProps, getImageNaturalSize } from './elements';
 import type { DesignerDoc, DesignerOutput } from './designer.store';
 import { getThumbnailDataUrl } from './designer';
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
-import type { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
+import type { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 import { variantProviders, groupFilesByProvider } from './export-channels';
 
 const useFocusTrap = (containerRef: React.RefObject<HTMLElement | null>) => {

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const XaiStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/xai/xai-studio').then((m) => m.XaiStudio),
+  () => import('@validpost/frontend/components/media-tools/xai/xai-studio').then((m) => m.XaiStudio),
   { ssr: false }
 );
 

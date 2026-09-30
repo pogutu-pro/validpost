@@ -4,12 +4,12 @@ import { FC, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { useMenuItem } from '@postmill-ai/frontend/components/layout/top.menu';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useHasOpenModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useFullscreen } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
+import { useMenuItem } from '@validpost/frontend/components/layout/top.menu';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useHasOpenModals } from '@validpost/frontend/components/layout/new-modal';
+import { useFullscreen } from '@validpost/frontend/components/media-tools/use-fullscreen';
 import { MenuItemRow } from './menu-item-row';
 
 // Primary destinations pinned to the bottom bar. Home is always first; the remaining

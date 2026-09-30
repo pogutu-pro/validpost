@@ -17,8 +17,8 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
-import { STYLE_PRESET_IDS } from '@postmill-ai/nestjs-libraries/ai-designer/styles';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
+import { STYLE_PRESET_IDS } from '@validpost/nestjs-libraries/ai-designer/styles';
 
 // Every field here arrives over the AI Designer websocket, where each accepted
 // payload can fan out into LLM dispatches and full renders — the numeric and

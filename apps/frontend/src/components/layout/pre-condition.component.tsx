@@ -2,10 +2,10 @@
 
 import React, { FC, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ModalWrapperComponent } from '@postmill-ai/frontend/components/composer/modal.wrapper.component';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { ModalWrapperComponent } from '@validpost/frontend/components/composer/modal.wrapper.component';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const PreConditionComponentModal: FC = () => {
   const modal = useModals();

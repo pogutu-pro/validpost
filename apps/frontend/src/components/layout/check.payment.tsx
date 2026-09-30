@@ -1,12 +1,12 @@
 'use client';
 
 import { FC, ReactNode, useEffect, useState } from 'react';
-import Loading from '@postmill-ai/frontend/components/layout/loading';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useDecisionModal } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import Loading from '@validpost/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { timer } from '@validpost/helpers/utils/timer';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useDecisionModal } from '@validpost/frontend/components/layout/new-modal';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const CheckPayment: FC<{
   check: string;
   /** The provider's own subscription ref from the return URL (PayPal appends `subscription_id`). */

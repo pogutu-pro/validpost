@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { StepFrame } from '@postmill-ai/frontend/components/setup/step-frame';
-import { ProviderSettingsPanel } from '@postmill-ai/frontend/components/settings/shared/kit/provider-settings-panel';
-import { aiDescriptor } from '@postmill-ai/frontend/components/settings/shared/kit/descriptors/ai.descriptor';
-import { useProviderSurface } from '@postmill-ai/frontend/components/settings/shared/kit/use-provider-surface';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { StepFrame } from '@validpost/frontend/components/setup/step-frame';
+import { ProviderSettingsPanel } from '@validpost/frontend/components/settings/shared/kit/provider-settings-panel';
+import { aiDescriptor } from '@validpost/frontend/components/settings/shared/kit/descriptors/ai.descriptor';
+import { useProviderSurface } from '@validpost/frontend/components/settings/shared/kit/use-provider-surface';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export function StepLlm({
   onProviderChange,

@@ -1,6 +1,6 @@
 # API Keys
 
-Postmill uses per-user, per-organization API keys for programmatic access. All integrations and MCP clients authenticate with these keys.
+ValidPost uses per-user, per-organization API keys for programmatic access. All integrations and MCP clients authenticate with these keys.
 
 ## Key format
 

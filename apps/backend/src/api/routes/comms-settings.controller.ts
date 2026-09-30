@@ -10,17 +10,17 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 import { Organization, User } from '@prisma/client';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { CommsConfigService } from '@postmill-ai/nestjs-libraries/comms/comms-config.service';
-import { CommsLinkService } from '@postmill-ai/nestjs-libraries/comms/comms-link.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { CommsConfigService } from '@validpost/nestjs-libraries/comms/comms-config.service';
+import { CommsLinkService } from '@validpost/nestjs-libraries/comms/comms-link.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
 import {
   CreateCommsLinkDto,
   UpdateCommsLinkDto,
   UpsertCommsConfigDto,
-} from '@postmill-ai/nestjs-libraries/dtos/comms/comms.dto';
+} from '@validpost/nestjs-libraries/dtos/comms/comms.dto';
 
 @ApiTags('Comms Settings')
 @Controller('/settings/comms')

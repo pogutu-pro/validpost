@@ -1,4 +1,4 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, OnModuleInit, Optional } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import {
@@ -6,10 +6,10 @@ import {
   type InProcessHandler,
 } from '@reaatech/agent-mesh-router';
 import type { AgentResponse } from '@reaatech/agent-mesh';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { AiDefaultsService } from '@postmill-ai/nestjs-libraries/ai/defaults/ai-defaults.service';
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { AiDefaultsService } from '@validpost/nestjs-libraries/ai/defaults/ai-defaults.service';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
 import type {
   DesignerDoc,
   DesignerElement,
@@ -18,15 +18,15 @@ import type {
   DesignerTextShadow,
   DesignerTextStroke,
   VideoOutput,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { BLEND_MODES } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { BLEND_MODES } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 import {
   DesignerDocOpsSchema,
   DesignerDocOpSchema,
   type DesignerDocOp,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc-ops.schema';
-import type { TextContrastViolation } from '@postmill-ai/nestjs-libraries/media/design-render/design-render.types';
-import { MAX_FONT_SIZE, MAX_LAYER_STYLES } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.limits';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc-ops.schema';
+import type { TextContrastViolation } from '@validpost/nestjs-libraries/media/design-render/design-render.types';
+import { MAX_FONT_SIZE, MAX_LAYER_STYLES } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.limits';
 import {
   CONTAINED_RATIO,
   CONTAINER_FILL_RATIO,
@@ -40,9 +40,9 @@ import {
   typeScaleRatio,
   PANEL_ORIGIN_IDS,
   type GroupBox,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/reflow';
-import { subjectPointToFocalPoint } from '@postmill-ai/nestjs-libraries/media/designer-doc/focal-point';
-import { pathBounds, rotatePathNodes } from '@postmill-ai/nestjs-libraries/media/designer-doc/path-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/reflow';
+import { subjectPointToFocalPoint } from '@validpost/nestjs-libraries/media/designer-doc/focal-point';
+import { pathBounds, rotatePathNodes } from '@validpost/nestjs-libraries/media/designer-doc/path-geometry';
 import type {
   AssetAspect,
   AssetResult,
@@ -107,7 +107,7 @@ import {
   applyTextTransform,
   fitTextToBox,
   wrapTextLines,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/fit-text';
+} from '@validpost/nestjs-libraries/media/designer-doc/fit-text';
 
 /**
  * Vertical headroom the layout engine adds over a text block's wrapped height.
@@ -123,7 +123,7 @@ const REMOVAL_INTENT_RE =
 /** Whether a critic-supplied blend name is one the renderer composites. */
 const isDesignerBlendMode = (
   value: string
-): value is import('@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema').DesignerBlendMode =>
+): value is import('@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema').DesignerBlendMode =>
   (BLEND_MODES as readonly string[]).includes(value);
 import { createTextMeasurer, estimateWrappedLines, type FaceMeasurer } from './measure-text';
 import { isScriptFamily, resolveFontFamily } from './resolve-font-family';

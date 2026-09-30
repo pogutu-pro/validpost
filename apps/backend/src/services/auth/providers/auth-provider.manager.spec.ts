@@ -10,13 +10,13 @@ const ORIGINAL_ENV = { ...process.env };
 // into the advertised list.
 const PROVIDER_ENV_VARS = [
   'IS_GENERAL',
-  'POSTMILL_GENERIC_OAUTH',
-  'POSTMILL_OAUTH_CLIENT_ID',
-  'POSTMILL_OAUTH_CLIENT_SECRET',
-  'POSTMILL_OAUTH_AUTH_URL',
-  'POSTMILL_OAUTH_TOKEN_URL',
-  'POSTMILL_OAUTH_USERINFO_URL',
-  'NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME',
+  'VALIDPOST_GENERIC_OAUTH',
+  'VALIDPOST_OAUTH_CLIENT_ID',
+  'VALIDPOST_OAUTH_CLIENT_SECRET',
+  'VALIDPOST_OAUTH_AUTH_URL',
+  'VALIDPOST_OAUTH_TOKEN_URL',
+  'VALIDPOST_OAUTH_USERINFO_URL',
+  'NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME',
   'YOUTUBE_CLIENT_ID',
   'YOUTUBE_CLIENT_SECRET',
   'GITHUB_CLIENT_ID',
@@ -48,11 +48,11 @@ function clearProviderEnv() {
 }
 
 function setGenericOauthEnv() {
-  process.env.POSTMILL_OAUTH_CLIENT_ID = 'oidc-id';
-  process.env.POSTMILL_OAUTH_CLIENT_SECRET = 'oidc-secret';
-  process.env.POSTMILL_OAUTH_AUTH_URL = 'https://idp.example.com/authorize';
-  process.env.POSTMILL_OAUTH_TOKEN_URL = 'https://idp.example.com/token';
-  process.env.POSTMILL_OAUTH_USERINFO_URL = 'https://idp.example.com/userinfo';
+  process.env.VALIDPOST_OAUTH_CLIENT_ID = 'oidc-id';
+  process.env.VALIDPOST_OAUTH_CLIENT_SECRET = 'oidc-secret';
+  process.env.VALIDPOST_OAUTH_AUTH_URL = 'https://idp.example.com/authorize';
+  process.env.VALIDPOST_OAUTH_TOKEN_URL = 'https://idp.example.com/token';
+  process.env.VALIDPOST_OAUTH_USERINFO_URL = 'https://idp.example.com/userinfo';
 }
 
 function makeManager(overrides: {
@@ -235,11 +235,11 @@ describe('AuthProviderManager', () => {
       expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
     });
 
-    it('does not advertise GENERIC when POSTMILL_GENERIC_OAUTH is the shipped string "false"', async () => {
+    it('does not advertise GENERIC when VALIDPOST_GENERIC_OAUTH is the shipped string "false"', async () => {
       clearProviderEnv();
-      // .env.example ships POSTMILL_GENERIC_OAUTH="false" — a truthy string
-      // that must still disable OIDC, even with the POSTMILL_OAUTH_* set present.
-      process.env.POSTMILL_GENERIC_OAUTH = 'false';
+      // .env.example ships VALIDPOST_GENERIC_OAUTH="false" — a truthy string
+      // that must still disable OIDC, even with the VALIDPOST_OAUTH_* set present.
+      process.env.VALIDPOST_GENERIC_OAUTH = 'false';
       setGenericOauthEnv();
       const { manager } = makeManager({});
 
@@ -248,11 +248,11 @@ describe('AuthProviderManager', () => {
       expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
     });
 
-    it('does not advertise GENERIC when the toggle is "true" but the POSTMILL_OAUTH_* set is incomplete', async () => {
+    it('does not advertise GENERIC when the toggle is "true" but the VALIDPOST_OAUTH_* set is incomplete', async () => {
       clearProviderEnv();
-      process.env.POSTMILL_GENERIC_OAUTH = 'true';
-      process.env.POSTMILL_OAUTH_CLIENT_ID = 'oidc-id';
-      // missing POSTMILL_OAUTH_CLIENT_SECRET / AUTH_URL / TOKEN_URL / USERINFO_URL
+      process.env.VALIDPOST_GENERIC_OAUTH = 'true';
+      process.env.VALIDPOST_OAUTH_CLIENT_ID = 'oidc-id';
+      // missing VALIDPOST_OAUTH_CLIENT_SECRET / AUTH_URL / TOKEN_URL / USERINFO_URL
       const { manager } = makeManager({});
 
       const result = await manager.getProviders();
@@ -260,9 +260,9 @@ describe('AuthProviderManager', () => {
       expect(result.providers.map((p: any) => p.provider)).toEqual(['LOCAL']);
     });
 
-    it('advertises GENERIC when the toggle is "true" and the full POSTMILL_OAUTH_* set is present', async () => {
+    it('advertises GENERIC when the toggle is "true" and the full VALIDPOST_OAUTH_* set is present', async () => {
       clearProviderEnv();
-      process.env.POSTMILL_GENERIC_OAUTH = 'true';
+      process.env.VALIDPOST_GENERIC_OAUTH = 'true';
       setGenericOauthEnv();
       const { manager } = makeManager({});
 
@@ -352,7 +352,7 @@ describe('AuthProviderManager', () => {
 
     it('does not advertise APPLE when the SSO flag is off, even with all creds set', async () => {
       clearProviderEnv();
-      process.env.APPLE_CLIENT_ID = 'ai.postmill.app.auth';
+      process.env.APPLE_CLIENT_ID = 'io.validpost.app.auth';
       process.env.APPLE_TEAM_ID = 'TEAMID1234';
       process.env.APPLE_KEY_ID = 'KEYID5678';
       process.env.APPLE_PRIVATE_KEY = 'cDx8LWtleS1iNjQ=';
@@ -366,7 +366,7 @@ describe('AuthProviderManager', () => {
     it('does not advertise APPLE when the flag is on but the credential set is incomplete', async () => {
       clearProviderEnv();
       process.env.APPLE_SSO_ENABLED = 'true';
-      process.env.APPLE_CLIENT_ID = 'ai.postmill.app.auth';
+      process.env.APPLE_CLIENT_ID = 'io.validpost.app.auth';
       process.env.APPLE_TEAM_ID = 'TEAMID1234';
       // missing APPLE_KEY_ID / APPLE_PRIVATE_KEY
       const { manager } = makeManager({});
@@ -379,7 +379,7 @@ describe('AuthProviderManager', () => {
     it('advertises APPLE when the SSO flag is on and the full credential set is present', async () => {
       clearProviderEnv();
       process.env.APPLE_SSO_ENABLED = 'true';
-      process.env.APPLE_CLIENT_ID = 'ai.postmill.app.auth';
+      process.env.APPLE_CLIENT_ID = 'io.validpost.app.auth';
       process.env.APPLE_TEAM_ID = 'TEAMID1234';
       process.env.APPLE_KEY_ID = 'KEYID5678';
       process.env.APPLE_PRIVATE_KEY = 'cDx8LWtleS1iNjQ=';

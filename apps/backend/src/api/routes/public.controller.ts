@@ -9,16 +9,16 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { TrackService } from '@postmill-ai/nestjs-libraries/track/track.service';
+import { TrackService } from '@validpost/nestjs-libraries/track/track.service';
 import { RealIP } from 'nestjs-real-ip';
-import { UserAgent } from '@postmill-ai/nestjs-libraries/user/user.agent';
-import { TrackEnum } from '@postmill-ai/nestjs-libraries/user/track.enum';
+import { UserAgent } from '@validpost/nestjs-libraries/user/user.agent';
+import { TrackEnum } from '@validpost/nestjs-libraries/user/track.enum';
 import { Request, Response } from 'express';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { getCookieUrlFromDomain } from '@postmill-ai/helpers/subdomain/subdomain.management';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { OnlyURL } from '@postmill-ai/nestjs-libraries/dtos/webhooks/webhooks.dto';
-import { MediaStreamService } from '@postmill-ai/nestjs-libraries/media/stream/media-stream.service';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { getCookieUrlFromDomain } from '@validpost/helpers/subdomain/subdomain.management';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { OnlyURL } from '@validpost/nestjs-libraries/dtos/webhooks/webhooks.dto';
+import { MediaStreamService } from '@validpost/nestjs-libraries/media/stream/media-stream.service';
 
 @ApiTags('Public')
 @Controller('/public')

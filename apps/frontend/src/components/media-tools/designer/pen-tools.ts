@@ -5,7 +5,7 @@ import {
   smoothPathNodes,
   simplifyPoints,
   translatePathNodes,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/path-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/path-geometry';
 
 /**
  * Pure state machine for the Pen tool group.

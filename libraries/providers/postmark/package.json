@@ -1,11 +1,11 @@
 {
-  "name": "@postmill-ai/provider-postmark",
+  "name": "@validpost/provider-postmark",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
-    "@postmill-ai/provider-kernel": "workspace:*",
+    "@validpost/provider-kernel": "workspace:*",
     "postmark": "4.0.7"
   },
   "license": "AGPL-3.0",

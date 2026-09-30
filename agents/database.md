@@ -56,7 +56,7 @@ and no override; `0` = clean or `ALLOW_DESTRUCTIVE_SCHEMA=true`; `2` = empty inp
 
 ## CI gates — `.github/workflows/test.yml` (workflow `Test`, job `test`)
 
-Runs against a service container `postgres:17-alpine` (`postmill-local`/`postmill-local-pwd`, db `postmill-db-local`).
+Runs against a service container `postgres:17-alpine` (`validpost-local`/`validpost-local-pwd`, db `validpost-db-local`).
 
 1. **Migration drift check** (step `Migration drift check`):
    - `pnpm run prisma-migrate-deploy-safe` applies committed migrations (`0_init` + later) to the empty CI DB.
@@ -64,10 +64,10 @@ Runs against a service container `postgres:17-alpine` (`postmill-local`/`postmil
    - Runtime-only `mastra_*` tables live outside the Prisma schema and cannot appear as drift (app never boots in CI).
 2. **Destructive guard vs origin/main** (step `Destructive schema guard (vs origin/main)`): diffs `origin/main`'s `schema.prisma` against the branch schema, pipes to `tools/db/schema-destructive-guard.mjs --file`, gated by the `ALLOW_DESTRUCTIVE_SCHEMA` repo variable.
 
-## migrate-deploy-safe vs postmill-migrate.sh
+## migrate-deploy-safe vs validpost-migrate.sh
 
 - **`tools/db/migrate-deploy-safe.mjs`** (`pnpm run prisma-migrate-deploy-safe`; used by `pm2-run` and CI): `migrate deploy` plus one recovery — on a DB created by the old `db push` workflow (tables present, no `_prisma_migrations` history) a bare deploy aborts with **P3005 "database schema is not empty"**; the wrapper detects P3005, baselines `0_init` via `migrate resolve --applied 0_init`, and re-deploys. One-time, idempotent. Sharp edge: the baseline marks `0_init` applied **without verifying the live DB matches it** — valid only because `0_init` is generated from the current schema and any db-push DB was pushed from that same schema. For a DB pushed from an *older* schema, use `pnpm run prisma-reset` instead.
-- **`tools/db/postmill-migrate.sh`**: manual, in-place `prisma db push` **inside the running Docker container** (`POSTMILL_CONTAINER`, default `postmill-app`). Refuses data loss unless passed `--accept-data-loss` (back up first). It pushes whatever schema is baked into the running image; the permanent path is edit → commit → tag → CI image → redeploy. Not part of the normal dev workflow.
+- **`tools/db/validpost-migrate.sh`**: manual, in-place `prisma db push` **inside the running Docker container** (`VALIDPOST_CONTAINER`, default `validpost-app`). Refuses data loss unless passed `--accept-data-loss` (back up first). It pushes whatever schema is baked into the running image; the permanent path is edit → commit → tag → CI image → redeploy. Not part of the normal dev workflow.
 
 ## Data backfills (blob → row, one-time)
 

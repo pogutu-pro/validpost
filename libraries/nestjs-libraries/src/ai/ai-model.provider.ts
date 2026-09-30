@@ -5,14 +5,14 @@ import {
   type AICapabilities,
   type AIScope,
 } from './ai-provider.interface';
-import { ProviderKernel, ProviderUpstreamError, upstreamErrorFromUnknown } from '@postmill-ai/provider-kernel';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { OrgAiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { ProviderKernel, ProviderUpstreamError, upstreamErrorFromUnknown } from '@validpost/provider-kernel';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { OrgAiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
 import { AiSettingsManager } from './ai-settings.manager';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
 import type { ImageModel, LanguageModel } from './ai-provider.interface';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
 import { DefaultsResolutionService } from './defaults/defaults-resolution.service';
 import { SCOPE_TO_CATEGORY } from './defaults/default-categories';
 
@@ -76,7 +76,7 @@ const MAX_RETRIES = 3;
 // HTTP layer as a typed ProviderUpstreamError, never as the SDK's raw
 // APICallError: that one carries `statusCode` + `message`, which Nest's
 // default handler replays as OUR status — a provider 401 logged the user out,
-// a provider 429 showed Postmill's own "too many requests" toast. Anything
+// a provider 429 showed ValidPost's own "too many requests" toast. Anything
 // that is not an upstream failure (budget, guardrails, config) passes through.
 function toProviderError(
   err: unknown,
@@ -389,7 +389,7 @@ export class AIModelProvider {
         }
       } else {
         // The breaker opened because the provider kept failing — still the
-        // provider's problem (retryable), never a Postmill 500.
+        // provider's problem (retryable), never a ValidPost 500.
         primaryErr = new ProviderUpstreamError(
           {
             domain: 'ai',

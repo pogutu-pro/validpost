@@ -1,10 +1,10 @@
 'use client';
 
 import { FC, useMemo, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useIntegrationList } from '@postmill-ai/frontend/components/launches/helpers/use.integration.list';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useIntegrationList } from '@validpost/frontend/components/launches/helpers/use.integration.list';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 import { useAnalyticsShare } from '../hooks/useAnalyticsShare';
 import { ChannelAvatar } from '../kit/channel-avatar';
 import { TabSkeleton } from '../kit/states';

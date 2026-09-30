@@ -1,7 +1,7 @@
 'use client';
 
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { SsoStatus } from '@postmill-ai/frontend/components/auth/sso-popup';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { SsoStatus } from '@validpost/frontend/components/auth/sso-popup';
 
 // One line under the social buttons: "continue in the popup" while a sign-in
 // popup is open, or the failure the popup reported. (The auth pages mount no

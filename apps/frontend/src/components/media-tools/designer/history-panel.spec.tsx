@@ -10,7 +10,7 @@ import { createDesignerStore, type DesignerElement } from './designer.store';
  * off-by-one there sends a click to the wrong document state.
  */
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>

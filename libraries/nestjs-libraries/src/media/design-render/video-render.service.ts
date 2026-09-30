@@ -1,19 +1,19 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { MediaJobLifecycleService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { MediaJobLifecycleService } from '@validpost/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
 import { FfmpegVideoEncoderService } from './ffmpeg-video-encoder.service';
 import { PodmanRenderService } from './podman-render.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { inngest, isInngestEnabled } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { mediaJobWebhookToken } from '@postmill-ai/nestjs-libraries/media/media-job-token';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
+import { inngest, isInngestEnabled } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { mediaJobWebhookToken } from '@validpost/nestjs-libraries/media/media-job-token';
 import { isPodmanRenderEnabled, getRenderTimeoutMs } from './render-config';
 import { DesignRenderJobSpec, MergeRenderJobSpec, renderWorkDir } from './render-job-spec';
-import { mergeLocalFiles } from '@postmill-ai/nestjs-libraries/media/replicate-studio/video-merge';
+import { mergeLocalFiles } from '@validpost/nestjs-libraries/media/replicate-studio/video-merge';
 import {
   MAX_DIMENSION,
   MAX_TRACKS,
   MAX_CLIPS_PER_TRACK,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.limits';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.limits';
 import * as fs from 'fs';
 import * as path from 'path';
 

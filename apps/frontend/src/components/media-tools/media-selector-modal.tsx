@@ -8,13 +8,13 @@ import { StockVideos } from './stock-videos';
 import { StockVectors } from './stock-vectors';
 import { StockStickers } from './stock-stickers';
 import { StockIcons } from './stock-icons';
-import { FileManager } from '@postmill-ai/frontend/components/files/file-manager';
-import type { FileItem } from '@postmill-ai/frontend/components/files/file-manager';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useImportStockMedia } from '@postmill-ai/frontend/components/media-tools/media-import';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
+import { FileManager } from '@validpost/frontend/components/files/file-manager';
+import type { FileItem } from '@validpost/frontend/components/files/file-manager';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useImportStockMedia } from '@validpost/frontend/components/media-tools/media-import';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
 
 export type MediaKind = 'image' | 'video' | 'audio';
 

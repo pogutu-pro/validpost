@@ -1,9 +1,9 @@
 import { inject } from 'vitest';
-import { getTestPrisma } from '@postmill-ai/nestjs-libraries/testing/test-db';
+import { getTestPrisma } from '@validpost/nestjs-libraries/testing/test-db';
 import {
   PrismaRepository,
   PrismaService,
-} from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+} from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 import { MigrationLedgerRepository } from './migration-ledger.repository';
 
 // Template: copy this for other repository integration tests.

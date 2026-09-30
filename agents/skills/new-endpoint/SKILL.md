@@ -1,6 +1,6 @@
 ---
 name: new-endpoint
-description: Add a REST endpoint to the Postmill backend — new API route, controller, or DTO, with correct module registration, auth/billing/RBAC gates, and DTO validation. Use when asked to add a REST endpoint, new API route, new controller, or new backend route.
+description: Add a REST endpoint to the ValidPost backend — new API route, controller, or DTO, with correct module registration, auth/billing/RBAC gates, and DTO validation. Use when asked to add a REST endpoint, new API route, new controller, or new backend route.
 ---
 
 # Add a REST endpoint
@@ -31,7 +31,7 @@ One-line purpose: wire a thin NestJS controller route whose logic lives in `libr
 5. Put the logic in `libraries/nestjs-libraries`: Controller → Service → Repository. Only `*.repository.ts` under `libraries/nestjs-libraries/src/database/prisma/<domain>/` touches Prisma; register repo + service in `database/prisma/database.module.ts`. Cross-domain reads go through the owning domain's **service**, never its repository — do not create new cross-domain leaf-reads (the sanctioned ones are marked `// layering: sanctioned leaf-read` and exist only to avoid Nest DI cycles; detail: `agents/backend.md` §1).
 6. Any user-influenced outbound HTTP goes through `safeFetch` (`libraries/nestjs-libraries/src/dtos/webhooks/safe.fetch.ts`) — never bare `fetch(userUrl)` (SSRF: DNS rebinding, redirects; detail: `agents/security.md` § Outbound HTTP).
 7. User-facing notifications via `NotificationService.notify` only (never `EmailService` directly); errors via Nest `HttpException`s; `Logger`, not `console.log`; no secrets/PII in logs or Sentry.
-8. If a frontend consumes it: fetch via `useFetch` from `@postmill-ai/helpers`, one SWR hook per resource (detail: `agents/frontend.md`).
+8. If a frontend consumes it: fetch via `useFetch` from `@validpost/helpers`, one SWR hook per resource (detail: `agents/frontend.md`).
 
 ## Verify
 ```bash

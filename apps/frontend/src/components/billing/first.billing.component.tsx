@@ -2,44 +2,44 @@
 
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useSearchParams } from 'next/navigation';
 import {
   clearSignupPlan,
   parseSignupPeriod,
   parseSignupPlan,
   readSignupPlan,
-} from '@postmill-ai/frontend/app/(app)/auth/signup.plan.component';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
+} from '@validpost/frontend/app/(app)/auth/signup.plan.component';
+import { useVariables } from '@validpost/react/helpers/variable.context';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { OrganizationSelector } from '@postmill-ai/frontend/components/layout/organization.selector';
-import { LanguageComponent } from '@postmill-ai/frontend/components/layout/language.component';
-import { AttachToFeedbackIcon } from '@postmill-ai/frontend/components/new-layout/sentry.feedback.component';
-import NotificationComponent from '@postmill-ai/frontend/components/notifications/notification.component';
+import { OrganizationSelector } from '@validpost/frontend/components/layout/organization.selector';
+import { LanguageComponent } from '@validpost/frontend/components/layout/language.component';
+import { AttachToFeedbackIcon } from '@validpost/frontend/components/new-layout/sentry.feedback.component';
+import NotificationComponent from '@validpost/frontend/components/notifications/notification.component';
 import dynamic from 'next/dynamic';
-import { LogoTextComponent } from '@postmill-ai/frontend/components/ui/logo-text.component';
+import { LogoTextComponent } from '@validpost/frontend/components/ui/logo-text.component';
 import {
   pricing,
   PlanInterface,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 import { capitalize } from 'lodash';
 import clsx from 'clsx';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { CheckIconComponent } from '@postmill-ai/frontend/components/ui/check.icon.component';
-import { FAQComponent } from '@postmill-ai/frontend/components/billing/faq.component';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useDubClickId } from '@postmill-ai/frontend/components/layout/dubAnalytics';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { CheckIconComponent } from '@validpost/frontend/components/ui/check.icon.component';
+import { FAQComponent } from '@validpost/frontend/components/billing/faq.component';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useDubClickId } from '@validpost/frontend/components/layout/dubAnalytics';
+import SafeImage from '@validpost/react/helpers/safe.image';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import useCookie from 'react-use-cookie';
-import { LogoutComponent } from '@postmill-ai/frontend/components/layout/logout.component';
-import { DeveloperIconComponent } from '@postmill-ai/frontend/components/developer/developer.icon.component';
-import { Button } from '@postmill-ai/react/form/button';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { LogoutComponent } from '@validpost/frontend/components/layout/logout.component';
+import { DeveloperIconComponent } from '@validpost/frontend/components/developer/developer.icon.component';
+import { Button } from '@validpost/react/form/button';
+import { useToaster } from '@validpost/react/toaster/toaster';
 
 const ModeComponent = dynamic(
-  () => import('@postmill-ai/frontend/components/layout/mode.component'),
+  () => import('@validpost/frontend/components/layout/mode.component'),
   {
     ssr: false,
   }
@@ -47,7 +47,7 @@ const ModeComponent = dynamic(
 
 const EmbeddedBilling = dynamic(
   () =>
-    import('@postmill-ai/frontend/components/billing/embedded.billing').then(
+    import('@validpost/frontend/components/billing/embedded.billing').then(
       (mod) => mod.EmbeddedBilling
     ),
   {
@@ -67,7 +67,7 @@ const JoinOver: FC<{ onShowYouTube: () => void }> = ({ onShowYouTube }) => {
         </span>{' '}
         {t('billing_who_use', 'who use')}{' '}
         {t(
-          'billing_postmill_grow_social',
+          'billing_validpost_grow_social',
           'ValidPost To Grow Their Social Presence'
         )}
       </div>
@@ -89,7 +89,7 @@ const JoinOver: FC<{ onShowYouTube: () => void }> = ({ onShowYouTube }) => {
           </div>
           <div>
             {t(
-              'billing_see_the_power_of_postmill',
+              'billing_see_the_power_of_validpost',
               'See the power of ValidPost (click here)'
             )}
           </div>
@@ -206,14 +206,14 @@ export const FirstBillingComponent = () => {
   const showYouTube = () => {
     modals.openModal({
       title: t(
-        'billing_grow_fast_with_postmill_play_video',
+        'billing_grow_fast_with_validpost_play_video',
         'Grow Fast With ValidPost (Play the video)'
       ),
       children: (
         <iframe
           className="h-full aspect-video min-w-[800px]"
           src="https://www.youtube.com/embed/BdsCVvEYgHU?si=vvhaZJ8I5oXXvVJS?autoplay=1"
-          title={t('billing_postmill_tutorial', 'ValidPost Tutorial')}
+          title={t('billing_validpost_tutorial', 'ValidPost Tutorial')}
           allow="autoplay"
           allowFullScreen
         />

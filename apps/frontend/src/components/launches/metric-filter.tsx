@@ -1,12 +1,12 @@
 'use client';
 
 import { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   MetricFilters,
   MetricKey,
   MetricOp,
-} from '@postmill-ai/frontend/components/launches/calendar.context';
+} from '@validpost/frontend/components/launches/calendar.context';
 
 // Per-metric operator + value filter for views / likes / comments. A metric is
 // only applied once it has a numeric value; the operator alone does nothing.

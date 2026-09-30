@@ -4,7 +4,7 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@postmill-ai/extension': path.resolve(__dirname, 'src'),
+      '@validpost/extension': path.resolve(__dirname, 'src'),
     },
   },
   test: {

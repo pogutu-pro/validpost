@@ -8,12 +8,12 @@ import {
   Query,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { MediaDefaultsService } from '@postmill-ai/nestjs-libraries/ai/defaults/media-defaults.service';
-import { SetDefaultModelDto } from '@postmill-ai/nestjs-libraries/dtos/ai-settings/default-model.dto';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { MediaDefaultsService } from '@validpost/nestjs-libraries/ai/defaults/media-defaults.service';
+import { SetDefaultModelDto } from '@validpost/nestjs-libraries/dtos/ai-settings/default-model.dto';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 
 @ApiTags('Media Defaults')
 @Controller('/settings/content/media-defaults')

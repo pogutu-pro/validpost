@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { FC, useEffect } from 'react';
-import { PlanInterface } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { PlanInterface } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 
 const SIGNUP_PLAN_KEY = 'signup_plan';
 

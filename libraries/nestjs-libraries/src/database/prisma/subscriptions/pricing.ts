@@ -70,7 +70,7 @@ export const ADDONS = {
   storage: {
     column: 'extraStorageGb',
     limitKey: 'storage_gb',
-    productName: 'Postmill Extra Storage',
+    productName: 'ValidPost Extra Storage',
     packSizeEnv: 'ADDON_STORAGE_GB_PER_PACK',
     defaultPackSize: 25,
     priceCentsEnv: 'ADDON_STORAGE_PRICE_CENTS',
@@ -79,7 +79,7 @@ export const ADDONS = {
   video_exports: {
     column: 'extraVideoExports',
     limitKey: 'video_exports',
-    productName: 'Postmill Extra Video Exports',
+    productName: 'ValidPost Extra Video Exports',
     packSizeEnv: 'ADDON_VIDEO_EXPORTS_PER_PACK',
     defaultPackSize: 50,
     priceCentsEnv: 'ADDON_VIDEO_EXPORTS_PRICE_CENTS',
@@ -88,7 +88,7 @@ export const ADDONS = {
   channels: {
     column: 'extraChannels',
     limitKey: 'channel',
-    productName: 'Postmill Extra Channels',
+    productName: 'ValidPost Extra Channels',
     packSizeEnv: 'ADDON_CHANNELS_PER_PACK',
     defaultPackSize: 5,
     priceCentsEnv: 'ADDON_CHANNELS_PRICE_CENTS',
@@ -97,7 +97,7 @@ export const ADDONS = {
   team_seats: {
     column: 'extraTeamMembers',
     limitKey: 'team_members',
-    productName: 'Postmill Extra Team Seats',
+    productName: 'ValidPost Extra Team Seats',
     packSizeEnv: 'ADDON_TEAM_SEATS_PER_PACK',
     defaultPackSize: 5,
     priceCentsEnv: 'ADDON_TEAM_SEATS_PRICE_CENTS',
@@ -106,7 +106,7 @@ export const ADDONS = {
   posts: {
     column: 'extraPosts',
     limitKey: 'posts_per_month',
-    productName: 'Postmill Extra Posts',
+    productName: 'ValidPost Extra Posts',
     packSizeEnv: 'ADDON_POSTS_PER_PACK',
     defaultPackSize: 500,
     priceCentsEnv: 'ADDON_POSTS_PRICE_CENTS',
@@ -115,7 +115,7 @@ export const ADDONS = {
   brand_kits: {
     column: 'extraBrandKits',
     limitKey: 'brand_kits',
-    productName: 'Postmill Extra Brand Kits',
+    productName: 'ValidPost Extra Brand Kits',
     packSizeEnv: 'ADDON_BRAND_KITS_PER_PACK',
     defaultPackSize: 5,
     priceCentsEnv: 'ADDON_BRAND_KITS_PRICE_CENTS',
@@ -124,7 +124,7 @@ export const ADDONS = {
   webhooks: {
     column: 'extraWebhooks',
     limitKey: 'webhooks',
-    productName: 'Postmill Extra Webhooks',
+    productName: 'ValidPost Extra Webhooks',
     packSizeEnv: 'ADDON_WEBHOOKS_PER_PACK',
     defaultPackSize: 10,
     priceCentsEnv: 'ADDON_WEBHOOKS_PRICE_CENTS',
@@ -133,7 +133,7 @@ export const ADDONS = {
   competitors: {
     column: 'extraCompetitors',
     limitKey: 'competitors',
-    productName: 'Postmill Extra Competitors',
+    productName: 'ValidPost Extra Competitors',
     packSizeEnv: 'ADDON_COMPETITORS_PER_PACK',
     defaultPackSize: 10,
     priceCentsEnv: 'ADDON_COMPETITORS_PRICE_CENTS',

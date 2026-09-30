@@ -2,7 +2,7 @@ import type { VideoClip, VideoOutput, VideoTrack } from './designer.store';
 import {
   interpolateClipKeyframes,
   type EasePreset,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/keyframes';
+} from '@validpost/nestjs-libraries/media/designer-doc/keyframes';
 
 interface PlayOptions {
   onTick: (ms: number) => void;

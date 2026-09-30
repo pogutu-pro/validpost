@@ -12,24 +12,24 @@ import {
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 
-import { CreateOrgUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto';
-import { LoginUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto';
-import { AuthService } from '@postmill-ai/backend/services/auth/auth.service';
-import { ForgotReturnPasswordDto } from '@postmill-ai/nestjs-libraries/dtos/auth/forgot-return.password.dto';
-import { ForgotPasswordDto } from '@postmill-ai/nestjs-libraries/dtos/auth/forgot.password.dto';
-import { ResendActivationDto } from '@postmill-ai/nestjs-libraries/dtos/auth/resend-activation.dto';
-import { RefreshTokenDto } from '@postmill-ai/nestjs-libraries/dtos/auth/refresh-token.dto';
-import { OAuthLinkQueryDto } from '@postmill-ai/nestjs-libraries/dtos/auth/oauth-link-query.dto';
+import { CreateOrgUserDto } from '@validpost/nestjs-libraries/dtos/auth/create.org.user.dto';
+import { LoginUserDto } from '@validpost/nestjs-libraries/dtos/auth/login.user.dto';
+import { AuthService } from '@validpost/backend/services/auth/auth.service';
+import { ForgotReturnPasswordDto } from '@validpost/nestjs-libraries/dtos/auth/forgot-return.password.dto';
+import { ForgotPasswordDto } from '@validpost/nestjs-libraries/dtos/auth/forgot.password.dto';
+import { ResendActivationDto } from '@validpost/nestjs-libraries/dtos/auth/resend-activation.dto';
+import { RefreshTokenDto } from '@validpost/nestjs-libraries/dtos/auth/refresh-token.dto';
+import { OAuthLinkQueryDto } from '@validpost/nestjs-libraries/dtos/auth/oauth-link-query.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { getCookieUrlFromDomain } from '@postmill-ai/helpers/subdomain/subdomain.management';
-import { EmailService } from '@postmill-ai/nestjs-libraries/services/email.service';
+import { getCookieUrlFromDomain } from '@validpost/helpers/subdomain/subdomain.management';
+import { EmailService } from '@validpost/nestjs-libraries/services/email.service';
 import { RealIP } from 'nestjs-real-ip';
-import { UserAgent } from '@postmill-ai/nestjs-libraries/user/user.agent';
+import { UserAgent } from '@validpost/nestjs-libraries/user/user.agent';
 import { Provider } from '@prisma/client';
 import * as Sentry from '@sentry/nestjs';
-import { issueCsrfToken } from '@postmill-ai/backend/services/auth/csrf.middleware';
-import { AuthProviderManager } from '@postmill-ai/backend/services/auth/providers/auth-provider.manager';
+import { issueCsrfToken } from '@validpost/backend/services/auth/csrf.middleware';
+import { AuthProviderManager } from '@validpost/backend/services/auth/providers/auth-provider.manager';
 
 @ApiTags('Auth')
 @Controller('/auth')
@@ -238,7 +238,7 @@ export class AuthController {
     @Query('state') state: string,
     @Res({ passthrough: false }) response: Response
   ) {
-    const scheme = process.env.MOBILE_APP_SCHEME || 'postmill://auth/callback';
+    const scheme = process.env.MOBILE_APP_SCHEME || 'validpost://auth/callback';
     const params = new URLSearchParams();
     if (code) params.set('code', code);
     if (state) params.set('state', state);

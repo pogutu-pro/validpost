@@ -1,19 +1,19 @@
 'use client';
 
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
 import { useCallback, useMemo, useState } from 'react';
 import {
   pricing,
   PlanInterface,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { Input } from '@postmill-ai/react/form/input';
-import { Button } from '@postmill-ai/react/form/button';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { Input } from '@validpost/react/form/input';
+import { Button } from '@validpost/react/form/button';
 import { useSWRConfig } from 'swr';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import { useRouter } from 'next/navigation';
-import { useFireEvents } from '@postmill-ai/helpers/utils/use.fire.events';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFireEvents } from '@validpost/helpers/utils/use.fire.events';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const LIFETIME_PLAN: PlanInterface['current'] = 'AGENCY';
 

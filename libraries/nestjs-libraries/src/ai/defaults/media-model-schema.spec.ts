@@ -3,9 +3,9 @@ import type {
   ProviderMetadata,
   ModelField,
   MediaModelDef,
-} from '@postmill-ai/provider-kernel';
-import { LANGUAGE_CODES } from '@postmill-ai/provider-kernel';
-import { languages } from '@postmill-ai/react-shared-libraries/translation/i18n.config';
+} from '@validpost/provider-kernel';
+import { LANGUAGE_CODES } from '@validpost/provider-kernel';
+import { languages } from '@validpost/react-shared-libraries/translation/i18n.config';
 
 /**
  * Plan §6.2 — Media-model schema well-formedness.

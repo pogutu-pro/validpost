@@ -3,11 +3,11 @@
 import { FC, ReactNode } from 'react';
 import Link from 'next/link';
 import { useDashboardPrefs } from '../hooks/useDashboardPrefs';
-import { ErrorBoundary } from '@postmill-ai/frontend/components/analytics/error.boundary';
-import { ErrorState } from '@postmill-ai/frontend/components/analytics/kit/states';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { ErrorBoundary } from '@validpost/frontend/components/analytics/error.boundary';
+import { ErrorState } from '@validpost/frontend/components/analytics/kit/states';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
 
 export interface SectionCardProps {
   id: string;

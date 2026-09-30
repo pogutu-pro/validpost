@@ -1,6 +1,6 @@
 ---
 name: add-storage-provider
-description: Add a storage provider (S3-compatible object storage, file/media storage backend, bucket provider) to the Postmill provider kernel. Use when asked to add an S3-compatible backend, a new StorageProviderType, or wire a bucket into Settings → Storage.
+description: Add a storage provider (S3-compatible object storage, file/media storage backend, bucket provider) to the ValidPost provider kernel. Use when asked to add an S3-compatible backend, a new StorageProviderType, or wire a bucket into Settings → Storage.
 ---
 
 # Add a storage provider
@@ -26,13 +26,13 @@ settings UI lists.
 2. **Scaffold the package** at `libraries/providers/<id>/` (S3 family). Model on
    `libraries/providers/backblaze-b2` or `libraries/providers/s3`
    (detail: `agents/providers/overview.md` § Package layout):
-   - `package.json` — `@postmill-ai/provider-<id>`, `main`/`types: src/index.ts`,
-     dep `@postmill-ai/provider-kernel: workspace:*`, script `test: vitest run`.
+   - `package.json` — `@validpost/provider-<id>`, `main`/`types: src/index.ts`,
+     dep `@validpost/provider-kernel: workspace:*`, script `test: vitest run`.
    - `src/index.ts` — default-exports `[<id>StorageModule]`.
    - `src/v1/{index.ts, metadata.ts, storage.adapter.ts}`.
 3. **Fast path — factory.** In `src/v1/storage.adapter.ts` call
    `makeS3StorageModule({ type, displayName, credentialFields, resolveRegion?, resolveEndpoint? })`
-   from `@postmill-ai/provider-kernel` (`libraries/providers/kernel/src/domains/storage-helpers.ts:386`);
+   from `@validpost/provider-kernel` (`libraries/providers/kernel/src/domains/storage-helpers.ts:386`);
    11 of 14 providers are this one file.
    - Set `metadata` on the returned module; `metadata.ts` uses `kind: 'action'`,
      `domains: []`, `id` = `type.toLowerCase()` (factory sets `manifest.providerId`
@@ -46,10 +46,10 @@ settings UI lists.
    - Reuse kernel helpers `parseDataUrl`/`fromBuffer`/`fromFile` and preserve the mime gating (step 7).
 5. **Register — 3 edits + install.**
    - `apps/backend/src/providers.generated.ts` (hand-maintained despite the name): alphabetical
-     `import <id>Modules from '@postmill-ai/provider-<id>';` + spread `...<id>Modules,` into `providerModules`.
-   - `apps/backend/package.json`: `"@postmill-ai/provider-<id>": "workspace:*"` in dependencies.
-   - `tsconfig.base.json`: both aliases `"@postmill-ai/provider-<id>": ["libraries/providers/<id>/src"]`
-     and `"@postmill-ai/provider-<id>/*": ["libraries/providers/<id>/src/*"]`. Then `pnpm install`.
+     `import <id>Modules from '@validpost/provider-<id>';` + spread `...<id>Modules,` into `providerModules`.
+   - `apps/backend/package.json`: `"@validpost/provider-<id>": "workspace:*"` in dependencies.
+   - `tsconfig.base.json`: both aliases `"@validpost/provider-<id>": ["libraries/providers/<id>/src"]`
+     and `"@validpost/provider-<id>/*": ["libraries/providers/<id>/src/*"]`. Then `pnpm install`.
 6. **Frontend — the settings form is NOT catalog-driven.** Hardcoded lists in 2 files (4 edit points):
    - `apps/frontend/src/components/settings/storage/provider-form.modal.tsx`:
      - `allProviderTypes` (line 14) — add `{ value: 'EXAMPLE', label: 'Example Storage' }`.
@@ -72,7 +72,7 @@ settings UI lists.
 
 ## Verify
 - `pnpm run prisma-migrate-dev` then `pnpm run prisma-schema-check` — enum migration applies, no destructive drift.
-- `pnpm --filter @postmill-ai/provider-<id> test` — package conformance spec.
+- `pnpm --filter @validpost/provider-<id> test` — package conformance spec.
 - `vitest run --root libraries/providers` — repo-wide conformance + metadata specs pass.
 - Smoke: Settings → Storage → Add Provider, pick the new type, save, run Test Connection.
 

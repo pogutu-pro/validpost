@@ -2,14 +2,14 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { SWRConfig } from 'swr';
-import { RegisterAfter } from '@postmill-ai/frontend/components/auth/register';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { RegisterAfter } from '@validpost/frontend/components/auth/register';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 
 // The register page must re-prompt for an email when the OAuth provider
 // returned none (emailRequired from /auth/oauth/:provider/exists — e.g. an
 // OIDC provider that withheld the address) instead of minting a synthetic one.
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
@@ -26,11 +26,11 @@ vi.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({
     isGeneral: true,
     genericOauth: false,
@@ -41,11 +41,11 @@ vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/use.fire.events', () => ({
+vi.mock('@validpost/helpers/utils/use.fire.events', () => ({
   useFireEvents: () => vi.fn(),
 }));
 
-vi.mock('@postmill-ai/react/helpers/use.track', () => ({
+vi.mock('@validpost/react/helpers/use.track', () => ({
   useTrack: () => vi.fn().mockResolvedValue(undefined),
 }));
 
@@ -54,7 +54,7 @@ vi.mock('react-use-cookie', () => ({
 }));
 
 // Plain DTO stand-ins: the real ones pull @prisma/client into jsdom.
-vi.mock('@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
   CreateOrgUserDto: class CreateOrgUserDto {},
 }));
 
@@ -65,10 +65,10 @@ vi.mock('@hookform/resolvers/class-validator', () => ({
 }));
 
 // No social buttons under test here — render sentinels for every mapped one.
-vi.mock('@postmill-ai/frontend/components/auth/providers/oauth.provider', () => ({
+vi.mock('@validpost/frontend/components/auth/providers/oauth.provider', () => ({
   OauthProvider: () => <div data-testid="oauth-provider" />,
 }));
-vi.mock('@postmill-ai/frontend/components/auth/providers/wallet.provider', () => ({
+vi.mock('@validpost/frontend/components/auth/providers/wallet.provider', () => ({
   default: () => <div data-testid="wallet-provider" />,
 }));
 

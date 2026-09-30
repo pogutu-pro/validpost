@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AiModule } from '@postmill-ai/nestjs-libraries/ai/ai.module';
+import { AiModule } from '@validpost/nestjs-libraries/ai/ai.module';
 import { ReplicateCatalogService } from './replicate-catalog.service';
 import { ReplicateRunnerService } from './replicate-runner.service';
 import { ReplicateCostService } from './replicate-cost';

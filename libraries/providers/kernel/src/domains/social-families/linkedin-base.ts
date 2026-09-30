@@ -10,16 +10,16 @@ import { SocialCommentDTO } from '../social';
 import { makeId, makeOauthState } from '../social-make-id';
 import sharp from 'sharp';
 import { lookup } from 'mime-types';
-import { readOrFetch } from '@postmill-ai/helpers/utils/read.or.fetch';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { timer } from '@postmill-ai/helpers/utils/timer';
+import { readOrFetch } from '@validpost/helpers/utils/read.or.fetch';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { timer } from '@validpost/helpers/utils/timer';
 import {
   BadBody,
   SocialAbstract,
   ValidityMedia,
 } from '../social-base';
 import type { Integration } from '@prisma/client';
-import { PostPlug } from '@postmill-ai/helpers/decorators/post.plug';
+import { PostPlug } from '@validpost/helpers/decorators/post.plug';
 import { Logger } from '@nestjs/common';
 import { LinkedinDto } from '../social-dtos';
 import imageToPDF from 'image-to-pdf';
@@ -41,7 +41,7 @@ export class LinkedinProvider extends SocialAbstract implements SocialProvider {
   // Page provider (its own override) — requesting them here made the personal
   // connect fail with unauthorized_scope_error on any app without the
   // Community Management API product, and that product must be the ONLY
-  // product on an app, so a normal Postmill app can never carry it.
+  // product on an app, so a normal ValidPost app can never carry it.
   scopes = ['openid', 'profile', 'w_member_social'];
   override maxConcurrentJob = 2; // LinkedIn has professional posting limits
   refreshWait = true;

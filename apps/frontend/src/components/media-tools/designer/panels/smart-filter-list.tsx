@@ -1,17 +1,17 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   EyeIcon,
   EyeOffIcon,
-} from '@postmill-ai/frontend/components/ui/icons/designer-tools';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+} from '@validpost/frontend/components/ui/icons/designer-tools';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import {
   defaultFilterParams,
   filterById,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-descriptors';
-import type { FilterParams } from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-ops';
+} from '@validpost/nestjs-libraries/media/designer-doc/filter-descriptors';
+import type { FilterParams } from '@validpost/nestjs-libraries/media/designer-doc/filter-ops';
 import { FilterDialog } from '../filter-dialog';
 import {
   removeSmartFilter,

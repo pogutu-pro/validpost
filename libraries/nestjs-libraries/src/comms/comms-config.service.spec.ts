@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterAll } from 'vitest';
 
 const redisStore = new Map<string, string>();
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: {
     get: vi.fn(async (key: string) => redisStore.get(key) ?? null),
     set: vi.fn(async (key: string, value: string) => {
@@ -16,15 +16,15 @@ vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
 }));
 
 const safeFetchMock = vi.fn();
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: (...args: any[]) => safeFetchMock(...args),
 }));
 
 import { CommsConfigService } from './comms-config.service';
 import { CommsConfigRepository } from './comms-config.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
 
 const ORG = 'org-1';
 
@@ -268,7 +268,7 @@ describe('CommsConfigService', () => {
           setupSteps: ['one', 'two'],
           portalUrl: 'https://t.me/BotFather',
           portalLabel: 'Telegram @BotFather',
-          docsUrl: 'https://docs.postmill.ai/operations-guide/platform-comms-apps#telegram',
+          docsUrl: 'https://docs.validpost.io/operations-guide/platform-comms-apps#telegram',
         },
       ]);
       const [item] = await service.getProviders(ORG);

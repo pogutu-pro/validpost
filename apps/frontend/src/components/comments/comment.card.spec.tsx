@@ -3,19 +3,19 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { CommentCard, InboxComment } from './comment.card';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback: string) => fallback,
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve({}) }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/shared/provider-icon', () => ({
+vi.mock('@validpost/frontend/components/shared/provider-icon', () => ({
   default: ({ name }: { name: string }) => <span data-testid="provider-icon">{name}</span>,
 }));
 
-vi.mock('@postmill-ai/frontend/components/launches/post-detail/comment.composer', () => ({
+vi.mock('@validpost/frontend/components/launches/post-detail/comment.composer', () => ({
   CommentComposer: () => <div data-testid="comment-composer" />,
 }));
 

@@ -13,39 +13,39 @@ import {
   Res,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { sign } from 'jsonwebtoken';
 import { Organization, User } from '@prisma/client';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { PaymentsService } from '@postmill-ai/nestjs-libraries/payments/payments.service';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { PaymentsService } from '@validpost/nestjs-libraries/payments/payments.service';
 import { Response, Request } from 'express';
-import { AuthService } from '@postmill-ai/backend/services/auth/auth.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { getCookieUrlFromDomain } from '@postmill-ai/helpers/subdomain/subdomain.management';
+import { AuthService } from '@validpost/backend/services/auth/auth.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { getCookieUrlFromDomain } from '@validpost/helpers/subdomain/subdomain.management';
 import {
   pricing,
   SELF_HOST_PLAN,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { mergeEffectiveLimits } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/effective.limits';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { mergeEffectiveLimits } from '@validpost/nestjs-libraries/database/prisma/subscriptions/effective.limits';
 
 import { ApiTags } from '@nestjs/swagger';
-import { UsersService } from '@postmill-ai/nestjs-libraries/database/prisma/users/users.service';
-import { CampaignsService } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaigns.service';
-import { DeletionService } from '@postmill-ai/nestjs-libraries/database/prisma/users/deletion.service';
-import { DataExportService } from '@postmill-ai/nestjs-libraries/database/prisma/users/data-export.service';
-import { UserDetailDto } from '@postmill-ai/nestjs-libraries/dtos/users/user.details.dto';
+import { UsersService } from '@validpost/nestjs-libraries/database/prisma/users/users.service';
+import { CampaignsService } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaigns.service';
+import { DeletionService } from '@validpost/nestjs-libraries/database/prisma/users/deletion.service';
+import { DataExportService } from '@validpost/nestjs-libraries/database/prisma/users/data-export.service';
+import { UserDetailDto } from '@validpost/nestjs-libraries/dtos/users/user.details.dto';
 
-import { ChangePasswordDto } from '@postmill-ai/nestjs-libraries/dtos/users/change-password.dto';
-import { HttpForbiddenException } from '@postmill-ai/nestjs-libraries/services/exception.filter';
+import { ChangePasswordDto } from '@validpost/nestjs-libraries/dtos/users/change-password.dto';
+import { HttpForbiddenException } from '@validpost/nestjs-libraries/services/exception.filter';
 import { RealIP } from 'nestjs-real-ip';
-import { UserAgent } from '@postmill-ai/nestjs-libraries/user/user.agent';
-import { TrackEnum } from '@postmill-ai/nestjs-libraries/user/track.enum';
-import { TrackService } from '@postmill-ai/nestjs-libraries/track/track.service';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { UserAgent } from '@validpost/nestjs-libraries/user/user.agent';
+import { TrackEnum } from '@validpost/nestjs-libraries/user/track.enum';
+import { TrackService } from '@validpost/nestjs-libraries/track/track.service';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
 import crypto from 'crypto';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 @ApiTags('User')
 @Controller('/user')
@@ -479,7 +479,7 @@ export class UsersController {
     );
     res.header(
       'Content-Disposition',
-      `attachment; filename="postmill-export-${user.id}.json"`
+      `attachment; filename="validpost-export-${user.id}.json"`
     );
     return data;
   }

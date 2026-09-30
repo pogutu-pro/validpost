@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-import { BillingComponent } from '@postmill-ai/frontend/components/billing/billing.component';
+import { BillingComponent } from '@validpost/frontend/components/billing/billing.component';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: `ValidPost Billing`,

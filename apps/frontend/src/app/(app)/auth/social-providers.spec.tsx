@@ -2,9 +2,9 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { SWRConfig } from 'swr';
-import { Login } from '@postmill-ai/frontend/components/auth/login';
-import { RegisterAfter } from '@postmill-ai/frontend/components/auth/register';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { Login } from '@validpost/frontend/components/auth/login';
+import { RegisterAfter } from '@validpost/frontend/components/auth/register';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 
 // F10: the login/register pages must advertise exactly the providers the
 // backend (/auth/providers) returns — no hardcoded fallback. A fresh install
@@ -13,7 +13,7 @@ import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
 // Only LOCAL, GENERIC (OIDC) and WALLET are supported now; the per-platform
 // SSO buttons (Google/GitHub/Apple/Farcaster) were removed.
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
@@ -30,11 +30,11 @@ vi.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({
     isGeneral: true,
     genericOauth: false,
@@ -45,11 +45,11 @@ vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/use.fire.events', () => ({
+vi.mock('@validpost/helpers/utils/use.fire.events', () => ({
   useFireEvents: () => vi.fn(),
 }));
 
-vi.mock('@postmill-ai/react/helpers/use.track', () => ({
+vi.mock('@validpost/react/helpers/use.track', () => ({
   useTrack: () => vi.fn(),
 }));
 
@@ -59,23 +59,23 @@ vi.mock('react-use-cookie', () => ({
 
 // Plain DTO stand-ins: the real ones pull @prisma/client into jsdom, and the
 // resolver only runs on submit (not exercised here).
-vi.mock('@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/auth/login.user.dto', () => ({
   LoginUserDto: class LoginUserDto {},
 }));
-vi.mock('@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/auth/create.org.user.dto', () => ({
   CreateOrgUserDto: class CreateOrgUserDto {},
 }));
 
 // Provider buttons are mocked with sentinels: the spec asserts which buttons
 // the pages choose to render, without pulling Solana/OIDC SDKs into jsdom.
-vi.mock('@postmill-ai/frontend/components/auth/providers/oauth.provider', () => ({
+vi.mock('@validpost/frontend/components/auth/providers/oauth.provider', () => ({
   OauthProvider: () => <div data-testid="oauth-provider" />,
 }));
-vi.mock('@postmill-ai/frontend/components/auth/providers/wallet.provider', () => ({
+vi.mock('@validpost/frontend/components/auth/providers/wallet.provider', () => ({
   default: () => <div data-testid="wallet-provider" />,
 }));
 vi.mock(
-  '@postmill-ai/frontend/components/auth/providers/placeholder/wallet.ui.provider',
+  '@validpost/frontend/components/auth/providers/placeholder/wallet.ui.provider',
   () => ({
     WalletUiProvider: () => <div data-testid="wallet-ui-provider" />,
   })

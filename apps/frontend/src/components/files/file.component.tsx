@@ -7,34 +7,34 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import clsx from 'clsx';
-import { VideoFrame } from '@postmill-ai/react/helpers/video.frame';
+import { VideoFrame } from '@validpost/react/helpers/video.frame';
 import dynamic from 'next/dynamic';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { AiImage } from '@postmill-ai/frontend/components/launches/ai.image';
-import { useMediaToolsStatus } from '@postmill-ai/frontend/components/layout/use-media-tools-status';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import i18next from '@postmill-ai/react/translation/i18next';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { AiImage } from '@validpost/frontend/components/launches/ai.image';
+import { useMediaToolsStatus } from '@validpost/frontend/components/layout/use-media-tools-status';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
 import { ReactSortable } from 'react-sortablejs';
-import { MediaComponentInner } from '@postmill-ai/frontend/components/launches/helpers/media.settings.component';
-import { AiVideo } from '@postmill-ai/frontend/components/launches/ai.video';
-import { AiBestTime } from '@postmill-ai/frontend/components/launches/ai.best-time';
-import { AiContentTools } from '@postmill-ai/frontend/components/launches/ai.content.tools';
-import { AiPromptLibraryInsert } from '@postmill-ai/frontend/components/launches/ai.prompt-library.insert';
-import { AiSearch } from '@postmill-ai/frontend/components/launches/ai.search';
-import { InlineSuggestToggle } from '@postmill-ai/frontend/components/composer/ghost-completion/inline-suggest-toggle';
+import { MediaComponentInner } from '@validpost/frontend/components/launches/helpers/media.settings.component';
+import { AiVideo } from '@validpost/frontend/components/launches/ai.video';
+import { AiBestTime } from '@validpost/frontend/components/launches/ai.best-time';
+import { AiContentTools } from '@validpost/frontend/components/launches/ai.content.tools';
+import { AiPromptLibraryInsert } from '@validpost/frontend/components/launches/ai.prompt-library.insert';
+import { AiSearch } from '@validpost/frontend/components/launches/ai.search';
+import { InlineSuggestToggle } from '@validpost/frontend/components/composer/ghost-completion/inline-suggest-toggle';
 import {
   ToolbarDropdown,
   MenuItem,
   SparkleIcon,
-} from '@postmill-ai/frontend/components/composer/toolbar-dropdown';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+} from '@validpost/frontend/components/composer/toolbar-dropdown';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -43,14 +43,14 @@ import {
   MediaSettingsIcon,
   InsertMediaIcon,
   VerticalDividerIcon,
-} from '@postmill-ai/frontend/components/ui/icons';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+} from '@validpost/frontend/components/ui/icons';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { useShallow } from 'zustand/react/shallow';
-import { MediaSelectorItem } from '@postmill-ai/frontend/components/media-tools/media-selector-modal';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
-import { useComposerImportFolder } from '@postmill-ai/frontend/components/composer/use-composer-import-folder';
+import { MediaSelectorItem } from '@validpost/frontend/components/media-tools/media-selector-modal';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
+import { useComposerImportFolder } from '@validpost/frontend/components/composer/use-composer-import-folder';
 const Designer = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/designer/designer').then(
+  () => import('@validpost/frontend/components/media-tools/designer/designer').then(
     (m) => m.Designer
   ),
   { ssr: false }

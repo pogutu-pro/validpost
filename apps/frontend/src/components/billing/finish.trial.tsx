@@ -1,12 +1,12 @@
 'use client';
 
 import React, { FC, useEffect, useState } from 'react';
-import { TopTitle } from '@postmill-ai/frontend/components/launches/helpers/top.title.component';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { TopTitle } from '@validpost/frontend/components/launches/helpers/top.title.component';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { timer } from '@validpost/helpers/utils/timer';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const FinishTrial: FC<{ close: () => void }> = (props) => {
   const [finished, setFinished] = useState(false);

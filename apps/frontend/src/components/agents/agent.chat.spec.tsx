@@ -27,53 +27,53 @@ vi.mock('@copilotkit/react-ui', () => ({
   CopilotChat: () => <div />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/composer/composer', () => ({
+vi.mock('@validpost/frontend/components/composer/composer', () => ({
   Composer: () => <div />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/agents/agent', () => ({
+vi.mock('@validpost/frontend/components/agents/agent', () => ({
   MediaPortal: () => <div />,
   PropertiesContext: React.createContext({ properties: [] }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/agents/agent.input', () => ({
+vi.mock('@validpost/frontend/components/agents/agent.input', () => ({
   Input: () => <div />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: vi.fn() }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.existing.data', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.existing.data', () => ({
   ExistingDataContextProvider: ({ children }: any) => <>{children}</>,
 }));
 
-vi.mock('@postmill-ai/frontend/components/shared/safe-content', () => ({
+vi.mock('@validpost/frontend/components/shared/safe-content', () => ({
   SafeContent: () => <div />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/agent/agent-context-bridge', () => ({
+vi.mock('@validpost/frontend/components/agent/agent-context-bridge', () => ({
   AgentContextBridge: () => null,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/use-ai-active', () => ({
+vi.mock('@validpost/frontend/components/layout/use-ai-active', () => ({
   useAiActive: () => true,
   AI_SETUP_HREF: '/settings/ai/llm-providers',
 }));
 
-vi.mock('@postmill-ai/react/form/button', () => ({
+vi.mock('@validpost/react/form/button', () => ({
   Button: ({ children, ...p }: any) => <button {...p}>{children}</button>,
 }));
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({ backendUrl: 'http://x' }),
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: toastShow }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_k: string, fallback?: string) => fallback || _k,
 }));
 
@@ -98,7 +98,7 @@ const fetchMock = vi.fn((url: string) => {
   });
 });
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => fetchMock,
 }));
 
@@ -299,7 +299,7 @@ describe('AgentChat CopilotKit transport', () => {
         runtimeUrl: 'http://x/copilot/agent',
         useSingleEndpoint: true,
         credentials: 'include',
-        agent: 'postmill',
+        agent: 'validpost',
       })
     );
   });

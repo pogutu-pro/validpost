@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { AuthProviderAbstract } from '@postmill-ai/backend/services/auth/providers.interface';
-import { AuthProviderManager } from '@postmill-ai/backend/services/auth/providers/auth-provider.manager';
+import { AuthProviderAbstract } from '@validpost/backend/services/auth/providers.interface';
+import { AuthProviderManager } from '@validpost/backend/services/auth/providers/auth-provider.manager';
 
 /**
  * Backwards-compatible adapter that resolves auth provider instances through

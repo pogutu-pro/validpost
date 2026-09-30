@@ -3,7 +3,7 @@ import { SlideService } from './slide.service';
 
 const mockSafeFetch = vi.fn();
 
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: (...args: any[]) => mockSafeFetch(...args),
 }));
 
@@ -114,7 +114,7 @@ describe('SlideService', () => {
       status: 200,
       arrayBuffer: async () => Buffer.from('fake-png-bytes').buffer,
     });
-    mockMkdtempSync.mockReturnValue('/tmp/postmill-slide-xxx');
+    mockMkdtempSync.mockReturnValue('/tmp/validpost-slide-xxx');
     mockReadFileSync.mockReturnValue(fakeVideoBuffer);
     mockParseFile.mockResolvedValue({ format: { duration: 1.2 } });
     mockSpawn.mockImplementation(() => makeFfmpegProcess(0));

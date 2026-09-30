@@ -2,15 +2,15 @@ import { Injectable, Logger } from '@nestjs/common';
 import { RequestContext } from '@mastra/core/di';
 import { randomUUID } from 'node:crypto';
 import { Organization } from '@prisma/client';
-import { MastraService } from '@postmill-ai/nestjs-libraries/chat/mastra.service';
-import { BudgetService } from '@postmill-ai/nestjs-libraries/ai/governance/budget.service';
-import { TelemetryService } from '@postmill-ai/nestjs-libraries/ai/governance/telemetry.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
+import { MastraService } from '@validpost/nestjs-libraries/chat/mastra.service';
+import { BudgetService } from '@validpost/nestjs-libraries/ai/governance/budget.service';
+import { TelemetryService } from '@validpost/nestjs-libraries/ai/governance/telemetry.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
 import {
   CommsConfirmationGate,
   PendingAction,
-} from '@postmill-ai/nestjs-libraries/chat/tools/comms-confirmation.gate';
+} from '@validpost/nestjs-libraries/chat/tools/comms-confirmation.gate';
 
 type CommsAgentContext = {
   organization: string;
@@ -121,7 +121,7 @@ export class CommsAgentActivity {
           span.setAttribute('ai.threadId', threadId);
 
           const result = await this._withTimeout(
-            mastra.getAgent('postmill').generate(text, {
+            mastra.getAgent('validpost').generate(text, {
               memory: {
                 resource: orgId,
                 thread: threadId,
@@ -237,7 +237,7 @@ export class CommsAgentActivity {
     const { orgId, threadId, userText, assistantText } = params;
     try {
       const mastra = await this._mastraService.mastra();
-      const memory = await mastra.getAgent('postmill').getMemory();
+      const memory = await mastra.getAgent('validpost').getMemory();
       if (!memory) return;
       const now = Date.now();
       const message = (role: 'user' | 'assistant', text: string, at: number) => ({

@@ -1,4 +1,4 @@
-import { CreateOrgUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto';
+import { CreateOrgUserDto } from '@validpost/nestjs-libraries/dtos/auth/create.org.user.dto';
 import {
   BadRequestException,
   forwardRef,
@@ -7,16 +7,16 @@ import {
   Inject,
   Injectable,
 } from '@nestjs/common';
-import { OrganizationRepository } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.repository';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
-import { OrgAiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
-import { RolesService } from '@postmill-ai/nestjs-libraries/database/prisma/roles/roles.service';
-import { AddTeamMemberDto } from '@postmill-ai/nestjs-libraries/dtos/settings/add.team.member.dto';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { OrganizationRepository } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.repository';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
+import { OrgAiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
+import { RolesService } from '@validpost/nestjs-libraries/database/prisma/roles/roles.service';
+import { AddTeamMemberDto } from '@validpost/nestjs-libraries/dtos/settings/add.team.member.dto';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
 import dayjs from 'dayjs';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
 import { Organization, ShortLinkPreference, User } from '@prisma/client';
-import { AutopostService } from '@postmill-ai/nestjs-libraries/database/prisma/autopost/autopost.service';
+import { AutopostService } from '@validpost/nestjs-libraries/database/prisma/autopost/autopost.service';
 
 // The org attached to the request carries the caller's membership row
 // (see org.from.request decorator) — surface just the roleId we read here.

@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_key: string, fallback: string, vars?: Record<string, unknown>) =>
@@ -16,7 +16,7 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/dashboard',
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({
     profile: { name: 'Rick', timezone: 'UTC' },
     streakSince: null,
@@ -28,11 +28,11 @@ const mockPermissions = {
   hasPermission: vi.fn(() => true),
 };
 
-vi.mock('@postmill-ai/frontend/components/layout/use-permissions', () => ({
+vi.mock('@validpost/frontend/components/layout/use-permissions', () => ({
   usePermissions: () => mockPermissions,
 }));
 
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.integration.list', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.integration.list', () => ({
   useIntegrationList: () => ({ data: [] }),
 }));
 
@@ -85,19 +85,19 @@ vi.mock('./hooks/useDailyBrief', () => ({
   useDailyBrief: () => ({ data: { cached: false }, isLoading: false, generate: vi.fn() }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/use-ai-active', () => ({
+vi.mock('@validpost/frontend/components/layout/use-ai-active', () => ({
   useAiActive: () => false,
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/hooks/useOverview', () => ({
+vi.mock('@validpost/frontend/components/analytics/hooks/useOverview', () => ({
   useOverview: () => ({ data: undefined, isLoading: false }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/hooks/useRecommendations', () => ({
+vi.mock('@validpost/frontend/components/analytics/hooks/useRecommendations', () => ({
   useRecommendations: () => ({ data: { recommendations: [] }, isLoading: false }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/charts/line.chart', () => ({
+vi.mock('@validpost/frontend/components/analytics/charts/line.chart', () => ({
   LineChart: () => <div data-testid="line-chart">LineChart</div>,
 }));
 

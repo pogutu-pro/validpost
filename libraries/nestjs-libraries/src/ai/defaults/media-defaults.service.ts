@@ -1,18 +1,18 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { DefaultsResolutionService } from './defaults-resolution.service';
-import { OrgDefaultModelRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
+import { OrgDefaultModelRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
 import { DefaultsSettingsValidator } from './defaults-settings.validator';
 import {
   AI_MEDIA_CATEGORIES,
   MEDIA_CATEGORY_OPERATION,
 } from './default-categories';
-import { SetDefaultModelDto } from '@postmill-ai/nestjs-libraries/dtos/ai-settings/default-model.dto';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { ProviderKernel } from '@postmill-ai/provider-kernel';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { RuntimeContextFactory } from '@postmill-ai/nestjs-libraries/providers/runtime-context.factory';
+import { SetDefaultModelDto } from '@validpost/nestjs-libraries/dtos/ai-settings/default-model.dto';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { ProviderKernel } from '@validpost/provider-kernel';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { RuntimeContextFactory } from '@validpost/nestjs-libraries/providers/runtime-context.factory';
 import { getOrCacheModelList } from './defaults-cache';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 @Injectable()
 export class MediaDefaultsService {

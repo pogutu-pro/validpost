@@ -3,7 +3,7 @@ import {
   Catch,
   ExceptionFilter,
 } from '@nestjs/common';
-import { PostValidationException } from '@postmill-ai/nestjs-libraries/errors/post-validation.exception';
+import { PostValidationException } from '@validpost/nestjs-libraries/errors/post-validation.exception';
 
 export type PostValidationError = {
   provider: string;

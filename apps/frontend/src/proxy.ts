@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getCookieUrlFromDomain } from '@postmill-ai/helpers/subdomain/subdomain.management';
-import { internalFetch } from '@postmill-ai/helpers/utils/internal.fetch';
+import { getCookieUrlFromDomain } from '@validpost/helpers/subdomain/subdomain.management';
+import { internalFetch } from '@validpost/helpers/utils/internal.fetch';
 import acceptLanguage from 'accept-language';
 import {
   cookieName,
   headerName,
   languages,
-} from '@postmill-ai/react/translation/i18n.config';
+} from '@validpost/react/translation/i18n.config';
 acceptLanguage.languages(languages);
 
 // This function can be marked `async` if using `await` inside
@@ -123,7 +123,7 @@ export async function proxy(request: NextRequest) {
       '/integrations/social/linkedin': 'LINKEDIN',
     };
     const provider = nextUrl.pathname.startsWith('/settings')
-      ? process.env.POSTMILL_GENERIC_OAUTH === 'true'
+      ? process.env.VALIDPOST_GENERIC_OAUTH === 'true'
         ? 'GENERIC'
         : 'GITHUB'
       : callbackProvider[nextUrl.pathname];

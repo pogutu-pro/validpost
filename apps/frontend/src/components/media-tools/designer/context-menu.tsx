@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { defaultTextBox } from './measure-text';
 
 interface ContextMenuProps {

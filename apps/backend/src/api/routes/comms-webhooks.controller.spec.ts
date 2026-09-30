@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NotFoundException, HttpException } from '@nestjs/common';
 
 const sendMock = vi.fn();
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: { send: (...args: any[]) => sendMock(...args) },
   isInngestEnabled: () => true,
 }));

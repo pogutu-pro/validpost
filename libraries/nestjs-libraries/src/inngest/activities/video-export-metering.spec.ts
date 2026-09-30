@@ -2,11 +2,11 @@ import 'reflect-metadata';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { MediaJobsActivity } from './media-jobs.activity';
 import { StorageProviderType } from '@prisma/client';
-import { PermissionsService } from '@postmill-ai/backend/services/auth/permissions/permissions.service';
+import { PermissionsService } from '@validpost/backend/services/auth/permissions/permissions.service';
 import {
   AuthorizationActions,
   Sections,
-} from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
+} from '@validpost/backend/services/auth/permissions/permission.exception.class';
 
 describe('MediaJobsActivity — video export metering', () => {
   const orgId = 'org-1';

@@ -1,17 +1,17 @@
 'use client';
 
 import { FC, useCallback, useMemo, useState } from 'react';
-import { StatusBadge, postStatusFromState } from '@postmill-ai/frontend/components/ui/status-badge';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { StatusBadge, postStatusFromState } from '@validpost/frontend/components/ui/status-badge';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 import dayjs from 'dayjs';
 import clsx from 'clsx';
-import { LineChart } from '@postmill-ai/frontend/components/analytics/charts/line.chart';
-import { BarChart } from '@postmill-ai/frontend/components/analytics/charts/bar.chart';
-import { metricLabelT } from '@postmill-ai/frontend/components/campaigns/metric-labels';
-import { readableTextColor } from '@postmill-ai/frontend/components/shared/readable-text-color';
+import { LineChart } from '@validpost/frontend/components/analytics/charts/line.chart';
+import { BarChart } from '@validpost/frontend/components/analytics/charts/bar.chart';
+import { metricLabelT } from '@validpost/frontend/components/campaigns/metric-labels';
+import { readableTextColor } from '@validpost/frontend/components/shared/readable-text-color';
 
 const stripHtml = (html?: string | null): string =>
   (html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();

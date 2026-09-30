@@ -1,5 +1,5 @@
 {
-  "name": "@postmill-ai/provider-kernel",
+  "name": "@validpost/provider-kernel",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",

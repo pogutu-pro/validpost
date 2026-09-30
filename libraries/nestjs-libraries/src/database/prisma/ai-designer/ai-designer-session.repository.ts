@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import type { AiDesignerSession as PrismaAiDesignerSession } from '@prisma/client';
-import type { AiDesignerConfig, AiDesignerSessionState, DesignBrief } from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+import type { AiDesignerConfig, AiDesignerSessionState, DesignBrief } from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 import {
   AiDesignerConfigSchema,
   AiDesignerStateSchema,
   ActiveDesignIdsSchema,
   DesignBriefSchema,
-} from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.schemas';
+} from '@validpost/nestjs-libraries/ai-designer/ai-designer.schemas';
 
 @Injectable()
 export class AiDesignerSessionRepository {

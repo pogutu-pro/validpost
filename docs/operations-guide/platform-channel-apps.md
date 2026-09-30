@@ -1,6 +1,6 @@
 # Platform Channel Apps
 
-Postmill resolves channel (social posting) credentials at **two scopes**:
+ValidPost resolves channel (social posting) credentials at **two scopes**:
 
 1. **Platform channel apps (this page)** — the operator sets one OAuth app per
    provider in the deployment environment (`.env` / Docker Compose). Every
@@ -16,7 +16,7 @@ never persisted to a tenant row.
 
 `GET /integrations` exposes `platformConfigured: true` for providers with a
 working env app. Tenants see those providers as one-click **Connect** with the
-note *"Uses the Postmill app — no setup needed"*; providers without a platform
+note *"Uses the ValidPost app — no setup needed"*; providers without a platform
 app require the tenant's own app via Settings → Channels.
 
 ## Callback URLs and restarts
@@ -24,10 +24,10 @@ app require the tenant's own app via Settings → Channels.
 The OAuth callback URL for channel connections is always:
 
 ```
-https://<your-postmill-domain>/integrations/social/<identifier>
+https://<your-validpost-domain>/integrations/social/<identifier>
 ```
 
-(e.g. `https://postmill.example.com/integrations/social/facebook`). Register
+(e.g. `https://validpost.example.com/integrations/social/facebook`). Register
 exactly this URL in the provider's developer portal. Telegram (bot token) and
 Wrapcast (client-side Neynar sign-in) are the exceptions — no callback is
 registered.
@@ -51,7 +51,7 @@ accounts connected via Facebook login** (`instagram`) — both identifiers read
    an app (type **Other → Business**), or pick an existing one.
 2. Add the **Facebook Login** product — on new apps the only option is
    **Facebook Login for Business** (FBfB).
-3. Under **App settings → Basic**, add your Postmill domain to **App Domains**.
+3. Under **App settings → Basic**, add your ValidPost domain to **App Domains**.
 4. Under **Facebook Login → Settings**, add
    `https://<your-domain>/integrations/social/facebook` **and**
    `https://<your-domain>/integrations/social/instagram` to
@@ -66,9 +66,9 @@ FACEBOOK_CONFIG_ID: '<configuration-id>'   # FBfB-only apps: see below
 
 6. Restart the backend.
 
-**Scopes vs. Configuration ID.** Postmill supports both Meta login modes:
+**Scopes vs. Configuration ID.** ValidPost supports both Meta login modes:
 
-- *Classic Facebook Login* — Postmill requests these scopes:
+- *Classic Facebook Login* — ValidPost requests these scopes:
   `pages_show_list`, `business_management`, `pages_manage_posts`,
   `pages_manage_engagement`, `pages_read_engagement`, `read_insights`.
   Instagram-via-Facebook requests its own set: `instagram_basic`,
@@ -87,7 +87,7 @@ FACEBOOK_CONFIG_ID: '<configuration-id>'   # FBfB-only apps: see below
 **App Review / going Live.** While the app is in development mode only its
 admins/developers/testers can connect. For production use the app must pass
 Meta App Review for the permissions above, and Meta requires **Deauthorize** and
-**Data Deletion** callback URLs before an app can go Live. Postmill serves both
+**Data Deletion** callback URLs before an app can go Live. ValidPost serves both
 on the app domain — register them on **every** Meta app you use (Facebook,
 Instagram, Threads):
 
@@ -114,10 +114,10 @@ that verifies decides which channel providers the request applies to.
 - Delivery is logged in the backend journal (`meta deauthorize hit`,
   `verified via …`, `matched N channels`, `no channel matches user_id …`).
 - The callbacks carry Meta's **app-scoped** user id. For Facebook/Instagram
-  (Facebook Login) and Threads that is the id Postmill stores at connect. For
+  (Facebook Login) and Threads that is the id ValidPost stores at connect. For
   **Instagram Login** (Instagram Standalone) the content APIs use the
   professional-account id (`/me.user_id`) while the callbacks carry `/me.id`;
-  Postmill stores both since this release — channels connected earlier are
+  ValidPost stores both since this release — channels connected earlier are
   matched once they are reconnected (the id is backfilled then).
 
 Organizations that connect with their **own** Meta app (bring-your-own
@@ -146,7 +146,7 @@ INSTAGRAM_APP_SECRET: '<your-instagram-app-secret>'
 
 5. Restart the backend.
 
-Postmill requests the scopes `instagram_business_basic`,
+ValidPost requests the scopes `instagram_business_basic`,
 `instagram_business_content_publish`, `instagram_business_manage_comments`, and
 `instagram_business_manage_insights`. The connected Instagram account must be a
 professional (Business or Creator) account.
@@ -194,7 +194,7 @@ authenticates with the app's **OAuth 2.0 Client ID and Client Secret** — a
 different pair from the consumer keys above (`X_CLIENT_ID` / `X_CLIENT_SECRET`;
 enable OAuth 2.0 in User authentication settings to get them). It requests only
 `users.read`, which returns **no email address**: X SSO accounts get a synthetic
-address (`x_<id>@x.login.postmill.local`) and are skipped by newsletter/welcome
+address (`x_<id>@x.login.validpost.local`) and are skipped by newsletter/welcome
 email — see [SSO dual-use](#sso-dual-use-login-with-the-same-app).
 
 ## LinkedIn
@@ -277,7 +277,7 @@ TELEGRAM_TOKEN: '123456789:AAEhBOweik6ad9r_QXMENQjcrGbqCr4K-4rI'
 **Tenant flow:** the tenant opens the Telegram connect dialog, adds your bot to
 their channel or group (as an admin so it can post), then posts the
 `/connect <code>` message the dialog shows, addressed to the bot
-(e.g. `/connect a1b2c3d4` as a message to `@YourPostmillBot`). Postmill picks
+(e.g. `/connect a1b2c3d4` as a message to `@YourValidPostBot`). ValidPost picks
 the message up from the bot's updates, links that chat to the tenant's channel,
 and — when the bot has admin rights with message-delete permission — deletes
 the `/connect` message and its own confirmation.
@@ -313,7 +313,7 @@ Official Account Manager.
 2. Under **APIs & Services → Library**, enable the **YouTube Data API v3** and
    the **YouTube Analytics API**.
 3. Configure the **OAuth consent screen** (external) and add the scopes
-   Postmill requests:
+   ValidPost requests:
    `userinfo.profile`, `userinfo.email`, `youtube`, `youtube.force-ssl`,
    `youtube.readonly`, `youtube.upload`, `youtubepartner`, and
    `yt-analytics.readonly`. While the consent screen is in "Testing" mode, add
@@ -355,8 +355,8 @@ URLs, callback paths, and the scopes each section lists are taken from the
 provider's adapter; env vars from `CHANNEL_ENV_MAPPINGS`.
 
 One rule covers all of them: each provider's section lists the **exact scopes
-Postmill requests at connect time** — request precisely these in the app review.
-Postmill validates the granted scope set when a tenant connects and **refuses the
+ValidPost requests at connect time** — request precisely these in the app review.
+ValidPost validates the granted scope set when a tenant connects and **refuses the
 connection if any scope is missing** (e.g. TikTok's `scope_not_authorized`), so an app
 approved for fewer scopes than its section lists will connect for no one.
 
@@ -377,12 +377,12 @@ approved for fewer scopes than its section lists will connect for no one.
 | Mastodon (`mastodon`) | per-instance (see below) | `MASTODON_CLIENT_ID` / `MASTODON_CLIENT_SECRET` | `/integrations/social/mastodon` |
 | Wrapcast / Farcaster (`wrapcast`) | [dev.neynar.com](https://dev.neynar.com) | `NEYNAR_CLIENT_ID` / `NEYNAR_SECRET_KEY` | none — client-side "Sign in with Farcaster" (Neynar) |
 | LINE (`line`) | [developers.line.biz/console](https://developers.line.biz/console/) | `LINE_CHANNEL_ACCESS_TOKEN` (token only) | none — token-only (see the LINE section above) |
-| Custom OAuth (`oauth_custom`) | your own OIDC provider | `POSTMILL_OAUTH_CLIENT_ID` / `POSTMILL_OAUTH_CLIENT_SECRET` | see note below |
+| Custom OAuth (`oauth_custom`) | your own OIDC provider | `VALIDPOST_OAUTH_CLIENT_ID` / `VALIDPOST_OAUTH_CLIENT_SECRET` | see note below |
 
 ## TikTok
 
 TikTok needs two products added to the app, and the connect flow requests a
-six-scope set that must be approved in full — Postmill validates the granted
+six-scope set that must be approved in full — ValidPost validates the granted
 scopes when a tenant connects and refuses the connection if any is missing
 (`scope_not_authorized`).
 
@@ -454,7 +454,7 @@ DISCORD_BOT_TOKEN: '<your-bot-token>'
 ```
 
    (Tenants who bring their own Discord app instead paste the bot token in the
-   channel's settings in Postmill — org credential `discord.token`.)
+   channel's settings in ValidPost — org credential `discord.token`.)
 4. Restart the backend.
 
 **Tenant flow:** the tenant authorizes the platform bot into their guild
@@ -495,7 +495,7 @@ KICK_SECRET: '<your-client-secret>'
 ## Mastodon
 
 Mastodon normally needs **no app at all**: tenants type their instance
-hostname in the connect dialog and Postmill registers itself on that server
+hostname in the connect dialog and ValidPost registers itself on that server
 automatically (dynamic client registration). The same per-instance flow
 powers the **GoToSocial**, **Akkoma**, and **Friendica** channels
 (Mastodon-API servers) and, with Misskey's MiAuth instead of client
@@ -707,8 +707,8 @@ dedicated provider adapter in this repo — check the provider's current docs
 for the callback to register.
 
 ```yaml
-POSTMILL_OAUTH_CLIENT_ID: '<your-oidc-client-id>'
-POSTMILL_OAUTH_CLIENT_SECRET: '<your-oidc-client-secret>'
+VALIDPOST_OAUTH_CLIENT_ID: '<your-oidc-client-id>'
+VALIDPOST_OAUTH_CLIENT_SECRET: '<your-oidc-client-secret>'
 ```
 
 ## SSO dual-use (login with the same app)
@@ -733,11 +733,11 @@ Provider-specific prerequisites:
   a login-only Configuration (Facebook Login for Business → Configurations →
   Create → login variation **User access token**, plus the smallest business
   permission the app already holds, e.g. `pages_show_list`) and set its ID as
-  `FACEBOOK_SSO_CONFIG_ID`. Without it Postmill reuses the channel
+  `FACEBOOK_SSO_CONFIG_ID`. Without it ValidPost reuses the channel
   `FACEBOOK_CONFIG_ID`, which works but makes the consent screen ask for Pages
   access on every sign-in. Consumer-type apps with classic **Facebook Login**
   need neither — the `public_profile,email` dialog is used. If the user denies
-  the email permission, Postmill mints `fb_<id>@facebook.login.postmill.local`.
+  the email permission, ValidPost mints `fb_<id>@facebook.login.validpost.local`.
 - **X SSO** needs OAuth 2.0 enabled in the app's User authentication settings
   (type "Web App", callback `https://<your-domain>/integrations/social/x`) and
   the resulting OAuth 2.0 Client ID/Secret in `X_CLIENT_ID` / `X_CLIENT_SECRET`;
@@ -747,16 +747,16 @@ Provider-specific prerequisites:
   users** is enabled under User authentication settings → App permissions,
   which in turn needs Terms of Service and Privacy Policy URLs on the app).
   Without that permission the account gets a synthetic address
-  (`x_<id>@x.login.postmill.local`).
+  (`x_<id>@x.login.validpost.local`).
 - **LinkedIn SSO** needs the **Sign In with LinkedIn using OpenID Connect**
   product enabled (same product the channel flow already requires).
 
-Synthetic `.login.postmill.local` addresses are skipped by newsletter
+Synthetic `.login.validpost.local` addresses are skipped by newsletter
 enrollment and welcome emails.
 
 **No account linking:** each SSO login matches users by
 (provider, provider-user-id) only. If someone signs in with Facebook and later
-with Google under the same real email, Postmill provisions **separate User +
+with Google under the same real email, ValidPost provisions **separate User +
 Org accounts** — identities are never merged.
 
 Full walkthrough: [OAuth / SSO](./oauth-sso.md).

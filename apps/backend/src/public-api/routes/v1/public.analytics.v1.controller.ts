@@ -13,31 +13,31 @@ import {
   Res,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { ParseCuidPipe } from '@postmill-ai/nestjs-libraries/pipes/parse-cuid.pipe';
+import { ParseCuidPipe } from '@validpost/nestjs-libraries/pipes/parse-cuid.pipe';
 import { Organization } from '@prisma/client';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { ApiTags } from '@nestjs/swagger';
-import { AnalyticsService, BestTimeEntry } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
-import { AnalyticsShareService } from '@postmill-ai/nestjs-libraries/analytics/analytics-share.service';
+import { AnalyticsService, BestTimeEntry } from '@validpost/nestjs-libraries/analytics/analytics.service';
+import { AnalyticsShareService } from '@validpost/nestjs-libraries/analytics/analytics-share.service';
 import {
   AnalyticsDateRangeDto,
   AnalyticsPostsQueryDto,
   AnalyticsExportQueryDto,
   UpdateWatchlistDto,
-} from '@postmill-ai/nestjs-libraries/dtos/analytics/analytics.query.dto';
+} from '@validpost/nestjs-libraries/dtos/analytics/analytics.query.dto';
 import {
   CreateAlertRuleDto,
   UpdateAlertRuleDto,
   AnalyticsShareDto,
-} from '@postmill-ai/nestjs-libraries/dtos/analytics/alert-rule.dto';
-import { isKnownMetric } from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
+} from '@validpost/nestjs-libraries/dtos/analytics/alert-rule.dto';
+import { isKnownMetric } from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
 import { Response } from 'express';
 import dayjs from 'dayjs';
-import { WatchlistService } from '@postmill-ai/nestjs-libraries/database/prisma/watchlist/watchlist.service';
-import { CampaignsService } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaigns.service';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { AuthorizationActions, Sections } from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { WatchlistService } from '@validpost/nestjs-libraries/database/prisma/watchlist/watchlist.service';
+import { CampaignsService } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaigns.service';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { AuthorizationActions, Sections } from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 import { IsString, IsOptional, IsIn, MinLength, MaxLength, isUUID } from 'class-validator';
 
 // Date-range helpers live in the shared util (used by the campaigns + public
@@ -46,7 +46,7 @@ import {
   validateDateRange,
   validateToGteFrom,
   validateWindowCap,
-} from '@postmill-ai/nestjs-libraries/analytics/date-range.validation';
+} from '@validpost/nestjs-libraries/analytics/date-range.validation';
 
 export { validateDateRange, validateToGteFrom, validateWindowCap };
 
@@ -102,7 +102,7 @@ class AddWatchlistDto {
 }
 
 // The ONE analytics API. Relocated from `/analytics/v2` (a fork-era misnomer —
-// this surface is Postmill's v1 analytics) onto the unified public API:
+// this surface is ValidPost's v1 analytics) onto the unified public API:
 // `/public/v1/analytics/*` is consumed by the dashboard (session cookie),
 // integrators (API key), and MCP clients (pos_ OAuth token) via the dual-auth
 // PublicAuthMiddleware. Cookie callers keep the app-route posture (RBAC +

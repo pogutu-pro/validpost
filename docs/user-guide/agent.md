@@ -1,6 +1,6 @@
 # AI Agent
 
-The Postmill AI agent is your natural-language assistant for scheduling posts,
+The ValidPost AI agent is your natural-language assistant for scheduling posts,
 generating media, checking analytics, managing campaigns, and replying to synced
 social comments. Open it anytime from **Agent** in the sidebar.
 
@@ -103,7 +103,7 @@ is ready.
 
 ## Context from other pages
 
-When you navigate to the agent from another Postmill view, it can carry a
+When you navigate to the agent from another ValidPost view, it can carry a
 snapshot of what you were looking at — the current calendar week, visible post
 ids, selected campaign, or open post id. This lets you say things like:
 

@@ -3,16 +3,16 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import dayjs from 'dayjs';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (k: string, fallback?: string) => fallback || k,
 }));
 
 vi.mock(
-  '@postmill-ai/frontend/components/launches/channel-filter-select',
+  '@validpost/frontend/components/launches/channel-filter-select',
   () => ({ ChannelFilterSelect: () => <div /> })
 );
 vi.mock(
-  '@postmill-ai/frontend/components/launches/campaign-filter-select',
+  '@validpost/frontend/components/launches/campaign-filter-select',
   () => ({ CampaignFilterSelect: () => <div /> })
 );
 

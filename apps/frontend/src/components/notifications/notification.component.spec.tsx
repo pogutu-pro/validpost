@@ -2,14 +2,14 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import React from 'react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback?: string) => fallback ?? _key,
 }));
 
 // Response every `fetch()` in the component resolves to; swapped per test.
 let mockResponse: any;
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn().mockImplementation(() => Promise.resolve(mockResponse)),
 }));
 
@@ -46,11 +46,11 @@ vi.mock('@uidotdev/usehooks', () => ({
   useClickAway: () => ({ current: null }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/loading', () => ({
+vi.mock('@validpost/frontend/components/layout/loading', () => ({
   default: () => <div data-testid="loading" />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/shared/safe-content', () => ({
+vi.mock('@validpost/frontend/components/shared/safe-content', () => ({
   SafeContent: ({ content }: any) => <div>{content}</div>,
 }));
 

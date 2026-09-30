@@ -9,7 +9,7 @@ import {
   StockSearchResponse,
   StockVectorItem,
   StockVideoItem,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Adobe Stock Search API — https://developer.adobe.com/stock/
 //   GET https://stock.adobe.io/Rest/Media/1/Search/Files
@@ -20,7 +20,7 @@ import {
 // is what resolveDownload returns. Wire a real licensing token here when Adobe
 // entitlement is available. Built source-grounded, not yet live-smoke-tested.
 const SEARCH_URL = 'https://stock.adobe.io/Rest/Media/1/Search/Files';
-const PRODUCT = 'Postmill';
+const PRODUCT = 'ValidPost';
 const PER_PAGE = 20;
 
 // Adobe content_type filter keys per capability.

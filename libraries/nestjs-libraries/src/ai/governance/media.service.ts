@@ -1,44 +1,44 @@
 import { BadRequestException, Injectable, Logger, Optional } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { randomBytes } from 'crypto';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { DefaultsResolutionService } from '@postmill-ai/nestjs-libraries/ai/defaults/defaults-resolution.service';
-import { IMAGE_SETTINGS_KEYS } from '@postmill-ai/nestjs-libraries/ai/defaults/defaults-settings.validator';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { OrgAiSettingsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { MediaJobLifecycleService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { DefaultsResolutionService } from '@validpost/nestjs-libraries/ai/defaults/defaults-resolution.service';
+import { IMAGE_SETTINGS_KEYS } from '@validpost/nestjs-libraries/ai/defaults/defaults-settings.validator';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { OrgAiSettingsRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.repository';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { MediaJobLifecycleService } from '@validpost/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
 import { BudgetService } from './budget.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
-import { resolveVisionImageUrl } from '@postmill-ai/nestjs-libraries/ai/vision-image-url';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { resolveVisionImageUrl } from '@validpost/nestjs-libraries/ai/vision-image-url';
 import {
   MediaProviderAdapter,
   MediaProviderCapabilities,
   MediaGenerationResult,
-} from '@postmill-ai/nestjs-libraries/media/media-provider-adapter.interface';
-import type { MediaGenerateOptions } from '@postmill-ai/provider-kernel';
+} from '@validpost/nestjs-libraries/media/media-provider-adapter.interface';
+import type { MediaGenerateOptions } from '@validpost/provider-kernel';
 // Type-only imports: SlideService/CaptionService both inject back into this AI module
 // (slide -> AiDefaultsService -> AiMediaService; caption -> AiMediaService), so a runtime
 // value-import here closes a circular `require` that leaves AiMediaService `undefined` at
 // decorator-metadata time (boot-time DI failure). They are only ever resolved lazily via
 // `moduleRef.get(...)` at call-time, so the runtime class is `require`d inside the methods.
-import type { SlideService } from '@postmill-ai/nestjs-libraries/media/slide/slide.service';
-import type { CaptionService } from '@postmill-ai/nestjs-libraries/media/caption/caption.service';
+import type { SlideService } from '@validpost/nestjs-libraries/media/slide/slide.service';
+import type { CaptionService } from '@validpost/nestjs-libraries/media/caption/caption.service';
 import { BudgetExceeded, CapabilityNotAvailable } from './errors';
-import { parseFontMetadata } from '@postmill-ai/nestjs-libraries/media/designer-doc/font-metadata';
-import type { MediaOperation } from '@postmill-ai/nestjs-libraries/ai/governance/media-operation.types';
+import { parseFontMetadata } from '@validpost/nestjs-libraries/media/designer-doc/font-metadata';
+import type { MediaOperation } from '@validpost/nestjs-libraries/ai/governance/media-operation.types';
 import {
   AI_MEDIA_CATEGORIES,
   MEDIA_CATEGORY_OPERATION,
   type AiMediaCategory,
-} from '@postmill-ai/nestjs-libraries/ai/defaults/default-categories';
+} from '@validpost/nestjs-libraries/ai/defaults/default-categories';
 
 // Read-only, credential-free view of which media providers are active per operation.
 // Surfaced to non-admin users (4F) so they can see what media capabilities the org
@@ -103,7 +103,7 @@ const OPERATION_CAPABILITY: Record<MediaOperation, keyof MediaProviderCapabiliti
   'video-upscale': 'videoUpscale',
 };
 
-// Postmill BYOK model: AI media generation is unlimited and no longer consumes
+// ValidPost BYOK model: AI media generation is unlimited and no longer consumes
 // legacy ai_images / ai_videos credits. creditType is kept as a nullable column
 // for observability but is always undefined for new jobs.
 const OPERATION_CREDIT_TYPE: Record<MediaOperation, undefined> = {
@@ -855,7 +855,7 @@ export class AiMediaService {
       const result = await signer.sign(artifactUrl, {
         title: `AI ${operation}`,
         format: 'application/octet-stream',
-        claimGenerator: 'postmill/ai-media',
+        claimGenerator: 'validpost/ai-media',
         pipelineDefHash: 'na',
         runId,
         generatedAt: new Date().toISOString(),
@@ -1551,7 +1551,7 @@ export class AiMediaService {
     }
     // Lazy require (not a top-level import) to avoid the circular boot-time require — see note at imports.
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { SlideService } = require('@postmill-ai/nestjs-libraries/media/slide/slide.service');
+    const { SlideService } = require('@validpost/nestjs-libraries/media/slide/slide.service');
     const slideService = this._moduleRef.get<SlideService>(SlideService, {
       strict: false,
     });
@@ -1578,7 +1578,7 @@ export class AiMediaService {
     }
     // Lazy require (not a top-level import) to avoid the circular boot-time require — see note at imports.
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { CaptionService } = require('@postmill-ai/nestjs-libraries/media/caption/caption.service');
+    const { CaptionService } = require('@validpost/nestjs-libraries/media/caption/caption.service');
     const captionService = this._moduleRef.get<CaptionService>(CaptionService, {
       strict: false,
     });

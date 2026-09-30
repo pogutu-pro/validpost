@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { csrfHeader } from '@postmill-ai/helpers/utils/csrf.header';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { csrfHeader } from '@validpost/helpers/utils/csrf.header';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
 import {
   GhostCompletionPluginKey,
   caretAtEndOfBlock,

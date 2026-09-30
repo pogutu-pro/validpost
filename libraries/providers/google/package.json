@@ -1,5 +1,5 @@
 {
-  "name": "@postmill-ai/provider-google",
+  "name": "@validpost/provider-google",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",
@@ -7,7 +7,7 @@
   "dependencies": {
     "@ai-sdk/google": "^2.0.0",
     "@langchain/core": "^1.1.48",
-    "@postmill-ai/provider-kernel": "workspace:*",
+    "@validpost/provider-kernel": "workspace:*",
     "google-auth-library": "^9.11.0",
     "googleapis": "^137.1.0"
   },

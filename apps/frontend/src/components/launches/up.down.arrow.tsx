@@ -1,8 +1,8 @@
 'use client';
 import { FC, useCallback } from 'react';
 import clsx from 'clsx';
-import { ChevronUpIcon } from '@postmill-ai/frontend/components/ui/icons';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { ChevronUpIcon } from '@validpost/frontend/components/ui/icons';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const Arrow: FC<{
   flip: boolean;

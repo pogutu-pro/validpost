@@ -15,14 +15,14 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { Organization, User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { RagService, RagSettings } from '@postmill-ai/nestjs-libraries/ai/governance/rag.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { RagSearchDto } from '@postmill-ai/backend/dtos/rag/rag-search.dto';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { RagService, RagSettings } from '@validpost/nestjs-libraries/ai/governance/rag.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { RagSearchDto } from '@validpost/backend/dtos/rag/rag-search.dto';
 
-// 'pgvector' = built-in Postmill default; the rest are remote stores.
+// 'pgvector' = built-in ValidPost default; the rest are remote stores.
 const VECTOR_STORES = ['pgvector', 'pgvector-remote', 'qdrant', 'pinecone'];
 
 @ApiTags('RAG')
@@ -179,11 +179,11 @@ export class RagController {
       vectorStore: rag.vectorStore || 'pgvector',
       // Qdrant (remote)
       qdrantUrl: rag.qdrantUrl || '',
-      qdrantCollection: rag.qdrantCollection || 'postmill_rag',
+      qdrantCollection: rag.qdrantCollection || 'validpost_rag',
       distance: rag.distance || 'Cosine',
       qdrantConfigured: !!(rag.qdrantUrl || secret.qdrantApiKey),
       // Remote pgvector — never return the connection string (it carries the password).
-      pgTable: rag.pgTable || 'postmill_rag',
+      pgTable: rag.pgTable || 'validpost_rag',
       pgConfigured: !!(secret.pgUrl || rag.pgUrl),
       // Pinecone (remote) — never return the API key.
       pineconeIndex: rag.pineconeIndex || '',

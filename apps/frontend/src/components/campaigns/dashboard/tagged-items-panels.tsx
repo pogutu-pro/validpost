@@ -2,23 +2,23 @@
 
 import { FC, useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { Button } from '@postmill-ai/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { Button } from '@validpost/react/form/button';
 import clsx from 'clsx';
 import {
   CampaignEntitySlug,
   ResolvedCampaignItem,
-} from '@postmill-ai/frontend/components/campaigns/campaign-types';
+} from '@validpost/frontend/components/campaigns/campaign-types';
 import {
   useOrgEntities,
   OrgEntityOption,
-} from '@postmill-ai/frontend/components/campaigns/hooks/campaign.hooks';
+} from '@validpost/frontend/components/campaigns/hooks/campaign.hooks';
 
 const ENTITY_LABELS: Record<CampaignEntitySlug, { key: string; fallback: string }> = {
   post: { key: 'entity_posts', fallback: 'Posts' },

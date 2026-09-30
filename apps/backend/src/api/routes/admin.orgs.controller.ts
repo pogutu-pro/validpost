@@ -8,10 +8,10 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { LimitOverridesDto } from '@postmill-ai/nestjs-libraries/dtos/billing/limit-overrides.dto';
-import { SuperAdminGuard } from '@postmill-ai/backend/services/auth/rbac/super-admin.guard';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { LimitOverridesDto } from '@validpost/nestjs-libraries/dtos/billing/limit-overrides.dto';
+import { SuperAdminGuard } from '@validpost/backend/services/auth/rbac/super-admin.guard';
 
 @ApiTags('Admin Orgs')
 @Controller('/admin/orgs')

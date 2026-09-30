@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { StepFrame } from '@postmill-ai/frontend/components/setup/step-frame';
-import { StorageTab } from '@postmill-ai/frontend/components/settings/storage/storage.tab';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { StepFrame } from '@validpost/frontend/components/setup/step-frame';
+import { StorageTab } from '@validpost/frontend/components/settings/storage/storage.tab';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export function StepStorage() {
   const t = useT();

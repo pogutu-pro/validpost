@@ -1,7 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 
 // The set of media provider identifiers the org has enabled (active +
 // configured). Used to show only enabled providers in the rail.

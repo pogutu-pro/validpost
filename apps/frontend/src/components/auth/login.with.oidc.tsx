@@ -1,8 +1,8 @@
 'use client';
 
-import { OauthProvider } from '@postmill-ai/frontend/components/auth/providers/oauth.provider';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
+import { OauthProvider } from '@validpost/frontend/components/auth/providers/oauth.provider';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useVariables } from '@validpost/react/helpers/variable.context';
 
 export const LoginWithOidc = () => {
   const { isGeneral, genericOauth } = useVariables();

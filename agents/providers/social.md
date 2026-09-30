@@ -4,7 +4,7 @@ End-to-end recipe for adding a new social posting channel (`social` domain) to t
 
 ## 1. Provider contract
 
-The adapter is a class that `extends SocialAbstract implements SocialProvider`, both imported from `@postmill-ai/provider-kernel`.
+The adapter is a class that `extends SocialAbstract implements SocialProvider`, both imported from `@validpost/provider-kernel`.
 
 - Interface: `libraries/providers/kernel/src/domains/social-provider.ts` (`SocialProvider`, line 192) — composes `IAuthenticator` + `ISocialMediaIntegration` + `ISocialMediaComments`.
 - Base class: `libraries/providers/kernel/src/domains/social-base.ts` (`SocialAbstract`, line 96) — provides `this.fetch()`, `runInConcurrent`, `checkScopes`, default `checkValidity`/`handleErrors`/`commentsCapabilities`.
@@ -33,14 +33,14 @@ Optional `setupDescriptor?: ChannelSetupDescriptor` (declared on `SocialAbstract
 ### Auth models
 
 - **OAuth2** (tumblr): implement `generateAuthUrl` (build the authorize URL from `clientInformation?.client_id`, `this.scopes`, and a redirect URI `${process.env.FRONTEND_URL}/integrations/social/<identifier>`), `authenticate` (exchange code → tokens, fetch profile, return `AuthTokenDetails`), `refreshToken`.
-- **customFields / API-key / instance** (pixelfed): implement `customFields()` returning `{ key, label, defaultValue?, validation, type: 'text'|'password' }[]`. The connect UI submits the fields base64-encoded as `code`; `authenticate` decodes them and verifies against the API. Per-integration field values are stored encrypted on `Integration.customInstanceDetails` — pixelfed reads them via `AuthService.fixedDecryption(integration.customInstanceDetails!)` (from `@postmill-ai/helpers/auth/auth.service`).
+- **customFields / API-key / instance** (pixelfed): implement `customFields()` returning `{ key, label, defaultValue?, validation, type: 'text'|'password' }[]`. The connect UI submits the fields base64-encoded as `code`; `authenticate` decodes them and verifies against the API. Per-integration field values are stored encrypted on `Integration.customInstanceDetails` — pixelfed reads them via `AuthService.fixedDecryption(integration.customInstanceDetails!)` (from `@validpost/helpers/auth/auth.service`).
 - **Dynamic per-instance client registration** (`externalUrl`, mastodon): for federated/variable-host channels where OAuth apps are per-instance. Implement `externalUrl(url)` returning `{ client_id, client_secret }` — register the app on the user-supplied instance (e.g. Mastodon's `POST {instance}/api/v1/apps`). Rules:
   - Normalize/validate the URL with `normalizeExternalInstanceUrl` (kernel `domains/social-external-url.ts`): https only, bare host, no path/query/credentials. `IntegrationManager.generateAuthUrl` normalizes before calling the hook and merges the result (`{ ...clientInformation, client_id, client_secret, instanceUrl }`, dynamic wins) into `generateAuthUrl`, stashing the same blob in Redis `external:<state>`.
   - The outbound registration call is user-influenced HTTP — route it through the kernel `safeFetch` port (never bare `fetch`).
   - The callback (`no.auth.integrations.controller.ts`) merges the stashed blob over static client info for `authenticate` and persists it encrypted on `Integration.customInstanceDetails`; adapters must resolve the per-integration instance from that blob (decrypt-on-read, like pixelfed) in `post`/`comment`/comment-read methods. Reference: `kernel/src/domains/social-families/mastodon-base.ts` (`externalUrl`, `resolveInstanceUrl`).
 - **Two-step** (`isBetweenSteps = true`): after OAuth the user selects a target — Facebook/Instagram family exposes `pages(token)` (`kernel/src/domains/social-families/instagram-base.ts:490`), LinkedIn Page exposes `companies(accessToken)` (`libraries/providers/linkedin-page/src/v1/social.adapter.ts:141`), then `reConnect(id, requiredId, accessToken)` binds the chosen target and `fetchPageInformation()` resolves its details.
 
-**OAuth `state` rule:** always `const state = makeOauthState();` (from `@postmill-ai/provider-kernel`, `kernel/src/domains/social-make-id.ts`). The state doubles as the CSRF token / Redis capability key and must be ≥128-bit. `kernel/src/__tests__/oauth-state.guard.spec.ts` grep-guards every `social.adapter.ts` and family base: any `const state|nonce = …` must be `makeOauthState()` or `makeId(>=32)`; inline `makeId(n)` state with `n < 32` also fails.
+**OAuth `state` rule:** always `const state = makeOauthState();` (from `@validpost/provider-kernel`, `kernel/src/domains/social-make-id.ts`). The state doubles as the CSRF token / Redis capability key and must be ≥128-bit. `kernel/src/__tests__/oauth-state.guard.spec.ts` grep-guards every `social.adapter.ts` and family base: any `const state|nonce = …` must be `makeOauthState()` or `makeId(>=32)`; inline `makeId(n)` state with `n < 32` also fails.
 
 ## 2. PostDetails / PostResponse shapes
 
@@ -68,7 +68,7 @@ export type PostResponse = {
 
 ## 3. Package layout and module export
 
-One workspace package per provider, `@postmill-ai/provider-<id>`, `main: "src/index.ts"`, dependency only on `@postmill-ai/provider-kernel` (see `libraries/providers/tumblr/package.json`):
+One workspace package per provider, `@validpost/provider-<id>`, `main: "src/index.ts"`, dependency only on `@validpost/provider-kernel` (see `libraries/providers/tumblr/package.json`):
 
 ```
 libraries/providers/<id>/
@@ -85,7 +85,7 @@ The kernel module export wraps the singleton adapter in `SocialProviderKernelAda
 // tail of src/v1/social.adapter.ts (exact tumblr pattern)
 import {
   ProviderModule, SocialProviderKernelAdapter, PROVIDER_CAPABILITIES,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const __adapter = new TumblrProvider();
 
@@ -104,7 +104,7 @@ export const tumblrSocialModule: ProviderModule<any, any> = {
 };
 ```
 
-Register the package in `apps/backend/src/providers.generated.ts` (committed, alphabetically sorted; no generator script — add the `import <id>Modules from '@postmill-ai/provider-<id>'` line and the `...<id>Modules,` spread by hand). Boot wiring is `apps/backend/src/providers.bootstrap.ts` (`ProvidersBootstrap`).
+Register the package in `apps/backend/src/providers.generated.ts` (committed, alphabetically sorted; no generator script — add the `import <id>Modules from '@validpost/provider-<id>'` line and the `...<id>Modules,` spread by hand). Boot wiring is `apps/backend/src/providers.bootstrap.ts` (`ProvidersBootstrap`).
 
 **API-family bases** (`kernel/src/domains/social-families/`): if the platform speaks the Mastodon, Instagram/Facebook-Graph, or LinkedIn API, extend `MastodonProvider` (`mastodon-base.ts:19`), `InstagramProvider` (`instagram-base.ts:33`), or `LinkedinProvider` (`linkedin-base.ts:32`) instead of `SocialAbstract` and override only the deltas (see `libraries/providers/mastodon/src/v1/social.adapter.ts`, which just re-exports the base, and `linkedin-page` which subclasses `LinkedinProvider`).
 
@@ -133,7 +133,7 @@ Add an entry keyed by `identifier` to `PROVIDER_CAPABILITIES` in `kernel/src/dom
 
 ```ts
 // libraries/nestjs-libraries/src/dtos/posts/providers-settings/<id>.dto.ts
-export { <Id>Dto } from '@postmill-ai/provider-kernel/domains/social-dtos';
+export { <Id>Dto } from '@validpost/provider-kernel/domains/social-dtos';
 ```
 
 Register in `libraries/nestjs-libraries/src/dtos/posts/providers-settings/all.providers.settings.ts` — both places, lockstep:
@@ -185,7 +185,7 @@ The bridge exposes these on the kernel capability only when present (presence-pr
 ## 8. Outbound HTTP and error semantics
 
 - **All** platform HTTP goes through `this.fetch(url, options, identifier?)` (inherited from `SocialAbstract`, `social-base.ts:189`). It enforces the SSRF dispatcher, per-channel VPN egress, a 30s default timeout (`OUTBOUND_HTTP_TIMEOUT_MS`), and 429/5xx retry (max 2 retries, 5s backoff). **Never bare `fetch()`.**
-- Downloading user/stored media URLs uses `safeFetch` from `@postmill-ai/provider-kernel` (port-bound to the real SSRF-safe implementation): `await safeFetch(m.path).then((r) => r.blob())`.
+- Downloading user/stored media URLs uses `safeFetch` from `@validpost/provider-kernel` (port-bound to the real SSRF-safe implementation): `await safeFetch(m.path).then((r) => r.blob())`.
 - Override `handleErrors(body: string, status: number)` to map platform error payloads; return `undefined` to fall through to defaults:
   - `{ type: 'refresh-token', value }` → throws `RefreshTokenError` → the publish pipeline refreshes the token and retries (401 with no handler also becomes `RefreshTokenError`).
   - `{ type: 'bad-body', value }` → throws `BadBodyError` → post marked failed with `value` as the user-facing message; no retry (devto example: `libraries/providers/devto/src/v1/social.adapter.ts:37`).
@@ -195,12 +195,12 @@ The bridge exposes these on the kernel capability only when present (presence-pr
 
 ## 9. Frontend (required)
 
-1. Composer component at `apps/frontend/src/components/composer/providers/<id>/<id>.provider.tsx`, built with `withProvider` from `@postmill-ai/frontend/components/composer/providers/high.order.provider` (params at `high.order.provider.tsx:41`):
+1. Composer component at `apps/frontend/src/components/composer/providers/<id>/<id>.provider.tsx`, built with `withProvider` from `@validpost/frontend/components/composer/providers/high.order.provider` (params at `high.order.provider.tsx:41`):
 
 ```tsx
 'use client';
 import { withProvider, PostComment } from
-  '@postmill-ai/frontend/components/composer/providers/high.order.provider';
+  '@validpost/frontend/components/composer/providers/high.order.provider';
 
 export default withProvider({
   comments: false,                 // or true / 'no-media'
@@ -237,7 +237,7 @@ Per `agents/providers/overview.md`, the full add-a-provider sequence is: create 
 
 ## Checklist
 
-1. [ ] Create `libraries/providers/<id>` workspace package (`@postmill-ai/provider-<id>`, depends only on `@postmill-ai/provider-kernel`) with `src/index.ts`, `src/v1/{index.ts,metadata.ts,social.adapter.ts}`.
+1. [ ] Create `libraries/providers/<id>` workspace package (`@validpost/provider-<id>`, depends only on `@validpost/provider-kernel`) with `src/index.ts`, `src/v1/{index.ts,metadata.ts,social.adapter.ts}`.
 2. [ ] Implement the adapter: `extends SocialAbstract implements SocialProvider` (or a family base for Mastodon/Instagram/LinkedIn APIs) with all required members; `makeOauthState()` for OAuth state; `this.fetch()`/`safeFetch` only for HTTP; `handleErrors` override for platform error mapping.
 3. [ ] Export `<id>SocialModule` via `ProviderModule` + `SocialProviderKernelAdapter`, and default-export `[<id>SocialModule]` from `src/index.ts`.
 4. [ ] Add the `PROVIDER_CAPABILITIES['<id>']` entry in `kernel/src/domains/social-capabilities.ts`.

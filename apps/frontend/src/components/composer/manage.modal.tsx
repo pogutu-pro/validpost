@@ -9,53 +9,53 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { AddEditModalProps } from '@postmill-ai/frontend/components/composer/composer.types';
+import { AddEditModalProps } from '@validpost/frontend/components/composer/composer.types';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { PicksSocialsComponent } from '@postmill-ai/frontend/components/composer/picks.socials.component';
-import { EditorWrapper } from '@postmill-ai/frontend/components/composer/editor';
-import { SelectCurrent } from '@postmill-ai/frontend/components/composer/select.current';
-import { ShowAllProviders } from '@postmill-ai/frontend/components/composer/providers/show.all.providers';
-import { useExistingData } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
-import { DatePicker } from '@postmill-ai/frontend/components/launches/helpers/date.picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { PicksSocialsComponent } from '@validpost/frontend/components/composer/picks.socials.component';
+import { EditorWrapper } from '@validpost/frontend/components/composer/editor';
+import { SelectCurrent } from '@validpost/frontend/components/composer/select.current';
+import { ShowAllProviders } from '@validpost/frontend/components/composer/providers/show.all.providers';
+import { useExistingData } from '@validpost/frontend/components/launches/helpers/use.existing.data';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
+import { DatePicker } from '@validpost/frontend/components/launches/helpers/date.picker';
 import { useShallow } from 'zustand/react/shallow';
-import { RepeatComponent } from '@postmill-ai/frontend/components/launches/repeat.component';
-import { TagsComponent } from '@postmill-ai/frontend/components/launches/tags.component';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { stripHtmlTags } from '@postmill-ai/helpers/utils/strip.tags';
-import { hasLinks } from '@postmill-ai/helpers/utils/strip.links';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { RepeatComponent } from '@validpost/frontend/components/launches/repeat.component';
+import { TagsComponent } from '@validpost/frontend/components/launches/tags.component';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { stripHtmlTags } from '@validpost/helpers/utils/strip.tags';
+import { hasLinks } from '@validpost/helpers/utils/strip.links';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { capitalize } from 'lodash';
 import { CopilotChat } from '@copilotkit/react-ui';
 import { createPortal } from 'react-dom';
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
-import { DummyCodeComponent } from '@postmill-ai/frontend/components/composer/dummy.code.component';
-import { CreationMethodBadge } from '@postmill-ai/frontend/components/launches/creation.method.badge';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
+import { DummyCodeComponent } from '@validpost/frontend/components/composer/dummy.code.component';
+import { CreationMethodBadge } from '@validpost/frontend/components/launches/creation.method.badge';
 import {
   ColorPicker,
   DEFAULT_POST_COLOR,
-} from '@postmill-ai/frontend/components/ui/color-picker';
+} from '@validpost/frontend/components/ui/color-picker';
 import {
   SettingsIcon,
   ChevronDownIcon,
   TrashIcon,
   DropdownArrowSmallIcon,
-} from '@postmill-ai/frontend/components/ui/icons';
-import { useHasScroll } from '@postmill-ai/frontend/components/ui/is.scroll.hook';
-import { useShortlinkPreference } from '@postmill-ai/frontend/components/settings/shortlink-preference.component';
-import { BrandPicker } from '@postmill-ai/frontend/components/launches/brand-picker';
-import { ShortlinkPicker } from '@postmill-ai/frontend/components/composer/shortlink-picker';
-import { usePreflight, PreflightResponse } from '@postmill-ai/frontend/components/composer/content-qa/usePreflight';
-import { PreflightPanel } from '@postmill-ai/frontend/components/composer/content-qa/preflight.panel';
+} from '@validpost/frontend/components/ui/icons';
+import { useHasScroll } from '@validpost/frontend/components/ui/is.scroll.hook';
+import { useShortlinkPreference } from '@validpost/frontend/components/settings/shortlink-preference.component';
+import { BrandPicker } from '@validpost/frontend/components/launches/brand-picker';
+import { ShortlinkPicker } from '@validpost/frontend/components/composer/shortlink-picker';
+import { usePreflight, PreflightResponse } from '@validpost/frontend/components/composer/content-qa/usePreflight';
+import { PreflightPanel } from '@validpost/frontend/components/composer/content-qa/preflight.panel';
 import dayjs from 'dayjs';
-import { Button } from '@postmill-ai/react/form/button';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import { Button } from '@validpost/react/form/button';
+import SafeImage from '@validpost/react/helpers/safe.image';
 import { useRouter } from 'next/navigation';
-import { ComposerLibraryModal } from '@postmill-ai/frontend/components/composer/composer-library.modal';
+import { ComposerLibraryModal } from '@validpost/frontend/components/composer/composer-library.modal';
 
 const ColorPick: FC<{
   initial: string | null;

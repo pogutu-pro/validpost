@@ -1,8 +1,8 @@
 'use client';
 
 import { FC, useState, useCallback } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface Violation {
   type: string;

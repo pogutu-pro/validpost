@@ -6,33 +6,33 @@ export default defineConfig({
     alias: [
       // Keep exact workspace aliases first so non-provider packages resolve to source.
       {
-        find: '@postmill-ai/provider-kernel',
+        find: '@validpost/provider-kernel',
         replacement: path.resolve(__dirname, './kernel/src'),
       },
       {
-        find: '@postmill-ai/provider-kernel/*',
+        find: '@validpost/provider-kernel/*',
         replacement: path.resolve(__dirname, './kernel/src/*'),
       },
       {
-        find: '@postmill-ai/nestjs-libraries',
+        find: '@validpost/nestjs-libraries',
         replacement: path.resolve(__dirname, '../nestjs-libraries/src'),
       },
       {
-        find: '@postmill-ai/helpers',
+        find: '@validpost/helpers',
         replacement: path.resolve(__dirname, '../helpers/src'),
       },
       {
-        find: '@postmill-ai/backend',
+        find: '@validpost/backend',
         replacement: path.resolve(__dirname, '../../apps/backend/src'),
       },
-      // Redirect every @postmill-ai/provider-* workspace package to its src directory so tests
+      // Redirect every @validpost/provider-* workspace package to its src directory so tests
       // use the current source files instead of stale node_modules copies (e.g. missing metadata.ts).
       {
-        find: /^@postmill-ai\/provider-([^/]+)$/,
+        find: /^@validpost\/provider-([^/]+)$/,
         replacement: path.resolve(__dirname, './$1/src'),
       },
       {
-        find: /^@postmill-ai\/provider-([^/]+)\/(.*)$/,
+        find: /^@validpost\/provider-([^/]+)\/(.*)$/,
         replacement: path.resolve(__dirname, './$1/src/$2'),
       },
     ],

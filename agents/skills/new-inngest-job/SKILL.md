@@ -1,11 +1,11 @@
 ---
 name: new-inngest-job
-description: Add a background job, scheduled task, cron job, Inngest function, or event-driven worker to Postmill. Use when asked to create periodic sweeps, per-org fan-outs, delayed/scheduled work, or handlers for Inngest events.
+description: Add a background job, scheduled task, cron job, Inngest function, or event-driven worker to ValidPost. Use when asked to create periodic sweeps, per-org fan-outs, delayed/scheduled work, or handlers for Inngest events.
 ---
 
 # New Inngest Job
 
-Wire a new durable background function into Postmill's Inngest pipeline: activity (logic) → factory (trigger) → module/service registration.
+Wire a new durable background function into ValidPost's Inngest pipeline: activity (logic) → factory (trigger) → module/service registration.
 
 ## Read first
 - `agents/jobs.md` — the full rulebook: architecture, function catalog, idempotency patterns, testing recipe (§4 is this skill's source).

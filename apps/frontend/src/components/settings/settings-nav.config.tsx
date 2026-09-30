@@ -267,4 +267,4 @@ export const SETTINGS_NAV: SettingsNavItem[] = [
 export {
   LEGACY_TAB_TO_PATH,
   SETTINGS_DEFAULT_PATH,
-} from '@postmill-ai/frontend/components/settings/settings-paths';
+} from '@validpost/frontend/components/settings/settings-paths';

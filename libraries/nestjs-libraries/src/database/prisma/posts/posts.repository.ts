@@ -1,23 +1,23 @@
-import { PrismaRepository, PrismaTransaction } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { PrismaRepository, PrismaTransaction } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { Post as PostBody } from '@postmill-ai/nestjs-libraries/dtos/posts/create.post.dto';
+import { Post as PostBody } from '@validpost/nestjs-libraries/dtos/posts/create.post.dto';
 import {
   CreationMethod,
   Post,
   Prisma,
   State,
 } from '@prisma/client';
-import { GetPostsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/get.posts.dto';
-import { GetPostsListDto } from '@postmill-ai/nestjs-libraries/dtos/posts/get.posts.list.dto';
+import { GetPostsDto } from '@validpost/nestjs-libraries/dtos/posts/get.posts.dto';
+import { GetPostsListDto } from '@validpost/nestjs-libraries/dtos/posts/get.posts.list.dto';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import utc from 'dayjs/plugin/utc';
 import { v4 as uuidv4 } from 'uuid';
-import { CreateTagDto } from '@postmill-ai/nestjs-libraries/dtos/posts/create.tag.dto';
-import { decryptPostIntegrationTokens } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration-token.utils';
-import { isVideoPath } from '@postmill-ai/helpers/utils/video.extensions';
+import { CreateTagDto } from '@validpost/nestjs-libraries/dtos/posts/create.tag.dto';
+import { decryptPostIntegrationTokens } from '@validpost/nestjs-libraries/database/prisma/integrations/integration-token.utils';
+import { isVideoPath } from '@validpost/helpers/utils/video.extensions';
 
 dayjs.extend(isoWeek);
 dayjs.extend(weekOfYear);

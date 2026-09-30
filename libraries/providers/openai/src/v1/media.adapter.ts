@@ -14,7 +14,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   isTransientStatus,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Sora video models (sora-2 / sora-2-pro) on the async Videos API. The finished MP4 is auth-only
 // bytes at /v1/videos/{id}/content (no public URL), so pollJob downloads it with the key and

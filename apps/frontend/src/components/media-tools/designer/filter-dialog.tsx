@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { Slider, SegmentedControl } from './controls';
 import type {
   FilterDescriptor,
   FilterParam,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-descriptors';
-import type { FilterParams } from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-ops';
+} from '@validpost/nestjs-libraries/media/designer-doc/filter-descriptors';
+import type { FilterParams } from '@validpost/nestjs-libraries/media/designer-doc/filter-ops';
 
 /**
  * One dialog for all 47 filters, generated from the descriptor.

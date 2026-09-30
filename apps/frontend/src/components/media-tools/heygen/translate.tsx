@@ -1,11 +1,11 @@
 'use client';
 
 import React, { FC, useMemo, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
 import { useHeygenTranslateLanguages } from './use-heygen';
 
 interface TranslateProps {

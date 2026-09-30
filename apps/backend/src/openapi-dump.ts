@@ -5,13 +5,13 @@
 // same env a real boot needs (DATABASE_URL, REDIS_URL, JWT_SECRET) — which is why the
 // CI drift gate lives in boot-guard.yml, the job that already provisions them.
 //
-// Must be first: installs the runtime resolver for bare `@postmill-ai/provider-*`
+// Must be first: installs the runtime resolver for bare `@validpost/provider-*`
 // imports before any transitive require of a provider package (mirrors main.ts).
 import './register-provider-paths';
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { buildSwaggerDocument } from '@postmill-ai/helpers/swagger/load.swagger';
+import { buildSwaggerDocument } from '@validpost/helpers/swagger/load.swagger';
 
 process.env.TZ = 'UTC';
 

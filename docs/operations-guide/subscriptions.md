@@ -1,6 +1,6 @@
 # Subscriptions & payment providers
 
-Postmill's billing layer runs on pluggable **payment providers**. Organizations subscribe to one
+ValidPost's billing layer runs on pluggable **payment providers**. Organizations subscribe to one
 of four plans, each with hard limits on channels, posts, team seats, video exports, and storage.
 The backend enforces these limits at the API level; when a limit is hit the caller receives a
 `402 Payment Required` response with an upsell link to `/billing`.
@@ -59,8 +59,8 @@ resume, and the 30-day trial with a card check.
 ## PayPal
 
 Hosted checkout through the PayPal Subscriptions API: the buyer is redirected to PayPal to
-approve the subscription and returned to Postmill. Plans and products are created in your PayPal
-catalog on first use (`Postmill PRO MONTHLY`, `… TRIAL`, …), so nothing needs pre-creating.
+approve the subscription and returned to ValidPost. Plans and products are created in your PayPal
+catalog on first use (`ValidPost PRO MONTHLY`, `… TRIAL`, …), so nothing needs pre-creating.
 
 | Variable | Purpose |
 |----------|---------|
@@ -68,7 +68,7 @@ catalog on first use (`Postmill PRO MONTHLY`, `… TRIAL`, …), so nothing need
 | `PAYPAL_CLIENT_SECRET` | REST app secret. |
 | `PAYPAL_WEBHOOK_ID` | The id of the webhook you register below — PayPal verifies deliveries against it. |
 | `PAYPAL_ENV` | `live` (default) or `sandbox`. |
-| `PAYPAL_BRAND_NAME` | Name shown on the PayPal approval page (default `Postmill`). |
+| `PAYPAL_BRAND_NAME` | Name shown on the PayPal approval page (default `ValidPost`). |
 
 Setup: [developer.paypal.com](https://developer.paypal.com) → **Apps & Credentials** → create a
 REST app (a sandbox app for testing, a live app for production) → copy the client id and secret →
@@ -79,7 +79,7 @@ testing create a business and a personal sandbox account under **Sandbox → Acc
 
 What differs from Stripe: refund amounts are not reported per transaction by PayPal's subscription API, so the invoice list marks refunded transactions without an amount. PayPal has no customer portal (the buyer manages the agreement at
 paypal.com), no proration preview (PayPal prorates plan revisions itself), no coupons, and no
-add-on packs. Cancelling is immediate at PayPal, so Postmill keeps the subscription active until
+add-on packs. Cancelling is immediate at PayPal, so ValidPost keeps the subscription active until
 the paid-through date and a daily job (`payments-expire-canceled`) downgrades it after that; a
 cancelled PayPal subscription cannot be resumed — the customer subscribes again. PayPal webhooks
 can lag the approval redirect by a minute or two; the post-checkout page reconciles from the
@@ -87,7 +87,7 @@ can lag the approval redirect by a minute or two; the post-checkout page reconci
 
 ## Apple App Store (mobile app)
 
-For the Postmill mobile app. Purchases happen in the app through StoreKit; the server verifies
+For the ValidPost mobile app. Purchases happen in the app through StoreKit; the server verifies
 the signed transaction the app hands over (`POST /billing/native/verify`) and consumes App Store
 Server Notifications. Nothing is sold through the web UI for this provider.
 
@@ -98,15 +98,15 @@ Server Notifications. Nothing is sold through the web UI for this provider.
 | `APPLE_IAP_APP_APPLE_ID` | The numeric Apple ID of the app (App Store Connect → App Information). Required — Apple's verifier refuses production payloads without it. |
 | `APPLE_IAP_ENV` | `Production` (default) or `Sandbox`. |
 | `APPLE_IAP_ALLOW_SANDBOX` | `true` to also accept sandbox/TestFlight purchases on a production backend. **Sandbox purchases are free, so this grants real paid tiers to anyone with a TestFlight build** — pair it with `APPLE_IAP_SANDBOX_ORG_IDS` (comma-separated organization ids allowed to activate sandbox purchases) and turn it off after launch testing. |
-| `PAYMENTS_APPLE_PRODUCT_PREFIX` | Product-id prefix (default `postmill`). |
+| `PAYMENTS_APPLE_PRODUCT_PREFIX` | Product-id prefix (default `validpost`). |
 | `APPLE_IAP_ROOT_CA_BASE64` | Override for Apple's root certificates (comma-separated base64 DER); normally unset. |
 
 Products: create auto-renewable subscriptions in one subscription group with ids
-`<prefix>.<tier>.monthly` / `<prefix>.<tier>.yearly` (e.g. `postmill.pro.monthly`); the free
+`<prefix>.<tier>.monthly` / `<prefix>.<tier>.yearly` (e.g. `validpost.pro.monthly`); the free
 trial is the group's introductory offer. Notifications: App Store Connect → your app → **App
 Information → App Store Server Notifications** → version 2 → URL
 `https://<your-domain>/payments/webhooks/apple` for Production and Sandbox. The app must set the
-purchase's `appAccountToken` to the Postmill organization id so the server can bind it.
+purchase's `appAccountToken` to the ValidPost organization id so the server can bind it.
 
 ## Google Play (mobile app)
 
@@ -119,7 +119,7 @@ to `POST /billing/native/verify`; Real-time Developer Notifications arrive throu
 | `GOOGLE_PLAY_SERVICE_ACCOUNT_JSON` | Base64 of a service-account key JSON with access to the Play Developer API. |
 | `GOOGLE_PLAY_RTDN_SERVICE_ACCOUNT_EMAIL` | The service account Pub/Sub uses to sign push requests; the webhook refuses requests when unset. |
 | `GOOGLE_PLAY_RTDN_AUDIENCE` | Audience of the push OIDC token (default: the webhook URL). |
-| `PAYMENTS_GOOGLE_PRODUCT_PREFIX` | Product-id prefix (default `postmill`). |
+| `PAYMENTS_GOOGLE_PRODUCT_PREFIX` | Product-id prefix (default `validpost`). |
 
 Setup: Google Cloud → **Pub/Sub** → create a topic → grant
 `google-play-developer-notifications@system.gserviceaccount.com` the *Pub/Sub Publisher* role →
@@ -130,7 +130,7 @@ Console → **Monetize → Monetization setup** → paste the topic name and sen
 Invite the API service account under **Users and permissions** with *View financial data* and
 *Manage orders and subscriptions*. Products: subscription ids `<prefix>.<tier>.monthly` / `.yearly`,
 or one product per tier with `monthly`/`yearly` base plans. The app must set
-`obfuscatedExternalAccountId` to the Postmill organization id at purchase time. Postmill
+`obfuscatedExternalAccountId` to the ValidPost organization id at purchase time. ValidPost
 acknowledges every verified purchase (Play refunds unacknowledged ones after three days). Purchases that do not carry the organization id are rejected.
 
 ## Plans
@@ -266,7 +266,7 @@ Subscribe to these events:
 - `invoice.payment_failed`
 
 Copy the webhook signing secret into `STRIPE_SIGNING_KEY`. The controller rejects events whose
-`metadata.service !== 'postmill'` (except for the two invoice events, which are inspected per
+`metadata.service !== 'validpost'` (except for the two invoice events, which are inspected per
 subscription). Events are recorded in the payment-event ledger (the `StripeEvent` table, shared by
 every provider) for idempotency; redeliveries of the same `event.id` are ignored.
 

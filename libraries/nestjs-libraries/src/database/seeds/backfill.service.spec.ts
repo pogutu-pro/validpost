@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import crypto from 'crypto';
 import { BackfillService } from './backfill.service';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
 
 type Tx = {
   appRole: { findMany: ReturnType<typeof vi.fn> };

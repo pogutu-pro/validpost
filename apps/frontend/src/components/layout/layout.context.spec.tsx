@@ -13,26 +13,26 @@ let capturedAfterRequest: (
   response: any
 ) => Promise<boolean>;
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   FetchWrapperComponent: ({ children, afterRequest }: any) => {
     capturedAfterRequest = afterRequest;
     return <>{children}</>;
   },
 }));
 
-vi.mock('@postmill-ai/react/helpers/delete.dialog', () => ({
+vi.mock('@validpost/react/helpers/delete.dialog', () => ({
   deleteDialog: (...args: any[]) => mockDeleteDialog(...args),
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockShow }),
 }));
 
-vi.mock('@postmill-ai/frontend/app/(app)/auth/return.url.component', () => ({
+vi.mock('@validpost/frontend/app/(app)/auth/return.url.component', () => ({
   useReturnUrl: () => ({ getAndClear: () => null }),
 }));
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({
     backendUrl: 'http://localhost:3000/api',
     isGeneral: true,
@@ -40,7 +40,7 @@ vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_key: string, fallback?: string, opts?: Record<string, any>) => {
@@ -145,7 +145,7 @@ const ssoMock = vi.hoisted(() => ({
   completeSsoPopup: vi.fn(),
   navigateAfterAuth: vi.fn(),
 }));
-vi.mock('@postmill-ai/frontend/components/auth/sso-popup', () => ({
+vi.mock('@validpost/frontend/components/auth/sso-popup', () => ({
   SSO_CLOSE_FALLBACK_MS: 400,
   isSsoPopupCallback: () => ssoMock.isPopup,
   completeSsoPopup: ssoMock.completeSsoPopup,

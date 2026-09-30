@@ -52,40 +52,40 @@ const { createMockProvider } = vi.hoisted(() => {
 // ---------------------------------------------------------------------------
 
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/linkedin.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/linkedin.provider', () => ({
   LinkedinProvider: createMockProvider('linkedin', 'LinkedIn'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/linkedin.page.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/linkedin.page.provider', () => ({
   LinkedinPageProvider: createMockProvider('linkedinpage', 'LinkedIn Page'),
 }));
 
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/instagram.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/instagram.provider', () => ({
   InstagramProvider: createMockProvider('instagram', 'Instagram'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/instagram.standalone.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/instagram.standalone.provider', () => ({
   InstagramStandaloneProvider: createMockProvider('instagramstandalone', 'Instagram Standalone'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/facebook.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/facebook.provider', () => ({
   FacebookProvider: createMockProvider('facebook', 'Facebook'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/threads.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/threads.provider', () => ({
   ThreadsProvider: createMockProvider('threads', 'Threads'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/youtube.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/youtube.provider', () => ({
   YoutubeProvider: createMockProvider('youtube', 'YouTube'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/gmb.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/gmb.provider', () => ({
   GmbProvider: createMockProvider('gmb', 'GMB'),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/tiktok.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/tiktok.provider', () => ({
   TiktokProvider: createMockProvider('tiktok', 'TikTok', {
     extensionCookies: [{ name: 'auth_token', domain: 'tiktok.com' }],
     setupDescriptor: {
@@ -102,7 +102,7 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social/tiktok.provider', () 
 
 
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/discord.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/discord.provider', () => ({
   DiscordProvider: createMockProvider('discord', 'Discord', {
     externalUrl: async () => ({ client_id: 'd_id', client_secret: 'd_secret' }),
   }),
@@ -115,7 +115,7 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social/discord.provider', ()
 
 
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social/telegram.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social/telegram.provider', () => ({
   TelegramProvider: createMockProvider('telegram', 'Telegram', {
     isWeb3: true,
     customFields: async () => [
@@ -145,21 +145,21 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social/telegram.provider', (
 
 
 // Mock SocialAbstract to avoid pulling in sharp, temporalio, etc.
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social.abstract', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social.abstract', () => ({
   SocialAbstract: class {},
 }));
 
 // IntegrationManager injects the ProviderKernel DI token from providers.module;
 // stub the module so this spec doesn't pull in the kernel's heavy provider graph
 // (the manager is constructed manually with a fake kernel below).
-vi.mock('@postmill-ai/nestjs-libraries/providers/providers.module', () => ({
+vi.mock('@validpost/nestjs-libraries/providers/providers.module', () => ({
   PROVIDER_KERNEL: Symbol('ProviderKernel'),
 }));
 
 // In-memory Redis so generateAuthUrl's state-binding writes can be asserted
 // without a real server.
 const { redisStore } = vi.hoisted(() => ({ redisStore: new Map<string, string>() }));
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: {
     get: vi.fn(async (key: string) => redisStore.get(key) ?? null),
     set: vi.fn(async (key: string, value: string) => {
@@ -174,8 +174,8 @@ vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
 // ---------------------------------------------------------------------------
 // Now it's safe to import the real module under test.
 // ---------------------------------------------------------------------------
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { CHANNEL_ENV_MAPPINGS } from '@postmill-ai/nestjs-libraries/integrations/channel-env-credentials';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { CHANNEL_ENV_MAPPINGS } from '@validpost/nestjs-libraries/integrations/channel-env-credentials';
 
 // Every env var that can platform-enable a provider — tests stub these to
 // undefined by default so a configured developer shell can't leak platform
@@ -200,17 +200,17 @@ function stubEnvApp(identifier: string) {
 
 // Populate the registry with the mock providers (mirrors the pre-7.5.1 static
 // list, which the now-stubbed registration module would otherwise have filled).
-import { LinkedinProvider } from '@postmill-ai/nestjs-libraries/integrations/social/linkedin.provider';
-import { LinkedinPageProvider } from '@postmill-ai/nestjs-libraries/integrations/social/linkedin.page.provider';
-import { InstagramProvider } from '@postmill-ai/nestjs-libraries/integrations/social/instagram.provider';
-import { InstagramStandaloneProvider } from '@postmill-ai/nestjs-libraries/integrations/social/instagram.standalone.provider';
-import { FacebookProvider } from '@postmill-ai/nestjs-libraries/integrations/social/facebook.provider';
-import { ThreadsProvider } from '@postmill-ai/nestjs-libraries/integrations/social/threads.provider';
-import { YoutubeProvider } from '@postmill-ai/nestjs-libraries/integrations/social/youtube.provider';
-import { GmbProvider } from '@postmill-ai/nestjs-libraries/integrations/social/gmb.provider';
-import { TiktokProvider } from '@postmill-ai/nestjs-libraries/integrations/social/tiktok.provider';
-import { DiscordProvider } from '@postmill-ai/nestjs-libraries/integrations/social/discord.provider';
-import { TelegramProvider } from '@postmill-ai/nestjs-libraries/integrations/social/telegram.provider';
+import { LinkedinProvider } from '@validpost/nestjs-libraries/integrations/social/linkedin.provider';
+import { LinkedinPageProvider } from '@validpost/nestjs-libraries/integrations/social/linkedin.page.provider';
+import { InstagramProvider } from '@validpost/nestjs-libraries/integrations/social/instagram.provider';
+import { InstagramStandaloneProvider } from '@validpost/nestjs-libraries/integrations/social/instagram.standalone.provider';
+import { FacebookProvider } from '@validpost/nestjs-libraries/integrations/social/facebook.provider';
+import { ThreadsProvider } from '@validpost/nestjs-libraries/integrations/social/threads.provider';
+import { YoutubeProvider } from '@validpost/nestjs-libraries/integrations/social/youtube.provider';
+import { GmbProvider } from '@validpost/nestjs-libraries/integrations/social/gmb.provider';
+import { TiktokProvider } from '@validpost/nestjs-libraries/integrations/social/tiktok.provider';
+import { DiscordProvider } from '@validpost/nestjs-libraries/integrations/social/discord.provider';
+import { TelegramProvider } from '@validpost/nestjs-libraries/integrations/social/telegram.provider';
 
 // The raw social provider singletons now live in the ProviderKernel registry.
 // Build a fake kernel over these mock provider instances; IntegrationManager

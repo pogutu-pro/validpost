@@ -1,6 +1,6 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { commsInboundMessageEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { CommsInboundService } from '@postmill-ai/nestjs-libraries/comms/comms-inbound.service';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { commsInboundMessageEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { CommsInboundService } from '@validpost/nestjs-libraries/comms/comms-inbound.service';
 
 // One inbound chat message → connect-code claim or an agent turn + reply.
 // The webhook controller already ack'd the provider; only this step waits on

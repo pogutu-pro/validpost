@@ -1,6 +1,6 @@
 'use client';
 
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';

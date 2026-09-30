@@ -1,4 +1,4 @@
-import type { StudioLanding } from '@postmill-ai/frontend/components/media-tools/studio-kit/types';
+import type { StudioLanding } from '@validpost/frontend/components/media-tools/studio-kit/types';
 
 /**
  * Replicate is a bespoke studio (no `descriptor.ts`), so its landing copy lives

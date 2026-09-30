@@ -1,17 +1,17 @@
 import { ForbiddenException, Inject, Injectable, Logger } from '@nestjs/common';
 import { AIMediaJob } from '@prisma/client';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { MediaJobLifecycleService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { ProviderKernel } from '@postmill-ai/provider-kernel';
-import { MediaGenerateOptions, MediaModelOption, MediaOperation } from '@postmill-ai/nestjs-libraries/media/media-provider-adapter.interface';
-import { RedisService } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { MEDIA_CATEGORY_OPERATION } from '@postmill-ai/nestjs-libraries/ai/defaults/default-categories';
-import { mapWithConcurrency, singleFlight } from '@postmill-ai/nestjs-libraries/utils/concurrency';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { MediaJobLifecycleService } from '@validpost/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { ProviderKernel } from '@validpost/provider-kernel';
+import { MediaGenerateOptions, MediaModelOption, MediaOperation } from '@validpost/nestjs-libraries/media/media-provider-adapter.interface';
+import { RedisService } from '@validpost/nestjs-libraries/redis/redis.service';
+import { MEDIA_CATEGORY_OPERATION } from '@validpost/nestjs-libraries/ai/defaults/default-categories';
+import { mapWithConcurrency, singleFlight } from '@validpost/nestjs-libraries/utils/concurrency';
 
 // §3.3: cap the drive-on-read completion fan-out. Each processJob may download up to
 // MAX_ARTIFACT_BYTES (512 MB) on completion; an unbounded Promise.all over ~30 pending

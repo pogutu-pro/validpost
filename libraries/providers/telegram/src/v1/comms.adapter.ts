@@ -7,7 +7,7 @@ import {
   ProviderModule,
   ProviderRuntimeContext,
   timingSafeStringEqual,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import { metadata as providerMetadata } from './metadata';
 
 const CAPABILITIES: CommsAdapterCapabilities = {
@@ -151,16 +151,16 @@ export const telegramCommsModule: ProviderModule<any, any> = {
     ],
     capabilities: CAPABILITIES,
     platformConnect: 'env',
-    docsUrl: 'https://docs.postmill.ai/operations-guide/platform-comms-apps#telegram',
+    docsUrl: 'https://docs.validpost.io/operations-guide/platform-comms-apps#telegram',
     portalUrl: 'https://t.me/BotFather',
     portalLabel: 'Telegram @BotFather',
     setupSteps: [
       'Message @BotFather in Telegram and create a bot with /newbot.',
       'Copy the bot token BotFather gives you into the field below.',
-      'Save — Postmill registers the webhook automatically.',
+      'Save — ValidPost registers the webhook automatically.',
     ],
     setupNotes:
-      'The webhook is registered automatically when you save. One Postmill organization per bot — pointing a second organization at the same bot re-routes its messages.',
+      'The webhook is registered automatically when you save. One ValidPost organization per bot — pointing a second organization at the same bot re-routes its messages.',
   },
   create: (ctx) => new TelegramCommsAdapter(ctx),
 };

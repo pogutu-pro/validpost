@@ -1,11 +1,11 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import {
   registerInProcessAgent,
   type InProcessHandler,
 } from '@reaatech/agent-mesh-router';
 import type { AgentConfig, AgentResponse, ContextPacket } from '@reaatech/agent-mesh';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
 import type {
   DesignBrief,
   FormField,
@@ -183,7 +183,7 @@ export class AiDesignerConversationalistService implements OnModuleInit {
     const { session, text } = input;
 
     const system = [
-      'You are the conversationalist agent for the AI Designer feature in Postmill.',
+      'You are the conversationalist agent for the AI Designer feature in ValidPost.',
       'Read the user message and current session state, then classify intent and return JSON.',
       '',
       'Possible intents:',

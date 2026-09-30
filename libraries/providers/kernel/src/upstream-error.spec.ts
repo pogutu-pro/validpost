@@ -10,7 +10,7 @@ import {
 
 const ctx = { domain: 'media', providerId: 'google', providerName: 'Google AI Studio', operation: 'image' };
 
-// The exact body behind Sentry POSTMILL-APP-P.
+// The exact body behind Sentry VALIDPOST-APP-P.
 const GOOGLE_429 = JSON.stringify({
   error: {
     code: 429,

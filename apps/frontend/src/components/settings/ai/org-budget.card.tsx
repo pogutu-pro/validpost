@@ -2,17 +2,17 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
 import {
   BudgetLimitsFields,
   BudgetLimitsValue,
   parseOptionalNumber,
-} from '@postmill-ai/frontend/components/settings/shared/kit/fields/budget-limits.fields';
+} from '@validpost/frontend/components/settings/shared/kit/fields/budget-limits.fields';
 
 export interface OrgAiBudget {
   monthlyCap: number | null;

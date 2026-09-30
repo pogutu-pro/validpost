@@ -1,9 +1,9 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
 import { createTool } from '@mastra/core/tools';
 import { Injectable } from '@nestjs/common';
-import { StockMediaService } from '@postmill-ai/nestjs-libraries/media/stock/stock-media.service';
+import { StockMediaService } from '@validpost/nestjs-libraries/media/stock/stock-media.service';
 import { z } from 'zod';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { parseOrg, requireRead } from './tool.helpers';
 
 const MAX_STOCK_RESULTS = 12;

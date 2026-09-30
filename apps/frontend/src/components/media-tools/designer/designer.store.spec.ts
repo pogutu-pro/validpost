@@ -6,7 +6,7 @@ import {
   getBuffer,
   seedBufferFromImage,
 } from './raster-layers';
-import { DESIGNER_DOC_VERSION } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.limits';
+import { DESIGNER_DOC_VERSION } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.limits';
 
 /**
  * Simulates the designer export flow as implemented in Designer.tsx:

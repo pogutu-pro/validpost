@@ -3,7 +3,7 @@
 import {
   detectBeats,
   estimateBpm,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/beat-detect';
+} from '@validpost/nestjs-libraries/media/designer-doc/beat-detect';
 
 /**
  * Analysing an audio clip in the browser, so its beats can be snapped to.

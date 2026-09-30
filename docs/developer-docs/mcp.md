@@ -1,6 +1,6 @@
 # MCP Server
 
-Postmill exposes an MCP (Model Context Protocol) server with multiple entrypoints for AI agent integration. The server is bootstrapped in `libraries/nestjs-libraries/src/chat/start.mcp.ts` and provides access to the Mastra chat agent's tools and sub-agents.
+ValidPost exposes an MCP (Model Context Protocol) server with multiple entrypoints for AI agent integration. The server is bootstrapped in `libraries/nestjs-libraries/src/chat/start.mcp.ts` and provides access to the Mastra chat agent's tools and sub-agents.
 
 MCP startup is gated by feature flags: `DEV_DISABLE_MCP` and `DEV_DISABLE_AGENT` both skip mounting the surface.
 

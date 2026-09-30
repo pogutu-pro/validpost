@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const SunoStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/suno/suno-studio').then((m) => m.SunoStudio),
+  () => import('@validpost/frontend/components/media-tools/suno/suno-studio').then((m) => m.SunoStudio),
   { ssr: false }
 );
 

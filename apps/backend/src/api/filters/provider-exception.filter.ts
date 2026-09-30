@@ -17,8 +17,8 @@ import {
   ProviderVersionRetiredError,
   ContentPackDailyCapError,
   ProviderUpstreamError,
-} from '@postmill-ai/provider-kernel';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
+} from '@validpost/provider-kernel';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
 
 // Where the org fixes a provider's key / plan, by kernel domain.
 const SETTINGS_URL_BY_DOMAIN: Record<string, string> = {
@@ -93,8 +93,8 @@ export class ProviderExceptionFilter implements ExceptionFilter {
 
   // An upstream provider (the org's OpenAI / Google / Runway … account) said
   // no. 502 Bad Gateway: honest about where it failed, and a status the
-  // frontend's global handlers leave alone (401 → logout, 402 → Postmill
-  // billing, 429 → Postmill rate limit would all misattribute it). The
+  // frontend's global handlers leave alone (401 → logout, 402 → ValidPost
+  // billing, 429 → ValidPost rate limit would all misattribute it). The
   // envelope lets the UI name the provider.
   private _upstream(exception: ProviderUpstreamError, response: Response) {
     const { ctx, kind, upstreamStatus, retryable, message } = exception;

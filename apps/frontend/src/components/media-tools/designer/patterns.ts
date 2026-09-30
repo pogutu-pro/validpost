@@ -2,7 +2,7 @@ import type { DesignerPattern } from './designer.store';
 import {
   drawPatternTile,
   tileSizeFor,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/pattern-tiles';
+} from '@validpost/nestjs-libraries/media/designer-doc/pattern-tiles';
 
 /**
  * Client side of the pattern system.

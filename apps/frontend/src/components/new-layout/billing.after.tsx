@@ -1,13 +1,13 @@
 'use client';
 
-import { BillingComponent } from '@postmill-ai/frontend/components/billing/billing.component';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { LogoutComponent } from '@postmill-ai/frontend/components/layout/logout.component';
+import { BillingComponent } from '@validpost/frontend/components/billing/billing.component';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { LogoutComponent } from '@validpost/frontend/components/layout/logout.component';
 import React from 'react';
-import { OrganizationSelector } from '@postmill-ai/frontend/components/layout/organization.selector';
+import { OrganizationSelector } from '@validpost/frontend/components/layout/organization.selector';
 
 export const BillingAfter = () => {
   const user = useUser();
@@ -24,7 +24,7 @@ export const BillingAfter = () => {
       <div className="text-center mb-[20px] text-xl [@media(max-width:1024px)]:text-xl">
         <h1 className="text-3xl [@media(max-width:1024px)]:text-xl">
           {t(
-            'join_10000_entrepreneurs_who_use_postmill',
+            'join_10000_entrepreneurs_who_use_validpost',
             'Join 10,000+ Entrepreneurs Who Use ValidPost'
           )}
           <br />

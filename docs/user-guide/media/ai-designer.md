@@ -4,7 +4,7 @@
 driving the [Designer](./designer) canvas for you — you describe what you want, it plans, writes
 copy, sources assets, composes the layout, and renders variants.
 
-This is distinct from two other AI surfaces in Postmill, which look similar but are not the same
+This is distinct from two other AI surfaces in ValidPost, which look similar but are not the same
 thing:
 
 | Surface | What it is | Where |

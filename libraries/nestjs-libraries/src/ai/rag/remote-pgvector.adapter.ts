@@ -29,7 +29,7 @@ export class RemotePgVectorStoreAdapter implements VectorStoreAdapter {
     this._dimension = cfg.dimension;
     // Table name must be a plain SQL identifier — reject (not strip) anything else
     // so a misconfigured name fails loudly instead of silently aliasing a table.
-    const t = cfg.table || 'postmill_rag';
+    const t = cfg.table || 'validpost_rag';
     if (!/^[a-zA-Z_][a-zA-Z0-9_]{0,62}$/.test(t)) {
       throw new Error('Invalid pgvector table name');
     }

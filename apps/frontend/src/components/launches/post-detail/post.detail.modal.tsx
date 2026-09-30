@@ -4,24 +4,24 @@ import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 're
 import useSWR, { useSWRConfig } from 'swr';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
-import { pushAgentUiContext } from '@postmill-ai/frontend/components/agent/agent-context-bridge';
-import { readableTextColor } from '@postmill-ai/frontend/components/shared/readable-text-color';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { isUSCitizen } from '@postmill-ai/frontend/components/launches/helpers/isuscitizen.utils';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import SafeImage from '@validpost/react/helpers/safe.image';
+import { pushAgentUiContext } from '@validpost/frontend/components/agent/agent-context-bridge';
+import { readableTextColor } from '@validpost/frontend/components/shared/readable-text-color';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { isUSCitizen } from '@validpost/frontend/components/launches/helpers/isuscitizen.utils';
 import {
   KebabMenu,
   KebabMenuItem,
-} from '@postmill-ai/frontend/components/ui/kebab-menu';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { IntegrationContext } from '@postmill-ai/frontend/components/launches/helpers/use.integration';
-import { GeneralPreviewComponent } from '@postmill-ai/frontend/components/launches/general.preview.component';
-import { Providers } from '@postmill-ai/frontend/components/composer/providers/show.all.providers';
-import { getProviderSettingsMeta } from '@postmill-ai/frontend/components/composer/providers/high.order.provider';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+} from '@validpost/frontend/components/ui/kebab-menu';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { IntegrationContext } from '@validpost/frontend/components/launches/helpers/use.integration';
+import { GeneralPreviewComponent } from '@validpost/frontend/components/launches/general.preview.component';
+import { Providers } from '@validpost/frontend/components/composer/providers/show.all.providers';
+import { getProviderSettingsMeta } from '@validpost/frontend/components/composer/providers/high.order.provider';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { CommentThread } from './comment.thread';
 
 interface PostDetailModalProps {

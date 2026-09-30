@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Logger } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
-import { pricing, ADDONS } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { PaymentsUnsupportedOperationError, PaymentsWebhookVerificationError } from '@postmill-ai/provider-kernel';
+import { pricing, ADDONS } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { PaymentsUnsupportedOperationError, PaymentsWebhookVerificationError } from '@validpost/provider-kernel';
 
 // ---------------------------------------------------------------------------
 // PaymentsService — the DB-transition half of the former StripeService and the

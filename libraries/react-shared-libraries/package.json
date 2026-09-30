@@ -1,5 +1,5 @@
 {
-  "name": "@postmill-ai/react-shared-libraries",
+  "name": "@validpost/react-shared-libraries",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

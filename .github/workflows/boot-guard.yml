@@ -100,13 +100,13 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_USER: postmill
-          POSTGRES_PASSWORD: postmill
-          POSTGRES_DB: postmill
+          POSTGRES_USER: validpost
+          POSTGRES_PASSWORD: validpost
+          POSTGRES_DB: validpost
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postmill"
+          --health-cmd "pg_isready -U validpost"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -120,7 +120,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     env:
-      DATABASE_URL: postgresql://postmill:postmill@localhost:5432/postmill
+      DATABASE_URL: postgresql://validpost:validpost@localhost:5432/validpost
       REDIS_URL: redis://localhost:6379
       JWT_SECRET: ci-boot-guard-not-a-real-secret
       FRONTEND_URL: http://localhost:4200

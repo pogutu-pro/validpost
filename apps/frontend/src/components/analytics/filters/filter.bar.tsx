@@ -13,11 +13,11 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mantine/dates';
 import { MantineProvider } from '@mantine/core';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
-import { ChannelFilterSelect } from '@postmill-ai/frontend/components/launches/channel-filter-select';
-import { CampaignFilterSelect } from '@postmill-ai/frontend/components/launches/campaign-filter-select';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
+import { ChannelFilterSelect } from '@validpost/frontend/components/launches/channel-filter-select';
+import { CampaignFilterSelect } from '@validpost/frontend/components/launches/campaign-filter-select';
 
 type WindowMode = 'day' | 'week' | 'month' | 'custom';
 const FMT = 'YYYY-MM-DD';

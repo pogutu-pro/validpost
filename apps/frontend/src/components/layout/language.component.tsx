@@ -1,11 +1,11 @@
 'use client';
 
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import {
   cookieName,
   fallbackLng,
   languages,
-} from '@postmill-ai/react/translation/i18n.config';
+} from '@validpost/react/translation/i18n.config';
 import i18next from 'i18next';
 import useCookie from 'react-use-cookie';
 import ReactCountryFlag from 'react-country-flag';
@@ -14,7 +14,7 @@ import countries from 'i18n-iso-countries';
 
 // Register required locales
 import countriesEn from 'i18n-iso-countries/langs/en.json';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { ModalWrapperComponent } from '../composer/modal.wrapper.component';
 
 import clsx from 'clsx';

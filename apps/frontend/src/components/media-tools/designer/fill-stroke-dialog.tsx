@@ -1,9 +1,9 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { ColorSwatch, SegmentedControl, Slider, Stepper } from './controls';
-import { SELECTABLE_BLEND_MODES } from '@postmill-ai/nestjs-libraries/media/designer-doc/pixel-ops';
+import { SELECTABLE_BLEND_MODES } from '@validpost/nestjs-libraries/media/designer-doc/pixel-ops';
 import type {
   DesignerBlendMode,
   FillContents,

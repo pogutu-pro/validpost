@@ -2,11 +2,11 @@
 
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
 import { useCustomFonts, CustomFontEntry } from './use-brand-fonts';
 import { getBrandViolations } from '../brand-compliance';
 import { useMediaPicker } from '../../use-media-picker';

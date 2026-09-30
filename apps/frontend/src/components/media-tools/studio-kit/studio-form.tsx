@@ -1,9 +1,9 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
 import { ModelSelect } from './model-select';
 import { studioFieldKey, studioOptionKey } from './i18n-keys';
 import type { FileFieldValue, StudioField, StudioFieldValue } from './types';

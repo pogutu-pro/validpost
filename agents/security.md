@@ -1,6 +1,6 @@
 # Security invariants (do not break)
 
-LLM-facing ruleset for the Postmill monorepo. Each rule: statement, why (one clause),
+LLM-facing ruleset for the ValidPost monorepo. Each rule: statement, why (one clause),
 enforcement point (exact file/symbol). Cross-refs: `agents/backend.md`,
 `agents/database.md`, `agents/providers/overview.md`, `agents/jobs.md`.
 
@@ -23,7 +23,7 @@ enforcement point (exact file/symbol). Cross-refs: `agents/backend.md`,
 
 - All provider domains resolve through `ProviderResolutionService`
   (`libraries/nestjs-libraries/src/providers/provider-resolution.service.ts`) backed by
-  `ProviderKernel` (`@postmill-ai/provider-kernel`). Why: version pinning
+  `ProviderKernel` (`@validpost/provider-kernel`). Why: version pinning
   (`domain/providerId@version`) and lifecycle (`preview → active → deprecated →
   retired`; retired → `GoneException`) only work if nothing bypasses the kernel.
 - The legacy in-memory registries and the `PROVIDER_KERNEL=legacy` kill switch were
@@ -101,14 +101,14 @@ enforcement point (exact file/symbol). Cross-refs: `agents/backend.md`,
 - IDs/secrets use CSPRNG (`crypto.randomBytes`, `crypto.randomUUID`) — never
   `Math.random` for tokens.
 
-## Federation (Postmill ID)
+## Federation (ValidPost ID)
 
 - `id_token`s for first-party SSO are **RS256** with the auto-generated instance key
   (`InstanceIdentity` table, private PEM encrypted via `EncryptionService`) — never
   the HS256 `JWT_SECRET` session key, and never shared between instances.
   Enforcement: `libraries/nestjs-libraries/src/database/prisma/federation/federation.service.ts`.
 - There is **no client registration**: the audience is fixed
-  (`postmill-template-store`) and codes are only sent to redirect URIs on the
+  (`validpost-template-store`) and codes are only sent to redirect URIs on the
   `FEDERATION_TRUSTED_REDIRECT_URIS` allow-list (exact match). PKCE S256 is
   mandatory; codes/`posf_` tokens are sha256-hashed at rest, codes single-use.
 - Claims are **scope-gated** (`profile`/`email`/`org` only — never `mcp:*`); the org
@@ -160,7 +160,7 @@ enforcement point (exact file/symbol). Cross-refs: `agents/backend.md`,
   (`apps/backend/src/api/routes/copilot.controller.ts` `_chatModel`). **No CopilotKit service
   adapter**: since `@copilotkit/runtime` 1.69 the single-route transport never calls
   `serviceAdapter.process()`, so any gate wrapped around it is dead code (Sentry
-  POSTMILL-APP-D) — never reintroduce one.
+  VALIDPOST-APP-D) — never reintroduce one.
 
 ## NOT_SECURED — dev-only toggle The budget check is two-layered: the org-wide
   ceiling (`Organization.aiBudget*`, reason `org_budget_exceeded`, applies even when the call
@@ -231,7 +231,7 @@ enforcement point (exact file/symbol). Cross-refs: `agents/backend.md`,
 - The handler only verifies + enqueues Inngest events and responds immediately
   (Slack/Discord 3-second ack) — never run AI or DB-heavy work in-request. Connect
   codes are single-use, 15-min-TTL, claimed via an atomic guarded `updateMany`; the
-  claim notifies the linked Postmill user in-app so a mis-delivered code is noticed.
+  claim notifies the linked ValidPost user in-app so a mis-delivered code is noticed.
 - Comms credentials live encrypted on `CommsProviderConfig.credentials`; settings GETs
   mask them to per-field booleans; connect codes are returned only from link
   create/regenerate responses. Never log tokens, secrets, codes, or raw webhook bodies.

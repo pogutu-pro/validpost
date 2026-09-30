@@ -1,6 +1,6 @@
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { NotificationCategory } from '@postmill-ai/nestjs-libraries/dtos/notifications/notification-preference.dto';
+import { NotificationCategory } from '@validpost/nestjs-libraries/dtos/notifications/notification-preference.dto';
 
 export interface CreateNotificationInput {
   organizationId: string;

@@ -13,40 +13,40 @@
 
 # Pinned so the project name (and therefore the named-volume prefix) does not follow
 # this file's directory. Without it Compose would derive "docker" from docker/ and
-# orphan every existing postmill-app_* volume.
-name: postmill-app
+# orphan every existing validpost-app_* volume.
+name: validpost-app
 
 services:
-  postmill-postgres:
+  validpost-postgres:
     # ref: https://hub.docker.com/_/postgres
     image: postgres:17-alpine # 17.0
-    container_name: postmill-postgres
+    container_name: validpost-postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: postmill-local-pwd
-      POSTGRES_USER: postmill-local
-      POSTGRES_DB: postmill-db-local
+      POSTGRES_PASSWORD: validpost-local-pwd
+      POSTGRES_USER: validpost-local
+      POSTGRES_DB: validpost-db-local
     volumes:
       - postgres-volume:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
-      - postmill-network
+      - validpost-network
 
-  postmill-redis:
+  validpost-redis:
     # ref: https://hub.docker.com/_/redis
     image: redis:7-alpine
-    container_name: postmill-redis
+    container_name: validpost-redis
     restart: always
     ports:
       - 6379:6379
     networks:
-      - postmill-network
+      - validpost-network
 
   inngest:
     # ref: https://hub.docker.com/r/inngest/inngest
     image: inngest/inngest:latest
-    container_name: postmill-inngest
+    container_name: validpost-inngest
     # Only start when explicitly requested; background jobs are not needed for
     # core local development.
     profiles:
@@ -54,16 +54,16 @@ services:
     restart: unless-stopped
     # Discover the backend's Inngest handler over the Docker network. The dev server
     # keeps retrying until the backend is up, so start order doesn't matter.
-    command: inngest dev -u http://postmill-app:3000/api/inngest
+    command: inngest dev -u http://validpost-app:3000/api/inngest
     ports:
       - 8288:8288 # dev server UI + event API
     networks:
-      - postmill-network
+      - validpost-network
 
-  postmill-pg-admin:
+  validpost-pg-admin:
     # ref: https://hub.docker.com/r/dpage/pgadmin4/tags
     image: dpage/pgadmin4:latest
-    container_name: postmill-pg-admin
+    container_name: validpost-pg-admin
     # Convenience UI only — not required for local development.
     profiles:
       - tools
@@ -74,12 +74,12 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
     networks:
-      - postmill-network
+      - validpost-network
 
 volumes:
   postgres-volume:
     external: false
 
 networks:
-  postmill-network:
+  validpost-network:
     external: false

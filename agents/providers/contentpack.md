@@ -60,7 +60,7 @@ Note the two domain spellings: `manifest.domain` is `'contentpack'` (kernel iden
 
 - **All outbound HTTP goes through the injected `SafeFetchPort`** (`ctx.fetch` in `create`, stored as a constructor arg). Never call global `fetch` — the kernel port is the SSRF-safe path (see `agents/security.md`).
 - **Credentials arrive already decrypted** on `ctx.credentials`; the adapter class takes them as plain constructor args (`EnvatoContentPack(apiKey, fetch)`). Never encrypt/decrypt inside the adapter.
-- **Error convention:** on HTTP 429 from the upstream API, throw `ContentPackDailyCapError` (exported from `@postmill-ai/provider-kernel`, defined in `kernel/src/domains/contentpack.ts`). `ProviderExceptionFilter` (`apps/backend/src/api/filters/provider-exception.filter.ts`) maps it to **HTTP 402 Payment Required** so the UI shows "limit reached". Other upstream failures: throw a plain `Error` with status + body text; `StockMediaService.resolveSearch` catches non-cap errors and degrades to the free provider (cap errors are rethrown, not degraded).
+- **Error convention:** on HTTP 429 from the upstream API, throw `ContentPackDailyCapError` (exported from `@validpost/provider-kernel`, defined in `kernel/src/domains/contentpack.ts`). `ProviderExceptionFilter` (`apps/backend/src/api/filters/provider-exception.filter.ts`) maps it to **HTTP 402 Payment Required** so the UI shows "limit reached". Other upstream failures: throw a plain `Error` with status + body text; `StockMediaService.resolveSearch` catches non-cap errors and degrades to the free provider (cap errors are rethrown, not degraded).
 
 ## Persistence: `ContentPackConfig`
 
@@ -85,7 +85,7 @@ Unique on `@@unique([organizationId, identifier, version])`. The org-wide active
 
 Each pack ships `src/v1/contentpack.int-spec.ts` (reference: `libraries/providers/envato/src/v1/contentpack.int-spec.ts`):
 
-- Import shared helpers from `@postmill-ai/provider-kernel/testing/media-int-helpers` (`libraries/providers/kernel/src/testing/media-int-helpers.ts`): `makeCtx(handler)` returns `{ recs, ctx }` where `ctx.fetch` records each request `{ url, method, headers, body }` and `handler(url, init, n)` returns the canned response; `res(body, ok?, status?)` builds a minimal fetch-Response-like object. New specs import these — do not copy a local helper.
+- Import shared helpers from `@validpost/provider-kernel/testing/media-int-helpers` (`libraries/providers/kernel/src/testing/media-int-helpers.ts`): `makeCtx(handler)` returns `{ recs, ctx }` where `ctx.fetch` records each request `{ url, method, headers, body }` and `handler(url, init, n)` returns the canned response; `res(body, ok?, status?)` builds a minimal fetch-Response-like object. New specs import these — do not copy a local helper.
 - Seed credentials on the recording ctx before `create`: `(ctx as any).credentials = { apiKey: 'token' }`, then `myPackModule.create(ctx as any)`.
 - Assert the exact URL, method, auth headers, and the mapped result shape for `search` and `resolveDownload`; include a 429 → `ContentPackDailyCapError` case (`res({}, false, 429)`).
 - Add a file-header comment block describing the upstream API shape and an explicit `// UNVERIFIED vs live key:` line for anything not confirmed against a live key (e.g. Envato's licensed-download entitlement flow). Honest unverified notes are required, not optional.
@@ -95,13 +95,13 @@ Each pack ships `src/v1/contentpack.int-spec.ts` (reference: `libraries/provider
 
 `providers.generated.ts` is hand-maintained despite its name (alphabetical order). See `agents/providers/overview.md` for the full list; the contentpack-relevant steps:
 
-1. Workspace package `libraries/providers/<id>` named `@postmill-ai/provider-<id>` (`main`/`types`: `src/index.ts`, dependency `@postmill-ai/provider-kernel: workspace:*`, `test: vitest run`). `src/index.ts` default-exports the module array: `const mypackProviderModules = [myPackModule]; export default mypackProviderModules;`
+1. Workspace package `libraries/providers/<id>` named `@validpost/provider-<id>` (`main`/`types`: `src/index.ts`, dependency `@validpost/provider-kernel: workspace:*`, `test: vitest run`). `src/index.ts` default-exports the module array: `const mypackProviderModules = [myPackModule]; export default mypackProviderModules;`
 2. Import + spread in `apps/backend/src/providers.generated.ts` (alphabetical).
 3. Path mapping in `tsconfig.base.json`; dependency in `apps/backend/package.json`.
 
 ## Tests
 
-- `pnpm --filter @postmill-ai/provider-<id> test` — runs the adapter spec + int-spec.
+- `pnpm --filter @validpost/provider-<id> test` — runs the adapter spec + int-spec.
 - Backend filter coverage for the 429 → 402 mapping already exists (`apps/backend/src/api/filters/provider-exception.filter.spec.ts`); no new backend test is needed unless you change the error type.
 
 ## Checklist
@@ -110,7 +110,7 @@ Each pack ships `src/v1/contentpack.int-spec.ts` (reference: `libraries/provider
 - [ ] 2. Write `src/v1/metadata.ts` (`domains: []`) and `src/v1/contentpack.adapter.ts` implementing `ContentPackCapability` with only the capabilities the pack truly serves.
 - [ ] 3. Export `myPackModule` from `src/v1/index.ts`: `manifest.domain: 'contentpack'`, `credentialFields`, `capabilities` matching the class; `create` reads `ctx.credentials` and injects `ctx.fetch`.
 - [ ] 4. Route every outbound request through the injected `SafeFetchPort`; throw `ContentPackDailyCapError` on 429.
-- [ ] 5. Add `src/v1/contentpack.int-spec.ts` using `makeCtx`/`res` from `@postmill-ai/provider-kernel/testing/media-int-helpers`, with a file-header API description and `// UNVERIFIED vs live key:` notes; add `contentpack.adapter.spec.ts` for mapping edge cases.
+- [ ] 5. Add `src/v1/contentpack.int-spec.ts` using `makeCtx`/`res` from `@validpost/provider-kernel/testing/media-int-helpers`, with a file-header API description and `// UNVERIFIED vs live key:` notes; add `contentpack.adapter.spec.ts` for mapping edge cases.
 - [ ] 6. Register: import + spread in `apps/backend/src/providers.generated.ts` (alphabetical), path mapping in `tsconfig.base.json`, dependency in `apps/backend/package.json`.
-- [ ] 7. Run `pnpm --filter @postmill-ai/provider-<id> test` and confirm green.
+- [ ] 7. Run `pnpm --filter @validpost/provider-<id> test` and confirm green.
 - [ ] 8. Verify end-to-end: configure the pack at `/settings/content-packs`, make it Primary, and confirm the stock browsers serve pack results for declared capabilities and free-stock results for undeclared ones.

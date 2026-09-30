@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { MediaQueue } from '@postmill-ai/frontend/components/media-tools/media-queue';
+import { MediaQueue } from '@validpost/frontend/components/media-tools/media-queue';
 
 export const metadata: Metadata = {
   title: 'Render Queue',

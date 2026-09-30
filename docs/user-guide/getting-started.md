@@ -1,11 +1,11 @@
 # Getting Started
 
-This guide walks you through setting up your Postmill account, connecting your first social
+This guide walks you through setting up your ValidPost account, connecting your first social
 channel, and scheduling your first post.
 
 ## 1. Register an Account
 
-Visit your Postmill instance and complete the signup form. You will need:
+Visit your ValidPost instance and complete the signup form. You will need:
 
 - Your name
 - An email address
@@ -19,7 +19,7 @@ also be able to sign in with Google, GitHub, or your company's OIDC identity pro
 
 ## 2. Connect Your First Channel
 
-Navigate to **Settings** (`/settings`) and open the **Channels** tab. Postmill supports 45
+Navigate to **Settings** (`/settings`) and open the **Channels** tab. ValidPost supports 45
 channels across social media, chat platforms, blogging platforms, and email:
 
 | # | Channel            | Identifier           | Auth Method               |
@@ -75,7 +75,7 @@ comments, polls, video, carousel, alt text, and more).
 
 ### Browser Extension for Skool
 
-Skool uses cookie-based authentication via the Postmill browser extension. Install the extension
+Skool uses cookie-based authentication via the ValidPost browser extension. Install the extension
 from your browser's extension store, then connect your Skool account through the Settings →
 Channels page. The extension captures the necessary `client_id` and `auth_token` cookies from your
 active Skool session.
@@ -92,11 +92,11 @@ active Skool session.
 7. Click **Schedule** to add the post to your queue, or **Publish Now** to send it immediately.
 
 Your post appears on the calendar grid at the scheduled time. When the scheduled time arrives, the
-Postmill workflow engine publishes it to the selected channels.
+ValidPost workflow engine publishes it to the selected channels.
 
 ## 4. Main Navigation
 
-Postmill is organized into these sections, accessible from the left sidebar:
+ValidPost is organized into these sections, accessible from the left sidebar:
 
 | Page            | Route           | Purpose                                                |
 |-----------------|-----------------|--------------------------------------------------------|

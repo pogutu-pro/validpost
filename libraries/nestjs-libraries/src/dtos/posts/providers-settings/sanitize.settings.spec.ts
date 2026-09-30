@@ -1,41 +1,41 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.repository',
+  '@validpost/nestjs-libraries/database/prisma/posts/posts.repository',
   () => ({ PostsRepository: vi.fn() })
 );
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository',
+  '@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository',
   () => ({ AnalyticsRepository: vi.fn() })
 );
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/integration.manager',
+  '@validpost/nestjs-libraries/integrations/integration.manager',
   () => ({ IntegrationManager: vi.fn() })
 );
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service',
+  '@validpost/nestjs-libraries/database/prisma/integrations/integration.service',
   () => ({ IntegrationService: vi.fn() })
 );
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/file/file.service',
+  '@validpost/nestjs-libraries/database/prisma/file/file.service',
   () => ({ FileService: vi.fn() })
 );
 vi.mock(
-  '@postmill-ai/nestjs-libraries/short-linking/short.link.service',
+  '@validpost/nestjs-libraries/short-linking/short.link.service',
   () => ({ ShortLinkService: vi.fn() })
 );
-vi.mock('@postmill-ai/nestjs-libraries/openai/openai.service', () => ({
+vi.mock('@validpost/nestjs-libraries/openai/openai.service', () => ({
   OpenaiService: vi.fn(),
 }));
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service',
+  '@validpost/nestjs-libraries/database/prisma/storage/storage.service',
   () => ({ StorageService: vi.fn() })
 );
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service',
+  '@validpost/nestjs-libraries/integrations/refresh.integration.service',
   () => ({ RefreshIntegrationService: vi.fn() })
 );
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/rag.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/rag.service', () => ({
   RagService: vi.fn(),
 }));
 
@@ -43,13 +43,13 @@ import { ValidationPipe } from '@nestjs/common';
 import {
   declaredSettingsKeys,
   sanitizeProviderSettings,
-} from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/sanitize.settings';
-import { EmptySettings } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/all.providers.settings';
-import { InstagramDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/instagram.dto';
-import { XDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/x.dto';
-import { ThreadsSettingsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/threads.settings.dto';
-import { CreatePostDto } from '@postmill-ai/nestjs-libraries/dtos/posts/create.post.dto';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
+} from '@validpost/nestjs-libraries/dtos/posts/providers-settings/sanitize.settings';
+import { EmptySettings } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/all.providers.settings';
+import { InstagramDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/instagram.dto';
+import { XDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/x.dto';
+import { ThreadsSettingsDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/threads.settings.dto';
+import { CreatePostDto } from '@validpost/nestjs-libraries/dtos/posts/create.post.dto';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
 
 // The contaminated keys the composer leaks into every provider's settings form
 // (first comment / thread finisher are shared fields; collaborators/post_type

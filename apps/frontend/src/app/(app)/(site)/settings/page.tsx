@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { LEGACY_TAB_TO_PATH } from '@postmill-ai/frontend/components/settings/settings-paths';
-import { SettingsIndexComponent } from '@postmill-ai/frontend/components/settings/settings-index';
+import { LEGACY_TAB_TO_PATH } from '@validpost/frontend/components/settings/settings-paths';
+import { SettingsIndexComponent } from '@validpost/frontend/components/settings/settings-index';
 
 // /settings is the settings landing page. It still honours `?tab=` deep-links —
 // those are NOT legacy: the backend generates them today (dashboard summary

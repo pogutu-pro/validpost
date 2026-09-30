@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const GoogleAiStudio = dynamic(
-  () => import('@postmill-ai/frontend/components/media-tools/google-ai/google-ai-studio').then((m) => m.GoogleAiStudio),
+  () => import('@validpost/frontend/components/media-tools/google-ai/google-ai-studio').then((m) => m.GoogleAiStudio),
   { ssr: false }
 );
 

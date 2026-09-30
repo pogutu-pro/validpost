@@ -4,7 +4,7 @@ Covers adding a provider to the `ai` domain: the `AiCapability` contract, the tw
 
 ## The `AiCapability` contract
 
-Defined in `libraries/providers/kernel/src/domains/ai.ts`, re-exported from `@postmill-ai/provider-kernel`. Model types are AI SDK v5 (`@ai-sdk/provider-v5`) aliases:
+Defined in `libraries/providers/kernel/src/domains/ai.ts`, re-exported from `@validpost/provider-kernel`. Model types are AI SDK v5 (`@ai-sdk/provider-v5`) aliases:
 
 | Export | Type | Notes |
 |---|---|---|
@@ -74,7 +74,7 @@ Minimal package shape (from `libraries/providers/openai-compatible/src`):
 
 ```
 libraries/providers/<id>/
-├── package.json          # @postmill-ai/provider-<id>, dep: @postmill-ai/provider-kernel: workspace:*
+├── package.json          # @validpost/provider-<id>, dep: @validpost/provider-kernel: workspace:*
 ├── src/
 │   ├── index.ts          # import { <id>AiModule } from './v1'; export default [<id>AiModule];
 │   └── v1/
@@ -85,7 +85,7 @@ libraries/providers/<id>/
 
 ```ts
 // src/v1/ai.adapter.ts
-import { OpenAICompatibleAdapter, type ProviderModule } from '@postmill-ai/provider-kernel';
+import { OpenAICompatibleAdapter, type ProviderModule } from '@validpost/provider-kernel';
 import { metadata as providerMetadata } from './metadata';
 
 const adapter = new OpenAICompatibleAdapter(
@@ -160,7 +160,7 @@ Detail in `agents/providers/overview.md`; the AI-specific deltas:
 
 1. Create the workspace package `libraries/providers/<id>/` (shape above); `pnpm-workspace.yaml` glob already covers it.
 2. Author `src/v1/metadata.ts` (`ProviderMetadata`, `kernel/src/domains/metadata.ts`): `id`, `displayName`, `kind` (`'direct'` single-brand / `'hub'` aggregator / `'action'` no model list), `domains: ['ai']`, `modelCategories` (subset of the known AI model categories, e.g. `'low-reasoning'`, `'high-reasoning'`, `'workflow'`, `'vision'`), `hasModelList: true`, `modelHints` per category, `website`, `description.en`. `kernel.metadata.spec.ts` validates every registered module's metadata.
-3. Registration edits: `"@postmill-ai/provider-<id>": "workspace:*"` in `apps/backend/package.json` (+ `pnpm install`); two path aliases in `tsconfig.base.json`; import + `...<id>Modules` spread in `apps/backend/src/providers.generated.ts` (`providerModules` — the kernel's `all-providers.conformance.spec.ts` and `kernel.metadata.spec.ts` import this array directly, so an unregistered module skips the global gates). The kernel `vitest.config.ts` builds provider aliases by directory scan — no edit needed there.
+3. Registration edits: `"@validpost/provider-<id>": "workspace:*"` in `apps/backend/package.json` (+ `pnpm install`); two path aliases in `tsconfig.base.json`; import + `...<id>Modules` spread in `apps/backend/src/providers.generated.ts` (`providerModules` — the kernel's `all-providers.conformance.spec.ts` and `kernel.metadata.spec.ts` import this array directly, so an unregistered module skips the global gates). The kernel `vitest.config.ts` builds provider aliases by directory scan — no edit needed there.
 4. Add a package conformance spec (`libraries/providers/<id>/src/v1/__tests__/conformance.spec.ts`, model on openai's) calling `runDomainConformance('ai', module, { requiredMethods: [...], capabilityKeys: ['text','image','vision','embeddings','speech','tools'] })`.
 5. If the provider was built without a live key, add `'ai/<id>'` to `BETA_PROVIDER_KEYS` in `libraries/providers/kernel/src/verification.ts` (drives the settings "Beta" badge via `isProviderVerified`); remove it once smoke-tested against a live key.
 6. Add the row to `libraries/providers/PROVIDERS_INVENTORY.md` (one row per module; bump the module/package counts and `ai=` domain count).
@@ -169,7 +169,7 @@ Detail in `agents/providers/overview.md`; the AI-specific deltas:
 
 - Package spec (`src/v1/__tests__/*.spec.ts`): `validateCredentials` ok/invalid/missing-key, `listModels` shape (static fallback and live-merge paths — mock the injected `SafeFetchPort`, never real HTTP), `createLanguageModel`/`createLangchainModel` return objects, optional model factories return the right type or `undefined`.
 - Kernel-side coverage is automatic once registered: `all-providers.conformance.spec.ts` (manifest validity, domain match, pure `create()`, required methods present), `kernel.metadata.spec.ts` (metadata shape), plus `openai-compatible.adapter.spec.ts` for the shared fast-path class itself.
-- Run: `vitest run --root libraries/providers/<id>` (each package also has `"test": "vitest run"`, so `pnpm --filter @postmill-ai/provider-<id> test` works); kernel gates via `vitest run --root libraries/providers/kernel`.
+- Run: `vitest run --root libraries/providers/<id>` (each package also has `"test": "vitest run"`, so `pnpm --filter @validpost/provider-<id> test` works); kernel gates via `vitest run --root libraries/providers/kernel`.
 
 ## Checklist
 

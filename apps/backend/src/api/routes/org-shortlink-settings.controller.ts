@@ -13,18 +13,18 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { OrgShortLinkSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
-import { ShortLinkOAuthService } from '@postmill-ai/nestjs-libraries/short-linking/short-link-oauth.service';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { UpsertShortlinkConfigDto } from '@postmill-ai/nestjs-libraries/dtos/short-links/upsert-shortlink-config.dto';
-import { TestShortlinkDto } from '@postmill-ai/nestjs-libraries/dtos/short-links/test-shortlink.dto';
-import { OAuthUrlDto } from '@postmill-ai/nestjs-libraries/dtos/short-links/oauth-url.dto';
-import { OAuthCallbackDto } from '@postmill-ai/nestjs-libraries/dtos/short-links/oauth-callback.dto';
-import { SetActiveShortlinkDto } from '@postmill-ai/backend/dtos/short-links/set-active-shortlink.dto';
+import { OrgShortLinkSettingsService } from '@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
+import { ShortLinkOAuthService } from '@validpost/nestjs-libraries/short-linking/short-link-oauth.service';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { UpsertShortlinkConfigDto } from '@validpost/nestjs-libraries/dtos/short-links/upsert-shortlink-config.dto';
+import { TestShortlinkDto } from '@validpost/nestjs-libraries/dtos/short-links/test-shortlink.dto';
+import { OAuthUrlDto } from '@validpost/nestjs-libraries/dtos/short-links/oauth-url.dto';
+import { OAuthCallbackDto } from '@validpost/nestjs-libraries/dtos/short-links/oauth-callback.dto';
+import { SetActiveShortlinkDto } from '@validpost/backend/dtos/short-links/set-active-shortlink.dto';
 
 @ApiTags('Org ShortLink Settings')
 @Controller('/settings/shortlinks')

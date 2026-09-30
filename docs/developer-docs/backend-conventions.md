@@ -1,6 +1,6 @@
 # Backend Conventions
 
-Postmill's backend follows a strict NestJS layering discipline. Every request passes through every layer — **no shortcuts**.
+ValidPost's backend follows a strict NestJS layering discipline. Every request passes through every layer — **no shortcuts**.
 
 ---
 

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
+import { PrismaService } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
 
 /**
  * DeletionService (ENHANCEMENTS_2 I1) — GDPR erasure of an organization or a user

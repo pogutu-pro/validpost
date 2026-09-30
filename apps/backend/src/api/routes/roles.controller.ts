@@ -11,18 +11,18 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Organization, User } from '@prisma/client';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { ApiTags } from '@nestjs/swagger';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
 import {
   AuthorizationActions,
   Sections,
-} from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { RolesService } from '@postmill-ai/nestjs-libraries/database/prisma/roles/roles.service';
+} from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { RolesService } from '@validpost/nestjs-libraries/database/prisma/roles/roles.service';
 import { IsArray, IsOptional, IsString } from 'class-validator';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 
 class CreateRoleDto {
   @IsString()

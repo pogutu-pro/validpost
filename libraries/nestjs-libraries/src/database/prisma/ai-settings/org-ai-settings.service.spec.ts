@@ -47,41 +47,41 @@ vi.mock('./org-ai-settings.repository', () => ({
   OrgAiSettingsRepository: vi.fn(() => mockRepo),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/defaults/defaults-cache', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/defaults/defaults-cache', () => ({
   bustDefaultsCatalogCache: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/defaults/defaults-seed.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/defaults/defaults-seed.service', () => ({
   DefaultsSeedService: vi.fn(() => mockDefaultsSeed),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/webhook.url.validator', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/webhook.url.validator', () => ({
   isSafePublicHttpsUrl: vi.fn().mockResolvedValue(true),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/encryption/encryption.service', () => ({
+vi.mock('@validpost/nestjs-libraries/encryption/encryption.service', () => ({
   EncryptionService: vi.fn(() => mockEncryption),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/providers/provider-resolution.service', () => ({
+vi.mock('@validpost/nestjs-libraries/providers/provider-resolution.service', () => ({
   ProviderResolutionService: vi.fn(() => mockResolution),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/providers/providers.module', () => ({
+vi.mock('@validpost/nestjs-libraries/providers/providers.module', () => ({
   PROVIDER_KERNEL: 'PROVIDER_KERNEL',
 }));
 
-vi.mock('@postmill-ai/provider-kernel', () => ({
+vi.mock('@validpost/provider-kernel', () => ({
   ProviderKernel: vi.fn(),
   DEFAULT_VERSION: 'v1',
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/media-providers/provider-credential-link.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/media-providers/provider-credential-link.service', () => ({
   ProviderCredentialLinkService: vi.fn(),
 }));
 
 import { OrgAiSettingsService } from './org-ai-settings.service';
-import { bustDefaultsCatalogCache as mockBustCache } from '@postmill-ai/nestjs-libraries/ai/defaults/defaults-cache';
+import { bustDefaultsCatalogCache as mockBustCache } from '@validpost/nestjs-libraries/ai/defaults/defaults-cache';
 
 describe('OrgAiSettingsService.upsert auto-activation', () => {
   let service: OrgAiSettingsService;
@@ -243,7 +243,7 @@ describe('OrgAiSettingsService.upsert auto-activation', () => {
 
   it('rejects a non-public baseURL at upsert (A-22)', async () => {
     const { isSafePublicHttpsUrl } = await import(
-      '@postmill-ai/nestjs-libraries/dtos/webhooks/webhook.url.validator'
+      '@validpost/nestjs-libraries/dtos/webhooks/webhook.url.validator'
     );
     (isSafePublicHttpsUrl as any).mockResolvedValueOnce(false);
 

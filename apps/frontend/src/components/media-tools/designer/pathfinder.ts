@@ -7,9 +7,9 @@ import {
   polygonToNodes,
   type BooleanOp,
   type Point,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/path-boolean';
-import { offsetPolygon, roundCorners } from '@postmill-ai/nestjs-libraries/media/designer-doc/path-offset';
-import { pointsForShape } from '@postmill-ai/nestjs-libraries/media/designer-doc/shape-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/path-boolean';
+import { offsetPolygon, roundCorners } from '@validpost/nestjs-libraries/media/designer-doc/path-offset';
+import { pointsForShape } from '@validpost/nestjs-libraries/media/designer-doc/shape-geometry';
 import type { DesignerElement } from './designer.store';
 
 /**

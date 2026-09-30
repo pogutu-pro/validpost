@@ -1,9 +1,9 @@
 'use client';
 
 import { FC, useCallback, useMemo, useState } from 'react';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
 import { ReactTags } from 'react-tag-autocomplete';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const MediumTags: FC<{
   name: string;

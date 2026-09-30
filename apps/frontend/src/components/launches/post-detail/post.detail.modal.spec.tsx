@@ -11,7 +11,7 @@ vi.mock('swr', () => ({
   useSWRConfig: vi.fn(() => ({ mutate: mockMutateFn })),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
 
@@ -21,26 +21,26 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/loading', () => ({
+vi.mock('@validpost/frontend/components/layout/loading', () => ({
   LoadingComponent: () => <div data-testid="loading-component">Loading...</div>,
 }));
 
-vi.mock('@postmill-ai/react/helpers/safe.image', () => ({
+vi.mock('@validpost/react/helpers/safe.image', () => ({
   default: ({ src, className, alt }: any) => (
     // eslint-disable-next-line @next/next/no-img-element -- test mock
     <img src={src} className={className} alt={alt} data-testid="safe-image" />
   ),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/strip.html.validation', () => ({
+vi.mock('@validpost/helpers/utils/strip.html.validation', () => ({
   stripHtmlValidation: (_type: string, val: string) => val || '',
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: vi.fn(), closeAll: mockCloseAllFn }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/composer/store', () => ({
+vi.mock('@validpost/frontend/components/composer/store', () => ({
   useLaunchStore: Object.assign(
     (selector: any) => selector({ current: 'global' }),
     { getState: () => ({ current: 'global', setCurrent: vi.fn() }) }
@@ -48,23 +48,23 @@ vi.mock('@postmill-ai/frontend/components/composer/store', () => ({
 }));
 
 vi.mock(
-  '@postmill-ai/frontend/components/composer/providers/show.all.providers',
+  '@validpost/frontend/components/composer/providers/show.all.providers',
   () => ({ Providers: [] })
 );
 
 vi.mock(
-  '@postmill-ai/frontend/components/composer/providers/high.order.provider',
+  '@validpost/frontend/components/composer/providers/high.order.provider',
   () => ({ getProviderSettingsMeta: () => undefined })
 );
 
 // The preview mock renders what the IntegrationContext feeds it, so tests can
 // assert on the content/media plumbing without pulling the real composer.
 vi.mock(
-  '@postmill-ai/frontend/components/launches/general.preview.component',
+  '@validpost/frontend/components/launches/general.preview.component',
   async () => {
     const ReactActual = await import('react');
     const { IntegrationContext } = await import(
-      '@postmill-ai/frontend/components/launches/helpers/use.integration'
+      '@validpost/frontend/components/launches/helpers/use.integration'
     );
     return {
       GeneralPreviewComponent: () => {

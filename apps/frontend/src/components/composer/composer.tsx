@@ -1,19 +1,19 @@
 'use client';
 import 'reflect-metadata';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { FC, useEffect, useRef } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { ManageModal } from '@postmill-ai/frontend/components/composer/manage.modal';
-import { ComposerProps } from '@postmill-ai/frontend/components/composer/composer.types';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { ManageModal } from '@validpost/frontend/components/composer/manage.modal';
+import { ComposerProps } from '@validpost/frontend/components/composer/composer.types';
 import { useShallow } from 'zustand/react/shallow';
-import { useExistingData } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
+import { useExistingData } from '@validpost/frontend/components/launches/helpers/use.existing.data';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
 import { useRouter } from 'next/navigation';
 
-export type { ComposerProps, AddEditModalProps } from '@postmill-ai/frontend/components/composer/composer.types';
+export type { ComposerProps, AddEditModalProps } from '@validpost/frontend/components/composer/composer.types';
 
 const useAutoSignatures = (isNewPost: boolean) => {
   const fetch = useFetch();

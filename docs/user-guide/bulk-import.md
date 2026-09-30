@@ -25,14 +25,14 @@ process includes a column mapping step so your CSV headers don't need to match e
 ## Column mapping
 
 After uploading your CSV, the bulk import interface presents a column mapping screen where you
-match your CSV column headers to the expected Postmill fields. This allows flexibility in how your
+match your CSV column headers to the expected ValidPost fields. This allows flexibility in how your
 CSV is structured — name your columns however your workflow dictates and line them up during
 import.
 
 ## Campaign targeting
 
 If you specify a `campaign` column, posts are assigned to that campaign during import. The
-campaign must already exist in your Postmill organisation. Posts inherit the campaign for grouping
+campaign must already exist in your ValidPost organisation. Posts inherit the campaign for grouping
 purposes in analytics, the media library, and the comment inbox. See [Campaigns](./campaigns.md)
 for creating and managing campaigns.
 

@@ -9,17 +9,17 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
 const mockUseRecommendations = vi.fn();
 
-vi.mock('@postmill-ai/frontend/components/analytics/hooks/useRecommendations', () => ({
+vi.mock('@validpost/frontend/components/analytics/hooks/useRecommendations', () => ({
   useRecommendations: () => mockUseRecommendations(),
 }));
 

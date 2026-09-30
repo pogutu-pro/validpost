@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useCallback, useMemo, useState } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { PermissionItem } from '@postmill-ai/frontend/components/settings/roles/hooks/use-roles';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { PermissionItem } from '@validpost/frontend/components/settings/roles/hooks/use-roles';
 
 /** Derives a stable machine key from a display name (create flow only). */
 export const roleKeyFromName = (name: string): string =>

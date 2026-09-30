@@ -1,6 +1,6 @@
 /**
  * Meta's app-level callbacks are registered on the app domain
- * (https://app.postmill.ai/integrations/social/meta/...) but live in the
+ * (https://app.validpost.io/integrations/social/meta/...) but live in the
  * backend (`MetaCallbacksController`). These helpers forward Meta's POST
  * verbatim over the internal backend URL and relay the answer, so the
  * signed_request HMAC is verified exactly once, server-side.

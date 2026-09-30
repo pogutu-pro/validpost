@@ -7,7 +7,7 @@ on:
 
 jobs:
   close-issues:
-    if: github.repository == 'postmill-ai/postmill-app'
+    if: github.repository == 'pogutu-pro/validpost'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

@@ -6,23 +6,23 @@ const mockFetch = vi.fn();
 const mockShow = vi.fn();
 const mockDeleteDialog = vi.fn();
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockShow }),
 }));
 
-vi.mock('@postmill-ai/react/helpers/delete.dialog', () => ({
+vi.mock('@validpost/react/helpers/delete.dialog', () => ({
   deleteDialog: (...args: any[]) => mockDeleteDialog(...args),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback || key,
 }));
 
-vi.mock('@postmill-ai/react/form/button', () => ({
+vi.mock('@validpost/react/form/button', () => ({
   Button: ({ children, onClick }: any) => (
     <button onClick={onClick}>{children}</button>
   ),

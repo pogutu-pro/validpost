@@ -1,11 +1,11 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { createTool } from '@mastra/core/tools';
 import { Injectable } from '@nestjs/common';
-import { MediaStudioService } from '@postmill-ai/nestjs-libraries/media/studio/media-studio.service';
-import { MediaJobLifecycleService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
+import { MediaStudioService } from '@validpost/nestjs-libraries/media/studio/media-studio.service';
+import { MediaJobLifecycleService } from '@validpost/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
 import { z } from 'zod';
-import { parseOrg, requireRead } from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
+import { parseOrg, requireRead } from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
 
 const jobStatusSchema = z.object({
   id: z.string(),

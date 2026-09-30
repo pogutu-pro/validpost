@@ -1,14 +1,14 @@
 'use client';
 
 import { FC, useCallback, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useDecisionModal, useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { MediaSelectorItem } from '@postmill-ai/frontend/components/media-tools/media-selector-modal';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useDecisionModal, useModals } from '@validpost/frontend/components/layout/new-modal';
+import { MediaSelectorItem } from '@validpost/frontend/components/media-tools/media-selector-modal';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
 import copy from 'copy-to-clipboard';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const useOAuthApp = () => {
   const fetch = useFetch();
@@ -241,7 +241,7 @@ export const DeveloperComponent: FC = () => {
             <div className="flex gap-[6px] shrink-0 pt-[2px]">
               <a
                 className="cursor-pointer px-[16px] h-[36px] bg-btnPrimary hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-                href="https://docs.postmill.ai/public-api/oauth"
+                href="https://docs.validpost.io/public-api/oauth"
                 target="_blank"
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
@@ -405,7 +405,7 @@ export const DeveloperComponent: FC = () => {
           <div className="flex gap-[6px] shrink-0 pt-[2px]">
             <a
               className="cursor-pointer px-[16px] h-[36px] bg-btnPrimary hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[13px] font-[600] flex items-center gap-[6px]"
-              href="https://docs.postmill.ai/public-api/oauth"
+              href="https://docs.validpost.io/public-api/oauth"
               target="_blank"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>

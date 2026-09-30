@@ -1,12 +1,12 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
 import { VoicePicker } from './voice-picker';
 import { HeyGenVoice } from './use-heygen';
 

@@ -5,8 +5,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { createHash } from 'node:crypto';
-import { CommsCapability } from '@postmill-ai/provider-kernel';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
+import { CommsCapability } from '@validpost/provider-kernel';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
 import { CommsConfigRepository } from './comms-config.repository';
 import { CommsLinkRepository } from './comms-link.repository';
 import { CONNECT_CODE_PATTERN } from './comms-inbound.service';

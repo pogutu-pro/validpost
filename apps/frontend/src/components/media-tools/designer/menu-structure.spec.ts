@@ -39,7 +39,7 @@ describe('the menu bar', () => {
 
 describe('the documentation link', () => {
   it('points at the Designer page on the docs site', () => {
-    expect(DESIGNER_DOCS_URL).toBe('https://docs.postmill.ai/user-guide/media/designer');
+    expect(DESIGNER_DOCS_URL).toBe('https://docs.validpost.io/user-guide/media/designer');
   });
 });
 

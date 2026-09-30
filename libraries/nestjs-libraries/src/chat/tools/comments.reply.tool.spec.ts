@@ -7,7 +7,7 @@ function makeReplyDto(overrides: Record<string, any> = {}) {
   return {
     platformCommentId: 'reply-1',
     content: 'Thanks for the kind words!',
-    author: { id: 'author-1', name: 'Postmill Account', username: 'postmill', picture: null },
+    author: { id: 'author-1', name: 'ValidPost Account', username: 'validpost', picture: null },
     likeCount: 0,
     replyCount: 0,
     likedByMe: false,
@@ -60,7 +60,7 @@ describe('CommentReplyTool', () => {
     expect(result).toMatchObject({
       platformCommentId: 'reply-1',
       content: 'Thanks for the kind words!',
-      authorName: 'Postmill Account',
+      authorName: 'ValidPost Account',
       createdAt: '2026-07-01T12:05:00.000Z',
     });
   });

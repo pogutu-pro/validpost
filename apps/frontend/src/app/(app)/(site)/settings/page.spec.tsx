@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 
-import { LEGACY_TAB_TO_PATH } from '@postmill-ai/frontend/components/settings/settings-paths';
+import { LEGACY_TAB_TO_PATH } from '@validpost/frontend/components/settings/settings-paths';
 
 let searchParamValues: Record<string, string> = {};
 const replaceMock = vi.fn();
@@ -14,7 +14,7 @@ vi.mock('next/navigation', () => ({
 
 // The landing itself is covered by its own component; here we only care which of
 // the two branches the page takes.
-vi.mock('@postmill-ai/frontend/components/settings/settings-index', () => ({
+vi.mock('@validpost/frontend/components/settings/settings-index', () => ({
   SettingsIndexComponent: () => <div data-testid="settings-index" />,
 }));
 

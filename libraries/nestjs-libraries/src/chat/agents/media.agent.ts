@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import {
   specialistCommsRules,
   specialistPreamble,
-} from '@postmill-ai/nestjs-libraries/chat/agents/comms-surface';
+} from '@validpost/nestjs-libraries/chat/agents/comms-surface';
 import { Agent } from '@mastra/core/agent';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { resolveOrgIdFromModelContext } from '@postmill-ai/nestjs-libraries/chat/agents/resolve-org-context';
-import { pickTools } from '@postmill-ai/nestjs-libraries/chat/agents/specialist-tool-subset';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { resolveOrgIdFromModelContext } from '@validpost/nestjs-libraries/chat/agents/resolve-org-context';
+import { pickTools } from '@validpost/nestjs-libraries/chat/agents/specialist-tool-subset';
 
 export const MEDIA_TOOL_NAMES = [
   'listMediaProviders',
@@ -30,7 +30,7 @@ export class MediaAgentBuilder {
       id: 'media',
       name: 'media',
       description: 'Specialist agent for media generation, stock search, and the file library.',
-      instructions: ({ requestContext }: { requestContext?: any }) => `${specialistPreamble()}You are the media specialist for Postmill.
+      instructions: ({ requestContext }: { requestContext?: any }) => `${specialistPreamble()}You are the media specialist for ValidPost.
 
 Your job:
 - Generate images and videos for posts (generateImageTool / generateVideoTool for the fast path; mediaStudioGenerate for provider-specific work).

@@ -1,5 +1,5 @@
 import { IsIn, IsObject } from 'class-validator';
-import { PAYMENT_PROVIDER_IDS, paymentProviderEnv } from '@postmill-ai/helpers/billing/payments.env';
+import { PAYMENT_PROVIDER_IDS, paymentProviderEnv } from '@validpost/helpers/billing/payments.env';
 
 const NATIVE_PROVIDERS = PAYMENT_PROVIDER_IDS.filter(
   (id) => paymentProviderEnv(id).checkoutMode === 'native'

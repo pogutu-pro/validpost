@@ -1,5 +1,5 @@
-import { MAX_FONT_SIZE } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.limits';
-import { MIN_FIT_FONT_SIZE } from '@postmill-ai/nestjs-libraries/media/designer-doc/fit-text';
+import { MAX_FONT_SIZE } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.limits';
+import { MIN_FIT_FONT_SIZE } from '@validpost/nestjs-libraries/media/designer-doc/fit-text';
 import type { DesignerElement } from './designer.store';
 
 /**

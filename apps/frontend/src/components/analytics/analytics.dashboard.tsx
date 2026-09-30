@@ -6,10 +6,10 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useOverview } from './hooks/useOverview';
-import { useIntegrationList } from '@postmill-ai/frontend/components/launches/helpers/use.integration.list';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { useIntegrationList } from '@validpost/frontend/components/launches/helpers/use.integration.list';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 import { AnalyticsFilterBar } from './filters/filter.bar';
 import { OverviewTab } from './views/overview.tab';
 import { ChannelsTab } from './views/channels.tab';
@@ -26,8 +26,8 @@ import { WatchlistTab } from './views/watchlist.tab';
 import { ShortlinksTab } from './views/shortlinks.tab';
 import { UsageTab } from './views/usage.tab';
 import { PostAnalyticsDrawer } from './post-analytics.drawer';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
 
 function getDefaultFrom(): string {
   return dayjs().subtract(30, 'day').format('YYYY-MM-DD');

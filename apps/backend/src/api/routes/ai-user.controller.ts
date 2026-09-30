@@ -23,22 +23,22 @@ import {
 import { Organization, User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
 import { z } from 'zod';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { CapabilityNotAvailable } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
-import { rethrowProviderError } from '@postmill-ai/nestjs-libraries/ai/governance/rethrow-provider-error';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { AiMediaService } from '@postmill-ai/nestjs-libraries/ai/governance/media.service';
-import { RagService } from '@postmill-ai/nestjs-libraries/ai/governance/rag.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { GuardrailService } from '@postmill-ai/nestjs-libraries/ai/governance/guardrail.service';
-import { BudgetService } from '@postmill-ai/nestjs-libraries/ai/governance/budget.service';
-import { AnalyticsService } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
-import { AiDefaultsService } from '@postmill-ai/nestjs-libraries/ai/defaults/ai-defaults.service';
-import { PROMPT_CONSTANTS } from '@postmill-ai/nestjs-libraries/ai/prompt-constants.const';
-import { BrandMemorySearchDto } from '@postmill-ai/backend/dtos/ai/brand-memory-search.dto';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { CapabilityNotAvailable } from '@validpost/nestjs-libraries/ai/governance/errors';
+import { rethrowProviderError } from '@validpost/nestjs-libraries/ai/governance/rethrow-provider-error';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { AiMediaService } from '@validpost/nestjs-libraries/ai/governance/media.service';
+import { RagService } from '@validpost/nestjs-libraries/ai/governance/rag.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { GuardrailService } from '@validpost/nestjs-libraries/ai/governance/guardrail.service';
+import { BudgetService } from '@validpost/nestjs-libraries/ai/governance/budget.service';
+import { AnalyticsService } from '@validpost/nestjs-libraries/analytics/analytics.service';
+import { AiDefaultsService } from '@validpost/nestjs-libraries/ai/defaults/ai-defaults.service';
+import { PROMPT_CONSTANTS } from '@validpost/nestjs-libraries/ai/prompt-constants.const';
+import { BrandMemorySearchDto } from '@validpost/backend/dtos/ai/brand-memory-search.dto';
 import dayjs from 'dayjs';
 
 /**

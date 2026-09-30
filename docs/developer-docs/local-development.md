@@ -1,6 +1,6 @@
 # Local Development
 
-This guide gets the Postmill stack running on a normal developer machine without swapping or crashing. The repo ships with opt-in subsystems and lightweight commands so you only pay for what you use.
+This guide gets the ValidPost stack running on a normal developer machine without swapping or crashing. The repo ships with opt-in subsystems and lightweight commands so you only pay for what you use.
 
 > Verified against v1.0.0
 
@@ -57,7 +57,7 @@ REDIS_URL=redis://localhost:6379
 
 ## 3. Apply the database schema
 
-Postmill uses committed Prisma migrations. The canonical local apply path is:
+ValidPost uses committed Prisma migrations. The canonical local apply path is:
 
 ```bash
 pnpm run prisma-migrate-deploy-safe

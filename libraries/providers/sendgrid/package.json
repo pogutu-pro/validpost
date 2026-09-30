@@ -1,11 +1,11 @@
 {
-  "name": "@postmill-ai/provider-sendgrid",
+  "name": "@validpost/provider-sendgrid",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
-    "@postmill-ai/provider-kernel": "workspace:*",
+    "@validpost/provider-kernel": "workspace:*",
     "@sendgrid/mail": "8.0.0",
     "@sendgrid/eventwebhook": "8.0.0"
   },

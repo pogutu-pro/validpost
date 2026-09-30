@@ -2,20 +2,20 @@
 
 import React, { useCallback, useState } from 'react';
 import clsx from 'clsx';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 import {
   ADDONS,
   pricing,
   type AddonType,
   type PlanInterface,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
 import Link from 'next/link';
-import { useBillingConfig } from '@postmill-ai/frontend/components/billing/use-billing-config';
+import { useBillingConfig } from '@validpost/frontend/components/billing/use-billing-config';
 import {
   refreshSubscriptionData,
   useSubscription,
@@ -23,7 +23,7 @@ import {
   type SubscriptionTier,
   type UsageData,
   type UsageLimits,
-} from '@postmill-ai/frontend/components/settings/subscription/use-subscription';
+} from '@validpost/frontend/components/settings/subscription/use-subscription';
 
 // Browser-safe mirrors of the server-side ADDON_* env vars. Every var must be
 // its own static `process.env.NEXT_PUBLIC_...` reference so Next can inline it —

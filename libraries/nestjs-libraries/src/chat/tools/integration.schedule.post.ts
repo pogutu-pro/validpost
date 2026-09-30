@@ -1,28 +1,28 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 import { Injectable } from '@nestjs/common';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { pricing } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { pricing } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 import dayjs from 'dayjs';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { AllProvidersSettings } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/all.providers.settings';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { AllProvidersSettings } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/all.providers.settings';
 import { Integration } from '@prisma/client';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import {
   guardOutbound,
   parseOrg,
   parseUser,
   requireWrite,
-} from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
-import { GuardrailService } from '@postmill-ai/nestjs-libraries/ai/governance/guardrail.service';
+} from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
+import { GuardrailService } from '@validpost/nestjs-libraries/ai/governance/guardrail.service';
 import {
   ValidUrlExtension,
   ValidUrlPath,
-} from '@postmill-ai/helpers/utils/valid.url.path';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+} from '@validpost/helpers/utils/valid.url.path';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 const validUrlExtension = new ValidUrlExtension();
 const validUrlPath = new ValidUrlPath();

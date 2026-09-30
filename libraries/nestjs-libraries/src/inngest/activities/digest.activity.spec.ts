@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { DigestActivity } from './digest.activity';
-import { NotificationDigestService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification-digest.service';
-import { NotificationPreferenceService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification-preference.service';
-import { EmailService } from '@postmill-ai/nestjs-libraries/services/email.service';
+import { NotificationDigestService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification-digest.service';
+import { NotificationPreferenceService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification-preference.service';
+import { EmailService } from '@validpost/nestjs-libraries/services/email.service';
 
 describe('DigestActivity', () => {
   let activity: DigestActivity;
@@ -53,7 +53,7 @@ describe('DigestActivity', () => {
     expect(digestService.getPendingForUser).toHaveBeenCalledWith('user-1', 'org-1');
     expect(emailService.sendEmail).toHaveBeenCalledWith(
       'a@b.com',
-      '[Postmill] Daily digest',
+      '[ValidPost] Daily digest',
       '<p><strong>T1</strong><br/>M1</p>',
       'top'
     );
@@ -74,7 +74,7 @@ describe('DigestActivity', () => {
     expect(digestService.getPendingForUser).toHaveBeenCalledWith('user-1', 'org-1');
     expect(emailService.sendEmail).toHaveBeenCalledWith(
       'a@b.com',
-      '[Postmill] Weekly digest',
+      '[ValidPost] Weekly digest',
       '<h1>Rich</h1>',
       'top'
     );
@@ -126,7 +126,7 @@ describe('DigestActivity', () => {
       expect(result).toEqual({ sent: true });
       expect(emailService.sendEmail).toHaveBeenCalledWith(
         'a@b.com',
-        '[Postmill] Daily digest',
+        '[ValidPost] Daily digest',
         '<p><strong>T2</strong><br/>M2</p>',
         'top'
       );

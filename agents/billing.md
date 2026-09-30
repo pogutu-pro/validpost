@@ -153,7 +153,7 @@ super-admin branch to the billing path.
 - Webhook changes live in the provider adapter's `receiveWebhook` (vendor payload →
   `NormalizedPaymentEvent`) and `PaymentsService.applyEvent` (DB transition); keep the
   `PaymentEvent` idempotency contract (check before, record after success). The Stripe
-  adapter keeps the `metadata.service === 'postmill'` filter and its metadata keys — they are a
+  adapter keeps the `metadata.service === 'validpost'` filter and its metadata keys — they are a
   wire contract with live subscriptions.
 - Plan-limit semantics live in exactly two places: `pricing.ts` (numbers) and
   `permissions.service.ts` (enforcement). Frontend plan copy derives from these — do not

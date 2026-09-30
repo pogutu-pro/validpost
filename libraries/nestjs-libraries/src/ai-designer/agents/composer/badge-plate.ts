@@ -1,7 +1,7 @@
 import type {
   DesignerElement,
   DesignerWarp,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
 
 /**
  * Badge PLATE construction, factored out of `_badgeElements` so the critic's

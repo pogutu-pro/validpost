@@ -10,7 +10,7 @@ import { ClipInspector } from './clip-inspector';
 import { FillLayerInspector } from './fill-layer-inspector';
 import { AdjustmentInspector } from './adjustment-inspector';
 import { EffectsList } from './effects-list';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { DesignerElement } from '../designer.store';
 
 interface InspectorProps {

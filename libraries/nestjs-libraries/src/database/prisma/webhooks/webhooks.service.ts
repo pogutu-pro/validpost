@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { WebhooksRepository } from '@postmill-ai/nestjs-libraries/database/prisma/webhooks/webhooks.repository';
-import { IntegrationRepository } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.repository';
-import { WebhooksDto } from '@postmill-ai/nestjs-libraries/dtos/webhooks/webhooks.dto';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { WebhooksRepository } from '@validpost/nestjs-libraries/database/prisma/webhooks/webhooks.repository';
+import { IntegrationRepository } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.repository';
+import { WebhooksDto } from '@validpost/nestjs-libraries/dtos/webhooks/webhooks.dto';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 
 const SUPPORTED_EVENT_TYPES = [
   'post.published',

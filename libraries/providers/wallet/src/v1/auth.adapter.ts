@@ -3,7 +3,7 @@ import {
   ProviderRuntimeContext,
   AuthCapability,
   AuthUserInfo,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import { randomBytes } from 'crypto';
 import bs58 from 'bs58';
 import nacl from 'tweetnacl';

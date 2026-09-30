@@ -1,9 +1,9 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 import { Injectable } from '@nestjs/common';
-import { AnalyticsService } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { AnalyticsService } from '@validpost/nestjs-libraries/analytics/analytics.service';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { parseOrg, requireRead } from './tool.helpers';
 
 @Injectable()

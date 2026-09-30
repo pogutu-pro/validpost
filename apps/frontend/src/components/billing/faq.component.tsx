@@ -2,9 +2,9 @@
 
 import { FC, useCallback, useState } from 'react';
 import clsx from 'clsx';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { SafeContent } from '@postmill-ai/frontend/components/shared/safe-content';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { SafeContent } from '@validpost/frontend/components/shared/safe-content';
 const useFaqList = () => {
   const user = useUser();
   const t = useT();
@@ -13,11 +13,11 @@ const useFaqList = () => {
       ? [
           {
             title: t(
-              'faq_am_i_going_to_be_charged_by_postmill',
+              'faq_am_i_going_to_be_charged_by_validpost',
               'Am I going to be charged by ValidPost?'
             ),
             description: t(
-              'faq_to_confirm_credit_card_information_postmill_will_hold',
+              'faq_to_confirm_credit_card_information_validpost_will_hold',
               'To confirm credit card information ValidPost will hold $2 and release it immediately, you can cancel your subscription anytime from settings without talking to a person'
             ),
           },
@@ -25,18 +25,18 @@ const useFaqList = () => {
       : []),
     {
       title: t(
-        'faq_can_i_trust_postmill',
+        'faq_can_i_trust_validpost',
         `Can I trust ValidPost?`
       ),
       description: t(
-        'faq_postmill_is_proudly_open_source',
-        `ValidPost is proudly open-source! We believe in an ethical and transparent culture, meaning that ValidPost will live forever. You can check out the entire code or use it for personal projects. To view the open-source repository, <a href="https://github.com/postmill-ai/postmill-app" target="_blank" style="text-decoration: underline;">click here</a>.`
+        'faq_validpost_is_proudly_open_source',
+        `ValidPost is proudly open-source! We believe in an ethical and transparent culture, meaning that ValidPost will live forever. You can check out the entire code or use it for personal projects. To view the open-source repository, <a href="https://github.com/pogutu-pro/validpost" target="_blank" style="text-decoration: underline;">click here</a>.`
       ),
     },
     {
       title: t('faq_what_are_channels', 'What are channels?'),
       description: t(
-        'faq_postmill_allows_you_to_schedule_posts',
+        'faq_validpost_allows_you_to_schedule_posts',
         `ValidPost allows you to schedule your posts between different channels.
 A channel is a publishing platform where you can schedule your posts.
 For example, you can schedule your posts on X, Facebook, Instagram, TikTok, YouTube, Reddit, Linkedin, Dribbble, Threads and Pinterest.`

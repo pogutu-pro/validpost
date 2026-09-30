@@ -1,10 +1,10 @@
 'use client';
 
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import useCookie from 'react-use-cookie';
 import useSWR from 'swr';
 

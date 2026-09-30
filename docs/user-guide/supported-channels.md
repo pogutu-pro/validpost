@@ -1,6 +1,6 @@
 # Supported Channels
 
-Each social media provider in Postmill declares its supported feature set through a capability
+Each social media provider in ValidPost declares its supported feature set through a capability
 matrix. This matrix is the single source of truth for what each provider can do — the composer UI,
 admin settings, preflight validation, and workflow logic all gate on these values.
 
@@ -97,9 +97,9 @@ be cross-checked against the live app.
 
 **refreshToken** — 16 providers support OAuth refresh token rotation.
 
-## Channels Postmill cannot support
+## Channels ValidPost cannot support
 
-Some platforms are requested often but have **no usable publishing API** — for Postmill or for any
+Some platforms are requested often but have **no usable publishing API** — for ValidPost or for any
 competitor. This list is kept current so the absence is a documented decision, not an oversight:
 
 - **Minds** — no third-party OAuth app registration or documented publishing API; the OAuth server
@@ -117,7 +117,7 @@ competitor. This list is kept current so the absence is a documented decision, n
 
 ## Short-link providers
 
-Postmill also includes a separate capability system for short-link providers. Each short-link
+ValidPost also includes a separate capability system for short-link providers. Each short-link
 provider declares support for custom domains and click analytics. The canonical source is
 the adapter classes in `libraries/providers/<id>/src/v1/`.
 

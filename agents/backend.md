@@ -227,7 +227,7 @@ Invariants:
 
 **`apps/backend/src/main.ts` boot order:**
 
-1. `./register-provider-paths` — runtime resolver for bare `@postmill-ai/provider-*` imports
+1. `./register-provider-paths` — runtime resolver for bare `@validpost/provider-*` imports
    (must be first import).
 2. `initializeOtel()` — before Sentry/Nest so auto-instrumentations patch modules on load.
 3. `initializeSentry('backend', true)`.
@@ -248,7 +248,7 @@ Invariants:
 Adding a provider package requires exactly three touch points:
 
 1. Workspace dependency in `apps/backend/package.json`.
-2. Two path aliases (`@postmill-ai/provider-<id>` and `@postmill-ai/provider-<id>/*`) in
+2. Two path aliases (`@validpost/provider-<id>` and `@validpost/provider-<id>/*`) in
    `tsconfig.base.json`.
 3. Import + spread in `apps/backend/src/providers.generated.ts` — **hand-maintained,
    alphabetical; no generator exists** despite the filename.
@@ -274,12 +274,12 @@ Malformed manifests / duplicate registrations (`ProviderManifestError`) are **fa
 
 | Symbol | Import path | Purpose |
 |---|---|---|
-| `@GetOrgFromRequest()` | `@postmill-ai/nestjs-libraries/user/org.from.request` | param decorator → `Organization` |
-| `@GetUserFromRequest()` | `@postmill-ai/nestjs-libraries/user/user.from.request` | param decorator → `User` |
+| `@GetOrgFromRequest()` | `@validpost/nestjs-libraries/user/org.from.request` | param decorator → `Organization` |
+| `@GetUserFromRequest()` | `@validpost/nestjs-libraries/user/user.from.request` | param decorator → `User` |
 | `ParseCuidPipe` | `libraries/nestjs-libraries/src/pipes/parse-cuid.pipe.ts` | validate cuid route params (`@Param('id', ParseCuidPipe)`) |
-| `TrackService` | `@postmill-ai/nestjs-libraries/track/track.service` | product analytics (`track(...)` with `TrackEnum` from `user/track.enum`) |
-| `@CheckPolicies(...)` | `@postmill-ai/backend/services/auth/permissions/permissions.ability` | billing gate (§2) |
-| `@RequirePermission(resource, action)` | `@postmill-ai/backend/services/auth/rbac/require-permission.decorator` | RBAC gate (§2) |
+| `TrackService` | `@validpost/nestjs-libraries/track/track.service` | product analytics (`track(...)` with `TrackEnum` from `user/track.enum`) |
+| `@CheckPolicies(...)` | `@validpost/backend/services/auth/permissions/permissions.ability` | billing gate (§2) |
+| `@RequirePermission(resource, action)` | `@validpost/backend/services/auth/rbac/require-permission.decorator` | RBAC gate (§2) |
 
 Managers live in `apps/backend/src/services/**` when backend-only (`AuthProviderManager`,
 `ProvidersManager`) or in nestjs-libraries (`IntegrationManager`,

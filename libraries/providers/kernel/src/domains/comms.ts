@@ -38,7 +38,7 @@ export interface CommsSendParams {
   /** Known DM channel/room id — lets the adapter skip re-opening the conversation. */
   externalChannelId?: string;
   text: string;
-  /** Optional deep link back into Postmill, appended per-app. */
+  /** Optional deep link back into ValidPost, appended per-app. */
   link?: string;
 }
 

@@ -1,21 +1,21 @@
 'use client';
 
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
 import React, { FC, useCallback, useMemo } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { Input } from '@postmill-ai/react/form/input';
+import { Input } from '@validpost/react/form/input';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
-import { Button } from '@postmill-ai/react/form/button';
+import { Button } from '@validpost/react/form/button';
 import { useRouter } from 'next/navigation';
-import { TopTitle } from '@postmill-ai/frontend/components/launches/helpers/top.title.component';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { TopTitle } from '@validpost/frontend/components/launches/helpers/top.title.component';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { web3List } from '@postmill-ai/frontend/components/launches/web3/web3.list';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { web3List } from '@validpost/frontend/components/launches/web3/web3.list';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import clsx from 'clsx';
 import Image from 'next/image';
 import copy from 'copy-to-clipboard';
@@ -278,7 +278,7 @@ const ExtensionNotFound: FC = () => {
           className="flex-1"
           onClick={() => {
             window.open(
-              'https://chromewebstore.google.com/detail/postmill/cidhffagahknaeodkplfbcpfeielnkjl?hl=en',
+              'https://chromewebstore.google.com/detail/validpost/cidhffagahknaeodkplfbcpfeielnkjl?hl=en',
               '_blank'
             );
             modals.closeCurrent();
@@ -577,7 +577,7 @@ export const AddProviderComponent: FC<{
         };
         const gotoIntegration = async (externalUrl?: string) => {
           // Mobile WebView: reuse the existing `externalUrl` param to
-          // carry the `postmill://` deep link so the backend redirects
+          // carry the `validpost://` deep link so the backend redirects
           // back to the iOS/Android app after OAuth completes, instead
           // of the default web redirect.
           const params = [
@@ -586,7 +586,7 @@ export const AddProviderComponent: FC<{
             configParam,
             campaignParam,
             isMobile
-              ? `redirectUrl=${encodeURIComponent('postmill://integrations')}`
+              ? `redirectUrl=${encodeURIComponent('validpost://integrations')}`
               : '',
           ]
             .filter(Boolean)
@@ -641,7 +641,7 @@ export const AddProviderComponent: FC<{
             // `window.open`/`location.href` aren't reliable here because
             // RN WebView doesn't always route them through the native
             // navigation intercept. The backend redirects back to the
-            // app via `postmill://` once OAuth completes.
+            // app via `validpost://` once OAuth completes.
             const rn = (window as any).ReactNativeWebView;
             if (rn && typeof rn.postMessage === 'function') {
               rn.postMessage(JSON.stringify({ type: 'open-external', url }));
@@ -949,7 +949,7 @@ export const AddProviderComponent: FC<{
                     <div className="text-center">
                       <div className="text-[10px] leading-tight text-newTableText">
                         {t(
-                          'uses_postmill_app_no_setup',
+                          'uses_validpost_app_no_setup',
                           'Uses the ValidPost app — no setup needed'
                         )}
                       </div>

@@ -3,9 +3,9 @@ import { IntegrationService } from './integration.service';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
 
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: { send: vi.fn() },
   isInngestEnabled: vi.fn().mockReturnValue(true),
 }));

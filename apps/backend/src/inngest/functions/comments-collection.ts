@@ -1,7 +1,7 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { commentsSyncOrgEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { CommentsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/comments.activity';
-import { InngestRunService } from '@postmill-ai/nestjs-libraries/inngest/inngest-run.service';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { commentsSyncOrgEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { CommentsActivity } from '@validpost/nestjs-libraries/inngest/activities/comments.activity';
+import { InngestRunService } from '@validpost/nestjs-libraries/inngest/inngest-run.service';
 import { trackRun } from './track-run';
 
 // The cron only fans out one `comments/sync-org` event per org; the per-org work runs in

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
 import { detectFocalPoint } from './reflow';
 import {
   disposeAllBuffers,
@@ -8,16 +8,16 @@ import {
 } from './raster-layers';
 import { DEFAULT_TOOL_ID, getTool } from './tools';
 import type { SelectionMask } from './selection-mask';
-import { DESIGNER_DOC_VERSION } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.limits';
+import { DESIGNER_DOC_VERSION } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.limits';
 import {
   migrateDoc,
   genId,
   matchPreset,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.migrate';
-import { smartReflow, computeGroupBoxes } from '@postmill-ai/nestjs-libraries/media/designer-doc/reflow';
-import { seedCopy } from '@postmill-ai/nestjs-libraries/media/designer-doc/seed-copy';
-import { applyLinked, GEOMETRY_KEYS } from '@postmill-ai/nestjs-libraries/media/designer-doc/apply-linked';
-import { moveLayers, descendantIds } from '@postmill-ai/nestjs-libraries/media/designer-doc/layer-tree';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.migrate';
+import { smartReflow, computeGroupBoxes } from '@validpost/nestjs-libraries/media/designer-doc/reflow';
+import { seedCopy } from '@validpost/nestjs-libraries/media/designer-doc/seed-copy';
+import { applyLinked, GEOMETRY_KEYS } from '@validpost/nestjs-libraries/media/designer-doc/apply-linked';
+import { moveLayers, descendantIds } from '@validpost/nestjs-libraries/media/designer-doc/layer-tree';
 import type {
   DesignerDoc,
   DesignerElement,
@@ -37,8 +37,8 @@ import type {
   DesignerPattern,
   DesignerFillStyle,
   DesignerAdjustment,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import type { FillContents } from '@postmill-ai/nestjs-libraries/media/designer-doc/fill-stroke';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import type { FillContents } from '@validpost/nestjs-libraries/media/designer-doc/fill-stroke';
 
 export type {
   DesignerDoc,

@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, it, expect, vi } from 'vitest';
 import { FontLoaderService, boundedCacheSet, safeFileId } from './font-loader.service';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: vi.fn(),
 }));
 

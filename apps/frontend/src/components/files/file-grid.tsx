@@ -1,14 +1,14 @@
 'use client';
 
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import i18next from '@postmill-ai/react/translation/i18next';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
 import type { FileItem } from './file-manager';
 import type { FolderItem } from './folder.utils';
-import { useLongPress } from '@postmill-ai/frontend/components/ui/use-long-press';
+import { useLongPress } from '@validpost/frontend/components/ui/use-long-press';
 
 /** Shape `useContextMenu().openAt` accepts — a real event or a synthesized point. */
 type MenuEvent = {

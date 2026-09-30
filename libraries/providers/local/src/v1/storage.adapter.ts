@@ -21,7 +21,7 @@ import {
   parseDataUrl,
   fromBuffer,
   fromFile,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const TYPE = 'LOCAL';
 const DISPLAY = 'Local Filesystem';

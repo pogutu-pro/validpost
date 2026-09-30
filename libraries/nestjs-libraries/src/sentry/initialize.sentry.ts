@@ -129,7 +129,7 @@ export const initializeSentry = (appName: string, allowLogs = false) => {
         },
         contexts: {
           app: {
-            name: `Postmill ${capitalize(appName)}`,
+            name: `ValidPost ${capitalize(appName)}`,
           },
         },
       },

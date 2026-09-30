@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { randomBytes } from 'crypto';
 import dayjs from 'dayjs';
 import { Organization } from '@prisma/client';
-import { AnalyticsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository';
+import { AnalyticsRepository } from '@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository';
 import { AnalyticsOverviewService } from './analytics-overview.service';
 import {
   AnalyticsShareConfig,
   validateAnalyticsShareConfig,
-} from '@postmill-ai/nestjs-libraries/dtos/analytics/analytics-share-config.dto';
+} from '@validpost/nestjs-libraries/dtos/analytics/analytics-share-config.dto';
 
 // 7.6 — org-level public share dashboard.
 //

@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string, vars?: Record<string, unknown>) =>
     vars
       ? Object.entries(vars).reduce((s, [k, v]) => s.replace(`{{${k}}}`, String(v)), fallback)
@@ -10,12 +10,12 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
 }));
 
 const mockToast = vi.fn();
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToast }),
 }));
 
 const mockFetch = vi.fn();
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
@@ -44,7 +44,7 @@ vi.mock('./stock-videos', () => ({ StockVideos: () => <div /> }));
 vi.mock('./stock-vectors', () => ({ StockVectors: () => <div /> }));
 vi.mock('./stock-stickers', () => ({ StockStickers: () => <div /> }));
 vi.mock('./stock-icons', () => ({ StockIcons: () => <div /> }));
-vi.mock('@postmill-ai/frontend/components/files/file-manager', () => ({
+vi.mock('@validpost/frontend/components/files/file-manager', () => ({
   FileManager: ({ onSelect }: any) => (
     <button
       data-testid="my-file"

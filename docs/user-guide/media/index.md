@@ -1,6 +1,6 @@
 # Media Studios
 
-`/media` is Postmill's collection of generative media tools. It is **tools only** — there is no
+`/media` is ValidPost's collection of generative media tools. It is **tools only** — there is no
 asset library inside it. Every tool either produces a new file or transcribes an existing one, and
 every finished asset lands in the [Media Library](../media-library) at `/files`, which remains the
 single place you browse, organise, and reuse everything you've generated or uploaded.

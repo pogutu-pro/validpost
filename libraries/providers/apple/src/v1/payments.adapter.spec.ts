@@ -47,13 +47,13 @@ vi.mock('@apple/app-store-server-library', () => ({
 }));
 
 import { ApplePaymentsAdapter } from './payments.adapter';
-import { PaymentsWebhookVerificationError } from '@postmill-ai/provider-kernel';
+import { PaymentsWebhookVerificationError } from '@validpost/provider-kernel';
 
 const ORG = '4f2c8f8e-1111-4222-8333-444455556666';
 const tx = (overrides: Record<string, any> = {}) => ({
   originalTransactionId: 'otx_1',
-  bundleId: 'ai.postmill.app',
-  productId: 'postmill.pro.monthly',
+  bundleId: 'io.validpost.app',
+  productId: 'validpost.pro.monthly',
   expiresDate: Date.parse('2030-01-01T00:00:00Z'),
   appAccountToken: ORG,
   environment: 'Production',
@@ -73,7 +73,7 @@ beforeEach(() => {
   lib.verifiers.length = 0;
   lib.constructorError = null;
   lib.clients.clear();
-  process.env.APPLE_IAP_BUNDLE_ID = 'ai.postmill.app';
+  process.env.APPLE_IAP_BUNDLE_ID = 'io.validpost.app';
   process.env.APPLE_IAP_ISSUER_ID = 'iss';
   process.env.APPLE_IAP_KEY_ID = 'kid';
   process.env.APPLE_IAP_PRIVATE_KEY = Buffer.from('-----BEGIN PRIVATE KEY-----').toString('base64');
@@ -162,7 +162,7 @@ describe('verifyPurchase', () => {
     lib.getAllSubscriptionStatuses.mockResolvedValue(statuses(2));
     expect(await adapter.verifyPurchase({ orgId: ORG, payload: { jws: 'x' } })).toEqual([{ type: 'subscription.canceled', customerRef: 'otx_1', orgIdHint: ORG }]);
     lib.getAllSubscriptionStatuses.mockResolvedValue(statuses(1));
-    lib.decodeRenewal.mockResolvedValue({ autoRenewStatus: 1, autoRenewProductId: 'postmill.starter.monthly' });
+    lib.decodeRenewal.mockResolvedValue({ autoRenewStatus: 1, autoRenewProductId: 'validpost.starter.monthly' });
     expect((await adapter.verifyPurchase({ orgId: ORG, payload: { jws: 'x' } }))[0]).toMatchObject({ state: { pendingTier: 'STARTER' } });
     lib.decodeRenewal.mockResolvedValue({ autoRenewStatus: 0 });
     expect((await adapter.verifyPurchase({ orgId: ORG, payload: { jws: 'x' } }))[0]).toMatchObject({ state: { cancelAt: new Date('2030-01-01T00:00:00Z') } });
@@ -245,7 +245,7 @@ describe('receiveWebhook (App Store Server Notifications V2)', () => {
     lib.decodeRenewal.mockResolvedValue({ autoRenewStatus: 0 });
     const off = await deliver({ notificationType: 'DID_CHANGE_RENEWAL_STATUS', subtype: 'AUTO_RENEW_DISABLED', notificationUUID: 'n7', data: data() });
     expect(off.events[0]).toMatchObject({ type: 'subscription.updated', state: { cancelAt: new Date('2030-01-01T00:00:00Z') } });
-    lib.decodeRenewal.mockResolvedValue({ autoRenewStatus: 1, autoRenewProductId: 'postmill.starter.monthly' });
+    lib.decodeRenewal.mockResolvedValue({ autoRenewStatus: 1, autoRenewProductId: 'validpost.starter.monthly' });
     const down = await deliver({ notificationType: 'DID_CHANGE_RENEWAL_PREF', subtype: 'DOWNGRADE', notificationUUID: 'n8', data: data() });
     expect(down.events[0]).toMatchObject({ type: 'subscription.updated', state: { tier: 'PRO', pendingTier: 'STARTER' } });
   });

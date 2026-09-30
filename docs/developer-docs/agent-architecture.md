@@ -1,6 +1,6 @@
 # Agent Architecture
 
-Postmill's chat agent is a Mastra/CopilotKit agent that lives at `/agents`. It understands natural-language requests, delegates to domain specialists, calls tools, and asks for human confirmation before outward actions.
+ValidPost's chat agent is a Mastra/CopilotKit agent that lives at `/agents`. It understands natural-language requests, delegates to domain specialists, calls tools, and asks for human confirmation before outward actions.
 
 > For the end-user view of what the agent can do, see [Agent User Guide](../user-guide/agent.md).
 > For the MCP/A2A surfaces that expose the same tools to external clients, see [MCP Server](./mcp.md).
@@ -24,7 +24,7 @@ Postmill's chat agent is a Mastra/CopilotKit agent that lives at `/agents`. It u
                    │  GraphQL / streaming
                    ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│  Mastra agent ("postmill")                                          │
+│  Mastra agent ("validpost")                                          │
 │  ┌─────────────┐                                                    │
 │  │ Supervisor  │  owns integrationList (channel lister)             │
 │  │   (when     │  routes intent to specialists                      │

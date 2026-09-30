@@ -11,7 +11,7 @@
  * safeFetch like every other user-influenced outbound call.
  */
 
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 
 const ICONIFY_API = 'https://api.iconify.design';
 const MAX_ICON_BYTES = 64 * 1024;

@@ -12,11 +12,11 @@ vi.mock('swr', () => ({
   default: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback || key,
 }));
 
@@ -24,7 +24,7 @@ vi.mock('@mantine/hooks', () => ({
   useClickOutside: () => ({ current: null }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal }),
 }));
 
@@ -32,24 +32,24 @@ vi.mock('react-tag-autocomplete', () => ({
   ReactTags: () => null,
 }));
 
-vi.mock('@postmill-ai/frontend/components/ui/icons', () => ({
+vi.mock('@validpost/frontend/components/ui/icons', () => ({
   TagIcon: () => null,
   DropdownArrowIcon: () => null,
   PlusIcon: () => null,
   CheckmarkIcon: () => null,
 }));
 
-vi.mock('@postmill-ai/react/form/input', () => ({
+vi.mock('@validpost/react/form/input', () => ({
   Input: ({ value, onChange, label }: any) => (
     <input aria-label={label} value={value} onChange={onChange} />
   ),
 }));
 
-vi.mock('@postmill-ai/react/form/color.picker', () => ({
+vi.mock('@validpost/react/form/color.picker', () => ({
   ColorPicker: () => null,
 }));
 
-vi.mock('@postmill-ai/react/form/button', () => ({
+vi.mock('@validpost/react/form/button', () => ({
   Button: ({ children, onClick }: any) => (
     <button onClick={onClick}>{children}</button>
   ),

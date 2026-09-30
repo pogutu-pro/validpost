@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mkdtempSync, writeFileSync, rmSync, ReadStream } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import type { LoggerPort } from '@postmill-ai/provider-kernel';
+import type { LoggerPort } from '@validpost/provider-kernel';
 
 const mockSend = vi.fn();
 const logger: LoggerPort = {

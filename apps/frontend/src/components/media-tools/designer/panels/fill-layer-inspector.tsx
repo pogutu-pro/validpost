@@ -8,8 +8,8 @@ import type { DesignerElement } from '../designer.store';
 import type {
   DesignerFillStyle,
   DesignerGradient,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 /**
  * The settings of a fill layer.

@@ -4,15 +4,15 @@ import { FC } from 'react';
 import {
   PostComment,
   withProvider,
-} from '@postmill-ai/frontend/components/composer/providers/high.order.provider';
-import { YoutubeSettingsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/youtube.settings.dto';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
-import { Input } from '@postmill-ai/react/form/input';
-import { MediumTags } from '@postmill-ai/frontend/components/composer/providers/medium/medium.tags';
-import { FileComponent } from '@postmill-ai/frontend/components/files/file.component';
-import { Select } from '@postmill-ai/react/form/select';
-import { YoutubePreview } from '@postmill-ai/frontend/components/composer/providers/youtube/youtube.preview';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+} from '@validpost/frontend/components/composer/providers/high.order.provider';
+import { YoutubeSettingsDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/youtube.settings.dto';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
+import { Input } from '@validpost/react/form/input';
+import { MediumTags } from '@validpost/frontend/components/composer/providers/medium/medium.tags';
+import { FileComponent } from '@validpost/frontend/components/files/file.component';
+import { Select } from '@validpost/react/form/select';
+import { YoutubePreview } from '@validpost/frontend/components/composer/providers/youtube/youtube.preview';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 const type = [
   {
     label: 'Public',

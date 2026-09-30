@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { makeCtx, res } from '@postmill-ai/provider-kernel/testing/media-int-helpers';
+import { makeCtx, res } from '@validpost/provider-kernel/testing/media-int-helpers';
 import { adobestockContentPackModule } from './contentpack.adapter';
 
 // Recorded-fixture integration test (plan B4) — no network. Adobe Stock is a BYOK content pack:
@@ -45,7 +45,7 @@ describe('adobe-stock content pack adapter', () => {
     const r = recs[0];
     expect(r.method).toBe('GET');
     expect(r.headers['x-api-key']).toBe('adobe-key');
-    expect(r.headers['x-product']).toBe('Postmill');
+    expect(r.headers['x-product']).toBe('ValidPost');
     expect(r.url.startsWith('https://stock.adobe.io/Rest/Media/1/Search/Files?')).toBe(true);
 
     const q = new URL(r.url).searchParams;

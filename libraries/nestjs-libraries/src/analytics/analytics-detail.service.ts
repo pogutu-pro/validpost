@@ -4,8 +4,8 @@
 // The facade delegates getMetricDetail/getDayDetail/getChannelMetric here.
 
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { AnalyticsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository';
-import { isKnownMetric } from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
+import { AnalyticsRepository } from '@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository';
+import { isKnownMetric } from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
 import { Organization } from '@prisma/client';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';

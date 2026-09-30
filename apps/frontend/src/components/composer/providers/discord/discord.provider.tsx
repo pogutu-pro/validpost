@@ -3,12 +3,12 @@
 import {
   PostComment,
   withProvider,
-} from '@postmill-ai/frontend/components/composer/providers/high.order.provider';
+} from '@validpost/frontend/components/composer/providers/high.order.provider';
 import { FC } from 'react';
-import { DiscordDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/discord.dto';
-import { DiscordChannelSelect } from '@postmill-ai/frontend/components/composer/providers/discord/discord.channel.select';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
-import { FirstCommentField } from '@postmill-ai/frontend/components/composer/providers/shared/first-comment.field';
+import { DiscordDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/discord.dto';
+import { DiscordChannelSelect } from '@validpost/frontend/components/composer/providers/discord/discord.channel.select';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
+import { FirstCommentField } from '@validpost/frontend/components/composer/providers/shared/first-comment.field';
 const DiscordComponent: FC = () => {
   const form = useSettings();
   return (

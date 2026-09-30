@@ -12,7 +12,7 @@ import {
   SafeFetchPort,
   ProviderModule,
   mediaUpstreamError,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // OpenRouter — same key as the OpenRouter LLM provider (registry id `openrouter`), reused via
 // the universal-credential fallback. Image generation uses OpenRouter's dedicated

@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, ReactNode } from 'react';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
 
 export interface StripItem {
   label: string;

@@ -2,12 +2,12 @@
 
 import { EventEmitter } from 'events';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
 const postUrlEmitter = new EventEmitter();
 
 export const MediaSettingsLayout = () => {

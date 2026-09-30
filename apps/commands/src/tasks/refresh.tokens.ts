@@ -1,6 +1,6 @@
 import { Command } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
 
 @Injectable()
 export class RefreshTokens {

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getT } from '@postmill-ai/react/translation/get.translation.service.backend';
+import { getT } from '@validpost/react/translation/get.translation.service.backend';
 import { RefreshButton } from './refresh-button';
 
 export const metadata: Metadata = {

@@ -15,14 +15,14 @@ import {
   PaymentsTier,
   PaymentsUnsupportedOperationError,
   WebhookReceipt,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import {
   BillingTier,
   SubscriptionService,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { BillingSubscribeDto } from '@postmill-ai/nestjs-libraries/dtos/billing/billing.subscribe.dto';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { BillingSubscribeDto } from '@validpost/nestjs-libraries/dtos/billing/billing.subscribe.dto';
 import {
   pricing,
   ADDONS,
@@ -30,22 +30,22 @@ import {
   AddonExtraColumn,
   addonPackSize,
   addonPriceCents,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { TrackService } from '@postmill-ai/nestjs-libraries/track/track.service';
-import { UsersService } from '@postmill-ai/nestjs-libraries/database/prisma/users/users.service';
-import { TrackEnum } from '@postmill-ai/nestjs-libraries/user/track.enum';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { TrackService } from '@validpost/nestjs-libraries/track/track.service';
+import { UsersService } from '@validpost/nestjs-libraries/database/prisma/users/users.service';
+import { TrackEnum } from '@validpost/nestjs-libraries/user/track.enum';
 // layering: sanctioned leaf-read — PaymentEventRepository lives in the subscriptions
 // domain, but SubscriptionService does not depend on PaymentsService, and these are
 // narrow webhook idempotency/grace reads with no service-level cycle.
-import { PaymentEventRepository } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/payment-event.repository';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
+import { PaymentEventRepository } from '@validpost/nestjs-libraries/database/prisma/subscriptions/payment-event.repository';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
 import { PaymentsConfigService } from './payments-config.service';
 import {
   CANCEL_AT_SLACK_MS,
   isSubscriptionLive,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.liveness';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.liveness';
 import { isWebhookVerificationError } from './payments.errors';
 
 /** A `Subscription.provider` value that no kernel module answers to (lifetime codes, admin grants). */

@@ -3,9 +3,9 @@
 import React, { FC, useCallback, useState } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/navigation';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import {
   StockPhotoItem,
   StockVideoItem,
@@ -14,8 +14,8 @@ import {
   StockIconItem,
 } from './stock.types';
 import { SaveToFilesModal } from './save-to-files-modal';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // Premium BYOK content packs mint a licensed download URL from the item id at
 // import time (mint-then-ingest). Keep in sync with the backend registry.
@@ -206,7 +206,7 @@ export const StockPreviewModal: FC<StockPreviewModalProps> = ({ item: initialIte
       const integrationsRes = await fetch('/integrations');
       const integrations = integrationsRes.ok ? await integrationsRes.json() : [];
       const { Composer } = await import(
-        '@postmill-ai/frontend/components/composer/composer'
+        '@validpost/frontend/components/composer/composer'
       );
       const dayjs = (await import('dayjs')).default;
       modal.closeAll();

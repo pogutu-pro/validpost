@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 const mockSafeFetch = vi.fn();
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: (url: string, init?: RequestInit) => mockSafeFetch(url, init),
 }));
 
@@ -278,7 +278,7 @@ describe('StockMediaService', () => {
     });
   });
 
-  describe('Iconify icons — license normalization (POSTMILL-APP-J)', () => {
+  describe('Iconify icons — license normalization (VALIDPOST-APP-J)', () => {
     const searchWith = (collections: Record<string, unknown>) => {
       mockSafeFetch.mockResolvedValueOnce(
         jsonResponse({

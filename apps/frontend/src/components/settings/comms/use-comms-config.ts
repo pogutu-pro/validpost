@@ -1,8 +1,8 @@
 'use client';
 
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
 import type { CommsMember } from './member-picker';
 
 export interface CommsCredentialField {
@@ -85,13 +85,13 @@ export const COMMS_CONFIG_KEY = 'comms-config';
 // window.close() still works in the script-opened popup after severing, so
 // the close page always attempts it. The popup name is only a window handle
 // (reuses one popup across connects), not a signal.
-export const COMMS_CONNECTED_STORAGE_KEY = 'postmill:comms-connected';
-export const COMMS_OAUTH_POPUP_NAME = 'postmill-comms-oauth';
+export const COMMS_CONNECTED_STORAGE_KEY = 'validpost:comms-connected';
+export const COMMS_OAUTH_POPUP_NAME = 'validpost-comms-oauth';
 // Set (sessionStorage, i.e. this tab only) right before the popup-blocked
 // full-page fallback navigates away, so the close page knows it IS the
 // user's tab and must not window.close() it. A script-opened popup never
 // carries it: it is written only after window.open() has already failed.
-export const COMMS_FULLPAGE_STORAGE_KEY = 'postmill:comms-oauth-fullpage';
+export const COMMS_FULLPAGE_STORAGE_KEY = 'validpost:comms-oauth-fullpage';
 // How long the opener keeps listening for the close page's signal after the
 // popup handle reports closed. COOP swaps on the provider's consent pages
 // make `popup.closed` true within seconds of opening — long before the user

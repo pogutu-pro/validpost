@@ -1,13 +1,13 @@
 # Architecture
 
-This document describes the architecture of Postmill for developers contributing to the codebase or building on its APIs.
+This document describes the architecture of ValidPost for developers contributing to the codebase or building on its APIs.
 
 ## Monorepo layout
 
-Postmill is a PNPM monorepo. Shared tooling lives in the root `package.json`; feature-specific code lives in workspace packages under `apps/` and `libraries/`.
+ValidPost is a PNPM monorepo. Shared tooling lives in the root `package.json`; feature-specific code lives in workspace packages under `apps/` and `libraries/`.
 
 ```
-postmill-app/
+validpost-app/
 ├── apps/
 │   ├── backend/        # NestJS REST API + Inngest job handler
 │   ├── frontend/       # Next.js App Router (port 4200)
@@ -30,7 +30,7 @@ postmill-app/
 | `frontend` | Next.js App Router, React, Tailwind 3 | User-facing web app on port `4200`. |
 | `extension` | Browser extension | Chrome extension for cross-platform posting. |
 | `commands` | CLI | Command-line operations. |
-| `sdk` | Node.js (published) | `@postmill-ai/postmill-sdk` for third-party integrations. |
+| `sdk` | Node.js (published) | `@validpost/validpost-sdk` for third-party integrations. |
 
 ### Libraries
 

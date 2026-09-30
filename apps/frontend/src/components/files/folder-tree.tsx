@@ -1,14 +1,14 @@
 'use client';
 
 import React, { FC, useCallback, useState, useEffect, useRef } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import clsx from 'clsx';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { ContextMenu } from '@postmill-ai/frontend/components/ui/context-menu';
-import { useContextMenu } from '@postmill-ai/frontend/components/ui/use-context-menu';
-import { useLongPress } from '@postmill-ai/frontend/components/ui/use-long-press';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { ContextMenu } from '@validpost/frontend/components/ui/context-menu';
+import { useContextMenu } from '@validpost/frontend/components/ui/use-context-menu';
+import { useLongPress } from '@validpost/frontend/components/ui/use-long-press';
 import { findFolder, useFolderDropTarget, type FolderItem } from './folder.utils';
 
 export const FolderTree: FC<{

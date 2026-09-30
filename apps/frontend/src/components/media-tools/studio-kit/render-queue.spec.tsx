@@ -2,27 +2,27 @@ import React from 'react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
-vi.mock('@postmill-ai/react/helpers/use.media.directory', () => ({
+vi.mock('@validpost/react/helpers/use.media.directory', () => ({
   useMediaDirectory: () => ({ set: (p: string) => p }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: vi.fn() }),
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: vi.fn() }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
-vi.mock('@postmill-ai/frontend/components/media-tools/open-in-designer', () => ({
+vi.mock('@validpost/frontend/components/media-tools/open-in-designer', () => ({
   openInDesigner: vi.fn(),
 }));
 

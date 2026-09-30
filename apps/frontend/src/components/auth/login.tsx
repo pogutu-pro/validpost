@@ -1,23 +1,23 @@
 'use client';
 
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import Link from 'next/link';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
 import { useMemo, useState } from 'react';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { LoginUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/login.user.dto';
-import { OauthProvider } from '@postmill-ai/frontend/components/auth/providers/oauth.provider';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { LoginUserDto } from '@validpost/nestjs-libraries/dtos/auth/login.user.dto';
+import { OauthProvider } from '@validpost/frontend/components/auth/providers/oauth.provider';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import useSWR from 'swr';
 import dynamic from 'next/dynamic';
-import { WalletUiProvider } from '@postmill-ai/frontend/components/auth/providers/placeholder/wallet.ui.provider';
-import { SsoStatusContext, SsoStatus } from '@postmill-ai/frontend/components/auth/sso-popup';
-import { SsoStatusLine } from '@postmill-ai/frontend/components/auth/sso-status';
+import { WalletUiProvider } from '@validpost/frontend/components/auth/providers/placeholder/wallet.ui.provider';
+import { SsoStatusContext, SsoStatus } from '@validpost/frontend/components/auth/sso-popup';
+import { SsoStatusLine } from '@validpost/frontend/components/auth/sso-status';
 
 const WalletProvider = dynamic(
-  () => import('@postmill-ai/frontend/components/auth/providers/wallet.provider'),
+  () => import('@validpost/frontend/components/auth/providers/wallet.provider'),
   {
     ssr: false,
     loading: () => <WalletUiProvider />,

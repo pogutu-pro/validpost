@@ -15,7 +15,7 @@ const fileSvcMock = {
   saveFile: vi.fn(),
 };
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/storage/storage.service', () => ({
   StorageService: class {
     resolveAdapterForFolderWithConfigId = storageSvcMock.resolveAdapterForFolderWithConfigId;
     assertWithinProviderQuota = storageSvcMock.assertWithinProviderQuota;
@@ -54,7 +54,7 @@ describe('FilesController — orphan storage-object cleanup on post-write failur
       const file = {
         originalname: 'test.png',
         size: 100,
-        path: '/tmp/postmill-uploads/test123.png',
+        path: '/tmp/validpost-uploads/test123.png',
       } as any;
 
       const fs = await import('fs');
@@ -63,7 +63,7 @@ describe('FilesController — orphan storage-object cleanup on post-write failur
       await expect(controller.uploadServer(org, file, {})).rejects.toThrow('DB down');
       expect(storageMock.removeFile).toHaveBeenCalledWith('http://localhost/uploads/abc123.png');
       // multer temp unlink in `finally` is unchanged.
-      expect(unlinkSpy).toHaveBeenCalledWith('/tmp/postmill-uploads/test123.png');
+      expect(unlinkSpy).toHaveBeenCalledWith('/tmp/validpost-uploads/test123.png');
 
       unlinkSpy.mockRestore();
     });

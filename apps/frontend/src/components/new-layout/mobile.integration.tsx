@@ -1,8 +1,8 @@
 'use client';
 
 import { FC } from 'react';
-import { AddProviderComponent } from '@postmill-ai/frontend/components/launches/add.provider.component';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { AddProviderComponent } from '@validpost/frontend/components/launches/add.provider.component';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
 
 export const MobileIntegration: FC = () => {

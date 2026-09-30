@@ -8,11 +8,11 @@ import { GenerateVideoTool } from '../generate.video.tool';
 import { GenerateImageTool } from '../generate.image.tool';
 import { UploadFromUrlTool } from '../upload.from.url.tool';
 import { DesignerDesignTool } from '../designer.design.tool';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
-import { fromBuffer } from '@postmill-ai/nestjs-libraries/upload/file-type.compat';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
+import { fromBuffer } from '@validpost/nestjs-libraries/upload/file-type.compat';
 import { executeTool, makeOrganization, makeUser } from './tool-test.harness';
 
-vi.mock('@postmill-ai/nestjs-libraries/upload/file-type.compat', () => ({
+vi.mock('@validpost/nestjs-libraries/upload/file-type.compat', () => ({
   fromBuffer: vi.fn(),
 }));
 

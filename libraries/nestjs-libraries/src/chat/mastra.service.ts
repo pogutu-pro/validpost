@@ -1,8 +1,8 @@
 import { Mastra } from '@mastra/core/mastra';
 import { ConsoleLogger } from '@mastra/core/logger';
-import { pStore } from '@postmill-ai/nestjs-libraries/chat/mastra.store';
+import { pStore } from '@validpost/nestjs-libraries/chat/mastra.store';
 import { Injectable } from '@nestjs/common';
-import { LoadToolsService } from '@postmill-ai/nestjs-libraries/chat/load.tools.service';
+import { LoadToolsService } from '@validpost/nestjs-libraries/chat/load.tools.service';
 
 @Injectable()
 export class MastraService {
@@ -20,7 +20,7 @@ export class MastraService {
         new Mastra({
           storage: pStore,
           agents: {
-            postmill: await this._loadToolsService.agent(),
+            validpost: await this._loadToolsService.agent(),
           },
           logger: new ConsoleLogger({
             level: 'info',

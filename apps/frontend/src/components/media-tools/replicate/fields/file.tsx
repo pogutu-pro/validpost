@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 function mediaTypeNoun(t: (key: string, fallback: string) => string, type: string): string {
   switch (type) {

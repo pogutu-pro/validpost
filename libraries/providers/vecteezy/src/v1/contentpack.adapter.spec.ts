@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ContentPackDailyCapError } from '@postmill-ai/provider-kernel';
+import { ContentPackDailyCapError } from '@validpost/provider-kernel';
 import { VecteezyContentPack } from './contentpack.adapter';
 
 const mockFetch = vi.fn();

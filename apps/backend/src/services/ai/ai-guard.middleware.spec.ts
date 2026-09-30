@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { HttpStatus } from '@nestjs/common';
 import { AiGuardMiddleware } from './ai-guard.middleware';
-import { GuardrailViolation } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
+import { GuardrailViolation } from '@validpost/nestjs-libraries/ai/governance/errors';
 
 describe('AiGuardMiddleware', () => {
   const checkInput = vi.fn();

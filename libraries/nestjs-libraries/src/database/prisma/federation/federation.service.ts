@@ -1,14 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { FederationRepository } from '@postmill-ai/nestjs-libraries/database/prisma/federation/federation.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
+import { FederationRepository } from '@validpost/nestjs-libraries/database/prisma/federation/federation.repository';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
 import { sign } from 'jsonwebtoken';
 import crypto from 'crypto';
 
-// "Postmill ID" federation: the fixed audience for id_tokens issued to pinned
+// "ValidPost ID" federation: the fixed audience for id_tokens issued to pinned
 // first-party clients (the template store). There is no client registration —
 // the audience + the FEDERATION_TRUSTED_REDIRECT_URIS allow-list pin the client.
-export const FEDERATION_AUDIENCE = 'postmill-template-store';
+export const FEDERATION_AUDIENCE = 'validpost-template-store';
 
 // Only these scopes may be granted through federation — never mcp:* or any
 // client-invented scope. Each maps 1:1 to a claim group in buildClaims.
@@ -22,7 +22,7 @@ type FederationScope = (typeof FEDERATION_SCOPES)[number];
 // Matching is exact full-string, so this value and the store's must agree
 // character for character or every authorize fails with invalid_request.
 const DEFAULT_TRUSTED_REDIRECT_URIS = [
-  'https://templates.postmill.ai/auth/callback/postmill',
+  'https://templates.validpost.io/auth/callback/validpost',
 ];
 
 interface IdentityKeys {
@@ -423,7 +423,7 @@ export class FederationService {
     return grants.map((grant) => ({
       id: grant.id,
       client: {
-        name: 'Postmill Template Store',
+        name: 'ValidPost Template Store',
         audience: FEDERATION_AUDIENCE,
       },
       organization: grant.organization,

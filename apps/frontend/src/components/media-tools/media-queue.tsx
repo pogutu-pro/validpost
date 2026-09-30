@@ -4,16 +4,16 @@ import React, { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { EmptyState } from '@postmill-ai/frontend/components/ui/empty-state';
-import { RenderQueue } from '@postmill-ai/frontend/components/media-tools/studio-kit/render-queue';
-import type { StudioJob } from '@postmill-ai/frontend/components/media-tools/studio-kit/types';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { EmptyState } from '@validpost/frontend/components/ui/empty-state';
+import { RenderQueue } from '@validpost/frontend/components/media-tools/studio-kit/render-queue';
+import type { StudioJob } from '@validpost/frontend/components/media-tools/studio-kit/types';
 import {
   useMediaJobs,
   useMediaJobsQueue,
   type MediaJob,
-} from '@postmill-ai/frontend/components/dashboard/hooks/useMediaJobs';
-import { MEDIA_QUEUE_HREF } from '@postmill-ai/frontend/components/dashboard/destinations';
+} from '@validpost/frontend/components/dashboard/hooks/useMediaJobs';
+import { MEDIA_QUEUE_HREF } from '@validpost/frontend/components/dashboard/destinations';
 
 const STATUS_FILTERS: { value: string | null; labelKey: string; label: string }[] = [
   { value: null, labelKey: 'media_queue_filter_all', label: 'All' },

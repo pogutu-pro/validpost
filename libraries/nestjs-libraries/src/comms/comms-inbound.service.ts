@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
 import { CommsConfigRepository } from './comms-config.repository';
 import { CommsConfigService } from './comms-config.service';
 import { CommsLinkRepository } from './comms-link.repository';
 import { CommsLinkService } from './comms-link.service';
 import { CommsAgentActivity } from './comms-agent.activity';
-import { CommsConfirmationGate } from '@postmill-ai/nestjs-libraries/chat/tools/comms-confirmation.gate';
+import { CommsConfirmationGate } from '@validpost/nestjs-libraries/chat/tools/comms-confirmation.gate';
 
 export interface CommsInboundEvent {
   configId: string;
@@ -17,20 +17,20 @@ export interface CommsInboundEvent {
   messageId?: string;
 }
 
-// "ABCD2345", "link ABCD2345", "/postmill link ABCD2345" — the connect-code
+// "ABCD2345", "link ABCD2345", "/validpost link ABCD2345" — the connect-code
 // alphabet has no 0/O/1/I/L. Shared with the platform webhook route, which
 // resolves the org for a code claim before enqueueing.
 export const CONNECT_CODE_PATTERN =
-  /^\/?(?:postmill\s+)?(?:link\s+)?([ABCDEFGHJKMNPQRSTUVWXYZ23456789]{8})$/i;
+  /^\/?(?:validpost\s+)?(?:link\s+)?([ABCDEFGHJKMNPQRSTUVWXYZ23456789]{8})$/i;
 
 // A message from an UNLINKED sender that looks like a botched link attempt —
-// the word "link"/"postmill", or a code-shaped token (8 chars of the
+// the word "link"/"validpost", or a code-shaped token (8 chars of the
 // connect-code alphabet) that contains at least one digit, so ordinary
 // 8-letter words ("thursday", "whatever") don't qualify. Only these get a
 // fixed hint reply; everything else from unknown senders stays silent (see
 // _handleMessage).
 const LINK_ATTEMPT_PATTERN =
-  /\b(?:link|postmill)\b|\b(?=[ABCDEFGHJKMNPQRSTUVWXYZ23456789]*\d)[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{8}\b/i;
+  /\b(?:link|validpost)\b|\b(?=[ABCDEFGHJKMNPQRSTUVWXYZ23456789]*\d)[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{8}\b/i;
 
 const DISABLED_REPLY =
   'Agent chat is disabled for your account. An admin can enable it under Settings → Comms.';
@@ -237,9 +237,9 @@ export class CommsInboundService {
 
     await this._reply(
       event,
-      "✅ You're linked! You can now chat with your Postmill agent here and receive your notifications.",
+      "✅ You're linked! You can now chat with your ValidPost agent here and receive your notifications.",
     );
-    // Surface the claim to the linked Postmill user so a mis-delivered code is
+    // Surface the claim to the linked ValidPost user so a mis-delivered code is
     // noticed (in-app; comms delivery would just echo into the same chat).
     try {
       await this._notificationService.notify({

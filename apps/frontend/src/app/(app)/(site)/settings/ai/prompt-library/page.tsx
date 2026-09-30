@@ -1,6 +1,6 @@
 'use client';
 
-import { PromptLibrarySection } from '@postmill-ai/frontend/components/settings/brand-ai.settings';
+import { PromptLibrarySection } from '@validpost/frontend/components/settings/brand-ai.settings';
 
 export default function Page() {
   return <PromptLibrarySection />;

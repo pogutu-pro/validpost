@@ -1,12 +1,12 @@
 {
-  "name": "@postmill-ai/provider-vertex",
+  "name": "@validpost/provider-vertex",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
     "@ai-sdk/google-vertex": "^2.0.0",
-    "@postmill-ai/provider-kernel": "workspace:*",
+    "@validpost/provider-kernel": "workspace:*",
     "@langchain/core": "^1.1.48",
     "google-auth-library": "^9.11.0"
   },

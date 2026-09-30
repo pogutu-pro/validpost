@@ -5,7 +5,7 @@ import {
   ProviderKernel,
   ContentPackDailyCapError,
   ProviderUpstreamError,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import * as Sentry from '@sentry/nestjs';
 
 vi.mock('@sentry/nestjs', () => ({ captureMessage: vi.fn() }));
@@ -99,8 +99,8 @@ describe('ProviderExceptionFilter — retired version → 410', () => {
   });
 
   // Upstream provider failures: 502 + an envelope the UI attributes to the
-  // provider. Never the upstream status itself (401 → logout, 429 → Postmill
-  // rate-limit toast, 402 → Postmill billing).
+  // provider. Never the upstream status itself (401 → logout, 429 → ValidPost
+  // rate-limit toast, 402 → ValidPost billing).
   describe('ProviderUpstreamError → 502 envelope', () => {
     const filter = () => new ProviderExceptionFilter({ latestActive: vi.fn() } as unknown as ProviderKernel);
 

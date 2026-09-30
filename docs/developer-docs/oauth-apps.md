@@ -1,6 +1,6 @@
 # OAuth Apps
 
-Postmill supports OAuth 2.0 Authorization Code flow with PKCE, allowing third-party developers to build applications that act on behalf of Postmill organizations.
+ValidPost supports OAuth 2.0 Authorization Code flow with PKCE, allowing third-party developers to build applications that act on behalf of ValidPost organizations.
 
 ## Data models
 

@@ -1,24 +1,24 @@
 'use client';
 
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import Link from 'next/link';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { CreateOrgUserDto } from '@postmill-ai/nestjs-libraries/dtos/auth/create.org.user.dto';
+import { CreateOrgUserDto } from '@validpost/nestjs-libraries/dtos/auth/create.org.user.dto';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
 import clsx from 'clsx';
-import { useFireEvents } from '@postmill-ai/helpers/utils/use.fire.events';
-import { useTrack } from '@postmill-ai/react/helpers/use.track';
-import { TrackEnum } from '@postmill-ai/nestjs-libraries/user/track.enum';
+import { useFireEvents } from '@validpost/helpers/utils/use.fire.events';
+import { useTrack } from '@validpost/react/helpers/use.track';
+import { TrackEnum } from '@validpost/nestjs-libraries/user/track.enum';
 import {
   providerComponents,
   useAuthProviders,
-} from '@postmill-ai/frontend/components/auth/login';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+} from '@validpost/frontend/components/auth/login';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import useCookie from 'react-use-cookie';
 import {
   beginSsoCallback,
@@ -26,8 +26,8 @@ import {
   hasCompletedSsoPopup,
   SsoStatusContext,
   SsoStatus,
-} from '@postmill-ai/frontend/components/auth/sso-popup';
-import { SsoStatusLine } from '@postmill-ai/frontend/components/auth/sso-status';
+} from '@validpost/frontend/components/auth/sso-popup';
+import { SsoStatusLine } from '@validpost/frontend/components/auth/sso-status';
 // Nest wraps thrown errors as {statusCode, message} (uncaught ones as
 // "Internal server error") — show the message, not the JSON, since it ends
 // up verbatim on the opener's status line.

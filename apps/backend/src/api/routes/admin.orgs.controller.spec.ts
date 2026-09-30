@@ -8,9 +8,9 @@ import path from 'path';
 import { AdminOrgsController } from './admin.orgs.controller';
 import {
   LimitOverridesDto,
-} from '@postmill-ai/nestjs-libraries/dtos/billing/limit-overrides.dto';
-import { ManageAddonsDto } from '@postmill-ai/nestjs-libraries/dtos/billing/manage-addons.dto';
-import { ADDONS } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+} from '@validpost/nestjs-libraries/dtos/billing/limit-overrides.dto';
+import { ManageAddonsDto } from '@validpost/nestjs-libraries/dtos/billing/manage-addons.dto';
+import { ADDONS } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 import { User } from '@prisma/client';
 
 // Mirror the global ValidationPipe options so these tests prove the DTOs behave
@@ -32,7 +32,7 @@ describe('AdminOrgsController — registration (proves auth middleware applies)'
     expect(block, 'authenticatedController array not found').toBeTruthy();
     expect(block![1]).toContain('AdminOrgsController');
     expect(source).toContain(
-      "import { AdminOrgsController } from '@postmill-ai/backend/api/routes/admin.orgs.controller'"
+      "import { AdminOrgsController } from '@validpost/backend/api/routes/admin.orgs.controller'"
     );
   });
 });

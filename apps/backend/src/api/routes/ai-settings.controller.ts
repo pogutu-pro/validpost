@@ -10,31 +10,31 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
 import {
   AiSettingsManager,
   normalizeProviderId,
   qualifyProviderId,
-} from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { SaveGovernanceDto } from '@postmill-ai/nestjs-libraries/dtos/ai-settings/governance.dto';
-import { AIProviderAdapter } from '@postmill-ai/nestjs-libraries/ai/ai-provider.interface';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { ProviderHealthService } from '@postmill-ai/nestjs-libraries/ai/governance/provider-health.service';
-import { RagService } from '@postmill-ai/nestjs-libraries/ai/governance/rag.service';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
-import { SuperAdminGuard } from '@postmill-ai/backend/services/auth/rbac/super-admin.guard';
+} from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { SaveGovernanceDto } from '@validpost/nestjs-libraries/dtos/ai-settings/governance.dto';
+import { AIProviderAdapter } from '@validpost/nestjs-libraries/ai/ai-provider.interface';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { ProviderHealthService } from '@validpost/nestjs-libraries/ai/governance/provider-health.service';
+import { RagService } from '@validpost/nestjs-libraries/ai/governance/rag.service';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
+import { SuperAdminGuard } from '@validpost/backend/services/auth/rbac/super-admin.guard';
 import {
   SaveRagSettingsDto,
   SaveMediaProviderDto,
   TriggerRagBackfillDto,
   UpdateSecretSettingsDto,
   UpsertOrgProviderConfigDto,
-} from '@postmill-ai/nestjs-libraries/dtos/providers/admin-ai-settings.dtos';
+} from '@validpost/nestjs-libraries/dtos/providers/admin-ai-settings.dtos';
 
 // Per-org budget ceilings live on Organization.aiBudget* now (migrated by
 // BackfillService). Never expose a retired `perOrgCaps` slice to the admin UI

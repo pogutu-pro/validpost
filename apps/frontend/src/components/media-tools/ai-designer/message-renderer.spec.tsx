@@ -4,7 +4,7 @@ import React from 'react';
 import type {
   AiDesignerMessagePayload,
   DesignPlan,
-} from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+} from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 
 const { openModalMock } = vi.hoisted(() => ({ openModalMock: vi.fn() }));
 
@@ -21,15 +21,15 @@ vi.mock('next/dynamic', () => ({
   ),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback?: string) => fallback ?? _key,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: openModalMock }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/shared/safe-content', () => ({
+vi.mock('@validpost/frontend/components/shared/safe-content', () => ({
   SafeContent: ({ content }: any) => (
     <div dangerouslySetInnerHTML={{ __html: content }} />
   ),

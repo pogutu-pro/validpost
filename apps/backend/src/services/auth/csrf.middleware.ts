@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { getCookieUrlFromDomain } from '@postmill-ai/helpers/subdomain/subdomain.management';
+import { getCookieUrlFromDomain } from '@validpost/helpers/subdomain/subdomain.management';
 import * as crypto from 'crypto';
 
 const CSRF_COOKIE = 'csrf_token';

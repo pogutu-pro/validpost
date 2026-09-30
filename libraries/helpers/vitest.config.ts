@@ -4,7 +4,7 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@postmill-ai/helpers': path.resolve(__dirname, 'src'),
+      '@validpost/helpers': path.resolve(__dirname, 'src'),
     },
   },
   test: {

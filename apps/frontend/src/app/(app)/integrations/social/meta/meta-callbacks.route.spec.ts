@@ -87,7 +87,7 @@ describe('Meta callback route handlers (app domain → backend)', () => {
     expect(html).toContain('Completed');
     expect(html).toContain('2 connected channel(s)');
     expect(html).toContain('A note &lt;b&gt;'); // escaped
-    expect(html).toContain('support@postmill.ai');
+    expect(html).toContain('support@validpost.io');
   });
 
   it('data-deletion GET: unknown code renders the not-found copy', async () => {

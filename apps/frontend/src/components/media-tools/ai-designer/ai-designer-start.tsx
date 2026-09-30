@@ -1,32 +1,32 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { FullscreenButton } from '@postmill-ai/frontend/components/media-tools/fullscreen-button';
-import { useFullscreenSurface } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
-import { type MediaSelectorItem } from '@postmill-ai/frontend/components/media-tools/media-selector-modal';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
-import { useBrands } from '@postmill-ai/frontend/components/settings/brand/use-brands';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { FullscreenButton } from '@validpost/frontend/components/media-tools/fullscreen-button';
+import { useFullscreenSurface } from '@validpost/frontend/components/media-tools/use-fullscreen';
+import { type MediaSelectorItem } from '@validpost/frontend/components/media-tools/media-selector-modal';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
+import { useBrands } from '@validpost/frontend/components/settings/brand/use-brands';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import {
   FolderPickerDialog,
   useFolderName,
-} from '@postmill-ai/frontend/components/files/folder-picker';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { SafeContent } from '@postmill-ai/frontend/components/shared/safe-content';
+} from '@validpost/frontend/components/files/folder-picker';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { SafeContent } from '@validpost/frontend/components/shared/safe-content';
 import { useImportStockMedia } from './ai-designer.hooks';
 import { markdownToHtml } from './markdown-lite';
-import { PlatformIcon } from '@postmill-ai/frontend/components/shared/platform-icon';
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
-import { listStylePresets } from '@postmill-ai/nestjs-libraries/ai-designer/styles';
+import { PlatformIcon } from '@validpost/frontend/components/shared/platform-icon';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
+import { listStylePresets } from '@validpost/nestjs-libraries/ai-designer/styles';
 import type {
   AiDesignerConfig,
   AiDesignerMode,
   AiDesignerStartPayload,
-} from '@postmill-ai/nestjs-libraries/ai-designer/ai-designer.types';
+} from '@validpost/nestjs-libraries/ai-designer/ai-designer.types';
 
 interface AiDesignerStartProps {
   onStart: (

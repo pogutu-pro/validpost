@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { AiDesignerConductorService } from './ai-designer-conductor.service';
 import { AiDesignerInputPolicyService } from '../ai-designer-input-policy.service';
 import { AiDesignerSkillRouter } from '../skills/ai-designer-skill-router.service';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
 import {
   registerInProcessAgent,
   unregisterInProcessAgent,

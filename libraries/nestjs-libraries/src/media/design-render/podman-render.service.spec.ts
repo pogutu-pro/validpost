@@ -73,12 +73,12 @@ describe('PodmanRenderService', () => {
     await svc.run(workDir, designSpec);
 
     const argv = shared.calls.map((c) => c.args);
-    expect(argv[0]).toEqual(['pod', 'exists', 'postmill-render']);
+    expect(argv[0]).toEqual(['pod', 'exists', 'validpost-render']);
     expect(argv[1]).toEqual([
       'pod',
       'create',
       '--name',
-      'postmill-render',
+      'validpost-render',
       '--cpus',
       '4',
       '--memory',
@@ -91,12 +91,12 @@ describe('PodmanRenderService', () => {
     expect(runArgs[0]).toBe('run');
     expect(runArgs).toContain('--rm');
     expect(runArgs).toContain('--pod');
-    expect(runArgs).toContain('postmill-render');
+    expect(runArgs).toContain('validpost-render');
     // No per-container cpu/memory limits when the aggregate pod is in use.
     expect(runArgs).not.toContain('--cpus');
     expect(runArgs).toContain('-v');
     expect(runArgs).toContain(`${workDir}:/work:Z`);
-    expect(runArgs).toContain('localhost/postmill-render:latest');
+    expect(runArgs).toContain('localhost/validpost-render:latest');
     expect(runArgs[runArgs.length - 1]).toBe('/work/job.json');
 
     // job.json + out dir were materialised in the workdir.

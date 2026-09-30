@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
 
 export type NotificationChannel = 'email' | 'push' | 'inApp';
 export type NotificationCategory =

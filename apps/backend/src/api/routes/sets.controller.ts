@@ -8,16 +8,16 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { SetsService } from '@postmill-ai/nestjs-libraries/database/prisma/sets/sets.service';
+import { SetsService } from '@validpost/nestjs-libraries/database/prisma/sets/sets.service';
 import {
   UpdateSetsDto,
   SetsDto,
-} from '@postmill-ai/nestjs-libraries/dtos/sets/sets.dto';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { OrgRbacGuard } from '@postmill-ai/backend/services/auth/rbac/org-rbac.guard';
+} from '@validpost/nestjs-libraries/dtos/sets/sets.dto';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { OrgRbacGuard } from '@validpost/backend/services/auth/rbac/org-rbac.guard';
 
 // A Set is a saved post template, so it is gated on the `posts` RBAC resource.
 @ApiTags('Sets')

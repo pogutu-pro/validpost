@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>
@@ -11,21 +11,21 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
 }));
 
 const mockFetch = vi.fn();
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
 
 const mockToast = vi.fn();
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToast }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/vpn/hooks/useVpnConfig', () => ({
+vi.mock('@validpost/frontend/components/settings/vpn/hooks/useVpnConfig', () => ({
   useVpnConfig: () => ({ data: undefined }),
 }));
 
 vi.mock(
-  '@postmill-ai/frontend/components/settings/shared/provider-version-select',
+  '@validpost/frontend/components/settings/shared/provider-version-select',
   () => ({
     ProviderVersionSelect: () => null,
     useProviderVersionSelection: () => ({
@@ -37,13 +37,13 @@ vi.mock(
 );
 
 vi.mock(
-  '@postmill-ai/frontend/components/campaigns/selector/campaign-selector',
+  '@validpost/frontend/components/campaigns/selector/campaign-selector',
   () => ({
     CampaignSelector: () => null,
   })
 );
 
-vi.mock('@postmill-ai/frontend/components/launches/web3/web3.list', () => ({
+vi.mock('@validpost/frontend/components/launches/web3/web3.list', () => ({
   web3List: [
     {
       identifier: 'telegram',
@@ -102,7 +102,7 @@ function renderForm(
         providerName="Instagram (Standalone)"
         platformConfigured={platformConfigured}
         setup={opts.withSetup ? OAUTH_SETUP : null}
-        callbackUrl="https://app.postmill.ai/integrations/social/instagram-standalone"
+        callbackUrl="https://app.validpost.io/integrations/social/instagram-standalone"
         defaultScopes="instagram_business_basic, instagram_business_content_publish"
         config={opts.edit ? EDIT_CONFIG : undefined}
         onClose={onClose}
@@ -319,7 +319,7 @@ describe('ChannelConfigForm platform-app connect', () => {
     await waitFor(() =>
       expect(openSpy).toHaveBeenCalledWith(
         'https://oauth.example/auth',
-        'postmill-oauth',
+        'validpost-oauth',
         'width=640,height=720,popup'
       )
     );
@@ -330,7 +330,7 @@ describe('ChannelConfigForm platform-app connect', () => {
     ).toBe(true);
   });
 
-  it('closes and refreshes when the popup posts postmill:channel-connected', async () => {
+  it('closes and refreshes when the popup posts validpost:channel-connected', async () => {
     mockConnectSequence({ url: 'https://oauth.example/auth' });
     openSpy.mockReturnValue({ closed: false });
 
@@ -347,7 +347,7 @@ describe('ChannelConfigForm platform-app connect', () => {
     fireEvent(
       window,
       new MessageEvent('message', {
-        data: { type: 'postmill:channel-connected', provider: 'instagram-standalone' },
+        data: { type: 'validpost:channel-connected', provider: 'instagram-standalone' },
         origin: window.location.origin,
       })
     );
@@ -384,7 +384,7 @@ describe('ChannelConfigForm platform-app connect', () => {
     fireEvent(
       window,
       new MessageEvent('message', {
-        data: { type: 'postmill:channel-connected', provider: 'instagram-standalone' },
+        data: { type: 'validpost:channel-connected', provider: 'instagram-standalone' },
         origin: 'https://evil.example',
       })
     );
@@ -742,7 +742,7 @@ describe('ChannelConfigForm — shared /integrations/list SWR key contract', () 
   });
 
   it('populates the shared SWR cache with a BARE ARRAY, not the raw envelope', async () => {
-    // Regression (POSTMILL-APP-E/K): this fetcher used to resolve to the raw
+    // Regression (VALIDPOST-APP-E/K): this fetcher used to resolve to the raw
     // `{integrations: [...]}` envelope. `/integrations/list` is a shared SWR
     // key — dashboard/analytics then read the envelope from the cache and
     // crashed on `.map is not a function`.
@@ -768,7 +768,7 @@ describe('ChannelConfigForm — shared /integrations/list SWR key contract', () 
           providerName="Instagram (Standalone)"
           platformConfigured={true}
           setup={OAUTH_SETUP}
-          callbackUrl="https://app.postmill.ai/integrations/social/instagram-standalone"
+          callbackUrl="https://app.validpost.io/integrations/social/instagram-standalone"
           defaultScopes="instagram_business_basic"
           onClose={vi.fn()}
           onSaved={vi.fn()}

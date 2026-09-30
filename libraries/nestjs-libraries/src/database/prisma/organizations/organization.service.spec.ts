@@ -23,15 +23,15 @@ vi.mock('./organization.repository', () => ({
   OrganizationRepository: vi.fn(() => mockRepo),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service', () => ({
   OrgAiSettingsService: vi.fn(() => mockOrgAiSettingsService),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/notifications/notification.service', () => ({
   NotificationService: vi.fn(() => ({ hasEmailProvider: vi.fn(() => false) })),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/roles/roles.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/roles/roles.service', () => ({
   RolesService: vi.fn(() => mockRolesService),
 }));
 

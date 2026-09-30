@@ -3,18 +3,18 @@ import { FC, useState } from 'react';
 
 const mockT = vi.fn((_key: string, fallback?: string) => fallback ?? _key);
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
 
-vi.mock('@postmill-ai/react/translation/i18next', () => ({
+vi.mock('@validpost/react/translation/i18next', () => ({
   default: { t: (_key: string, fallback?: string) => fallback ?? _key },
 }));
 
 import {
   ModalManager,
   usePromptModal,
-} from '@postmill-ai/frontend/components/layout/new-modal';
+} from '@validpost/frontend/components/layout/new-modal';
 
 // `usePromptModal` is the app's replacement for the native `prompt()`. The
 // contract that matters to callers is the resolved value: a trimmed string on

@@ -3,27 +3,27 @@ import { OrgVpnConfigService } from './org-vpn-config.service';
 import { VpnProviderAdapter } from './vpn-provider.interface';
 // The adapters now live in their own workspace packages; build instances from
 // the relocated package modules (the same modules ProvidersBootstrap registers).
-import nordvpnModules from '@postmill-ai/provider-nordvpn';
-import expressvpnModules from '@postmill-ai/provider-expressvpn';
-import surfsharkModules from '@postmill-ai/provider-surfshark';
-import protonvpnModules from '@postmill-ai/provider-protonvpn';
-import mullvadModules from '@postmill-ai/provider-mullvad';
-import cyberghostModules from '@postmill-ai/provider-cyberghost';
-import piaModules from '@postmill-ai/provider-pia';
-import ipvanishModules from '@postmill-ai/provider-ipvanish';
-import windscribeModules from '@postmill-ai/provider-windscribe';
-import tunnelbearModules from '@postmill-ai/provider-tunnelbear';
-import hotspotshieldModules from '@postmill-ai/provider-hotspotshield';
-import purevpnModules from '@postmill-ai/provider-purevpn';
-import vyprvpnModules from '@postmill-ai/provider-vyprvpn';
-import hidemeModules from '@postmill-ai/provider-hideme';
-import mozillavpnModules from '@postmill-ai/provider-mozillavpn';
-import customproxyModules from '@postmill-ai/provider-custom-proxy';
-import { OrgVpnConfigRepository } from '@postmill-ai/nestjs-libraries/database/prisma/vpn/org-vpn-config.repository';
-import { OrgProviderConfigRepository } from '@postmill-ai/nestjs-libraries/database/prisma/provider-configs/org-provider-config.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { ProviderKernel, ProviderNotFoundError } from '@postmill-ai/provider-kernel';
+import nordvpnModules from '@validpost/provider-nordvpn';
+import expressvpnModules from '@validpost/provider-expressvpn';
+import surfsharkModules from '@validpost/provider-surfshark';
+import protonvpnModules from '@validpost/provider-protonvpn';
+import mullvadModules from '@validpost/provider-mullvad';
+import cyberghostModules from '@validpost/provider-cyberghost';
+import piaModules from '@validpost/provider-pia';
+import ipvanishModules from '@validpost/provider-ipvanish';
+import windscribeModules from '@validpost/provider-windscribe';
+import tunnelbearModules from '@validpost/provider-tunnelbear';
+import hotspotshieldModules from '@validpost/provider-hotspotshield';
+import purevpnModules from '@validpost/provider-purevpn';
+import vyprvpnModules from '@validpost/provider-vyprvpn';
+import hidemeModules from '@validpost/provider-hideme';
+import mozillavpnModules from '@validpost/provider-mozillavpn';
+import customproxyModules from '@validpost/provider-custom-proxy';
+import { OrgVpnConfigRepository } from '@validpost/nestjs-libraries/database/prisma/vpn/org-vpn-config.repository';
+import { OrgProviderConfigRepository } from '@validpost/nestjs-libraries/database/prisma/provider-configs/org-provider-config.repository';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { ProviderKernel, ProviderNotFoundError } from '@validpost/provider-kernel';
 import { VpnDispatcherService } from './vpn-dispatcher.service';
 
 // All relocated VPN package modules, mirroring providers.generated.ts.

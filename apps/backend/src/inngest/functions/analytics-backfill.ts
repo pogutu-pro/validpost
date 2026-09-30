@@ -1,6 +1,6 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { analyticsBackfillEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { AnalyticsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/analytics.activity';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { analyticsBackfillEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { AnalyticsActivity } from '@validpost/nestjs-libraries/inngest/activities/analytics.activity';
 
 export const createAnalyticsBackfill = (analyticsActivity: AnalyticsActivity) =>
   inngest.createFunction(

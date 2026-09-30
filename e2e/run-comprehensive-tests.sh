@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "POSTMILL E2E COMPREHENSIVE UI TEST SUITE"
+echo "VALIDPOST E2E COMPREHENSIVE UI TEST SUITE"
 echo "=========================================="
 echo ""
 

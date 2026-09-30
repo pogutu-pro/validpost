@@ -1,7 +1,7 @@
 import { readFile, realpath, stat } from 'fs/promises';
 import path from 'path';
-import { isSafePublicHttpsUrl } from '@postmill-ai/nestjs-libraries/dtos/webhooks/webhook.url.validator';
-import { fromBuffer } from '@postmill-ai/nestjs-libraries/upload/file-type.compat';
+import { isSafePublicHttpsUrl } from '@validpost/nestjs-libraries/dtos/webhooks/webhook.url.validator';
+import { fromBuffer } from '@validpost/nestjs-libraries/upload/file-type.compat';
 
 /**
  * Inline cap for a locally-stored image handed to a vision model. A `data:`

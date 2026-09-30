@@ -11,8 +11,8 @@ import React, {
   createContext,
 } from 'react';
 import { CopilotChat, CopilotKitCSSProperties, InputProps, UserMessageProps } from '@copilotkit/react-ui';
-import { Input } from '@postmill-ai/frontend/components/agents/agent.input';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { Input } from '@validpost/frontend/components/agents/agent.input';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import {
   CopilotKit,
   useCopilotAction,
@@ -22,26 +22,26 @@ import {
 import {
   MediaPortal,
   PropertiesContext,
-} from '@postmill-ai/frontend/components/agents/agent';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
+} from '@validpost/frontend/components/agents/agent';
+import { useVariables } from '@validpost/react/helpers/variable.context';
 import { useParams, useRouter } from 'next/navigation';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { Composer } from '@postmill-ai/frontend/components/composer/composer';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { Composer } from '@validpost/frontend/components/composer/composer';
 import dayjs from 'dayjs';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { ExistingDataContextProvider } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { SafeContent } from '@postmill-ai/frontend/components/shared/safe-content';
-import { csrfHeader } from '@postmill-ai/helpers/utils/csrf.header';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { ExistingDataContextProvider } from '@validpost/frontend/components/launches/helpers/use.existing.data';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { SafeContent } from '@validpost/frontend/components/shared/safe-content';
+import { csrfHeader } from '@validpost/helpers/utils/csrf.header';
 import Link from 'next/link';
 import {
   useAiActive,
   AI_SETUP_HREF,
-} from '@postmill-ai/frontend/components/layout/use-ai-active';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+} from '@validpost/frontend/components/layout/use-ai-active';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import useSWR, { useSWRConfig } from 'swr';
-import { AgentContextBridge } from '@postmill-ai/frontend/components/agent/agent-context-bridge';
+import { AgentContextBridge } from '@validpost/frontend/components/agent/agent-context-bridge';
 
 export interface MediaAttachment {
   id: string;
@@ -62,7 +62,7 @@ export const AgentChat: FC = () => {
   const [media, setMedia] = useState<MediaAttachment[]>([]);
 
   // No AI provider configured → CopilotKit's /copilot/agent handshake would
-  // 403 and the "postmill" agent wouldn't resolve. Send the user to set one up.
+  // 403 and the "validpost" agent wouldn't resolve. Send the user to set one up.
   if (aiActive === false) {
     return (
       <div className="bg-newBgColorInner flex flex-1 flex-col items-center justify-center gap-[16px] text-center p-[40px]">
@@ -98,7 +98,7 @@ export const AgentChat: FC = () => {
       useSingleEndpoint
       showDevConsole={false}
       enableInspector={false}
-      agent="postmill"
+      agent="validpost"
     >
       <MediaAttachmentContext.Provider value={{ media, setMedia }}>
         <Hooks />
@@ -649,7 +649,7 @@ const ConfirmMediaStudioGenerateCard: FC<{
 
 // Keyed by the tool `name` the stream actually emits. These MUST stay in lockstep
 // with the backend tool-name arrays (`CONTENT/MEDIA/ANALYTICS/OPS_TOOL_NAMES` in
-// `@postmill-ai/nestjs-libraries/chat/agents/*.agent` and `SUPERVISOR_TOOL_NAMES` in
+// `@validpost/nestjs-libraries/chat/agents/*.agent` and `SUPERVISOR_TOOL_NAMES` in
 // `load.tools.service`) — those modules pull heavy server deps, so we can't import
 // them into the client bundle; `agent.chat.spec.tsx` reads them off disk and fails
 // on any drift instead. Under the supervisor the top-level stream emits the

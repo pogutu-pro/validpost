@@ -7,19 +7,19 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { useShallow } from 'zustand/react/shallow';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { Button } from '@postmill-ai/react/form/button';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { Button } from '@validpost/react/form/button';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 import dayjs from 'dayjs';
 import clsx from 'clsx';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
-import { expandPostsList } from '@postmill-ai/helpers/utils/posts.list.minify';
+import SafeImage from '@validpost/react/helpers/safe.image';
+import { expandPostsList } from '@validpost/helpers/utils/posts.list.minify';
 
 type Tab = 'drafts' | 'templates' | 'signatures';
 

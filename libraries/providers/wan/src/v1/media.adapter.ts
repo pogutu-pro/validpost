@@ -15,7 +15,7 @@ import {
   mediaUpstreamFailure,
   isTransientStatus,
   mediaUpstreamFromPoll,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Wan (Tongyi Wanxiang) on Alibaba Cloud Model Studio. Clicking "API" on wan.video lands on
 // modelstudio.alibabacloud.com — i.e. this is the Model Studio / DashScope API, with Wan as the

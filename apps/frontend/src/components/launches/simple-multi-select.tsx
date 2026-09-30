@@ -2,7 +2,7 @@
 
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export interface SimpleOption {
   value: string;

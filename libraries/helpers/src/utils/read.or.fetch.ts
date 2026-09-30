@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 
 export const readOrFetch = async (path: string) => {
   if (path.indexOf('http') === 0) {

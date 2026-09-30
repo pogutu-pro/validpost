@@ -6,7 +6,7 @@ const mockOrgProviderConfigService = {
 };
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service',
+  '@validpost/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service',
   () => ({
     OrgProviderConfigService: vi.fn(() => mockOrgProviderConfigService),
   })

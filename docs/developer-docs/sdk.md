@@ -2,25 +2,25 @@
 
 > Verified against v1.0.0
 
-The `@postmill-ai/postmill-sdk` is the official Node.js SDK for the Postmill Public API. It provides typed methods for creating posts, uploading media, listing integrations, and more.
+The `@validpost/validpost-sdk` is the official Node.js SDK for the ValidPost Public API. It provides typed methods for creating posts, uploading media, listing integrations, and more.
 
 ## Installation
 
 ```bash
-npm install @postmill-ai/postmill-sdk
+npm install @validpost/validpost-sdk
 ```
 
-The SDK depends on `@postmill-ai/nestjs-libraries` for DTO types and uses the global `fetch` implementation (Node 18+, or a polyfill in older environments).
+The SDK depends on `@validpost/nestjs-libraries` for DTO types and uses the global `fetch` implementation (Node 18+, or a polyfill in older environments).
 
 ## Quick start
 
 ```typescript
-import Postmill from '@postmill-ai/postmill-sdk';
+import ValidPost from '@validpost/validpost-sdk';
 
-const client = new Postmill('your-api-key');
+const client = new ValidPost('your-api-key');
 
 // Optionally specify a custom API base URL:
-// const client = new Postmill('your-api-key', 'https://your-instance.com');
+// const client = new ValidPost('your-api-key', 'https://your-instance.com');
 
 // Create a post
 const post = await client.post({
@@ -47,13 +47,13 @@ await client.deletePost('post-id');
 ### Constructor
 
 ```typescript
-new Postmill(apiKey: string, path?: string)
+new ValidPost(apiKey: string, path?: string)
 ```
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
 | `apiKey` | `string` | required | Org API key (sent as `Authorization` header). |
-| `path` | `string` | `https://api.postmill.ai` | Custom API base URL for private deployments. |
+| `path` | `string` | `https://api.validpost.io` | Custom API base URL for private deployments. |
 
 ### Methods
 
@@ -118,17 +118,17 @@ deletePost(id: string): Promise<Response>
 
 ## API key setup
 
-1. Go to **Settings → Developers** in the Postmill app.
+1. Go to **Settings → Developers** in the ValidPost app.
 2. Create an API key or use an existing org key.
-3. Pass the key as the first argument to the `Postmill` constructor.
+3. Pass the key as the first argument to the `ValidPost` constructor.
 
 ## Package details
 
-- **Package name**: `@postmill-ai/postmill-sdk`
+- **Package name**: `@validpost/validpost-sdk`
 - **Version**: 2.0.0
 - **License**: Proprietary
 - **Build**: Uses `tsup` for bundling.
-- **Workspace dependency**: `@postmill-ai/nestjs-libraries`
+- **Workspace dependency**: `@validpost/nestjs-libraries`
 
 ## Analytics access
 

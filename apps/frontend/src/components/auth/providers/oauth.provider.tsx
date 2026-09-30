@@ -1,10 +1,10 @@
 'use client';
 
 import { useCallback } from 'react';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
-import { useSsoPopup } from '@postmill-ai/frontend/components/auth/sso-popup';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import SafeImage from '@validpost/react/helpers/safe.image';
+import { useSsoPopup } from '@validpost/frontend/components/auth/sso-popup';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const OauthProvider = () => {
   const { start, waiting } = useSsoPopup();
   const { oauthLogoUrl, oauthDisplayName } = useVariables();

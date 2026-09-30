@@ -1,19 +1,19 @@
 import type { DesignerAction } from './actions';
 import type { DesignerElement, DesignerLayerStyle } from './designer.store';
-import type { BooleanOp } from '@postmill-ai/nestjs-libraries/media/designer-doc/path-boolean';
+import type { BooleanOp } from '@validpost/nestjs-libraries/media/designer-doc/path-boolean';
 import { offsetElement, pathfinder, roundElementCorners } from './pathfinder';
 import {
   expandSymbolInstance,
   type SlotDefinition,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/symbols';
+} from '@validpost/nestjs-libraries/media/designer-doc/symbols';
 
 /** The three things a template slot can be. */
 const SLOT_KINDS: SlotDefinition['kind'][] = ['text', 'image', 'color'];
-import { defaultAdjustmentValues } from '@postmill-ai/nestjs-libraries/media/designer-doc/pixel-ops';
+import { defaultAdjustmentValues } from '@validpost/nestjs-libraries/media/designer-doc/pixel-ops';
 import {
   ADJUSTMENT_DESCRIPTORS,
   IDENTITY_CURVE,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/adjustment-descriptors';
+} from '@validpost/nestjs-libraries/media/designer-doc/adjustment-descriptors';
 
 type StoreApi = ReturnType<typeof import('./designer.store').createDesignerStore>;
 

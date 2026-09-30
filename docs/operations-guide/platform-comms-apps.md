@@ -1,16 +1,16 @@
 # Platform Comms Apps
 
-**Comms channels** (Slack, Telegram, Discord, Matrix, LINE) are Postmill's
-chat surface: org members talk to the Postmill agent in a DM or channel, and
-Postmill delivers notifications (post published, post failed, …) to the
+**Comms channels** (Slack, Telegram, Discord, Matrix, LINE) are ValidPost's
+chat surface: org members talk to the ValidPost agent in a DM or channel, and
+ValidPost delivers notifications (post published, post failed, …) to the
 connected chat.
 
 Every comms provider can be connected two ways:
 
-1. **Platform app (default, this page)** — the operator sets the Postmill
+1. **Platform app (default, this page)** — the operator sets the ValidPost
    platform app's credentials in the deployment environment (`.env` / Docker
    Compose). Every organization then connects with one click ("Use the
-   Postmill app", or "Connect with Slack" OAuth). The comms side **reuses the
+   ValidPost app", or "Connect with Slack" OAuth). The comms side **reuses the
    same platform apps already configured for posting channels** — see
    [Platform Channel Apps](./platform-channel-apps.md); no new vendor apps are
    needed, only a few extra values and scopes.
@@ -19,7 +19,7 @@ Every comms provider can be connected two ways:
    flow. See [Own app (Advanced)](#own-app-advanced).
 
 Unlike posting channels, where each org connects its own accounts, ONE
-platform app/bot serves ALL organizations on comms. Postmill routes inbound
+platform app/bot serves ALL organizations on comms. ValidPost routes inbound
 messages to the right org: Slack by workspace `team_id`, Discord by guild,
 Telegram and LINE by the linked user (one-time connect code).
 
@@ -31,24 +31,24 @@ Provider webhooks always point at the public backend:
 https://<backend>/webhooks/comms/platform/<provider>
 ```
 
-(e.g. `https://postmill.example.com/api/webhooks/comms/platform/slack`).
+(e.g. `https://validpost.example.com/api/webhooks/comms/platform/slack`).
 **Prerequisite:** `NEXT_PUBLIC_BACKEND_URL` must be the public backend URL
 that the providers can reach — Slack, Discord, and LINE push events to
 webhooks under it. Telegram's webhook auto-registers on connect; Matrix needs
-no webhook at all (Postmill polls).
+no webhook at all (ValidPost polls).
 
 Comms env vars enter `process.env` when the **backend boots** — restart the
 backend after editing `.env`.
 
 ## Slack
 
-Comms reuses the Postmill Slack app from [Platform Channel Apps →
+Comms reuses the ValidPost Slack app from [Platform Channel Apps →
 Slack](./platform-channel-apps.md#slack) — `SLACK_ID` / `SLACK_SECRET` are
 already set. Chat additionally needs DM scopes, event subscriptions, and the
 app's Signing Secret.
 
 1. Open [Slack API: Your Apps](https://api.slack.com/apps) and pick the
-   Postmill app.
+   ValidPost app.
 2. Under **OAuth & Permissions → Redirect URLs**, add
    `https://<backend>/settings/comms/oauth/slack/callback` (the comms
    callback is separate from the posting channel's
@@ -60,7 +60,7 @@ app's Signing Secret.
    **"Allow users to send Slash commands and messages from the messages tab"**
    — without it Slack shows "Sending messages to this app has been turned
    off" and users cannot DM the bot.
-5. Under **Settings → Socket Mode**, make sure it is **OFF**. Postmill
+5. Under **Settings → Socket Mode**, make sure it is **OFF**. ValidPost
    receives Slack events over HTTP at the Request URL below; with Socket Mode
    on, Slack delivers events only over its websocket and **never calls the
    Request URL** — every DM is silently dropped, nothing reaches the backend,
@@ -96,13 +96,13 @@ enabled on the Slack app (same requirement as posting channels).
 
 ## Discord
 
-Comms reuses the Postmill Discord application and bot from [Platform Channel
+Comms reuses the ValidPost Discord application and bot from [Platform Channel
 Apps → Discord](./platform-channel-apps.md#discord) — `DISCORD_CLIENT_ID` /
 `DISCORD_CLIENT_SECRET` / `DISCORD_BOT_TOKEN` are already set. Chat
 additionally needs the app's Public Key and an Interactions Endpoint.
 
 1. Open the [Discord Developer Portal](https://discord.com/developers/applications)
-   and pick the Postmill application.
+   and pick the ValidPost application.
 2. Under **General Information**, copy the **Public Key**:
 
 ```yaml
@@ -113,21 +113,21 @@ DISCORD_PUBLIC_KEY: '<your-public-key>'   # NEW for comms
    `https://<backend>/webhooks/comms/platform/discord`.
 4. Restart the backend.
 
-**Org flow:** the org clicks **Use the Postmill app**. The platform bot must
+**Org flow:** the org clicks **Use the ValidPost app**. The platform bot must
 be invited to their server — the same bot invite as for posting channels —
 with write access to the target channel. Inbound messages are routed to the
 org by guild.
 
 ## Telegram
 
-Comms reuses the Postmill bot from [Platform Channel Apps →
+Comms reuses the ValidPost bot from [Platform Channel Apps →
 Telegram](./platform-channel-apps.md#telegram): `TELEGRAM_TOKEN` is already
 set and **nothing new is needed** — the bot webhook auto-registers to the
 platform URL when an org connects.
 
-**Org flow:** the org member clicks **Use the Postmill app**, copies their
+**Org flow:** the org member clicks **Use the ValidPost app**, copies their
 one-time connect code from **Settings → Comms**, and sends it to the bot in a
-DM. Postmill links that Telegram user to the org member; agent chat and
+DM. ValidPost links that Telegram user to the org member; agent chat and
 notifications land in the DM.
 
 ## LINE
@@ -150,7 +150,7 @@ LINE_CHANNEL_SECRET: '<your-channel-secret>'   # NEW for comms
    webhook**.
 4. Restart the backend.
 
-**Org flow:** the org member clicks **Use the Postmill app**, adds the LINE
+**Org flow:** the org member clicks **Use the ValidPost app**, adds the LINE
 Official Account as a friend, and links it with the one-time connect code
 from **Settings → Comms**.
 
@@ -158,18 +158,18 @@ from **Settings → Comms**.
 
 There is **no Matrix platform app** — Matrix is always configured per org from
 the Advanced section: the org provides a `homeserverUrl` and an `accessToken`
-for a bot user on any Matrix homeserver. Postmill **polls** the homeserver
+for a bot user on any Matrix homeserver. ValidPost **polls** the homeserver
 (no webhook), so no operator env vars or portal setup are involved.
 
 To create the bot user and obtain an access token:
 
 1. Pick the homeserver the bot will live on (any Matrix homeserver — e.g.
    matrix.org or your own).
-2. Register a dedicated bot account on it (e.g. `@postmill-bot:example.org`).
+2. Register a dedicated bot account on it (e.g. `@validpost-bot:example.org`).
 3. Log in as the bot once with [Element](https://app.element.io/): sign in
    with the bot's credentials, then copy the token from **Settings → Help &
    About → Advanced → Access Token**.
-4. In Postmill, open the Matrix comms connect dialog → **Advanced** and paste
+4. In ValidPost, open the Matrix comms connect dialog → **Advanced** and paste
    the **homeserver URL** (`https://matrix.example.org`) and the **access
    token**.
 

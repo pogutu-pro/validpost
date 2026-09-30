@@ -12,47 +12,47 @@ import {
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { Organization, User } from '@prisma/client';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { ApiTags } from '@nestjs/swagger';
-import { DesignService } from '@postmill-ai/nestjs-libraries/database/prisma/design/design.service';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
+import { DesignService } from '@validpost/nestjs-libraries/database/prisma/design/design.service';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
 import {
   AuthorizationActions,
   Sections,
-} from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { DesignRenderService } from '@postmill-ai/nestjs-libraries/media/design-render/design-render.service';
-import { DesignBulkService } from '@postmill-ai/nestjs-libraries/media/design-render/design-bulk.service';
-import { VideoRenderService } from '@postmill-ai/nestjs-libraries/media/design-render/video-render.service';
+} from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { DesignRenderService } from '@validpost/nestjs-libraries/media/design-render/design-render.service';
+import { DesignBulkService } from '@validpost/nestjs-libraries/media/design-render/design-bulk.service';
+import { VideoRenderService } from '@validpost/nestjs-libraries/media/design-render/video-render.service';
 import {
   FRAME_RENDERER_SCRIPT,
   escapeForScriptTag,
-} from '@postmill-ai/nestjs-libraries/media/design-render/frame-renderer-script';
-import { buildFramePage, fontLinksForOutput } from '@postmill-ai/nestjs-libraries/media/design-render/frame-page';
-import { RenderDesignDto } from '@postmill-ai/nestjs-libraries/dtos/design/render.design.dto';
-import { TextOutlinesDto } from '@postmill-ai/nestjs-libraries/dtos/design/text-outlines.dto';
-import { textToOutlines } from '@postmill-ai/nestjs-libraries/media/design-render/text-outlines';
-import { FontLoaderService } from '@postmill-ai/nestjs-libraries/media/design-render/font-loader.service';
-import { RenderVideoDesignDto } from '@postmill-ai/nestjs-libraries/dtos/design/render-video.design.dto';
-import { BulkGenerateDesignDto } from '@postmill-ai/nestjs-libraries/dtos/design/bulk.generate.design.dto';
-import { CreateDesignDto } from '@postmill-ai/nestjs-libraries/dtos/design/create-design.dto';
-import { UpdateDesignDto } from '@postmill-ai/nestjs-libraries/dtos/design/update-design.dto';
-import { CreateTemplateDto } from '@postmill-ai/nestjs-libraries/dtos/design/create-template.dto';
-import { UpdateTemplateDto } from '@postmill-ai/nestjs-libraries/dtos/design/update-template.dto';
-import { ValidateDocDto } from '@postmill-ai/nestjs-libraries/dtos/design/validate-doc.dto';
-import { ApplyOpsDto } from '@postmill-ai/nestjs-libraries/dtos/design/apply-ops.dto';
-import type { DesignerDoc } from '@postmill-ai/nestjs-libraries/media/design-render/design-render.types';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
-import type { DesignerDocOp } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc-ops.schema';
+} from '@validpost/nestjs-libraries/media/design-render/frame-renderer-script';
+import { buildFramePage, fontLinksForOutput } from '@validpost/nestjs-libraries/media/design-render/frame-page';
+import { RenderDesignDto } from '@validpost/nestjs-libraries/dtos/design/render.design.dto';
+import { TextOutlinesDto } from '@validpost/nestjs-libraries/dtos/design/text-outlines.dto';
+import { textToOutlines } from '@validpost/nestjs-libraries/media/design-render/text-outlines';
+import { FontLoaderService } from '@validpost/nestjs-libraries/media/design-render/font-loader.service';
+import { RenderVideoDesignDto } from '@validpost/nestjs-libraries/dtos/design/render-video.design.dto';
+import { BulkGenerateDesignDto } from '@validpost/nestjs-libraries/dtos/design/bulk.generate.design.dto';
+import { CreateDesignDto } from '@validpost/nestjs-libraries/dtos/design/create-design.dto';
+import { UpdateDesignDto } from '@validpost/nestjs-libraries/dtos/design/update-design.dto';
+import { CreateTemplateDto } from '@validpost/nestjs-libraries/dtos/design/create-template.dto';
+import { UpdateTemplateDto } from '@validpost/nestjs-libraries/dtos/design/update-template.dto';
+import { ValidateDocDto } from '@validpost/nestjs-libraries/dtos/design/validate-doc.dto';
+import { ApplyOpsDto } from '@validpost/nestjs-libraries/dtos/design/apply-ops.dto';
+import type { DesignerDoc } from '@validpost/nestjs-libraries/media/design-render/design-render.types';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
+import type { DesignerDocOp } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc-ops.schema';
 import type { Response } from 'express';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 import {
   mediaJobWebhookToken,
   verifyMediaJobWebhookToken,
-} from '@postmill-ai/nestjs-libraries/media/media-job-token';
+} from '@validpost/nestjs-libraries/media/media-job-token';
 
 @ApiTags('Design')
 @Controller('/media/designs')

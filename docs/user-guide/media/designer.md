@@ -1,6 +1,6 @@
 # Designer
 
-The **Designer** (`/media/designer`) is Postmill's manual canvas editor, built on **Konva /
+The **Designer** (`/media/designer`) is ValidPost's manual canvas editor, built on **Konva /
 react-konva** — it is not Polotno. It's the one Platform-section tool with no header in the nav
 rail, and it's the target every other studio's **Edit in Designer** button hands off to.
 

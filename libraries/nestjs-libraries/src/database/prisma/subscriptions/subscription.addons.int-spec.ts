@@ -1,12 +1,12 @@
 import { inject } from 'vitest';
-import { getTestPrisma } from '@postmill-ai/nestjs-libraries/testing/test-db';
+import { getTestPrisma } from '@validpost/nestjs-libraries/testing/test-db';
 import {
   PrismaRepository,
   PrismaService,
-} from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+} from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 import { SubscriptionRepository } from './subscription.repository';
-import { mergeEffectiveLimits } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/effective.limits';
-import { pricing } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { mergeEffectiveLimits } from '@validpost/nestjs-libraries/database/prisma/subscriptions/effective.limits';
+import { pricing } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 
 // Add-on + manual-override round-trip against a real DB (BILLING_ADDONS plan,
 // verification section): a partial updateAddonQuantities payload lands on the

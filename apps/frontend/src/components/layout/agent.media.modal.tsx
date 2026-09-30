@@ -1,10 +1,10 @@
 'use client';
 
 import { FC, useCallback, useState } from 'react';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 
 export const AgentMediaModal: FC = () => {
   const fetch = useFetch();

@@ -5,25 +5,25 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { DefaultsResolutionService } from './defaults-resolution.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { AiMediaService } from '@postmill-ai/nestjs-libraries/ai/governance/media.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { AiMediaService } from '@validpost/nestjs-libraries/ai/governance/media.service';
 import {
   DefaultNotConfiguredError,
   DefaultOperationNotImplementedError,
 } from './defaults.errors';
-import { OrgDefaultModelRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
+import { OrgDefaultModelRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
 import { DefaultsSettingsValidator } from './defaults-settings.validator';
 import { AI_MODEL_CATEGORIES } from './default-categories';
-import { SetDefaultModelDto } from '@postmill-ai/nestjs-libraries/dtos/ai-settings/default-model.dto';
-import { OrgAiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
+import { SetDefaultModelDto } from '@validpost/nestjs-libraries/dtos/ai-settings/default-model.dto';
+import { OrgAiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
 import { bustDefaultsCatalogCache, getOrCacheModelList } from './defaults-cache';
-import { AIProviderAdapter } from '@postmill-ai/nestjs-libraries/ai/ai-provider.interface';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { RuntimeContextFactory } from '@postmill-ai/nestjs-libraries/providers/runtime-context.factory';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { ProviderKernel, DEFAULT_VERSION } from '@postmill-ai/provider-kernel';
-import { ProviderConfigDto } from '@postmill-ai/nestjs-libraries/types/provider-config.types';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { AIProviderAdapter } from '@validpost/nestjs-libraries/ai/ai-provider.interface';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { RuntimeContextFactory } from '@validpost/nestjs-libraries/providers/runtime-context.factory';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { ProviderKernel, DEFAULT_VERSION } from '@validpost/provider-kernel';
+import { ProviderConfigDto } from '@validpost/nestjs-libraries/types/provider-config.types';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 export { DefaultNotConfiguredError, DefaultOperationNotImplementedError };
 

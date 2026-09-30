@@ -95,13 +95,13 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_USER: postmill-local
-          POSTGRES_PASSWORD: postmill-local-pwd
-          POSTGRES_DB: postmill-db-local
+          POSTGRES_USER: validpost-local
+          POSTGRES_PASSWORD: validpost-local-pwd
+          POSTGRES_DB: validpost-db-local
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postmill-local"
+          --health-cmd "pg_isready -U validpost-local"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -164,13 +164,13 @@ jobs:
 
       - name: Run integration tests (Vitest + Postgres)
         env:
-          TEST_DATABASE_ADMIN_URL: postgresql://postmill-local:postmill-local-pwd@localhost:5432/postgres
-          DATABASE_URL: postgresql://postmill-local:postmill-local-pwd@localhost:5432/postmill-db-local
+          TEST_DATABASE_ADMIN_URL: postgresql://validpost-local:validpost-local-pwd@localhost:5432/postgres
+          DATABASE_URL: postgresql://validpost-local:validpost-local-pwd@localhost:5432/validpost-db-local
         run: pnpm run test:int
 
       - name: Migration drift check (committed migrations fully represent the schema)
         env:
-          DATABASE_URL: postgresql://postmill-local:postmill-local-pwd@localhost:5432/postmill-db-local
+          DATABASE_URL: postgresql://validpost-local:validpost-local-pwd@localhost:5432/validpost-db-local
         run: |
           # Apply the committed migrations (0_init + any new ones) to the empty CI DB.
           # The deployed migrations must reconstruct the full schema — a schema.prisma

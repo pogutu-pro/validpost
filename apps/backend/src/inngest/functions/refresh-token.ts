@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { integrationRefreshTokenEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { IntegrationsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/integrations.activity';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { integrationRefreshTokenEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { IntegrationsActivity } from '@validpost/nestjs-libraries/inngest/activities/integrations.activity';
 
 // F3: consecutive failed refresh cycles are bounded — after this many the
 // chain terminates, so a revoked token can neither hot-loop nor spam

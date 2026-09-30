@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { WatchlistRepository } from '@postmill-ai/nestjs-libraries/database/prisma/watchlist/watchlist.repository';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { WatchlistRepository } from '@validpost/nestjs-libraries/database/prisma/watchlist/watchlist.repository';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import dayjs from 'dayjs';
 
 @Injectable()
@@ -102,7 +102,7 @@ export class WatchlistService {
     const url = this.publicProfileUrl(provider, handle);
     const response = await safeFetch(url, {
       headers: {
-        'User-Agent': 'Postmill watchlist probe',
+        'User-Agent': 'ValidPost watchlist probe',
         Accept: 'text/html,application/xhtml+xml',
       },
     });

@@ -1,4 +1,4 @@
-import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+import { ProviderMetadata } from '@validpost/provider-kernel';
 
 // The auth module's own catalog entry — `metadata.ts` describes the Gemini AI
 // hub and must not advertise an AI surface for Google sign-in.

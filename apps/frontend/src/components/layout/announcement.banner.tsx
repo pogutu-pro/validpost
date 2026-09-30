@@ -2,12 +2,12 @@
 
 import { FC, useCallback, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
 
 type AnnouncementColor = 'INFO' | 'WARNING' | 'ERROR';
 

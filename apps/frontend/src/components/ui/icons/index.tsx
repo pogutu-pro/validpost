@@ -3,7 +3,7 @@
 import React, { FC, SVGProps, useEffect } from 'react';
 import clsx from 'clsx';
 import useCookie from 'react-use-cookie';
-import { modeEmitter } from '@postmill-ai/frontend/components/layout/mode.component';
+import { modeEmitter } from '@validpost/frontend/components/layout/mode.component';
 
 export type IconProps = SVGProps<SVGSVGElement> & {
   size?: number;

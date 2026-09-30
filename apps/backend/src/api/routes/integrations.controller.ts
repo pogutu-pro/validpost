@@ -13,42 +13,42 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { isAllowedReturnUrl } from '@postmill-ai/nestjs-libraries/security/return-url.validator';
-import { InvalidExternalUrlError } from '@postmill-ai/provider-kernel';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { isAllowedReturnUrl } from '@validpost/nestjs-libraries/security/return-url.validator';
+import { InvalidExternalUrlError } from '@validpost/provider-kernel';
 import { Organization, User, Integration } from '@prisma/client';
-import { IntegrationFunctionDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/integration.function.dto';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { pricing } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { mergeEffectiveLimits } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/effective.limits';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { IntegrationFunctionDto } from '@validpost/nestjs-libraries/dtos/integrations/integration.function.dto';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { pricing } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { mergeEffectiveLimits } from '@validpost/nestjs-libraries/database/prisma/subscriptions/effective.limits';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { CampaignsService } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaigns.service';
-import { ConnectProviderDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/connect-provider.dto';
-import { IntegrationTimeDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/integration.time.dto';
-import { PlugDto } from '@postmill-ai/nestjs-libraries/dtos/plugs/plug.dto';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { CampaignsService } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaigns.service';
+import { ConnectProviderDto } from '@validpost/nestjs-libraries/dtos/integrations/connect-provider.dto';
+import { IntegrationTimeDto } from '@validpost/nestjs-libraries/dtos/integrations/integration.time.dto';
+import { PlugDto } from '@validpost/nestjs-libraries/dtos/plugs/plug.dto';
 
-import { UpdateProviderSettingsDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/update-provider-settings.dto';
-import { ChannelIdBodyDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/channel-id-body.dto';
-import { PlugActivationDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/plug-activation.dto';
-import { TelegramUpdatesQueryDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/telegram-updates-query.dto';
-import { SetNicknameDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/set-nickname.dto';
-import { ParseCuidPipe } from '@postmill-ai/nestjs-libraries/pipes/parse-cuid.pipe';
+import { UpdateProviderSettingsDto } from '@validpost/nestjs-libraries/dtos/integrations/update-provider-settings.dto';
+import { ChannelIdBodyDto } from '@validpost/nestjs-libraries/dtos/integrations/channel-id-body.dto';
+import { PlugActivationDto } from '@validpost/nestjs-libraries/dtos/integrations/plug-activation.dto';
+import { TelegramUpdatesQueryDto } from '@validpost/nestjs-libraries/dtos/integrations/telegram-updates-query.dto';
+import { SetNicknameDto } from '@validpost/nestjs-libraries/dtos/integrations/set-nickname.dto';
+import { ParseCuidPipe } from '@validpost/nestjs-libraries/pipes/parse-cuid.pipe';
 
-import { TelegramProvider } from '@postmill-ai/provider-telegram';
-import { setCredentials } from '@postmill-ai/nestjs-libraries/integrations/credentials';
+import { TelegramProvider } from '@validpost/provider-telegram';
+import { setCredentials } from '@validpost/nestjs-libraries/integrations/credentials';
 import {
   AuthorizationActions,
   Sections,
-} from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
+} from '@validpost/backend/services/auth/permissions/permission.exception.class';
 
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 
 @ApiTags('Integrations')
 @Controller('/integrations')

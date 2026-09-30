@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { Organization } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { OAuthService } from '@postmill-ai/nestjs-libraries/database/prisma/oauth/oauth.service';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { CreateOAuthAppDto } from '@postmill-ai/nestjs-libraries/dtos/oauth/create-oauth-app.dto';
-import { UpdateOAuthAppDto } from '@postmill-ai/nestjs-libraries/dtos/oauth/update-oauth-app.dto';
+import { OAuthService } from '@validpost/nestjs-libraries/database/prisma/oauth/oauth.service';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { CreateOAuthAppDto } from '@validpost/nestjs-libraries/dtos/oauth/create-oauth-app.dto';
+import { UpdateOAuthAppDto } from '@validpost/nestjs-libraries/dtos/oauth/update-oauth-app.dto';
 
 @ApiTags('OAuth App')
 @Controller('/user/oauth-app')

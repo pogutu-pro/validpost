@@ -2,13 +2,13 @@
 
 import { EventEmitter } from 'events';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { TopTitle } from '@postmill-ai/frontend/components/launches/helpers/top.title.component';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { Input } from '@postmill-ai/react/form/input';
-import { Button } from '@postmill-ai/react/form/button';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import { TopTitle } from '@validpost/frontend/components/launches/helpers/top.title.component';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { Input } from '@validpost/react/form/input';
+import { Button } from '@validpost/react/form/button';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 const postUrlEmitter = new EventEmitter();
 export const ShowLinkedinCompany = () => {
   const [showPostSelector, setShowPostSelector] = useState(false);
@@ -167,7 +167,7 @@ export const LinkedinCompany: FC<{
             onChange={(e) => setCompany(e.target.value)}
             placeholder={t(
               'linkedin_company_placeholder',
-              'https://www.linkedin.com/company/postmill'
+              'https://www.linkedin.com/company/validpost'
             )}
           />
           <Button onClick={getCompany}>{t('add', 'Add')}</Button>

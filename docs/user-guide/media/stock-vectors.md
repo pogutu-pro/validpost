@@ -11,7 +11,7 @@ The free default catalog is **Pixabay**, gated by the operator environment varia
 
 If your organization has an active [Content Pack](../settings) that declares `vectors` — currently
 **Magnific**, **Vecteezy**, **Adobe Stock**, or **Envato Elements** — that premium catalog is shown
-first. Otherwise Postmill falls back to Pixabay. A Content Pack daily-cap error is surfaced as a 402.
+first. Otherwise ValidPost falls back to Pixabay. A Content Pack daily-cap error is surfaced as a 402.
 
 ## Search and filters
 

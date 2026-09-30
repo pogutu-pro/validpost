@@ -1,8 +1,8 @@
 'use client';
 
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 /**
  * Rename prompt for files and folders in the browse area, where there is no room

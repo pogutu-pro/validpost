@@ -15,7 +15,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   isTransientStatus,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Google AI Studio — the Gemini Developer API (generativelanguage.googleapis.com), keyed by a
 // single Gemini API key (AIza…). This is the SAME key the org configures under Settings → AI →

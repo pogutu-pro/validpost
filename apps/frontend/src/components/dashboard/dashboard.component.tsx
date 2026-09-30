@@ -2,11 +2,11 @@
 
 import React, { FC, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
-import { useIntegrationList } from '@postmill-ai/frontend/components/launches/helpers/use.integration.list';
-import { useOverview } from '@postmill-ai/frontend/components/analytics/hooks/useOverview';
+import { useIntegrationList } from '@validpost/frontend/components/launches/helpers/use.integration.list';
+import { useOverview } from '@validpost/frontend/components/analytics/hooks/useOverview';
 import { useDashboardSummary } from './hooks/useDashboardSummary';
-import { LineChart } from '@postmill-ai/frontend/components/analytics/charts/line.chart';
-import { EmptyState } from '@postmill-ai/frontend/components/analytics/kit/states';
+import { LineChart } from '@validpost/frontend/components/analytics/charts/line.chart';
+import { EmptyState } from '@validpost/frontend/components/analytics/kit/states';
 import { DashboardSetup } from './dashboard.setup';
 import { SectionCard } from './kit/section-card';
 import { DashboardHeader } from './dashboard.header';
@@ -20,12 +20,12 @@ import { MediaQueueWidget } from './widgets/media.queue';
 import { UsageWidget } from './widgets/usage.widget';
 import { RecommendationsStrip } from './widgets/recommendations.strip';
 import { AttentionFeed } from './widgets/attention.feed';
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
 import { DailyBrief } from './widgets/daily.brief';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { useAttention } from './hooks/useAttention';
 import { useMediaJobs } from './hooks/useMediaJobs';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
 import { ANALYTICS_USAGE_HREF, MEDIA_QUEUE_HREF } from './destinations';
 
 export { greetingForUser };
@@ -161,7 +161,7 @@ export const DashboardComponent = () => {
 
   const activeIntegrationIds = useMemo(
     // Array guard: `/integrations/list` is a shared SWR key — a non-array in
-    // the cache must never crash the page (Sentry POSTMILL-APP-E).
+    // the cache must never crash the page (Sentry VALIDPOST-APP-E).
     () => (Array.isArray(integrations) ? integrations : []).map((i: { id: string }) => i.id),
     [integrations]
   );

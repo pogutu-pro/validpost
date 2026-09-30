@@ -2,13 +2,13 @@
 
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDebounce } from 'use-debounce';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { SaveToFilesModal } from './save-to-files-modal';
 import { StockAudioItem, stockSourceLabel } from './stock.types';
 import { useStockSearch } from './use-stock-search';
 import { AudioPlayer } from './audio-player';
-import { decodeEntities } from '@postmill-ai/frontend/components/shared/decode-entities';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { decodeEntities } from '@validpost/frontend/components/shared/decode-entities';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const SUGGESTED_SEARCHES = ['Upbeat', 'Cinematic', 'Lo-fi', 'Ambient', 'Corporate'];
 

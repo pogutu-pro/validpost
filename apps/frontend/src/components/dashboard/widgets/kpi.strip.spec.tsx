@@ -2,9 +2,9 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import { KpiStrip } from './kpi.strip';
-import type { KPI } from '@postmill-ai/frontend/components/analytics/utils';
+import type { KPI } from '@validpost/frontend/components/analytics/utils';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback: string, vars?: Record<string, string>) => {
     let text = fallback ?? key;
     if (vars) {
@@ -16,11 +16,11 @@ vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/hooks/useCountUp', () => ({
+vi.mock('@validpost/frontend/components/analytics/hooks/useCountUp', () => ({
   useCountUp: (target: number) => target,
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/charts/area.chart', () => ({
+vi.mock('@validpost/frontend/components/analytics/charts/area.chart', () => ({
   AreaChart: () => <div data-testid="area-chart" />,
 }));
 
@@ -28,7 +28,7 @@ vi.mock('../hooks/useDashboardSummary', () => ({
   useDashboardSummary: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/frontend/components/analytics/hooks/useOverview', () => ({
+vi.mock('@validpost/frontend/components/analytics/hooks/useOverview', () => ({
   useOverview: vi.fn(),
 }));
 
@@ -37,12 +37,12 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
 import { useDashboardSummary } from '../hooks/useDashboardSummary';
-import { useOverview } from '@postmill-ai/frontend/components/analytics/hooks/useOverview';
+import { useOverview } from '@validpost/frontend/components/analytics/hooks/useOverview';
 
 const mockUseDashboardSummary = useDashboardSummary as unknown as ReturnType<typeof vi.fn>;
 const mockUseOverview = useOverview as unknown as ReturnType<typeof vi.fn>;

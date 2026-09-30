@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Response, Request } from 'express';
 import { PublicController } from './public.controller';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { MediaStreamService } from '@postmill-ai/nestjs-libraries/media/stream/media-stream.service';
-import { TrackService } from '@postmill-ai/nestjs-libraries/track/track.service';
-import { TrackEnum } from '@postmill-ai/nestjs-libraries/user/track.enum';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { MediaStreamService } from '@validpost/nestjs-libraries/media/stream/media-stream.service';
+import { TrackService } from '@validpost/nestjs-libraries/track/track.service';
+import { TrackEnum } from '@validpost/nestjs-libraries/user/track.enum';
 
 describe('PublicController', () => {
   let controller: PublicController;

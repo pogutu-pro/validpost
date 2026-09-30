@@ -2,9 +2,9 @@
 
 import { useDropzone } from 'react-dropzone';
 import { FC, ReactNode } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import clsx from 'clsx';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useToaster } from '@validpost/react/toaster/toaster';
 export const DropFiles: FC<{
   children: ReactNode;
   className?: string;

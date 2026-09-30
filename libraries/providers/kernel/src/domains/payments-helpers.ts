@@ -7,7 +7,7 @@ const PERIOD_SUFFIX: Record<PaymentsPeriod, string> = {
 
 /**
  * Store product id convention shared by the App Store and Google Play adapters:
- * `<prefix>.<tier>.<monthly|yearly>` → `postmill.pro.monthly`. Operators
+ * `<prefix>.<tier>.<monthly|yearly>` → `validpost.pro.monthly`. Operators
  * override the prefix per store (`PAYMENTS_APPLE_PRODUCT_PREFIX`,
  * `PAYMENTS_GOOGLE_PRODUCT_PREFIX`); the tier/period suffix is fixed so the
  * server can map a product back to `pricing.ts` without a lookup table.

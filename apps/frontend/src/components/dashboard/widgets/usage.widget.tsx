@@ -3,8 +3,8 @@
 import { FC } from 'react';
 import { useUsage } from '../hooks/useUsage';
 import { useAiUsage } from '../hooks/useAiUsage';
-import { EmptyState, TabSkeleton } from '@postmill-ai/frontend/components/analytics/kit/states';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { EmptyState, TabSkeleton } from '@validpost/frontend/components/analytics/kit/states';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   AiSpendByProvider,
   AiSpendTotals,

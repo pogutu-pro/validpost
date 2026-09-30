@@ -2,14 +2,14 @@
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import SafeImage from '@validpost/react/helpers/safe.image';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { useShallow } from 'zustand/react/shallow';
-import { useExistingData } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
-import { PlatformAvatar as SharedPlatformAvatar } from '@postmill-ai/frontend/components/shared/platform-avatar';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
-import { DropdownArrowIcon } from '@postmill-ai/frontend/components/ui/icons';
+import { useExistingData } from '@validpost/frontend/components/launches/helpers/use.existing.data';
+import { PlatformAvatar as SharedPlatformAvatar } from '@validpost/frontend/components/shared/platform-avatar';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
+import { DropdownArrowIcon } from '@validpost/frontend/components/ui/icons';
 
 const CHANNEL_SELECTOR_THRESHOLD = 4;
 

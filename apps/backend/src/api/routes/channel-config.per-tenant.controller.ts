@@ -8,14 +8,14 @@ import {
   Put,
   Post,
 } from '@nestjs/common';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { Organization, User } from '@prisma/client';
 import { ApiTags } from '@nestjs/swagger';
-import { OrgProviderConfigService } from '@postmill-ai/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service';
-import { OrgProviderConfigManager } from '@postmill-ai/nestjs-libraries/integrations/org-provider-config.manager';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { OrgProviderConfigService } from '@validpost/nestjs-libraries/database/prisma/provider-configs/org-provider-config.service';
+import { OrgProviderConfigManager } from '@validpost/nestjs-libraries/integrations/org-provider-config.manager';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 import {
   CreateChannelConfigDto,
   UpdateChannelConfigDto,

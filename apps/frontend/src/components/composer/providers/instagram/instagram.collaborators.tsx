@@ -3,16 +3,16 @@
 import {
   PostComment,
   withProvider,
-} from '@postmill-ai/frontend/components/composer/providers/high.order.provider';
+} from '@validpost/frontend/components/composer/providers/high.order.provider';
 import { FC } from 'react';
-import { Select } from '@postmill-ai/react/form/select';
-import { Checkbox } from '@postmill-ai/react/form/checkbox';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
-import { InstagramDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/instagram.dto';
-import { InstagramCollaboratorsTags } from '@postmill-ai/frontend/components/composer/providers/instagram/instagram.tags';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { InstagramPreview } from '@postmill-ai/frontend/components/composer/providers/instagram/instagram.preview';
-import { FirstCommentField } from '@postmill-ai/frontend/components/composer/providers/shared/first-comment.field';
+import { Select } from '@validpost/react/form/select';
+import { Checkbox } from '@validpost/react/form/checkbox';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
+import { InstagramDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/instagram.dto';
+import { InstagramCollaboratorsTags } from '@validpost/frontend/components/composer/providers/instagram/instagram.tags';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { InstagramPreview } from '@validpost/frontend/components/composer/providers/instagram/instagram.preview';
+import { FirstCommentField } from '@validpost/frontend/components/composer/providers/shared/first-comment.field';
 const postType = [
   {
     value: 'post',

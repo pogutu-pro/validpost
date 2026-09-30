@@ -1,17 +1,17 @@
 import { forwardRef, Injectable, Logger, Optional, Inject, HttpException } from '@nestjs/common';
-import { OrgMediaProviderSettingsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { ProviderKernel } from '@postmill-ai/provider-kernel';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { DefaultsSeedService } from '@postmill-ai/nestjs-libraries/ai/defaults/defaults-seed.service';
-import { ProviderCredentialLinkService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/provider-credential-link.service';
-import { OrgAiSettingsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.repository';
-import { isSafePublicHttpsUrl } from '@postmill-ai/nestjs-libraries/dtos/webhooks/webhook.url.validator';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { MediaProviderAdapter } from '@postmill-ai/nestjs-libraries/media/media-provider-adapter.interface';
+import { OrgMediaProviderSettingsRepository } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.repository';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { ProviderKernel } from '@validpost/provider-kernel';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { DefaultsSeedService } from '@validpost/nestjs-libraries/ai/defaults/defaults-seed.service';
+import { ProviderCredentialLinkService } from '@validpost/nestjs-libraries/database/prisma/media-providers/provider-credential-link.service';
+import { OrgAiSettingsRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.repository';
+import { isSafePublicHttpsUrl } from '@validpost/nestjs-libraries/dtos/webhooks/webhook.url.validator';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
+import { MediaProviderAdapter } from '@validpost/nestjs-libraries/media/media-provider-adapter.interface';
 
 const STANDARD_FOLDERS = ['documents', 'audio', 'images', 'video', 'other'];
 

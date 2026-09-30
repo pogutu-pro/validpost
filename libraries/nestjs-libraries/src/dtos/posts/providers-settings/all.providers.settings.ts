@@ -1,11 +1,11 @@
-import { YoutubeSettingsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/youtube.settings.dto';
-import { TikTokDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/tiktok.dto';
-import { DiscordDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/discord.dto';
-import { LinkedinDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/linkedin.dto';
-import { InstagramDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/instagram.dto';
-import { GmbSettingsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/gmb.settings.dto';
-import { FacebookDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/facebook.dto';
-import { ThreadsSettingsDto } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/threads.settings.dto';
+import { YoutubeSettingsDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/youtube.settings.dto';
+import { TikTokDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/tiktok.dto';
+import { DiscordDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/discord.dto';
+import { LinkedinDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/linkedin.dto';
+import { InstagramDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/instagram.dto';
+import { GmbSettingsDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/gmb.settings.dto';
+import { FacebookDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/facebook.dto';
+import { ThreadsSettingsDto } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/threads.settings.dto';
 import { IsIn } from 'class-validator';
 
 export type ProviderExtension<T extends string, M> = { __type: T } & M;

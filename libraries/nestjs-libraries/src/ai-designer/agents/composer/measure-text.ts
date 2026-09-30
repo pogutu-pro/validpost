@@ -63,7 +63,7 @@ const fontKey = (font: FontSpec | undefined, fontSize: number) =>
  * platform's fallback face does. Anything measuring the same as this is not
  * actually available.
  */
-const UNAVAILABLE_FACE = '__postmill_no_such_face__';
+const UNAVAILABLE_FACE = '__validpost_no_such_face__';
 
 /** Mixed widths, ascenders, descenders and digits, so two genuinely different
  * faces are very unlikely to agree on the total advance by accident. */

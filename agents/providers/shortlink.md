@@ -6,7 +6,7 @@ Current inventory: 20 shortlink modules (`libraries/providers/PROVIDERS_INVENTOR
 
 ## 1. Contract: `ShortLinkCapability`
 
-Defined in `libraries/providers/kernel/src/domains/shortlink.ts`, re-exported from `@postmill-ai/provider-kernel`.
+Defined in `libraries/providers/kernel/src/domains/shortlink.ts`, re-exported from `@validpost/provider-kernel`.
 
 ```ts
 export interface ShortLinkCapability {
@@ -61,7 +61,7 @@ Mirror `libraries/providers/bitly/`:
 
 ```
 libraries/providers/<id>/
-├── package.json            # name: @postmill-ai/provider-<id>, main/types: src/index.ts, test: vitest run
+├── package.json            # name: @validpost/provider-<id>, main/types: src/index.ts, test: vitest run
 └── src/
     ├── index.ts            # default-exports ProviderModule[]
     └── v1/
@@ -95,9 +95,9 @@ export const bitlyShortlinkModule: ProviderModule<any, any> = {
 
 Registration (manual edits despite the `generated` filename — no generator script exists):
 
-1. Add `"@postmill-ai/provider-<id>": "workspace:*"` to `apps/backend/package.json`.
-2. Add the two path aliases (`"@postmill-ai/provider-<id>"` and `"@postmill-ai/provider-<id>/*"`) to `tsconfig.base.json` — see `agents/providers/overview.md` § Registration for the exact shape.
-3. Add the import (`import <id>Modules from '@postmill-ai/provider-<id>'`) and spread (`...<id>Modules`) to `apps/backend/src/providers.generated.ts` (`providerModules` array).
+1. Add `"@validpost/provider-<id>": "workspace:*"` to `apps/backend/package.json`.
+2. Add the two path aliases (`"@validpost/provider-<id>"` and `"@validpost/provider-<id>/*"`) to `tsconfig.base.json` — see `agents/providers/overview.md` § Registration for the exact shape.
+3. Add the import (`import <id>Modules from '@validpost/provider-<id>'`) and spread (`...<id>Modules`) to `apps/backend/src/providers.generated.ts` (`providerModules` array).
 4. `pnpm install` from the repo root.
 
 Boot: `apps/backend/src/providers.bootstrap.ts` registers modules with the kernel; domain `shortlink` is gated by the `shortlinks` feature flag (`DEV_DISABLE_SHORTLINKS`). Resolution at runtime goes through `ProviderResolutionService` — see `libraries/nestjs-libraries/src/short-linking/short.link.service.ts`, which calls `resolved.adapter.resolveDomain/createShortLink(...)`.
@@ -146,7 +146,7 @@ The 48×48 PNG tiles under `apps/frontend/public/icons/shortlinks/<id>.png` were
 
 ## 8. Tests
 
-- Conformance (required): copy `libraries/providers/bitly/src/v1/__tests__/conformance.spec.ts` — `runDomainConformance('shortlink', module, { requiredMethods: [...], capabilityKeys: ['create','expand','statistics','bulkStatistics','customDomain'] })` from `@postmill-ai/provider-kernel`.
+- Conformance (required): copy `libraries/providers/bitly/src/v1/__tests__/conformance.spec.ts` — `runDomainConformance('shortlink', module, { requiredMethods: [...], capabilityKeys: ['create','expand','statistics','bulkStatistics','customDomain'] })` from `@validpost/provider-kernel`.
 - Adapter unit tests: mock `SafeFetchPort` and assert headers/URLs/parsing — see `libraries/providers/bitly/src/v1/__tests__/bitly.adapter.spec.ts`.
 - Cross-cutting: `libraries/providers/kernel/src/__tests__/all-providers.conformance.spec.ts` enumerates `providerModules` — your module is picked up automatically once registered.
 - Backend surface tests for reference: `apps/backend/src/short-linking-providers.spec.ts`, `apps/backend/src/api/routes/org-shortlink-settings.controller.spec.ts`.
@@ -154,7 +154,7 @@ The 48×48 PNG tiles under `apps/frontend/public/icons/shortlinks/<id>.png` were
 
 ## Checklist
 
-1. [ ] Create `libraries/providers/<id>/` (`package.json` named `@postmill-ai/provider-<id>`, `src/index.ts`, `src/v1/{shortlink.adapter.ts,metadata.ts}`).
+1. [ ] Create `libraries/providers/<id>/` (`package.json` named `@validpost/provider-<id>`, `src/index.ts`, `src/v1/{shortlink.adapter.ts,metadata.ts}`).
 2. [ ] Implement the adapter: extend `BaseShortLinkAdapter`, fill `_headers`/`_validateUrl`/`_clicksFor`/`resolveDomain`/`createShortLink`; set `identifier`, `name`, `authType`, `credentialFields`, `capabilities`, `defaultDomain`.
 3. [ ] Set `capabilities` flags to match the methods actually implemented; add optional `expandShortLink`/`listLinks` only if the API supports them.
 4. [ ] If OAuth2: set `authType = 'oauth2'`, add the `oauth` object (`authorizeUrl` + `exchangeCode`), read `clientId`/`clientSecret` from `ctx.extraConfig`.

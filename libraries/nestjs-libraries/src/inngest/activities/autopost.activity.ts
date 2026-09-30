@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AutopostService } from '@postmill-ai/nestjs-libraries/database/prisma/autopost/autopost.service';
+import { AutopostService } from '@validpost/nestjs-libraries/database/prisma/autopost/autopost.service';
 
 @Injectable()
 export class AutopostActivity {

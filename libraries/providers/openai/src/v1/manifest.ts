@@ -1,4 +1,4 @@
-import { ProviderManifest, type AiCapability, type AiCapabilities } from '@postmill-ai/provider-kernel';
+import { ProviderManifest, type AiCapability, type AiCapabilities } from '@validpost/provider-kernel';
 
 export const OPENAI_CAPABILITIES: AiCapabilities = {
   text: true,

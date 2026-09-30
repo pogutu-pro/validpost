@@ -13,7 +13,7 @@ import {
 } from './smart-filters';
 import { SmartFilterList } from './panels/smart-filter-list';
 import { createDesignerStore, type DesignerElement } from './designer.store';
-import { MAX_SMART_FILTERS } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.limits';
+import { MAX_SMART_FILTERS } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.limits';
 
 /**
  * The non-destructive filter stack.
@@ -22,7 +22,7 @@ import { MAX_SMART_FILTERS } from '@postmill-ai/nestjs-libraries/media/designer-
  * the whole feature, because the bake that follows just replays them.
  */
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>

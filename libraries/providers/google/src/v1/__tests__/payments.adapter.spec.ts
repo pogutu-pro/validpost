@@ -26,7 +26,7 @@ vi.mock('google-auth-library', () => ({
 }));
 
 import { GooglePaymentsAdapter } from '../payments.adapter';
-import { PaymentsWebhookVerificationError } from '@postmill-ai/provider-kernel';
+import { PaymentsWebhookVerificationError } from '@validpost/provider-kernel';
 
 const ORG = 'org-uuid-1';
 const purchase = (overrides: Record<string, any> = {}) => ({
@@ -34,7 +34,7 @@ const purchase = (overrides: Record<string, any> = {}) => ({
   acknowledgementState: 'ACKNOWLEDGEMENT_STATE_PENDING',
   latestOrderId: 'GPA.1',
   externalAccountIdentifiers: { obfuscatedExternalAccountId: ORG },
-  lineItems: [{ productId: 'postmill.team.yearly', expiryTime: '2030-01-01T00:00:00Z', autoRenewingPlan: { autoRenewEnabled: true } }],
+  lineItems: [{ productId: 'validpost.team.yearly', expiryTime: '2030-01-01T00:00:00Z', autoRenewingPlan: { autoRenewEnabled: true } }],
   ...overrides,
 });
 const rtdn = (payload: any, messageId = 'm1') => ({
@@ -43,15 +43,15 @@ const rtdn = (payload: any, messageId = 'm1') => ({
   query: {},
 });
 const subNotification = (notificationType: number, purchaseToken = 'tok_1') => ({
-  packageName: 'ai.postmill.app',
-  subscriptionNotification: { notificationType, purchaseToken, subscriptionId: 'postmill.team.yearly' },
+  packageName: 'io.validpost.app',
+  subscriptionNotification: { notificationType, purchaseToken, subscriptionId: 'validpost.team.yearly' },
 });
 
 let adapter: GooglePaymentsAdapter;
 
 beforeEach(() => {
   vi.clearAllMocks();
-  process.env.GOOGLE_PLAY_PACKAGE_NAME = 'ai.postmill.app';
+  process.env.GOOGLE_PLAY_PACKAGE_NAME = 'io.validpost.app';
   process.env.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON = Buffer.from('{"client_email":"sa@x"}').toString('base64');
   process.env.GOOGLE_PLAY_RTDN_SERVICE_ACCOUNT_EMAIL = 'push@x.iam.gserviceaccount.com';
   process.env.GOOGLE_PLAY_RTDN_AUDIENCE = 'https://api/payments/webhooks/google';
@@ -72,10 +72,10 @@ describe('config', () => {
 
 describe('verifyPurchase', () => {
   it('reads the purchase from Play ONCE, acknowledges it, and activates keyed on the token', async () => {
-    const events = await adapter.verifyPurchase({ orgId: ORG, payload: { purchaseToken: 'tok_1', productId: 'postmill.team.yearly' } });
+    const events = await adapter.verifyPurchase({ orgId: ORG, payload: { purchaseToken: 'tok_1', productId: 'validpost.team.yearly' } });
     expect(api.get).toHaveBeenCalledTimes(1);
-    expect(api.get).toHaveBeenCalledWith({ packageName: 'ai.postmill.app', token: 'tok_1' });
-    expect(api.acknowledge).toHaveBeenCalledWith({ packageName: 'ai.postmill.app', subscriptionId: 'postmill.team.yearly', token: 'tok_1' });
+    expect(api.get).toHaveBeenCalledWith({ packageName: 'io.validpost.app', token: 'tok_1' });
+    expect(api.acknowledge).toHaveBeenCalledWith({ packageName: 'io.validpost.app', subscriptionId: 'validpost.team.yearly', token: 'tok_1' });
     expect(events).toEqual([
       {
         type: 'subscription.activated',
@@ -126,7 +126,7 @@ describe('verifyPurchase', () => {
   });
 
   it('accepts product.basePlan ids and ignores foreign products', async () => {
-    api.get.mockResolvedValue({ data: purchase({ lineItems: [{ productId: 'postmill.pro', offerDetails: { basePlanId: 'monthly' }, expiryTime: '2030-01-01T00:00:00Z' }] }) });
+    api.get.mockResolvedValue({ data: purchase({ lineItems: [{ productId: 'validpost.pro', offerDetails: { basePlanId: 'monthly' }, expiryTime: '2030-01-01T00:00:00Z' }] }) });
     expect((await adapter.verifyPurchase({ orgId: ORG, payload: { purchaseToken: 'tok_1' } }))[0]).toMatchObject({ state: { tier: 'PRO', period: 'MONTHLY' } });
     api.get.mockResolvedValue({ data: purchase({ lineItems: [{ productId: 'other.thing' }] }) });
     expect(await adapter.verifyPurchase({ orgId: ORG, payload: { purchaseToken: 'tok_1' } })).toEqual([]);
@@ -155,7 +155,7 @@ describe('receiveWebhook (Pub/Sub push)', () => {
       expect.objectContaining({ type: 'subscription.updated' }),
     ]);
 
-    api.get.mockResolvedValue({ data: purchase({ subscriptionState: 'SUBSCRIPTION_STATE_CANCELED', lineItems: [{ productId: 'postmill.team.yearly', expiryTime: '2030-01-01T00:00:00Z', autoRenewingPlan: { autoRenewEnabled: false } }] }) });
+    api.get.mockResolvedValue({ data: purchase({ subscriptionState: 'SUBSCRIPTION_STATE_CANCELED', lineItems: [{ productId: 'validpost.team.yearly', expiryTime: '2030-01-01T00:00:00Z', autoRenewingPlan: { autoRenewEnabled: false } }] }) });
     expect((await adapter.receiveWebhook(rtdn(subNotification(3), 'm3'))).events[0]).toMatchObject({ type: 'subscription.updated', state: { status: 'active', cancelAt: new Date('2030-01-01T00:00:00Z') } });
 
     api.get.mockResolvedValue({ data: purchase({ subscriptionState: 'SUBSCRIPTION_STATE_ON_HOLD' }) });
@@ -223,9 +223,9 @@ describe('receiveWebhook (Pub/Sub push)', () => {
   });
 
   it('records test notifications, skips foreign packages, cancels voided purchases, ignores unknown types', async () => {
-    expect(await adapter.receiveWebhook(rtdn({ packageName: 'ai.postmill.app', testNotification: { version: '1.0' } }, 't'))).toEqual({ eventId: 't', eventType: 'rtdn.test', events: [] });
+    expect(await adapter.receiveWebhook(rtdn({ packageName: 'io.validpost.app', testNotification: { version: '1.0' } }, 't'))).toEqual({ eventId: 't', eventType: 'rtdn.test', events: [] });
     expect(await adapter.receiveWebhook(rtdn({ packageName: 'other.app', subscriptionNotification: { notificationType: 4, purchaseToken: 'x' } }, 'f'))).toEqual({ eventId: 'f', eventType: 'rtdn.foreign-package', events: [], skipRecord: true });
-    expect((await adapter.receiveWebhook(rtdn({ packageName: 'ai.postmill.app', voidedPurchaseNotification: { purchaseToken: 'tok_v' } }, 'v'))).events).toEqual([{ type: 'subscription.canceled', customerRef: 'tok_v' }]);
+    expect((await adapter.receiveWebhook(rtdn({ packageName: 'io.validpost.app', voidedPurchaseNotification: { purchaseToken: 'tok_v' } }, 'v'))).events).toEqual([{ type: 'subscription.canceled', customerRef: 'tok_v' }]);
     expect((await adapter.receiveWebhook(rtdn(subNotification(99), 'u'))).events).toEqual([]);
     await expect(adapter.receiveWebhook({ rawBody: Buffer.from('{}'), headers: { authorization: 'Bearer oidc' }, query: {} })).rejects.toBeInstanceOf(PaymentsWebhookVerificationError);
   });
@@ -237,6 +237,6 @@ describe('hooks', () => {
     expect((await adapter.fetchSubscriptionState({ customerRef: 'tok_1' }))?.status).toBe('past_due');
     api.get.mockRejectedValue(new Error('x'));
     expect(await adapter.fetchSubscriptionState({ customerRef: 'tok_1' })).toBeNull();
-    expect(await adapter.manageUrl()).toBe('https://play.google.com/store/account/subscriptions?package=ai.postmill.app');
+    expect(await adapter.manageUrl()).toBe('https://play.google.com/store/account/subscriptions?package=io.validpost.app');
   });
 });

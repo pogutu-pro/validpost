@@ -2,11 +2,11 @@ import 'reflect-metadata';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { ServiceUnavailableException } from '@nestjs/common';
 import { HealthController } from './health.controller';
-import { HealthService } from '@postmill-ai/backend/services/health.service';
+import { HealthService } from '@validpost/backend/services/health.service';
 
 const safeFetchMock = vi.fn();
 
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: (...args: unknown[]) => safeFetchMock(...args),
 }));
 

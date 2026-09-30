@@ -2,12 +2,12 @@
 
 import { FC, useCallback, useState } from 'react';
 import clsx from 'clsx';
-import Loading from '@postmill-ai/frontend/components/layout/loading';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { AiErrorDisplay } from '@postmill-ai/frontend/components/ai/ai-error-display';
+import Loading from '@validpost/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { AiErrorDisplay } from '@validpost/frontend/components/ai/ai-error-display';
 
 const AiBestTimeModal: FC<{ close: () => void }> = (props) => {
   const { close } = props;

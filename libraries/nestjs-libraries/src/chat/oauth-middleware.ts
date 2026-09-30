@@ -10,7 +10,7 @@
 
 import type * as http from 'node:http';
 
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import type { MCPServerOAuthConfig, TokenValidationResult } from './oauth-types';
 import {
   generateProtectedResourceMetadata,

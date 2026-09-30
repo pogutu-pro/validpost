@@ -1,5 +1,5 @@
 import { Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
-import { PaymentsCapability } from '@postmill-ai/provider-kernel';
+import { PaymentsCapability } from '@validpost/provider-kernel';
 import {
   PAYMENT_PROVIDER_ENV,
   PaymentProviderId,
@@ -11,8 +11,8 @@ import {
   publicPaymentsConfig,
   resolveDefaultNativePaymentProvider,
   resolveDefaultWebPaymentProvider,
-} from '@postmill-ai/helpers/billing/payments.env';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
+} from '@validpost/helpers/billing/payments.env';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
 
 /**
  * Which payment providers this deployment runs. Thin wrapper over the pure env

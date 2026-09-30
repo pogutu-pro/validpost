@@ -1,6 +1,6 @@
 # Team & Roles
 
-Postmill uses role-based access control (RBAC) for every organisation. The **Settings → Team** page shows members, and the **Manage roles** modal defines which permissions each role holds.
+ValidPost uses role-based access control (RBAC) for every organisation. The **Settings → Team** page shows members, and the **Manage roles** modal defines which permissions each role holds.
 
 ## Managing members
 

@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: "Postmill"
+  name: "ValidPost"
   text: "The AI-native social media management platform"
   tagline: "Schedule to 45+ channels, reply from one inbox, design in-app, and run AI on your own keys."
   actions:

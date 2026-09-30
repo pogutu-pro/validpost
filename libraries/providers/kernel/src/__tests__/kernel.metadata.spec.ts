@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { ProviderKernel } from '../kernel';
-import { providerModules } from '@postmill-ai/backend/providers.generated';
+import { providerModules } from '@validpost/backend/providers.generated';
 import {
   AI_MODEL_CATEGORIES,
   AI_MEDIA_CATEGORIES,
-} from '@postmill-ai/nestjs-libraries/ai/defaults/default-categories';
+} from '@validpost/nestjs-libraries/ai/defaults/default-categories';
 import { LANGUAGE_CODES } from '../domains/languages';
 
 // Orchestration categories have no model catalog by design — they reuse another

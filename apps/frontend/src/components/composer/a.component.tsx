@@ -1,8 +1,8 @@
 'use client';
 
 import { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { usePromptModal } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { usePromptModal } from '@validpost/frontend/components/layout/new-modal';
 
 export const AComponent: FC<{
   editor: any;

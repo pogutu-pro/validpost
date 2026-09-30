@@ -1,7 +1,7 @@
 'use client';
 
 import { Component, FC, ReactNode } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface Props {
   children: ReactNode;

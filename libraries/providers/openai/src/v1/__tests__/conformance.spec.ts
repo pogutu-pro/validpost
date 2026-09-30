@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { runDomainConformance } from '@postmill-ai/provider-kernel';
+import { runDomainConformance } from '@validpost/provider-kernel';
 import defaultModules from '../..';
 
 describe('openai provider conformance', () => {

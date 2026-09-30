@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect } from 'react';
 import useSWR from 'swr';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { MainBillingComponent } from './main.billing.component';
 export const BillingComponent = () => {
   const fetch = useFetch();

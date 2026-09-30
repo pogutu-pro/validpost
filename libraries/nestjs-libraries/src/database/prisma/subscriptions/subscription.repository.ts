@@ -3,8 +3,8 @@ import {
   PrismaRepository,
   PrismaTransaction,
   PrismaService,
-} from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { AddonExtraColumn } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
+} from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { AddonExtraColumn } from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
 import dayjs from 'dayjs';
 import { Organization } from '@prisma/client';
 

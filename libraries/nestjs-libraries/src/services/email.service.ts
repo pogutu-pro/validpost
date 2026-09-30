@@ -1,12 +1,12 @@
 import { createHash } from 'crypto';
 import { Injectable, Logger } from '@nestjs/common';
-import { EmailAdapterRegistry } from '@postmill-ai/nestjs-libraries/emails/email-adapter.registry';
-import { EmailLogService } from '@postmill-ai/nestjs-libraries/database/prisma/emails/email-log.service';
+import { EmailAdapterRegistry } from '@validpost/nestjs-libraries/emails/email-adapter.registry';
+import { EmailLogService } from '@validpost/nestjs-libraries/database/prisma/emails/email-log.service';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { timer } from '@postmill-ai/helpers/utils/timer';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { timer } from '@validpost/helpers/utils/timer';
 
 @Injectable()
 export class EmailService {

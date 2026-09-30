@@ -13,20 +13,20 @@ const mockT = vi.fn(
     (fallback ?? _key).replace(/\{\{(\w+)\}\}/g, (m, k) => vars?.[k] ?? m)
 );
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => mockT,
 }));
 
 const mockDecisionOpen = vi.fn().mockResolvedValue(true);
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useDecisionModal: () => ({ open: mockDecisionOpen }),
 }));
 
@@ -374,13 +374,13 @@ describe('CommsConfigForm platform connect', () => {
     await waitFor(() =>
       expect(openSpy).toHaveBeenCalledWith(
         'https://oauth.example/consent',
-        'postmill-comms-oauth',
+        'validpost-comms-oauth',
         'width=640,height=720,popup',
       ),
     );
   });
 
-  it('stays open and refetches when the popup posts postmill:comms-connected', async () => {
+  it('stays open and refetches when the popup posts validpost:comms-connected', async () => {
     const onClose = vi.fn();
     await renderForm('oauth-demo', onClose);
     fireEvent.click(await screen.findByText('Connect with OAuth Demo'));
@@ -392,7 +392,7 @@ describe('CommsConfigForm platform connect', () => {
     fireEvent(
       window,
       new MessageEvent('message', {
-        data: { type: 'postmill:comms-connected', provider: 'oauth-demo' },
+        data: { type: 'validpost:comms-connected', provider: 'oauth-demo' },
         origin: window.location.origin,
       }),
     );
@@ -415,7 +415,7 @@ describe('CommsConfigForm platform connect', () => {
     fireEvent(
       window,
       new MessageEvent('message', {
-        data: { type: 'postmill:comms-connected', provider: 'oauth-demo' },
+        data: { type: 'validpost:comms-connected', provider: 'oauth-demo' },
         origin: 'https://evil.example',
       }),
     );

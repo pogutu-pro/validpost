@@ -1,11 +1,11 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { createTool } from '@mastra/core/tools';
 import { Injectable } from '@nestjs/common';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { MediaDefaultsService } from '@postmill-ai/nestjs-libraries/ai/defaults/media-defaults.service';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { MediaDefaultsService } from '@validpost/nestjs-libraries/ai/defaults/media-defaults.service';
 import { z } from 'zod';
-import { parseOrg, requireRead } from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
+import { parseOrg, requireRead } from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
 
 @Injectable()
 export class ListMediaProvidersTool implements AgentToolInterface {

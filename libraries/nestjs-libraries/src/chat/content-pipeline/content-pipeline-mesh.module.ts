@@ -1,4 +1,4 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Global, Logger, Module, OnModuleInit } from '@nestjs/common';
 import { AgentRegistrySchema } from '@reaatech/agent-mesh-registry';
 import { CONTENT_PIPELINE_AGENTS } from './pipeline-registry.data';

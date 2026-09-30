@@ -12,7 +12,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   isTransientStatus,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // LTX Studio (Lightricks) official developer API — own-key Bearer provider configured at
 // Settings → Media. Video-only: text-to-video, image-to-video, and audio-to-video, all on the LTX-2 /

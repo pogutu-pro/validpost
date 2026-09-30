@@ -1,11 +1,11 @@
 import {
   billingEnabled,
   publicPaymentsConfig,
-} from '@postmill-ai/helpers/billing/payments.env';
+} from '@validpost/helpers/billing/payments.env';
 import {
   NO_PAYMENTS,
   PaymentsVariables,
-} from '@postmill-ai/react/helpers/variable.context';
+} from '@validpost/react/helpers/variable.context';
 
 /**
  * Server-side (layout) view of the payment configuration: the billing master

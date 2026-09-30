@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
-import { AfterActivate } from '@postmill-ai/frontend/components/auth/after.activate';
+import { AfterActivate } from '@validpost/frontend/components/auth/after.activate';
 export const metadata: Metadata = {
   title: `ValidPost - Activate your account`,
   description: '',

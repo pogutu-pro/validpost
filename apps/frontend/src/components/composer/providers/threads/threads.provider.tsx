@@ -3,9 +3,9 @@
 import {
   PostComment,
   withProvider,
-} from '@postmill-ai/frontend/components/composer/providers/high.order.provider';
-import { ThreadFinisher } from '@postmill-ai/frontend/components/composer/finisher/thread.finisher';
-import { FirstCommentField } from '@postmill-ai/frontend/components/composer/providers/shared/first-comment.field';
+} from '@validpost/frontend/components/composer/providers/high.order.provider';
+import { ThreadFinisher } from '@validpost/frontend/components/composer/finisher/thread.finisher';
+import { FirstCommentField } from '@validpost/frontend/components/composer/providers/shared/first-comment.field';
 const SettingsComponent = () => {
   return (
     <>

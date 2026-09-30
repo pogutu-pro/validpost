@@ -1,7 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 
 /**
  * Whether the current org's AI agent scope is actually usable.
@@ -12,7 +12,7 @@ import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
  * mounting CopilotKit for a provider that fails agent-scope resolution makes
  * the /copilot/chat handshake reject (the runtime has no usable agent), which
  * cascades into "Agent 'default' not found" / `.map is not a function` crashes
- * on every page (Sentry POSTMILL-APP-D/E/F).
+ * on every page (Sentry VALIDPOST-APP-D/E/F).
  * Returns `undefined` while loading so callers can avoid flashing AI UI before
  * the answer is known. When `false`, the app must NOT mount CopilotKit — route
  * the user to the AI setup page (`/settings/ai/llm-providers`) instead. See

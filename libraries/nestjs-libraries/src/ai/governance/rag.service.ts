@@ -1,14 +1,14 @@
 import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { createHash } from 'crypto';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AiRagRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-rag/ai-rag.repository';
-import { OrgDefaultModelRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiRagRepository } from '@validpost/nestjs-libraries/database/prisma/ai-rag/ai-rag.repository';
+import { OrgDefaultModelRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
 import { AIModelProvider } from '../ai-model.provider';
 import { AiSettingsManager } from '../ai-settings.manager';
 import { SCOPE_TO_CATEGORY } from '../defaults/default-categories';
 import { BudgetService } from './budget.service';
 import { BudgetExceeded } from './errors';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 import { PgVectorStoreAdapter } from '../rag/pgvector.adapter';
 import { QdrantVectorStoreAdapter } from '../rag/qdrant.adapter';
 import { PineconeVectorStoreAdapter } from '../rag/pinecone.adapter';
@@ -22,7 +22,7 @@ export interface RagSettings {
   embeddingDimension?: number;
   chunkSize?: number;
   chunkOverlap?: number;
-  // Pluggable vector store. 'pgvector' = the built-in Postmill default (app DB);
+  // Pluggable vector store. 'pgvector' = the built-in ValidPost default (app DB);
   // the others are remote stores configured per-deployment.
   vectorStore?: VectorStoreKind;
   // Qdrant (remote)
@@ -372,7 +372,7 @@ export class RagService implements OnModuleInit, OnModuleDestroy {
       return new QdrantVectorStoreAdapter({
         url: rag.qdrantUrl,
         apiKey: rag.qdrantApiKey,
-        collectionName: rag.qdrantCollection || 'postmill_rag',
+        collectionName: rag.qdrantCollection || 'validpost_rag',
         dimension,
         distance: rag.distance || 'Cosine',
       });

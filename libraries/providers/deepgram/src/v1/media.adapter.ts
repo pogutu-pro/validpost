@@ -9,7 +9,7 @@ import {
   SafeFetchPort,
   ProviderModule,
   mediaUpstreamError,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 interface DeepgramListenResponse {
   results?: {

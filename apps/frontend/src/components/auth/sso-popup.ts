@@ -1,9 +1,9 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useReturnUrl } from '@postmill-ai/frontend/app/(app)/auth/return.url.component';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useReturnUrl } from '@validpost/frontend/app/(app)/auth/return.url.component';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 // Social sign-in in a popup — the same handshake Settings → Comms uses for a
 // channel connect (comms-config.modal.tsx / comms.tab.tsx), lifted into a
@@ -27,15 +27,15 @@ import { useT } from '@postmill-ai/react/translation/get.transation.service.clie
 // the callback assumes "popup" unless this tab marked itself as the
 // full-page fallback (sessionStorage — tab-local, survives the round trip).
 
-export const SSO_POPUP_NAME = 'postmill-sso';
+export const SSO_POPUP_NAME = 'validpost-sso';
 export const SSO_POPUP_FEATURES = 'width=640,height=720,popup';
-export const SSO_COMPLETE_STORAGE_KEY = 'postmill:sso-complete';
-export const SSO_COMPLETE_MESSAGE_TYPE = 'postmill:sso-complete';
+export const SSO_COMPLETE_STORAGE_KEY = 'validpost:sso-complete';
+export const SSO_COMPLETE_MESSAGE_TYPE = 'validpost:sso-complete';
 // Set (sessionStorage) right before a full-page navigation to the provider,
 // so the callback knows it IS the user's tab and must not window.close() it.
 // A script-opened popup never carries it (written only after window.open()
 // failed, or by the in-tab Farcaster/Wallet buttons).
-export const SSO_FULLPAGE_STORAGE_KEY = 'postmill:sso-fullpage';
+export const SSO_FULLPAGE_STORAGE_KEY = 'validpost:sso-fullpage';
 // How long the opener keeps listening after the popup handle reports closed.
 export const SSO_GRACE_MS = 10 * 60 * 1000;
 // How long a callback page waits after window.close() before concluding it

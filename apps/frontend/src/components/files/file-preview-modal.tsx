@@ -2,13 +2,13 @@
 
 import React, { FC } from 'react';
 import { useRouter } from 'next/navigation';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { AudioPlayer } from '@postmill-ai/frontend/components/media-tools/audio-player';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import i18next from '@postmill-ai/react/translation/i18next';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { AudioPlayer } from '@validpost/frontend/components/media-tools/audio-player';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
 import type { FileItem } from './file-manager';
 
 const fileSize = (bytes: number, t: ReturnType<typeof useT>) => {

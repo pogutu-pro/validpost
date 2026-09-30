@@ -1,8 +1,8 @@
 import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
 
 /**
  * Deployment-wide (super-admin) caps from AISystemSettings.budgetSettings —

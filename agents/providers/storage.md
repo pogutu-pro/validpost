@@ -4,7 +4,7 @@ Storage providers are kernel packages under `libraries/providers/<id>` that impl
 
 ## Contract: `StorageCapability`
 
-Defined in `libraries/providers/kernel/src/domains/storage.ts`, re-exported from `@postmill-ai/provider-kernel`:
+Defined in `libraries/providers/kernel/src/domains/storage.ts`, re-exported from `@validpost/provider-kernel`:
 
 ```ts
 export interface StorageUploadProvider {
@@ -47,8 +47,8 @@ Complete minimal package, modeled on `libraries/providers/backblaze-b2`:
 
 ```
 libraries/providers/<id>/
-  package.json            # name @postmill-ai/provider-<id>, main/types src/index.ts,
-                          # dep @postmill-ai/provider-kernel: workspace:*, script test: vitest run
+  package.json            # name @validpost/provider-<id>, main/types src/index.ts,
+                          # dep @validpost/provider-kernel: workspace:*, script test: vitest run
   src/index.ts            # default-exports [<id>StorageModule]
   src/v1/index.ts         # export { <id>StorageModule } from './storage.adapter';
   src/v1/metadata.ts      # ProviderMetadata (see below)
@@ -59,7 +59,7 @@ libraries/providers/<id>/
 
 ```ts
 import { metadata as providerMetadata } from './metadata';
-import { makeS3StorageModule } from '@postmill-ai/provider-kernel';
+import { makeS3StorageModule } from '@validpost/provider-kernel';
 
 export const exampleStorageModule = makeS3StorageModule({
   type: 'EXAMPLE',                                        // must match the Prisma enum value
@@ -79,7 +79,7 @@ exampleStorageModule.metadata = providerMetadata;
 `src/v1/metadata.ts` (copy the sibling shape exactly — storage providers declare `kind: 'action'`, `domains: []`):
 
 ```ts
-import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+import { ProviderMetadata } from '@validpost/provider-kernel';
 
 export const metadata: ProviderMetadata = {
   website: 'https://example.com/',
@@ -105,7 +105,7 @@ Write a bespoke adapter (implement `StorageCapability` + hand-roll the `Provider
 | `local` | Writes to the local filesystem; no credentials; tenant-scoped directories |
 | `medialocker` | REST API (presign upload/download), not S3 protocol |
 
-Even bespoke adapters reuse kernel helpers `parseDataUrl`, `fromBuffer`, `fromFile` (exported from `@postmill-ai/provider-kernel`) and the same mime allowlists. The allowlists in `S3StorageBase` are a security invariant: uploads are restricted to image/video/audio/font mimes (`ALLOWED_MIME_TYPES`), `writeBuffer` to `STORED_ARTIFACT_ALLOWED_MIME` (adds webm, `text/plain`, `application/json`) so a provider cannot land `text/html` in an org bucket. Preserve equivalent gating in bespoke code.
+Even bespoke adapters reuse kernel helpers `parseDataUrl`, `fromBuffer`, `fromFile` (exported from `@validpost/provider-kernel`) and the same mime allowlists. The allowlists in `S3StorageBase` are a security invariant: uploads are restricted to image/video/audio/font mimes (`ALLOWED_MIME_TYPES`), `writeBuffer` to `STORED_ARTIFACT_ALLOWED_MIME` (adds webm, `text/plain`, `application/json`) so a provider cannot land `text/html` in an org bucket. Preserve equivalent gating in bespoke code.
 
 ## Prisma enum quirk (critical)
 
@@ -139,9 +139,9 @@ Precedent: `migrations/20260714150606_add_medialocker_storage_type/migration.sql
 
 `apps/backend/src/providers.generated.ts` is **hand-maintained** (no generator script). Three edits:
 
-1. `apps/backend/src/providers.generated.ts` — `import exampleModules from '@postmill-ai/provider-example';` (alphabetical) and spread `...exampleModules` into `providerModules`.
-2. `apps/backend/package.json` — add `"@postmill-ai/provider-example": "workspace:*"` to dependencies.
-3. `tsconfig.base.json` — add both path entries: `"@postmill-ai/provider-example": ["libraries/providers/example/src"]` and `"@postmill-ai/provider-example/*": ["libraries/providers/example/src/*"]`.
+1. `apps/backend/src/providers.generated.ts` — `import exampleModules from '@validpost/provider-example';` (alphabetical) and spread `...exampleModules` into `providerModules`.
+2. `apps/backend/package.json` — add `"@validpost/provider-example": "workspace:*"` to dependencies.
+3. `tsconfig.base.json` — add both path entries: `"@validpost/provider-example": ["libraries/providers/example/src"]` and `"@validpost/provider-example/*": ["libraries/providers/example/src/*"]`.
 
 `pnpm-workspace.yaml` already globs `libraries/providers/*`. `libraries/providers/PROVIDERS_INVENTORY.md` claims to be machine-generated but **no generator script exists in-repo** — maintain it by hand: add the new module row and bump the `storage=14` count.
 
@@ -165,7 +165,7 @@ Icon (optional): `apps/frontend/src/components/shared/provider-icon.tsx`. Withou
 - Conformance spec in the new package at `src/v1/__tests__/conformance.spec.ts`, copied from `libraries/providers/cloudflare-r2/src/v1/__tests__/conformance.spec.ts`: find the storage module in the package's default export and call `runDomainConformance('storage', mod, { requiredMethods: ['uploadSimple','uploadFile','removeFile','testConnection','listFiles','getFileUrl','deleteFile','getUsageBytes','writeBuffer','readFile'] })`.
 - Repo-wide conformance: `libraries/providers/kernel/src/__tests__/all-providers.conformance.spec.ts` iterates `providerModules` — it covers the new module automatically once registered.
 - Backend behavior: `apps/backend/src/api/routes/storage.controller.spec.ts` exercises `/settings/storage` CRUD/test flows.
-- Run: `pnpm --filter @postmill-ai/provider-example test`, or the whole providers tree with `vitest run --root libraries/providers`. See `agents/testing.md`.
+- Run: `pnpm --filter @validpost/provider-example test`, or the whole providers tree with `vitest run --root libraries/providers`. See `agents/testing.md`.
 
 ## Checklist
 
@@ -176,5 +176,5 @@ Icon (optional): `apps/frontend/src/components/shared/provider-icon.tsx`. Withou
 5. [ ] Refresh `libraries/providers/PROVIDERS_INVENTORY.md` (module row + per-domain count).
 6. [ ] Frontend: add the type to `allProviderTypes` in `provider-form.modal.tsx`, `PROVIDER_TYPE_LABELS` and `CLOUD_TYPES` in `storage.tab.tsx`; add `TYPE_FIELD_SPECS` only for non-default fields; optionally add icon entries in `provider-icon.tsx`.
 7. [ ] Add `src/v1/__tests__/conformance.spec.ts` with `runDomainConformance('storage', …)` and all ten required methods.
-8. [ ] Run `pnpm --filter @postmill-ai/provider-<id> test` and `vitest run --root libraries/providers`; fix any conformance or metadata failures.
+8. [ ] Run `pnpm --filter @validpost/provider-<id> test` and `vitest run --root libraries/providers`; fix any conformance or metadata failures.
 9. [ ] Smoke-test in the UI: Settings → Storage → Add Provider, pick the new type, save, and run Test Connection on the created config.

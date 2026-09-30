@@ -14,35 +14,35 @@ import React, {
 } from 'react';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { PROVIDER_CAPABILITIES } from '@postmill-ai/provider-kernel/domains/social-capabilities';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { PROVIDER_CAPABILITIES } from '@validpost/provider-kernel/domains/social-capabilities';
 import EmojiPicker from 'emoji-picker-react';
 import { Theme } from 'emoji-picker-react';
-import { BoldText } from '@postmill-ai/frontend/components/composer/bold.text';
-import { UText } from '@postmill-ai/frontend/components/composer/u.text';
-import { SignatureBox } from '@postmill-ai/frontend/components/signature';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { BoldText } from '@validpost/frontend/components/composer/bold.text';
+import { UText } from '@validpost/frontend/components/composer/u.text';
+import { SignatureBox } from '@validpost/frontend/components/signature';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   SelectedIntegrations,
   useLaunchStore,
-} from '@postmill-ai/frontend/components/composer/store';
+} from '@validpost/frontend/components/composer/store';
 import { useShallow } from 'zustand/react/shallow';
-import { AddPostButton } from '@postmill-ai/frontend/components/composer/add.post.button';
+import { AddPostButton } from '@validpost/frontend/components/composer/add.post.button';
 import {
   ToolbarDropdown,
   MenuItem,
   FormatIcon,
-} from '@postmill-ai/frontend/components/composer/toolbar-dropdown';
-import { MultiFileComponent } from '@postmill-ai/frontend/components/files/file.component';
-import { UpDownArrow } from '@postmill-ai/frontend/components/launches/up.down.arrow';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useExistingData } from '@postmill-ai/frontend/components/launches/helpers/use.existing.data';
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
-import { EditorCopilotBridge } from '@postmill-ai/frontend/components/launches/copilot-bridges';
-import { GhostCompletion } from '@postmill-ai/frontend/components/composer/ghost-completion/ghost-completion.extension';
-import { useGhostCompletion } from '@postmill-ai/frontend/components/composer/ghost-completion/use-ghost-completion';
+} from '@validpost/frontend/components/composer/toolbar-dropdown';
+import { MultiFileComponent } from '@validpost/frontend/components/files/file.component';
+import { UpDownArrow } from '@validpost/frontend/components/launches/up.down.arrow';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useExistingData } from '@validpost/frontend/components/launches/helpers/use.existing.data';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
+import { EditorCopilotBridge } from '@validpost/frontend/components/launches/copilot-bridges';
+import { GhostCompletion } from '@validpost/frontend/components/composer/ghost-completion/ghost-completion.extension';
+import { useGhostCompletion } from '@validpost/frontend/components/composer/ghost-completion/use-ghost-completion';
 import { useDropzone } from 'react-dropzone';
-import { useUppyUploader } from '@postmill-ai/frontend/components/files/new.uploader';
+import { useUppyUploader } from '@validpost/frontend/components/files/new.uploader';
 import { Dashboard } from '@uppy/react';
 import Link from '@tiptap/extension-link';
 import {
@@ -56,19 +56,19 @@ import Bold from '@tiptap/extension-bold';
 import Text from '@tiptap/extension-text';
 import Paragraph from '@tiptap/extension-paragraph';
 import Underline from '@tiptap/extension-underline';
-import { stripHtmlValidation } from '@postmill-ai/helpers/utils/strip.html.validation';
+import { stripHtmlValidation } from '@validpost/helpers/utils/strip.html.validation';
 import { History } from '@tiptap/extension-history';
 import { BulletList, ListItem } from '@tiptap/extension-list';
-import { Bullets } from '@postmill-ai/frontend/components/composer/bullets.component';
+import { Bullets } from '@validpost/frontend/components/composer/bullets.component';
 import Heading from '@tiptap/extension-heading';
-import { HeadingComponent } from '@postmill-ai/frontend/components/composer/heading.component';
+import { HeadingComponent } from '@validpost/frontend/components/composer/heading.component';
 import Mention from '@tiptap/extension-mention';
-import { suggestion } from '@postmill-ai/frontend/components/composer/mention.component';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { AComponent } from '@postmill-ai/frontend/components/composer/a.component';
+import { suggestion } from '@validpost/frontend/components/composer/mention.component';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { AComponent } from '@validpost/frontend/components/composer/a.component';
 import { Placeholder } from '@tiptap/extensions';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { InformationComponent } from '@postmill-ai/frontend/components/launches/information.component';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { InformationComponent } from '@validpost/frontend/components/launches/information.component';
 import {
   LockIcon,
   ConnectionLineIcon,
@@ -76,8 +76,8 @@ import {
   TrashIcon,
   EmojiIcon,
   DelayIcon,
-} from '@postmill-ai/frontend/components/ui/icons';
-import { DelayComponent } from '@postmill-ai/frontend/components/composer/delay.component';
+} from '@validpost/frontend/components/ui/icons';
+import { DelayComponent } from '@validpost/frontend/components/composer/delay.component';
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 1024;
 

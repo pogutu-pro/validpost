@@ -1,4 +1,4 @@
-import { OpenAICompatibleAdapter, type ProviderModule } from '@postmill-ai/provider-kernel';
+import { OpenAICompatibleAdapter, type ProviderModule } from '@validpost/provider-kernel';
 
 import { metadata as providerMetadata } from './metadata';
 const adapter = new OpenAICompatibleAdapter('siliconflow', 'SiliconFlow', 'https://api.siliconflow.cn/v1', {"image":true,"embeddings":true}, undefined, 'hub');

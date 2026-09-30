@@ -8,21 +8,21 @@ import {
   DefaultValuePipe,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import {
   DashboardService,
   DashboardSummaryResponse,
   AttentionKind,
   PlanUsageSnapshot,
-} from '@postmill-ai/nestjs-libraries/dashboard/dashboard.service';
-import { DashboardBriefService } from '@postmill-ai/nestjs-libraries/dashboard/dashboard-brief.service';
-import { MediaJobsQueryDto } from '@postmill-ai/nestjs-libraries/dtos/dashboard/media-jobs.query.dto';
+} from '@validpost/nestjs-libraries/dashboard/dashboard.service';
+import { DashboardBriefService } from '@validpost/nestjs-libraries/dashboard/dashboard-brief.service';
+import { MediaJobsQueryDto } from '@validpost/nestjs-libraries/dtos/dashboard/media-jobs.query.dto';
 import { Organization, User } from '@prisma/client';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
-import { PermissionsService } from '@postmill-ai/backend/services/auth/permissions/permissions.service';
-import { RolesService } from '@postmill-ai/nestjs-libraries/database/prisma/roles/roles.service';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
+import { PermissionsService } from '@validpost/backend/services/auth/permissions/permissions.service';
+import { RolesService } from '@validpost/nestjs-libraries/database/prisma/roles/roles.service';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 const KIND_PERMISSION_MAP: Record<AttentionKind, string> = {
   'failed-posts': 'posts:read',

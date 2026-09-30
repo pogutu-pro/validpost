@@ -17,7 +17,7 @@ import {
   resolveApiKey,
   ProviderModule,
   mediaUpstreamFromUnknown,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Vercel AI Gateway — image is delegated to the AI-SDK gateway provider (base class); video
 // uses AI SDK v6's experimental `generateVideo` (`gateway.video(modelId)`), which is

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
+import { PrismaService } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
 
 /**
  * DataExportService (ENHANCEMENTS_2 I2) — GDPR data-access export.
@@ -100,7 +100,7 @@ export class DataExportService {
 
     const payload = {
       exportedAt: new Date().toISOString(),
-      schema: 'postmill.user-export.v1',
+      schema: 'validpost.user-export.v1',
       scope: { userId, organizationId: orgId },
       user,
       organizationData: { posts, comments, files },

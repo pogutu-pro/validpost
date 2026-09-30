@@ -1,4 +1,4 @@
-import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+import { ProviderMetadata } from '@validpost/provider-kernel';
 
 export const metadata: ProviderMetadata = {
   "website": "https://www.linode.com/products/object-storage/",

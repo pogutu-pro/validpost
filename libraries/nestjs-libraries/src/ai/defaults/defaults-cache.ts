@@ -1,5 +1,5 @@
 import { createHmac } from 'crypto';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 /**
  * Best-effort invalidation of the AI/media defaults catalog cache for an org.
@@ -40,7 +40,7 @@ function modelListCacheKey(
   // an opaque cache-key discriminator from the credential material so a
   // credential change lands on a fresh Redis key. Nothing is ever verified
   // against it, and only 16 hex chars survive into the key.
-  const hash = createHmac('sha256', 'postmill:model-list-cache:v1')
+  const hash = createHmac('sha256', 'validpost:model-list-cache:v1')
     .update(`${credentials.apiKey ?? ''}|${credentials.baseURL ?? ''}`)
     .digest('hex')
     .slice(0, 16);

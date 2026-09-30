@@ -1,17 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { createHmac, randomInt } from 'node:crypto';
 import { Provider } from '@prisma/client';
-import { timingSafeStringEqual } from '@postmill-ai/provider-kernel';
-import { PrismaService } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { IntegrationRepository } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.repository';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { UsersRepository } from '@postmill-ai/nestjs-libraries/database/prisma/users/users.repository';
-import { AuthProviderRepository } from '@postmill-ai/nestjs-libraries/database/prisma/auth-providers/auth-provider.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { timingSafeStringEqual } from '@validpost/provider-kernel';
+import { PrismaService } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { IntegrationRepository } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.repository';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { UsersRepository } from '@validpost/nestjs-libraries/database/prisma/users/users.repository';
+import { AuthProviderRepository } from '@validpost/nestjs-libraries/database/prisma/auth-providers/auth-provider.repository';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 /**
  * Meta's app-level callbacks (Deauthorize Callback URL + Data Deletion
@@ -212,14 +212,14 @@ export class MetaCallbacksService {
       await this._integrationManager.invalidateIntegrationListCache(orgId);
     }
 
-    // A Postmill account created via "Login with Facebook" carries Meta data
+    // A ValidPost account created via "Login with Facebook" carries Meta data
     // too. Account deletion is never triggered from an inbound webhook — the
     // status tells the person how to ask for it.
     if (family === 'facebook') {
       const ssoUser = await this._usersRepository.getUserByProvider(userId, Provider.FACEBOOK).catch(() => null);
       if (ssoUser) {
         notes.push(
-          'A Postmill account was created with Facebook Login for this user. Account deletion is handled on request: email support@postmill.ai quoting this confirmation code.',
+          'A ValidPost account was created with Facebook Login for this user. Account deletion is handled on request: email support@validpost.io quoting this confirmation code.',
         );
         this._logger.warn(`meta data-deletion (${family}): user ${userId} also has a Facebook-login account ${ssoUser.id}`);
       }

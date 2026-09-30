@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { NotificationDigestService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification-digest.service';
-import { NotificationPreferenceService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification-preference.service';
-import { EmailService } from '@postmill-ai/nestjs-libraries/services/email.service';
-import { DigestFrequency } from '@postmill-ai/nestjs-libraries/dtos/notifications/notification-preference.dto';
+import { NotificationDigestService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification-digest.service';
+import { NotificationPreferenceService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification-preference.service';
+import { EmailService } from '@validpost/nestjs-libraries/services/email.service';
+import { DigestFrequency } from '@validpost/nestjs-libraries/dtos/notifications/notification-preference.dto';
 
 export type DigestTarget = {
   userId: string;
@@ -49,7 +49,7 @@ export class DigestActivity {
 
     await this._emailService.sendEmail(
       email,
-      `[Postmill] ${frequency === 'daily' ? 'Daily' : 'Weekly'} digest`,
+      `[ValidPost] ${frequency === 'daily' ? 'Daily' : 'Weekly'} digest`,
       body,
       'top'
     );

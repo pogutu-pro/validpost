@@ -1,4 +1,4 @@
-import { CHANNEL_PRESETS } from '@postmill-ai/nestjs-libraries/integrations/social/channel-presets';
+import { CHANNEL_PRESETS } from '@validpost/nestjs-libraries/integrations/social/channel-presets';
 
 /** Minimal shape of a designer output (variant) the channel mapping needs. */
 export interface ExportVariantLike {

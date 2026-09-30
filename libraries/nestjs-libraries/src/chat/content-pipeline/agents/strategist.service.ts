@@ -1,13 +1,13 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import {
   registerInProcessAgent,
   type InProcessHandler,
 } from '@reaatech/agent-mesh-router';
 import type { AgentResponse, ContextPacket } from '@reaatech/agent-mesh';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
-import { RagService } from '@postmill-ai/nestjs-libraries/ai/governance/rag.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
+import { RagService } from '@validpost/nestjs-libraries/ai/governance/rag.service';
 import { CONTENT_PIPELINE_AGENT_IDS } from '../pipeline-registry.data';
 
 interface StrategistInput {

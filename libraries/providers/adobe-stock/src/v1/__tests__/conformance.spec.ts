@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
-import { runDomainConformance } from '@postmill-ai/provider-kernel';
+import { runDomainConformance } from '@validpost/provider-kernel';
 import defaultModules from '../..';
 
 describe('adobe-stock provider conformance', () => {

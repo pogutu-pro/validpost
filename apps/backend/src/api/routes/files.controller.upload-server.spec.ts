@@ -15,7 +15,7 @@ const fileSvcMock = {
   saveFile: vi.fn(),
 };
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/storage/storage.service', () => ({
   StorageService: class {
     resolveAdapterForFolderWithConfigId = storageSvcMock.resolveAdapterForFolderWithConfigId;
     assertWithinProviderQuota = storageSvcMock.assertWithinProviderQuota;
@@ -53,7 +53,7 @@ describe('FilesController — uploadServer temp file cleanup', () => {
     const file = {
       originalname: 'test.png',
       size: 100,
-      path: '/tmp/postmill-uploads/test123.png',
+      path: '/tmp/validpost-uploads/test123.png',
     } as any;
 
     const fs = await import('fs');
@@ -61,7 +61,7 @@ describe('FilesController — uploadServer temp file cleanup', () => {
 
     await controller.uploadServer(org, file, {});
 
-    expect(unlinkSpy).toHaveBeenCalledWith('/tmp/postmill-uploads/test123.png');
+    expect(unlinkSpy).toHaveBeenCalledWith('/tmp/validpost-uploads/test123.png');
 
     unlinkSpy.mockRestore();
   });
@@ -74,14 +74,14 @@ describe('FilesController — uploadServer temp file cleanup', () => {
     const file = {
       originalname: 'test.png',
       size: 100,
-      path: '/tmp/postmill-uploads/test123.png',
+      path: '/tmp/validpost-uploads/test123.png',
     } as any;
 
     const fs = await import('fs');
     const unlinkSpy = vi.spyOn(fs.promises, 'unlink').mockResolvedValue(undefined);
 
     await expect(controller.uploadServer(org, file, {})).rejects.toThrow('Upload failed');
-    expect(unlinkSpy).toHaveBeenCalledWith('/tmp/postmill-uploads/test123.png');
+    expect(unlinkSpy).toHaveBeenCalledWith('/tmp/validpost-uploads/test123.png');
 
     unlinkSpy.mockRestore();
   });
@@ -98,14 +98,14 @@ describe('FilesController — uploadServer temp file cleanup', () => {
     const file = {
       originalname: 'test.png',
       size: 100,
-      path: '/tmp/postmill-uploads/test123.png',
+      path: '/tmp/validpost-uploads/test123.png',
     } as any;
 
     const fs = await import('fs');
     const unlinkSpy = vi.spyOn(fs.promises, 'unlink').mockResolvedValue(undefined);
 
     await expect(controller.uploadServer(org, file, {})).rejects.toThrow('Save failed');
-    expect(unlinkSpy).toHaveBeenCalledWith('/tmp/postmill-uploads/test123.png');
+    expect(unlinkSpy).toHaveBeenCalledWith('/tmp/validpost-uploads/test123.png');
     // M4: the stored object is best-effort deleted so failed uploads don't leak orphans.
     expect(storageMock.removeFile).toHaveBeenCalledWith('http://localhost/uploads/abc123.png');
 

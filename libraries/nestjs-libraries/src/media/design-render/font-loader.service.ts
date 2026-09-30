@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { BrandsService } from '@postmill-ai/nestjs-libraries/brands/brands.service';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { BrandsService } from '@validpost/nestjs-libraries/brands/brands.service';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import { registerFont } from 'canvas';
 import {
   catalogWeights,
@@ -123,7 +123,7 @@ export class FontLoaderService {
   // lifetime; the current render still falls back to sans-serif.
   private static readonly CURATED_RETRY_MS = 15 * 60_000;
   private readonly _curatedFailed = new Map<string, number>();
-  private readonly _tempDir = path.join(os.tmpdir(), 'postmill-fonts');
+  private readonly _tempDir = path.join(os.tmpdir(), 'validpost-fonts');
   /**
    * Font file locations: `org:<orgId>:<family>|<weight>` for per-org custom
    * fonts, `g:<family>|<weight>` for curated Google fonts.

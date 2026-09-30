@@ -3,7 +3,7 @@
 import React, { FC, Fragment, ReactNode } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { KebabMenu, KebabMenuItem } from '@postmill-ai/frontend/components/ui/kebab-menu';
+import { KebabMenu, KebabMenuItem } from '@validpost/frontend/components/ui/kebab-menu';
 
 /**
  * One horizontal tab/chip bar for the whole app.

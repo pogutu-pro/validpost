@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ProviderUpstreamError } from '@postmill-ai/provider-kernel';
+import { ProviderUpstreamError } from '@validpost/provider-kernel';
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
   AiSettingsService: class {
     private _summaryCalls = 0;
     getSpendSummary = vi.fn().mockImplementation((_orgId?: string, since?: Date) => {
@@ -35,13 +35,13 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.s
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-settings.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-settings.manager', () => ({
   AiSettingsManager: class {
     getSettings = vi.fn().mockResolvedValue({ budgetSettings: { monthlyCap: 10, dailyCap: 1 } });
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/media.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/media.service', () => ({
   AiMediaService: class {
     generateImage = vi.fn().mockResolvedValue('https://cdn/image.png');
     // Video is async: the service returns a media-job id, not a playable URL.
@@ -58,7 +58,7 @@ vi.mock('@postmill-ai/nestjs-libraries/ai/governance/media.service', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/rag.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/rag.service', () => ({
   RagService: class {
     search = vi.fn().mockRejectedValue(new Error('not wired'));
     searchBrandMemory = vi.fn().mockResolvedValue([]);
@@ -66,7 +66,7 @@ vi.mock('@postmill-ai/nestjs-libraries/ai/governance/rag.service', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-model.provider', () => ({
   AIModelProvider: class {
     generateText = vi.fn().mockResolvedValue('Suggested reply from AI');
     generateObject = vi.fn().mockImplementation((_scope: string, _prompt: string, schema: any) => {
@@ -77,15 +77,15 @@ vi.mock('@postmill-ai/nestjs-libraries/ai/ai-model.provider', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/guardrail.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/guardrail.service', () => ({
   GuardrailService: class { },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/budget.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/budget.service', () => ({
   BudgetService: class { },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/analytics/analytics.service', () => ({
+vi.mock('@validpost/nestjs-libraries/analytics/analytics.service', () => ({
   AnalyticsService: class {
     getBestTimeAnalyticsContext = vi.fn().mockResolvedValue({
       integrations: [{ id: 'int-1', name: 'Twitter', providerIdentifier: 'x', picture: null }],
@@ -96,15 +96,15 @@ vi.mock('@postmill-ai/nestjs-libraries/analytics/analytics.service', () => ({
 }));
 
 import { AiUserController } from './ai-user.controller';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { AiMediaService } from '@postmill-ai/nestjs-libraries/ai/governance/media.service';
-import { RagService } from '@postmill-ai/nestjs-libraries/ai/governance/rag.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { GuardrailService } from '@postmill-ai/nestjs-libraries/ai/governance/guardrail.service';
-import { BudgetService } from '@postmill-ai/nestjs-libraries/ai/governance/budget.service';
-import { AnalyticsService } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
-import { CapabilityNotAvailable } from '@postmill-ai/nestjs-libraries/ai/governance/errors';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { AiMediaService } from '@validpost/nestjs-libraries/ai/governance/media.service';
+import { RagService } from '@validpost/nestjs-libraries/ai/governance/rag.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { GuardrailService } from '@validpost/nestjs-libraries/ai/governance/guardrail.service';
+import { BudgetService } from '@validpost/nestjs-libraries/ai/governance/budget.service';
+import { AnalyticsService } from '@validpost/nestjs-libraries/analytics/analytics.service';
+import { CapabilityNotAvailable } from '@validpost/nestjs-libraries/ai/governance/errors';
 
 const mockOrg = { id: 'org-1', name: 'Test Org' } as any;
 const mockUser = { id: 'user-1', email: 'u@test.com' } as any;

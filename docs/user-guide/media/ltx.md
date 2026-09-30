@@ -4,7 +4,7 @@
 
 ## Where to configure
 
-Configure your LTX Studio API key at **Settings → Media**. Postmill stores the key encrypted at rest; there is no environment-variable fallback.
+Configure your LTX Studio API key at **Settings → Media**. ValidPost stores the key encrypted at rest; there is no environment-variable fallback.
 
 See [Settings](../settings) for provider setup and the media capability matrix.
 
@@ -20,7 +20,7 @@ Available models are LTX-2.3 Pro/Fast and LTX-2 Pro/Fast. Pro models are require
 
 ## Generation flow
 
-All LTX jobs are async: `POST /v2/<op>` returns an id, then Postmill polls `GET /v2/<op>/{id}` until `status: completed`. The job appears in the **Render Queue** and, when ready, the video is saved to `/files`. From there you can open it in the [Designer](./designer) or post directly. See [Media Studios](./index) for the shared flow.
+All LTX jobs are async: `POST /v2/<op>` returns an id, then ValidPost polls `GET /v2/<op>/{id}` until `status: completed`. The job appears in the **Render Queue** and, when ready, the video is saved to `/files`. From there you can open it in the [Designer](./designer) or post directly. See [Media Studios](./index) for the shared flow.
 
 ## Caveats
 

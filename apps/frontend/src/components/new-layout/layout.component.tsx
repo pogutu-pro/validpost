@@ -1,12 +1,12 @@
 'use client';
 
 import React, { ReactNode, useCallback, useState, useRef, useEffect } from 'react';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { Wordmark } from '@postmill-ai/frontend/components/new-layout/wordmark';
-import { UserAvatarMenu } from '@postmill-ai/frontend/components/new-layout/user-avatar-menu';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { Wordmark } from '@validpost/frontend/components/new-layout/wordmark';
+import { UserAvatarMenu } from '@validpost/frontend/components/new-layout/user-avatar-menu';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 const ModeComponent = dynamic(
-  () => import('@postmill-ai/frontend/components/layout/mode.component'),
+  () => import('@validpost/frontend/components/layout/mode.component'),
   {
     ssr: false,
   }
@@ -14,52 +14,52 @@ const ModeComponent = dynamic(
 
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useVariables } from '@validpost/react/helpers/variable.context';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import useSWR, { useSWRConfig } from 'swr';
-import { CheckPayment } from '@postmill-ai/frontend/components/layout/check.payment';
-import { ToolTip } from '@postmill-ai/frontend/components/layout/top.tip';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { ShowLinkedinCompany } from '@postmill-ai/frontend/components/launches/helpers/linkedin.component';
-import { MediaSettingsLayout } from '@postmill-ai/frontend/components/launches/helpers/media.settings.component';
-import { Toaster } from '@postmill-ai/react/toaster/toaster';
-import { ShowPostSelector } from '@postmill-ai/frontend/components/post-url-selector/post.url.selector';
-import { NewSubscription } from '@postmill-ai/frontend/components/layout/new.subscription';
-import { Support } from '@postmill-ai/frontend/components/layout/support';
-import { ContinueProvider } from '@postmill-ai/frontend/components/layout/continue.provider';
-import { ContextWrapper } from '@postmill-ai/frontend/components/layout/user.context';
-import { CopilotProvider } from '@postmill-ai/frontend/components/layout/copilot.provider';
-import { MantineWrapper } from '@postmill-ai/react/helpers/mantine.wrapper';
-import { AnnouncementBanner } from '@postmill-ai/frontend/components/layout/announcement.banner';
-import { Title } from '@postmill-ai/frontend/components/layout/title';
-import { TopMenu } from '@postmill-ai/frontend/components/layout/top.menu';
-import { ChromeExtensionComponent } from '@postmill-ai/frontend/components/layout/chrome.extension.component';
-import NotificationComponent from '@postmill-ai/frontend/components/notifications/notification.component';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { OrganizationSelector } from '@postmill-ai/frontend/components/layout/organization.selector';
-import { StreakComponent } from '@postmill-ai/frontend/components/layout/streak.component';
-import { PreConditionComponent } from '@postmill-ai/frontend/components/layout/pre-condition.component';
-import { AttachToFeedbackIcon } from '@postmill-ai/frontend/components/new-layout/sentry.feedback.component';
-import { FirstBillingComponent } from '@postmill-ai/frontend/components/billing/first.billing.component';
-import { TrialTracker } from '@postmill-ai/frontend/components/layout/gtm.component';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { BottomTabBar } from '@postmill-ai/frontend/components/new-layout/bottom-tab-bar';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useAddProvider } from '@postmill-ai/frontend/components/launches/add.provider.component';
+import { CheckPayment } from '@validpost/frontend/components/layout/check.payment';
+import { ToolTip } from '@validpost/frontend/components/layout/top.tip';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { ShowLinkedinCompany } from '@validpost/frontend/components/launches/helpers/linkedin.component';
+import { MediaSettingsLayout } from '@validpost/frontend/components/launches/helpers/media.settings.component';
+import { Toaster } from '@validpost/react/toaster/toaster';
+import { ShowPostSelector } from '@validpost/frontend/components/post-url-selector/post.url.selector';
+import { NewSubscription } from '@validpost/frontend/components/layout/new.subscription';
+import { Support } from '@validpost/frontend/components/layout/support';
+import { ContinueProvider } from '@validpost/frontend/components/layout/continue.provider';
+import { ContextWrapper } from '@validpost/frontend/components/layout/user.context';
+import { CopilotProvider } from '@validpost/frontend/components/layout/copilot.provider';
+import { MantineWrapper } from '@validpost/react/helpers/mantine.wrapper';
+import { AnnouncementBanner } from '@validpost/frontend/components/layout/announcement.banner';
+import { Title } from '@validpost/frontend/components/layout/title';
+import { TopMenu } from '@validpost/frontend/components/layout/top.menu';
+import { ChromeExtensionComponent } from '@validpost/frontend/components/layout/chrome.extension.component';
+import NotificationComponent from '@validpost/frontend/components/notifications/notification.component';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { OrganizationSelector } from '@validpost/frontend/components/layout/organization.selector';
+import { StreakComponent } from '@validpost/frontend/components/layout/streak.component';
+import { PreConditionComponent } from '@validpost/frontend/components/layout/pre-condition.component';
+import { AttachToFeedbackIcon } from '@validpost/frontend/components/new-layout/sentry.feedback.component';
+import { FirstBillingComponent } from '@validpost/frontend/components/billing/first.billing.component';
+import { TrialTracker } from '@validpost/frontend/components/layout/gtm.component';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { BottomTabBar } from '@validpost/frontend/components/new-layout/bottom-tab-bar';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useAddProvider } from '@validpost/frontend/components/launches/add.provider.component';
 
 const CreateEditCampaignModal = dynamic(
   () =>
     import(
-      '@postmill-ai/frontend/components/campaigns/index/create-edit-campaign.modal'
+      '@validpost/frontend/components/campaigns/index/create-edit-campaign.modal'
     ).then((m) => m.CreateEditCampaignModal),
   { ssr: false }
 );
 
 const BulkImport = dynamic(
   () =>
-    import('@postmill-ai/frontend/components/composer/bulk/bulk.import').then(
+    import('@validpost/frontend/components/composer/bulk/bulk.import').then(
       (m) => m.BulkImport
     ),
   { ssr: false }

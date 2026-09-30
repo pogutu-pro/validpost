@@ -10,8 +10,8 @@ import {
 
 const stripe = { STRIPE_PUBLISHABLE_KEY: 'pk_test', STRIPE_SECRET_KEY: 'sk_test', STRIPE_SIGNING_KEY: 'whsec' };
 const paypal = { PAYPAL_CLIENT_ID: 'cid', PAYPAL_CLIENT_SECRET: 'PAYPAL_SECRET_X', PAYPAL_WEBHOOK_ID: 'PAYPAL_WEBHOOK_X' };
-const apple = { APPLE_IAP_BUNDLE_ID: 'ai.postmill.app', APPLE_IAP_PRIVATE_KEY: 'APPLE_SECRET_P8' };
-const google = { GOOGLE_PLAY_PACKAGE_NAME: 'ai.postmill.app', GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: 'GOOGLE_SECRET_SA' };
+const apple = { APPLE_IAP_BUNDLE_ID: 'io.validpost.app', APPLE_IAP_PRIVATE_KEY: 'APPLE_SECRET_P8' };
+const google = { GOOGLE_PLAY_PACKAGE_NAME: 'io.validpost.app', GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: 'GOOGLE_SECRET_SA' };
 
 describe('payments env', () => {
   it('billing is off with no keys and on with any enabling key', () => {

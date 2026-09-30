@@ -11,10 +11,10 @@ import { DefaultsResolutionService } from './defaults-resolution.service';
 import { AIModelProvider } from '../ai-model.provider';
 import { AiMediaService } from '../governance/media.service';
 import { DefaultNotConfiguredError } from './defaults.errors';
-import { OrgDefaultModelRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
+import { OrgDefaultModelRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-default-model.repository';
 import { DefaultsSettingsValidator } from './defaults-settings.validator';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { OrgAiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { OrgAiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/org-ai-settings.service';
 
 describe('AiDefaultsService', () => {
   const mockResolution = {
@@ -535,7 +535,7 @@ describe('AiDefaultsService', () => {
 
       // An active provider row whose credentials are incomplete (agent scope
       // cannot resolve) must report agentReady=false — the frontend gates
-      // mounting CopilotKit on this flag (Sentry POSTMILL-APP-D/E/F).
+      // mounting CopilotKit on this flag (Sentry VALIDPOST-APP-D/E/F).
       vi.mocked(mockModelProvider.resolveConfigForScope).mockResolvedValue(null);
       const notReady = await service.getProviderConfigSummary('org-1');
       expect(notReady.agentReady).toBe(false);

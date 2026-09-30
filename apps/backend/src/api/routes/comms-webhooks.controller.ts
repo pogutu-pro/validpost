@@ -12,13 +12,13 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { ApiTags } from '@nestjs/swagger';
 import { createHash } from 'node:crypto';
-import { CommsConfigRepository } from '@postmill-ai/nestjs-libraries/comms/comms-config.repository';
-import { CommsConfigService } from '@postmill-ai/nestjs-libraries/comms/comms-config.service';
-import { CommsPlatformWebhookService } from '@postmill-ai/nestjs-libraries/comms/comms-platform-webhook.service';
+import { CommsConfigRepository } from '@validpost/nestjs-libraries/comms/comms-config.repository';
+import { CommsConfigService } from '@validpost/nestjs-libraries/comms/comms-config.service';
+import { CommsPlatformWebhookService } from '@validpost/nestjs-libraries/comms/comms-platform-webhook.service';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
 
 /**
  * Inbound comms webhooks (Telegram, Discord Interactions). Unauthenticated by

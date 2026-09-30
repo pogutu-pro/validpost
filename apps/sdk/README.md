@@ -1,28 +1,28 @@
-# Postmill AI NodeJS SDK
+# ValidPost AI NodeJS SDK
 
-This is the NodeJS SDK for [Postmill AI](https://postmill.ai) - **Open-source, AI-native social media management and scheduling.**
+This is the NodeJS SDK for [ValidPost AI](https://validpost.io) - **Open-source, AI-native social media management and scheduling.**
 
 You can start by installing the package:
 
 ```bash
-npm install @postmill-ai/postmill-sdk
+npm install @validpost/validpost-sdk
 ```
 
 ## Usage
 
 ```typescript
-import Postmill from '@postmill-ai/postmill-sdk';
+import ValidPost from '@validpost/validpost-sdk';
 
-const postmill = new Postmill('your api key', 'your self-hosted instance (optional)');
+const validpost = new ValidPost('your api key', 'your self-hosted instance (optional)');
 ```
 
-The second constructor argument is optional and defaults to `https://api.postmill.ai`. Pass your own base URL when self-hosting.
+The second constructor argument is optional and defaults to `https://api.validpost.io`. Pass your own base URL when self-hosting.
 
 ## Available methods
 
 ### Posts
 
-- `post(posts: CreatePostDto)` — Schedule a post to Postmill
+- `post(posts: CreatePostDto)` — Schedule a post to ValidPost
 - `postList(filters: GetPostsDto)` — Get a page of posts (always returns `{ posts, cursor }`; `cursor` is `null` on the last page)
 - `deletePost(id: string)` — Delete a post by ID
 - `deletePostGroup(group: string)` — Delete all posts in a group
@@ -40,7 +40,7 @@ The second constructor argument is optional and defaults to `https://api.postmil
 
 ### Media
 
-- `upload(file: BlobPart | Buffer, extension: string)` — Upload a file to Postmill
+- `upload(file: BlobPart | Buffer, extension: string)` — Upload a file to ValidPost
 - `uploadFromUrl(url: string)` — Import a file from a public URL
 - `generateVideo(body: VideoDto)` — Start an async video generation job
 - `getVideoJob(id: string)` — Poll the status of a video generation job
@@ -68,7 +68,7 @@ The second constructor argument is optional and defaults to `https://api.postmil
 ## Async video generation example
 
 ```typescript
-const job = await postmill.generateVideoAndWait({
+const job = await validpost.generateVideoAndWait({
   type: 'text-to-video',
   output: 'vertical',
   customParams: { prompt: 'A calm ocean sunset' },
@@ -81,4 +81,4 @@ if (job.status === 'completed') {
 }
 ```
 
-Alternatively you can use the SDK with curl, check the [Postmill API documentation](https://docs.postmill.ai/public-api) for more information.
+Alternatively you can use the SDK with curl, check the [ValidPost API documentation](https://docs.validpost.io/public-api) for more information.

@@ -5,7 +5,7 @@ import {
   SafeFetchPort,
   LoggerPort,
   TelemetryPort,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 export interface ProviderPorts {
   encryption: EncryptionPort;

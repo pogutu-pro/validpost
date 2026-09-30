@@ -1,16 +1,16 @@
 'use client';
 import { useCallback } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Composer } from '@postmill-ai/frontend/components/composer/composer';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { EmptyState } from '@postmill-ai/frontend/components/ui/empty-state';
-import { Button } from '@postmill-ai/react/form/button';
-import { useAddProvider } from '@postmill-ai/frontend/components/launches/add.provider.component';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { Composer } from '@validpost/frontend/components/composer/composer';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { EmptyState } from '@validpost/frontend/components/ui/empty-state';
+import { Button } from '@validpost/react/form/button';
+import { useAddProvider } from '@validpost/frontend/components/launches/add.provider.component';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export default function CreatePostPage() {
   const fetch = useFetch();

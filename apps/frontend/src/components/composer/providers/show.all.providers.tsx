@@ -1,20 +1,20 @@
 'use client';
 
-import LinkedinProvider from '@postmill-ai/frontend/components/composer/providers/linkedin/linkedin.provider';
-import FacebookProvider from '@postmill-ai/frontend/components/composer/providers/facebook/facebook.provider';
-import InstagramProvider from '@postmill-ai/frontend/components/composer/providers/instagram/instagram.collaborators';
-import YoutubeProvider from '@postmill-ai/frontend/components/composer/providers/youtube/youtube.provider';
-import TiktokProvider from '@postmill-ai/frontend/components/composer/providers/tiktok/tiktok.provider';
-import ThreadsProvider from '@postmill-ai/frontend/components/composer/providers/threads/threads.provider';
-import DiscordProvider from '@postmill-ai/frontend/components/composer/providers/discord/discord.provider';
-import TelegramProvider from '@postmill-ai/frontend/components/composer/providers/telegram/telegram.provider';
-import GmbProvider from '@postmill-ai/frontend/components/composer/providers/gmb/gmb.provider';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import LinkedinProvider from '@validpost/frontend/components/composer/providers/linkedin/linkedin.provider';
+import FacebookProvider from '@validpost/frontend/components/composer/providers/facebook/facebook.provider';
+import InstagramProvider from '@validpost/frontend/components/composer/providers/instagram/instagram.collaborators';
+import YoutubeProvider from '@validpost/frontend/components/composer/providers/youtube/youtube.provider';
+import TiktokProvider from '@validpost/frontend/components/composer/providers/tiktok/tiktok.provider';
+import ThreadsProvider from '@validpost/frontend/components/composer/providers/threads/threads.provider';
+import DiscordProvider from '@validpost/frontend/components/composer/providers/discord/discord.provider';
+import TelegramProvider from '@validpost/frontend/components/composer/providers/telegram/telegram.provider';
+import GmbProvider from '@validpost/frontend/components/composer/providers/gmb/gmb.provider';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { useShallow } from 'zustand/react/shallow';
 import React, { FC, forwardRef, useImperativeHandle } from 'react';
-import { GeneralPreviewComponent } from '@postmill-ai/frontend/components/launches/general.preview.component';
-import { IntegrationContext } from '@postmill-ai/frontend/components/launches/helpers/use.integration';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { GeneralPreviewComponent } from '@validpost/frontend/components/launches/general.preview.component';
+import { IntegrationContext } from '@validpost/frontend/components/launches/helpers/use.integration';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const Providers = [
   {

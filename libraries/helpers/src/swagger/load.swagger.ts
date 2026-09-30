@@ -18,9 +18,9 @@ export const buildSwaggerDocument = (
   opts: { version?: string } = {}
 ) => {
   const config = new DocumentBuilder()
-    .setTitle('Postmill API')
+    .setTitle('ValidPost API')
     .setDescription(
-      'OpenAPI description of the Postmill backend (NestJS). Generated from the ' +
+      'OpenAPI description of the ValidPost backend (NestJS). Generated from the ' +
         'controllers — do not hand-edit; run `pnpm run openapi:generate`.'
     )
     .setVersion(opts.version || process.env.NEXT_PUBLIC_VERSION || FALLBACK_VERSION)

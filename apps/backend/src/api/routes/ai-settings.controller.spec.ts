@@ -19,13 +19,13 @@ const mockAdapter = {
 // via ProviderResolutionService.
 const mockResolveAI = vi.fn().mockReturnValue(mockAdapter);
 
-vi.mock('@postmill-ai/nestjs-libraries/providers/provider-resolution.service', () => ({
+vi.mock('@validpost/nestjs-libraries/providers/provider-resolution.service', () => ({
   ProviderResolutionService: class {
     resolveAI = mockResolveAI;
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service', () => ({
   AiSettingsService: class {
     upsertSystemSettings = vi.fn().mockResolvedValue({});
     getSystemSettings = vi.fn().mockResolvedValue(null);
@@ -40,7 +40,7 @@ vi.mock('@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.s
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/ai-settings.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/ai-settings.manager', () => ({
   AiSettingsManager: class {
     getSettings = vi.fn().mockResolvedValue({});
     refreshCache = vi.fn();
@@ -49,25 +49,25 @@ vi.mock('@postmill-ai/nestjs-libraries/ai/ai-settings.manager', () => ({
   qualifyProviderId: vi.fn((id?: string | null) => id || null),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/provider-health.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/provider-health.service', () => ({
   ProviderHealthService: class {
     getAllHealth = vi.fn().mockReturnValue({});
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/ai/governance/rag.service', () => ({
+vi.mock('@validpost/nestjs-libraries/ai/governance/rag.service', () => ({
   RagService: class {
     backfill = vi.fn().mockResolvedValue({ indexed: 0 });
   },
 }));
 
 import { AiSettingsController } from './ai-settings.controller';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { AiSettingsManager } from '@postmill-ai/nestjs-libraries/ai/ai-settings.manager';
-import { ProviderHealthService } from '@postmill-ai/nestjs-libraries/ai/governance/provider-health.service';
-import { RagService } from '@postmill-ai/nestjs-libraries/ai/governance/rag.service';
-import type { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { AiSettingsManager } from '@validpost/nestjs-libraries/ai/ai-settings.manager';
+import { ProviderHealthService } from '@validpost/nestjs-libraries/ai/governance/provider-health.service';
+import { RagService } from '@validpost/nestjs-libraries/ai/governance/rag.service';
+import type { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
 
 const superAdmin = { id: 'admin-1', isSuperAdmin: true } as any;
 const regularUser = { id: 'user-1', isSuperAdmin: false } as any;

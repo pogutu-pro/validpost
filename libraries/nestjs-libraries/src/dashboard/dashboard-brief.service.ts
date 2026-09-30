@@ -9,13 +9,13 @@ import { Organization, User } from '@prisma/client';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { BudgetService } from '@postmill-ai/nestjs-libraries/ai/governance/budget.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { BudgetService } from '@validpost/nestjs-libraries/ai/governance/budget.service';
 import { DashboardService, AttentionKind, PlanUsageSnapshot } from './dashboard.service';
-import { AnalyticsService } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { RedisService } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { singleFlight } from '@postmill-ai/nestjs-libraries/utils/concurrency';
+import { AnalyticsService } from '@validpost/nestjs-libraries/analytics/analytics.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { RedisService } from '@validpost/nestjs-libraries/redis/redis.service';
+import { singleFlight } from '@validpost/nestjs-libraries/utils/concurrency';
 
 // Reuse the exact message from the AI facade so the frontend can reuse the
 // same NarrateError handling.

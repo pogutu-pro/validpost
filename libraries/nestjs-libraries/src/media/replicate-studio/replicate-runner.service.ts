@@ -4,17 +4,17 @@ import {
   Injectable,
   Logger,
 } from '@nestjs/common';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import { ReplicateCatalogService } from './replicate-catalog.service';
-import { AiSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
-import { MediaJobLifecycleService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { OrgMediaProviderSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
+import { AiSettingsService } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.service';
+import { MediaJobLifecycleService } from '@validpost/nestjs-libraries/database/prisma/media-providers/media-job-lifecycle.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { OrgMediaProviderSettingsService } from '@validpost/nestjs-libraries/database/prisma/media-providers/org-media-provider-settings.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
 import { estimate } from './replicate-cost';
 import { isWarm, MODEL_ALLOWLIST } from './replicate-catalog.allowlist';
-import { VideoRenderService } from '@postmill-ai/nestjs-libraries/media/design-render/video-render.service';
-import { renderWorkDir } from '@postmill-ai/nestjs-libraries/media/design-render/render-job-spec';
+import { VideoRenderService } from '@validpost/nestjs-libraries/media/design-render/video-render.service';
+import { renderWorkDir } from '@validpost/nestjs-libraries/media/design-render/render-job-spec';
 import * as fs from 'fs';
 
 const BASE = 'https://api.replicate.com/v1';
@@ -239,7 +239,7 @@ export class ReplicateRunnerService {
     _creditType: string | undefined,
     fn: () => Promise<T>,
   ): Promise<T> {
-    // Postmill BYOK model: Replicate media generation is unlimited and no longer
+    // ValidPost BYOK model: Replicate media generation is unlimited and no longer
     // consumes platform credits. creditType is preserved in the job row for
     // observability only.
     return fn();

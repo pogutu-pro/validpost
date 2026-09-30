@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { ProviderSettingsPanel } from '@postmill-ai/frontend/components/settings/shared/kit/provider-settings-panel';
-import { mediaDescriptor } from '@postmill-ai/frontend/components/settings/shared/kit/descriptors/media.descriptor';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { ProviderSettingsPanel } from '@validpost/frontend/components/settings/shared/kit/provider-settings-panel';
+import { mediaDescriptor } from '@validpost/frontend/components/settings/shared/kit/descriptors/media.descriptor';
 
 export const MediaProvidersTab = () => {
   const t = useT();

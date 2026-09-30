@@ -3,7 +3,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { knownProviderIdentifiers } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/sanitize.settings';
+import { knownProviderIdentifiers } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/sanitize.settings';
 
 /**
  * Per-post settings validation for CreatePostDto.

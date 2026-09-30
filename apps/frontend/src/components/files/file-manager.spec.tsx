@@ -8,33 +8,33 @@ const mockPush = vi.fn();
 const mockReplace = vi.fn();
 const navigation = { pathname: '/files' };
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string, vars?: Record<string, unknown>) =>
     vars
       ? Object.entries(vars).reduce((s, [k, v]) => s.replace(`{{${k}}}`, String(v)), fallback)
       : fallback,
 }));
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetch,
 }));
-vi.mock('@postmill-ai/react/helpers/use.media.directory', () => ({
+vi.mock('@validpost/react/helpers/use.media.directory', () => ({
   useMediaDirectory: () => ({ set: (p: string) => p }),
 }));
-vi.mock('@postmill-ai/react/translation/i18next', () => ({
+vi.mock('@validpost/react/translation/i18next', () => ({
   default: { resolvedLanguage: 'en' },
 }));
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: vi.fn() }),
 }));
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush, replace: mockReplace }),
   usePathname: () => navigation.pathname,
 }));
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: () => ({ openModal: vi.fn(), closeAll: vi.fn() }),
 }));
 // The uploader pulls in Uppy, which is heavy and irrelevant here.
-vi.mock('@postmill-ai/frontend/components/files/file-uploader', () => ({
+vi.mock('@validpost/frontend/components/files/file-uploader', () => ({
   FileUploader: () => <div data-testid="uploader" />,
 }));
 

@@ -1,4 +1,4 @@
-import { applyFilter, type FilterParams } from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-ops';
+import { applyFilter, type FilterParams } from '@validpost/nestjs-libraries/media/designer-doc/filter-ops';
 import type { FilterResponse } from './filter.worker';
 
 /**

@@ -2,8 +2,8 @@
 
 import React, { FC } from 'react';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { CheckmarkIcon } from '@postmill-ai/frontend/components/ui/icons';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { CheckmarkIcon } from '@validpost/frontend/components/ui/icons';
 import { useInlineSuggestPref } from './use-inline-suggest-pref';
 
 /**

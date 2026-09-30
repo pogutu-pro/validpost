@@ -1,4 +1,4 @@
-# @postmill-ai/provider-google
+# @validpost/provider-google
 
 Google OAuth auth provider (`auth/google@v1`) used for login.
 

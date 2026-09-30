@@ -1,9 +1,9 @@
 'use client';
 
 import React, { FC } from 'react';
-import { Input } from '@postmill-ai/react/form/input';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
+import { Input } from '@validpost/react/form/input';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
 
 export const ProfileComponent: FC<{
   form?: any;

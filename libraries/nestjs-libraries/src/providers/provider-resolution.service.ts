@@ -22,15 +22,15 @@ import {
   ProviderVersionDeprecatedForWriteError,
   ProviderVersionPreviewError,
   ProviderVersionInvalidError,
-} from '@postmill-ai/provider-kernel';
-import { accountFingerprint } from '@postmill-ai/nestjs-libraries/utils/account-fingerprint';
-import { AIProviderAdapter } from '@postmill-ai/nestjs-libraries/ai/ai-provider.interface';
-import { MediaProviderAdapter } from '@postmill-ai/nestjs-libraries/media/media-provider-adapter.interface';
-import { ShortLinkAdapter } from '@postmill-ai/nestjs-libraries/short-linking/short-link.interface';
-import { VpnProviderAdapter } from '@postmill-ai/nestjs-libraries/vpn/vpn-provider.interface';
-import { EmailAdapter } from '@postmill-ai/nestjs-libraries/emails/email-adapter.interface';
-import { IStorageAdapter } from '@postmill-ai/nestjs-libraries/upload/upload.interface';
-import { SocialProvider } from '@postmill-ai/nestjs-libraries/integrations/social/social.integrations.interface';
+} from '@validpost/provider-kernel';
+import { accountFingerprint } from '@validpost/nestjs-libraries/utils/account-fingerprint';
+import { AIProviderAdapter } from '@validpost/nestjs-libraries/ai/ai-provider.interface';
+import { MediaProviderAdapter } from '@validpost/nestjs-libraries/media/media-provider-adapter.interface';
+import { ShortLinkAdapter } from '@validpost/nestjs-libraries/short-linking/short-link.interface';
+import { VpnProviderAdapter } from '@validpost/nestjs-libraries/vpn/vpn-provider.interface';
+import { EmailAdapter } from '@validpost/nestjs-libraries/emails/email-adapter.interface';
+import { IStorageAdapter } from '@validpost/nestjs-libraries/upload/upload.interface';
+import { SocialProvider } from '@validpost/nestjs-libraries/integrations/social/social.integrations.interface';
 import { PROVIDER_KERNEL } from './provider-kernel.token';
 import { RuntimeContextFactory } from './runtime-context.factory';
 import { trace } from '@opentelemetry/api';
@@ -97,7 +97,7 @@ function makeTelemetryProxy<T extends object>(
           // G4: provider-call span. `trace.getTracer` is a no-op when no OTel SDK
           // is started, so this is zero-cost on the production default.
           const span = trace
-            .getTracer('postmill')
+            .getTracer('validpost')
             .startSpan(`provider.${key.domain}.${key.providerId}`);
           span.setAttribute('keyString', keyStr);
           span.setAttribute('provider.operation', operation);

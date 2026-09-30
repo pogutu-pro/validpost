@@ -7,7 +7,7 @@ import {
   CommsSendResult,
   ProviderModule,
   ProviderRuntimeContext,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import { metadata as providerMetadata } from './metadata';
 
 const DISCORD_API = 'https://discord.com/api/v10';
@@ -24,10 +24,10 @@ const CAPABILITIES: CommsAdapterCapabilities = {
 
 /**
  * Discord comms adapter. Inbound rides the Interactions endpoint (the
- * `/postmill` slash command, ed25519-signed); a slash command must be acked
+ * `/validpost` slash command, ed25519-signed); a slash command must be acked
  * with an interaction response within 3 seconds, so `parseInbound` attaches a
  * type-4 ephemeral ack and the real reply is delivered as a DM. `provision()`
- * upserts the global `/postmill` command.
+ * upserts the global `/validpost` command.
  */
 export class DiscordCommsAdapter implements CommsCapability {
   readonly name = 'discord';
@@ -109,7 +109,7 @@ export class DiscordCommsAdapter implements CommsCapability {
     if (interaction?.type === 1) {
       return [{ kind: 'challenge', ackResponse: { type: 1 } }];
     }
-    if (interaction?.type !== 2 || interaction?.data?.name !== 'postmill') {
+    if (interaction?.type !== 2 || interaction?.data?.name !== 'validpost') {
       return [{ kind: 'ignore' }];
     }
     const user = interaction.member?.user || interaction.user;
@@ -145,8 +145,8 @@ export class DiscordCommsAdapter implements CommsCapability {
     await this._api(`/applications/${applicationId}/commands`, {
       method: 'POST',
       body: {
-        name: 'postmill',
-        description: 'Chat with your Postmill agent',
+        name: 'validpost',
+        description: 'Chat with your ValidPost agent',
         type: 1,
         options: [
           {
@@ -218,7 +218,7 @@ export const discordCommsModule: ProviderModule<any, any> = {
     ],
     capabilities: CAPABILITIES,
     platformConnect: 'env',
-    docsUrl: 'https://docs.postmill.ai/operations-guide/platform-comms-apps#discord',
+    docsUrl: 'https://docs.validpost.io/operations-guide/platform-comms-apps#discord',
     portalUrl: 'https://discord.com/developers/applications',
     portalLabel: 'Discord Developer Portal',
     webhookInstructions:
@@ -228,10 +228,10 @@ export const discordCommsModule: ProviderModule<any, any> = {
       'Copy the Application ID and Public Key from General Information into the fields below.',
       'Under Bot, copy the bot token into the field below.',
       'Paste the webhook URL below into General Information → Interactions Endpoint URL.',
-      'Save — the /postmill command is registered automatically. Invite the bot to your server.',
+      'Save — the /validpost command is registered automatically. Invite the bot to your server.',
     ],
     setupNotes:
-      'Paste the webhook URL below into General Information → Interactions Endpoint URL. The /postmill command is registered automatically. One Postmill organization per Discord app.',
+      'Paste the webhook URL below into General Information → Interactions Endpoint URL. The /validpost command is registered automatically. One ValidPost organization per Discord app.',
   },
   create: (ctx) => new DiscordCommsAdapter(ctx),
 };

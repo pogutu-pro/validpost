@@ -13,16 +13,16 @@ import {
 } from 'react';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import type { Post, Integration, Tags } from '@prisma/client';
 import { useSearchParams } from 'next/navigation';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { extend } from 'dayjs';
 import useCookie from 'react-use-cookie';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { timer } from '@postmill-ai/helpers/utils/timer';
-import { expandPosts } from '@postmill-ai/helpers/utils/posts.list.minify';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { timer } from '@validpost/helpers/utils/timer';
+import { expandPosts } from '@validpost/helpers/utils/posts.list.minify';
 extend(isoWeek);
 extend(weekOfYear);
 

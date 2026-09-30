@@ -8,7 +8,7 @@
  * `@reaatech/agent-mesh` validates its environment schema at import time and
  * `process.exit(1)`s when `GOOGLE_CLOUD_PROJECT` / `API_KEY` are unset. Those
  * vars only feed the package's own Vertex/Gemini classifier and standalone
- * HTTP gateway — neither of which Postmill uses (the in-process transport
+ * HTTP gateway — neither of which ValidPost uses (the in-process transport
  * replaces them) — so seed harmless placeholders before the first agent-mesh
  * import. Real values, when present, are never overwritten.
  *
@@ -23,7 +23,7 @@
 // `watchedEnvKeys` list when `@reaatech/agent-mesh` is upgraded.
 // v1.2.0
 
-// P4.1: Honor the Postmill env name by mapping it to the package's
+// P4.1: Honor the ValidPost env name by mapping it to the package's
 // `AGENT_REGISTRY_DIR` before the package import. The override intentionally
 // persists in `process.env` so later mesh reads (e.g. `loadRegistry()`) see it.
 if (process.env.AI_DESIGNER_AGENT_REGISTRY && !process.env.AGENT_REGISTRY_DIR) {

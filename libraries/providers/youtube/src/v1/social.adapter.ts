@@ -7,22 +7,22 @@ import {
   PostResponse,
   SocialCommentDTO,
   SocialProvider,
-} from '@postmill-ai/provider-kernel';
-import { makeId, makeOauthState } from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
+import { makeId, makeOauthState } from '@validpost/provider-kernel';
 import { google, youtube_v3 } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library/build/src/auth/oauth2client';
 import { Readable } from 'node:stream';
-import { safeFetch, YoutubeSettingsDto } from '@postmill-ai/provider-kernel';
+import { safeFetch, YoutubeSettingsDto } from '@validpost/provider-kernel';
 import {
   BadBody,
   SocialAbstract,
   ValidityMedia,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 import * as process from 'node:process';
 import dayjs from 'dayjs';
 import { GaxiosResponse } from 'gaxios/build/src/common';
 import Schema$Video = youtube_v3.Schema$Video;
-import { Rules } from '@postmill-ai/provider-kernel';
+import { Rules } from '@validpost/provider-kernel';
 import { Integration } from '@prisma/client';
 import { Logger } from '@nestjs/common';
 
@@ -838,7 +838,7 @@ import {
   ProviderModule as __ProviderModule,
   SocialProviderKernelAdapter as __Bridge,
   PROVIDER_CAPABILITIES as __CAPS,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const __adapter = new YoutubeProvider();
 

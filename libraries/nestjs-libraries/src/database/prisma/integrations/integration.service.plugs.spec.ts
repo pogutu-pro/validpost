@@ -2,11 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Side-effectful imports pulled in transitively by integration.service — stub them so the unit
 // constructs without a Redis connection or a real storage adapter.
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: { get: vi.fn(), set: vi.fn(), del: vi.fn() },
   RedisService: class {},
 }));
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/storage/storage.service', () => ({
   StorageService: class {
     getLocalAdapterForOrg = vi.fn().mockResolvedValue({ uploadSimple: vi.fn(), uploadFile: vi.fn() });
   },
@@ -17,7 +17,7 @@ import {
   clearAllCredentials,
   getOrgCredential,
   setCredentials,
-} from '@postmill-ai/nestjs-libraries/integrations/credentials';
+} from '@validpost/nestjs-libraries/integrations/credentials';
 
 /**
  * Regression guard for the v3.7.1 cold-cache plug bug (§4.6).

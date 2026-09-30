@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Organization, StorageProviderType } from '@prisma/client';
 import { FilesController } from './files.controller';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { FileRepository } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.repository';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { FileRepository } from '@validpost/nestjs-libraries/database/prisma/file/file.repository';
 import * as fs from 'fs/promises';
 import * as os from 'os';
 import * as path from 'path';
@@ -57,7 +57,7 @@ beforeEach(() => {
 
 describe('FilesController — storage cleanup on permanent delete', () => {
   it('removes a local-disk object on DELETE /:id', async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'postmill-cleanup-'));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'validpost-cleanup-'));
     const filePath = path.join(tmpDir, 'local.png');
     await fs.writeFile(filePath, 'local bytes');
 

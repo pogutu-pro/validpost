@@ -12,7 +12,7 @@ import { createDesignerStore, type DesignerElement } from './designer.store';
  * placed a second time.
  */
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>

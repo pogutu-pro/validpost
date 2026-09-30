@@ -1,4 +1,4 @@
-# @postmill-ai/provider-gmb
+# @validpost/provider-gmb
 
 Google My Business (Business Profile) social provider (`social/gmb@v1`).
 

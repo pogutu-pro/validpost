@@ -1,25 +1,25 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Speed up the publish-status poll loop so bounded-loop tests finish instantly.
-vi.mock('@postmill-ai/helpers/utils/timer', () => ({
+vi.mock('@validpost/helpers/utils/timer', () => ({
   timer: vi.fn(async () => undefined),
 }));
 
 // Video bytes arrive via readOrFetch (safeFetch for URLs, readFileSync for
 // local-storage disk paths) — stub it at the module boundary.
 const readOrFetchMock = vi.fn(async () => Buffer.from([1, 2, 3, 4]));
-vi.mock('@postmill-ai/helpers/utils/read.or.fetch', () => ({
+vi.mock('@validpost/helpers/utils/read.or.fetch', () => ({
   readOrFetch: (...args: unknown[]) => readOrFetchMock(...args),
 }));
 
 // Keep the real kernel exports but turn `safeFetch` into a spy for any
 // future download assertions.
-vi.mock('@postmill-ai/provider-kernel', async (orig) => {
+vi.mock('@validpost/provider-kernel', async (orig) => {
   const actual: any = await orig();
   return { ...actual, safeFetch: vi.fn() };
 });
 
-import { setSocialFetchPorts } from '@postmill-ai/provider-kernel';
+import { setSocialFetchPorts } from '@validpost/provider-kernel';
 import { TiktokProvider } from './social.adapter';
 
 // The kernel's `BadBody` is a Proxy that delegates construction to the

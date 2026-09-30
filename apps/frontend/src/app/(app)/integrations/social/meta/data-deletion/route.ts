@@ -46,7 +46,7 @@ export async function GET(request: Request) {
     page(
       'Data deletion request',
       `<p>Confirmation code: <code>${escapeHtml(code)}</code></p>${body}
-       <p class="muted">Questions: <a href="mailto:support@postmill.ai">support@postmill.ai</a></p>`,
+       <p class="muted">Questions: <a href="mailto:support@validpost.io">support@validpost.io</a></p>`,
     ),
     200,
   );

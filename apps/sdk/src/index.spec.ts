@@ -1,10 +1,10 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import Postmill from './index';
+import ValidPost from './index';
 
-describe('Postmill SDK', () => {
-  it('exports a configurable Postmill client', () => {
-    const client = new Postmill('test-api-key');
-    expect(client).toBeInstanceOf(Postmill);
+describe('ValidPost SDK', () => {
+  it('exports a configurable ValidPost client', () => {
+    const client = new ValidPost('test-api-key');
+    expect(client).toBeInstanceOf(ValidPost);
     expect(typeof client.post).toBe('function');
     expect(typeof client.postList).toBe('function');
     expect(typeof client.upload).toBe('function');
@@ -15,12 +15,12 @@ describe('Postmill SDK', () => {
   });
 
   it('allows overriding the API base path', () => {
-    const client = new Postmill('test-api-key', 'https://custom.example.com');
-    expect(client).toBeInstanceOf(Postmill);
+    const client = new ValidPost('test-api-key', 'https://custom.example.com');
+    expect(client).toBeInstanceOf(ValidPost);
   });
 });
 
-describe('Postmill SDK HTTP calls', () => {
+describe('ValidPost SDK HTTP calls', () => {
   const fetchMock = vi.fn();
 
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe('Postmill SDK HTTP calls', () => {
   it('posts with the correct URL, method, headers and body', async () => {
     mockJsonResponse({ success: true });
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     await client.post({
       type: 'schedule',
       date: '2026-01-01T12:00:00.000Z',
@@ -52,7 +52,7 @@ describe('Postmill SDK HTTP calls', () => {
 
     expect(fetchMock).toHaveBeenCalledOnce();
     const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe('https://api.postmill.ai/public/v1/posts');
+    expect(url).toBe('https://api.validpost.io/public/v1/posts');
     expect(init?.method).toBe('POST');
     expect(init?.headers).toMatchObject({
       Authorization: 'pm_live_123',
@@ -64,7 +64,7 @@ describe('Postmill SDK HTTP calls', () => {
   it('lists posts with query string, always paged as { posts, cursor }', async () => {
     mockJsonResponse({ posts: [], cursor: null });
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     const result = await client.postList({
       startDate: '2026-01-01T00:00:00.000Z',
       endDate: '2026-01-31T23:59:59.000Z',
@@ -81,11 +81,11 @@ describe('Postmill SDK HTTP calls', () => {
   it('uploads from a URL', async () => {
     mockJsonResponse({ path: 'https://cdn.example.com/file.png' });
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     await client.uploadFromUrl('https://example.com/image.png');
 
     const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe('https://api.postmill.ai/public/v1/upload-from-url');
+    expect(url).toBe('https://api.validpost.io/public/v1/upload-from-url');
     expect(init?.method).toBe('POST');
     expect(JSON.parse(init?.body as string)).toEqual({
       url: 'https://example.com/image.png',
@@ -95,37 +95,37 @@ describe('Postmill SDK HTTP calls', () => {
   it('lists integrations without any query params', async () => {
     mockJsonResponse([]);
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     await client.integrations();
 
     const [url] = fetchMock.mock.calls[0];
-    expect(url).toBe('https://api.postmill.ai/public/v1/integrations');
+    expect(url).toBe('https://api.validpost.io/public/v1/integrations');
   });
 
   it('connects a channel with refresh and version query params', async () => {
     mockJsonResponse({ url: 'https://provider.example.com/oauth' });
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     await client.connectChannel('provider-x', { refresh: 'old-id', version: 'v2' });
 
     const [url] = fetchMock.mock.calls[0];
     expect(url).toBe(
-      'https://api.postmill.ai/public/v1/social/provider-x?refresh=old-id&version=v2'
+      'https://api.validpost.io/public/v1/social/provider-x?refresh=old-id&version=v2'
     );
   });
 
   it('connects a channel addressed by a version-qualified id', async () => {
     mockJsonResponse({ url: 'https://provider.example.com/oauth' });
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     await client.connectChannel('provider-x@v2');
 
     const [url] = fetchMock.mock.calls[0];
-    expect(url).toBe('https://api.postmill.ai/public/v1/social/provider-x@v2');
+    expect(url).toBe('https://api.validpost.io/public/v1/social/provider-x@v2');
   });
 
   it('refuses an unversioned connectChannel before hitting the network', async () => {
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     await expect(client.connectChannel('provider-x')).rejects.toThrow(
       /explicit provider version/
     );
@@ -141,7 +141,7 @@ describe('Postmill SDK HTTP calls', () => {
       error: null,
     });
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     const result = await client.generateVideo({
       type: 'text-to-video',
       output: 'vertical',
@@ -173,7 +173,7 @@ describe('Postmill SDK HTTP calls', () => {
         }),
       } as unknown as Response);
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     const result = await client.generateVideoAndWait(
       { type: 'text-to-video', output: 'vertical' },
       { pollIntervalMs: 10, timeoutMs: 1000 }
@@ -181,7 +181,7 @@ describe('Postmill SDK HTTP calls', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(2);
     const [pollUrl] = fetchMock.mock.calls[1];
-    expect(pollUrl).toBe('https://api.postmill.ai/public/v1/generate-video/job-1');
+    expect(pollUrl).toBe('https://api.validpost.io/public/v1/generate-video/job-1');
     expect(result.status).toBe('completed');
     expect(result.artifactUrl).toBe('https://cdn.example.com/video.mp4');
   });
@@ -216,7 +216,7 @@ describe('Postmill SDK HTTP calls', () => {
         }),
       } as unknown as Response);
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     const result = await client.generateVideoAndWait(
       { type: 'text-to-video', output: 'vertical' },
       { pollIntervalMs: 10, timeoutMs: 1000 }
@@ -247,7 +247,7 @@ describe('Postmill SDK HTTP calls', () => {
         }),
       } as unknown as Response);
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     const result = await client.generateVideoAndWait(
       { type: 'text-to-video', output: 'vertical' },
       { pollIntervalMs: 10, timeoutMs: 1000 }
@@ -268,7 +268,7 @@ describe('Postmill SDK HTTP calls', () => {
       }),
     } as unknown as Response);
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     const result = await client.generateVideoAndWait(
       { type: 'text-to-video', output: 'vertical' },
       { pollIntervalMs: 10, timeoutMs: 1000 }
@@ -282,11 +282,11 @@ describe('Postmill SDK HTTP calls', () => {
   it('deletes a post by ID', async () => {
     fetchMock.mockResolvedValueOnce({ ok: true } as unknown as Response);
 
-    const client = new Postmill('pm_live_123');
+    const client = new ValidPost('pm_live_123');
     await client.deletePost('post-1');
 
     const [url, init] = fetchMock.mock.calls[0];
-    expect(url).toBe('https://api.postmill.ai/public/v1/posts/post-1');
+    expect(url).toBe('https://api.validpost.io/public/v1/posts/post-1');
     expect(init?.method).toBe('DELETE');
   });
 });

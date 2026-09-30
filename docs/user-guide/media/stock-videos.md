@@ -10,7 +10,7 @@ The free default catalog is **Pexels**, gated by the operator environment variab
 
 If your organization has an active [Content Pack](../settings) that declares `videos` — currently
 **Magnific**, **Vecteezy**, **Adobe Stock**, or **Envato Elements** — that premium catalog is shown
-first. Otherwise Postmill falls back to Pexels. A Content Pack daily-cap error is surfaced as a 402
+first. Otherwise ValidPost falls back to Pexels. A Content Pack daily-cap error is surfaced as a 402
 instead of silently falling back.
 
 ## Search and filters

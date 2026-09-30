@@ -744,14 +744,14 @@ paths:
       summary: Scope-gated identity claims for a posf_ access token
       tags:
         - Federation
-  /.well-known/postmill-identity:
+  /.well-known/validpost-identity:
     get:
       operationId: FederationDiscoveryController_discovery
       parameters: []
       responses:
         "200":
           description: ""
-      summary: Postmill ID discovery document (endpoints, JWKS URI, scopes)
+      summary: ValidPost ID discovery document (endpoints, JWKS URI, scopes)
       tags:
         - Federation
   /webhooks/email:
@@ -4732,7 +4732,7 @@ paths:
       responses:
         "200":
           description: ""
-      summary: List active Postmill ID (federation) sign-in grants for the user
+      summary: List active ValidPost ID (federation) sign-in grants for the user
       tags:
         - Approved Apps
   /user/approved-apps/federation/{id}:
@@ -4747,7 +4747,7 @@ paths:
       responses:
         "200":
           description: ""
-      summary: Revoke a Postmill ID (federation) sign-in grant
+      summary: Revoke a ValidPost ID (federation) sign-in grant
       tags:
         - Approved Apps
   /announcements:
@@ -9305,8 +9305,8 @@ paths:
       tags:
         - PublicAnalytics
 info:
-  title: Postmill API
-  description: OpenAPI description of the Postmill backend (NestJS). Generated from the controllers — do not hand-edit; run `pnpm run openapi:generate`.
+  title: ValidPost API
+  description: OpenAPI description of the ValidPost backend (NestJS). Generated from the controllers — do not hand-edit; run `pnpm run openapi:generate`.
   version: 1.0.0
   contact: {}
 tags: []

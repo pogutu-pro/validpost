@@ -5,13 +5,13 @@ import React from 'react';
 
 const mockToasterShow = vi.fn();
 
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: () => ({ show: mockToasterShow }),
 }));
 
 const mockDeleteDialog = vi.fn().mockResolvedValue(false);
 
-vi.mock('@postmill-ai/react/helpers/delete.dialog', () => ({
+vi.mock('@validpost/react/helpers/delete.dialog', () => ({
   deleteDialog: mockDeleteDialog,
 }));
 
@@ -27,7 +27,7 @@ const mockProviderFormModal = vi.fn((props: ProviderFormModalProps) => {
   return null;
 });
 
-vi.mock('@postmill-ai/frontend/components/settings/storage/provider-form.modal', () => ({
+vi.mock('@validpost/frontend/components/settings/storage/provider-form.modal', () => ({
   ProviderFormModal: (props: ProviderFormModalProps) => mockProviderFormModal(props),
 }));
 
@@ -41,7 +41,7 @@ type OpenModalParams = {
 
 const mockOpenModal = vi.fn();
 
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', async (importOriginal) => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', async (importOriginal) => ({
   ...(await importOriginal<Record<string, unknown>>()),
   useModals: () => ({
     openModal: mockOpenModal,
@@ -50,17 +50,17 @@ vi.mock('@postmill-ai/frontend/components/layout/new-modal', async (importOrigin
   }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/storage/migration.modal', () => ({
+vi.mock('@validpost/frontend/components/settings/storage/migration.modal', () => ({
   MigrationModal: () => null,
 }));
 
-vi.mock('@postmill-ai/frontend/components/settings/storage/audit.tab', () => ({
+vi.mock('@validpost/frontend/components/settings/storage/audit.tab', () => ({
   AuditTab: () => null,
 }));
 
 // storage.tab reads the kernel provider catalog to surface version status;
 // mock it to an empty catalog (mirrors shortlinks/vpn specs).
-vi.mock('@postmill-ai/frontend/components/settings/shared/use-provider-catalog', () => ({
+vi.mock('@validpost/frontend/components/settings/shared/use-provider-catalog', () => ({
   useProviderCatalog: () => ({ data: [] }),
 }));
 
@@ -111,7 +111,7 @@ const mockFetchFn = vi.fn(async (url: string) => {
   return { ok: true, json: () => Promise.resolve({}) };
 });
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => mockFetchFn,
 }));
 

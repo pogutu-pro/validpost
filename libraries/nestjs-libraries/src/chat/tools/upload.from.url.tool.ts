@@ -1,17 +1,17 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 import { Injectable } from '@nestjs/common';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
 import { Readable } from 'stream';
-import { fromBuffer } from '@postmill-ai/nestjs-libraries/upload/file-type.compat';
+import { fromBuffer } from '@validpost/nestjs-libraries/upload/file-type.compat';
 import {
   parseOrg,
   requireWrite,
-} from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
+} from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
 
 // Mirror FileService's MAX_IMPORT_SIZE (not exported) — cap remote reads at 512 MB.
 const MAX_UPLOAD_BYTES = 512 * 1024 * 1024;

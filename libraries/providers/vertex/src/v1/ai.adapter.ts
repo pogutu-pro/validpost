@@ -10,7 +10,7 @@ import {
   type AiCapabilities as AICapabilities,
   type AiModelOptions as AIModelOptions,
   type ProviderModule,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const VERTEX_CAPABILITIES: AICapabilities = {
   text: true,

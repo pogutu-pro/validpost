@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { createHash } from 'crypto';
-import { safeFetch } from '@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch';
-import { RedisService } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { OrgContentPackSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/content-packs/org-content-pack-settings.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import type { ContentPackCapability as ContentPackCapabilityInstance } from '@postmill-ai/provider-kernel';
+import { safeFetch } from '@validpost/nestjs-libraries/dtos/webhooks/safe.fetch';
+import { RedisService } from '@validpost/nestjs-libraries/redis/redis.service';
+import { OrgContentPackSettingsService } from '@validpost/nestjs-libraries/database/prisma/content-packs/org-content-pack-settings.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import type { ContentPackCapability as ContentPackCapabilityInstance } from '@validpost/provider-kernel';
 import { ContentPackDailyCapError } from './content-packs/content-pack.interface';
 import type { ContentPackCapability } from './content-packs/content-pack.interface';
 
@@ -755,7 +755,7 @@ export class StockMediaService {
     const collection = prefix ? collections[prefix] : undefined;
     // Iconify's collections API returns license as an OBJECT
     // ({title, spdx, url}), not a string — passed through raw it crashed the
-    // stock preview modal (React error #31, Sentry POSTMILL-APP-J).
+    // stock preview modal (React error #31, Sentry VALIDPOST-APP-J).
     const rawLicense = collection?.license;
     const license =
       typeof rawLicense === 'string'

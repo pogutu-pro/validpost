@@ -1,6 +1,6 @@
 ---
 name: dashboard-widget
-description: Add a new widget/card/metric tile to the Postmill /dashboard page — backend aggregation endpoint, SWR hook, SectionCard shell, grid composition. Use when adding a dashboard widget, a new /dashboard card or section, or a dashboard metric tile.
+description: Add a new widget/card/metric tile to the ValidPost /dashboard page — backend aggregation endpoint, SWR hook, SectionCard shell, grid composition. Use when adding a dashboard widget, a new /dashboard card or section, or a dashboard metric tile.
 ---
 
 # Dashboard widget
@@ -26,7 +26,7 @@ Procedure for adding a new section to `/dashboard` (`apps/frontend/src/app/(app)
    (Detail: `agents/backend.md` § layering.)
 2. **Frontend hook.** Create `apps/frontend/src/components/dashboard/hooks/use<Name>.ts` —
    one SWR hook per resource, `'use client'`, `useFetch()` from
-   `@postmill-ai/helpers/utils/custom.fetch` + `useSWR<Type>('/dashboard/<name>', load)`.
+   `@validpost/helpers/utils/custom.fetch` + `useSWR<Type>('/dashboard/<name>', load)`.
    Follow `useDashboardSummary.ts` exactly: throw `createFetchError(...)` (from
    `../dashboard.utils`) on `!res.ok`, `res.json()` on success,
    `revalidateOnFocus: false, revalidateOnReconnect: false`. Never fetch inside the widget.

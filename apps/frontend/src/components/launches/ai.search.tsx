@@ -2,11 +2,11 @@
 
 import { FC, useCallback, useState } from 'react';
 import clsx from 'clsx';
-import Loading from '@postmill-ai/frontend/components/layout/loading';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import Loading from '@validpost/frontend/components/layout/loading';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { useDebounce } from 'use-debounce';
 
 const AiSearchModal: FC<{ close: () => void }> = (props) => {

@@ -1,11 +1,11 @@
 import { Command, Positional } from 'nestjs-command';
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { DesignRenderService } from '@postmill-ai/nestjs-libraries/media/design-render/design-render.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
-import { ChromiumFrameCaptureService } from '@postmill-ai/nestjs-libraries/media/design-render/chromium-frame-capture.service';
-import type { DesignerDoc } from '@postmill-ai/nestjs-libraries/media/design-render/design-render.types';
+import { PrismaService } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { DesignRenderService } from '@validpost/nestjs-libraries/media/design-render/design-render.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
+import { ChromiumFrameCaptureService } from '@validpost/nestjs-libraries/media/design-render/chromium-frame-capture.service';
+import type { DesignerDoc } from '@validpost/nestjs-libraries/media/design-render/design-render.types';
 import { mkdtemp, readFile, rm } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';

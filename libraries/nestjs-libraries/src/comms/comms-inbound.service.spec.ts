@@ -86,10 +86,10 @@ describe('CommsInboundService', () => {
       );
     });
 
-    it('recognizes "link CODE" and "/postmill link CODE" forms', async () => {
+    it('recognizes "link CODE" and "/validpost link CODE" forms', async () => {
       linkService.claimCode.mockResolvedValue({ id: 'link-1', userId: 'user-1' });
       await service.process({ ...EVENT, text: 'link ABCD2345' });
-      await service.process({ ...EVENT, text: '/postmill link ABCD2345' });
+      await service.process({ ...EVENT, text: '/validpost link ABCD2345' });
       expect(linkService.claimCode).toHaveBeenCalledTimes(2);
     });
 

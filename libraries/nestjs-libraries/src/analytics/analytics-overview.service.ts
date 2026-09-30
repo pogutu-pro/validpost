@@ -11,16 +11,16 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { trace } from '@opentelemetry/api';
-import { singleFlight } from '@postmill-ai/nestjs-libraries/utils/concurrency';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { AnalyticsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/analytics/analytics.repository';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { isKnownMetric } from '@postmill-ai/nestjs-libraries/integrations/social/analytics.metrics';
+import { singleFlight } from '@validpost/nestjs-libraries/utils/concurrency';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { AnalyticsRepository } from '@validpost/nestjs-libraries/database/prisma/analytics/analytics.repository';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { isKnownMetric } from '@validpost/nestjs-libraries/integrations/social/analytics.metrics';
 import { Organization } from '@prisma/client';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { createHash } from 'crypto';
-import { RedisService } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { RedisService } from '@validpost/nestjs-libraries/redis/redis.service';
 import {
   AnalyticsOverviewResponse,
   ByChannelItem,
@@ -97,7 +97,7 @@ export class AnalyticsOverviewService {
     // G4: hot-path span. `trace.getTracer` returns a no-op tracer when no OTel SDK
     // is started, so the whole wrapper is zero-cost and behaviour-neutral on the
     // production default (spans/attributes are dropped).
-    const tracer = trace.getTracer('postmill');
+    const tracer = trace.getTracer('validpost');
     return tracer.startActiveSpan('analytics.getOverview', async (span) => {
       span.setAttribute('orgId', org.id);
       try {

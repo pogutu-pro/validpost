@@ -1,6 +1,6 @@
 # Scaling & Deployment
 
-This page covers running Postmill in production: the published all-in-one image,
+This page covers running ValidPost in production: the published all-in-one image,
 horizontal scaling, health probes, graceful shutdown, fail-fast configuration, the
 collaboration single-instance constraint, and OpenTelemetry tracing.
 
@@ -18,11 +18,11 @@ at the repo root for production — **not** `docker/Dockerfile.dev`. The differe
 | Healthcheck | none | `HEALTHCHECK` → `/health/live` through nginx |
 
 ```bash
-docker build -f Dockerfile -t postmill-app .
-docker run -p 4007:5000 --env-file .env postmill-app
+docker build -f Dockerfile -t validpost-app .
+docker run -p 4007:5000 --env-file .env validpost-app
 ```
 
-Building is only necessary if you are modifying Postmill. For a stock deployment, pull the published
+Building is only necessary if you are modifying ValidPost. For a stock deployment, pull the published
 image from GHCR or Docker Hub instead — see
 [Container images](./docker.md#container-images).
 
@@ -37,7 +37,7 @@ container restart policy restores a healthy stack.
 
 **Install-agnostic frontend URL.** The frontend build bakes `NEXT_PUBLIC_BACKEND_URL` into the
 client bundles and the CSP `connect-src`, so the image is built with a placeholder URL
-(`https://backend-url-not-set.postmill.invalid/api`) which the entrypoint substitutes with the real
+(`https://backend-url-not-set.validpost.invalid/api`) which the entrypoint substitutes with the real
 runtime `NEXT_PUBLIC_BACKEND_URL` across `.next/` on every container start.
 
 **Scaling out** means running N replicas of this container behind a load balancer (Kubernetes
@@ -149,7 +149,7 @@ endpoint is configured — there is no overhead when unset.
 | Variable | Default | Meaning |
 |---|---|---|
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | _(unset)_ | OTLP/HTTP traces endpoint, for example `http://otel-collector:4318/v1/traces`. Setting it enables tracing. |
-| `OTEL_SERVICE_NAME` | `postmill-backend` | Service name attached to exported spans. |
+| `OTEL_SERVICE_NAME` | `validpost-backend` | Service name attached to exported spans. |
 | `DEV_DISABLE_OPENTELEMETRY` | _(unset)_ | When set, forces OpenTelemetry off even if an endpoint is configured (local-dev override). |
 
 When enabled, Node auto-instrumentations (HTTP, Express/Nest, Postgres, Redis, undici, …)

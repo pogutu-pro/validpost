@@ -13,11 +13,11 @@ import {
   CreditCard,
   Settings,
 } from 'lucide-react';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useVariables } from '@postmill-ai/react/helpers/variable.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { MenuItem } from '@postmill-ai/frontend/components/new-layout/menu-item';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useVariables } from '@validpost/react/helpers/variable.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { MenuItem } from '@validpost/frontend/components/new-layout/menu-item';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
 
 interface MenuItemInterface {
   name: string;

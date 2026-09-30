@@ -2,11 +2,11 @@
 
 import React, { FC, useState } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
-import { FolderTree } from '@postmill-ai/frontend/components/files/folder-tree';
-import { findFolder, type FolderItem } from '@postmill-ai/frontend/components/files/folder.utils';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
+import { FolderTree } from '@validpost/frontend/components/files/folder-tree';
+import { findFolder, type FolderItem } from '@validpost/frontend/components/files/folder.utils';
 
 /**
  * Destination-folder picker over the shared `FolderTree`.

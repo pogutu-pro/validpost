@@ -12,7 +12,7 @@ const adapterMock = {
 const resolveStorageMock = vi.fn(() => adapterMock);
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/providers/provider-resolution.service',
+  '@validpost/nestjs-libraries/providers/provider-resolution.service',
   () => ({
     ProviderResolutionService: class {
       resolveStorage = resolveStorageMock;
@@ -20,9 +20,9 @@ vi.mock(
   })
 );
 
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
 import { StorageService } from './storage.service';
-import type { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
+import type { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
 
 const encryption = {
   encrypt: (s: string) => `enc:${s}`,

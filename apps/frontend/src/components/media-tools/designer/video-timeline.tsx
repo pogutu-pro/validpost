@@ -3,16 +3,16 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { VideoClip, VideoTrack, VideoOutput, DesignerElement } from './designer.store';
 import { VideoPreviewEngine } from './video-preview';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useMediaToolsStatus } from '@postmill-ai/frontend/components/layout/use-media-tools-status';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useMediaToolsStatus } from '@validpost/frontend/components/layout/use-media-tools-status';
 import { VoiceoverDialog } from './voiceover-dialog';
 import { addMediaToTimeline } from './add-media-to-timeline';
 import { timelineBeats } from './beat-sync';
-import { isArtifactPath } from '@postmill-ai/frontend/components/launches/ai.video';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { isArtifactPath } from '@validpost/frontend/components/launches/ai.video';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 interface VideoTimelineProps {
   store: ReturnType<typeof import('./designer.store').createDesignerStore>;

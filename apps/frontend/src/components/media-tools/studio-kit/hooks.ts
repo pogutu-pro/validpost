@@ -2,8 +2,8 @@
 
 import { useCallback } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { readApiError } from '@postmill-ai/frontend/components/ai/provider-error';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { readApiError } from '@validpost/frontend/components/ai/provider-error';
 import type { StudioJob, StudioGenerateBody } from './types';
 
 // One hook per resource (react-hooks/rules-of-hooks). No hooks inside returned objects.

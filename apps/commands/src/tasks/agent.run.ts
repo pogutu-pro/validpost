@@ -1,6 +1,6 @@
 import { Command, Positional } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
-import { AgentGraphService } from '@postmill-ai/nestjs-libraries/agent/agent.graph.service';
+import { AgentGraphService } from '@validpost/nestjs-libraries/agent/agent.graph.service';
 
 @Injectable()
 export class AgentRun {

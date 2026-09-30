@@ -1,11 +1,11 @@
-import '@postmill-ai/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
+import '@validpost/nestjs-libraries/ai-designer/agent-mesh/agent-mesh-env.shim';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import {
   registerInProcessAgent,
   type InProcessHandler,
 } from '@reaatech/agent-mesh-router';
 import type { AgentResponse, ContextPacket } from '@reaatech/agent-mesh';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
 import { z } from 'zod';
 import type { DesignPlan } from '../../ai-designer.types';
 import { isCopySlot } from '../../ai-designer.types';

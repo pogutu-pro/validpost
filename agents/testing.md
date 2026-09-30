@@ -20,7 +20,7 @@ Run one package: `vitest run --root <pkg>` (e.g. `vitest run --root apps/backend
 | Package | Config | Key settings |
 |---|---|---|
 | `libraries/helpers` | `vitest.config.ts` | node env; include `src/**/*.spec.ts`, `src/**/*.test.ts`. |
-| `libraries/providers` | `vitest.config.ts` | Aliases redirect every `@postmill-ai/provider-*` package to its `src` (tests run current source, not stale `node_modules`). Include `*/src/**/*.{spec,test,int-spec}.ts`. Coverage: v8, `all: false` (only instrument files tests actually load — otherwise 70+ untested adapters report 0% and sink the floor); include = `kernel/src/**` + the 8 B4 media adapters; thresholds **statements 75 / lines 70**. HTML report output under `libraries/providers/coverage/`. |
+| `libraries/providers` | `vitest.config.ts` | Aliases redirect every `@validpost/provider-*` package to its `src` (tests run current source, not stale `node_modules`). Include `*/src/**/*.{spec,test,int-spec}.ts`. Coverage: v8, `all: false` (only instrument files tests actually load — otherwise 70+ untested adapters report 0% and sink the floor); include = `kernel/src/**` + the 8 B4 media adapters; thresholds **statements 75 / lines 70**. HTML report output under `libraries/providers/coverage/`. |
 | `libraries/nestjs-libraries` | `vitest.config.ts` | `pool: 'threads'`, **`maxWorkers: 1`**, `isolate: true`, `setupFiles: ['./vitest.setup.ts']`. Include `src/**/*.spec.ts` + `src/**/*.eval.ts`. Coverage ratchet floors over the AI/integrations/analytics surface: **statements 72 / branches 62.5 / functions 72 / lines 73** — floors at *measured* coverage so regressions fail CI, not aspirational targets. |
 | `libraries/nestjs-libraries` (integration) | `vitest-integration.config.ts` | Include `src/**/*.int-spec.ts` (does not match the unit globs, so unit runs skip these). `globalSetup: ['./vitest-integration.global.ts']`, **`maxWorkers: 1`**, **no setupFiles** — integration specs hit a real DB and must not load the unit mocks. |
 | `apps/backend` | `vitest.config.ts` | **`maxWorkers: 1`**, `isolate: true` — each spec gets a fresh module registry so conflicting `vi.mock(...)` stubs (redis, Stripe) can't leak across files (order-independence). Coverage is **per-file thresholds** on individual controllers (e.g. `public.analytics.v1.controller.ts` 90/90/75/90; `auth.controller.ts` 35/15/20/35) because vitest 4 applies aggregate global thresholds to every included file. |
@@ -29,15 +29,15 @@ Run one package: `vitest run --root <pkg>` (e.g. `vitest run --root apps/backend
 
 **Single-thread rule**: backend and nestjs-libraries run `maxWorkers: 1`. For the
 integration config the reason is the DB harness: `globalSetup` creates exactly one
-throwaway Postgres database per run (named `postmill_test_${process.pid}`) and hands its
+throwaway Postgres database per run (named `validpost_test_${process.pid}`) and hands its
 URL to workers via vitest `provide`/`inject` — parallel workers would share/collide on it.
 Keep `maxWorkers: 1` when adding specs that touch the DB harness or process-wide mocks.
 
 ## DB test harness — `libraries/nestjs-libraries/src/testing/test-db.ts`
 
 - `createTestDatabase()` → `{ url, drop }`. Connects with an admin client
-  (`TEST_DATABASE_ADMIN_URL`, default `postgresql://postmill-local:postmill-local-pwd@localhost:5432/postgres`),
-  `DROP DATABASE IF EXISTS ... WITH (FORCE)` then `CREATE DATABASE postmill_test_${pid}`,
+  (`TEST_DATABASE_ADMIN_URL`, default `postgresql://validpost-local:validpost-local-pwd@localhost:5432/postgres`),
+  `DROP DATABASE IF EXISTS ... WITH (FORCE)` then `CREATE DATABASE validpost_test_${pid}`,
   and pushes the full schema in with `pnpm exec prisma db push --skip-generate`. First call
   is slow (full push); runs once per run via `vitest-integration.global.ts`, which exposes
   the URL as `inject('dbUrl')` and drops the DB on teardown.
@@ -51,7 +51,7 @@ Every provider package is gated by kernel-level specs in
 `libraries/providers/kernel/src/__tests__/`:
 
 1. **Conformance** — `all-providers.conformance.spec.ts` iterates `providerModules` from
-   `@postmill-ai/backend/providers.generated` and calls `runDomainConformance(domain, module, …)`
+   `@validpost/backend/providers.generated` and calls `runDomainConformance(domain, module, …)`
    from `kernel/src/testing/conformance.ts`. It throws (not skips) on: invalid manifest,
    domain mismatch, non-function `create()`, **network I/O during `create()`** (a throwing
    stub fetch is installed — `create()` must be pure), and missing required capability
@@ -83,7 +83,7 @@ vendor docs rather than a real API key, mark it at the top of the spec with a
   test, no cross-test dedup (precedent: `apps/frontend/src/components/settings/shortlinks/shortlinks.tab.spec.tsx:110`).
 - **Dashboard hooks**: each hook in `apps/frontend/src/components/dashboard/hooks/` has a
   sibling `.spec.ts` (`useDashboardSummary.spec.ts`, `useDashboardPrefs.spec.ts`, …). Hook
-  specs `vi.mock` both `@postmill-ai/helpers/utils/custom.fetch` (`useFetch`) and `swr`
+  specs `vi.mock` both `@validpost/helpers/utils/custom.fetch` (`useFetch`) and `swr`
   rather than rendering. New dashboard hooks must follow the same pattern (see
   `agents/backend.md` for the `/dashboard/*` endpoints they consume).
 - Never disable `react-hooks/rules-of-hooks` to make a test pass; each SWR call must be its
@@ -94,7 +94,7 @@ vendor docs rather than a real API key, mark it at the top of the spec with a
 Playwright (`@playwright/test 1.58.2`, separate `e2e/package.json` outside the pnpm
 workspace scripts — install it standalone with `pnpm install --ignore-workspace`;
 `@axe-core/playwright` for the a11y audit config). `playwright.config.ts`:
-`testDir: ./tests`, `workers: 1`, `retries: 1`, `baseURL: https://app.postmill.ai`
+`testDir: ./tests`, `workers: 1`, `retries: 1`, `baseURL: https://app.validpost.io`
 (live deployment — E2E specs exercise the real app, not a local boot), a `setup` project
 (`**/auth.setup.ts`) writing one storage state per persona (`.auth/admin.json` /
 `member.json` / `free.json`); the main project is named `admin` and consumes

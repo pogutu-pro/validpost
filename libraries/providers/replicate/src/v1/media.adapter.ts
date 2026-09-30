@@ -16,7 +16,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   mediaUpstreamFromBody,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const BASE = 'https://api.replicate.com/v1';
 

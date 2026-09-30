@@ -1,12 +1,12 @@
 'use client';
 
-import { Slider } from '@postmill-ai/react/form/slider';
+import { Slider } from '@validpost/react/form/slider';
 import clsx from 'clsx';
-import { Editor } from '@postmill-ai/frontend/components/composer/editor';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useIntegration } from '@postmill-ai/frontend/components/launches/helpers/use.integration';
-import { useSettings } from '@postmill-ai/frontend/components/launches/helpers/use.values';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import { Editor } from '@validpost/frontend/components/composer/editor';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useIntegration } from '@validpost/frontend/components/launches/helpers/use.integration';
+import { useSettings } from '@validpost/frontend/components/launches/helpers/use.values';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 
 export const ThreadFinisher = () => {
   const integration = useIntegration();

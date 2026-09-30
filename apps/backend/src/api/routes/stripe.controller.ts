@@ -1,7 +1,7 @@
 import { Controller, Post, RawBodyRequest, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { PaymentsService } from '@postmill-ai/nestjs-libraries/payments/payments.service';
+import { PaymentsService } from '@validpost/nestjs-libraries/payments/payments.service';
 
 /**
  * Deprecated alias for `POST /payments/webhooks/stripe`, kept so Stripe

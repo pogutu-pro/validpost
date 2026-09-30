@@ -12,7 +12,7 @@ import {
   mediaUpstreamError,
   mediaUpstreamFailure,
   isTransientStatus,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Suno AI music generation via the sunoapi.org hosted gateway — own-key Bearer provider
 // configured at Settings → Media. Audio-only (music). Generation is async: POST /api/v1/generate

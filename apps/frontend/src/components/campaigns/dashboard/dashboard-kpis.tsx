@@ -2,16 +2,16 @@
 
 import { FC, useMemo } from 'react';
 import dayjs from 'dayjs';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { StatTile } from '@postmill-ai/frontend/components/analytics/kit/stat-tile';
-import { CHART_PALETTE } from '@postmill-ai/frontend/components/analytics/kit/palette';
-import { KPI } from '@postmill-ai/frontend/components/analytics/utils';
-import { metricLabelT } from '@postmill-ai/frontend/components/campaigns/metric-labels';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { StatTile } from '@validpost/frontend/components/analytics/kit/stat-tile';
+import { CHART_PALETTE } from '@validpost/frontend/components/analytics/kit/palette';
+import { KPI } from '@validpost/frontend/components/analytics/utils';
+import { metricLabelT } from '@validpost/frontend/components/campaigns/metric-labels';
 import {
   useCampaignAnalytics,
   resolveCampaignAnalyticsRange,
   CampaignAnalytics,
-} from '@postmill-ai/frontend/components/campaigns/hooks/campaign.hooks';
+} from '@validpost/frontend/components/campaigns/hooks/campaign.hooks';
 
 interface DashboardKpisProps {
   dashboard: {

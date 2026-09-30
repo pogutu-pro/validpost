@@ -2,13 +2,13 @@
 
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { useReplicateStore } from './replicate.store';
 import { EditorShell, toolbarBtn, toolbarPrimary } from './editor-shell';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
 import type { FileValue } from './fields/file';
 
 interface CustomFontEntry {

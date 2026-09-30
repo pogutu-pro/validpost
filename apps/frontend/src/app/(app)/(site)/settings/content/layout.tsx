@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { SettingsSubnav } from '@postmill-ai/frontend/components/settings/settings-subnav';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { SettingsSubnav } from '@validpost/frontend/components/settings/settings-subnav';
 
 export default function ContentSettingsLayout({ children }: { children: React.ReactNode }) {
   const t = useT();

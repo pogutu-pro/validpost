@@ -1,10 +1,10 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 import { Injectable } from '@nestjs/common';
-import { RagService } from '@postmill-ai/nestjs-libraries/ai/governance/rag.service';
-import { parseOrg, requireRead } from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
+import { RagService } from '@validpost/nestjs-libraries/ai/governance/rag.service';
+import { parseOrg, requireRead } from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
 
 @Injectable()
 export class BrandMemorySearchTool implements AgentToolInterface {

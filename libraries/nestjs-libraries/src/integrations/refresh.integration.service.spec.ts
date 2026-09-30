@@ -3,7 +3,7 @@ import { RefreshIntegrationService } from './refresh.integration.service';
 import {
   inngest,
   isInngestEnabled,
-} from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
+} from '@validpost/nestjs-libraries/inngest/inngest.client';
 
 const mockAuthTokenDetails = {
   id: 'auth-1',
@@ -37,11 +37,11 @@ vi.mock('./integration.manager', () => ({
   IntegrationManager: vi.fn(() => mockIntegrationManager),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
+vi.mock('@validpost/nestjs-libraries/database/prisma/integrations/integration.service', () => ({
   IntegrationService: vi.fn(() => mockIntegrationService),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/inngest/inngest.client', () => ({
+vi.mock('@validpost/nestjs-libraries/inngest/inngest.client', () => ({
   inngest: { send: vi.fn() },
   isInngestEnabled: vi.fn().mockReturnValue(true),
 }));

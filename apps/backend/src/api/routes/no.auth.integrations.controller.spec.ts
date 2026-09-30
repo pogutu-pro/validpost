@@ -27,7 +27,7 @@ const {
   invalidateIntegrationListCache: vi.fn(),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
+vi.mock('@validpost/nestjs-libraries/redis/redis.service', () => ({
   ioRedis: {
     get: vi.fn(async (key: string) => redisStore.get(key) ?? null),
     set: vi.fn(async (key: string, value: string) => {
@@ -39,7 +39,7 @@ vi.mock('@postmill-ai/nestjs-libraries/redis/redis.service', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/integration.manager', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/integration.manager', () => ({
   IntegrationManager: class {
     getAllowedSocialsIntegrations = getAllowedSocialsIntegrations;
     getSocialIntegration = getSocialIntegration;
@@ -49,7 +49,7 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/integration.manager', () => 
 }));
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service',
+  '@validpost/nestjs-libraries/database/prisma/integrations/integration.service',
   () => ({
     IntegrationService: class {
       createOrUpdateIntegration = createOrUpdateIntegration;
@@ -60,7 +60,7 @@ vi.mock(
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service',
+  '@validpost/nestjs-libraries/integrations/refresh.integration.service',
   () => ({
     RefreshIntegrationService: class {
       startRefreshWorkflow = startRefreshWorkflow;
@@ -69,7 +69,7 @@ vi.mock(
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service',
+  '@validpost/nestjs-libraries/database/prisma/organizations/organization.service',
   () => ({
     OrganizationService: class {
       getOrgById = getOrgById;
@@ -78,7 +78,7 @@ vi.mock(
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaign-item.service',
+  '@validpost/nestjs-libraries/database/prisma/campaigns/campaign-item.service',
   () => ({
     CampaignTagService: class {
       tagItem = tagItem;
@@ -87,11 +87,11 @@ vi.mock(
 );
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/integration.missing.scopes',
+  '@validpost/nestjs-libraries/integrations/integration.missing.scopes',
   () => ({ NotEnoughScopesFilter: class { catch() {} } })
 );
 
-vi.mock('@postmill-ai/nestjs-libraries/integrations/social.abstract', () => ({
+vi.mock('@validpost/nestjs-libraries/integrations/social.abstract', () => ({
   SocialAbstract: class {},
   NotEnoughScopes: class {
     constructor(
@@ -101,11 +101,11 @@ vi.mock('@postmill-ai/nestjs-libraries/integrations/social.abstract', () => ({
 }));
 
 vi.mock(
-  '@postmill-ai/nestjs-libraries/integrations/social/social.integrations.interface',
+  '@validpost/nestjs-libraries/integrations/social/social.integrations.interface',
   () => ({})
 );
 
-vi.mock('@postmill-ai/helpers/auth/auth.service', () => ({
+vi.mock('@validpost/helpers/auth/auth.service', () => ({
   AuthService: class {
     static fixedEncryption = (value: string) => `enc:${value}`;
     static signJWT = () => 'signed-jwt';
@@ -113,21 +113,21 @@ vi.mock('@postmill-ai/helpers/auth/auth.service', () => ({
   },
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
+vi.mock('@validpost/nestjs-libraries/dtos/webhooks/safe.fetch', () => ({
   safeFetch: vi.fn(async () => ({})),
 }));
 
-vi.mock('@postmill-ai/nestjs-libraries/security/return-url.validator', () => ({
+vi.mock('@validpost/nestjs-libraries/security/return-url.validator', () => ({
   isAllowedReturnUrl: () => true,
 }));
 
 import { NoAuthIntegrationsController } from './no.auth.integrations.controller';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
-import { RefreshIntegrationService } from '@postmill-ai/nestjs-libraries/integrations/refresh.integration.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { CampaignTagService } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaign-item.service';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
+import { RefreshIntegrationService } from '@validpost/nestjs-libraries/integrations/refresh.integration.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { CampaignTagService } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaign-item.service';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
 
 const authDetails = {
   accessToken: 'access-token',

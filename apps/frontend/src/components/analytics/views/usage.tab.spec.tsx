@@ -2,11 +2,11 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: () => vi.fn(),
 }));
 
@@ -20,16 +20,16 @@ vi.mock('../kit/states', () => ({
   ),
 }));
 
-vi.mock('@postmill-ai/frontend/components/dashboard/hooks/useUsage', () => ({
+vi.mock('@validpost/frontend/components/dashboard/hooks/useUsage', () => ({
   useUsage: vi.fn(),
 }));
-vi.mock('@postmill-ai/frontend/components/dashboard/hooks/useAiUsage', () => ({
+vi.mock('@validpost/frontend/components/dashboard/hooks/useAiUsage', () => ({
   useAiUsage: vi.fn(),
 }));
 
 import { UsageTab } from './usage.tab';
-import { useUsage } from '@postmill-ai/frontend/components/dashboard/hooks/useUsage';
-import { useAiUsage } from '@postmill-ai/frontend/components/dashboard/hooks/useAiUsage';
+import { useUsage } from '@validpost/frontend/components/dashboard/hooks/useUsage';
+import { useAiUsage } from '@validpost/frontend/components/dashboard/hooks/useAiUsage';
 
 const mockedUseUsage = useUsage as unknown as Mock;
 const mockedUseAiUsage = useAiUsage as unknown as Mock;

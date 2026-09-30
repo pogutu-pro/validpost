@@ -1,28 +1,28 @@
 'use client';
 
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
 import dayjs from 'dayjs';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { Select } from '@postmill-ai/react/form/select';
-import { Button } from '@postmill-ai/react/form/button';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { Select } from '@validpost/react/form/select';
+import { Button } from '@validpost/react/form/button';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 // @ts-ignore
 import useKeypress from 'react-use-keypress';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { sortBy } from 'lodash';
-import { usePreventWindowUnload } from '@postmill-ai/react/helpers/use.prevent.window.unload';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
+import { usePreventWindowUnload } from '@validpost/react/helpers/use.prevent.window.unload';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
 import clsx from 'clsx';
 import {
   TrashIcon,
   PlusIcon,
   DelayIcon,
-} from '@postmill-ai/frontend/components/ui/icons';
+} from '@validpost/frontend/components/ui/icons';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

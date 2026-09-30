@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import { Organization, User } from '@prisma/client';
-import { CheckPolicies } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { AuthorizationActions, Sections } from '@postmill-ai/backend/services/auth/permissions/permission.exception.class';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { AddTeamMemberDto } from '@postmill-ai/nestjs-libraries/dtos/settings/add.team.member.dto';
-import { ShortlinkPreferenceDto } from '@postmill-ai/nestjs-libraries/dtos/settings/shortlink-preference.dto';
-import { CreateTeamUserDto } from '@postmill-ai/nestjs-libraries/dtos/settings/create-team-user.dto';
+import { CheckPolicies } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { AuthorizationActions, Sections } from '@validpost/backend/services/auth/permissions/permission.exception.class';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { AddTeamMemberDto } from '@validpost/nestjs-libraries/dtos/settings/add.team.member.dto';
+import { ShortlinkPreferenceDto } from '@validpost/nestjs-libraries/dtos/settings/shortlink-preference.dto';
+import { CreateTeamUserDto } from '@validpost/nestjs-libraries/dtos/settings/create-team-user.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { RequirePermission } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { RequirePermission } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 
 @ApiTags('Settings')
 @Controller('/settings')

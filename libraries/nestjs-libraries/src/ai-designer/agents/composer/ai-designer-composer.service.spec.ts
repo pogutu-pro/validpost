@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AiDesignerComposerService } from './ai-designer-composer.service';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
-import { DesignerDocStrictSchema } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { canvasMarginPx } from '@postmill-ai/nestjs-libraries/media/designer-doc/reflow';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
+import { DesignerDocStrictSchema } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { canvasMarginPx } from '@validpost/nestjs-libraries/media/designer-doc/reflow';
 import type { DesignPlan, VisionFinding } from '../../ai-designer.types';
 
 const makeDoc = () =>

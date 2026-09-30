@@ -27,7 +27,7 @@ import {
   fromBuffer,
   fromFile,
   DetectedFileType,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 const TYPE = 'CLOUDFLARE_R2';
 const DISPLAY = 'Cloudflare R2';

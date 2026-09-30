@@ -105,8 +105,6 @@ module.exports = {
       },
       backgroundImage: {
         vpGradient: 'var(--vp-gradient)',
-        loginBox: 'url(/auth/login-box.png)',
-        loginBg: 'url(/auth/bg-login.png)',
       },
       fontFamily: {
         sans: ['Helvetica Neue'],

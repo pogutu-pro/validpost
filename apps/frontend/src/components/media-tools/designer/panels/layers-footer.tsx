@@ -2,7 +2,7 @@
 
 import React, { FC, useCallback, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { DesignerElement, DesignerOutput } from '../designer.store';
 import { layerActions } from '../layer-actions';
 import type { DesignerAction } from '../actions';
@@ -15,7 +15,7 @@ import {
   NewGroupIcon,
   NewLayerIcon,
   DeleteLayerIcon,
-} from '@postmill-ai/frontend/components/ui/icons/designer-tools';
+} from '@validpost/frontend/components/ui/icons/designer-tools';
 
 interface LayersFooterProps {
   store: ReturnType<typeof import('../designer.store').createDesignerStore>;

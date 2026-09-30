@@ -1,4 +1,4 @@
-# @postmill-ai/provider-youtube
+# @validpost/provider-youtube
 
 YouTube social provider (`social/youtube@v1`) and analytics.
 

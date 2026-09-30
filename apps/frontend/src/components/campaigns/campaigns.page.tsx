@@ -2,23 +2,23 @@
 
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import useSWR, { mutate as swrMutate } from 'swr';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Button } from '@postmill-ai/react/form/button';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Button } from '@validpost/react/form/button';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import dayjs from 'dayjs';
-import { CreateEditCampaignModal } from '@postmill-ai/frontend/components/campaigns/index/create-edit-campaign.modal';
-import { CopyCampaignModal } from '@postmill-ai/frontend/components/campaigns/index/copy-campaign.modal';
-import { CampaignCard } from '@postmill-ai/frontend/components/campaigns/index/campaign-card';
+import { CreateEditCampaignModal } from '@validpost/frontend/components/campaigns/index/create-edit-campaign.modal';
+import { CopyCampaignModal } from '@validpost/frontend/components/campaigns/index/copy-campaign.modal';
+import { CampaignCard } from '@validpost/frontend/components/campaigns/index/campaign-card';
 import {
   CampaignFilterBar,
   DEFAULT_CAMPAIGN_FILTERS,
   type CampaignFilters,
-} from '@postmill-ai/frontend/components/campaigns/index/campaign-filter-bar';
-import type { Campaign } from '@postmill-ai/frontend/components/campaigns/campaign-types';
+} from '@validpost/frontend/components/campaigns/index/campaign-filter-bar';
+import type { Campaign } from '@validpost/frontend/components/campaigns/campaign-types';
 
 const PAGE_SIZE = 25;
 

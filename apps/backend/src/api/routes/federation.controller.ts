@@ -13,24 +13,24 @@ import { Throttle } from '@nestjs/throttler';
 import {
   FEDERATION_AUDIENCE,
   FederationService,
-} from '@postmill-ai/nestjs-libraries/database/prisma/federation/federation.service';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
-import { GetOrgFromRequest } from '@postmill-ai/nestjs-libraries/user/org.from.request';
+} from '@validpost/nestjs-libraries/database/prisma/federation/federation.service';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
+import { GetOrgFromRequest } from '@validpost/nestjs-libraries/user/org.from.request';
 import { User, Organization } from '@prisma/client';
 import {
   AuthorizeFederationQueryDto,
   ApproveFederationDto,
-} from '@postmill-ai/nestjs-libraries/dtos/federation/authorize-federation.dto';
-import { TokenFederationDto } from '@postmill-ai/nestjs-libraries/dtos/federation/token-federation.dto';
+} from '@validpost/nestjs-libraries/dtos/federation/authorize-federation.dto';
+import { TokenFederationDto } from '@validpost/nestjs-libraries/dtos/federation/token-federation.dto';
 
 @ApiTags('Federation')
 @Controller('/.well-known')
 export class FederationDiscoveryController {
   constructor(private _federationService: FederationService) {}
 
-  @Get('/postmill-identity')
+  @Get('/validpost-identity')
   @ApiOperation({
-    summary: 'Postmill ID discovery document (endpoints, JWKS URI, scopes)',
+    summary: 'ValidPost ID discovery document (endpoints, JWKS URI, scopes)',
   })
   discovery() {
     return this._federationService.getDiscoveryDocument();
@@ -57,7 +57,7 @@ export class FederationController {
 
     return {
       client: {
-        name: 'Postmill Template Store',
+        name: 'ValidPost Template Store',
         audience: FEDERATION_AUDIENCE,
         redirectUri: query.redirect_uri,
       },

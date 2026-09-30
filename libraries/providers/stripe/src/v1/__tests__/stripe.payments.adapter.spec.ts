@@ -41,7 +41,7 @@ vi.mock('stripe', () => ({
 }));
 
 import { StripePaymentsAdapter } from '../payments.adapter';
-import { PaymentsWebhookVerificationError } from '@postmill-ai/provider-kernel';
+import { PaymentsWebhookVerificationError } from '@validpost/provider-kernel';
 
 const PLAN = { tier: 'PRO' as const, monthlyCents: 2900, yearlyCents: 29000, currency: 'usd' };
 const webhookInput = (event: any) => {
@@ -57,7 +57,7 @@ const subEvent = (type: string, status = 'active', metadata: Record<string, stri
       customer: 'cus_1',
       status,
       cancel_at: null,
-      metadata: { service: 'postmill', billing: 'TEAM', period: 'MONTHLY', uniqueId: 'u1', ...metadata },
+      metadata: { service: 'validpost', billing: 'TEAM', period: 'MONTHLY', uniqueId: 'u1', ...metadata },
     },
   },
 });
@@ -221,7 +221,7 @@ describe('catalog + checkout', () => {
         subscription_data: {
           trial_period_days: 30,
           metadata: expect.objectContaining({
-            service: 'postmill',
+            service: 'validpost',
             billing: 'PRO',
             period: 'MONTHLY',
             utm: 'x',
@@ -264,7 +264,7 @@ describe('catalog + checkout', () => {
     expect(await adapter.ensureCustomer({ orgId: 'o', orgName: 'Org', email: 'x', existingRef: 'cus_9' })).toBe('cus_9');
     mockStripe.customers.create.mockResolvedValue({ id: 'cus_new' });
     expect(await adapter.ensureCustomer({ orgId: 'o', orgName: 'Org', email: 'noat', existingRef: null })).toBe('cus_new');
-    expect(mockStripe.customers.create).toHaveBeenCalledWith({ email: 'noat@postmill.ai', name: 'Org' });
+    expect(mockStripe.customers.create).toHaveBeenCalledWith({ email: 'noat@validpost.io', name: 'Org' });
   });
 });
 
@@ -294,7 +294,7 @@ describe('plan changes', () => {
       cancel_at_period_end: false,
       proration_behavior: 'none',
       items: [{ id: 'si_1', price: 'price_y', quantity: 1 }],
-      metadata: { uniqueId: 'orig', service: 'postmill', billing: 'TEAM', period: 'YEARLY', pendingTier: 'PRO' },
+      metadata: { uniqueId: 'orig', service: 'validpost', billing: 'TEAM', period: 'YEARLY', pendingTier: 'PRO' },
     });
   });
 
@@ -313,7 +313,7 @@ describe('cancel', () => {
     mockStripe.subscriptions.update.mockResolvedValue({ cancel_at: 1_800_000_000 });
     const r = await adapter.setCancelAtPeriodEnd('cus_1', 'toggle');
     expect(r).toEqual({ cancelAt: new Date(1_800_000_000 * 1000), cancelAtPeriodEnd: true, canceledNow: false });
-    expect(mockStripe.subscriptions.update).toHaveBeenCalledWith('sub_1', { cancel_at_period_end: true, metadata: { service: 'postmill' } });
+    expect(mockStripe.subscriptions.update).toHaveBeenCalledWith('sub_1', { cancel_at_period_end: true, metadata: { service: 'validpost' } });
     expect(mockStripe.subscriptions.update).toHaveBeenCalledWith('sub_a', { cancel_at_period_end: true });
   });
 
@@ -360,9 +360,9 @@ describe('discounts, add-ons, charges', () => {
     });
     expect(await adapter.listAddonQuantities('cus_1')).toEqual({ storage: 3 });
 
-    const addon = { type: 'storage', productName: 'Postmill Extra Storage', unitAmountCents: 1900, currency: 'usd' };
+    const addon = { type: 'storage', productName: 'ValidPost Extra Storage', unitAmountCents: 1900, currency: 'usd' };
     await adapter.upsertAddon('cus_1', addon, 4.7);
-    expect(mockStripe.subscriptions.update).toHaveBeenCalledWith('a1', { cancel_at_period_end: false, items: [{ id: 'si_a1', quantity: 4 }], metadata: { service: 'postmill', addon: 'storage' } });
+    expect(mockStripe.subscriptions.update).toHaveBeenCalledWith('a1', { cancel_at_period_end: false, items: [{ id: 'si_a1', quantity: 4 }], metadata: { service: 'validpost', addon: 'storage' } });
 
     mockStripe.subscriptions.list.mockResolvedValue({ data: [] });
     mockStripe.products.list.mockResolvedValue({ data: [] });
@@ -370,7 +370,7 @@ describe('discounts, add-ons, charges', () => {
     mockStripe.prices.list.mockResolvedValue({ data: [] });
     mockStripe.prices.create.mockResolvedValue({ id: 'price_addon' });
     await adapter.upsertAddon('cus_1', addon, 1);
-    expect(mockStripe.subscriptions.create).toHaveBeenCalledWith({ customer: 'cus_1', items: [{ price: 'price_addon', quantity: 1 }], metadata: { service: 'postmill', addon: 'storage' } });
+    expect(mockStripe.subscriptions.create).toHaveBeenCalledWith({ customer: 'cus_1', items: [{ price: 'price_addon', quantity: 1 }], metadata: { service: 'validpost', addon: 'storage' } });
   });
 
   it('listCharges decorates succeeded charges with invoice PDFs', async () => {

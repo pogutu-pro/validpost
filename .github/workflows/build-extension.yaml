@@ -24,7 +24,7 @@ jobs:
         run: pnpm install
 
       - name: Zip extensions
-        run: FRONTEND_URL=https://app.postmill.ai pnpm run build:extension
+        run: FRONTEND_URL=https://app.validpost.io pnpm run build:extension
 
       - name: Upload to Nextcloud
         env:

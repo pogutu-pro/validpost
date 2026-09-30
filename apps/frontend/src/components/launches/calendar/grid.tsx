@@ -9,17 +9,17 @@ import { useCalendar } from './context';
 import dayjs from 'dayjs';
 import { random } from 'lodash';
 import { useInterval } from '@mantine/hooks';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useAddProvider } from '@postmill-ai/frontend/components/launches/add.provider.component';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useAddProvider } from '@validpost/frontend/components/launches/add.provider.component';
+import SafeImage from '@validpost/react/helpers/safe.image';
 import { usePostActions } from './helpers';
 import { CalendarItem } from './card';
-import { Button } from '@postmill-ai/react/form/button';
+import { Button } from '@validpost/react/form/button';
 
 export const SetSelectionModal: FC<{
   sets: any[];

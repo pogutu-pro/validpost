@@ -24,7 +24,7 @@ test('analytics page full coverage', async ({ page }) => {
   page.on('response', (r) => {
     const u = r.url();
     if (u.includes('/api/public/v1/analytics/')) {
-      const endpoint = u.replace('https://app.postmill.ai/api/public/v1/analytics/', '').split('?')[0];
+      const endpoint = u.replace('https://app.validpost.io/api/public/v1/analytics/', '').split('?')[0];
       findings.apiCalls.push({
         endpoint,
         status: r.status(),

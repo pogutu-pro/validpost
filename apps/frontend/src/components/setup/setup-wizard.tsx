@@ -3,18 +3,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSWR, { useSWRConfig } from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Button } from '@postmill-ai/react/form/button';
-import { SetupStepper } from '@postmill-ai/frontend/components/setup/setup-stepper';
-import { StepLlm } from '@postmill-ai/frontend/components/setup/steps/step-llm';
-import { StepAiMedia } from '@postmill-ai/frontend/components/setup/steps/step-ai-media';
-import { StepChannels } from '@postmill-ai/frontend/components/setup/steps/step-channels';
-import { StepContentPacks } from '@postmill-ai/frontend/components/setup/steps/step-content-packs';
-import { StepStorage } from '@postmill-ai/frontend/components/setup/steps/step-storage';
-import { StepShortlinks } from '@postmill-ai/frontend/components/setup/steps/step-shortlinks';
-import { StepVpn } from '@postmill-ai/frontend/components/setup/steps/step-vpn';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Button } from '@validpost/react/form/button';
+import { SetupStepper } from '@validpost/frontend/components/setup/setup-stepper';
+import { StepLlm } from '@validpost/frontend/components/setup/steps/step-llm';
+import { StepAiMedia } from '@validpost/frontend/components/setup/steps/step-ai-media';
+import { StepChannels } from '@validpost/frontend/components/setup/steps/step-channels';
+import { StepContentPacks } from '@validpost/frontend/components/setup/steps/step-content-packs';
+import { StepStorage } from '@validpost/frontend/components/setup/steps/step-storage';
+import { StepShortlinks } from '@validpost/frontend/components/setup/steps/step-shortlinks';
+import { StepVpn } from '@validpost/frontend/components/setup/steps/step-vpn';
 
 const STEP_COMPONENTS: React.FC<{
   onProviderChange?: () => void;

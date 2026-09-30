@@ -1,6 +1,6 @@
 # Notifications: the single chokepoint
 
-LLM-facing ruleset for user-facing notifications in the Postmill monorepo. Cross-refs:
+LLM-facing ruleset for user-facing notifications in the ValidPost monorepo. Cross-refs:
 `agents/backend.md`, `agents/jobs.md`, `agents/providers/email.md`.
 
 ## The chokepoint rule

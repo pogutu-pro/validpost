@@ -1,8 +1,8 @@
 # Developer Documentation
 
-Technical documentation for developers working on the Postmill codebase. This directory covers architecture, conventions, and infrastructure — everything you need to contribute effectively.
+Technical documentation for developers working on the ValidPost codebase. This directory covers architecture, conventions, and infrastructure — everything you need to contribute effectively.
 
-**Target audience:** Developers contributing to the Postmill monorepo (NestJS backend + Inngest job handler, Next.js frontend, shared libraries, Prisma).
+**Target audience:** Developers contributing to the ValidPost monorepo (NestJS backend + Inngest job handler, Next.js frontend, shared libraries, Prisma).
 
 ---
 
@@ -42,7 +42,7 @@ Technical documentation for developers working on the Postmill codebase. This di
 | [MCP](./mcp.md) | Model Context Protocol server entrypoints, auth, rate limiting. |
 | [OAuth Apps](./oauth-apps.md) | OAuth application registration and management. |
 | [Plugs](./plugs.md) | Automation hooks (auto plugs and post plugs) for social channel providers. |
-| [SDK](./sdk.md) | Official `@postmill-ai/postmill-sdk` Node.js SDK for the Public API. |
+| [SDK](./sdk.md) | Official `@validpost/validpost-sdk` Node.js SDK for the Public API. |
 | [Webhooks](./webhooks.md) | Webhook configuration, dispatch, and SSRF-safe delivery. |
 | [Adding a Provider](./adding-a-provider.md) | Step-by-step guide for adding a new social channel provider. |
 | [Adding an AI Adapter](./adding-an-ai-adapter.md) | Guide for implementing a new AI provider adapter. |

@@ -7,7 +7,7 @@ import {
   VpnProviderCapabilities,
   VpnProxyAuth,
   VpnProxyRegion,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 export class NordvpnAdapter implements VpnCapability {
   readonly identifier = 'nordvpn';

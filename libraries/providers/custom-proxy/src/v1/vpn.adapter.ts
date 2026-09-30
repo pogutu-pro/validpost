@@ -10,7 +10,7 @@ import {
   VpnProxyAuth,
   VpnProxyProtocol,
   VpnProxyRegion,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 // Generic "bring-your-own proxy" provider. The org supplies its own SOCKS5 /
 // HTTP-CONNECT endpoint (e.g. a proxy on their office network reachable over
@@ -77,7 +77,7 @@ export class CustomProxyAdapter implements VpnCapability {
   };
 
   readonly setupNotes =
-    'Route this organization’s posts through your own SOCKS5 or HTTP proxy — e.g. a proxy on your office network. The proxy must be reachable from the Postmill server (a public host, or a private address with SSRF_ALLOWED_PRIVATE_CIDRS set on a self-hosted instance).';
+    'Route this organization’s posts through your own SOCKS5 or HTTP proxy — e.g. a proxy on your office network. The proxy must be reachable from the ValidPost server (a public host, or a private address with SSRF_ALLOWED_PRIVATE_CIDRS set on a self-hosted instance).';
 
   validateConfig(config: Record<string, string>): VpnConfigValidationResult {
     const errors: string[] = [];

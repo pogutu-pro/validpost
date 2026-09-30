@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
 
 @Injectable()
 export class OAuthRepository {

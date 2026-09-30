@@ -1,6 +1,6 @@
 # The libraries map: where code lives and what to import
 
-How the Postmill monorepo's shared packages are laid out, what each contains, and where new code
+How the ValidPost monorepo's shared packages are laid out, what each contains, and where new code
 belongs. Sibling docs: `agents/backend.md`, `agents/frontend.md`, `agents/ui-standards.md`,
 `agents/providers/overview.md`, root `ARCHITECTURE.md`.
 
@@ -11,7 +11,7 @@ workspaces — no `package.json`, no install step, run directly with `node`/`bas
 
 | Directory | Contains | Add here when… |
 |---|---|---|
-| `tools/db/` | `migrate-deploy-safe.mjs` and `schema-destructive-guard.mjs` (both CI gates), `postmill-migrate.sh` (documented runbook step), one-shot backfills | A migration/schema helper that CI or an operator runbook invokes. |
+| `tools/db/` | `migrate-deploy-safe.mjs` and `schema-destructive-guard.mjs` (both CI gates), `validpost-migrate.sh` (documented runbook step), one-shot backfills | A migration/schema helper that CI or an operator runbook invokes. |
 | `tools/codegen/` | `generate-studio-descriptor-registry.mjs`, `generate-openapi.mjs`, `generate-font-catalog.mjs`, `snapshot-replicate-catalog.mjs` | A generator whose **output is committed**. Follow the existing `--check` convention so CI can gate drift. |
 | `docker/` | `Dockerfile.dev`, `Dockerfile.dev-live`, `Containerfile.render`, both dev compose files, `nginx.conf` + `nginx.prod.conf` (prod = the all-in-one image's front proxy), `entrypoint.sh` (prod) + `dev-entrypoint.sh`, the build/create scripts | Any Docker artifact — except the three pinned at the repo root (see `AGENTS.md` § Repository layout). |
 | `e2e/` | Playwright specs, `auth.setup.ts`, `seed-test-data.js` | Browser-level tests and the fixtures they need. |
@@ -27,20 +27,20 @@ artifact in the loop during dev — you import straight into another workspace's
 
 | Import alias | Resolves to | Notes |
 |---|---|---|
-| `@postmill-ai/nestjs-libraries/*` | `libraries/nestjs-libraries/src/*` | Bulk of all server logic. |
-| `@postmill-ai/backend/*` | `apps/backend/src/*` | Thin NestJS app shell. |
-| `@postmill-ai/frontend/*` | `apps/frontend/src/*` | Next.js app. |
-| `@postmill-ai/helpers/*` | `libraries/helpers/src/*` | Framework-agnostic shared utils. |
-| `@postmill-ai/react/*` | `libraries/react-shared-libraries/src/*` | **Alias is `@postmill-ai/react`, NOT the package name** (`@postmill-ai/react-shared-libraries`). |
-| `@postmill-ai/provider-kernel` (+ `/*`) | `libraries/providers/kernel/src` | Provider kernel. |
-| `@postmill-ai/provider-<id>` (+ `/*`) | `libraries/providers/<id>/src` | One alias per provider, e.g. `@postmill-ai/provider-openai` → `libraries/providers/openai/src`. |
-| `@postmill-ai/extension/*` | `apps/extension/src/*` | Browser extension. |
+| `@validpost/nestjs-libraries/*` | `libraries/nestjs-libraries/src/*` | Bulk of all server logic. |
+| `@validpost/backend/*` | `apps/backend/src/*` | Thin NestJS app shell. |
+| `@validpost/frontend/*` | `apps/frontend/src/*` | Next.js app. |
+| `@validpost/helpers/*` | `libraries/helpers/src/*` | Framework-agnostic shared utils. |
+| `@validpost/react/*` | `libraries/react-shared-libraries/src/*` | **Alias is `@validpost/react`, NOT the package name** (`@validpost/react-shared-libraries`). |
+| `@validpost/provider-kernel` (+ `/*`) | `libraries/providers/kernel/src` | Provider kernel. |
+| `@validpost/provider-<id>` (+ `/*`) | `libraries/providers/<id>/src` | One alias per provider, e.g. `@validpost/provider-openai` → `libraries/providers/openai/src`. |
+| `@validpost/extension/*` | `apps/extension/src/*` | Browser extension. |
 
-Example: `import { PrismaService } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';`
+Example: `import { PrismaService } from '@validpost/nestjs-libraries/database/prisma/prisma.service';`
 — the segment after the alias is a real path under `libraries/nestjs-libraries/src/`. When you add a
 new file, no export registration is needed; the path alias just works.
 
-## `libraries/nestjs-libraries` (package `@postmill-ai/nestjs-libraries`)
+## `libraries/nestjs-libraries` (package `@validpost/nestjs-libraries`)
 
 The bulk of all server logic. `apps/backend` is kept thin (controllers + wiring); real logic lives
 here. Tour of `libraries/nestjs-libraries/src/`:
@@ -87,7 +87,7 @@ service). Cross-domain calls go through the other domain's **service**, not its 
 sanctioned leaf-read exceptions exist, marked `// layering: sanctioned leaf-read`). See
 `agents/backend.md`.
 
-## `libraries/helpers` (package `@postmill-ai/helpers`)
+## `libraries/helpers` (package `@validpost/helpers`)
 
 Framework-agnostic utilities used by **both** frontend and backend. Key files under
 `libraries/helpers/src/`:
@@ -110,7 +110,7 @@ Rule of thumb: if a helper is needed by both frontend and backend (or is framewo
 here; server-only helpers go in `nestjs-libraries/src/utils/`, React-only in
 `react-shared-libraries`.
 
-## `libraries/react-shared-libraries` (package `@postmill-ai/react-shared-libraries`, imported as `@postmill-ai/react/*`)
+## `libraries/react-shared-libraries` (package `@validpost/react-shared-libraries`, imported as `@validpost/react/*`)
 
 Shared React components/hooks for the frontend. Usage rules live in `agents/ui-standards.md`; this
 is the inventory (`libraries/react-shared-libraries/src/`):
@@ -126,24 +126,24 @@ is the inventory (`libraries/react-shared-libraries/src/`):
 ## `libraries/providers`
 
 The unified provider framework: `kernel/` (the `ProviderKernel`, imported as
-`@postmill-ai/provider-kernel`) plus ~150 sibling packages, one per provider
-(`libraries/providers/<id>/`, imported as `@postmill-ai/provider-<id>`), each with versioned
+`@validpost/provider-kernel`) plus ~150 sibling packages, one per provider
+(`libraries/providers/<id>/`, imported as `@validpost/provider-<id>`), each with versioned
 internal modules (`src/v1`, `src/v2`, …). Every provider resolves through the kernel via
 `ProviderResolutionService` in `nestjs-libraries/src/providers/` — there is no other resolution
 path. Full mechanics, versioning lifecycle, and how to add a provider: `agents/providers/overview.md`.
 
 ## `apps/*` quick map
 
-- **`apps/backend`** (`postmill-backend`) — thin NestJS REST API shell. `src/api/routes/` holds all
+- **`apps/backend`** (`validpost-backend`) — thin NestJS REST API shell. `src/api/routes/` holds all
   REST controllers (112 files; `src/api/controllers/` only has the Inngest serve controller);
   `src/api/api.module.ts` wires them via its `imports`/`controllers`/`providers` arrays;
   `src/inngest/functions/` defines the Inngest functions (logic in nestjs-libraries activities);
   `src/public-api/` is the public REST API module; `src/providers.generated.ts` +
   `src/providers.bootstrap.ts` (+ `register-provider-paths.ts`) register provider packages;
   `main.ts` bootstraps. Detail: `agents/backend.md`.
-- **`apps/frontend`** (`postmill-frontend`) — Next.js App Router app on port 4200.
+- **`apps/frontend`** (`validpost-frontend`) — Next.js App Router app on port 4200.
   Detail: `agents/frontend.md`; component/design rules: `agents/ui-standards.md`.
-- **`apps/commands`** (`postmill-command`) — operator CLI: NestJS `nestjs-command` runner
+- **`apps/commands`** (`validpost-command`) — operator CLI: NestJS `nestjs-command` runner
   (`src/main.ts` + `src/command.module.ts`) with tasks in `src/tasks/`: `seed-demo.ts`,
   `refresh.tokens.ts`, `configuration.ts`, `agent.run.ts`, `backfill-provider-versions.ts`,
   `backfill-design-thumbnails.ts`. The command module imports the same `@Global` module set
@@ -155,11 +155,11 @@ path. Full mechanics, versioning lifecycle, and how to add a provider: `agents/p
   `npx nest build && node -r ./register-paths.cjs ./dist/apps/commands/src/main.js <command> [args]`
   (from `apps/commands`, with `dotenv -e ../../.env` and a localhost `DATABASE_URL` for host runs).
   Touch when adding an operator/maintenance command; **never** put request-path logic here.
-- **`apps/extension`** (`postmill-extension`) — Vite + `@crxjs` browser extension for cookie-based
+- **`apps/extension`** (`validpost-extension`) — Vite + `@crxjs` browser extension for cookie-based
   platform auth. `src/background.ts` is the service worker; `src/providers/` holds the per-site
   cookie providers (`providers/list/`, e.g. `skool.provider.ts`), `cookie-provider.interface.ts`,
   and `provider.registry.ts`. Touch only for platform cookie capture.
-- **`apps/sdk`** (`@postmill-ai/postmill-sdk`) — the published Node SDK over the public API
+- **`apps/sdk`** (`@validpost/validpost-sdk`) — the published Node SDK over the public API
   (`src/index.ts`, `src/types.ts`). Changes here are public API surface — version accordingly.
 
 ## Dependency placement

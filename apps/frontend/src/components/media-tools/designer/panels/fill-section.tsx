@@ -4,8 +4,8 @@ import React, { FC } from 'react';
 import { ColorSwatch, SegmentedControl } from '../controls';
 import { GradientEditor } from '../controls/gradient-editor';
 import type { DesignerElement } from '../designer.store';
-import type { DesignerGradient } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import type { DesignerGradient } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 /**
  * Solid-or-gradient fill, for any element type that has a fill.

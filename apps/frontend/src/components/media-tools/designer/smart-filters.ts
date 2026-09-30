@@ -5,13 +5,13 @@ import { commitBuffer, disposeBuffer, seedBufferFromImage } from './raster-layer
 import {
   enabledSmartFilters,
   smartFilterSource,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/smart-filter-stack';
-import { MAX_SMART_FILTERS } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.limits';
+} from '@validpost/nestjs-libraries/media/designer-doc/smart-filter-stack';
+import { MAX_SMART_FILTERS } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.limits';
 import type {
   DesignerElement,
   DesignerSmartFilter,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import type { FilterParams } from '@postmill-ai/nestjs-libraries/media/designer-doc/filter-ops';
+} from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import type { FilterParams } from '@validpost/nestjs-libraries/media/designer-doc/filter-ops';
 
 /**
  * Non-destructive filters, kept as a recipe rather than as pixels.

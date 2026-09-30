@@ -2,17 +2,17 @@
 
 import { FC } from 'react';
 import Link from 'next/link';
-import { useUsage } from '@postmill-ai/frontend/components/dashboard/hooks/useUsage';
-import { useAiUsage } from '@postmill-ai/frontend/components/dashboard/hooks/useAiUsage';
+import { useUsage } from '@validpost/frontend/components/dashboard/hooks/useUsage';
+import { useAiUsage } from '@validpost/frontend/components/dashboard/hooks/useAiUsage';
 import {
   AiSpendByProvider,
   AiSpendByScope,
   AiSpendTotals,
   PlanUsageSection,
   hasPlanUsage,
-} from '@postmill-ai/frontend/components/dashboard/widgets/usage.sections';
+} from '@validpost/frontend/components/dashboard/widgets/usage.sections';
 import { EmptyState, TabSkeleton } from '../kit/states';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 /**
  * The Usage tab — plan allowance and AI spend in one place.

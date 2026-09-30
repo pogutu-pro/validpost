@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { DesignRepository } from '@postmill-ai/nestjs-libraries/database/prisma/design/design.repository';
-import { DesignerDocService } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.service';
-import type { DesignerDoc } from '@postmill-ai/nestjs-libraries/media/designer-doc/designer-doc.schema';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
+import { DesignRepository } from '@validpost/nestjs-libraries/database/prisma/design/design.repository';
+import { DesignerDocService } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.service';
+import type { DesignerDoc } from '@validpost/nestjs-libraries/media/designer-doc/designer-doc.schema';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
 
 @Injectable()
 export class DesignService {

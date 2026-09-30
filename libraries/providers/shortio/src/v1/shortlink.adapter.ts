@@ -1,4 +1,4 @@
-import { ShortLinkCapability, ShortLinkCredentialField, ShortLinkCapabilities, ShortLinkContext, ShortLinkStat, ProviderModule, SafeFetchPort } from '@postmill-ai/provider-kernel';
+import { ShortLinkCapability, ShortLinkCredentialField, ShortLinkCapabilities, ShortLinkContext, ShortLinkStat, ProviderModule, SafeFetchPort } from '@validpost/provider-kernel';
 
 import { metadata as providerMetadata } from './metadata';
 export class ShortioAdapter implements ShortLinkCapability {

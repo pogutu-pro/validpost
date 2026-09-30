@@ -1,4 +1,4 @@
-import { ProviderMetadata } from '@postmill-ai/provider-kernel';
+import { ProviderMetadata } from '@validpost/provider-kernel';
 
 // The storage module's own catalog entry — `metadata.ts` describes Vultr's
 // inference (AI) surface and must not advertise it for object storage.

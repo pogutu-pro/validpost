@@ -8,15 +8,15 @@ vi.mock('react-dnd', () => ({
   useDrop: () => [{ canDrop: false }, vi.fn()],
 }));
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (key: string, fallback?: string) => fallback || key,
 }));
 
-vi.mock('@postmill-ai/react/helpers/variable.context', () => ({
+vi.mock('@validpost/react/helpers/variable.context', () => ({
   useVariables: () => ({ disableXAnalytics: false }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({
     id: 'user-1',
     impersonate: false,
@@ -24,45 +24,45 @@ vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
   }),
 }));
 
-vi.mock('@postmill-ai/helpers/utils/strip.html.validation', () => ({
+vi.mock('@validpost/helpers/utils/strip.html.validation', () => ({
   stripHtmlValidation: (...args: any[]) => args[1] || '',
 }));
 
-vi.mock('@postmill-ai/frontend/components/launches/creation.method.badge', () => ({
+vi.mock('@validpost/frontend/components/launches/creation.method.badge', () => ({
   CreationMethodBadge: () => <div data-testid="creation-method-badge" />,
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/set.timezone', () => ({
+vi.mock('@validpost/frontend/components/layout/set.timezone', () => ({
   newDayjs: (...args: any[]) => dayjs(...args),
 }));
 
 // Heavy transitive deps of ./helpers — mocked so the card renders in isolation.
-vi.mock('@postmill-ai/frontend/components/layout/new-modal', () => ({
+vi.mock('@validpost/frontend/components/layout/new-modal', () => ({
   useModals: vi.fn(() => ({ openModal: vi.fn(), closeAll: vi.fn() })),
 }));
-vi.mock('@postmill-ai/helpers/utils/custom.fetch', () => ({
+vi.mock('@validpost/helpers/utils/custom.fetch', () => ({
   useFetch: vi.fn(() => vi.fn()),
 }));
-vi.mock('@postmill-ai/react/toaster/toaster', () => ({
+vi.mock('@validpost/react/toaster/toaster', () => ({
   useToaster: vi.fn(() => ({ show: vi.fn() })),
 }));
-vi.mock('@postmill-ai/frontend/components/launches/helpers/use.existing.data', () => ({
+vi.mock('@validpost/frontend/components/launches/helpers/use.existing.data', () => ({
   ExistingDataContextProvider: ({ children }: any) => children,
 }));
-vi.mock('@postmill-ai/frontend/components/composer/composer', () => ({
+vi.mock('@validpost/frontend/components/composer/composer', () => ({
   Composer: () => <div data-testid="add-edit-modal" />,
 }));
-vi.mock('@postmill-ai/frontend/components/analytics/post-analytics.drawer', () => ({
+vi.mock('@validpost/frontend/components/analytics/post-analytics.drawer', () => ({
   PostAnalyticsDrawer: () => <div data-testid="post-analytics-drawer" />,
   PostDetailBody: () => <div data-testid="post-detail-body" />,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/missing-release.modal', () => ({
+vi.mock('@validpost/frontend/components/launches/missing-release.modal', () => ({
   MissingReleaseModal: () => <div data-testid="missing-release-modal" />,
 }));
-vi.mock('@postmill-ai/frontend/components/launches/post-detail/post.detail.modal', () => ({
+vi.mock('@validpost/frontend/components/launches/post-detail/post.detail.modal', () => ({
   PostDetailModal: () => <div data-testid="post-detail-modal" />,
 }));
-vi.mock('@postmill-ai/react/helpers/delete.dialog', () => ({
+vi.mock('@validpost/react/helpers/delete.dialog', () => ({
   deleteDialog: vi.fn(() => Promise.resolve(true)),
 }));
 

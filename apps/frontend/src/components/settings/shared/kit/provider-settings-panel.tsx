@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useCallback, useMemo, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
 import ProviderListShell, {
   ProviderConfigItem,
-} from '@postmill-ai/frontend/components/settings/shared/provider-list-shell';
-import { useProviderCatalog } from '@postmill-ai/frontend/components/settings/shared/use-provider-catalog';
-import { ProviderInfoModal } from '@postmill-ai/frontend/components/settings/shared/provider-info-modal';
-import ProviderModalTitle from '@postmill-ai/frontend/components/settings/shared/provider-modal-title';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+} from '@validpost/frontend/components/settings/shared/provider-list-shell';
+import { useProviderCatalog } from '@validpost/frontend/components/settings/shared/use-provider-catalog';
+import { ProviderInfoModal } from '@validpost/frontend/components/settings/shared/provider-info-modal';
+import ProviderModalTitle from '@validpost/frontend/components/settings/shared/provider-modal-title';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { ProviderSurfaceDescriptor, ProviderRow } from './provider-surface.types';
 import { useProviderSurface } from './use-provider-surface';
 import { ProviderSearchToolbar } from './provider-search-toolbar';

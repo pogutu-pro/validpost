@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { useReplicateStore } from './replicate.store';
 import { MaskPainter } from './mask-painter';
 import { EditorShell, toolbarBtn, toolbarPrimary } from './editor-shell';

@@ -1,8 +1,8 @@
 'use client';
-import { Button } from '@postmill-ai/react/form/button';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
+import { Button } from '@validpost/react/form/button';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
 import { FC, useCallback } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 export const MergePost: FC<{
   merge: () => void;
 }> = (props) => {

@@ -1,14 +1,14 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { AuthProviderAbstract } from '@postmill-ai/backend/services/auth/providers.interface';
+import { AuthProviderAbstract } from '@validpost/backend/services/auth/providers.interface';
 import {
   ProviderKernel,
   DEFAULT_VERSION,
-} from '@postmill-ai/provider-kernel';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { RuntimeContextFactory } from '@postmill-ai/nestjs-libraries/providers/runtime-context.factory';
-import { AuthProviderRepository } from '@postmill-ai/nestjs-libraries/database/prisma/auth-providers/auth-provider.repository';
-import { ioRedis } from '@postmill-ai/nestjs-libraries/redis/redis.service';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+} from '@validpost/provider-kernel';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { RuntimeContextFactory } from '@validpost/nestjs-libraries/providers/runtime-context.factory';
+import { AuthProviderRepository } from '@validpost/nestjs-libraries/database/prisma/auth-providers/auth-provider.repository';
+import { ioRedis } from '@validpost/nestjs-libraries/redis/redis.service';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 /**
  * The login providers this deployment supports. Everything else (GitHub,
@@ -85,17 +85,17 @@ export class AuthProviderManager {
     // is present. Never key on IS_GENERAL — that flag marks the hosted build,
     // not whether a provider is configured at the platform level.
     if (
-      process.env.POSTMILL_GENERIC_OAUTH === 'true' &&
-      process.env.POSTMILL_OAUTH_CLIENT_ID &&
-      process.env.POSTMILL_OAUTH_CLIENT_SECRET &&
-      process.env.POSTMILL_OAUTH_AUTH_URL &&
-      process.env.POSTMILL_OAUTH_TOKEN_URL &&
-      process.env.POSTMILL_OAUTH_USERINFO_URL
+      process.env.VALIDPOST_GENERIC_OAUTH === 'true' &&
+      process.env.VALIDPOST_OAUTH_CLIENT_ID &&
+      process.env.VALIDPOST_OAUTH_CLIENT_SECRET &&
+      process.env.VALIDPOST_OAUTH_AUTH_URL &&
+      process.env.VALIDPOST_OAUTH_TOKEN_URL &&
+      process.env.VALIDPOST_OAUTH_USERINFO_URL
     ) {
       providers.push({
         provider: 'GENERIC',
         displayName:
-          process.env.NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME || 'OIDC',
+          process.env.NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME || 'OIDC',
         ...this._versionInfo('GENERIC'),
       });
     }
@@ -118,7 +118,7 @@ export class AuthProviderManager {
         displayName:
           p.displayName ||
           (p.provider === 'GENERIC'
-            ? process.env.NEXT_PUBLIC_POSTMILL_OAUTH_DISPLAY_NAME || 'OIDC'
+            ? process.env.NEXT_PUBLIC_VALIDPOST_OAUTH_DISPLAY_NAME || 'OIDC'
             : p.provider.charAt(0) + p.provider.slice(1).toLowerCase()),
         ...this._versionInfo(p.provider),
       };

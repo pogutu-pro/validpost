@@ -1,9 +1,9 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { usePublicAnalyticsReport } from '@postmill-ai/frontend/components/analytics/hooks/usePublicAnalyticsReport';
-import { PublicAnalyticsReportView } from '@postmill-ai/frontend/components/analytics/views/public-analytics-report';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { usePublicAnalyticsReport } from '@validpost/frontend/components/analytics/hooks/usePublicAnalyticsReport';
+import { PublicAnalyticsReportView } from '@validpost/frontend/components/analytics/views/public-analytics-report';
 
 export default function PublicAnalyticsSharePage() {
   const t = useT();

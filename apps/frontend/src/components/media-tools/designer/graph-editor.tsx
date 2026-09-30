@@ -1,14 +1,14 @@
 'use client';
 
 import React, { FC, useMemo, useRef, useState } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import {
   DEFAULT_IN_HANDLE,
   DEFAULT_OUT_HANDLE,
   interpolateClipKeyframes,
   type EaseHandles,
   type Keyframe,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/keyframes';
+} from '@validpost/nestjs-libraries/media/designer-doc/keyframes';
 import type { VideoClip } from './designer.store';
 
 /**

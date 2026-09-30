@@ -1,11 +1,11 @@
-import { getT } from '@postmill-ai/react/translation/get.translation.service.backend';
+import { getT } from '@validpost/react/translation/get.translation.service.backend';
 
 export const dynamic = 'force-dynamic';
 import { ReactNode } from 'react';
 import loadDynamic from 'next/dynamic';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { Wordmark } from '@postmill-ai/frontend/components/new-layout/wordmark';
-import { StatusBadge, PostStatus } from '@postmill-ai/frontend/components/ui/status-badge';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { Wordmark } from '@validpost/frontend/components/new-layout/wordmark';
+import { StatusBadge, PostStatus } from '@validpost/frontend/components/ui/status-badge';
 const ReturnUrlComponent = loadDynamic(() => import('./return.url.component'));
 const SignupPlanComponent = loadDynamic(() => import('./signup.plan.component'));
 
@@ -57,6 +57,9 @@ export default async function AuthLayout({
             <Wordmark className="text-textColor" />
           </div>
           <div className="flex">{children}</div>
+          <p className="text-[12px] text-textItemBlur">
+            {t('made_by_stratnovo', 'Made by Stratnovo')}
+          </p>
         </div>
       </main>
       <aside

@@ -7,16 +7,16 @@ import type { TimelineAwareness, ImageAwareness } from './collaboration';
 import { CollaborationCursors, type PeerTimelineState } from './collaboration-cursors';
 import { DesignerCanvas } from './canvas';
 import { setImageFetch, clearImageCache } from './elements';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import {
   useDecisionModal,
   useModals,
-} from '@postmill-ai/frontend/components/layout/new-modal';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+} from '@validpost/frontend/components/layout/new-modal';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { useDebounce } from 'use-debounce';
-import { useAiActive } from '@postmill-ai/frontend/components/layout/use-ai-active';
-import { useMediaToolsStatus } from '@postmill-ai/frontend/components/layout/use-media-tools-status';
+import { useAiActive } from '@validpost/frontend/components/layout/use-ai-active';
+import { useMediaToolsStatus } from '@validpost/frontend/components/layout/use-media-tools-status';
 import { TemplatesPanel } from './panels/templates-panel';
 import { MyDesignsPanel } from './panels/my-designs-panel';
 import { LayersPanel } from './panels/layers-panel';
@@ -47,15 +47,15 @@ import { useMediaPicker } from '../use-media-picker';
 import { StartDialog } from './start-dialog';
 import { aiRemoveBackground, aiUpscale, aiDetectSubject } from './ai-image-actions';
 import { addMediaToTimeline } from './add-media-to-timeline';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { FullscreenButton } from '@postmill-ai/frontend/components/media-tools/fullscreen-button';
-import { useFullscreenSurface } from '@postmill-ai/frontend/components/media-tools/use-fullscreen';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { FullscreenButton } from '@validpost/frontend/components/media-tools/fullscreen-button';
+import { useFullscreenSurface } from '@validpost/frontend/components/media-tools/use-fullscreen';
 import { getBrandViolations } from './brand-compliance';
 import { useBrandColors } from './panels/use-brand-colors';
 import { useBrandFonts } from './panels/use-brand-fonts';
-import { useUser } from '@postmill-ai/frontend/components/layout/user.context';
-import { KebabMenu } from '@postmill-ai/frontend/components/ui/kebab-menu';
-import { DropdownArrowIcon } from '@postmill-ai/frontend/components/ui/icons';
+import { useUser } from '@validpost/frontend/components/layout/user.context';
+import { KebabMenu } from '@validpost/frontend/components/ui/kebab-menu';
+import { DropdownArrowIcon } from '@validpost/frontend/components/ui/icons';
 
 // 4.4: hoisted so the memoized onPeerTimeline callback has no changing closure dep.
 const PEER_COLORS = ['#f43f5e', '#8b5cf6', '#06b6d4', '#f59e0b', '#22c55e', '#ec4899'];

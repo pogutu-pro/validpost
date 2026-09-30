@@ -3,13 +3,13 @@ import {
   DEFAULT_POLYGON_SIDES,
   DEFAULT_STAR_POINTS,
   DEFAULT_STAR_INNER_RATIO,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/shape-geometry';
-import { parseSvgPathData } from '@postmill-ai/nestjs-libraries/media/designer-doc/svg-path-parse';
+} from '@validpost/nestjs-libraries/media/designer-doc/shape-geometry';
+import { parseSvgPathData } from '@validpost/nestjs-libraries/media/designer-doc/svg-path-parse';
 import {
   normalisePathToBox,
   pathBounds,
   scalePathNodes,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/path-geometry';
+} from '@validpost/nestjs-libraries/media/designer-doc/path-geometry';
 
 /**
  * Geometry and element construction for drag-to-draw tools.

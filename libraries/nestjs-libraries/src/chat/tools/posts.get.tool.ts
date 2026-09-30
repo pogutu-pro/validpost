@@ -1,14 +1,14 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 import { Injectable } from '@nestjs/common';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
 import {
   parseOrg,
   requireRead,
-} from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
-import { htmlToText } from '@postmill-ai/helpers/utils/html.to.text';
+} from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
+import { htmlToText } from '@validpost/helpers/utils/html.to.text';
 
 const PREVIEW_LENGTH = 200;
 

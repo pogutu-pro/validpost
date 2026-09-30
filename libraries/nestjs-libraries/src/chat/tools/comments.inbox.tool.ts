@@ -1,14 +1,14 @@
-import { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
-import { checkAuth } from '@postmill-ai/nestjs-libraries/chat/auth.context';
+import { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
+import { checkAuth } from '@validpost/nestjs-libraries/chat/auth.context';
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
 import { Injectable } from '@nestjs/common';
-import { SocialCommentsService } from '@postmill-ai/nestjs-libraries/database/prisma/social-comments/social.comments.service';
+import { SocialCommentsService } from '@validpost/nestjs-libraries/database/prisma/social-comments/social.comments.service';
 import {
   parseOrg,
   parseUser,
   requireRead,
-} from '@postmill-ai/nestjs-libraries/chat/tools/tool.helpers';
+} from '@validpost/nestjs-libraries/chat/tools/tool.helpers';
 
 /**
  * Required scope: none for normal UI usage; MCP callers need `mcp:read`.

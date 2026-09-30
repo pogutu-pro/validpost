@@ -3,7 +3,7 @@ import {
   buildResizePatch,
   MIN_ELEMENT_SIZE,
 } from './transform-resize';
-import { fitTextToBox } from '@postmill-ai/nestjs-libraries/media/designer-doc/fit-text';
+import { fitTextToBox } from '@validpost/nestjs-libraries/media/designer-doc/fit-text';
 import type { DesignerElement } from './designer.store';
 
 const textEl = (over: Partial<DesignerElement> = {}) =>

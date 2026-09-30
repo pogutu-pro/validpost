@@ -11,27 +11,27 @@ import React, {
 import { useForm, FormProvider } from 'react-hook-form';
 import { IsOptional } from 'class-validator';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { sanitizeProviderSettings } from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/sanitize.settings';
-import { useLaunchStore } from '@postmill-ai/frontend/components/composer/store';
+import { sanitizeProviderSettings } from '@validpost/nestjs-libraries/dtos/posts/providers-settings/sanitize.settings';
+import { useLaunchStore } from '@validpost/frontend/components/composer/store';
 import { useShallow } from 'zustand/react/shallow';
-import { GeneralPreviewComponent } from '@postmill-ai/frontend/components/launches/general.preview.component';
-import { IntegrationContext } from '@postmill-ai/frontend/components/launches/helpers/use.integration';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { GeneralPreviewComponent } from '@validpost/frontend/components/launches/general.preview.component';
+import { IntegrationContext } from '@validpost/frontend/components/launches/helpers/use.integration';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { InternalChannels } from '@postmill-ai/frontend/components/launches/internal.channels';
-import { ChannelGlobalPlugs } from '@postmill-ai/frontend/components/composer/providers/channel.global.plugs';
+import { InternalChannels } from '@validpost/frontend/components/launches/internal.channels';
+import { ChannelGlobalPlugs } from '@validpost/frontend/components/composer/providers/channel.global.plugs';
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import SafeImage from '@postmill-ai/react/helpers/safe.image';
+import SafeImage from '@validpost/react/helpers/safe.image';
 
 class Empty {
   @IsOptional()
   empty: string;
 }
 
-export { PostComment } from '@postmill-ai/frontend/components/composer/providers/post-comment.enum';
-import { PostComment } from '@postmill-ai/frontend/components/composer/providers/post-comment.enum';
+export { PostComment } from '@validpost/frontend/components/composer/providers/post-comment.enum';
+import { PostComment } from '@validpost/frontend/components/composer/providers/post-comment.enum';
 
 interface CharacterCondition {
   format: 'no-pictures' | 'with-pictures';

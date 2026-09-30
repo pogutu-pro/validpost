@@ -1,4 +1,4 @@
-import { ContinueIntegration } from '@postmill-ai/frontend/components/launches/continue.integration';
+import { ContinueIntegration } from '@validpost/frontend/components/launches/continue.integration';
 import { cookies } from 'next/headers';
 
 export const dynamic = 'force-dynamic';

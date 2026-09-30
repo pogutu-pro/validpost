@@ -2,25 +2,25 @@
 
 import React, { FC, useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import { useCalendar } from './context';
 import type { Integrations } from './context';
 import dayjs from 'dayjs';
 import clsx from 'clsx';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { Fragment } from 'react';
 import { Post } from '@prisma/client';
-import { Composer } from '@postmill-ai/frontend/components/composer/composer';
-import { Button } from '@postmill-ai/react/form/button';
-import { ColorPicker } from '@postmill-ai/frontend/components/ui/color-picker';
-import { PostAnalyticsDrawer } from '@postmill-ai/frontend/components/analytics/post-analytics.drawer';
-import { MissingReleaseModal } from '@postmill-ai/frontend/components/launches/missing-release.modal';
-import { PostDetailModal } from '@postmill-ai/frontend/components/launches/post-detail/post.detail.modal';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
+import { Composer } from '@validpost/frontend/components/composer/composer';
+import { Button } from '@validpost/react/form/button';
+import { ColorPicker } from '@validpost/frontend/components/ui/color-picker';
+import { PostAnalyticsDrawer } from '@validpost/frontend/components/analytics/post-analytics.drawer';
+import { MissingReleaseModal } from '@validpost/frontend/components/launches/missing-release.modal';
+import { PostDetailModal } from '@validpost/frontend/components/launches/post-detail/post.detail.modal';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
 import copy from 'copy-to-clipboard';
-import { isUSCitizen } from '@postmill-ai/frontend/components/launches/helpers/isuscitizen.utils';
+import { isUSCitizen } from '@validpost/frontend/components/launches/helpers/isuscitizen.utils';
 
 export const convertTimeFormatBasedOnLocality = (time: number) => {
   if (isUSCitizen()) {
@@ -35,7 +35,7 @@ export const hours = Array.from({ length: 24 }, (_, i) => i);
 // Re-exported from the analytics kit rather than duplicated: this copy had no
 // B tier and used toString() instead of locale grouping, so a calendar card and
 // an analytics tile could render the same count differently.
-export { formatCompactNumber } from '@postmill-ai/frontend/components/analytics/utils';
+export { formatCompactNumber } from '@validpost/frontend/components/analytics/utils';
 
 export const ViewsIcon = () => (
   <svg width="15" height="15" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

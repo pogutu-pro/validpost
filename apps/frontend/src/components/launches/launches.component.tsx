@@ -2,20 +2,20 @@
 
 import { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import { orderBy } from 'lodash';
-import { CalendarWeekProvider } from '@postmill-ai/frontend/components/launches/calendar.context';
-import { useCalendar } from '@postmill-ai/frontend/components/launches/calendar';
-import { pushAgentUiContext } from '@postmill-ai/frontend/components/agent/agent-context-bridge';
-import { Filters } from '@postmill-ai/frontend/components/launches/filters';
-import { LoadingComponent } from '@postmill-ai/frontend/components/layout/loading';
+import { CalendarWeekProvider } from '@validpost/frontend/components/launches/calendar.context';
+import { useCalendar } from '@validpost/frontend/components/launches/calendar';
+import { pushAgentUiContext } from '@validpost/frontend/components/agent/agent-context-bridge';
+import { Filters } from '@validpost/frontend/components/launches/filters';
+import { LoadingComponent } from '@validpost/frontend/components/layout/loading';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useFireEvents } from '@postmill-ai/helpers/utils/use.fire.events';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useFireEvents } from '@validpost/helpers/utils/use.fire.events';
 import { Calendar } from './calendar';
-import { DNDProvider } from '@postmill-ai/frontend/components/launches/helpers/dnd.provider';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useIntegrationList } from '@postmill-ai/frontend/components/launches/helpers/use.integration.list';
-import { useAddProvider } from '@postmill-ai/frontend/components/launches/add.provider.component';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { DNDProvider } from '@validpost/frontend/components/launches/helpers/dnd.provider';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useIntegrationList } from '@validpost/frontend/components/launches/helpers/use.integration.list';
+import { useAddProvider } from '@validpost/frontend/components/launches/add.provider.component';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 
 // Kept as a shared export — imported by agents/agent.tsx.
 export const SVGLine = () => {
@@ -107,7 +107,7 @@ const PostDeepLink: FC = () => {
     let cancelled = false;
     (async () => {
       const { PostDetailModal } = await import(
-        '@postmill-ai/frontend/components/launches/post-detail/post.detail.modal'
+        '@validpost/frontend/components/launches/post-detail/post.detail.modal'
       );
       if (cancelled) return;
       modal.openModal({

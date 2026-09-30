@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { OrgProviderConfigRepository } from './org-provider-config.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { OrgVpnConfigService } from '@postmill-ai/nestjs-libraries/vpn/org-vpn-config.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { getEnvClientInfo } from '@postmill-ai/nestjs-libraries/integrations/channel-env-credentials';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { OrgVpnConfigService } from '@validpost/nestjs-libraries/vpn/org-vpn-config.service';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
+import { getEnvClientInfo } from '@validpost/nestjs-libraries/integrations/channel-env-credentials';
 
 // Optional VPN egress selection stored (as JSON) on the channel config. Not a
 // secret — just which enabled org VPN provider×region the channel routes through.

@@ -1,4 +1,4 @@
-import { newsletterProviders } from '@postmill-ai/nestjs-libraries/newsletter/providers';
+import { newsletterProviders } from '@validpost/nestjs-libraries/newsletter/providers';
 
 export class NewsletterService {
   static getProvider() {

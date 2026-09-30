@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Postmill Docs',
+  title: 'ValidPost Docs',
   description: 'Schedule to 45+ channels, reply from one inbox, design in-app, and run AI on your own keys.',
   appearance: 'dark',
   head: [
@@ -21,17 +21,17 @@ export default defineConfig({
     logo: {
       light: '/validpost-logo-light.svg',
       dark: '/validpost-logo.svg',
-      alt: 'Postmill',
+      alt: 'ValidPost',
     },
     nav: [
       { text: 'User Guide', link: '/user-guide/' },
       { text: 'Developer Docs', link: '/developer-docs/' },
       { text: 'Operations Guide', link: '/operations-guide/' },
-      { text: 'postmill.ai ↗', link: 'https://postmill.ai', target: '_blank', rel: 'noopener' },
+      { text: 'validpost.io ↗', link: 'https://validpost.io', target: '_blank', rel: 'noopener' },
     ],
     footer: {
-      message: 'The AI-native social media management platform — <a href="https://postmill.ai" target="_blank" rel="noopener">postmill.ai</a>',
-      copyright: '© 2026 REAA Technologies Inc',
+      message: 'The AI-native social media management platform — <a href="https://validpost.io" target="_blank" rel="noopener">validpost.io</a>',
+      copyright: '© 2026 Stratnovo. ValidPost is made by Stratnovo.',
     },
     sidebar: {
       '/user-guide/': [
@@ -161,7 +161,7 @@ export default defineConfig({
             { text: 'SDK', link: '/developer-docs/sdk' },
             { text: 'MCP Server', link: '/developer-docs/mcp' },
             { text: 'OAuth Apps', link: '/developer-docs/oauth-apps' },
-            { text: 'Postmill ID (SSO)', link: '/developer-docs/postmill-id' },
+            { text: 'ValidPost ID (SSO)', link: '/developer-docs/validpost-id' },
             { text: 'Plugs', link: '/developer-docs/plugs' },
             { text: 'Setup Gate', link: '/developer-docs/setup-gate' },
           ],

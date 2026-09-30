@@ -1,15 +1,15 @@
 import { Injectable, Logger, NotFoundException, BadRequestException } from '@nestjs/common';
-import { CampaignsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaigns.repository';
-import { CampaignItemRepository } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaign-item.repository';
-import { CampaignTagService } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaign-item.service';
-import { CampaignItemResolverRepository } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaign-item.resolver';
-import { AuditService } from '@postmill-ai/nestjs-libraries/database/prisma/audit/audit.service';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { UsersService } from '@postmill-ai/nestjs-libraries/database/prisma/users/users.service';
-import { SocialCommentsService } from '@postmill-ai/nestjs-libraries/database/prisma/social-comments/social.comments.service';
-import { FileService } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.service';
-import { ENTITY_ENUM_TO_SLUG } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaign-entity.types';
-import { computeGoalProgress } from '@postmill-ai/nestjs-libraries/database/prisma/campaigns/campaign-goal-progress';
+import { CampaignsRepository } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaigns.repository';
+import { CampaignItemRepository } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaign-item.repository';
+import { CampaignTagService } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaign-item.service';
+import { CampaignItemResolverRepository } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaign-item.resolver';
+import { AuditService } from '@validpost/nestjs-libraries/database/prisma/audit/audit.service';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { UsersService } from '@validpost/nestjs-libraries/database/prisma/users/users.service';
+import { SocialCommentsService } from '@validpost/nestjs-libraries/database/prisma/social-comments/social.comments.service';
+import { FileService } from '@validpost/nestjs-libraries/database/prisma/file/file.service';
+import { ENTITY_ENUM_TO_SLUG } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaign-entity.types';
+import { computeGoalProgress } from '@validpost/nestjs-libraries/database/prisma/campaigns/campaign-goal-progress';
 import { randomBytes } from 'crypto';
 import { z } from 'zod';
 

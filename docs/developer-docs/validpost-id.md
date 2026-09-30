@@ -1,12 +1,12 @@
-# Postmill ID (first-party SSO)
+# ValidPost ID (first-party SSO)
 
-**Postmill ID** lets first-party Postmill apps — starting with the **template store** —
-offer "Sign in with Postmill" against **any** Postmill instance: Postmill Cloud or any
+**ValidPost ID** lets first-party ValidPost apps — starting with the **template store** —
+offer "Sign in with ValidPost" against **any** ValidPost instance: ValidPost Cloud or any
 deployment. The app receives verified identity claims: user id, name,
 email, avatar, and the org the user was working in when they consented.
 
 It is deliberately separate from [OAuth Apps](./oauth-apps.md) (which issue
-org-scoped `pos_` API tokens to registered third-party clients). Postmill ID has **no
+org-scoped `pos_` API tokens to registered third-party clients). ValidPost ID has **no
 client registration and no client secrets**: the first-party client is pinned in the
 product, and the code exchange is protected by PKCE alone.
 
@@ -27,7 +27,7 @@ product, and the code exchange is protected by PKCE alone.
    PKCE verifier instead of a secret) and receives an RS256-signed `id_token` plus a
    short-lived `posf_` access token for the userinfo endpoint.
 5. The store verifies the `id_token` against the instance's JWKS: signature, `iss`,
-   fixed audience `postmill-template-store`, `exp`, and the `nonce` it sent.
+   fixed audience `validpost-template-store`, `exp`, and the `nonce` it sent.
 
 ::: warning Reachability requirement
 The store backend must be able to reach the instance over HTTPS (token exchange +
@@ -39,7 +39,7 @@ store — this is inherent to any SSO-based design.
 
 | Endpoint | Auth | Purpose |
 |---|---|---|
-| `GET /.well-known/postmill-identity` | none | Discovery document (endpoints, scopes, JWKS URI, fixed audience) |
+| `GET /.well-known/validpost-identity` | none | Discovery document (endpoints, scopes, JWKS URI, fixed audience) |
 | `GET /federation/jwks` | none | Public keys for `id_token` verification |
 | `GET /federation/authorize` | none | Validates the request; drives the consent screen |
 | `POST /federation/authorize` | session + CSRF | User approve/deny (from the consent screen). Returns **201** |
@@ -73,20 +73,20 @@ Only these scopes exist in federation; anything else is rejected (`invalid_scope
 | `email` | `email`, `email_verified` (true when the account is activated) |
 | `org` | `org: { id, name, role }` — the consent-context org and the user's role key in it (`owner`/`admin`/`editor`/`member`/`viewer`) |
 
-`sub` (the Postmill user id) is always present. The same scope gating applies to both
+`sub` (the ValidPost user id) is always present. The same scope gating applies to both
 the `id_token` claims and `/federation/userinfo`.
 
 ## Login flow (store side)
 
 ```text
-1. User enters their instance URL (Postmill Cloud is pre-filled).
-2. GET <instance>/.well-known/postmill-identity
+1. User enters their instance URL (ValidPost Cloud is pre-filled).
+2. GET <instance>/.well-known/validpost-identity
 3. Generate PKCE verifier + state + nonce; redirect the browser to
    authorization_endpoint with redirect_uri, scope="profile email org",
    code_challenge, code_challenge_method=S256, state, nonce.
 4. On the callback, POST token_endpoint:
      grant_type=authorization_code, code, redirect_uri, code_verifier
-5. Verify id_token (RS256 against jwks_uri, iss, aud="postmill-template-store",
+5. Verify id_token (RS256 against jwks_uri, iss, aud="validpost-template-store",
    exp, nonce) and create the local session.
 6. Optionally refresh profile data later via GET userinfo_endpoint with the
    access token.
@@ -100,7 +100,7 @@ curl -X POST https://instance.example.com/federation/token \
   -d '{
     "grant_type": "authorization_code",
     "code": "…",
-    "redirect_uri": "https://templates.postmill.ai/auth/callback/postmill",
+    "redirect_uri": "https://templates.validpost.io/auth/callback/validpost",
     "code_verifier": "…"
   }'
 ```
@@ -117,7 +117,7 @@ curl -X POST https://instance.example.com/federation/token \
 
 ## Revocation
 
-Users see active sign-ins under **Settings → Approved apps → Postmill ID sign-ins**
+Users see active sign-ins under **Settings → Approved apps → ValidPost ID sign-ins**
 and can revoke them there (`GET /user/approved-apps/federation`,
 `DELETE /user/approved-apps/federation/:id`). Revoking
 immediately invalidates the access token; outstanding `id_token`s expire within an
@@ -127,7 +127,7 @@ hour.
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `FEDERATION_TRUSTED_REDIRECT_URIS` | `https://templates.postmill.ai/auth/callback/postmill` | Comma-separated allow-list of redirect URIs codes may be sent to. Exact match. **Setting it REPLACES the default rather than extending it**, so listing a staging or dev URL means re-listing production too. |
+| `FEDERATION_TRUSTED_REDIRECT_URIS` | `https://templates.validpost.io/auth/callback/validpost` | Comma-separated allow-list of redirect URIs codes may be sent to. Exact match. **Setting it REPLACES the default rather than extending it**, so listing a staging or dev URL means re-listing production too. |
 | `FEDERATION_ISSUER` | `BACKEND_URL` / `NEXT_PUBLIC_BACKEND_URL` | Explicit `iss` override (e.g. behind a path-rewriting proxy). |
 
 To rotate the signing key, delete the `InstanceIdentity` row **and restart the

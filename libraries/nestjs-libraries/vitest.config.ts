@@ -8,13 +8,13 @@ export default defineConfig({
     // modules are transformed by vitest, so the specs' `vi.mock(...)` of shared
     // helpers (read.or.fetch, timer, etc.) intercepts the provider's direct imports.
     alias: [
-      { find: '@postmill-ai/nestjs-libraries', replacement: path.resolve(__dirname, 'src') },
-      { find: '@postmill-ai/helpers', replacement: path.resolve(__dirname, '../helpers/src') },
-      { find: '@postmill-ai/backend', replacement: path.resolve(__dirname, '../../apps/backend/src') },
-      { find: '@postmill-ai/provider-kernel', replacement: path.resolve(__dirname, '../providers/kernel/src') },
-      { find: /^@postmill-ai\/provider-(.+)$/, replacement: path.resolve(__dirname, '../providers/$1/src') },
-      { find: '@postmill-ai/react-shared-libraries', replacement: path.resolve(__dirname, '../react-shared-libraries/src') },
-      { find: /^@postmill-ai\/react-shared-libraries\/(.*)$/, replacement: path.resolve(__dirname, '../react-shared-libraries/src/$1') },
+      { find: '@validpost/nestjs-libraries', replacement: path.resolve(__dirname, 'src') },
+      { find: '@validpost/helpers', replacement: path.resolve(__dirname, '../helpers/src') },
+      { find: '@validpost/backend', replacement: path.resolve(__dirname, '../../apps/backend/src') },
+      { find: '@validpost/provider-kernel', replacement: path.resolve(__dirname, '../providers/kernel/src') },
+      { find: /^@validpost\/provider-(.+)$/, replacement: path.resolve(__dirname, '../providers/$1/src') },
+      { find: '@validpost/react-shared-libraries', replacement: path.resolve(__dirname, '../react-shared-libraries/src') },
+      { find: /^@validpost\/react-shared-libraries\/(.*)$/, replacement: path.resolve(__dirname, '../react-shared-libraries/src/$1') },
     ],
   },
   test: {

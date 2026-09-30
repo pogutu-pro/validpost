@@ -3,12 +3,12 @@
 import { FC, useCallback, useState } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { CommentComposer } from '@postmill-ai/frontend/components/launches/post-detail/comment.composer';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { TeamMemberItem } from '@postmill-ai/frontend/components/settings/roles/hooks/use-roles';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { CommentComposer } from '@validpost/frontend/components/launches/post-detail/comment.composer';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { TeamMemberItem } from '@validpost/frontend/components/settings/roles/hooks/use-roles';
 
 dayjs.extend(relativeTime);
 
@@ -112,7 +112,7 @@ export const CommentCard: FC<CommentCardProps> = ({
   const openPost = useCallback(async () => {
     if (!postId) return;
     const { PostDetailModal } = await import(
-      '@postmill-ai/frontend/components/launches/post-detail/post.detail.modal'
+      '@validpost/frontend/components/launches/post-detail/post.detail.modal'
     );
     modal.openModal({
       title: '',

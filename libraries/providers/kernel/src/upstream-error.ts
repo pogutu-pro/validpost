@@ -2,16 +2,16 @@ import { ProviderErrorContext } from './errors';
 import { redactError } from './domains/media-guards';
 
 // Upstream provider failures (the org's Google / OpenAI / Runway … account said
-// no) are NOT Postmill failures, and the plumbing has to keep them apart:
+// no) are NOT ValidPost failures, and the plumbing has to keep them apart:
 //
 // - A plain `Error("X failed: " + body)` reaches Nest's default handler as a
-//   500 "Internal server error" — the user reads it as a Postmill outage, and
+//   500 "Internal server error" — the user reads it as a ValidPost outage, and
 //   Sentry files it as one.
 // - The AI SDK's `APICallError` carries `statusCode` + `message`, and
 //   BaseExceptionFilter.handleUnknownError duck-types that as an HTTP error and
 //   replays the PROVIDER's status as OUR response: a provider 401 logs the user
 //   out (frontend treats 401 as session expiry), a provider 429 shows
-//   Postmill's "too many requests" toast, 402 opens Postmill billing.
+//   ValidPost's "too many requests" toast, 402 opens ValidPost billing.
 //
 // So every adapter converts a non-OK upstream response / SDK error into a
 // ProviderUpstreamError. It deliberately has NO `statusCode` property (the

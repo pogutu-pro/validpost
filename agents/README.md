@@ -1,6 +1,6 @@
 # Agent development docs
 
-This folder is the documentation set for **AI coding agents** working on the Postmill monorepo. It is
+This folder is the documentation set for **AI coding agents** working on the ValidPost monorepo. It is
 written for LLMs: dense, path/symbol-exact, no prose padding. Read the doc for your task **before**
 writing code — every recipe here was verified against the codebase.
 

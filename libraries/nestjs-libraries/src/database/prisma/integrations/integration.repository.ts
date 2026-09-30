@@ -1,12 +1,12 @@
-import { PrismaRepository } from '@postmill-ai/nestjs-libraries/database/prisma/prisma.service';
+import { PrismaRepository } from '@validpost/nestjs-libraries/database/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { Integration } from '@prisma/client';
-import { makeId } from '@postmill-ai/nestjs-libraries/services/make.is';
-import { IntegrationTimeDto } from '@postmill-ai/nestjs-libraries/dtos/integrations/integration.time.dto';
-import { PlugDto } from '@postmill-ai/nestjs-libraries/dtos/plugs/plug.dto';
-import { AuthService } from '@postmill-ai/helpers/auth/auth.service';
-import { decryptIntegrationTokens } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration-token.utils';
+import { makeId } from '@validpost/nestjs-libraries/services/make.is';
+import { IntegrationTimeDto } from '@validpost/nestjs-libraries/dtos/integrations/integration.time.dto';
+import { PlugDto } from '@validpost/nestjs-libraries/dtos/plugs/plug.dto';
+import { AuthService } from '@validpost/helpers/auth/auth.service';
+import { decryptIntegrationTokens } from '@validpost/nestjs-libraries/database/prisma/integrations/integration-token.utils';
 
 @Injectable()
 export class IntegrationRepository {

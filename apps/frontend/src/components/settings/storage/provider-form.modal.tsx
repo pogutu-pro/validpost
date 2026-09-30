@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { CampaignSelector } from '@postmill-ai/frontend/components/campaigns/selector/campaign-selector';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { ExtraField } from '@postmill-ai/frontend/components/settings/shared/kit/fields';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { CampaignSelector } from '@validpost/frontend/components/campaigns/selector/campaign-selector';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { ExtraField } from '@validpost/frontend/components/settings/shared/kit/fields';
 import {
   ProviderExtraFieldSpec,
   ProviderFormState,
-} from '@postmill-ai/frontend/components/settings/shared/kit/provider-surface.types';
+} from '@validpost/frontend/components/settings/shared/kit/provider-surface.types';
 
 // Field specs rendered through the shared kit `ExtraField` renderer instead of
 // hand-rolled <input> markup. Credentials + config all live in the form's

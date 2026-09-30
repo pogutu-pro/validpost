@@ -4,7 +4,7 @@ import React from 'react';
 import { LayersFooter } from './panels/layers-footer';
 import { createDesignerStore, type DesignerElement } from './designer.store';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT:
     () =>
     (_k: string, d: string, vars?: Record<string, unknown>) =>

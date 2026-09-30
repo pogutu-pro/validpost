@@ -2,24 +2,24 @@
 
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import { ChannelConfigForm, ChannelCustomField, ChannelSetupDescriptor } from './channel-edit.modal';
-import ProviderListShell from '@postmill-ai/frontend/components/settings/shared/provider-list-shell';
-import ProviderModalTitle from '@postmill-ai/frontend/components/settings/shared/provider-modal-title';
+import ProviderListShell from '@validpost/frontend/components/settings/shared/provider-list-shell';
+import ProviderModalTitle from '@validpost/frontend/components/settings/shared/provider-modal-title';
 import {
   useProviderCatalog,
   ProviderCatalogEntry,
   latestActiveVersion,
-} from '@postmill-ai/frontend/components/settings/shared/use-provider-catalog';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { PlatformIcon } from '@postmill-ai/frontend/components/shared/platform-icon';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { CapabilityBadges as KitCapabilityBadges } from '@postmill-ai/frontend/components/settings/shared/kit/capabilities';
-import { ProviderSearchToolbar } from '@postmill-ai/frontend/components/settings/shared/kit/provider-search-toolbar';
-import { CapabilityMeta } from '@postmill-ai/frontend/components/settings/shared/kit/provider-surface.types';
+} from '@validpost/frontend/components/settings/shared/use-provider-catalog';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { PlatformIcon } from '@validpost/frontend/components/shared/platform-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { CapabilityBadges as KitCapabilityBadges } from '@validpost/frontend/components/settings/shared/kit/capabilities';
+import { ProviderSearchToolbar } from '@validpost/frontend/components/settings/shared/kit/provider-search-toolbar';
+import { CapabilityMeta } from '@validpost/frontend/components/settings/shared/kit/provider-surface.types';
 
 interface ProviderCapability {
   analytics: boolean;

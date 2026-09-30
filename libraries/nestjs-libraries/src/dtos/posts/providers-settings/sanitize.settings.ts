@@ -2,7 +2,7 @@ import { getMetadataStorage } from 'class-validator';
 import {
   allProviders,
   EmptySettings,
-} from '@postmill-ai/nestjs-libraries/dtos/posts/providers-settings/all.providers.settings';
+} from '@validpost/nestjs-libraries/dtos/posts/providers-settings/all.providers.settings';
 
 /**
  * Cross-cutting settings keys that are legal on EVERY provider's settings blob

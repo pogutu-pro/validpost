@@ -2,11 +2,11 @@
 
 import { FC, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { StatTile } from '@postmill-ai/frontend/components/analytics/kit/stat-tile';
-import { useOverview } from '@postmill-ai/frontend/components/analytics/hooks/useOverview';
+import { StatTile } from '@validpost/frontend/components/analytics/kit/stat-tile';
+import { useOverview } from '@validpost/frontend/components/analytics/hooks/useOverview';
 import { useDashboardSummary } from '../hooks/useDashboardSummary';
-import { KPI } from '@postmill-ai/frontend/components/analytics/utils';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { KPI } from '@validpost/frontend/components/analytics/utils';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const staticKPI = (label: string, total: number): KPI => ({
   metric: label,

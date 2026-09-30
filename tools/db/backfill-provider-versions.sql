@@ -1,7 +1,7 @@
 -- One-off backfill: idempotently set version='v1' on all provider config/ledger tables
 -- and rewrite bare qualified ids / JSON blobs to include @v1.
 -- Run inside the postgres container as the DB owner, e.g.:
---   docker exec postmill-postgres psql -U postmill-local -d postmill-db-local -h localhost -f /tmp/backfill-provider-versions.sql
+--   docker exec validpost-postgres psql -U validpost-local -d validpost-db-local -h localhost -f /tmp/backfill-provider-versions.sql
 
 BEGIN;
 

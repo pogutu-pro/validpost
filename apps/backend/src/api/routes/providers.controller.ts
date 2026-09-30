@@ -13,24 +13,24 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { GetUserFromRequest } from '@postmill-ai/nestjs-libraries/user/user.from.request';
+import { GetUserFromRequest } from '@validpost/nestjs-libraries/user/user.from.request';
 import {
   ProviderDomain,
   isProviderDomain,
-} from '@postmill-ai/provider-kernel';
-import { SuperAdminGuard } from '@postmill-ai/backend/services/auth/rbac/super-admin.guard';
-import { AuthGuard } from '@postmill-ai/backend/services/auth/auth.guard';
-import { ProviderCatalogService } from '@postmill-ai/nestjs-libraries/providers/provider-catalog.service';
-import { ProviderHealthService } from '@postmill-ai/nestjs-libraries/providers/provider-health.service';
-import { FeaturedProviderService } from '@postmill-ai/nestjs-libraries/database/prisma/featured-providers/featured-provider.service';
+} from '@validpost/provider-kernel';
+import { SuperAdminGuard } from '@validpost/backend/services/auth/rbac/super-admin.guard';
+import { AuthGuard } from '@validpost/backend/services/auth/auth.guard';
+import { ProviderCatalogService } from '@validpost/nestjs-libraries/providers/provider-catalog.service';
+import { ProviderHealthService } from '@validpost/nestjs-libraries/providers/provider-health.service';
+import { FeaturedProviderService } from '@validpost/nestjs-libraries/database/prisma/featured-providers/featured-provider.service';
 import {
   FeaturedProviderDto,
   FeaturedProviderRemoveDto,
   FeaturedReorderDto,
-} from '@postmill-ai/nestjs-libraries/dtos/providers/featured-provider.dtos';
+} from '@validpost/nestjs-libraries/dtos/providers/featured-provider.dtos';
 
 // PROVIDER_REMEDIATION 3.3: `isProviderDomain` + the domain set are now a single
-// source of truth exported from the kernel (`@postmill-ai/provider-kernel`), shared
+// source of truth exported from the kernel (`@validpost/provider-kernel`), shared
 // with `featured-provider.service.ts` — no local duplicate that could drift.
 
 // PROVIDER_REMEDIATION 3.3: an invalid `?domain=` must fail closed with a 400 —
@@ -118,4 +118,4 @@ export {
   FeaturedProviderDto,
   FeaturedProviderRemoveDto,
   FeaturedReorderDto,
-} from '@postmill-ai/nestjs-libraries/dtos/providers/featured-provider.dtos';
+} from '@validpost/nestjs-libraries/dtos/providers/featured-provider.dtos';

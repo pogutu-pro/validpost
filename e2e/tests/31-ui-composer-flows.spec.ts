@@ -38,7 +38,7 @@ test('composer flow - multiple submission paths', async ({ page }) => {
     page.on('response', (r) => {
       const u = r.url();
       if (u.includes('/api/posts')) {
-        apiCalls.push(`${r.status()} ${u.split('?')[0].replace('https://app.postmill.ai/api/posts', '')}`);
+        apiCalls.push(`${r.status()} ${u.split('?')[0].replace('https://app.validpost.io/api/posts', '')}`);
       }
     });
 
@@ -111,7 +111,7 @@ test('composer flow - multiple submission paths', async ({ page }) => {
 
       // Step 6: Check final state
       result.finalState.editorVisible = (await page.locator('[contenteditable="true"], .ProseMirror').count()) > 0;
-      result.finalState.url = page.url().replace('https://app.postmill.ai', '');
+      result.finalState.url = page.url().replace('https://app.validpost.io', '');
 
       await page.screenshot({ path: `ui-composer-${scenario.name}.png` });
     } catch (e: any) {

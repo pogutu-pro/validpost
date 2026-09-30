@@ -1,18 +1,18 @@
-import { PostActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/post.activity';
-import { AnalyticsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/analytics.activity';
-import { CommentsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/comments.activity';
-import { EmailActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/email.activity';
-import { IntegrationsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/integrations.activity';
-import { AutopostActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/autopost.activity';
-import { MediaJobsActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/media-jobs.activity';
-import { DigestActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/digest.activity';
-import { CampaignActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/campaign.activity';
-import { RetentionActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/retention.activity';
-import { AgentDigestActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/agent-digest.activity';
-import { CommsInboundService } from '@postmill-ai/nestjs-libraries/comms/comms-inbound.service';
-import { PaymentsService } from '@postmill-ai/nestjs-libraries/payments/payments.service';
-import { InngestRunService } from '@postmill-ai/nestjs-libraries/inngest/inngest-run.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
+import { PostActivity } from '@validpost/nestjs-libraries/inngest/activities/post.activity';
+import { AnalyticsActivity } from '@validpost/nestjs-libraries/inngest/activities/analytics.activity';
+import { CommentsActivity } from '@validpost/nestjs-libraries/inngest/activities/comments.activity';
+import { EmailActivity } from '@validpost/nestjs-libraries/inngest/activities/email.activity';
+import { IntegrationsActivity } from '@validpost/nestjs-libraries/inngest/activities/integrations.activity';
+import { AutopostActivity } from '@validpost/nestjs-libraries/inngest/activities/autopost.activity';
+import { MediaJobsActivity } from '@validpost/nestjs-libraries/inngest/activities/media-jobs.activity';
+import { DigestActivity } from '@validpost/nestjs-libraries/inngest/activities/digest.activity';
+import { CampaignActivity } from '@validpost/nestjs-libraries/inngest/activities/campaign.activity';
+import { RetentionActivity } from '@validpost/nestjs-libraries/inngest/activities/retention.activity';
+import { AgentDigestActivity } from '@validpost/nestjs-libraries/inngest/activities/agent-digest.activity';
+import { CommsInboundService } from '@validpost/nestjs-libraries/comms/comms-inbound.service';
+import { PaymentsService } from '@validpost/nestjs-libraries/payments/payments.service';
+import { InngestRunService } from '@validpost/nestjs-libraries/inngest/inngest-run.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
 import { InngestFunction } from 'inngest';
 import {
   createAnalyticsCollection,

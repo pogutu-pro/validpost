@@ -1,15 +1,15 @@
 'use client';
 
 import React, { FC, useCallback, useRef, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { hasExtension } from '@postmill-ai/helpers/utils/has.extension';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { hasExtension } from '@validpost/helpers/utils/has.extension';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import clsx from 'clsx';
-import { AudioPlayer } from '@postmill-ai/frontend/components/media-tools/audio-player';
-import { CampaignSelector } from '@postmill-ai/frontend/components/campaigns/selector/campaign-selector';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import i18next from '@postmill-ai/react/translation/i18next';
+import { AudioPlayer } from '@validpost/frontend/components/media-tools/audio-player';
+import { CampaignSelector } from '@validpost/frontend/components/campaigns/selector/campaign-selector';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
 import type { FileItem } from './file-manager';
 
 const formatDate = (dateStr: string) => {

@@ -1,6 +1,6 @@
 import XHRUpload from '@uppy/xhr-upload';
 import Transloadit from '@uppy/transloadit';
-import { csrfHeader } from '@postmill-ai/helpers/utils/csrf.header';
+import { csrfHeader } from '@validpost/helpers/utils/csrf.header';
 const fetchUploadApiEndpoint = async (
   fetch: any,
   endpoint: string,

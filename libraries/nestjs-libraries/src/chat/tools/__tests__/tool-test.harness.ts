@@ -1,4 +1,4 @@
-import type { AgentToolInterface } from '@postmill-ai/nestjs-libraries/chat/agent.tool.interface';
+import type { AgentToolInterface } from '@validpost/nestjs-libraries/chat/agent.tool.interface';
 
 export type ToolContextInput = {
   inputData: Record<string, any>;

@@ -1,16 +1,16 @@
 'use client';
 
-import { TopTitle } from '@postmill-ai/frontend/components/launches/helpers/top.title.component';
+import { TopTitle } from '@validpost/frontend/components/launches/helpers/top.title.component';
 import React, { FC, FormEventHandler, useCallback, useState } from 'react';
-import { Integrations } from '@postmill-ai/frontend/components/launches/calendar.context';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { Input } from '@postmill-ai/react/form/input';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { MediaSelectorItem } from '@postmill-ai/frontend/components/media-tools/media-selector-modal';
-import { useMediaPicker } from '@postmill-ai/frontend/components/media-tools/use-media-picker';
+import { Integrations } from '@validpost/frontend/components/launches/calendar.context';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { Input } from '@validpost/react/form/input';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { MediaSelectorItem } from '@validpost/frontend/components/media-tools/media-selector-modal';
+import { useMediaPicker } from '@validpost/frontend/components/media-tools/use-media-picker';
 
 export const BotPicture: FC<{
   integration: Integrations;

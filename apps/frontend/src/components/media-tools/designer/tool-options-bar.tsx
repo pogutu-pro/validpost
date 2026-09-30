@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import { getTool } from './tools';
 import { PEN_DEFAULT_STROKE } from './pen-tools';
 

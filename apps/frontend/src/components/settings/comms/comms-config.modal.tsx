@@ -1,11 +1,11 @@
 'use client';
 
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Button } from '@postmill-ai/react/form/button';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useDecisionModal } from '@postmill-ai/frontend/components/layout/new-modal';
+import { Button } from '@validpost/react/form/button';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useDecisionModal } from '@validpost/frontend/components/layout/new-modal';
 import { CategoryChecklist } from './category-checklist';
 import { MemberPicker, CommsMember } from './member-picker';
 import {
@@ -20,7 +20,7 @@ import {
 
 const CODE_INSTRUCTIONS: Record<string, [string, string]> = {
   telegram: ['comms_code_instructions_telegram', 'Open a chat with the bot in Telegram and send: link {code}'],
-  discord: ['comms_code_instructions_discord', 'In Discord, run: /postmill message: link {code}'],
+  discord: ['comms_code_instructions_discord', 'In Discord, run: /validpost message: link {code}'],
 };
 
 // Loader shell: resolves the provider/links/members from the shared SWR cache
@@ -282,7 +282,7 @@ const CommsConfigFormInner: FC<{
       };
       const onMessage = (event: MessageEvent) => {
         if (event.origin !== window.location.origin) return;
-        if ((event.data as { type?: string })?.type !== 'postmill:comms-connected') return;
+        if ((event.data as { type?: string })?.type !== 'validpost:comms-connected') return;
         finish();
       };
       const cleanup = () => {

@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { getRequestId } from '@postmill-ai/nestjs-libraries/chat/async.storage';
+import { getRequestId } from '@validpost/nestjs-libraries/chat/async.storage';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
@@ -65,7 +65,7 @@ export function initializeOtel(): void {
     };
 
     sdk = new NodeSDK({
-      serviceName: process.env.OTEL_SERVICE_NAME || 'postmill-backend',
+      serviceName: process.env.OTEL_SERVICE_NAME || 'validpost-backend',
       // Passing `spanProcessors` supersedes `traceExporter`, so export via an explicit
       // BatchSpanProcessor alongside the request-id processor.
       spanProcessors: [

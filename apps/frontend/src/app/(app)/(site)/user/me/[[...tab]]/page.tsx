@@ -3,18 +3,18 @@
 import React, { useCallback, useEffect, useMemo, type FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import { UserDetailDto } from '@postmill-ai/nestjs-libraries/dtos/users/user.details.dto';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import i18next from '@postmill-ai/react/translation/i18next';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { ProfileComponent } from '@postmill-ai/frontend/components/settings/profile.component';
-import MetricComponent from '@postmill-ai/frontend/components/settings/metric.component';
-import ChangePasswordComponent from '@postmill-ai/frontend/components/settings/change-password.component';
-import { NotificationPreferencesPanel } from '@postmill-ai/frontend/components/settings/notifications/notification-preferences.panel';
-import { OverflowTabs } from '@postmill-ai/frontend/components/ui/overflow-tabs';
+import { UserDetailDto } from '@validpost/nestjs-libraries/dtos/users/user.details.dto';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import i18next from '@validpost/react/translation/i18next';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { ProfileComponent } from '@validpost/frontend/components/settings/profile.component';
+import MetricComponent from '@validpost/frontend/components/settings/metric.component';
+import ChangePasswordComponent from '@validpost/frontend/components/settings/change-password.component';
+import { NotificationPreferencesPanel } from '@validpost/frontend/components/settings/notifications/notification-preferences.panel';
+import { OverflowTabs } from '@validpost/frontend/components/ui/overflow-tabs';
 import { useParams, useRouter } from 'next/navigation';
 
 const tabs = [

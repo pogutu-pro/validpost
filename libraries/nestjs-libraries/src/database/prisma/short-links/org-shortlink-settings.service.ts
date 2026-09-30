@@ -1,11 +1,11 @@
 import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
-import { ProviderKernel } from '@postmill-ai/provider-kernel';
-import { OrgShortLinkSettingsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.repository';
-import { EncryptionService } from '@postmill-ai/nestjs-libraries/encryption/encryption.service';
-import { ShortLinkAdapter } from '@postmill-ai/nestjs-libraries/short-linking/short-link.interface';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { PROVIDER_KERNEL } from '@postmill-ai/nestjs-libraries/providers/providers.module';
-import { accountFingerprint } from '@postmill-ai/nestjs-libraries/utils/account-fingerprint';
+import { ProviderKernel } from '@validpost/provider-kernel';
+import { OrgShortLinkSettingsRepository } from '@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.repository';
+import { EncryptionService } from '@validpost/nestjs-libraries/encryption/encryption.service';
+import { ShortLinkAdapter } from '@validpost/nestjs-libraries/short-linking/short-link.interface';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { PROVIDER_KERNEL } from '@validpost/nestjs-libraries/providers/providers.module';
+import { accountFingerprint } from '@validpost/nestjs-libraries/utils/account-fingerprint';
 
 @Injectable()
 export class OrgShortLinkSettingsService {

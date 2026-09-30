@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC, useCallback } from 'react';
-import { useMediaDirectory } from '@postmill-ai/react/helpers/use.media.directory';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useMediaDirectory } from '@validpost/react/helpers/use.media.directory';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { StudioJob } from './types';
-import { openInDesigner } from '@postmill-ai/frontend/components/media-tools/open-in-designer';
+import { openInDesigner } from '@validpost/frontend/components/media-tools/open-in-designer';
 
 // Status/operation display text is resolved at render via `t()` (data-module pattern):
 // className stays here, the label is keyed off the stable status/operation id.
@@ -69,7 +69,7 @@ export const RenderQueue: FC<RenderQueueProps> = ({
         return;
       }
       const integrations = await integrationsRes.json();
-      const { Composer } = await import('@postmill-ai/frontend/components/composer/composer');
+      const { Composer } = await import('@validpost/frontend/components/composer/composer');
       const dayjs = (await import('dayjs')).default;
       modal.openModal({
         fullScreen: true,

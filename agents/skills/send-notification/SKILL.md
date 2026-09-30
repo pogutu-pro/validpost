@@ -1,6 +1,6 @@
 ---
 name: send-notification
-description: Send a user-facing notification (email, in-app, push) or add a notification category/digest in the Postmill monorepo. Use when sending a notification, wiring an email/in-app/push alert, choosing or adding a notification category, or touching digest batching.
+description: Send a user-facing notification (email, in-app, push) or add a notification category/digest in the ValidPost monorepo. Use when sending a notification, wiring an email/in-app/push alert, choosing or adding a notification category, or touching digest batching.
 ---
 
 # Send a Notification

@@ -5,8 +5,8 @@ import { PATH_METADATA, METHOD_METADATA } from '@nestjs/common/constants';
 import fs from 'fs';
 import path from 'path';
 
-import { CHECK_POLICIES_KEY } from '@postmill-ai/backend/services/auth/permissions/permissions.ability';
-import { REQUIRE_PERMISSION_KEY } from '@postmill-ai/backend/services/auth/rbac/require-permission.decorator';
+import { CHECK_POLICIES_KEY } from '@validpost/backend/services/auth/permissions/permissions.ability';
+import { REQUIRE_PERMISSION_KEY } from '@validpost/backend/services/auth/rbac/require-permission.decorator';
 
 // Org-resource controllers whose mutating routes MUST carry @RequirePermission or
 // @CheckPolicies. Kept as static imports so Nest/reflect-metadata is deterministic.
@@ -109,7 +109,7 @@ const PUBLIC_CONTROLLERS = new Set<string>([
   'PublicCatalogController',
   'OAuthController',
   'OAuthAuthorizedController',
-  // Postmill ID federation: discovery/JWKS/authorize-metadata are anonymous; token
+  // ValidPost ID federation: discovery/JWKS/authorize-metadata are anonymous; token
   // exchange is PKCE-authenticated; userinfo is Bearer posf_-authenticated; the
   // approve/deny POST is session-authenticated via authenticatedController (same
   // shape as OAuthAuthorizedController above).

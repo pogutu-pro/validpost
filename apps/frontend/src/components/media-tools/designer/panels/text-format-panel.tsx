@@ -14,11 +14,11 @@ import {
   Stepper,
 } from '../controls';
 import { DESIGNER_FONTS, ensureFontLoaded } from '../fonts';
-import { GOOGLE_FONTS } from '@postmill-ai/nestjs-libraries/media/designer-doc/font-catalog';
+import { GOOGLE_FONTS } from '@validpost/nestjs-libraries/media/designer-doc/font-catalog';
 import { fitDesignerText, fittedFontSize } from '../measure-text';
 import { useBrandColors } from './use-brand-colors';
 import { useBrandFonts, useCustomFonts } from './use-brand-fonts';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const RUN_STYLE_KEYS = new Set(['fill', 'fontFamily', 'fontSize', 'fontWeight', 'fontStyle']);
 

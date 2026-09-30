@@ -1,8 +1,8 @@
 'use client';
 
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import { useCallback } from 'react';
-import { ProviderError, readApiError } from '@postmill-ai/frontend/components/ai/provider-error';
+import { ProviderError, readApiError } from '@validpost/frontend/components/ai/provider-error';
 
 // LLM-narrated period summary (7.5). This is a POST *action* (not an SWR
 // resource), so it's a callback hook. The endpoint is AI-provider-gated:

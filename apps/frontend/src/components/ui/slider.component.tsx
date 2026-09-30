@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-} from '@postmill-ai/frontend/components/ui/icons';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+} from '@validpost/frontend/components/ui/icons';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 export const SliderComponent: FC<{
   className: string;

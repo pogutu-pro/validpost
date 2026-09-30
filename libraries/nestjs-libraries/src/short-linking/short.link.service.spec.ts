@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ShortLinkService } from './short.link.service';
-import { ProviderResolutionService } from '@postmill-ai/nestjs-libraries/providers/provider-resolution.service';
-import { OrgShortLinkSettingsService } from '@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
-import { OrgShortLinkSettingsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.repository';
+import { ProviderResolutionService } from '@validpost/nestjs-libraries/providers/provider-resolution.service';
+import { OrgShortLinkSettingsService } from '@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.service';
+import { OrgShortLinkSettingsRepository } from '@validpost/nestjs-libraries/database/prisma/short-links/org-shortlink-settings.repository';
 import type { ShortLinkAdapter, ShortLinkCapabilities, ShortLinkContext, ShortLinkStat } from './short-link.interface';
 
 const mockCapabilities: ShortLinkCapabilities = {

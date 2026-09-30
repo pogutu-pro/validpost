@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import type { UsageResponse } from '../hooks/useUsage';
 import type { AiUsageResponse } from '../hooks/useAiUsage';
 

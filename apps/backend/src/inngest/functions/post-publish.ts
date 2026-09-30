@@ -1,12 +1,12 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { postPublishEvent } from '@postmill-ai/nestjs-libraries/inngest/inngest.types';
-import { PostActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/post.activity';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { postPublishEvent } from '@validpost/nestjs-libraries/inngest/inngest.types';
+import { PostActivity } from '@validpost/nestjs-libraries/inngest/activities/post.activity';
 import {
   RefreshTokenError,
   BadBodyError,
-} from '@postmill-ai/nestjs-libraries/inngest/errors';
-import { providerModules } from '@postmill-ai/backend/providers.generated';
-import { SocialProvider } from '@postmill-ai/provider-kernel';
+} from '@validpost/nestjs-libraries/inngest/errors';
+import { providerModules } from '@validpost/backend/providers.generated';
+import { SocialProvider } from '@validpost/provider-kernel';
 import dayjs from 'dayjs';
 import { Integration } from '@prisma/client';
 import { capitalize, sortBy } from 'lodash';

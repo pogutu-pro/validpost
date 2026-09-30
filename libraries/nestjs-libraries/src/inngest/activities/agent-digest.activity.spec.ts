@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { AgentDigestActivity } from './agent-digest.activity';
-import { MastraService } from '@postmill-ai/nestjs-libraries/chat/mastra.service';
-import { BudgetService } from '@postmill-ai/nestjs-libraries/ai/governance/budget.service';
-import { AIModelProvider } from '@postmill-ai/nestjs-libraries/ai/ai-model.provider';
-import { NotificationPreferenceService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification-preference.service';
-import { NotificationService } from '@postmill-ai/nestjs-libraries/database/prisma/notifications/notification.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { TelemetryService } from '@postmill-ai/nestjs-libraries/ai/governance/telemetry.service';
+import { MastraService } from '@validpost/nestjs-libraries/chat/mastra.service';
+import { BudgetService } from '@validpost/nestjs-libraries/ai/governance/budget.service';
+import { AIModelProvider } from '@validpost/nestjs-libraries/ai/ai-model.provider';
+import { NotificationPreferenceService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification-preference.service';
+import { NotificationService } from '@validpost/nestjs-libraries/database/prisma/notifications/notification.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { TelemetryService } from '@validpost/nestjs-libraries/ai/governance/telemetry.service';
 import { Organization } from '@prisma/client';
 
 describe('AgentDigestActivity', () => {

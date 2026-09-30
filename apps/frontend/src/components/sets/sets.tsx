@@ -2,17 +2,17 @@
 import 'reflect-metadata';
 
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR from 'swr';
-import { Button } from '@postmill-ai/react/form/button';
-import { Input } from '@postmill-ai/react/form/input';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
+import { Button } from '@validpost/react/form/button';
+import { Input } from '@validpost/react/form/input';
+import { useToaster } from '@validpost/react/toaster/toaster';
 import clsx from 'clsx';
-import { deleteDialog } from '@postmill-ai/react/helpers/delete.dialog';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { Composer } from '@postmill-ai/frontend/components/composer/composer';
-import { newDayjs } from '@postmill-ai/frontend/components/layout/set.timezone';
-import { useModals } from '@postmill-ai/frontend/components/layout/new-modal';
+import { deleteDialog } from '@validpost/react/helpers/delete.dialog';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { Composer } from '@validpost/frontend/components/composer/composer';
+import { newDayjs } from '@validpost/frontend/components/layout/set.timezone';
+import { useModals } from '@validpost/frontend/components/layout/new-modal';
 import dayjs from 'dayjs';
 
 const PAGE_SIZE = 25;

@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
 import useSWR, { mutate as globalMutate } from 'swr';
-import { createFetchError } from '@postmill-ai/frontend/components/settings/shared/fetch-error';
+import { createFetchError } from '@validpost/frontend/components/settings/shared/fetch-error';
 import type { Subscription } from '@prisma/client';
 
 export type SubscriptionTier = 'STARTER' | 'PRO' | 'TEAM' | 'AGENCY';

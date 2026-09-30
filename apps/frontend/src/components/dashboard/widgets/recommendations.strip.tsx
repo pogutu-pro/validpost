@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import {
   useRecommendations,
   RecommendationItem,
-} from '@postmill-ai/frontend/components/analytics/hooks/useRecommendations';
-import { EmptyState, TabSkeleton } from '@postmill-ai/frontend/components/analytics/kit/states';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+} from '@validpost/frontend/components/analytics/hooks/useRecommendations';
+import { EmptyState, TabSkeleton } from '@validpost/frontend/components/analytics/kit/states';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const priorityClass = (priority: number) => {
   const base = 'text-[10px] font-semibold px-[6px] py-[2px] rounded-full border';

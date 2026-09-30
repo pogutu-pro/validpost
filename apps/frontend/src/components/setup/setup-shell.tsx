@@ -2,18 +2,18 @@
 
 import React, { ReactNode, useCallback } from 'react';
 import useSWR from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { Logo } from '@postmill-ai/frontend/components/new-layout/logo';
-import { Wordmark } from '@postmill-ai/frontend/components/new-layout/wordmark';
-import { UserAvatarMenu } from '@postmill-ai/frontend/components/new-layout/user-avatar-menu';
-import { ContextWrapper } from '@postmill-ai/frontend/components/layout/user.context';
-import { ToolTip } from '@postmill-ai/frontend/components/layout/top.tip';
-import { Toaster } from '@postmill-ai/react/toaster/toaster';
-import { MantineWrapper } from '@postmill-ai/react/helpers/mantine.wrapper';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { Logo } from '@validpost/frontend/components/new-layout/logo';
+import { Wordmark } from '@validpost/frontend/components/new-layout/wordmark';
+import { UserAvatarMenu } from '@validpost/frontend/components/new-layout/user-avatar-menu';
+import { ContextWrapper } from '@validpost/frontend/components/layout/user.context';
+import { ToolTip } from '@validpost/frontend/components/layout/top.tip';
+import { Toaster } from '@validpost/react/toaster/toaster';
+import { MantineWrapper } from '@validpost/react/helpers/mantine.wrapper';
 import dynamic from 'next/dynamic';
 
 const ModeComponent = dynamic(
-  () => import('@postmill-ai/frontend/components/layout/mode.component'),
+  () => import('@validpost/frontend/components/layout/mode.component'),
   { ssr: false }
 );
 

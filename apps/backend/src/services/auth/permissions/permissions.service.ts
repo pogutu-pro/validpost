@@ -3,22 +3,22 @@ import { Injectable } from '@nestjs/common';
 import {
   pricing,
   SELF_HOST_PLAN,
-} from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/pricing';
-import { SubscriptionService } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/subscription.service';
-import { mergeEffectiveLimits } from '@postmill-ai/nestjs-libraries/database/prisma/subscriptions/effective.limits';
-import { PostsService } from '@postmill-ai/nestjs-libraries/database/prisma/posts/posts.service';
-import { IntegrationService } from '@postmill-ai/nestjs-libraries/database/prisma/integrations/integration.service';
+} from '@validpost/nestjs-libraries/database/prisma/subscriptions/pricing';
+import { SubscriptionService } from '@validpost/nestjs-libraries/database/prisma/subscriptions/subscription.service';
+import { mergeEffectiveLimits } from '@validpost/nestjs-libraries/database/prisma/subscriptions/effective.limits';
+import { PostsService } from '@validpost/nestjs-libraries/database/prisma/posts/posts.service';
+import { IntegrationService } from '@validpost/nestjs-libraries/database/prisma/integrations/integration.service';
 import dayjs from 'dayjs';
-import { WebhooksService } from '@postmill-ai/nestjs-libraries/database/prisma/webhooks/webhooks.service';
-import { OrganizationService } from '@postmill-ai/nestjs-libraries/database/prisma/organizations/organization.service';
-import { BrandsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/brands/brands.repository';
-import { WatchlistRepository } from '@postmill-ai/nestjs-libraries/database/prisma/watchlist/watchlist.repository';
-import { FileRepository } from '@postmill-ai/nestjs-libraries/database/prisma/file/file.repository';
-import { StorageService } from '@postmill-ai/nestjs-libraries/database/prisma/storage/storage.service';
+import { WebhooksService } from '@validpost/nestjs-libraries/database/prisma/webhooks/webhooks.service';
+import { OrganizationService } from '@validpost/nestjs-libraries/database/prisma/organizations/organization.service';
+import { BrandsRepository } from '@validpost/nestjs-libraries/database/prisma/brands/brands.repository';
+import { WatchlistRepository } from '@validpost/nestjs-libraries/database/prisma/watchlist/watchlist.repository';
+import { FileRepository } from '@validpost/nestjs-libraries/database/prisma/file/file.repository';
+import { StorageService } from '@validpost/nestjs-libraries/database/prisma/storage/storage.service';
 import { StorageProviderType } from '@prisma/client';
-import { AiSettingsRepository } from '@postmill-ai/nestjs-libraries/database/prisma/ai-settings/ai-settings.repository';
+import { AiSettingsRepository } from '@validpost/nestjs-libraries/database/prisma/ai-settings/ai-settings.repository';
 import { AuthorizationActions, Sections } from './permission.exception.class';
-import { billingEnabled } from '@postmill-ai/helpers/billing/payments.env';
+import { billingEnabled } from '@validpost/helpers/billing/payments.env';
 
 export type AppAbility = Ability<[AuthorizationActions, Sections]>;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-vi.mock('@postmill-ai/react/translation/get.transation.service.client', () => ({
+vi.mock('@validpost/react/translation/get.transation.service.client', () => ({
   useT: () => (_key: string, fallback: string) => fallback,
 }));
 
@@ -11,11 +11,11 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/user.context', () => ({
+vi.mock('@validpost/frontend/components/layout/user.context', () => ({
   useUser: () => ({ profile: { name: 'Maya Chen' } }),
 }));
 
-vi.mock('@postmill-ai/frontend/components/layout/streak.component', () => ({
+vi.mock('@validpost/frontend/components/layout/streak.component', () => ({
   StreakComponent: () => <div data-testid="streak" />,
 }));
 

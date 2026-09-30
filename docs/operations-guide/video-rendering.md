@@ -13,7 +13,7 @@ local compute; without bounds a backlog can starve the host.
   **re-enqueues** stuck pending jobs (it no longer renders inline). If `USE_INNGEST` is off, the
   cron renders inline through a host semaphore that holds the same cap.
 - **Podman workers (opt-in).** With `VIDEO_RENDER_PODMAN_ENABLED=true`, each render runs in a
-  `postmill-render` container instead of in-process. The backend shells out to the local `podman`
+  `validpost-render` container instead of in-process. The backend shells out to the local `podman`
   CLI. The full render (Chromium frame-capture + FFmpeg encode, or the FFmpeg merge) happens
   inside the container; storage/clip resolution stays on the host (no storage creds in the
   container).
@@ -28,7 +28,7 @@ local compute; without bounds a backlog can starve the host.
 
 1. Build the worker image on the Podman host:
    ```bash
-   podman build -f docker/Containerfile.render -t localhost/postmill-render:latest .
+   podman build -f docker/Containerfile.render -t localhost/validpost-render:latest .
    ```
 2. Enable it:
    ```bash
@@ -56,8 +56,8 @@ local compute; without bounds a backlog can starve the host.
 |---|---|---|
 | `VIDEO_RENDER_CONCURRENCY` | `3` | Max simultaneous renders (Inngest limit + host semaphore) |
 | `VIDEO_RENDER_PODMAN_ENABLED` | `false` | Run renders in Podman (else in-process) |
-| `VIDEO_RENDER_IMAGE` | `localhost/postmill-render:latest` | Worker image |
-| `VIDEO_RENDER_POD` | `postmill-render` | Shared pod (aggregate cgroup) |
+| `VIDEO_RENDER_IMAGE` | `localhost/validpost-render:latest` | Worker image |
+| `VIDEO_RENDER_POD` | `validpost-render` | Shared pod (aggregate cgroup) |
 | `VIDEO_RENDER_CPUS` | `4` | Total CPU across all render containers |
 | `VIDEO_RENDER_MEMORY` | `8g` | Total RAM across all render containers |
 | `VIDEO_RENDER_NETWORK` | `host` | Pod network |

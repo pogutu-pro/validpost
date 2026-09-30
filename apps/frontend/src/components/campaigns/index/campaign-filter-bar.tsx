@@ -2,8 +2,8 @@
 
 import { FC, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import type { Campaign } from '@postmill-ai/frontend/components/campaigns/campaign-types';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import type { Campaign } from '@validpost/frontend/components/campaigns/campaign-types';
 
 export type CampaignSort =
   | 'created'

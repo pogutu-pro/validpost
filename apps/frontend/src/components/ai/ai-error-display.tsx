@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 import Link from 'next/link';
 import {
   providerErrorAdvice,
   providerErrorFromBody,
   providerErrorHeadline,
-} from '@postmill-ai/frontend/components/ai/provider-error';
+} from '@validpost/frontend/components/ai/provider-error';
 
 interface AiErrorDisplayProps {
   error: any;

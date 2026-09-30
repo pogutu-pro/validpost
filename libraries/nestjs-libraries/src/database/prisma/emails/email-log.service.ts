@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { EmailLogRepository } from '@postmill-ai/nestjs-libraries/database/prisma/emails/email-log.repository';
-import { type EmailStatus, type EmailWebhookEvent } from '@postmill-ai/nestjs-libraries/emails/email-adapter.interface';
+import { EmailLogRepository } from '@validpost/nestjs-libraries/database/prisma/emails/email-log.repository';
+import { type EmailStatus, type EmailWebhookEvent } from '@validpost/nestjs-libraries/emails/email-adapter.interface';
 
 const STATUS_PRECEDENCE: Record<EmailStatus, number> = {
   queued: 10,

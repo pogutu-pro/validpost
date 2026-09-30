@@ -1,15 +1,15 @@
 'use client';
-import { providerErrorToastText } from '@postmill-ai/frontend/components/ai/provider-error';
+import { providerErrorToastText } from '@validpost/frontend/components/ai/provider-error';
 
 import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDailyBrief } from '../hooks/useDailyBrief';
 import { useDashboardPrefs } from '../hooks/useDashboardPrefs';
-import { useAiActive, AI_SETUP_HREF } from '@postmill-ai/frontend/components/layout/use-ai-active';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import { Button } from '@postmill-ai/react/form/button';
-import { TabSkeleton } from '@postmill-ai/frontend/components/analytics/kit/states';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
+import { useAiActive, AI_SETUP_HREF } from '@validpost/frontend/components/layout/use-ai-active';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import { Button } from '@validpost/react/form/button';
+import { TabSkeleton } from '@validpost/frontend/components/analytics/kit/states';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
 
 const MAX_TEASER_LENGTH = 80;
 

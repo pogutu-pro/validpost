@@ -189,7 +189,7 @@ Base: `/public`
 ### Integrations catalogue
 
 `GET /public/integrations/list[?domain=<social|comms|ai|media|storage|shortlink|vpn>]` is the
-source of truth for "what does Postmill integrate with": every registered provider in the seven
+source of truth for "what does ValidPost integrate with": every registered provider in the seven
 product-facing domains, with counts, capability flags, descriptions, website and an absolute icon
 URL. The marketing site reads it instead of hardcoding provider tables. No session, API key or
 CSRF token is involved; the response is `Cache-Control: public, max-age=300,
@@ -213,7 +213,7 @@ fetched from any origin (without credentials). Throttled at 120 requests/minute 
           "name": "X",
           "description": { "en": "X (formerly Twitter) — real-time public posting and conversation." },
           "website": "https://x.com",
-          "icon": "https://app.postmill.ai/icons/platforms/x.png",
+          "icon": "https://app.validpost.io/icons/platforms/x.png",
           "capabilities": ["analytics", "comments", "firstComment", "poll", "video", "linkPreview", "refreshToken", "watchlist"],
           "maxMedia": 4,
           "beta": false,

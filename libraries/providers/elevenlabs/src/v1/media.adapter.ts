@@ -10,7 +10,7 @@ import {
   SafeFetchPort,
   ProviderModule,
   mediaUpstreamError,
-} from '@postmill-ai/provider-kernel';
+} from '@validpost/provider-kernel';
 
 export class ElevenLabsAdapter implements MediaProviderAdapter {
   constructor(private readonly _fetch: SafeFetchPort) {}

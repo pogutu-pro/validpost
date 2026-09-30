@@ -1,8 +1,8 @@
 'use client';
 
 import { FC } from 'react';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { ancestorsOf, type FolderItem } from '@postmill-ai/frontend/components/files/folder.utils';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { ancestorsOf, type FolderItem } from '@validpost/frontend/components/files/folder.utils';
 
 /**
  * Where you are in the folder tree, and a way back up. The root crumb is always

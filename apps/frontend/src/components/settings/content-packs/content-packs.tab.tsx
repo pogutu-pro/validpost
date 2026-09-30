@@ -2,12 +2,12 @@
 
 import React, { useCallback } from 'react';
 import useSWR, { mutate as globalMutate } from 'swr';
-import { useFetch } from '@postmill-ai/helpers/utils/custom.fetch';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { useToaster } from '@postmill-ai/react/toaster/toaster';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { ProviderSettingsPanel } from '@postmill-ai/frontend/components/settings/shared/kit/provider-settings-panel';
-import { contentPacksDescriptor } from '@postmill-ai/frontend/components/settings/shared/kit/descriptors/content-packs.descriptor';
+import { useFetch } from '@validpost/helpers/utils/custom.fetch';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { useToaster } from '@validpost/react/toaster/toaster';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { ProviderSettingsPanel } from '@validpost/frontend/components/settings/shared/kit/provider-settings-panel';
+import { contentPacksDescriptor } from '@validpost/frontend/components/settings/shared/kit/descriptors/content-packs.descriptor';
 
 /**
  * Content Packs settings tab — migrated onto the Provider Settings Kit.

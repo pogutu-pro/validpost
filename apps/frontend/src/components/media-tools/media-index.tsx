@@ -3,21 +3,21 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-import ProviderIcon from '@postmill-ai/frontend/components/shared/provider-icon';
-import { useT } from '@postmill-ai/react/translation/get.transation.service.client';
-import { usePermissions } from '@postmill-ai/frontend/components/layout/use-permissions';
-import { MEDIA_SETUP_HREF } from '@postmill-ai/frontend/components/layout/use-media-tools-status';
-import { EmptyState } from '@postmill-ai/frontend/components/ui/empty-state';
-import { LoadingRows } from '@postmill-ai/frontend/components/ui/loading-rows';
-import { studioBadgeKey } from '@postmill-ai/frontend/components/media-tools/studio-kit/i18n-keys';
+import ProviderIcon from '@validpost/frontend/components/shared/provider-icon';
+import { useT } from '@validpost/react/translation/get.transation.service.client';
+import { usePermissions } from '@validpost/frontend/components/layout/use-permissions';
+import { MEDIA_SETUP_HREF } from '@validpost/frontend/components/layout/use-media-tools-status';
+import { EmptyState } from '@validpost/frontend/components/ui/empty-state';
+import { LoadingRows } from '@validpost/frontend/components/ui/loading-rows';
+import { studioBadgeKey } from '@validpost/frontend/components/media-tools/studio-kit/i18n-keys';
 import {
   SORTED_MEDIA_TABS,
   providerIdentifier,
   type MediaTab,
   type StudioBadge,
-} from '@postmill-ai/frontend/components/media-tools/media-tools.nav';
-import { useEnabledMediaProviders } from '@postmill-ai/frontend/components/media-tools/use-enabled-media-providers';
-import { MediaQueuePanel } from '@postmill-ai/frontend/components/media-tools/media-queue';
+} from '@validpost/frontend/components/media-tools/media-tools.nav';
+import { useEnabledMediaProviders } from '@validpost/frontend/components/media-tools/use-enabled-media-providers';
+import { MediaQueuePanel } from '@validpost/frontend/components/media-tools/media-queue';
 
 /**
  * The /media index.

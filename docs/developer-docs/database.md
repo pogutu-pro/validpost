@@ -1,6 +1,6 @@
 # Database
 
-Postmill uses PostgreSQL with Prisma 6.5.0 as the ORM. The schema (`schema.prisma`) is authored in Prisma, and changes are applied through **committed SQL migrations** (`prisma migrate`). A baseline migration (`migrations/0_init`) captures the full pre-migrate schema; every later change ships its own reviewable migration directory.
+ValidPost uses PostgreSQL with Prisma 6.5.0 as the ORM. The schema (`schema.prisma`) is authored in Prisma, and changes are applied through **committed SQL migrations** (`prisma migrate`). A baseline migration (`migrations/0_init`) captures the full pre-migrate schema; every later change ships its own reviewable migration directory.
 
 ---
 

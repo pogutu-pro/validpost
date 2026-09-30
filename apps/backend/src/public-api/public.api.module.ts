@@ -5,29 +5,29 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import type { Request, Response, NextFunction } from 'express';
-import { AuthService } from '@postmill-ai/backend/services/auth/auth.service';
-import { PoliciesGuard } from '@postmill-ai/backend/services/auth/permissions/permissions.guard';
-import { PermissionsService } from '@postmill-ai/backend/services/auth/permissions/permissions.service';
-import { IntegrationManager } from '@postmill-ai/nestjs-libraries/integrations/integration.manager';
-import { UploadModule } from '@postmill-ai/nestjs-libraries/upload/upload.module';
-import { OpenaiService } from '@postmill-ai/nestjs-libraries/openai/openai.service';
-import { ExtractContentService } from '@postmill-ai/nestjs-libraries/openai/extract.content.service';
-import { CodesService } from '@postmill-ai/nestjs-libraries/services/codes.service';
-import { PublicIntegrationsController } from '@postmill-ai/backend/public-api/routes/v1/public.integrations.controller';
-import { PublicAnalyticsV1Controller } from '@postmill-ai/backend/public-api/routes/v1/public.analytics.v1.controller';
-import { PublicCampaignController } from '@postmill-ai/backend/public-api/routes/public.campaign.controller';
-import { PublicAnalyticsController } from '@postmill-ai/backend/public-api/routes/public.analytics.controller';
-import { PublicAuthMiddleware } from '@postmill-ai/backend/services/auth/public.auth.middleware';
-import { CsrfMiddleware } from '@postmill-ai/backend/services/auth/csrf.middleware';
-import { AuthContextResolver } from '@postmill-ai/nestjs-libraries/auth/auth-context.resolver';
-import { AnalyticsService } from '@postmill-ai/nestjs-libraries/analytics/analytics.service';
-import { AnalyticsShareService } from '@postmill-ai/nestjs-libraries/analytics/analytics-share.service';
-import { AnalyticsLiveFallbackService } from '@postmill-ai/nestjs-libraries/analytics/analytics-live-fallback';
-import { AnalyticsOverviewService } from '@postmill-ai/nestjs-libraries/analytics/analytics-overview.service';
-import { AnalyticsDetailService } from '@postmill-ai/nestjs-libraries/analytics/analytics-detail.service';
-import { AnalyticsInsightsService } from '@postmill-ai/nestjs-libraries/analytics/analytics-insights.service';
-import { AnalyticsExportService } from '@postmill-ai/nestjs-libraries/analytics/analytics-export.service';
-import { IdempotencyFactory } from '@postmill-ai/nestjs-libraries/ai/governance/idempotency.factory';
+import { AuthService } from '@validpost/backend/services/auth/auth.service';
+import { PoliciesGuard } from '@validpost/backend/services/auth/permissions/permissions.guard';
+import { PermissionsService } from '@validpost/backend/services/auth/permissions/permissions.service';
+import { IntegrationManager } from '@validpost/nestjs-libraries/integrations/integration.manager';
+import { UploadModule } from '@validpost/nestjs-libraries/upload/upload.module';
+import { OpenaiService } from '@validpost/nestjs-libraries/openai/openai.service';
+import { ExtractContentService } from '@validpost/nestjs-libraries/openai/extract.content.service';
+import { CodesService } from '@validpost/nestjs-libraries/services/codes.service';
+import { PublicIntegrationsController } from '@validpost/backend/public-api/routes/v1/public.integrations.controller';
+import { PublicAnalyticsV1Controller } from '@validpost/backend/public-api/routes/v1/public.analytics.v1.controller';
+import { PublicCampaignController } from '@validpost/backend/public-api/routes/public.campaign.controller';
+import { PublicAnalyticsController } from '@validpost/backend/public-api/routes/public.analytics.controller';
+import { PublicAuthMiddleware } from '@validpost/backend/services/auth/public.auth.middleware';
+import { CsrfMiddleware } from '@validpost/backend/services/auth/csrf.middleware';
+import { AuthContextResolver } from '@validpost/nestjs-libraries/auth/auth-context.resolver';
+import { AnalyticsService } from '@validpost/nestjs-libraries/analytics/analytics.service';
+import { AnalyticsShareService } from '@validpost/nestjs-libraries/analytics/analytics-share.service';
+import { AnalyticsLiveFallbackService } from '@validpost/nestjs-libraries/analytics/analytics-live-fallback';
+import { AnalyticsOverviewService } from '@validpost/nestjs-libraries/analytics/analytics-overview.service';
+import { AnalyticsDetailService } from '@validpost/nestjs-libraries/analytics/analytics-detail.service';
+import { AnalyticsInsightsService } from '@validpost/nestjs-libraries/analytics/analytics-insights.service';
+import { AnalyticsExportService } from '@validpost/nestjs-libraries/analytics/analytics-export.service';
+import { IdempotencyFactory } from '@validpost/nestjs-libraries/ai/governance/idempotency.factory';
 
 const authenticatedController = [
   PublicIntegrationsController,

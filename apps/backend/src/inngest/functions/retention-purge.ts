@@ -1,6 +1,6 @@
-import { inngest } from '@postmill-ai/nestjs-libraries/inngest/inngest.client';
-import { RetentionActivity } from '@postmill-ai/nestjs-libraries/inngest/activities/retention.activity';
-import { InngestRunService } from '@postmill-ai/nestjs-libraries/inngest/inngest-run.service';
+import { inngest } from '@validpost/nestjs-libraries/inngest/inngest.client';
+import { RetentionActivity } from '@validpost/nestjs-libraries/inngest/activities/retention.activity';
+import { InngestRunService } from '@validpost/nestjs-libraries/inngest/inngest-run.service';
 import { trackRun } from './track-run';
 
 /**

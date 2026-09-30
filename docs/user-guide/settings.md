@@ -236,7 +236,7 @@ Each brand carries a brand kit, surfaced both in Settings → Brands and in the 
 - **RAG status** — shows whether the vector store is enabled, which backend is in use, and index
   statistics.
 - **Vector database** — choose where embeddings are stored:
-  - **Postmill (Default)** — the built-in PostgreSQL + pgvector store; no configuration.
+  - **ValidPost (Default)** — the built-in PostgreSQL + pgvector store; no configuration.
   - **PG Vector (Remote)** — an external Postgres + pgvector (connection string + table).
   - **Qdrant (Remote)** — a Qdrant cluster (URL, API key, collection, distance).
   - **Pinecone (Remote)** — a Pinecone serverless index (API key, index name, optional host).
@@ -305,7 +305,7 @@ in published posts.
 2. Enter the redirect URI as `<FRONTEND_URL>/settings?tab=shortlinks` (this must also be on the
    `INTEGRATION_RETURN_URL_ALLOWLIST` env var — see [Configuration](../operations-guide/configuration.md#security)).
 3. Copy the generated Client ID and Client Secret into the Bitly provider panel.
-4. Postmill handles the authorization redirect and token exchange via the built-in OAuth flow.
+4. ValidPost handles the authorization redirect and token exchange via the built-in OAuth flow.
 
 ## Content tab
 
@@ -318,10 +318,10 @@ The **Content** page groups the content-authoring surfaces into one tabbed view:
 ### Content Packs sub-tab
 
 A content pack is the stock media library that powers searches for photos, videos, vectors,
-stickers, icons, and audio across the app. Postmill ships with a free default pack; connect a
+stickers, icons, and audio across the app. ValidPost ships with a free default pack; connect a
 premium provider for higher-quality, licensed content.
 
-- **Free default** — `Postmill (Default)` is active when no premium pack is Primary. It covers all
+- **Free default** — `ValidPost (Default)` is active when no premium pack is Primary. It covers all
   capabilities and falls back to the free stock providers.
 - **Premium packs** — provider cards with brand icons, configured/active badges, and **Configure /
   Make Primary / Remove / Test** actions. Only one pack is enabled at a time; anything it does not
@@ -492,7 +492,7 @@ HMAC verification.
 
 Available when your subscription tier includes auto-posting. Configure scheduled recurring posts:
 
-- **RSS/URL scraping** — provide an RSS feed URL or a web page URL. Postmill periodically checks
+- **RSS/URL scraping** — provide an RSS feed URL or a web page URL. ValidPost periodically checks
   for new content and creates draft posts.
 - **AI content** — optionally use AI to rewrite or summarise scraped content before posting.
 - **Schedule** — define how often to check the source and when to publish.
@@ -521,7 +521,7 @@ See [OAuth Apps](../developer-docs/oauth-apps.md) for the developer integration 
 
 ### API Keys
 
-Manage public API access keys for programmatic use of Postmill endpoints:
+Manage public API access keys for programmatic use of ValidPost endpoints:
 
 - Generate new API keys.
 - View existing keys (masked display).

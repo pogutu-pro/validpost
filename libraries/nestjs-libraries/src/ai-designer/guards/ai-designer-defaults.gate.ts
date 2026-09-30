@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DefaultsResolutionService } from '@postmill-ai/nestjs-libraries/ai/defaults/defaults-resolution.service';
+import { DefaultsResolutionService } from '@validpost/nestjs-libraries/ai/defaults/defaults-resolution.service';
 
 @Injectable()
 export class AiDesignerDefaultsGate {

@@ -18,7 +18,7 @@ import {
   catalogWeights,
   googleFontsUrl,
   isCatalogFamily,
-} from '@postmill-ai/nestjs-libraries/media/designer-doc/font-catalog';
+} from '@validpost/nestjs-libraries/media/designer-doc/font-catalog';
 
 export interface DesignerFont {
   family: string;

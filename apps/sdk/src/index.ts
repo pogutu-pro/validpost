@@ -27,10 +27,10 @@ function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export default class Postmill {
+export default class ValidPost {
   constructor(
     private _apiKey: string,
-    private _path = 'https://api.postmill.ai'
+    private _path = 'https://api.validpost.io'
   ) {}
 
   private _request(
