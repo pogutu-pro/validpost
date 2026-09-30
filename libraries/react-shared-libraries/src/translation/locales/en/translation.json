@@ -285,6 +285,8 @@
   "don_t_have_an_account": "Don't Have An Account?",
   "forgot_password": "Forgot password",
   "forgot_password_1": "Forgot your password?",
+  "channel_card_one_click": "One-click connect",
+  "channel_card_byo": "Bring your own app",
   "setup_skip_all": "Skip setup",
   "setup_intro_ai_on": "AI is on. Everything else here is optional — skip any step and change it later in Settings.",
   "setup_intro_v2": "Every step is optional. Connect an AI provider to switch on AI features, or skip ahead and set it all up later in Settings.",

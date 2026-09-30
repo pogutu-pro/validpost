@@ -284,6 +284,8 @@
   "don_t_have_an_account": "还没有账户？",
   "forgot_password": "忘记密码",
   "forgot_password_1": "忘记密码",
+  "channel_card_one_click": "One-click connect",
+  "channel_card_byo": "Bring your own app",
   "setup_skip_all": "Skip setup",
   "setup_intro_ai_on": "AI is on. Everything else here is optional — skip any step and change it later in Settings.",
   "setup_intro_v2": "Every step is optional. Connect an AI provider to switch on AI features, or skip ahead and set it all up later in Settings.",

@@ -946,13 +946,16 @@ export const AddProviderComponent: FC<{
                   !item.isWeb3 &&
                   !item.isChromeExtension &&
                   (item.platformConfigured ? (
-                    <div className="text-center">
-                      <div className="text-[10px] leading-tight text-newTableText">
-                        {t(
+                    <div className="text-center flex flex-col items-center gap-[4px]">
+                      <span
+                        title={t(
                           'uses_validpost_app_no_setup',
                           'Uses the ValidPost app — no setup needed'
                         )}
-                      </div>
+                        className="inline-flex items-center rounded-full bg-vpSuccess/15 text-vpSuccess px-[8px] py-[2px] text-[10px] font-[600] leading-tight"
+                      >
+                        {t('channel_card_one_click', 'One-click connect')}
+                      </span>
                       <button
                         type="button"
                         onClick={(e) => {
@@ -970,11 +973,16 @@ export const AddProviderComponent: FC<{
                     </div>
                   ) : (
                     !configsByIdentifier[item.identifier]?.length && (
-                      <div className="text-[10px] leading-tight text-newTableText text-center">
-                        {t(
-                          'platform_app_not_available',
-                          'ValidPost does not provide an app for this network — connect with your own app (see setup instructions)'
-                        )}
+                      <div className="text-center">
+                        <span
+                          title={t(
+                            'platform_app_not_available',
+                            'ValidPost does not provide an app for this network — connect with your own app (see setup instructions)'
+                          )}
+                          className="inline-flex items-center rounded-full bg-newTableHeader text-newTableText px-[8px] py-[2px] text-[10px] font-[600] leading-tight"
+                        >
+                          {t('channel_card_byo', 'Bring your own app')}
+                        </span>
                       </div>
                     )
                   ))}
