@@ -27,7 +27,7 @@
 
 **AI-native social media management and scheduling.**
 
-ValidPost is a cloud-hosted social media scheduler for agencies and multi-brand teams: a visual publishing calendar, 45+ channels, 46 built-in media tools, and bring-your-own-key AI across 30 providers. Let every organization manage its own channels, brands, and AI keys. An alternative to Buffer, Hootsuite, and Sprout Social.
+ValidPost is a cloud-hosted social media scheduler for agencies and multi-brand teams: a visual publishing calendar, 11 social and chat channels, 46 built-in media tools, and bring-your-own-key AI across 30 providers. Let every organization manage its own channels, brands, and AI keys. An alternative to Buffer, Hootsuite, and Sprout Social.
 
 **[Website](https://validpost.io)** · **[Docs](https://docs.validpost.io)** · **[Quick Start](#-quick-start)** · **[Node SDK (`@validpost/validpost-sdk`)](https://www.npmjs.com/package/@validpost/validpost-sdk)** · **[Public API](https://docs.validpost.io/developer-docs/public-api.html)**
 
@@ -47,7 +47,7 @@ ValidPost brings **design**, **publishing**, **analytics**, and **engagement** i
     </td>
     <td width="50%" align="center" valign="top">
       <a href="https://validpost.io/ss/validpost-ss-post.jpg"><img src="https://validpost.io/ss/validpost-ss-post-thumb.jpg" width="100%" alt="Post — the posts calendar with scheduled posts across channels"></a><br>
-      <sub><b>Post</b> — calendar, 45+ channels, one composer</sub>
+      <sub><b>Post</b> — calendar, 11 channels, one composer</sub>
     </td>
   </tr>
   <tr>
@@ -68,7 +68,7 @@ That's the 30-second tour — the full feature tour, with every screen, lives in
 
 ## 🚀 Quick Start
 
-Sign up at [validpost.io](https://validpost.io) to start scheduling posts across 45+ channels.
+Sign up at [validpost.io](https://validpost.io) to start scheduling posts across LinkedIn, Instagram, Facebook, Threads, TikTok, YouTube, Google Business Profile, Discord, and Telegram.
 
 For deployment and configuration details, see the [documentation](https://docs.validpost.io).
 
@@ -76,7 +76,7 @@ For deployment and configuration details, see the [documentation](https://docs.v
 
 Channels connect through OAuth apps registered with each platform. To offer one-click connections on your installation, configure [platform channel apps](https://docs.validpost.io/operations-guide/platform-channel-apps.html) for the providers you want to support: register an app in the provider's developer portal, add the issued credentials to `.env`, and test with an authorized account. Some providers require app review before broader access and may ask for app details, screenshots, or a demo video.
 
-Organizations can also connect channels with their own app keys, and direct-auth channels (API tokens, self-hosted instances) need no platform app at all. On ValidPost's hosted service, platform apps are already configured, so one-click OAuth is available by default for supported channels.
+Organizations can also connect channels with their own app keys, and direct-auth channels (such as a Telegram bot token) need no platform app at all. On ValidPost's hosted service, platform apps are already configured, so one-click OAuth is available by default for supported channels.
 
 ---
 
@@ -84,13 +84,13 @@ Organizations can also connect channels with their own app keys, and direct-auth
 
 Month, week, and day views of scheduled, published, draft, and failed posts across every channel. Filter by channel, open a post to review its content and performance, or drag it within the week view to reschedule. Times follow each user's timezone.
 
-## 📢 45+ channels, one composer
+## 📢 11 channels, one composer
 
-Schedule and publish across 45+ social, chat, blogging, and email channels from a single composer. Native support for polls, first-comment automation, threads, per-channel settings, and channel-aware previews means each platform gets exactly what it expects — from a single write. Attach media from your library or create it in-app, pick a brand per post, and toggle link shortening per post with your organization's own short-link provider.
+Schedule and publish across 9 platforms — 11 channel types in all — from a single composer. Native support for polls, first-comment automation, threads, per-channel settings, and channel-aware previews means each platform gets exactly what it expects — from a single write. Attach media from your library or create it in-app, pick a brand per post, and toggle link shortening per post with your organization's own short-link provider.
 
 ## 🌐 Supported channels
 
-X · LinkedIn · LinkedIn Page · Reddit · Instagram Business · Instagram Standalone · Facebook Page · Threads · YouTube · Google My Business · TikTok · Pinterest · Dribbble · Discord · Slack · Kick · Twitch · Mastodon · Bluesky · Lemmy · Farcaster · Telegram · LINE · Matrix · Nostr · VK · Medium · Dev.to · Hashnode · WordPress · ListMonk · Moltbook · Whop · Skool · MeWe · Tumblr · Pixelfed · PeerTube · Akkoma · Discourse · Friendica · GoToSocial · Misskey · Odysee · Sharkey
+LinkedIn · LinkedIn Page · Instagram (Business) · Instagram (Standalone) · Facebook Page · Threads · YouTube · Google Business Profile · TikTok · Discord · Telegram
 
 Per-channel VPN routing is available for outbound publishing — each channel can optionally egress through its own configured VPN region.
 
@@ -106,7 +106,7 @@ On top of that: brand-voice profiles, a shared prompt library, retrieval-augment
 
 A natural-language assistant that operates the whole platform: schedule and reschedule posts, generate images, video, and voiceovers in any configured studio, pull analytics and best-time-to-post recommendations, manage campaigns, search your media library and stock sources, and reply to synced comments — all from one chat. Outward actions always go through an explicit confirmation card (a pre-filled composer, a draft reply, or a media job summary), so nothing publishes without your approval.
 
-Use the agent in-app or from **Slack, Telegram, Discord, Matrix, or LINE** — the same connections deliver notifications for published and failed posts, comments, budgets, media jobs, and more, routed centrally across in-app, email, and chat.
+Use the agent in-app or from **Telegram or Discord** — the same connections deliver notifications for published and failed posts, comments, budgets, media jobs, and more, routed centrally across in-app, email, and chat.
 
 ## 🎨 46 built-in media tools
 
@@ -140,7 +140,7 @@ Each brand carries a reusable kit of colors, logos, fonts, reference images, and
 
 Invite teammates by email or shareable link, or create accounts directly. Role-based access control starts with **5 built-in roles** (Owner / Admin / Editor / Member / Viewer); build custom roles from a **90-permission catalog (18 resources × 5 actions)** covering posts, media, channels, analytics, brands, billing, and more. Permissions are enforced server-side on every protected action.
 
-Sign in with Google, GitHub, Apple, Facebook, X, LinkedIn, or any generic OIDC provider. Members can review their active sessions and revoke individual devices.
+Sign in with email and password, or with any generic OIDC provider. Members can review their active sessions and revoke individual devices.
 
 ## 🌍 Localization
 

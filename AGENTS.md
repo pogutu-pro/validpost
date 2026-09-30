@@ -1,7 +1,7 @@
 # AGENTS.md
 
 Guidance for AI coding agents working in this repository. **ValidPost** is an open-source, AI-native
-platform to schedule social media and chat posts to **45+ channels** — schedule posts, calendar view,
+platform to schedule social media and chat posts to **11 channels** (9 platforms) — schedule posts, calendar view,
 persisted analytics, team management, and a media library. Posts added to the calendar enter a
 workflow and are published at the right time.
 
@@ -192,7 +192,7 @@ The one-paragraph version of the conventions — details and recipes in the link
 
 - **AI providers: 30** (17 direct + 13 hubs/gateways), BYOK, no env fallback.
 - **Media tools: 46** = Designer + AI Designer + **38 provider studios** + **6 stock browsers**.
-- **Channels: 45+.**
+- **Channels: 11** (9 platforms: LinkedIn, Instagram, Facebook, Threads, YouTube, TikTok, Google Business Profile, Discord, Telegram).
 - **Background jobs: Inngest** (the previous workflow orchestrator was removed — there is **no
   `while(true)` poll loop and no `continueAsNew`**). Function catalog: [`agents/jobs.md`](./agents/jobs.md).
 - **Notification categories: 10** — `post_published`, `post_failed`, `channels`, `comments`,
